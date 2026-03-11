@@ -16,13 +16,21 @@ Key purposes include:
 * **Prevent unnecessary intent parsing** when a skill is already engaged.
 * **Support skill-defined session control** via manual activation/deactivation.
 
-This allows OVOS to act more like a true conversational assistant rather than a single-turn command system.
+---
+
+## Implementation
+
+**Module:** `ovos_core.intent_services.converse_service.ConverseService`
+**Pipeline plugin ID:** `ovos-converse-pipeline-plugin`
+**Stage name:** `converse`
+
+`ConverseService` is shipped inside `ovos-core` and registered via its own `pyproject.toml` entry point.
 
 ---
 
 ## Active Skill List
 
-A Skill is considered active if it has been called in the last 5 minutes.
+A skill is considered active if it has been called in the last 5 minutes (configurable via `timeout`).
 
 Skills are called in order of when they were last active. For example, if a user spoke the following commands:
 
@@ -38,35 +46,33 @@ As the Weather Skill was called it has now been added to the front of the Active
 2. `TimerSkill.converse()`
 3. Normal intent parsing service
 
-When does a skill become active?
+### When does a skill become active?
 
-1. **before** an intent is called the skill is **activated**
-2. if a fallback **returns True** (to consume the utterance) the skill is **activated** right **after** the fallback
-3. if converse **returns True** (to consume the utterance) the skill is **reactivated** right **after** converse
-4. a skill can activate/deactivate itself at any time
+1. **Before** an intent is called the skill is **activated**
+2. If a fallback **returns True** (to consume the utterance) the skill is **activated** right **after** the fallback
+3. If converse **returns True** (to consume the utterance) the skill is **reactivated** right **after** converse
+4. A skill can activate/deactivate itself at any time via `self.make_active()` / `self.deactivate()`
 
+Active skills are tracked in `Session.active_skills` — `ovos_bus_client.session.Session`. The converse service reads and updates this list via `sess.activate_skill()` / `sess.deactivate_skill()`.
 
 ---
 
 ## Pipeline Stages
 
-This plugin registers a single pipeline:
-
-| Pipeline ID | Description                  | Recommended Use                                                            |
-|-------------|------------------------------|----------------------------------------------------------------------------|
-| `converse`  | Continuous dialog for skills | Should always be present, do not remove unless you know what you are doing |
-
+| Pipeline ID | Description | Recommended Use |
+|---|---|---|
+| `converse` | Continuous dialog for skills | Should always be present; do not remove unless you know what you are doing |
 
 ---
 
 ## How It Works
 
-* When a user speaks, the pipeline checks if any skill is actively conversing.
-* Active skills implement a `converse()` method that determines if they want to handle the utterance.
-* If no active skill accepts the input, the regular intent matching process continues.
-* Skills can automatically deactivate after a timeout or based on custom logic.
-* Only a limited number of skills can be active at any given time (defaults configurable).
-
+1. `converse` stage is hit in the pipeline
+2. `ConverseService.match()` iterates active skills in priority order
+3. For each skill, emits `{skill_id}.converse.request` and waits for a response
+4. If the skill returns `True`, the utterance is consumed
+5. If not, the next active skill is tried
+6. If no active skill accepts the input, the pipeline falls back to normal intent matching
 
 ---
 
@@ -78,139 +84,115 @@ Skills integrate with the converse pipeline by:
 * Returning `True` if the utterance was handled, `False` otherwise.
 * Managing internal state to determine when to exit conversation mode.
 
+```python
+from ovos_workshop.skills.converse import ConversationalSkill
+
+class MySkill(ConversationalSkill):
+    def converse(self, message):
+        utterance = message.data["utterances"][0]
+        if "help" in utterance:
+            self.speak("Here to help!")
+            return True   # consumed
+        return False      # pass to next handler
+```
+
 This enables modular, stateful conversations without hardcoding turn-taking logic into the core assistant.
 
 ---
 
 ## Configuration
 
-Customize the pipeline via `mycroft.conf`:
+Customize the pipeline via `mycroft.conf` under `skills.converse`:
 
 ```json
-"skills": {
-  "converse": {
-    "cross_activation": true,
-    "converse_activation": "accept_all",
-    "converse_mode": "accept_all",
-    "converse_blacklist": [],
-    "converse_whitelist": [],
-    "max_activations": 3,
-    "skill_activations": {
-      "skill-example": 5
-    },
-    "timeout": 300,
-    "skill_timeouts": {
-      "skill-example": 600
-    },
-    "max_skill_runtime": 10
+{
+  "skills": {
+    "converse": {
+      "timeout": 300,
+      "skill_timeouts": {},
+      "converse_mode": "accept_all",
+      "converse_whitelist": [],
+      "converse_blacklist": [],
+      "converse_activation": "accept_all",
+      "max_activations": -1,
+      "skill_activations": {},
+      "cross_activation": true,
+      "cross_deactivation": true,
+      "converse_priorities": {},
+      "max_skill_runtime": 10
+    }
   }
 }
 ```
 
 **Key Options**
 
-| Config Key           | Description                                                              |
-| -------------------- | ------------------------------------------------------------------------ |
-| `cross_activation`   | Allow skills to activate/deactivate other skills during a conversation.  |
-| `converse_mode`      | Global mode for allowing/disallowing skills from converse participation. |
-| `converse_blacklist` | Skills that are not allowed to enter converse mode.                      |
-| `converse_whitelist` | Skills explicitly allowed to converse.                                   |
-| `max_activations`    | Default number of times a skill can consecutively handle turns.          |
-| `skill_activations`  | Per-skill override of `max_activations`.                                 |
-| `timeout`            | Time (in seconds) before an idle skill is removed from converse mode.    |
-| `skill_timeouts`     | Per-skill override of `timeout`.                                         |
-| `max_skill_runtime`  | Maximum time (in seconds) to wait for a skill’s `converse()` response.   |
+| Config Key | Description |
+|---|---|
+| `timeout` | Default seconds before an idle skill is removed from converse mode (default 300) |
+| `skill_timeouts` | Per-skill override of `timeout` |
+| `converse_mode` | Global mode for allowing/disallowing skills from converse participation |
+| `converse_blacklist` | Skills not allowed to enter converse mode |
+| `converse_whitelist` | Skills explicitly allowed to converse |
+| `converse_activation` | Controls when a skill can self-activate |
+| `max_activations` | Default number of consecutive times a skill can activate itself per minute (`-1` = unlimited) |
+| `skill_activations` | Per-skill override of `max_activations` |
+| `cross_activation` | If `true`, any skill can activate any other skill |
+| `cross_deactivation` | If `true`, any skill can deactivate any other skill |
+| `max_skill_runtime` | Maximum seconds to wait for a skill's `converse()` response |
 
 ---
 
 ## Converse Modes
 
-| Mode         | Description                                                                  |
-| ------------ | ---------------------------------------------------------------------------- |
-| `accept_all` | All skills are allowed to use converse mode (default).                       |
-| `whitelist`  | Only skills explicitly listed in `converse_whitelist` can use converse mode. |
-| `blacklist`  | All skills can use converse mode except those in `converse_blacklist`.       |
+| Mode | Description |
+|---|---|
+| `accept_all` | All skills are allowed to use converse mode (default) |
+| `whitelist` | Only skills explicitly listed in `converse_whitelist` can use converse mode |
+| `blacklist` | All skills can use converse mode except those in `converse_blacklist` |
 
+## Converse Activation Modes
+
+| Mode | Description |
+|---|---|
+| `accept_all` | Any skill can activate itself unconditionally (default) |
+| `priority` | Skills can only activate themselves if no skill with higher priority is active |
+| `whitelist` | Only skills in `converse_whitelist` can activate themselves |
+| `blacklist` | Only skills NOT in `converse_blacklist` can activate themselves |
+
+> Note: `converse_activation` does not apply to regular skill activation, only to skill-initiated activation requests (e.g. `self.make_active()`).
+
+---
+
+## Bus Events Handled
+
+| Event | Handler |
+|---|---|
+| `intent.service.skills.activate` | `handle_activate_skill_request` |
+| `intent.service.skills.deactivate` | `handle_deactivate_skill_request` |
+| `intent.service.active_skills.get` | `handle_get_active_skills` |
+| `skill.converse.get_response.enable` | `handle_get_response_enable` |
+| `skill.converse.get_response.disable` | `handle_get_response_disable` |
+| `converse:skill` | `handle_converse` |
+
+### `get_response` Support
+
+During `skill.get_response`, the skill temporarily holds the converse channel:
+- `skill.converse.get_response.enable` → lock converse to this skill
+- `skill.converse.get_response.disable` → release lock
 
 ---
 
 ## Security & Performance
 
-A malicious or badly designed skill using the converse method can potentially hijack the whole conversation loop and render the skills service unusable
+A malicious or badly designed skill using the converse method can potentially hijack the whole conversation loop and render the skills service unusable.
 
-Because skills can "hijack" the conversation loop indefinitely, misbehaving or malicious skills can degrade UX. Protections include:
+Protections include:
 
-* Timeouts for inactivity and maximum runtime.
+* Timeouts for inactivity (`timeout`) and maximum runtime (`max_skill_runtime`).
 * `max_activations` limits per skill.
 * Blacklist/whitelist enforcement to restrict which skills can enter converse mode.
 * `cross_activation` can be disabled to prevent skill-to-skill manipulation.
-
-
-The concept of "converse priority" is under active development
-
-```javascript
-"skills": {
-    // converse stage configuration
-    "converse": {
-        // the default number of seconds a skill remains active,
-        // if the user does not interact with the skill in this timespan it
-        // will be deactivated, default 5 minutes (same as mycroft)
-        "timeout": 300,
-        
-        // override of "skill_timeouts" per skill_id
-        // you can configure specific skills to remain active longer
-        "skill_timeouts": {},
-
-        // conversational mode has 3 modes of operations:
-        // - "accept_all"  # default mycroft-core behavior
-        // - "whitelist"  # only call converse for skills in "converse_whitelist"
-        // - "blacklist"  # only call converse for skills NOT in "converse_blacklist"
-        "converse_mode": "accept_all",
-        "converse_whitelist": [],
-        "converse_blacklist": [],
-
-        // converse activation has 4 modes of operations:
-        // - "accept_all"  # default mycroft-core behavior, any skill can
-        //                 # activate itself unconditionally
-        // - "priority"  # skills can only activate themselves if no skill with
-        //               # higher priority is active
-        // - "whitelist"  # only skills in "converse_whitelist" can activate themselves
-        // - "blacklist"  # only skills NOT in converse "converse_blacklist" can activate themselves
-        // NOTE: this does not apply for regular skill activation, only to skill
-        //       initiated activation requests, eg, self.make_active()
-        "converse_activation": "accept_all",
-
-        // number of consecutive times a skill is allowed to activate itself
-        // per minute, -1 for no limit (default), 0 to disable self-activation
-        "max_activations": -1,
-        
-        // override of "max_activations" per skill_id
-        // you can configure specific skills to activate more/less often
-        "skill_activations": {},
-
-        // if false only skills can activate themselves
-        // if true any skill can activate any other skill
-        "cross_activation": true,
-
-        // if false only skills can deactivate themselves
-        // if true any skill can deactivate any other skill
-        // NOTE: skill deactivation is not yet implemented
-        "cross_deactivation": true,
-
-        
-        // you can add skill_id: priority to override the developer defined
-        // priority of those skills, 
-        
-        // converse priority is work in progress and not yet exposed to skills
-        // priority is assumed to be 50
-        // the only current source for converse priorities is this setting
-        "converse_priorities": {
-           // "skill_id": 10
-        }
-    }
-
-},
-```
 
 ---
 
@@ -219,3 +201,13 @@ The concept of "converse priority" is under active development
 * The plugin **does not enforce a fallback behavior** if no skill accepts the input.
 * If no skill handles the utterance via converse, the pipeline falls back to normal intent matching or fallback skills.
 * This mechanism is ideal for multi-turn conversations like dialogs, games, or assistant flows that require memory of previous input.
+* Converse priority is under active development; priority is currently assumed to be 50. Per-skill overrides are available via `converse_priorities` in config.
+
+---
+
+## Related Pages
+
+- [ovos-core](102-core.md) — `ConverseService` implementation and bus events
+- [Fallback Pipeline](fallback_pipeline.md) — what runs when converse returns nothing
+- [Skill Classes](412-skill-classes.md) — `ConversationalSkill`, `ActiveSkill` base classes
+- [Bus Session](901-bus-session.md) — `Session.active_skills`, `activate_skill()`, `deactivate_skill()`

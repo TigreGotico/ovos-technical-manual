@@ -1,168 +1,121 @@
-# Filesystem access
+# Filesystem Access
 
-Many Skills may want access to parts of the filesystem. To account for the many different platforms that can run OVOS there are three locations that a Skill can utilize.
+`FileSystemAccess` provides each skill with an isolated, XDG-compliant directory for persistent file storage. It prevents skills from accidentally writing to arbitrary locations and handles migration from legacy Mycroft paths.
 
-* Persistent filesystem
-* Temporary cache
-* Skill's own root directory
+**Source:** `ovos_workshop/filesystem.py`
+
+---
+
+## Storage Path
+
+Files are stored under:
+
+```
+~/.local/share/ovos/filesystem/<skill_id>/
+```
+
+The exact base is determined by `get_xdg_data_save_path()` from `ovos-config`. The directory is created automatically if it does not exist.
+
+---
+
+## Migration from Legacy Paths
+
+If a directory exists at the legacy Mycroft location (`~/.mycroft/<skill_id>`) but the XDG path does not yet exist, the directory is automatically **moved** to the new location. A deprecation warning is logged during migration.
+
+---
+
+## `self.file_system` Property
+
+Every `OVOSSkill` (and `OVOSAbstractApplication`) exposes `self.file_system` — a `FileSystemAccess` instance pre-configured with the skill's `skill_id`. You do not need to construct `FileSystemAccess` manually.
+
+```python
+# Inside a skill method:
+with self.file_system.open("data.json", "w") as f:
+    import json
+    json.dump({"key": "value"}, f)
+```
+
+---
+
+## API
+
+### `open(filename, mode)`
+
+Open a file inside the skill's sandboxed directory. Equivalent to `open(skill_dir / filename, mode)`.
+
+| Parameter | Description |
+|---|---|
+| `filename` | Filename relative to the skill's storage directory |
+| `mode` | File open mode (`"r"`, `"w"`, `"rb"`, `"a"`, etc.) |
+
+### `exists(filename)`
+
+Check whether a file exists inside the skill's sandboxed directory. Returns `True` or `False`.
+
+### `path`
+
+`self.file_system.path` is the absolute path to the skill's storage directory. Use `open()` and `exists()` rather than accessing files directly by path when possible.
+
+---
 
 ## Persistent Files
 
-When your Skill needs to store some data that will persist over time and cannot easily be rebuilt, there is a persistent filesystem namespaced to your Skill.
-
-### Reading and writing to files
-
-This uses the standard Python `open()` method to read and write files. It takes two parameters:
-
-* file\_name \(str\) - a path relative to the namespace. subdirs not currently supported.
-* mode \(str\) – a file handle mode \[r, r+, w, w+, rb, rb+, wb+, a, ab, a+, ab+, x\]
-
-Example:
-
 ```python
-    def write_line_to_file(self, file_name, line):
-        """Write a single line to a file in the Skills persistent filesystem."""
-        with self.file_system.open(file_name, "w") as my_file:
-            my_file.write(line)
+def write_line_to_file(self, file_name, line):
+    """Write a single line to a file in the skill's persistent filesystem."""
+    with self.file_system.open(file_name, "w") as my_file:
+        my_file.write(line)
 
-    def read_file(self, file_name):
-        """Read the contents of a file in the Skills persistent filesystem."""
-        with self.file_system.open(file_name, "r") as my_file:
-            return my_file.read()
+def read_file(self, file_name):
+    """Read the contents of a file in the skill's persistent filesystem."""
+    with self.file_system.open(file_name, "r") as my_file:
+        return my_file.read()
 ```
 
-### Check if a file exists
-
-Quick method to see if some file exists in the namespaced directory.
-
-Example:
+Check existence before reading:
 
 ```python
-        file_name = "example.txt"
-        with self.file_system.open(file_name, "w") as my_file:
-            my_file.write("Hello world")
-        self.log.info(self.file_system.exists(file_name))
-        # True
-        self.log.info(self.file_system.exists("new.txt"))
-        # False
+file_name = "example.txt"
+if self.file_system.exists(file_name):
+    content = self.read_file(file_name)
 ```
 
-### Get the path of the namespaced directory.
+---
 
-`self.file_system.path` is a member value containing the root path of the namespace. However, it is recommended that you use the `self.file_system.open()` method to read and write files.
+## Subdirectories
 
-Example:
-
-```python
-from ovos_workshop.skills import OVOSSkill
-
-class FileSystemSkill(OVOSSkill):
-
-    def initialize(self):
-        """Log the path of this Skills persistent namespace."""
-        self.log.info(self.file_system.path)
-```
-
-### Create subdirectories
-
-Now that we have the path of our namespaced filesystem, we can organize our files however we like within that directory.
-
-In this example, we create a subdirectory called "cache", then write to a text file inside of it.
+`file_system.open()` does not create subdirectories automatically. Create them manually using `os.mkdir`:
 
 ```python
 from os import mkdir
 from os.path import join
 
-from ovos_workshop.skills import OVOSSkill
-
-class FileSystemSkill(OVOSSkill):
-
-    def initialize(self):
-        """Create a cache subdirectory and write to a file inside it"""
-        cache_dir = "cache"
-        file_name = "example.txt"
-        if not self.file_system.exists(cache_dir):
-            mkdir(join(self.file_system.path, cache_dir))
-        with self.file_system.open(join(cache_dir, file_name), "w") as my_file:
-            my_file.write('hello')
-
+def initialize(self):
+    cache_dir = "cache"
+    if not self.file_system.exists(cache_dir):
+        mkdir(join(self.file_system.path, cache_dir))
+    with self.file_system.open(join(cache_dir, "example.txt"), "w") as f:
+        f.write("cached content")
 ```
 
-### Example Skill
-
-```python
-from ovos_workshop.skills import OVOSSkill
-from ovos_workshop.decorators import intent_handler
-
-class FileSystemSkill(OVOSSkill):
-
-    def initialize(self):
-        """Perform initial setup for the Skill.
-
-        For this example we do four things:
-        1. Log the path of this directory.
-        2. Write to a file in the directory.
-        3. Check that our file exists.
-        4. Read the contents of our file from disk.
-        """
-        file_name = "example.txt"
-        self.log.info(self.file_system.path)
-        self.write_line_to_file(file_name, "hello world")
-        self.log.info(self.file_system.exists(file_name))
-        self.log.info(self.read_file(file_name))
-
-    def write_line_to_file(self, file_name, line):
-        """Write a single line to a file in the Skills persistent filesystem."""
-        with self.file_system.open(file_name, "w") as my_file:
-            my_file.write(line)
-
-    def read_file(self, file_name):
-        """Read the contents of a file in the Skills persistent filesystem."""
-        with self.file_system.open(file_name, "r") as my_file:
-            return my_file.read()
-```
+---
 
 ## Temporary Cache
 
-Skills can create a directory for caching temporary data to speed up performance.
-
-This directory will likely be part of a small RAM disk and may be cleared at any time. So code that uses these cached files must be able to fall back and regenerate the file.
-
-### Example Skill
+For data that can be discarded and regenerated, use the `get_cache_directory()` helper from `ovos-utils`:
 
 ```python
 from os.path import join
-from ovos_workshop.skills import OVOSSkill
-from ovos_workshop.decorators import intent_handler
 from ovos_utils.file_utils import get_cache_directory
 
-
-class CachingSkill(OVOSSkill):
-
-    def initialize(self):
-        """Perform initial setup for the Skill.
-
-        For this example we do four things:
-        1. Get a cache directory namespaced for our Skill.
-        2. Define a file path for the cache_file.
-        3. Write some data to the cache_file
-        4. Log the path of the cache_file
-        4. Log the contents of the cache_file.
-        """
-        cache_dir = get_cache_directory('CachingSkill')
-        self.cache_file = join(cache_dir, "myfile.txt")
-        self.cache_data()
-        self.log.info(self.cache_file)
-        self.log.info(self.read_cached_data())
-
-    def cache_data(self):
-        with open(self.cache_file, "w") as cache_file: 
-            cache_file.write("Some cached data") 
-
-    def read_cached_data(self):
-        with open(self.cache_file, "r") as cache_file: 
-            return cache_file.read()
+def initialize(self):
+    cache_dir = get_cache_directory("MySkill")
+    self.cache_file = join(cache_dir, "myfile.txt")
 ```
+
+The cache directory may reside on a RAM disk and can be cleared at any time. Always handle the case where cached files are absent.
+
+---
 
 ## Skill Root Directory
 
@@ -170,9 +123,71 @@ class CachingSkill(OVOSSkill):
 self.root_dir
 ```
 
-This member variable contains the absolute path of a Skill’s root directory e.g. `~.local/share/mycroft/skills/my-skill.me/`.
+The absolute path to the skill's installed root directory (e.g. `~/.local/share/mycroft/skills/my-skill.me/`). Skills should not modify files inside `root_dir` — doing so may trigger a skill reload.
 
-Generally Skills should not modify anything within this directory.
-Modifying anything in the Skill directory will reload the Skill.  
-It is also not guaranteed that the Skill will have permission to write to this directory.
+---
 
+## Full Example
+
+```python
+import json
+from ovos_workshop.skills.ovos import OVOSSkill
+from ovos_workshop.decorators import intent_handler
+
+
+class HighScoreSkill(OVOSSkill):
+    """Skill that persists a high score to disk."""
+
+    SCORES_FILE = "highscores.json"
+
+    def initialize(self):
+        self._scores = self._load_scores()
+
+    def _load_scores(self) -> dict:
+        if not self.file_system.exists(self.SCORES_FILE):
+            return {}
+        with self.file_system.open(self.SCORES_FILE, "r") as f:
+            return json.load(f)
+
+    def _save_scores(self):
+        with self.file_system.open(self.SCORES_FILE, "w") as f:
+            json.dump(self._scores, f, indent=2)
+
+    @intent_handler("get_high_score.intent")
+    def handle_get_score(self, message):
+        player = message.data.get("player", "anonymous")
+        score = self._scores.get(player, 0)
+        self.speak(f"{player} has a high score of {score}.")
+
+    @intent_handler("set_high_score.intent")
+    def handle_set_score(self, message):
+        player = message.data.get("player", "anonymous")
+        score = int(message.data.get("score", 0))
+        self._scores[player] = max(self._scores.get(player, 0), score)
+        self._save_scores()
+        self.speak(f"High score updated for {player}.")
+```
+
+---
+
+## Using `FileSystemAccess` Outside a Skill
+
+```python
+from ovos_workshop.filesystem import FileSystemAccess
+
+fs = FileSystemAccess("my-app.author")
+# Files stored at ~/.local/share/ovos/filesystem/my-app.author/
+
+if not fs.exists("config.json"):
+    with fs.open("config.json", "w") as f:
+        import json
+        json.dump({"initialized": True}, f)
+```
+
+---
+
+## Related Pages
+
+- [Skill Classes](412-skill-classes.md) — `OVOSSkill` properties including `file_system` and `root_dir`
+- [Skill Settings](408-skill_settings.md) — `self.settings` for configuration storage
+- [Configuration](110-config.md) — XDG path helpers used internally

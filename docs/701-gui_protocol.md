@@ -1,225 +1,526 @@
-## Protocol
+# GUI Protocol
 
-The [gui service](https://github.com/OpenVoiceOS/ovos-gui) in ovos-core will expose a websocket to
-the GUI clients following the protocol outlined in this page
+The `ovos-gui` service exposes two communication channels:
 
-The transport protocol works between gui service and the gui clients, OpenVoiceOS does not directly use the protocol but instead communicates with `ovos-gui` via the standard messagebus
+1. **OVOS MessageBus** — used by skills and core components to set GUI state.
+2. **Qt WebSocket** (port 18181, via `ovos-legacy-mycroft-gui-plugin`) — used by Qt5/Qt6
+   GUI clients (`mycroft-gui-qt5`, `ovos-shell`) to receive display commands and send
+   back user interaction events.
 
-The QT library which implements the protocol lives in the [mycroft-gui-qt5](https://github.com/OpenVoiceOS/mycroft-gui-qt5) repository. 
+The transport protocol between `ovos-gui` and Qt clients is implemented in the
+[mycroft-gui-qt5](https://github.com/OpenVoiceOS/mycroft-gui-qt5) library.
 
 ![imagem](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/92e73af7-f7d2-4aa3-a294-77f87aa22390)
 
-## Specification
+---
 
-This protocol defines how ovos-gui communicates with connected clients
+## OVOS MessageBus Messages
 
-- [CONNECTION - mycroft.gui.connected](#connection---mycroftguiconnected)
-- [NAMESPACES](#namespaces)
-  * [Active Skills - mycroft.system.active_skills](#active-skills---mycroftsystemactive-skills)
-- [PAGES - mycroft.gui.list.xxx](#pages---mycroftguilistxxx)
-  * [Insert new page at position](#insert-new-page-at-position)
-  * [Move pages within the list](#move-pages-within-the-list)
-  * [Remove pages from the list](#remove-pages-from-the-list)
-- [EVENTS - mycroft.events.triggered](#events---mycrofteventstriggered)
-  * [SPECIAL EVENT: page_gained_focus](#special-event--page-gained-focus)
-- [SKILL DATA - mycroft.session.xxx](#skill-data---mycroftsessionxxx)
-  * [Sets a new key/value in the sessionData dictionary](#sets-a-new-key-value-in-the-sessiondata-dictionary)
-  * [Deletes a key/value pair from the sessionData dictionary](#deletes-a-key-value-pair-from-the-sessiondata-dictionary)
-  * [Lists](#lists)
-    + [Inserts new items at position](#inserts-new-items-at-position)
-    + [Updates item values starting at the given position, as many items as there are in the array](#updates-item-values-starting-at-the-given-position--as-many-items-as-there-are-in-the-array)
-    + [Move items within the list](#move-items-within-the-list)
-    + [Remove items from the list](#remove-items-from-the-list)
+### Messages emitted by skills (via `GUIInterface`)
 
+#### `gui.value.set`
 
-## CONNECTION - mycroft.gui.connected
+Sent by `GUIInterface.__setitem__` / `_sync_data()` to write session variables into
+the skill's namespace.
 
-on connection gui clients announce themselves
-
-This is an extension by OVOS to the [original mycroft protocol](https://github.com/MycroftAI/mycroft-gui/blob/master/transportProtocol.md)
-
-
-```javascript
+```json
 {
-    "type": "mycroft.gui.connected",
-    "gui_id": "unique_identifier_provided_by_client"
+  "type": "gui.value.set",
+  "data": {
+    "current_temp": 22,
+    "condition": "Sunny",
+    "__from": "ovos-skill-weather",
+    "__idle": null,
+    "__animations": false
+  }
 }
 ```
 
-## NAMESPACES
+| Field | Description |
+|---|---|
+| `__from` | Skill ID (namespace owner) |
+| `__idle` | Idle timeout in seconds, or `null` |
+| `__animations` | Whether page transitions should animate |
+| All other keys | Skill-defined session variables |
 
-ovos-gui maintains a list of namespaces with GUI data, namespaces usually correspond to a skill_id
+`NamespaceManager` stores all keys in `namespace.data` and forwards non-reserved keys
+to adapters via `on_session_update()`.
 
-Every message in the gui protocol specifies a namespace it belongs to
+---
 
-gui clients usualy display all namespaces, but can be requested to display a single one, 
+#### `gui.page.show`
 
-eg, have a dedicated window to show a skill as a [traditional desktop app](https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin/blob/dev/ovos_plugin_common_play/ocp/res/desktop/OCP.desktop)
+Sent by `GUIInterface._show_pages()` to request a template or page be shown.
 
+**Template format (SYSTEM_*):**
 
-### Active Skills - mycroft.system.active_skills
-
-a reserved namespace is "mycroft.system.active_skills", the data contained in this namespace defines the namespace display priority
-
-Recent skills are ordered from the last used to the oldest, so the first item of the list will always be the the one showing any GUI page, if available.
-
-see the section about [lists](https://github.com/OpenVoiceOS/ovos-gui/blob/dev/protocol.md#lists) if you need to modify active skills
-
-
-## PAGES - mycroft.gui.list.xxx
-
-Each active skill is associated with a list of uris to the QML files of all gui items that are supposed to be visible.
-
-Non QT GUIS get sent other file extensions such as .jsx or .html using the same message format
-
-### Insert new page at position
-
-```javascript
+```json
 {
-    "type": "mycroft.gui.list.insert",
-    "namespace": "mycroft.weather"
-    "position": 2
-    "values": [{"url": "file://..../currentWeather.qml"}, ...] //values must always be in array form
+  "type": "gui.page.show",
+  "data": {
+    "page_names": ["SYSTEM_weather"],
+    "index": 0,
+    "persistence": true,
+    "__from": "ovos-skill-weather",
+    "__idle": null,
+    "__animations": false
+  }
 }
 ```
 
-### Move pages within the list
-```javascript
+When `page_names[0]` starts with `SYSTEM_`, `NamespaceManager` reads the namespace's
+current `data` dict and dispatches to all loaded adapters via
+`adapter.dispatch_template(template, skill_id, data)`.
+
+**Legacy format (framework-specific pages):**
+
+```json
 {
-    "type": "mycroft.gui.list.move",
-    "namespace": "mycroft.weather"
-    "from": 2
-    "to": 5
-    "items_number": 2 //optional in case we want to move a big chunk of list at once
+  "type": "gui.page.show",
+  "data": {
+    "page_names": ["Weather.qml"],
+    "index": 0,
+    "__from": "ovos-skill-weather"
+  }
 }
 ```
 
-### Remove pages from the list
-```javascript
+Non-`SYSTEM_*` names are handled by the unchanged legacy path inside `NamespaceManager`
+(forwarded to Qt clients via the legacy adapter).
+
+---
+
+#### `gui.page.delete`
+
+Removes a specific page from a skill's namespace page list.
+
+```json
 {
-    "type": "mycroft.gui.list.remove",
-    "namespace": "mycroft.weather"
-    "position": 2
-    "items_number": 5 //optional in case we want to get rid a big chunk of list at once
+  "type": "gui.page.delete",
+  "data": {
+    "page_names": ["Weather.qml"],
+    "__from": "ovos-skill-weather"
+  }
 }
 ```
 
+---
 
-## EVENTS - mycroft.events.triggered
+#### `gui.page.delete.all`
 
-Events can either be emitted by a gui client (eg, some element clicked) or by the skill (eg, in response to a voice command)
+Clears all pages from a skill's namespace.
 
-```javascript
+```json
 {
-    "type": "mycroft.events.triggered"
-    "namespace": "my_skill_id"
-    "event_name": "my.gui.event",
-    "parameters": {"item": 3}
+  "type": "gui.page.delete.all",
+  "data": {
+    "__from": "ovos-skill-weather"
+  }
 }
 ```
 
-### SPECIAL EVENT: page_gained_focus
+---
 
-This event is used when the ovos-gui wants a page of a particular skill to gain user attention focus and become the current active view and "focus of attention" of the user. 
+#### `gui.event.send`
 
-when a GUI client receives it, it should render the requested GUI page
+Sends an arbitrary event into a skill's namespace (used for confirm/select responses
+and custom interactions).
 
-GUI clients can also emit this event, if a new page was rendered (eg, in response to a user swipping left)
-
-NOTE: for responsiveness it is recommened this message is only emitted after the rendering has actually been done, skills may be waiting for this event to initiate some actons
-
-```javascript
+```json
 {
-    "type": "mycroft.events.triggered",
-    "namespace": "mycroft.weather",
-    "event_name": "page_gained_focus",
-    "data": {"number": 0}
+  "type": "gui.event.send",
+  "data": {
+    "namespace": "ovos-skill-weather",
+    "event_name": "skill.selection.confirmed",
+    "params": {"confirmed": true}
+  }
 }
 ```
 
-The parameter "number" is the position (starting from zero) of the page
+---
 
-## SKILL DATA - mycroft.session.xxx
+### Messages consumed by `NamespaceManager` (from skills / core)
 
-At the center of data sharing there is a key/value dictionary that is kept synchronized between ovos-gui and the GUI client.
+#### `ovos.gui.screen.close`
 
-Values can either be simple strings, numbers and booleans or be more complicated data types
+Request to remove a skill's namespace from the active display stack and deactivate it.
 
-this event can be sent from gui clients (eg, in response to a dropdown selection) or from skills (eg, change weather data)
-
-NOTE: Once a new gui client connects to ovos-gui, all existing session data is sent to the client, 
-after that the client gets live updates via these events
-
-### Sets a new key/value in the sessionData dictionary
-
-Either sets a new key/value pair or replace an existing old value.
-
-```javascript
+```json
 {
-    "type": "mycroft.session.set",
-    "namespace": "weather.mycroft"
-    "data": {
-        "temperature": "28",
-        "icon": "cloudy",
-        "forecast": [{...},...] //if it's a list see below for more message types
-    }
+  "type": "ovos.gui.screen.close",
+  "data": {
+    "skill_id": "ovos-skill-weather"
+  }
 }
 ```
 
-### Deletes a key/value pair from the sessionData dictionary
-```javascript
+Triggers `adapter.on_namespace_deactivated(skill_id)` on all adapters.
+
+---
+
+#### `gui.clear.namespace`
+
+Legacy equivalent of `ovos.gui.screen.close`. Session data is discarded.
+
+```json
 {
-    "type": "mycroft.session.delete",
-    "namespace": "weather.mycroft"
-    "property": "temperature"
+  "type": "gui.clear.namespace",
+  "data": {
+    "__from": "ovos-skill-weather"
+  }
 }
 ```
 
-### Lists
+---
 
-#### Inserts new items at position
-```javascript
+### Messages emitted by `ovos-gui` service
+
+#### `gui.namespace.removed`
+
+Emitted by `NamespaceManager` after a namespace has been deactivated and cleared.
+
+```json
 {
-    "type": "mycroft.session.list.insert",
-    "namespace": "weather.mycroft"
-    "property": "forecast" //the key of the main data map this list in contained into
-    "position": 2
-    "values": [{"date": "tomorrow", "temperature" : 13, ...}, ...] //values must always be in array form
+  "type": "gui.namespace.removed",
+  "data": {
+    "skill_id": "ovos-skill-weather"
+  }
 }
 ```
 
-#### Updates item values starting at the given position, as many items as there are in the array
-```javascript
+#### `gui.namespace.displayed`
+
+Emitted when a namespace moves to the top of the active display stack.
+
+```json
 {
-    "type": "mycroft.session.list.update",
-    "namespace": "weather.mycroft"
-    "property": "forecast"
-    "position": 2
-    "values": [{"date": "tomorrow", "temperature" : 13, ...}, ...] //values must always be in array form
+  "type": "gui.namespace.displayed",
+  "data": {
+    "skill_id": "ovos-skill-weather"
+  }
 }
 ```
 
-#### Move items within the list
-```javascript
+---
+
+### Status events forwarded to adapters
+
+`NamespaceManager` subscribes to the following core bus messages and forwards them to all
+adapters via `adapter.on_status_event(event_name, data)`:
+
+| Bus message type | Meaning |
+|---|---|
+| `recognizer_loop:wakeword` | Wake word detected |
+| `recognizer_loop:record_begin` | Microphone opened |
+| `recognizer_loop:record_end` | Microphone closed |
+| `recognizer_loop:utterance` | Utterance recognised |
+| `recognizer_loop:recognition_unknown` | STT gave no result |
+| `speak` | TTS about to speak |
+| `recognizer_loop:audio_output_start` | Audio playback started |
+| `recognizer_loop:audio_output_end` | Audio playback ended |
+| `recognizer_loop:sleep` | Device going to sleep |
+| `recognizer_loop:wake_up` | Device waking up |
+| `mycroft.awoken` | Wake-up acknowledged |
+| `ovos.utterance.handled` | Intent matched and handled |
+| `ovos.utterance.cancelled` | Utterance cancelled |
+
+---
+
+### Touch / Interaction responses (emitted back to the bus)
+
+When a touch-capable adapter receives user input on confirm/select templates:
+
+#### `<skill_id>.confirm.response`
+
+```json
 {
-    "type": "mycroft.session.list.move",
-    "namespace": "weather.mycroft"
-    "property": "forecast"
-    "from": 2
-    "to": 5
-    "items_number": 2 //optional in case we want to move a big chunk of list at once
+  "type": "ovos-skill-weather.confirm.response",
+  "data": {
+    "confirmed": true
+  }
 }
 ```
 
-#### Remove items from the list
-```javascript
+#### `<skill_id>.select.response`
+
+```json
 {
-    "type": "mycroft.session.list.remove",
-    "namespace": "weather.mycroft"
-    "property": "forecast"
-    "position": 2
-    "items_number": 5 //optional in case we want to get rid a big chunk of list at once
+  "type": "ovos-skill-weather.select.response",
+  "data": {
+    "value": "Berlin"
+  }
 }
 ```
 
+Skills must register handlers for these events if they use `show_confirm()` or `show_select()`.
 
+---
+
+## Qt WebSocket Protocol (Legacy Adapter)
+
+> This section applies only when `ovos-legacy-mycroft-gui-plugin` is installed.
+
+All messages are JSON objects sent over the WebSocket connection at `ws://localhost:18181`.
+
+### Connection handshake
+
+**Qt client → `ovos-gui` (OVOS MessageBus):**
+
+```json
+{
+  "type": "mycroft.gui.connected",
+  "data": {
+    "gui_id": "unique_identifier_provided_by_client",
+    "framework": "qt5"
+  }
+}
+```
+
+**`ovos-gui` → Qt client (OVOS MessageBus reply):**
+
+```json
+{
+  "type": "mycroft.gui.port",
+  "data": {
+    "port": 18181,
+    "gui_id": "qt-client-1",
+    "framework": "qt5"
+  }
+}
+```
+
+The Qt client then opens a WebSocket connection to `ws://localhost:18181`.
+
+When a client connects, `plugin.synchronize(client)` replays the full current state:
+1. Re-sends `mycroft.session.list.insert` for every namespace in the active stack (in order).
+2. For each namespace, re-sends `mycroft.gui.list.insert` with its current QML page.
+3. Re-sends all `mycroft.session.set` messages for every key in `namespace.data`.
+
+---
+
+### Namespace stack management (`mycroft.system.active_skills`)
+
+The reserved namespace `mycroft.system.active_skills` defines the display priority.
+The first item is always the namespace currently shown.
+
+**Insert namespace** (skill becomes visible):
+
+```json
+{
+  "type": "mycroft.session.list.insert",
+  "namespace": "mycroft.system.active_skills",
+  "position": 0,
+  "data": [{"skill_id": "ovos-skill-weather"}]
+}
+```
+
+**Move namespace** (existing skill re-activated):
+
+```json
+{
+  "type": "mycroft.session.list.move",
+  "namespace": "mycroft.system.active_skills",
+  "from": 2,
+  "to": 0,
+  "items_number": 1
+}
+```
+
+**Remove namespace** (skill cleared / idle):
+
+```json
+{
+  "type": "mycroft.session.list.remove",
+  "namespace": "mycroft.system.active_skills",
+  "position": 0,
+  "items_number": 1
+}
+```
+
+---
+
+### Session data sync (`mycroft.session.*`)
+
+Session data is a key/value dictionary kept synchronized between `ovos-gui` and each
+Qt client. Values may be strings, numbers, booleans, or lists.
+
+**Set / update a key:**
+
+```json
+{
+  "type": "mycroft.session.set",
+  "namespace": "ovos-skill-weather",
+  "data": {
+    "current_temp": 22,
+    "condition": "Sunny"
+  }
+}
+```
+
+**Delete a key:**
+
+```json
+{
+  "type": "mycroft.session.delete",
+  "namespace": "ovos-skill-weather",
+  "property": "current_temp"
+}
+```
+
+**List operations** (for list-typed session values):
+
+```json
+{
+  "type": "mycroft.session.list.insert",
+  "namespace": "ovos-skill-weather",
+  "property": "forecast",
+  "position": 0,
+  "values": [{"date": "tomorrow", "temperature": 13}]
+}
+```
+
+```json
+{
+  "type": "mycroft.session.list.update",
+  "namespace": "ovos-skill-weather",
+  "property": "forecast",
+  "position": 0,
+  "values": [{"date": "tomorrow", "temperature": 15}]
+}
+```
+
+```json
+{
+  "type": "mycroft.session.list.move",
+  "namespace": "ovos-skill-weather",
+  "property": "forecast",
+  "from": 2,
+  "to": 0,
+  "items_number": 1
+}
+```
+
+```json
+{
+  "type": "mycroft.session.list.remove",
+  "namespace": "ovos-skill-weather",
+  "property": "forecast",
+  "position": 0,
+  "items_number": 1
+}
+```
+
+---
+
+### Page management (`mycroft.gui.list.*`)
+
+Each active skill is associated with a list of page URIs.
+
+**Insert new page at position:**
+
+```json
+{
+  "type": "mycroft.gui.list.insert",
+  "namespace": "ovos-skill-weather",
+  "position": 0,
+  "data": [{"url": "SYSTEM:Weather.qml", "page": "Weather.qml"}]
+}
+```
+
+The `SYSTEM:` URI scheme is resolved by the Qt client: first checks `$OVOS_SYSTEM_TEMPLATES/Weather.qml`, then falls back to the compiled-in default at `/usr/share/mycroft-gui/system-templates/Weather.qml`.
+
+**Move pages:**
+
+```json
+{
+  "type": "mycroft.gui.list.move",
+  "namespace": "ovos-skill-weather",
+  "from": 0,
+  "to": 2,
+  "items_number": 1
+}
+```
+
+**Remove pages:**
+
+```json
+{
+  "type": "mycroft.gui.list.remove",
+  "namespace": "ovos-skill-weather",
+  "position": 0,
+  "items_number": 1
+}
+```
+
+---
+
+### Events (`mycroft.events.triggered`)
+
+Events can be emitted by the GUI client (e.g. user tapped a button) or by the skill
+(e.g. a voice command caused a state change).
+
+```json
+{
+  "type": "mycroft.events.triggered",
+  "namespace": "ovos-skill-weather",
+  "event_name": "my.gui.event",
+  "parameters": {"item": 3}
+}
+```
+
+#### Special event: `page_gained_focus`
+
+Used when `ovos-gui` wants a specific page to become the active view. The Qt client
+renders the requested page on receipt. Clients may also emit this event after a user
+swipes to a new page.
+
+```json
+{
+  "type": "mycroft.events.triggered",
+  "namespace": "ovos-skill-weather",
+  "event_name": "page_gained_focus",
+  "data": {"number": 0}
+}
+```
+
+The `number` field is the zero-based page position within the namespace's page list.
+
+#### System status events
+
+Core bus events forwarded to Qt clients:
+
+```json
+{
+  "type": "mycroft.events.triggered",
+  "namespace": "system",
+  "event_name": "recognizer_loop:wakeword",
+  "data": {}
+}
+```
+
+---
+
+### Qt client → OVOS core bus
+
+Messages received from Qt clients over the WebSocket are forwarded to the OVOS core bus
+unchanged. This allows Qt GUI interactions (button presses, text input) to reach skills
+as normal bus events.
+
+---
+
+## Summary: message flows
+
+```
+Skill call:   gui.show_weather(22, "Sunny")
+  → bus:      gui.value.set       (skill namespace data)
+  → bus:      gui.page.show       (SYSTEM_weather)
+  → adapter:  handle_show_weather (AbstractGUIPlugin)
+  → WS:       mycroft.session.set (sync data to Qt)
+  → WS:       mycroft.gui.list.insert (SYSTEM:Weather.qml)
+  → WS:       mycroft.events.triggered / page_gained_focus
+
+User taps confirm button on Qt:
+  → WS:       mycroft.events.triggered / skill.confirm.confirmed
+  → bus:      <skill_id>.confirm.response  {confirmed: true}
+  → skill:    handler registered for that event
+```

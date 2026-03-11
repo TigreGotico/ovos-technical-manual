@@ -1,65 +1,162 @@
-# Skill API
+# Skill API — Inter-Skill RPC
 
-The Skill API uses the Message Bus to communicate between Skills and wraps the interaction in simple Python objects making them easy to use.
+`SkillApi` provides a MessageBus-based remote procedure call (RPC) mechanism. Methods decorated with `@skill_api_method` are exposed on the bus; any other skill (or application) can call them by fetching a `SkillApi` proxy object.
 
-## Making a method available through the Skill API
+**Source:** `ovos_workshop/skills/api.py`
 
-A method can be tagged with the `skill_api_method` decorator. This will handle all the basics of making the method available to other Skills over the Message Bus.
+---
+
+## Overview
+
+The bus message protocol for `SkillApi` has two phases:
+
+1. **Discovery** — the caller sends `<skill_id>.public_api` on the bus. The target skill responds with a dict mapping method names to their bus message type and docstring.
+2. **Call** — the caller sends a `Message` of the method's registered type with `{"args": [...], "kwargs": {...}}`. The target skill responds with `{"result": <return value>}`.
+
+Return values must be JSON-serializable. Standard Python builtins (`str`, `int`, `list`, `dict`, `None`, `bool`) work. Custom classes are not supported.
+
+---
+
+## `@skill_api_method` Decorator
+
+`skill_api_method` — `ovos_workshop/decorators/__init__.py:77`
+
+Tag a skill method as part of the public API. The decorator sets `func.api_method = True`. During skill initialization `OVOSSkill` discovers all methods with this attribute and registers a bus listener for each one at `<skill_id>.<method_name>`.
 
 ```python
+from ovos_workshop.decorators import skill_api_method
+
+class MySkill(OVOSSkill):
+
     @skill_api_method
-    def my_exported_method(self, my_arg, my_other_arg):
-    """My skill api method documentation
-    """
+    def get_temperature(self, city: str) -> float:
+        """Return the current temperature for the given city."""
+        return self._fetch_temperature(city)
 ```
 
-The decorator will generate everything needed for accessing the method over the Message Bus and extract the associated docstring.
+---
 
-### Limitations
+## `SkillApi` Class
 
-The Skill API works over the Message Bus. This requires that the return values are json serializable. All common Python builtin types \(such as List, String, None, etc.\) work well, however custom classes are not currently supported.
+`SkillApi` — `ovos_workshop/skills/api.py:20`
 
-### Example
+### Setup
 
-```python
-from ovos_workshop.skills import OVOSSkill
-from ovos_workshop.decorators import intent_handler, skill_api_method
-
-class RobberSkill(OVOSSkill):
-    @skill_api_method
-    def robber_lang(self, sentence):
-        """Encode a sentence to "Rövarspråket".
-
-        Each consonant gets converted to consonant + "o" + consonant,
-        vowels are left as is.
-
-        Returns: (str) sentence in the robber language.
-        """
-        wovels = "aeiouyåäö"
-        tokens = []
-        for char in sentence.lower() and char.isalpha():
-            if char not in wovels:
-                tokens.append(char + 'o' + char)
-            else:
-                tokens.append(char)
-        return ' '.join(tokens)
-```
-
-## Using another Skill's API
-
-If you want to make use of exported functionality from another Skill, you must fetch that Skill's `SkillApi`. This will give you a small class with the target Skill's exported methods. These methods are nothing special and can be called like any other class's methods.
-
-To access the `robber_lang()` method we created above, we could write:
+Before calling `SkillApi.get()`, register the bus client once during skill initialization:
 
 ```python
 from ovos_workshop.skills.api import SkillApi
 
-class NewRobberSkill(OVOSSkill):
-    def initialize(self):
-        self.robber = SkillApi.get('robber-skill.forslund')
-        self.speak(self.robber.robber_lang('hello world'))
+SkillApi.connect_bus(self.bus)
 ```
 
-When the `NewRobberSkill` is initialized, it will assign the API from the Skill `robber-skill.forslund` to `self.robber`. We then run the exported method `robber_lang()` passing the argument `'hello world'`.
+### `SkillApi.get(skill, api_timeout=3)`
 
-Our `NewRobberSkill` will therefore speak something like "hoh e lol lol o wow o ror lol dod".
+Fetches the public API for the given skill and returns a proxy object.
+
+| Parameter | Description |
+|---|---|
+| `skill` | The `skill_id` of the target skill |
+| `api_timeout` | Seconds to wait for each remote method call (default `3`) |
+
+Returns `None` if the skill is not running or exposes no API methods. Raises `RuntimeError` if `SkillApi.bus` has not been set.
+
+The proxy object has one attribute per exposed method. Calling `proxy.method_name(*args, **kwargs)` sends the corresponding bus message and returns the `result` field of the response. Returns `None` on timeout.
+
+---
+
+## Bus Message Protocol
+
+### Discovery
+
+**Request:** `<skill_id>.public_api` (no data)
+
+**Response:** `<skill_id>.public_api` with data:
+```json
+{
+  "get_temperature": {
+    "help": "Return the current temperature for the given city.",
+    "type": "my-weather-skill.get_temperature"
+  }
+}
+```
+
+### Method Call
+
+**Request:** `my-weather-skill.get_temperature` with data:
+```json
+{"args": ["London"], "kwargs": {}}
+```
+
+**Response:** same message type with data:
+```json
+{"result": 18.5}
+```
+
+---
+
+## Full Example
+
+### Exposing methods (server skill)
+
+```python
+from ovos_workshop.skills.ovos import OVOSSkill
+from ovos_workshop.decorators import skill_api_method
+
+
+class WeatherSkill(OVOSSkill):
+
+    @skill_api_method
+    def get_temperature(self, city: str) -> float:
+        """Return the current temperature in Celsius for the given city."""
+        # … real implementation …
+        return 18.5
+
+    @skill_api_method
+    def get_forecast(self, city: str, days: int = 3) -> list:
+        """Return a weather forecast list for the given city."""
+        return [{"day": i, "condition": "sunny"} for i in range(days)]
+```
+
+### Calling methods (client skill)
+
+```python
+from ovos_workshop.skills.ovos import OVOSSkill
+from ovos_workshop.skills.api import SkillApi
+
+
+class MyClientSkill(OVOSSkill):
+
+    def initialize(self):
+        SkillApi.connect_bus(self.bus)
+
+    def handle_ask_weather(self, message):
+        weather_api = SkillApi.get("my-weather-skill.author")
+        if weather_api is None:
+            self.speak("Weather skill is not available.")
+            return
+
+        temp = weather_api.get_temperature("London")
+        if temp is None:
+            self.speak("No response from weather skill.")
+            return
+
+        self.speak(f"It is {temp} degrees in London.")
+```
+
+---
+
+## Limitations
+
+- Return values must be JSON-serializable.
+- The target skill must be running when `SkillApi.get()` is called — it sends a live bus message.
+- Method calls time out after `api_timeout` seconds (default `3`). The caller receives `None` on timeout.
+- `SkillApi.get()` returns `None` (not an exception) if the target skill is absent or unresponsive.
+
+---
+
+## Related Pages
+
+- [Skill Classes](412-skill-classes.md) — `OVOSSkill` base class
+- [Decorators](412-skill-classes.md#decorators-quick-reference) — `@skill_api_method` and other decorators
+- [Bus Client](900-bus_client.md) — `MessageBusClient` used internally by `SkillApi`

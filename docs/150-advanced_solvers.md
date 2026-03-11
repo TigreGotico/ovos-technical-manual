@@ -1,93 +1,245 @@
-# Specialized Solver Plugins
+# Specialized Agent Engine Types
 
-Solver plugins also exist for specialized tasks, like regular question solvers these also benefit from automatic bidirectional translation for language support
+OVOS provides a full suite of specialized agent engine types beyond simple chat. Each type solves
+a specific NLP sub-problem and registers under its own OPM entry point group, making it
+independently discoverable, configurable, and composable.
+
+All base classes live in `ovos_plugin_manager.templates.agents`. The deprecated solver API
+(`opm.solver.*`) is covered at the bottom — migrate to `opm.agents.*` for all new plugins.
 
 ---
 
-## ReRankers / MultipleChoiceQuestionSolvers
+## ReRanker — `opm.agents.reranker`
 
-A specialized kind of solver plugin that chooses the best answer out of several options
+**Base class:** `ReRankerEngine`
 
-![Untitled-2025-04-15-2340(1)](https://github.com/user-attachments/assets/61c5034b-e54f-434a-8cbf-e967154af983)
+Scores a list of candidate answers by relevance to a query and returns them ranked highest-first.
+Used internally by the [Common Query pipeline](https://openvoiceos.github.io/ovos-technical-manual/360-solver_plugins/),
+OCP media search, and by [Mixture of Solvers](155-mos-plugin.md) strategies as the judge/king/referee.
 
-These specialized solvers are used internally by [ovos-common-query-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin), some skills and even by other question solver plugins!
+```python
+from ovos_plugin_manager.templates.agents import ReRankerEngine
 
-Example configuration of [ovos-flashrank-reranker-plugin](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin) for usage with `ovos-common-query-pipeline-plugin`
+# Returns: List[Tuple[float, str]] sorted descending
+ranked = engine.rerank("play bohemian rhapsody", ["Bohemian Rhapsody by Queen", "Bohemian Groove Mix"])
+best = engine.select_answer("play bohemian rhapsody", candidates)
+```
+
+### Common Query pipeline config
 
 ```json
-"intents": {
+{
+  "intents": {
     "common_query": {
-        "min_self_confidence": 0.5,
-        "min_reranker_score": 0.5,
-        "reranker": "ovos-flashrank-reranker-plugin",
-        "ovos-flashrank-reranker-plugin": {
-          "model": "ms-marco-TinyBERT-L-2-v2"
-        }
+      "min_self_confidence": 0.5,
+      "min_reranker_score": 0.5,
+      "reranker": "ovos-reranker-claude-plugin",
+      "ovos-reranker-claude-plugin": {
+        "api_key": "sk-ant-...",
+        "model": "claude-haiku-4-5-20251001"
+      }
     }
+  }
 }
 ```
 
----
-
-## Evidence Solver
-
-Evidence solvers accept not only a question but also a companion piece of text containing the answer.
-
-Some question solver plugins like `ovos-solver-wikipedia-plugin` use evidence solvers internally, they are often helpful to generate a question out of a search result
-
-![Untitled-2025-04-15-2340(9)](https://github.com/user-attachments/assets/0c02a323-2098-4e4d-a577-0721e8326380)
-
-![Untitled-2025-04-15-2340(10)](https://github.com/user-attachments/assets/d789d3ce-b425-405c-8ae1-3ff495817507)
+Available implementations: `ClaudeReRankerEngine` ([Claude plugin](157-claude-plugin.md)),
+`GGUFReRankerEngine` ([GGUF plugin](159-gguf-plugin.md)), `ovos-flashrank-reranker-plugin`
+(local transformer-based, no API key required).
 
 ---
 
-## Summarizer
+## Extractive QA — `opm.agents.extractive_qa`
 
-Some question solver plugin use summarizers internally, they are often helpful to shorten long text from web search results
+**Base class:** `ExtractiveQAEngine`
 
-![Untitled-2025-04-15-2340(11)](https://github.com/user-attachments/assets/1ae97ca9-e33e-4448-abec-311f99074bbd)
+Given a paragraph of evidence text and a question, returns the exact sentence(s) that answer
+the question. Used by knowledge-retrieval skills (Wikipedia, news reader) to avoid speaking
+entire documents.
 
-![Untitled-2025-04-15-2340(12)](https://github.com/user-attachments/assets/416e0eb9-0da9-4515-9c69-7667fb878ba5)
+```python
+evidence = (
+    "The Eiffel Tower stands 330 metres tall. "
+    "It was constructed from 1887 to 1889 as the centrepiece of the 1889 World's Fair."
+)
+answer = engine.get_best_passage(evidence, "How tall is the Eiffel Tower?")
+# "The Eiffel Tower stands 330 metres tall."
+```
 
-
----
-
-## Collaborative Agents via MoS (Mixture of Solvers)
-
-One of the most powerful features of the OVOS solver architecture is its ability to **orchestrate multiple agents collaboratively** through specialized **Mixture of Solvers (MoS)** plugins.
-
-![image](https://gist.github.com/user-attachments/assets/a1ef9307-0680-4fb0-9616-0ecd8332ae73)
-
-These [MoS solvers](https://github.com/TigreGotico/ovos-MoS) implement strategies that combine the strengths of various LLMs, rerankers, rule-based solvers, or even remote agents (like HiveMind nodes), allowing dynamic delegation and refinement of answers.
-
-> 🤝 **Flexible Plugin Design**: MoS strategies are implemented as standard solver plugins. This means they can be composed, nested, or swapped just like any other solver—allowing advanced collaborative behavior with minimal integration effort.
-
-### How It Works
-
-Instead of relying on a single model or backend, a MoS solver delegates the query to several specialized solvers (workers) and uses strategies like voting, reranking, or even further generation to decide the best final response.
-
-Examples include:
-
-- **The King**: Uses a central "king" (reranker or LLM) to select or generate the best answer based on multiple solver outputs.
-
-![Untitled-2025-04-15-2340(25)](https://github.com/user-attachments/assets/733bb874-2ee1-4e98-a7c3-ab084edfe4d9)
+Available implementations: `ClaudeExtractiveQAEngine` ([Claude plugin](157-claude-plugin.md)),
+`GGUFExtractiveQAEngine` ([GGUF plugin](159-gguf-plugin.md)).
 
 ---
 
-- **Democracy**: Implements a voting system among reranker solvers to choose the most agreed-upon response.
+## Summarizer — `opm.agents.summarizer`
 
-![Untitled-2025-04-15-2340(23)](https://github.com/user-attachments/assets/088939db-08df-4a03-b194-e0e6a823ef51)
+**Base class:** `SummarizerEngine`
+
+Condenses a plain-text document into 1–3 sentences. Used by solvers and skills before passing
+text to TTS to avoid overwhelming the user with long responses.
+
+```python
+summary = engine.summarize(long_article_text)
+```
+
+Implementations: `ClaudeSummarizerEngine`, `OpenAISummarizer`, `GGUFSummarizerEngine`.
 
 ---
 
-- **Duopoly**: A pair of collaborating LLMs generate and discuss answers before passing them to a final decider ("the president" solver).
-  
-![Untitled-2025-04-15-2340(24)](https://github.com/user-attachments/assets/cf5a2d82-b768-42c4-9d44-068d5c2d2d42)
+## Chat Summarizer — `opm.agents.summarizer.chat`
+
+Converts a structured `List[AgentMessage]` chat history into a concise narrative summary. Used
+internally by memory plugins (`ClaudeContextManager`, `GGUFContextManager`) to compress history
+when it exceeds `max_history` turns, keeping the context window manageable.
+
+```python
+from ovos_plugin_manager.templates.agents import AgentMessage, MessageRole
+
+messages = [
+    AgentMessage(MessageRole.USER, "What's the weather?"),
+    AgentMessage(MessageRole.ASSISTANT, "It's sunny and 22°C."),
+]
+summary_text = engine.summarize(messages)
+```
+
+Implementations: `ClaudeChatSummarizerEngine`, `GGUFChatSummarizerEngine`.
 
 ---
 
-Each strategy enables different dynamics between solvers—be it a single judge, a voting panel, or a back-and-forth discussion between agents.
+## NLI — `opm.agents.nli`
 
+**Base class:** `NaturalLanguageInferenceEngine`
 
-> 🌀 **Recursive Composition**: Any MoS strategy can recursively use another MoS as a sub-solver, allowing for arbitrarily deep collaboration trees.
+Predicts whether a *premise* logically entails a *hypothesis*. Used for reasoning chains, intent
+conflict detection, and condition evaluation in skills.
 
+```python
+print(engine.predict_entailment("It is raining heavily.", "The weather is wet."))  # True
+print(engine.predict_entailment("It is sunny.", "You need an umbrella."))           # False
+```
+
+Implementations: `ClaudeNLIEngine`, `GGUFNLIEngine`.
+
+---
+
+## Yes/No Classifier — `opm.agents.yesno`
+
+Classifies a user's ambiguous confirmation as `True` (yes), `False` (no), or `None` (unclear).
+Returns `None` on API error.
+
+```python
+print(engine.yes_or_no("Do you want me to set a timer?", "sure, go ahead"))  # True
+print(engine.yes_or_no("Shall I call John?", "no, not now"))                  # False
+print(engine.yes_or_no("Ready?", "what do you mean?"))                        # None
+```
+
+Use this in skills when `ask_yesno()` receives uncertain phrasing like "I guess" or "maybe".
+
+Implementations: `ClaudeYesNoEngine`, `GGUFYesNoEngine`.
+
+---
+
+## Coreference Resolution — `opm.agents.coref`
+
+Resolves pronouns and ambiguous references in voice commands against recent conversation context.
+Avoids redundant API calls by first checking a per-language pronoun wordlist.
+
+```python
+# After "Play Bohemian Rhapsody":
+result = engine.resolve("Turn it off", lang="en")
+# "Turn Bohemian Rhapsody off"
+```
+
+`context_ttl` (default 120 s) controls how long a tracked context entry remains valid —
+`ovos_claude.coref:ClaudeCoreferenceEngine.__init__`.
+
+Implementations: `ClaudeCoreferenceEngine`, `GGUFCoreferenceEngine`.
+
+---
+
+## Memory / Context Manager — `opm.agents.memory`
+
+**Base class:** `AgentContextManager`
+
+Manages per-session conversation history. The default implementation (`BasicShortTermMemory`
+from `ovos-persona`) stores history in RAM with `max_history` truncation. LLM-powered
+implementations (`ClaudeContextManager`, `GGUFContextManager`) also compress old history into
+a SYSTEM summary message when the history exceeds a configurable threshold.
+
+```python
+from ovos_plugin_manager.templates.agents import AgentContextManager, AgentMessage
+
+# Abstract interface
+ctx = manager.build_conversation_context(utterance, session_id)  # List[AgentMessage]
+manager.update_history([user_msg, assistant_msg], session_id)
+```
+
+Compression config (`ClaudeContextManager`):
+
+```json
+{
+  "ovos-memory-claude-plugin": {
+    "api_key": "sk-ant-...",
+    "system_prompt": "You are a helpful assistant.",
+    "max_history": 20,
+    "compress": true
+  }
+}
+```
+
+The default no-LLM memory plugin `ovos-agents-short-term-memory-plugin` (`BasicShortTermMemory`)
+needs no API key and is always available when `ovos-persona` is installed.
+
+---
+
+## Multimodal Chat — `opm.agents.chat.multimodal`
+
+Extends `ChatEngine` with image input. Images are passed as base64-encoded strings in
+`MultimodalAgentMessage.image_content`. Data-URI headers are stripped automatically.
+
+```python
+from ovos_plugin_manager.templates.agents import MultimodalAgentMessage, MessageRole
+
+messages = [
+    MultimodalAgentMessage(
+        role=MessageRole.USER,
+        content="What is in this image?",
+        image_content=[b64_string],
+    )
+]
+reply = engine.continue_chat(messages)
+```
+
+Implementation: `ClaudeMultimodalChatEngine`.
+
+---
+
+## Deprecated Solver Types
+
+The legacy `opm.solver.*` entry points are deprecated and will be removed in the next major
+release. Migrate existing plugins to the corresponding `opm.agents.*` types.
+
+| Deprecated entry point | Replacement |
+|---|---|
+| `opm.solver.question` (`QuestionSolver`) | `opm.agents.chat` (`ChatEngine`) |
+| `opm.solver.chat` (`ChatMessageSolver`) | `opm.agents.chat` (`ChatEngine`) |
+| `opm.solver.summarization` (`TldrSolver`) | `opm.agents.summarizer` (`SummarizerEngine`) |
+| `opm.solver.reading_comprehension` (`EvidenceSolver`) | `opm.agents.extractive_qa` (`ExtractiveQAEngine`) |
+| `opm.solver.multiple_choice` (`MultipleChoiceSolver`) | `opm.agents.reranker` (`ReRankerEngine`) |
+| `opm.solver.entailment` (`EntailmentSolver`) | `opm.agents.nli` (`NaturalLanguageInferenceEngine`) |
+| `opm.coreference` | `opm.agents.coref` |
+
+The deprecated classes remain in `ovos_plugin_manager.templates.solvers` and are still loaded
+by `PersonaService` and `QuestionSolversService` for backwards compatibility — but no new
+plugins should use them.
+
+---
+
+## Cross-References
+
+- [Agent Plugins](154-agent-plugins.md) — complete engine configuration reference
+- [Mixture of Solvers](155-mos-plugin.md) — compose multiple engines for higher accuracy
+- [Claude Plugin](157-claude-plugin.md) — all ten Claude-backed engine implementations
+- [OpenAI Plugin](158-openai-plugin.md) — OpenAI-compatible engine implementations
+- [GGUF Plugin](159-gguf-plugin.md) — local offline engine implementations
+- [OPM Plugin Types](https://openvoiceos.github.io/ovos-technical-manual/360-solver_plugins/) — full solver plugin reference

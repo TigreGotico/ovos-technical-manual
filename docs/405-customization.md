@@ -83,3 +83,107 @@ By following these steps, users can add support for additional languages to exis
 > **NEXT STEPS**: consider sending a Pull Request to the skill to directly add language support!
 
 This allows users to extend the language capabilities of skills beyond the languages provided by default.
+
+---
+
+## Developer: Resource File Reference
+
+Skills load localized resources from a structured directory layout. Resources are loaded automatically at startup for every language in `native_langs` (`core_lang` + `secondary_langs`).
+
+### Recommended Layout
+
+```
+my-skill/
+├── locale/
+│   ├── en-US/
+│   │   ├── my.dialog        # spoken responses
+│   │   ├── my.intent        # padatious intent examples
+│   │   ├── my.voc           # adapt vocabulary keywords
+│   │   ├── my.entity        # adapt entity examples
+│   │   ├── my.rx            # regex patterns for adapt
+│   │   └── skill.json       # skill metadata (examples for homescreen)
+│   └── es-ES/
+│       ├── my.dialog
+│       └── my.intent
+└── gui/
+    └── my_page.qml
+```
+
+Legacy skills may use separate `dialog/`, `vocab/`, `regex/` subdirectories — these are still supported.
+
+### Resource Types
+
+| Extension | Type | Description |
+|---|---|---|
+| `.dialog` | Dialog | Mustache-templated spoken responses (one per line, random selection) |
+| `.intent` | Intent | Padatious training examples |
+| `.voc` | Vocabulary | Adapt keyword definitions (one keyword per line, first is canonical) |
+| `.entity` | Entity | Adapt entity examples |
+| `.rx` | Regex | Adapt regex patterns |
+| `.list` | List | A flat list resource |
+| `.word` | Word | A single word |
+| `skill.json` | Metadata | `{"examples": ["...", "..."]}` for homescreen example utterances |
+
+### Dialog Files
+
+Each line in a `.dialog` file is a possible response. One line is chosen randomly when `speak_dialog` is called:
+
+```
+# my.dialog
+Hello there!
+Hi! How are you?
+Greetings, {name}!
+```
+
+Mustache template variables are filled from the `data` dict:
+
+```python
+self.speak_dialog("my", data={"name": "Alice"})
+```
+
+### Language Fallback
+
+When a resource is not found for the exact `lang`, the skill falls back to dialects of the same language. For example, if `en-AU` is requested but only `en-US` resources exist, `en-US` is used.
+
+### Loading Resources Manually
+
+```python
+# Get SkillResources for current lang
+resources = self.resources                         # current self.lang
+resources = self.load_lang(self.res_dir, "es-ES")  # specific lang
+
+# Find a specific file
+path = self.find_resource("my.dialog", "dialog")
+path = self.find_resource("hello.mp3", "snd")
+
+# Render a dialog (returns string, does not speak)
+text = self.resources.render_dialog("my.dialog", data={"key": "value"})
+
+# Check if a vocab word matches
+matches = self.voc_match("hello there", "hello")  # True
+```
+
+### `skill.json` Metadata
+
+Optional file for homescreen integration. Placed at `locale/<lang>/skill.json`:
+
+```json
+{
+  "name": "My Skill",
+  "description": "Does something useful",
+  "examples": [
+    "what is the weather",
+    "tell me the weather in Paris"
+  ]
+}
+```
+
+These examples are emitted to the homescreen as `homescreen.register.examples` on skill startup.
+
+---
+
+## Related Pages
+
+- [Skill Structure](401-skill_structure.md) — directory layout and skill packaging
+- [Intents](403-intents.md) — Adapt and Padatious intent files
+- [Skill Classes](412-skill-classes.md) — `OVOSSkill` properties (`resources`, `lang`, `find_resource`)

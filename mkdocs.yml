@@ -45,12 +45,19 @@ nav:
       - Personas: 150-personas.md
       - AI Transformers: 151-llm-transformers.md
       - Specialized Solvers: 150-advanced_solvers.md
+      - Agent Engine Plugins: 154-agent-plugins.md
+      - Mixture of Solvers: 155-mos-plugin.md
+      - ovos-judge: 156-ovos-judge.md
+      - Claude Plugin: 157-claude-plugin.md
+      - OpenAI Plugin: 158-openai-plugin.md
+      - GGUF / Local LLM Plugin: 159-gguf-plugin.md
   - Self Hosting:
       - Persona Server: 202-persona_server.md
       - HiveMind: 152-hivemind-agents.md
       - STT Server: 200-stt_server.md
       - TTS Server: 201-tts_server.md
       - Translate Server: 203-translate_server.md
+      - Wyoming Bridges: 204-wyoming-bridges.md
   - Skill Development:
       - Design Guidelines: 400-skill-design-guidelines.md
       - Anatomy: 401-skill_structure.md
@@ -63,6 +70,7 @@ nav:
       - Skill API: 409-skill_api.md
       - Runtime Requirements: 410-skill_runtime_requirements.md
       - Skill Json: 411-skill_json.md
+      - Skill Classes: 413-intent-layers.md
       - SSML: 420-ssml.md
       - F.A.Q.: 430-skill_dev_faq.md
   - Continuous Conversation:
@@ -76,14 +84,22 @@ nav:
       - Common Query Skills: 610-common_query.md
       - Media Skills: 630-OCP_skills.md
       - Universal Skills: 620-universal_skills.md
+  - Skill Testing:
+      - Overview: 450-skill-testing.md
+      - Usage Guide: 451-ovoscope-usage.md
+      - CI Integration: 452-ovoscope-ci.md
+      - Advanced Testing: 453-ovoscope-advanced.md
   - GUI:
       - Protocol: 701-gui_protocol.md
+      - OVOS Shell: 702-ovos-shell.md
   - Voice Apps:
       - Standalone Apps: 590-voice_apps.md
   - MessageBus:
       - Messagebus Client: 900-bus_client.md
+      - Session Management: 901-bus-session.md
       - GUI Interface: 720-skill_gui.md
       - Enclosure Api: 800-mk1_api.md
+      - Pydantic Models: 905-pydantic-models.md
   - Plugin Development:
       - Microphone: 310-mic_plugins.md
       - Voice Activity Detection: 311-vad_plugins.md

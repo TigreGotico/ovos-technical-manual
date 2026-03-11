@@ -1,39 +1,102 @@
-# AI Agents in OpenVoiceOS
+# AI Agents & Personas in OpenVoiceOS
 
-OpenVoiceOS (OVOS) introduces a flexible and modular system for integrating AI agents into voice-first environments. This is made possible through a layered architecture built around **solvers**, **personas**, and **persona routing** components. This section explains how these parts work together to enable intelligent conversations with customizable behavior.
-
----
-
-## Solver Plugins (Low-Level AI)
-
-At the core of the AI agent system are [**solver plugins**](https://openvoiceos.github.io/ovos-technical-manual//360-solver_plugins/). These are simple black-box components responsible for handling a single task: receiving a text input (typically a question) and returning a text output (typically an answer).
-
-![Untitled-2025-04-15-2340](https://github.com/user-attachments/assets/8a58417d-409e-4b87-94d0-0f2234064981)
-
-
-### Key Features:
-- **Input/Output**: Plain text in, plain text out.
-- **Functionality**: Usually question-answering, though more specialized solvers exist (e.g., summarization, multiple choice).
-- **Language Adaptation**: Solvers are automatically wrapped with a translation layer if they don't support the user's language. For instance, the Wolfram Alpha solver is English-only but can work with Portuguese through automatic bidirectional translation.
-- **Fallback Behavior**: If a solver cannot produce a result (returns `None`), higher-level systems will attempt fallback options.
+OpenVoiceOS (OVOS) provides a flexible, modular system for integrating AI agents into voice-first
+environments. The architecture is built in layers: low-level **agent engine plugins** registered
+through OPM, named **personas** that combine one or more engines into a conversational identity,
+and the **PersonaService** pipeline plugin that routes live utterances to the right persona at
+runtime.
 
 ---
 
-## Personas (Agent Definition Layer)
+## Agent Engine Plugins (OPM `opm.agents.*`)
 
-A **persona** represents a higher-level abstraction over solver plugins. It behaves like an AI agent with a defined personality and behavior, built by combining one or more solvers in a specific order
+Agent engines are the building blocks. Each engine type solves one well-defined sub-problem. They
+are discovered and loaded by `ovos-plugin-manager` at runtime using Python entry points.
 
-### Key Features:
-- **Composition**: Each persona consists of a name, a list of solver plugins, and optional configuration for each.
-- **Chained Execution**: When a user question is received, the persona tries solvers one by one. If the first solver fails (returns `None`), the next one is tried until a response is generated.
-- **Customizable Behavior**: Different personas can emulate different personalities or knowledge domains by varying their solver stack.
+| Entry point group | Base class | Purpose |
+|---|---|---|
+| `opm.agents.chat` | `ChatEngine` | Multi-turn conversational LLM |
+| `opm.agents.chat.multimodal` | `MultimodalChatEngine` | Chat + vision (base64 images) |
+| `opm.agents.summarizer` | `SummarizerEngine` | Condense long text to a few sentences |
+| `opm.agents.summarizer.chat` | — | Compress structured chat history |
+| `opm.agents.reranker` | `ReRankerEngine` | Score and rank candidate answers |
+| `opm.agents.extractive_qa` | `ExtractiveQAEngine` | Extract the best passage from evidence |
+| `opm.agents.nli` | `NaturalLanguageInferenceEngine` | Entailment prediction (premise → hypothesis) |
+| `opm.agents.yesno` | — | Classify ambiguous responses as yes / no / unknown |
+| `opm.agents.coref` | — | Pronoun / coreference resolution |
+| `opm.agents.memory` | `AgentContextManager` | Per-session conversation history management |
+| `opm.agents.retrieval` | `RetrievalEngine` | Retrieval-augmented generation |
 
-![Untitled-2025-04-15-2340(7)](https://github.com/user-attachments/assets/453a906f-6d38-4878-ae7b-49b24270339f)
+All base classes live in `ovos_plugin_manager.templates.agents`. The `AgentMessage` dataclass
+carries messages between engines:
 
-![Untitled-2025-04-15-2340(8)](https://github.com/user-attachments/assets/731835a3-44b1-463d-9fc6-085ca2658abc)
+```python
+from ovos_plugin_manager.templates.agents import AgentMessage, MessageRole
 
-
+msg = AgentMessage(role=MessageRole.USER, content="What is the speed of light?")
 ```
+
+`MessageRole` values: `SYSTEM`, `DEVELOPER`, `USER`, `ASSISTANT`.
+
+See [Agent Plugins](154-agent-plugins.md) for the full engine-type reference and configuration
+examples for Claude, OpenAI, and local GGUF models.
+
+---
+
+## Personas (Named Agent Identities)
+
+A **persona** is a named conversational identity defined by a JSON file (or an OPM plugin entry
+point). It lists one or more agent engine plugin IDs in priority order and carries per-plugin
+configuration inline.
+
+```json
+{
+  "name": "My Assistant",
+  "handlers": ["ovos-chat-openai-plugin"],
+  "ovos-chat-openai-plugin": {
+    "api_url": "https://api.openai.com/v1",
+    "key": "sk-...",
+    "model": "gpt-4o-mini",
+    "system_prompt": "You are a helpful voice assistant. Be concise."
+  }
+}
+```
+
+The `"solvers"` key is an alias for `"handlers"` (legacy compat). Plugins are tried in order;
+the first non-`None` response wins.
+
+### Persona with session memory
+
+Pair any chat engine with an `opm.agents.memory` plugin to persist per-session conversation
+history across turns:
+
+```json
+{
+  "name": "Claude with Memory",
+  "memory_module": "ovos-memory-claude-plugin",
+  "handlers": ["ovos-chat-claude-plugin"],
+  "ovos-chat-claude-plugin": {
+    "api_key": "sk-ant-...",
+    "model": "claude-haiku-4-5-20251001",
+    "system_prompt": "You are a helpful assistant."
+  },
+  "ovos-memory-claude-plugin": {
+    "api_key": "sk-ant-...",
+    "max_history": 30,
+    "compress": true
+  }
+}
+```
+
+The `memory_module` key names an `opm.agents.memory` plugin. The default when omitted is
+`"ovos-agents-short-term-memory-plugin"` — `BasicShortTermMemory` from `ovos-persona`.
+
+### Non-LLM personas
+
+Personas do not require LLMs. Any installed OPM solver plugin can serve as a handler, enabling
+fully local, privacy-preserving conversational agents:
+
+```json
 {
   "name": "OldSchoolBot",
   "solvers": [
@@ -41,76 +104,112 @@ A **persona** represents a higher-level abstraction over solver plugins. It beha
     "ovos-solver-ddg-plugin",
     "ovos-solver-plugin-wolfram-alpha",
     "ovos-solver-wordnet-plugin",
-    "ovos-solver-rivescript-plugin",
     "ovos-solver-failure-plugin"
   ],
   "ovos-solver-plugin-wolfram-alpha": {"appid": "Y7353-XXX"}
 }
 ```
 
-
-> 💡 personas don't need to use LLMs, you don't need a beefy GPU to use ovos-persona, any solver plugin can be used to define a persona
-
 ---
 
-## Persona Pipeline (Runtime Routing in OVOS-Core)
+## PersonaService — Pipeline Plugin
 
-Within `ovos-core`, the **[persona-pipeline](https://github.com/OpenVoiceOS/ovos-persona)** plugin handles all runtime logic for managing user interaction with AI agents.
+`PersonaService` (`ovos_persona.PersonaService`) is the runtime component. It registers as an
+`opm.pipeline` plugin and integrates directly with the OVOS intent pipeline.
 
-### Key Features:
-- **Persona Registry**: Supports multiple personas, defined by the user or discovered via installed plugins.
-- **Session Control**: The user can say `"I want to talk with {persona_name}"` to route their dialog to a specific persona.
-- **Session End**: The user can disable the current persona at any time to return to normal assistant behavior.
-- **Fallback Handling**: If OpenVoiceOS can't answer, the system can ask the default persona instead of speaking an error.
-- **Extensible**: Potential for future enhancements via messagebus to adjust system behavior based on persona (e.g., dynamic prompt rewriting).
+Entry point: `opm.pipeline = ovos-persona-pipeline-plugin`
 
-in your `mycroft.conf`
+### Pipeline placement
 
 ```json
 {
   "intents": {
-      "persona": {
-        "handle_fallback":  true,
-        "default_persona": "Remote Llama"
-      },
-      "pipeline": [
-          "stop_high",
-          "converse",
-          "ocp_high",
-          "padatious_high",
-          "adapt_high",
-          "ovos-persona-pipeline-plugin-high",
-          "ocp_medium",
-          "...",
-          "fallback_medium",
-          "ovos-persona-pipeline-plugin-low",
-          "fallback_low"
+    "pipeline": [
+      "stop_high",
+      "converse",
+      "padatious_high",
+      "adapt_high",
+      "ovos-persona-pipeline-plugin-high",
+      "ocp_medium",
+      "fallback_medium",
+      "ovos-persona-pipeline-plugin-low",
+      "fallback_low"
     ]
   }
 }
 ```
 
+### Confidence levels
+
+| Level | Method | Behaviour |
+|---|---|---|
+| High | `match_high()` | Matches persona management intents (summon, release, list, check, ask). If a persona is active and no management intent matched, delegates to `match_low()`. |
+| Medium | `match_medium()` | Keyword fallback for summon/ask when padatious confidence was too low. |
+| Low | `match_low()` | If `handle_fallback: true` and a `default_persona` is set, routes every unhandled utterance to the default persona. |
+
+### Configuration
+
+All keys live under `"intents": { "persona": { ... } }` in `mycroft.conf`:
+
+```json
+{
+  "intents": {
+    "persona": {
+      "handle_fallback": true,
+      "default_persona": "My Assistant",
+      "personas_path": "~/.config/ovos_persona",
+      "memory_module": "ovos-agents-short-term-memory-plugin"
+    }
+  }
+}
+```
+
+| Key | Default | Description |
+|---|---|---|
+| `personas_path` | `~/.config/ovos_persona` | Directory for user JSON persona files |
+| `default_persona` | first loaded | Persona used when `handle_fallback` is active |
+| `handle_fallback` | `false` | Route all unhandled utterances to `default_persona` |
+| `persona_blacklist` | `[]` | Persona names to skip when loading |
+| `ignore_plugin_personas` | `false` | Skip OPM-registered plugin personas |
+| `min_intent_confidence` | `0.6` | Minimum padatious confidence for persona intents |
+| `memory_module` | `"ovos-agents-short-term-memory-plugin"` | Memory plugin (`null` to disable) |
+
+### Voice intents
+
+| Intent | Example utterances |
+|---|---|
+| Summon | "Connect me to Claude", "Let me chat with My Assistant" |
+| Ask | "Ask Claude what the meaning of life is" |
+| List | "What personas are available?" |
+| Check | "Who am I talking to right now?" |
+| Release | "Stop the interaction", "Go dormant" |
+
 ---
 
-## OVOS as a Solver Plugin
+## Persona Loading
 
-An advanced trick: **`ovos-core` itself can act as a solver plugin**. This allows you to expose OVOS itself as an agent to other applications in localhost
+`PersonaService.load_personas()` loads from two sources:
 
-![Untitled-2025-04-15-2340(3)](https://github.com/user-attachments/assets/8022ff8a-5847-4bd7-93eb-316830ae7849)
+1. **User JSON files** in `~/.config/ovos_persona/` — each `.json` file becomes a `Persona`. The
+   `"name"` field inside the JSON overrides the filename.
+2. **OPM plugin personas** — packages that register via the `opm.plugin.persona` entry point
+   group (unless `ignore_plugin_personas: true`).
 
+User-defined personas take precedence: a plugin persona with the same name as a loaded file is
+silently skipped. Both sources respect `persona_blacklist`.
 
-- 🐳 Good for chaining OVOS instances in docker.
-- 🦾 Use skills in a collaborative AI / MoS (mixture-of-solvers) setup.
-- ❌ `ovos-bus-solver-plugin` makes **no sense inside a local persona** (infinite loop!), but is **great for standalone usage**.
-- 🌐 Expose OVOS behind HTTP api via `ovos-persona-server` without exposing the messagebus directly 
+---
+
+## OVOS Core as a Solver
+
+`ovos-solver-bus-plugin` exposes a running `ovos-core` instance as a persona handler. This
+enables OVOS to act as an agent inside another system — for example a Docker network or a
+HiveMind satellite — without exposing the MessageBus directly.
 
 ```json
 {
   "name": "Open Voice OS",
-  "solvers": [
-    "ovos-solver-bus-plugin",
-    "ovos-solver-failure-plugin"
-  ],
+  "solvers": ["ovos-solver-bus-plugin", "ovos-solver-failure-plugin"],
   "ovos-solver-bus-plugin": {
     "autoconnect": true,
     "host": "127.0.0.1",
@@ -119,18 +218,29 @@ An advanced trick: **`ovos-core` itself can act as a solver plugin**. This allow
 }
 ```
 
-> 💡 if you are looking to access OVOS remotely or expose it as a service see [hivemind agents documentation](https://openvoiceos.github.io/ovos-technical-manual/152-hivemind-agents/) for a more secure alternative
+**Note:** `ovos-bus-solver-plugin` creates an infinite loop if used inside a persona that is
+*already* loaded by the same running `ovos-core`. It is intended for cross-instance bridging,
+not local routing. For secure remote access see [HiveMind Agents](152-hivemind-agents.md).
 
 ---
 
-## Summary Table
+## Summary
 
-| Component            | Role                                                         |
-|----------------------|--------------------------------------------------------------|
-| **Solver Plugin**    | Stateless text-to-text inference (e.g., Q&A, summarization). |
-| **Persona**          | Named agent composed of ordered solver plugins.              |
-| **Persona Server**   | Expose personas to other Ollama/OpenAI compatible projects.  |
-| **Persona Pipeline** | Handles persona activation and routing inside OVOS core.     |
+| Component | Role |
+|---|---|
+| `ChatEngine` / `ReRankerEngine` / etc. | Low-level OPM agent engine plugins (`opm.agents.*`) |
+| Persona JSON | Named agent identity: ordered engine list + per-engine config |
+| `PersonaService` | Pipeline plugin: loads personas, routes utterances, manages sessions |
+| `BasicShortTermMemory` | Default in-memory session history manager |
+| `ovos-persona-server` | Expose a persona via OpenAI-compatible HTTP API |
 
+Cross-references:
 
-By decoupling solvers, personas, and persona management, OVOS allows for powerful, customizable AI experiences, adaptable to both voice and text interactions across platforms.
+- [Agent Plugins](154-agent-plugins.md) — full engine-type reference with config examples
+- [Mixture of Solvers](155-mos-plugin.md) — orchestrate multiple agents for better answers
+- [Claude Plugin](157-claude-plugin.md) — all ten Claude-backed engine implementations
+- [OpenAI Plugin](158-openai-plugin.md) — OpenAI-compatible engine implementations and translation plugins
+- [GGUF Plugin](159-gguf-plugin.md) — fully offline local GGUF engine implementations
+- [HiveMind Agents](152-hivemind-agents.md) — remote satellite-to-persona connections
+- [Persona Pipeline](153-persona_pipeline.md) — detailed pipeline matching logic
+- [Persona Server](202-persona_server.md) — expose a persona via OpenAI-compatible HTTP API

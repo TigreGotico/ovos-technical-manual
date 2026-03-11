@@ -1,177 +1,354 @@
-# Audio Service
+# Audio Service (ovos-audio)
 
-The audio service is responsible for handling TTS and simple sounds playback
+The audio service handles TTS synthesis, sound playback, and media backend routing.
+It is implemented as `PlaybackService` — `ovos_audio/service.py` — a `Thread` subclass that owns:
 
+1. The primary and fallback TTS plugins
+2. The `PlaybackThread` for serialised audio output
+3. `DialogTransformersService` for pre-TTS text rewriting
+4. `TTSTransformersService` for post-TTS audio post-processing
+5. The optional legacy `AudioService` for media playback backends
+
+---
+
+## PlaybackService
+
+```python
+PlaybackService(
+    ready_hook=on_ready,
+    error_hook=on_error,
+    stopping_hook=on_stopping,
+    alive_hook=on_alive,
+    started_hook=on_started,
+    watchdog=lambda: None,
+    bus=None,
+    disable_ocp=None,
+    validate_source=True,
+    tts=None,
+    disable_fallback=False
+)
+```
+
+| Parameter | Description |
+|---|---|
+| `bus` | `MessageBusClient` instance; created automatically if `None` |
+| `disable_ocp` | Disable OCP inside `AudioService`; reads `disable_ocp` from config if `None` |
+| `validate_source` | If `True`, only handle audio from sessions with `session_id == "default"` (local mic only) |
+| `tts` | Pre-created `TTS` instance; if provided, auto-reload on config change is disabled |
+| `disable_fallback` | If `True`, never load or use the fallback TTS plugin |
+
+`ProcessStatus` lifecycle:
+
+| State | When |
+|---|---|
+| `started` | Constructor finished |
+| `alive` | `run()` called |
+| `ready` | TTS is loaded |
+| `error` | TTS failed to load |
+| `stopping` | `shutdown()` called |
+
+---
 
 ## TTS
 
-Two TTS plugins may be loaded at once, if the primary plugin fails for some reason the second plugin will be used.
+Two TTS plugins may be loaded at once. If the primary plugin fails for some reason, the second plugin will be used. This allows you to have a lower-quality offline voice as fallback to account for internet outages, ensuring the device can always give feedback.
 
-This allows you to have a lower quality offline voice as fallback to account for internet outages, this ensures your
-device can always give you feedback
-
-```javascript
-"tts": {
+```json
+{
+  "tts": {
     "pulse_duck": false,
-    
-    // plugins to load
     "module": "ovos-tts-plugin-server",
     "fallback_module": "ovos-tts-plugin-mimic",
-    
-    // individual plugin configs
     "ovos-tts-plugin-server": {
-        "host": "https://tts.smartgic.io/piper",
-        "v2": true,
-        "verify_ssl": true,
-        "tts_timeout": 5,
+      "host": "https://tts.smartgic.io/piper",
+      "v2": true,
+      "verify_ssl": true
     }
+  }
 }
 ```
 
+### TTS Loading and Reload
 
-## Skill Methods
+On startup, `_maybe_reload_tts()` loads the configured TTS plugin. It is also registered as a
+config watcher — if `mycroft.conf` changes and the TTS config hash changes, the old TTS instance
+is shut down and a new one is created. If `tts` is passed as a constructor argument, auto-reload
+is disabled.
 
-skills can use `self.play_audio`, `self.acknowledge`, `self.speak` and `self.speak_dialog` methods to interact with `ovos-audio`
+### Fallback TTS
 
-```python
-def play_audio(self, filename: str, instant: bool = False):
-    """
-    Queue and audio file for playback
-    @param filename: File to play
-    @param instant: if True audio will be played instantly 
-                    instead of queued with TTS
-    """
-```
-```python
-def acknowledge(self):
-    """
-    Acknowledge a successful request.
+If the primary TTS plugin raises an exception during `execute_tts()`, `execute_fallback_tts()` is called.
 
-    This method plays a sound to acknowledge a request that does not
-    require a verbal response. This is intended to provide simple feedback
-    to the user that their request was handled successfully.
-    """
-```
+- Loaded at startup if `preload_fallback: true` (default) and `fallback_module` is set
+- Lazy-loaded on first failure otherwise
+- Skipped if `disable_fallback=True` or if `fallback_module` equals `module`
+
+### TTSFactory
+
+`TTSFactory.create()` resolves `config["tts"]["module"]` to an installed TTS plugin entry point
+(OPM entry point group: `opm.tts`) and instantiates it. After creation, call `tts.init(bus, playback)`.
+
+### Skill Methods
+
+Skills interact with `ovos-audio` via:
+
 ```python
 def speak(self, utterance: str, expect_response: bool = False, wait: Union[bool, int] = False):
-    """Speak a sentence.
+    """Speak a sentence. Emits `speak` bus event."""
 
-    Args:
-        utterance (str):        sentence mycroft should speak
-        expect_response (bool): set to True if Mycroft should listen
-                                for a response immediately after
-                                speaking the utterance.
-        wait (Union[bool, int]): set to True to block while the text
-                                 is being spoken for 15 seconds. Alternatively, set
-                                 to an integer to specify a timeout in seconds.
-    """
-```
-```python
 def speak_dialog(self, key: str, data: Optional[dict] = None,
                  expect_response: bool = False, wait: Union[bool, int] = False):
-    """
-    Speak a random sentence from a dialog file.
+    """Speak a random sentence from a dialog file."""
 
-    Args:
-        key (str): dialog file key (e.g. "hello" to speak from the file
-                                    "locale/en-us/hello.dialog")
-        data (dict): information used to populate sentence
-        expect_response (bool): set to True if Mycroft should listen
-                                for a response immediately after
-                                speaking the utterance.
-        wait (Union[bool, int]): set to True to block while the text
-                                 is being spoken for 15 seconds. Alternatively, set
-                                 to an integer to specify a timeout in seconds.
-    """
+def play_audio(self, filename: str, instant: bool = False):
+    """Queue an audio file for playback."""
+
+def acknowledge(self):
+    """Play a short sound to acknowledge a request without speaking."""
 ```
-to play sounds via bus messages emit `"mycroft.audio.play_sound"` or `"mycroft.audio.queue"` with data `{"uri": "path/sound.mp3"}`
+
+To play sounds via bus messages, emit `"mycroft.audio.play_sound"` or `"mycroft.audio.queue"` with
+data `{"uri": "path/sound.mp3"}`.
+
+---
 
 ## PlaybackThread
 
-`ovos-audio` implements a queue for sounds, any OVOS component can queue a sound for playback.
+`PlaybackThread` — `ovos_audio/playback.py` — is a daemon thread that consumes entries from
+`TTS.queue` (a `Queue`) and plays them sequentially. All TTS output and queued sounds pass
+through this thread to ensure they never overlap.
 
-Usually only TTS speech is queue for playback, but sounds effects may also be queued for richer experiences, for example in a story telling skill
+### Queue Entry Format
 
-The PlaybackThread ensures sounds don't play over each other but instead sequentially, listening might be triggered after TTS finishes playing if requested in the `"speak"` message
+```python
+(audio_path: str, visemes: list, listen: bool, tts_id: str, message: Message)
+```
 
-shorts sounds can be played outside the PlaybackThread, usually when instant feedback is required, such as in the listening sound or on error sounds
+- `audio_path` — path to the synthesized WAV/MP3 file
+- `visemes` — list of `(phoneme, timestamp)` pairs for mouth animation; `None` if unavailable
+- `listen` — `True` if the microphone should be activated after playback
+- `tts_id` — identifier of the TTS plugin; `"sounds"` for queued sound files
+- `message` — originating `speak` message for context forwarding
 
-You can configure default sounds and the playback commands under `mycroft.conf`
+### Playback Lifecycle
 
-```javascript
-  // File locations of sounds to play for default events
+```
+PlaybackThread.run()
+  └── loop:
+        dequeue entry → _play()
+            ├── on_start()         → begin_audio()  → emit recognizer_loop:audio_output_start
+            ├── TTSTransformersService.transform()   (post-process wav)
+            ├── emit recognizer_loop:utterance_start
+            ├── play_audio(path)   (subprocess via ovos_utils.sound)
+            ├── show_visemes()     (if enclosure set)
+            └── on_end(listen)     → end_audio()    → emit recognizer_loop:audio_output_end
+                                                    → emit mycroft.mic.listen  (if listen=True)
+```
+
+### OCP Integration
+
+| Config key | `begin_audio` emits | `end_audio` emits |
+|---|---|---|
+| `ocp_cork: true` | `ovos.common_play.cork` | `ovos.common_play.uncork` |
+| `ocp_duck: true` | `ovos.common_play.duck` | `ovos.common_play.unduck` |
+
+If `pulse_duck: true`, ducking is handled at the OS PulseAudio level — no bus events are emitted.
+
+### G2P Integration
+
+If a G2P (Grapheme-to-Phoneme) plugin is configured (`g2p.module` in `mycroft.conf`),
+`PlaybackThread` loads it at startup. When viseme data is not provided by the TTS plugin,
+the G2P plugin generates visemes from the utterance text for mouth animations.
+
+```json
+{
+  "g2p": {
+    "module": "ovos-g2p-plugin-mimic"
+  }
+}
+```
+
+### Sound Configuration
+
+```json
+{
   "sounds": {
     "start_listening": "snd/start_listening.wav",
     "end_listening": "snd/end_listening.wav",
     "acknowledge": "snd/acknowledge.mp3",
     "error": "snd/error.mp3"
   },
-
-  // Mechanism used to play WAV audio files
-  // by default ovos-utils will try to detect best player
   "play_wav_cmdline": "paplay %1 --stream-name=mycroft-voice",
-
-  // Mechanism used to play MP3 audio files
-  // by default ovos-utils will try to detect best player
   "play_mp3_cmdline": "mpg123 %1",
-
-  // Mechanism used to play OGG audio files
-  // by default ovos-utils will try to detect best player
-  "play_ogg_cmdline": "ogg123 -q %1",
-
+  "play_ogg_cmdline": "ogg123 -q %1"
+}
 ```
 
-> NOTE: by default the playback commands are not set and OVOS will try to determine the best way to play a sound automatically
+By default, OVOS will try to detect the best way to play a sound automatically.
 
+### Key Methods
+
+| Method | Description |
+|---|---|
+| `set_bus(bus)` | Attach a bus instance |
+| `clear_queue()` | Drain the queue and terminate any playing subprocess |
+| `pause()` | Stop current playback and block the queue |
+| `resume()` | Resume a paused playback |
+| `stop()` | Terminate thread and clear queue |
+| `show_visemes(pairs)` | Send viseme data to enclosure |
+
+---
 
 ## Transformer Plugins
 
-**NEW** in `ovos-core` version **0.0.8**
+`ovos-audio` runs two transformer pipelines around TTS synthesis:
 
-Similarly to audio transformers in `ovos-dinkum-listener`, the utterance and audio data generated by TTS are exposed to a set
-of plugins that can transform them before playback
-
-![imagem](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/8269074a-8632-43b1-a2fc-89e829598669)
+```
+speak event
+    │
+    ▼
+DialogTransformersService    ← rewrite text before sending to TTS
+    │
+    ▼
+TTS plugin (synthesis)
+    │
+    ▼
+TTSTransformersService       ← post-process wav file after synthesis
+    │
+    ▼
+PlaybackThread (play audio)
+```
 
 ### Dialog Transformers
 
-Similarly to utterance transformers in core,  `ovos-audio` exposes `utterance` and message.`context` to a set
-of plugins that can transform it before TTS stage
+`DialogTransformersService` rewrites dialog text before it is sent to the TTS engine.
+Examples of use: pronunciation corrections, language-specific rewrites, censoring.
 
-The `utterance` to be spoken is sent sequentially to all transformer plugins, ordered by priority (developer defined),
-until finally it is sent to the TTS stage
+Entry point group: `opm.dialog_transformer`
 
-To enable a transformer add it to `mycroft.conf`
-
-```javascript
-// To enable a dialog transformer plugin just add it's name with any relevant config
-// these plugins can mutate utterances before TTS
-"dialog_transformers": {
+```json
+{
+  "dialog_transformers": {
     "ovos-dialog-translation-plugin": {},
     "ovos-dialog-transformer-openai-plugin": {
-        "rewrite_prompt": "rewrite the text as if you were explaining it to a 5 year old"
+      "rewrite_prompt": "rewrite the text as if you were explaining it to a 5 year old"
     }
+  }
 }
 ```
+
+Plugins are called in descending priority order (highest number first). The default blacklisted
+skills (never transformed): `["skill-ovos-icanhazdadjokes.openvoiceos"]`.
 
 ### TTS Transformers
 
-The audio to be spoken is sent sequentially to all transformer plugins, ordered by priority (developer defined),
-until finally it played back to the user
+`TTSTransformersService` post-processes the synthesized WAV file after TTS output and before playback.
+Examples of use: audio normalization, speed adjustment, noise reduction.
 
-> **NOTE**: Does not work with StreamingTTS
+> **NOTE**: Does not work with StreamingTTS.
 
-To enable a transformer add it to `mycroft.conf`
+Entry point group: `opm.tts_transformer`
 
-```javascript
-// To enable a tts transformer plugin just add it's name with any relevant config
-// these plugins can mutate audio after TTS
-"tts_transformers": {
+```json
+{
+  "tts_transformers": {
     "ovos-tts-transformer-sox-plugin": {
-        "default_effects": {
-            "speed": {"factor": 1.1}
-        }
+      "default_effects": {
+        "speed": {"factor": 1.1}
+      }
     }
+  }
 }
 ```
 
+### Common Transformer Behaviour
+
+| Behaviour | Detail |
+|---|---|
+| Plugin discovery | Via OPM entry point groups |
+| Activation | Config key must exist; `"active": false` disables |
+| Priority | Higher number → runs first |
+| Error handling | Exceptions in individual plugins are logged and skipped |
+| Shutdown | `shutdown()` calls `module.shutdown()` on each loaded plugin |
+
+---
+
+## Legacy AudioService
+
+`AudioService` — `ovos_audio/audio.py` — manages a set of audio playback backend plugins (VLC, MPV, etc.)
+and exposes media playback control over the bus via the `mycroft.audio.service.*` event namespace.
+
+> **Deprecation notice:** `AudioService` and its backend plugin system are being superseded by `ovos-media`.
+> New deployments should migrate to `ovos-media`. The legacy audio service can be disabled with
+> `"enable_old_audioservice": false` in `mycroft.conf`.
+
+### Backend Loading
+
+`load_services()` uses OPM to discover installed audio backend plugins (entry point group: `mycroft.plugin.audioservice`). OCP (`ovos_common_play`) is explicitly excluded from the general plugin scan and loaded separately via `find_ocp()`.
+
+### Audio Ducking
+
+`AudioService` automatically lowers playback volume during speech and microphone recording:
+
+| Bus Event | Action |
+|---|---|
+| `recognizer_loop:audio_output_start` | Lower volume (TTS speaking) |
+| `recognizer_loop:audio_output_end` | Restore volume |
+| `recognizer_loop:record_begin` | Lower volume (mic active) |
+| `recognizer_loop:record_end` | Restore volume (with 8 s speech-detection grace period) |
+| `ovos.utterance.handled` | Restore volume if not currently speaking |
+
+### Legacy AudioService Configuration
+
+```json
+{
+  "enable_old_audioservice": true,
+  "disable_ocp": false,
+  "Audio": {
+    "default-backend": "vlc",
+    "backends": {
+      "OCP": {},
+      "vlc": {"active": true}
+    }
+  }
+}
+```
+
+---
+
+## Bus Events
+
+### Emitted by `PlaybackThread`
+
+| Event | When |
+|---|---|
+| `recognizer_loop:audio_output_start` | Playback of a batch of queued audio begins |
+| `recognizer_loop:audio_output_end` | Playback of a batch of queued audio ends |
+| `recognizer_loop:utterance_start` | Each individual utterance starts playing |
+| `mycroft.mic.listen` | After speech ends when `listen=True` |
+| `ovos.common_play.cork` | Before speech if `ocp_cork=True` |
+| `ovos.common_play.uncork` | After speech if `ocp_cork=True` |
+| `ovos.common_play.duck` | Before speech if `ocp_duck=True` |
+| `ovos.common_play.unduck` | After speech if `ocp_duck=True` |
+
+### Handled by `PlaybackService`
+
+| Event | Handler | Description |
+|---|---|---|
+| `speak` | `handle_speak` | Synthesize and play TTS |
+| `speak:b64_audio` | `handle_b64_audio` | Synthesize and return as base64 |
+| `mycroft.stop` | `handle_stop` | Stop current TTS playback |
+| `mycroft.audio.speech.stop` | `handle_stop` | Stop current TTS playback |
+| `mycroft.audio.speak.status` | `handle_speak_status` | Reply with `{"speaking": bool}` |
+| `mycroft.audio.queue` | `handle_queue_audio` | Queue sound file in TTS thread |
+| `mycroft.audio.play_sound` | `handle_instant_play` | Play sound immediately |
+| `ovos.languages.tts` | `handle_get_languages_tts` | Reply with supported TTS languages |
+| `opm.tts.query` | `handle_opm_tts_query` | Reply with TTS plugin metadata |
+| `opm.g2p.query` | `handle_opm_g2p_query` | Reply with G2P plugin metadata |
+
+### Emitted by `PlaybackService`
+
+| Event | When |
+|---|---|
+| `mycroft.stop.handled` | After TTS queue is cleared on stop |
+| `mycroft.audio.is_speaking` | In reply to `mycroft.audio.speak.status` |
