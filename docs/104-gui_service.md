@@ -7,14 +7,35 @@ anything itself — rendering is delegated to independently installable GUI adap
 
 ---
 
+---
+
+## Terminology: Templates vs Pages
+
+### **Template** (SYSTEM_* abstraction)
+A **template** is a pre-defined, semantic UI layout standardized across all OVOS skills.
+Each template has a fixed data schema (e.g., `SYSTEM_weather` has `current_temp`, `condition`, etc.).
+Templates are identified by `SYSTEM_*` names (`SYSTEM_weather`, `SYSTEM_text`, `SYSTEM_list`, etc.).
+Skills use templates via `GUIInterface` methods: `gui.show_weather()`, `gui.show_text()`, etc.
+
+### **Page** (in rendering layer)
+A **page** is a rendering artifact — the QML file or HTML view that displays a template.
+Example: `Weather.qml` renders `SYSTEM_weather`; `Text.qml` renders `SYSTEM_text`.
+Adapters map templates to pages via handler methods: `handle_show_weather()`, `handle_show_text()`, etc.
+
+**In this manual:**
+- **"Template"** refers to the `SYSTEM_*` identifier and data contract
+- **"Page"** refers to the QML/HTML rendering artifact in the adapter
+
+---
+
 ## Architecture
 
 The GUI system has two orthogonal abstractions:
 
 1. **Template-based `GUIInterface`** (`ovos-gui-api-client`) — skills call typed methods
-   (`show_weather()`, `show_text()`, …) instead of naming framework-specific files.
+   (`show_weather()`, `show_text()`, …) to display structured data.
    Each call emits `gui.value.set` + `gui.page.show` on the OVOS MessageBus with a
-   `SYSTEM_*` identifier from the `PageTemplates` enum.
+   template identifier (`SYSTEM_weather`, `SYSTEM_text`, etc.) from the `PageTemplates` enum.
 
 2. **GUI adapter plugin system** (`opm.gui_adapter` entry point) — any number of adapters
    may be installed simultaneously. All loaded adapters receive every template event
@@ -32,9 +53,8 @@ The GUI system has two orthogonal abstractions:
 ┌──────────────────────────────────────────────────────────┐
 │  ovos-gui  —  NamespaceManager                           │
 │                                                          │
-│  Detects SYSTEM_* in page_names                          │
+│  Routes SYSTEM_* templates to adapters                  │
 │  → calls adapter.dispatch_template() on all adapters     │
-│  Detects non-SYSTEM_* → legacy path (unchanged)          │
 └──────┬───────────────────────────┬───────────────────────┘
        │                           │
        ▼                           ▼
@@ -73,11 +93,11 @@ The GUI system has two orthogonal abstractions:
 ## Namespaces
 
 GUI state is organized into **namespaces**, each corresponding to a `skill_id`. Each namespace
-holds session data (key/value pairs) and a list of pages.
+holds session data (key/value pairs) and the currently displayed template.
 
 - `NamespaceManager` maintains an ordered **active stack**. The namespace at position 0
   is the one currently displayed.
-- Skills may have multiple pages; users can swipe between them within a namespace.
+- Skills display templates via `gui.show_*()` methods. Users interact with the rendered template.
 - When a skill clears its namespace (`gui.clear()` / `ovos.gui.screen.close`), the
   namespace is removed from the active stack and the next namespace becomes visible.
 - When the stack is empty, the GUI adapter shows an idle/homescreen view.
@@ -239,16 +259,16 @@ plugins = find_gui_adapter_plugins()   # {name: class, ...}
 
 ---
 
-## Page Templates
+## Templates
 
-Skills display content through 21 pre-defined `PageTemplates` (from `ovos-gui-api-client`).
-Custom per-skill QML or HTML is not supported through the template interface.
+Skills display content through 21 pre-defined **templates** (from `ovos-gui-api-client`).
+All skill display goes through standardized templates. Custom QML/HTML is not supported.
 
 ```python
 from ovos_gui_api_client import PageTemplates, GUIInterface, FillMode, ListItem, GridItem, SelectItem
 ```
 
-### Template Reference
+### All 21 Templates
 
 | Template identifier | `GUIInterface` method | Key session data keys |
 |---|---|---|
@@ -317,14 +337,13 @@ Skills must register handlers for these events **and** handle the spoken reply.
 
 ---
 
-## Legacy Qt Adapter (`ovos-legacy-mycroft-gui-plugin`)
+## Qt Adapter (`ovos-legacy-mycroft-gui-plugin`)
 
 **Entry point:** `opm.gui_adapter = ovos_legacy_mycroft_gui:LegacyMycoftGuiPlugin`
 
-This adapter translates the `SYSTEM_*` template API into the mycroft-gui Qt WebSocket
-protocol so existing Qt5/Qt6 GUI clients work without any skill-provided QML files.
-Rendering is done by 21 system-template QML pages bundled in `mycroft-gui-qt5` and
-installed to `$prefix/share/mycroft-gui/system-templates/`.
+This adapter implements the template rendering interface for Qt5/Qt6 GUI clients.
+It translates OVOS **templates** to Qt WebSocket messages and provides 21 system QML pages
+bundled in `mycroft-gui-qt5` and installed to `$prefix/share/mycroft-gui/system-templates/`.
 
 **Startup actions:**
 
@@ -334,9 +353,11 @@ installed to `$prefix/share/mycroft-gui/system-templates/`.
    to datetime, weather, wallpaper, notification, app, widget, and connectivity events and
    re-emits them as `homescreen.data.*` / `homescreen.widget.*` bus messages.
 
-### Template → QML mapping
+### Template Implementation (QML Pages)
 
-| Template identifier | Bundled QML file |
+Each template is rendered by a bundled QML page in the Qt adapter.
+
+| Template ID | QML Page |
 |---|---|
 | `SYSTEM_idle` | `Idle.qml` |
 | `SYSTEM_loading` | `Loading.qml` |
@@ -404,18 +425,6 @@ QML pages are sent as `SYSTEM:<Name>.qml` URIs; the Qt client resolves them via 
 | `gui.adapters.<name>` | Per-adapter configuration dict passed as `config` to `AbstractGUIPlugin.__init__` |
 | `base_port` | TCP port the legacy adapter's Tornado WebSocket server listens on (default: `18181`) |
 | `default_qt_version` | Qt version assumed when a client does not declare its framework (default: `5`) |
-
----
-
-## Backward Compatibility
-
-- Non-`SYSTEM_*` page names in `gui.page.show` go through the unchanged legacy namespace
-  management path inside `NamespaceManager` — existing Qt skills with custom QML files
-  continue working without modification.
-- The `LegacyMycoftGuiPlugin` intercepts all template events and translates them to Qt
-  WebSocket messages, so existing Qt deployments work without modifying skills.
-- Headless deployments with no adapter installed — all `GUIInterface` calls are silently
-  no-ops because `NamespaceManager.adapters` is empty.
 
 ---
 
