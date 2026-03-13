@@ -1,603 +1,603 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/adapt-pipeline/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/adapt-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/advanced-solvers/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/advanced-solvers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/agent-plugins/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/agent-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/apis-ref/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/apis-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/architecture-overview/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/architecture-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/async-client/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/async-client/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/audio-service/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/audio-service/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/audio-testing/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/audio-testing/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/audio-transformers/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/audio-transformers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/bidirectional-translation/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/bidirectional-translation/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/bus-client-overview/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/bus-client-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/bus-service/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/bus-service/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/capture-session/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/capture-session/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/claude-plugin/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/claude-plugin/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/client-ref/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/client-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/color-parser/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/color-parser/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/common-query/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/common-query/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/config-reference/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/config-reference/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/config/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/config/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/configuration-ref/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/configuration-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/context/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/context/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/converse-pipeline/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/converse-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/converse/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/converse/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/core/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/core/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/cq-pipeline/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/cq-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/customization/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/customization/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/date-parser/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/date-parser/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/decorators/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/decorators/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/deprecation-log/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/deprecation-log/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/diagnostics/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/diagnostics/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/dialog-transformers/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/dialog-transformers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/docs-viewer/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/docs-viewer/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/document-chunkers/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/document-chunkers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/eggscript/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/eggscript/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/events/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/events/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/fakebus/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/fakebus/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/fallback-pipeline/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/fallback-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/fallbacks/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/fallbacks/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/g2p-plugins/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/g2p-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/gguf-plugin/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/gguf-plugin/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/gh-automations-overview/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/gh-automations-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/gh-automations-release/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/gh-automations-release/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/gh-automations-workflows/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/gh-automations-workflows/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/gitlocalize-tutorial/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/gitlocalize-tutorial/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/glossary/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/glossary/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/gui-adapters/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/gui-adapters/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/gui-protocol/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/gui-protocol/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/gui-service/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/gui-service/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/hivemind-agents/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/hivemind-agents/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/homescreen/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/homescreen/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/install-raspovos/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/install-raspovos/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/intent-layers/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/intent-layers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/intent-service/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/intent-service/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/intent-transformers/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/intent-transformers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/intents/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/intents/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/lang-customization/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/lang-customization/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/lang-parser/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/lang-parser/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/lang-selection/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/lang-selection/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/lang-support/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/lang-support/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/layers/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/layers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/license/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/license/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/life-of-an-utterance/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/life-of-an-utterance/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/listener/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/listener/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/llm-transformers/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/llm-transformers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/locations-ref/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/locations-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/log-ref/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/log-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/m2v-pipeline/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/m2v-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/mark1/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/mark1/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/media-plugins/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/media-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/message-base/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/message-base/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/message-ref/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/message-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/mic-plugins/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/mic-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/missing-messages/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/missing-messages/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/models/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/models/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/mos-plugin/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/mos-plugin/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/number-parser/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/number-parser/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ocp-pipeline/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ocp-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ocp-plugins/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ocp-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ocp-skills/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ocp-skills/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ocp/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ocp/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/openai-plugin/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/openai-plugin/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovos-installer/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovos-installer/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovos-judge/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovos-judge/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovos-media/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovos-media/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovos-shell/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovos-shell/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovos-skill/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovos-skill/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-ci/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-ci/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-end2end-test/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-end2end-test/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-minicroft/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-minicroft/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-overview/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-phal/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-phal/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-pipeline/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-usage/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-usage/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/padacioso/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/padacioso/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/padatious-pipeline/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/padatious-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/persona-pipeline/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/persona-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/persona-server/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/persona-server/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/personas/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/personas/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/phal/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/phal/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/pipelines-overview/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/pipelines-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/plugin-manager/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/plugin-manager/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/plugins-index/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/plugins-index/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/process-utils-ref/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/process-utils-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/prompts/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/prompts/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/pydantic-dev-guide/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/pydantic-dev-guide/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/pydantic-integration/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/pydantic-integration/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/pydantic-models/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/pydantic-models/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/qt5-gui/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/qt5-gui/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/quebra-frases/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/quebra-frases/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/raspovos-troubleshooting/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/raspovos-troubleshooting/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/release-channels/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/release-channels/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/resource-files/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/resource-files/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/session/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/session/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-best-practices/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-best-practices/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-classes/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-classes/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-design-guidelines/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-design-guidelines/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-dev-faq/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-dev-faq/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-examples/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-examples/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-filesystem/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-filesystem/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-gui/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-gui/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-installer/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-installer/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-json/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-json/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-manager/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-manager/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-runtime-requirements/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-runtime-requirements/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-settings-meta/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-settings-meta/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-settings/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-settings/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-structure/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-structure/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-testing/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-testing/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/speech-service/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/speech-service/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/ssml/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/ssml/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/statements/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/statements/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/stop-pipeline/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/stop-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/stt-plugins/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/stt-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/stt-server/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/stt-server/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/timeline/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/timeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/transformer-plugins/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/transformer-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/translate-server/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/translate-server/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/translation-plugins/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/translation-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/tts-plugins/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/tts-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/tts-server/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/tts-server/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/tts-transformers/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/tts-transformers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/universal-skills/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/universal-skills/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/utilities/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/utilities/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/utils-overview/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/utils-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/utterance-transformers/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/utterance-transformers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/vad-plugins/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/vad-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/wake-word-plugins/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/wake-word-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/workshop-overview/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/workshop-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/wyoming-bridges/</loc>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/wyoming-bridges/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
 </urlset>
