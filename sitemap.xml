@@ -5,447 +5,599 @@
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/001-release_channels/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/adapt-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/002-license/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/advanced-solvers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/003-timeline/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/agent-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/100-bus_service/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/apis-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/101-speech_service/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/architecture-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/102-core/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/async-client/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/103-audio_service/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/audio-service/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/104-gui_service/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/audio-testing/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/110-config/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/audio-transformers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/150-advanced_solvers/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/bidirectional-translation/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/150-personas/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/bus-client-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/151-llm-transformers/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/bus-service/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/152-hivemind-agents/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/capture-session/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/153-persona_pipeline/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/claude-plugin/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/154-agent-plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/client-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/155-mos-plugin/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/color-parser/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/156-ovos-judge/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/common-query/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/157-claude-plugin/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/config-reference/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/158-openai-plugin/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/config/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/159-gguf-plugin/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/configuration-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/199-WIP_ovos_media/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/context/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/200-stt_server/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/converse-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/201-tts_server/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/converse/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/202-persona_server/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/core/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/203-translate_server/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/cq-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/204-wyoming-bridges/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/customization/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/300-plugin-manager/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/date-parser/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/310-mic_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/decorators/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/311-vad_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/deprecation-log/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/312-wake_word_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/diagnostics/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/313-stt_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/dialog-transformers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/320-tts_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/docs-viewer/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/321-g2p_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/document-chunkers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/330-transformer_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/eggscript/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/340-PHAL/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/events/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/350-translation_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/fakebus/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/360-solver_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/fallback-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/361-nlp_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/fallbacks/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/370-ocp_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/g2p-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/371-media_plugins/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/gguf-plugin/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/399-intents/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/gh-automations-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/400-skill-design-guidelines/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/gh-automations-release/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/401-skill_structure/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/gh-automations-workflows/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/402-statements/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/gitlocalize-tutorial/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/403-intents/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/glossary/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/405-customization/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/gui-adapters/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/406-messagebus/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/gui-protocol/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/407-skill_filesystem/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/gui-service/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/408-skill_settings/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/hivemind-agents/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/408-skill_settings_meta/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/homescreen/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/409-skill_api/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/install-raspovos/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/410-skill_runtime_requirements/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/intent-layers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/411-skill_json/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/intent-service/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/412-skill-classes/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/intent-transformers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/413-intent-layers/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/intents/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/420-ssml/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/lang-customization/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/430-skill_dev_faq/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/lang-parser/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/450-skill-testing/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/lang-selection/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/451-ovoscope-usage/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/lang-support/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/452-ovoscope-ci/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/layers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/453-ovoscope-advanced/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/license/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/50-ovos_installer/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/life-of-an-utterance/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/500-prompts/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/listener/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/501-context/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/llm-transformers/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/502-converse/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/locations-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/503-layers/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/log-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/504-session/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/m2v-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/51-install_raspovos/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/mark1/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/54-skill-examples/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/media-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/55-raspovos_troubleshooting/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/message-base/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/590-voice_apps/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/message-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/600-fallbacks/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/mic-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/610-common_query/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/missing-messages/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/620-universal_skills/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/models/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/630-OCP_skills/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/mos-plugin/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/631-OCP_pipeline/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/number-parser/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/700-homescreen/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ocp-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/701-gui_protocol/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ocp-plugins/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/702-ovos-shell/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ocp-skills/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/703-gui_adapters/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ocp/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/710-qt5-gui/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/openai-plugin/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/711-qt_voice_apps/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovos-installer/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/720-skill_gui/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovos-judge/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/800-mk1_api/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovos-media/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/801-mk1_utils/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovos-shell/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/890-date_parser/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovos-skill/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/891-number_parser/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-ci/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/893-color_parser/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-end2end-test/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/900-bus_client/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-minicroft/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/901-bus-session/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/905-pydantic-models/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-phal/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/910-quebra_frases/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/920-padacioso/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ovoscope-usage/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/99-architecture-overview/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/padacioso/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/990-eggscript/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/padatious-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/999-ovos_bigscreen/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/persona-pipeline/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/adapt_pipeline/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/persona-server/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/audio_transformers/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/personas/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/converse_pipeline/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/phal/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/cq_pipeline/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/pipelines-overview/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/dialog_transformers/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/plugin-manager/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/fallback_pipeline/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/plugins-index/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/gitlocalize_tutorial/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/process-utils-ref/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/intent_transformers/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/prompts/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/lang_support/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/pydantic-dev-guide/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/m2v_pipeline/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/pydantic-integration/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/padatious_pipeline/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/pydantic-models/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/pipelines_overview/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/qt5-gui/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/stop_pipeline/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/quebra-frases/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/tts_transformers/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/raspovos-troubleshooting/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
     <url>
-         <loc>https://openvoiceos.github.io/ovos-technical-manual/utterance_transformers/</loc>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/release-channels/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/resource-files/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/session/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-best-practices/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-classes/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-design-guidelines/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-dev-faq/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-examples/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-filesystem/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-gui/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-installer/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-json/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-manager/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-runtime-requirements/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-settings-meta/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-settings/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-structure/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/skill-testing/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/speech-service/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/ssml/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/statements/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/stop-pipeline/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/stt-plugins/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/stt-server/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/timeline/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/transformer-plugins/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/translate-server/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/translation-plugins/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/tts-plugins/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/tts-server/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/tts-transformers/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/universal-skills/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/utilities/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/utils-overview/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/utterance-transformers/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/vad-plugins/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/wake-word-plugins/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/workshop-overview/</loc>
+         <lastmod>2026-03-13</lastmod>
+    </url>
+    <url>
+         <loc>https://openvoiceos.github.io/ovos-technical-manual/wyoming-bridges/</loc>
          <lastmod>2026-03-13</lastmod>
     </url>
 </urlset>

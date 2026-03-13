@@ -1,0 +1,8230 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://openvoiceos.github.io/ovos-technical-manual/timeline/">
+      
+      
+        <link rel="prev" href="../mark1/">
+      
+      
+        <link rel="next" href="../license/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Timeline - OpenVoiceOS Technical Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#family-tree" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenVoiceOS Technical Manual" class="md-header__button md-logo" aria-label="OpenVoiceOS Technical Manual" data-md-component="logo">
+      
+  <img src="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenVoiceOS Technical Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Timeline
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OpenVoiceOS/ovos-technical-manual" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenVoiceOS/ovos-technical-manual
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../release-channels/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../architecture-overview/" class="md-tabs__link">
+          
+  
+  
+  Core Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../pipelines-overview/" class="md-tabs__link">
+          
+  
+  
+  Intent Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../lang-support/" class="md-tabs__link">
+          
+  
+  
+  Language Support
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../skill-design-guidelines/" class="md-tabs__link">
+          
+  
+  
+  Skill Development
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../fallbacks/" class="md-tabs__link">
+          
+  
+  
+  Advanced Skill Types
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ovoscope-overview/" class="md-tabs__link">
+          
+  
+  
+  End-to-End Testing (ovoscope)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../plugins-index/" class="md-tabs__link">
+          
+  
+  
+  Plugin Ecosystem
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../stt-server/" class="md-tabs__link">
+          
+  
+  
+  Advanced & Self Hosting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../workshop-overview/" class="md-tabs__link">
+          
+  
+  
+  Utilities & Reference
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenVoiceOS Technical Manual" class="md-nav__button md-logo" aria-label="OpenVoiceOS Technical Manual" data-md-component="logo">
+      
+  <img src="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true" alt="logo">
+
+    </a>
+    OpenVoiceOS Technical Manual
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OpenVoiceOS/ovos-technical-manual" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenVoiceOS/ovos-technical-manual
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-channels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovos-installer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ovos-installer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install-raspovos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RaspOVOS Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../raspovos-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    High-level Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../life-of-an-utterance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Life of an Utterance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bus-service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MessageBus Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plugin Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../locations-ref/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Locations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ovos-core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intent-service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intent Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-installer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Installer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../speech-service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speech Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audio-service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui-service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GUI Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../phal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PHAL (Hardware)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intent Pipeline
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Intent Pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pipelines-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview & Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline Matchers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pipeline Matchers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adapt-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adapt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../padatious-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padatious
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m2v-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model2Vec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../converse-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Converse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cq-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common Query
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../persona-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persona
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stop-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ocp-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fallback-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fallback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logic & Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Logic & Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prompts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intent Layers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Transformers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transformer-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utterance-transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utterance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intent-transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dialog-transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dialog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audio-transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tts-transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TTS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Support
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Language Support
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lang-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lang-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lang-customization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customizing Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bidirectional-translation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bidirectional Translation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gitlocalize-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../translation-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Translation Plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../translate-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Translation Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Parsers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Technical Parsers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lang-parser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language Names
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../number-parser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Numbers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../date-parser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dates & Time
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../color-parser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Colors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quebra-frases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quebra Frases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../padacioso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Padacioso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skill Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-design-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-best-practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anatomy of a Skill
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logic & Intents
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Logic & Intents
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intent Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intent-layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intent Layers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../converse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous Conversation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context & Sessions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../statements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dialog & Statements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    skill.json
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-dev-faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    F.A.Q.
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill APIs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skill APIs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovos-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OVOSSkill API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Base Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../decorators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decorators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-settings-meta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-filesystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Filesystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resource-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resource Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GUI Support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-runtime-requirements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Skill Types
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Skill Types
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fallbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fallback Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../common-query/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common Query Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ocp-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Media Skills (OCP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../universal-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Universal Skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    End-to-End Testing (ovoscope)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    End-to-End Testing (ovoscope)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovoscope-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovoscope-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovoscope-ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovoscope-minicroft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MiniCroft
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovoscope-end2end-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    End2EndTest Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovoscope-phal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PHAL Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovoscope-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../audio-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../listener/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Listener Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ocp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OCP Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pydantic-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pydantic Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../capture-session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capture Sessions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fakebus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FakeBus Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Testing Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plugin Ecosystem
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Plugin Ecosystem
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index & Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI & Agents
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI & Agents
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Engines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mos-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mixture of Solvers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../personas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Personas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-solvers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specialized Solvers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovos-judge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ovos-judge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../claude-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openai-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gguf-plugin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GGUF / Local LLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM Transformers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Speech & Audio
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Speech & Audio
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mic-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microphone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vad-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VAD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wake-word-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wake Word
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stt-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tts-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TTS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../g2p-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    G2P
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Media & GUI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Media & GUI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovos-media/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ovos-media
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ocp-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OCP Extractors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../media-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Media Playback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GUI Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovos-shell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OVOS Shell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui-adapters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GUI Adapters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qt5-gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Qt5 GUI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homescreen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homescreen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced & Self Hosting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced & Self Hosting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stt-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STT Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tts-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TTS Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../persona-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persona Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../translate-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Translation Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hivemind-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HiveMind
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wyoming-bridges/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wyoming Bridges
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pydantic-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pydantic Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pydantic-dev-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pydantic Dev Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deprecation-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deprecation Log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities & Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Utilities & Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_1" id="__nav_11_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library Docs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Library Docs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_1_1" id="__nav_11_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ovos-workshop
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ovos-workshop
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workshop-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovos-skill/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OVOSSkill API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Base Classes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../decorators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decorators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intent-layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intent Layers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skill Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resource-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resource Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_1_2" id="__nav_11_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ovos-bus-client
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ovos-bus-client
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bus-client-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../message-ref/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Objects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client-ref/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MessageBus Client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async Client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context & Sessions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../apis-ref/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    High-level APIs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration-ref/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_1_3" id="__nav_11_1_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ovos-utils
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ovos-utils
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log-ref/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../process-utils-ref/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Process Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bus Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fakebus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FakeBus Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_1_4" id="__nav_11_1_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ovos-config
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ovos-config
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../locations-ref/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Locations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_1_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_1_5" id="__nav_11_1_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ovos-pydantic-models
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_11_1_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_1_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ovos-pydantic-models
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pydantic-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pydantic Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../message-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Message Base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missing-messages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing Messages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pydantic-dev-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pydantic Dev Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_2" id="__nav_11_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ovos-diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ovos-docs-viewer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gh-automations-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gh-automations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gh-automations-release/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gh-automations Release
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gh-automations-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gh-automations Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_11_3" id="__nav_11_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Document Processing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Document Processing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-chunkers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Document Chunkers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11_4" id="__nav_11_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misc
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_11_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Misc
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eggscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Eggscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mark1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mark 1 Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeline
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Timeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#family-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Family Tree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events-timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Events timeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#family-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Family Tree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events-timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Events timeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../workshop-overview/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Utilities & Reference
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../eggscript/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Misc
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Timeline</h1>
+
+<h2 id="family-tree">Family Tree<a class="headerlink" href="#family-tree" title="Permanent link">&para;</a></h2>
+<p><img alt="imagem" src="https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/95db65ea-0aff-49f3-bd80-85919a3356e5" /></p>
+<ul>
+<li>
+<p>mycroft-core created</p>
+</li>
+<li>
+<p>neon-core forked from mycroft-core</p>
+</li>
+<li>
+<p>chatterbox forked from mycroft-core  (closed source)</p>
+</li>
+<li>
+<p>mycroft-lib forked from mycroft-core to become a library, it is only a properly packaged mycroft-core</p>
+</li>
+<li>
+<p>chatterbox rewritten to use mycroft-lib internally, no longer a hard fork</p>
+</li>
+<li>
+<p>neon-core rewritten to use mycroft-lib internally, no longer a hard fork</p>
+</li>
+<li>
+<p>mycroft-lib renamed to HolmesIV to avoid trademark issues</p>
+</li>
+<li>
+<p>HolmesV created to use HolmesIV internally, HolmesV gets features and HolmesIV bug fixes only</p>
+</li>
+<li>
+<p>chatterbox updated to HolmesV</p>
+</li>
+<li>
+<p>neon-core updated to HolmesV</p>
+</li>
+<li>
+<p>HolmesIV+HolmesV abandoned, chatterbox focus on closed source product</p>
+</li>
+<li>
+<p><a href="../core/">ovos-core</a> forked from HolmesV</p>
+</li>
+<li>
+<p>neon-core updated to ovos-core</p>
+</li>
+<li>
+<p>mycroft-dinkum forked from mycroft-core</p>
+</li>
+</ul>
+<h2 id="events-timeline">Events timeline<a class="headerlink" href="#events-timeline" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>Aug 2015 - <a href="https://www.kickstarter.com/projects/aiforeveryone/mycroft-an-open-source-artificial-intelligence-for">MycroftAI kickstarter</a> launch</p>
+</li>
+<li>
+<p>Feb 2016 - MycroftAI <a href="https://github.com/MycroftAI/mimic1">Mimic</a> <a href="../tts-plugins/">TTS</a> released</p>
+</li>
+<li>
+<p>May 2016 - <a href="https://github.com/MycroftAI/mycroft-core">mycroft-core</a> repositories made public under GPL</p>
+</li>
+<li>
+<p>Jun 2016 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Aix" title="GitHub User: Aix">@Aix</a> releases <a href="https://extensions.gnome.org/extension/1197/mycroft-assistant/">MycroftAI gnome shell</a> extension</p>
+</li>
+<li>
+<p>Jun 2016 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Aix" title="GitHub User: Aix">@Aix</a> becomes a contributor on the desktop-integration team</p>
+</li>
+<li>
+<p>Aug 2016 - Steve Penrod becomes MycroftAI CTO</p>
+</li>
+<li>
+<details class="2016 - neongecko begins working with mycroft ai">
+<summary>2016</summary>
+</details>
+</li>
+<li>
+<p>Jan 2017 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Aix" title="GitHub User: Aix">@Aix</a> release <a href="https://invent.kde.org/utilities/mycroft-plasmoid">MycrofAI plasmoid</a> for KDE Plasma desktop</p>
+</li>
+<li>
+<p>Mar 2017 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Aix" title="GitHub User: Aix">@Aix</a> incubates Mycroft plasmoid project under KDE</p>
+</li>
+<li>
+<p>Apr 2017 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a> forks <code>mycroft-core</code> as <code>jarbas-core</code></p>
+</li>
+<li>
+<p>May 2017 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a> becomes a <code>mycroft-core</code> contributor</p>
+</li>
+<li>
+<p>Sep 2017 - MycroftAI Mark 1 released / mycroft kickstarter campaign fullfilled</p>
+</li>
+<li>
+<p>Sep 2017 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Aix" title="GitHub User: Aix">@Aix</a> joins Blue Systems to work on MycroftAI and Plasma integration projects</p>
+</li>
+<li>
+<p>Sep 2017 - <code>jarbas-core</code> tacotron TTS integration added</p>
+</li>
+<li>
+<p>Aug 2017 - MycroftAI starts supporting KDE plasmoid project and installers</p>
+</li>
+<li>
+<p>Oct 2017 - <code>mycroft-core</code> relicensed as Apache 2.0</p>
+</li>
+<li>
+<p>Nov 2017 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Aix" title="GitHub User: Aix">@Aix</a> becomes a <code>mycroft-core</code> contributor</p>
+</li>
+<li>
+<p>Dec 2017 - <code>jarbas-core</code> abandoned</p>
+</li>
+<li>
+<p>??? 2017 - Neon AI forks <code>mycroft-core</code> as <code>neon-core</code> to remove dependency on MycroftAI servers and work on other features</p>
+</li>
+<li>
+<p>Jan 2018 - initial release of <a href="https://github.com/OpenVoiceOS/ovos-personal-backend/tree/a457b03adc771783ec8714dfdabccdacb2482188">personal-backend</a>, reverse engineered MycroftAI backend by <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a>, licensed as Apache 2.0</p>
+</li>
+<li>
+<p>Jan 2018 - MycroftAI <a href="https://www.kickstarter.com/projects/aiforeveryone/mycroft-mark-ii-the-open-voice-assistant">mark 2 kickstarter</a> launch</p>
+</li>
+<li>
+<p>Jul 2018 - personal-backend added to MycroftAI Roadmap</p>
+</li>
+<li>
+<p>Aug 2018 - MycroftAI Mimic2 TTS based on tacotron released</p>
+</li>
+<li>
+<p>Sep 2018 - <a href="https://github.com/MycroftAI/mycroft-gui">Mycroft-GUI</a> was created by collaboration between MycroftAI, Blue Systems based on KDE frameworks, maintained by <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Aix" title="GitHub User: Aix">@Aix</a></p>
+</li>
+<li>
+<p>Oct 2018 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/j1nx" title="GitHub User: j1nx">@j1nx</a> creates <a href="https://community.openconversational.ai/t/openvoiceos-a-bare-minimal-production-type-of-os-based-on-buildroot/4708">"MycroftOS"</a>, the first version of what will eventually become the OpenVoiceOS smart speaker</p>
+</li>
+<li>
+<p>Jan 2019 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a> <a href="https://github.com/MycroftAI/personal-backend/tree/31ee96a8189d96f8102276bf4b9073811ee9a9b2">personal-backend</a> implementation adopted by MycroftAI</p>
+</li>
+<li>
+<p>Mar 2019 - MycroftAI mark 2 completely redesigned and based on different hardware</p>
+</li>
+<li>
+<p>Apr 2019 - Steve Penrod and <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a> create <a href="https://github.com/MycroftAI/lingua-franca/tree/130c77026e22d9afb1d4d3a383a743483ea007d8">lingua-franca</a> under MycroftAI with <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a> as maintainer</p>
+</li>
+<li>
+<p>??? 2019 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a> partners with NeonAI to maintain <code>neon-core</code></p>
+</li>
+<li>
+<p>Jul 2019 - steve penrod leaves MycroftAI</p>
+</li>
+<li>
+<p>Jul 2019 - <a href="https://www.kickstarter.com/projects/hellochatterbox/chatterbox-the-smart-speaker-that-kids-build-and-p">Chatterbox kickstarter</a> launched by <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a></p>
+</li>
+<li>
+<p>Sep 2019 - <a href="https://conf.kde.org/en/akademy2019/public/events/141.html">Mycroft on Plasma Automobile Demo</a> at Akademy 2019 by <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/aix" title="GitHub User: aix">@aix</a></p>
+</li>
+<li>
+<p>Oct 2019 - Official MycroftAI backend open sourced, licensed as AGPL</p>
+</li>
+<li>
+<p>Dec 2019 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Chance" title="GitHub User: Chance">@Chance</a> joins <code>lingua-franca</code> as a maintainer</p>
+</li>
+<li>
+<p>Dec 2019 - Chatterbox released (closed source) / kickstarter campaign fullfilled</p>
+</li>
+<li>
+<p>Dec 2019 - MycroftAI starts to work on Kivy based UI</p>
+</li>
+<li>
+<details class="2020 - mycroftai starts neglecting community contributions">
+<summary>2020</summary>
+</details>
+</li>
+<li>
+<p>Mar 2020 - MycroftAI abandons <a href="https://github.com/MycroftAI/personal-backend">personal-backend</a></p>
+</li>
+<li>
+<p>Mar 2020 - Michael Lewis becomes MycroftAI CEO</p>
+</li>
+<li>
+<p>May 2020 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a> and <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/AIX" title="GitHub User: AIX">@AIX</a> partner up to create a <a href="https://github.com/JarbasSkills/skill-voip">VOIP skill</a></p>
+</li>
+<li>
+<p>Sep 2020 - Community takes stand against reimplementation of GUI using Kivy</p>
+</li>
+<li>
+<p>Oct 2020 - Kivy has been dropped in support for QT Mycroft-GUI</p>
+</li>
+<li>
+<p>Oct 2020 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a>, <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/AIX" title="GitHub User: AIX">@AIX</a> and <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/j1nx" title="GitHub User: j1nx">@j1nx</a> form OpenVoiceOS community project around <code>mycroft-core</code></p>
+</li>
+<li>
+<p>Oct 2020 - <a href="https://github.com/OpenVoiceOS/ovos-utils">ovos-utils</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Jarbasai" title="GitHub User: Jarbasai">@Jarbasai</a> to OVOS and renamed from <code>jarbas-utils</code></p>
+</li>
+<li>
+<p>??? 2020 - Chatterbox forks <code>mycroft-core</code> as <code>mycroft-lib</code> (open source)</p>
+</li>
+<li>
+<p>??? 2020 - <code>mycroft-lib</code> reorganizes <code>mycroft</code> imports cleanly separating each service</p>
+</li>
+<li>
+<p>??? 2020 - Chatterbox (closed source) recreated on top of <code>mycroft-lib</code></p>
+</li>
+<li>
+<p>??? 2020 - <code>neon-core</code> recreated on top of <code>mycroft-lib</code></p>
+</li>
+<li>
+<p>Oct 2020 - MycroftOS renamed to OpenVoiceOS - Mycroft Edition due to trademark issues</p>
+</li>
+<li>
+<p>??? 2020 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a> leaves <code>lingua-franca</code></p>
+</li>
+<li>
+<p>??? 2020 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Chance" title="GitHub User: Chance">@Chance</a> joins OpenVoiceOS</p>
+</li>
+<li>
+<p>Nov 2020 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Jarbas" title="GitHub User: Jarbas">@Jarbas</a> gives a talk about <a href="https://collectivat.cat/blog/2020-11-06-jornades-de-tecnologies-lliures-de-la-parla/">translating mycroft</a> for <a href="https://collectivat.cat">collectivat</a> Jornades de tecnologies lingüístiques lliures en català</p>
+</li>
+<li>
+<p>Dec 2020 - <a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-pocketsphinx">ovos-ww-plugin-pocketsphinx</a> released</p>
+</li>
+<li>
+<p>Dec 2020 - <a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-snowboy">ovos-ww-plugin-snowboy</a> released</p>
+</li>
+<li>
+<p>Dec 2020 - <a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-precise">ovos-ww-plugin-precise</a> released</p>
+</li>
+<li>
+<p>Dec 2020 - <a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-vosk">ovos-stt-plugin-vosk</a> released</p>
+</li>
+<li>
+<p>Dec 2020 - <a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-chromium">ovos-stt-plugin-chromium</a> released</p>
+</li>
+<li>
+<p>Jan 2021 - <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager">ovos-plugin-manager</a> released</p>
+</li>
+<li>
+<p>Jan 2021 - <a href="https://github.com/OpenVoiceOS/ovos-personal-backend">personal-backend</a> adopted by OpenVoiceOS, original repo unarchived and ownership transferred</p>
+</li>
+<li>
+<p>Jan 2021 - <a href="https://github.com/notmart/mycroft-embedded-shell">Mycroft embedded shell</a> adopted by OpenVoiceOS and renamed to <a href="https://github.com/OpenVoiceOS/ovos-shell">ovos-shell</a></p>
+</li>
+<li>
+<p>Jan 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-setup">skill-ovos-setup</a> forked from Mycroft to replace pairing</p>
+</li>
+<li>
+<p>Jan 2021 - <a href="https://github.com/OpenVoiceOS/ovos_skill_manager">ovos-skill-manager</a> released to support more skill Marketplaces</p>
+</li>
+<li>
+<p>Feb 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-stop">skill-ovos-stop</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Mar 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-common-play">skill-ovos-common-play</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Mar 2021 - MycroftAI mark 2 dev kits start shipping</p>
+</li>
+<li>
+<p>Apr 2021 - OpenVoiceOS adopts <code>mycroft-lib</code> instead of <code>mycroft-core</code></p>
+</li>
+<li>
+<p>??? 202? - <code>mycroft-lib</code> renamed to <a href="https://github.com/HelloChatterbox/HolmesIV">HolmesIV</a> to avoid trademark issues</p>
+</li>
+<li>
+<p>Apr 2021 - <a href="https://github.com/OpenVoiceOS/ovos-workshop">ovos-workshop</a> released, bringing OVOS features to individual skills</p>
+</li>
+<li>
+<p>May 2021 - chatterbox forks <code>lingua-franca</code> as <code>lingua-nostra</code></p>
+</li>
+<li>
+<p>May 2021 . OpenVoiceOS deprecates <code>mycroft-lib</code> and adopts <code>HolmesIV</code></p>
+</li>
+<li>
+<p>Jun 2021 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG">ovos-tts-plugin-espeakNG</a> released</p>
+</li>
+<li>
+<p>Jun 2021 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic">ovos-tts-plugin-mimic</a> released</p>
+</li>
+<li>
+<p>Jun 2021 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic2">ovos-tts-plugin-mimic2</a> released</p>
+</li>
+<li>
+<p>Jun 2021 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-pico">ovos-tts-plugin-pico</a> released</p>
+</li>
+<li>
+<p>Aug 2021 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-google-tx">ovos-tts-plugin-google-tx</a> released</p>
+</li>
+<li>
+<p>Aug 2021 - <a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-vosk">ovos-ww-plugin-vosk</a> released</p>
+</li>
+<li>
+<p>Aug 2021 - <a href="https://github.com/OpenVoiceOS/precise-lite">precise-lite</a> forked from Mycroft, adding tflite support</p>
+</li>
+<li>
+<p>Aug 2021 - <a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite">ovos-ww-plugin-precise-lite</a> released</p>
+</li>
+<li>
+<p>Aug 2021 - <a href="https://github.com/OVOSHatchery/ovos-ww-plugin-nyumaya">ovos-ww-plugin-nyumaya</a> released</p>
+</li>
+<li>
+<p>Aug 2021 - <a href="https://github.com/OpenVoiceOS/precise-lite-models">precise-lite-models</a> start being shared</p>
+</li>
+<li>
+<p>Aug 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-volume">skill-ovos-volume</a> released</p>
+</li>
+<li>
+<p>Sep 2021 - <a href="https://github.com/OpenVoiceOS/VocalFusionDriver">VocalFusionDriver</a> released by OVOS to support the mk2</p>
+</li>
+<li>
+<p>Sep 2021 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-SAM">ovos-tts-plugin-SAM</a> released</p>
+</li>
+<li>
+<p>Sep 2021 - backend made optional in <code>HolmesIV</code></p>
+</li>
+<li>
+<p>Sep 2021 - msm made optional in <code>HolmesIV</code></p>
+</li>
+<li>
+<p>Oct 2021 - "instant_listen" introduced in <code>HolmesIV</code></p>
+</li>
+<li>
+<p>Oct 2021 - <code>HolmesIV</code> abandoned by chatterbox</p>
+</li>
+<li>
+<p>Oct 2021 - <code>lingua-nostra</code> abandoned by chatterbox</p>
+</li>
+<li>
+<p>Oct 2021 - OpenVoiceOS forks <code>HolmesIV</code> as <code>ovos-core</code></p>
+</li>
+<li>
+<p>Oct 2021 - <code>ovos-core</code> becomes XDG compliant</p>
+</li>
+<li>
+<p>Oct 2021 - <code>neon-core</code> deprecates <code>HolmesIV</code> and adopts <code>ovos-core</code></p>
+</li>
+<li>
+<p>Oct 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-common-play">skill-ovos-common-play</a> deprecated in favor of <a href="https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin">OCP</a></p>
+</li>
+<li>
+<p>??? 2021 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Chance" title="GitHub User: Chance">@Chance</a> leaves <code>lingua-franca</code></p>
+</li>
+<li>
+<p>Nov 2021 - <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager">ovos-plugin-manager</a> released</p>
+</li>
+<li>
+<p>Nov 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-timer">skill-ovos-timer</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Nov 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-homescreen">skill-ovos-homescreen</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Nov 2021 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAI" title="GitHub User: JarbasAI">@JarbasAI</a> leaves chatterbox</p>
+</li>
+<li>
+<p>Nov 2021 - <code>ovos-core</code> version <strong>0.0.1</strong> released</p>
+</li>
+<li>
+<p>Nov 2021 - <a href="https://github.com/OpenVoiceOS/ovos-utils">ovos-utils</a> adopted in <code>ovos-core</code></p>
+</li>
+<li>
+<p>Nov 2021 - <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager">ovos-plugin-manager</a> adopted in <code>ovos-core</code></p>
+</li>
+<li>
+<p>Nov 2021 - multiple wake words support added</p>
+</li>
+<li>
+<p>Nov 2021 - installable skills (setup.py) support added</p>
+</li>
+<li>
+<p>Nov 2021 - <a href="https://github.com/OpenVoiceOS/ovos-PHAL">ovos-PHAL</a> released (mycroft compatible)</p>
+</li>
+<li>
+<p>Nov 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-hello-world">skill-ovos-hello-world</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Nov 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-naptime">skill-ovos-naptime</a> forked from Mycroft</p>
+</li>
+<li>
+<p>??? - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/NeonDaniel" title="GitHub User: NeonDaniel">@NeonDaniel</a> joins OpenVoiceOS</p>
+</li>
+<li>
+<p>??? 2021 - NeonAI adopts <a href="https://github.com/OpenVoiceOS/ovos-shell">ovos-shell</a></p>
+</li>
+<li>
+<p>Dec 2021 - <a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk1">ovos-PHAL-plugin-mk1</a> released</p>
+</li>
+<li>
+<p>Dec 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-fallback-unknown">skill-ovos-fallback-unknown</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Dec 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-weather">skill-ovos-weather</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Dec 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-common-query">skill-ovos-common-query</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Dec 2021 - <a href="https://github.com/OpenVoiceOS/skill-ovos-application-launcher">skill-ovos-application-launcher</a> released</p>
+</li>
+<li>
+<p>Jan 2022 - OpenVoiceOS forks <a href="https://github.com/OpenVoiceOS/ovos-lingua-franca">lingua-franca</a></p>
+</li>
+<li>
+<p>??? 2022 - OpenVoiceOS starts development in the open via <a href="https://matrix.to/#/!XFpdtmgyCoPDxOMPpH:matrix.org?via=matrix.org">matrix chat</a></p>
+</li>
+<li>
+<p>Feb 2022 - <a href="https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin">OCP</a> released as an audio plugin (mycroft compatible)</p>
+</li>
+<li>
+<p>Feb 2022 - <a href="../ovoscope-phal/">PHAL</a> replaces <code>mycroft.client.enclosure</code> in <code>ovos-core</code></p>
+</li>
+<li>
+<p>Feb 2022 - <a href="https://github.com/OpenVoiceOS/skill-ovos-date-time">skill-ovos-date-time</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Mar 2022 - <a href="../fallback-pipeline/">Fallback</a> <a href="../stt-plugins/">STT</a> support added</p>
+</li>
+<li>
+<p>Mar 2022 - <a href="../vad-plugins/">VAD</a> plugins support added</p>
+</li>
+<li>
+<p>Mar 2022 - <a href="https://github.com/OpenVoiceOS/ovos-vad-plugin-webrtcvad">ovos-vad-plugin-webrtcvad</a> released</p>
+</li>
+<li>
+<p>Mar 2022 - <a href="https://github.com/OpenVoiceOS/ovos-vad-plugin-silero">ovos-vad-plugin-silero</a> released</p>
+</li>
+<li>
+<p>Mar 2022 - <a href="https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin/">OCP</a> adopted in <code>ovos-core</code> as default media handler</p>
+</li>
+<li>
+<p>Mar 2022 - <a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk2">ovos-PHAL-plugin-mk2</a> released</p>
+</li>
+<li>
+<p>Mar 2022 - <a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-respeaker-2mic">ovos-PHAL-plugin-respeaker-2mic</a> released</p>
+</li>
+<li>
+<p>Mar 2022 - <a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-respeaker-4mic">ovos-PHAL-plugin-respeaker-4mic</a> released</p>
+</li>
+<li>
+<details class="2022 - openvoiceos starts releasing buildroot images for rpi4 and mark 2">
+<summary>2022</summary>
+</details>
+</li>
+<li>
+<details class="2022 - openvoiceos starts releasing manjaro images for rpi4 and mark 2">
+<summary>2022</summary>
+</details>
+</li>
+<li>
+<p>Apr 2022 - <a href="https://github.com/OpenVoiceOS/ovos-stt-http-server">ovos-stt-http-server</a> released</p>
+</li>
+<li>
+<p>Apr 2022 - <a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-server">ovos-stt-plugin-server</a> released</p>
+</li>
+<li>
+<p>May 2022 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-beepspeak">ovos-tts-plugin-beepspeak</a> forked from chatterbox</p>
+</li>
+<li>
+<p>May 2022 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-marytts">ovos-tts-plugin-marytts</a> released</p>
+</li>
+<li>
+<p>May 2022 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-polly">ovos-tts-plugin-polly</a> forked from chatterbox</p>
+</li>
+<li>
+<p>May 2022 - <a href="https://github.com/OpenVoiceOS/ovos-translate-server">ovos-translate-server</a> released</p>
+</li>
+<li>
+<p>May 2022 - <code>ovos-core</code> version <strong>0.0.3</strong> released</p>
+</li>
+<li>
+<p>May 2022 - MycroftAI founders resign</p>
+</li>
+<li>
+<p>Jun 2022 - <a href="https://github.com/OpenVoiceOS/ovos-config">ovos-config</a> adopted in <code>ovos-core</code></p>
+</li>
+<li>
+<p>Jun 2022 - <a href="https://github.com/OpenVoiceOS/skill-ovos-alarm">skill-ovos-alarm</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Jun 2022 - <a href="https://github.com/OpenVoiceOS/skill-ovos-qml-camera">skill-ovos-qml-camera</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Jun 2022 - Plasma Bigscreen <a href="https://gitlab.manjaro.org/packages/kde-unstable/bigscreen/mycroft-bigscreen/-/commit/4fd27e3ea165c2b1d39ee354a9faaa40fad1435d">drops mycroft-core in favor of ovos-core</a> version <strong>0.0.4</strong> (alpha)</p>
+</li>
+<li>
+<p>Jul 2022 - MycroftAI starts work on <a href="https://github.com/MycroftAI/mycroft-dinkum">mycroft-dinkum</a> behind the scenes, a replacement/rewrite of mycroft-core</p>
+</li>
+<li>
+<p>Jul 2022 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3">ovos-tts-plugin-mimic3</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Jul 2022 - <a href="https://github.com/OpenVoiceOS/skill-homescreen-lite">skill-homescreen-lite</a> released</p>
+</li>
+<li>
+<p>Aug 2022 - <a href="https://github.com/OpenVoiceOS/padacioso">padacioso</a> transfered from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAi" title="GitHub User: JarbasAi">@JarbasAi</a> to OVOS</p>
+</li>
+<li>
+<p>Aug 2022 - adopt <code>padacioso</code> as a optional <code>padatious</code> alternative to avoid libfann (LGPL)</p>
+</li>
+<li>
+<p>Aug 2022 - <code>ovos-core</code> version <strong>0.0.4</strong> released</p>
+</li>
+<li>
+<p>Aug 2022 - Introduction of <strong>continuous_listening</strong> and <strong>hybrid_listening</strong> support, allowing for more natural and flexible voice interactions.</p>
+</li>
+<li>
+<p>Sep 2022 - MycroftAI <a href="https://github.com/MycroftAI/mimic3">Mimic3</a> TTS released, AGPL licensed</p>
+</li>
+<li>
+<p>Sep 2022 . MycroftAI Mark 2 starts shipping</p>
+</li>
+<li>
+<p>Sep 2022 - <a href="https://github.com/OpenVoiceOS/skill-ovos-news">skill-ovos-news</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Oct 2022 - <a href="https://github.com/OpenVoiceOS/ovos-backend-manager">ovos-backend-manager</a> UI  released</p>
+</li>
+<li>
+<p>Oct 2022 - <a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp">ovos-stt-plugin-whispercpp</a> released</p>
+</li>
+<li>
+<p>Oct 2022 - new <code>ask_yesno</code> parser added</p>
+</li>
+<li>
+<p>Oct 2022 - <a href="https://github.com/OpenVoiceOS/ovos-backend-client">ovos-backend-client</a> adopted by <code>ovos-core</code>, selectable backend support added (offline, personal, selene)</p>
+</li>
+<li>
+<p>Oct 2022 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3-server">ovos-tts-plugin-mimic3-server</a> released</p>
+</li>
+<li>
+<p>Oct 2022 - <a href="http://mycroft.blue-systems.com">mycroft.blue-systems.com</a> mimic 3 public server added</p>
+</li>
+<li>
+<p>Oct 2022 - <a href="https://mimic3.ziggyai.online">mimic3.ziggyai.online</a> mimic 3 public server added</p>
+</li>
+<li>
+<p>Oct 2022 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/aix" title="GitHub User: aix">@aix</a> talks about <a href="https://www.youtube.com/watch?v=hCwdtZu7WqA">OVOS in KDE Akademy</a></p>
+</li>
+<li>
+<p>Oct 2022 - <a href="https://github.com/OpenVoiceOS/skill-ovos-soundcloud">skill-ovos-soundcloud</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Oct 2022 - <a href="https://github.com/OpenVoiceOS/skill-ovos-youtube">skill-ovos-youtube</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>??? 2022 - <a href="https://github.com/MycroftAI/mycroft-dinkum">mycroft-dinkum</a> source code made public, Apache2 licensed</p>
+</li>
+<li>
+<p>??? 2022 - Extremely negative feedback from developer community, several key members annouce no intention to support mycroft-dinkum</p>
+</li>
+<li>
+<details class="2022 - neonai starts release neonos images for the mark 2">
+<summary>2022</summary>
+</details>
+</li>
+<li>
+<p>Nov 2022 - <code>ovos-core</code> version <strong>0.0.5</strong> released</p>
+</li>
+<li>
+<p>Nov 2022 - MycroftAI staff lay off, only a skeleton crew remaining</p>
+</li>
+<li>
+<p>Nov 2022 - <a href="https://github.com/OpenVoiceOS/ovos-bus-client">ovos-bus-client</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Nov 2022 - <a href="https://tts.smartgic.io/mimic3">tts.smartgic.io/mimic3</a> public Mimic3 server added</p>
+</li>
+<li>
+<p>Dec 2022 - <a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-homeassistant">Home Assistant PHAL</a> plugin initial release by <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/AIX" title="GitHub User: AIX">@AIX</a> , exposes HA devices to the messagebus</p>
+</li>
+<li>
+<p>Dec 2022 - <a href="https://github.com/OpenVoiceOS/skill-ovos-youtube-music">skill-ovos-youtube-music</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Dec 2022 - <a href="https://github.com/OpenVoiceOS/skill-ovos-bandcamp">skill-ovos-bandcamp</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Jan 2023 - <code>ovos-core</code> version <strong>0.0.6</strong> released</p>
+</li>
+<li>
+<p>Jan 2023 - negative user feedback from the community for Mark 2, lots of bugs and missing features</p>
+</li>
+<li>
+<p>Jan 2023 - "fallback" wake word support added to <code>ovos-plugin-manager</code></p>
+</li>
+<li>
+<p>Jan 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-local-media">skill-ovos-local-media</a> released</p>
+</li>
+<li>
+<p>Jan 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-fallback-chatgpt/">ChatGPT skill</a> released</p>
+</li>
+<li>
+<p>Feb 2023 - <code>ovos-config</code> cli tool by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/sgee" title="GitHub User: sgee">@sgee</a> released</p>
+</li>
+<li>
+<p>Feb 2023 - <a href="https://github.com/OpenVoiceOS/ovos-solver-plugin-aiml">ovos-solver-plugin-aiml</a> released</p>
+</li>
+<li>
+<p>Feb 2023 - <a href="https://github.com/OpenVoiceOS/ovos-solver-plugin-rivescript">ovos-solver-plugin-rivescript</a> released</p>
+</li>
+<li>
+<p>Feb 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-somafm">skill-ovos-somafm</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Feb 2023 - MycroftAI partners up with NeonAI to maintain mycroft-core(?)</p>
+</li>
+<li>
+<p>Mar 2023 - Mimic3 TTS public servers become default OVOS voice (alan pope)</p>
+</li>
+<li>
+<p>Mar 2023 - <code>ovos-core</code> version <strong>0.0.7</strong> released</p>
+</li>
+<li>
+<p>Mar 2023 - <a href="https://www.gofundme.com/f/openvoiceos">Fundraiser to form OpenVoiceOS</a> V.z.w. (Dutch: "Vereninging zonder winstoogmerk") completed in a couple days</p>
+</li>
+<li>
+<p>Mar 2023 - First stretch goal of <a href="https://www.gofundme.com/f/openvoiceos">fundraiser</a> reached and second stretch goal announced</p>
+</li>
+<li>
+<p>Mar 2023 - <a href="https://github.com/OpenVoiceOS/raspbian-ovos">raspbian-ovos</a> images start being released, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/builderjer" title="GitHub User: builderjer">@builderjer</a></p>
+</li>
+<li>
+<p>Mar 2023 - <a href="https://openvoiceos.github.io/community-docs/">community docs</a> start being maintained by community members</p>
+</li>
+<li>
+<p>Mar 2023 - <a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-openWakeWord">ovos-ww-plugin-openWakeWord</a> released, maintained by author <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/dscripka" title="GitHub User: dscripka">@dscripka</a></p>
+</li>
+<li>
+<p>Mar 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-icanhazdadjokes">skill-ovos-icanhazdadjokes</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Mar 2023 - <a href="https://github.com/OpenVoiceOS/ovos-skill-alerts">ovos-skill-alerts</a> forked from Neon, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/sgee" title="GitHub User: sgee">@sgee</a></p>
+</li>
+<li>
+<p>Apr 2023 - <code>ovos-core</code> splits <code>ovos-audio</code>, <code>ovos-listener</code>, <code>ovos-gui</code> and <code>ovos-bus</code> into their own packages</p>
+</li>
+<li>
+<p>Apr 2023 - <a href="https://community.mycroft.ai/t/aix-signing-off/13583">@Aix leaves</a> OpenVoiceOS</p>
+</li>
+<li>
+<p>Apr 2023 - OpenVoiceOS stops releasing manjaro based images</p>
+</li>
+<li>
+<p>Apr 2023 - <a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-fasterwhisper">ovos-stt-plugin-fasterwhisper</a> released</p>
+</li>
+<li>
+<p>Apr 2023 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-piper">ovos-tts-plugin-piper</a> released</p>
+</li>
+<li>
+<p>Apr 2023 - <a href="https://github.com/OpenVoiceOS/precise-lite-trainer">precise-lite-trainer</a> released</p>
+</li>
+<li>
+<p>Apr 2023 - <a href="https://github.com/OpenVoiceOS/ovos-vad-plugin-precise">ovos-vad-plugin-precise</a> released</p>
+</li>
+<li>
+<p>Apr 2023 - <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener">ovos-dinkum-listener</a> released</p>
+</li>
+<li>
+<p>Apr 2023 - <a href="https://github.com/OpenVoiceOS/ovos-translate-plugin-deepl">ovos-translate-plugin-deepl</a> released, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/sgee" title="GitHub User: sgee">@sgee</a></p>
+</li>
+<li>
+<p>Apr 2023 - <a href="https://github.com/OpenVoiceOS/mycroft-classic-listener">mycroft-classic-listener</a> released, to preserve original mark 1 listener</p>
+</li>
+<li>
+<p>Apr 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-tunein">skill-ovos-tunein</a>  transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/sgee" title="GitHub User: sgee">@sgee</a></p>
+</li>
+<li>
+<p>Apr 2023 - <a href="https://github.com/OpenVoiceOS/jurebes">jurebes</a> intent parser released</p>
+</li>
+<li>
+<p>May 2023 - <code>mycroft</code> import deprecated in favor of <code>ovos_core</code> module for skills service</p>
+</li>
+<li>
+<p>May 2023 - <a href="https://stt.openvoiceos.org">stt.openvoiceos.org</a> moves to whisper (small, cpu only)</p>
+</li>
+<li>
+<p>May 2023 - <a href="https://github.com/openvoiceos/ovos-docker">ovos-docker</a> released, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/goldyfruit" title="GitHub User: goldyfruit">@goldyfruit</a></p>
+</li>
+<li>
+<p>May 2023 - Open Voice OS TTS/STT <a href="http://openvoiceos.github.io/status/">status page</a> released, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/goldyfruit" title="GitHub User: goldyfruit">@goldyfruit</a></p>
+</li>
+<li>
+<p>May 2023 - First successful run of OpenVoiceOS on Mac OS using containers with <a href="https://github.com/openvoiceos/ovos-docker">ovos-docker</a></p>
+</li>
+<li>
+<p>May 2023 - <a href="https://github.com/openvoiceos/ovos-docker-stt">ovos-docker-stt</a> STT containers released, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/goldyfruit" title="GitHub User: goldyfruit">@goldyfruit</a></p>
+</li>
+<li>
+<p>May 2023 - <a href="https://github.com/openvoiceos/ovos-microphone-plugin-sounddevice">ovos-microphone-plugin-sounddevice</a> released, which provides native Mac OS suuport, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/goldyfruit" title="GitHub User: goldyfruit">@goldyfruit</a></p>
+</li>
+<li>
+<p>May 2023 - <a href="https://github.com/OpenVoiceOS/ovos-persona">ovos-persona</a> alpha release</p>
+</li>
+<li>
+<p>May 2023 - <a href="https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-speechbrain-langdetect">ovos-audio-transformer-plugin-speechbrain-langdetect</a> released</p>
+</li>
+<li>
+<p>May 2023 - <a href="https://github.com/OpenVoiceOS/ovos-skill-easter-eggs">ovos-skill-easter-eggs</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/mikejgray" title="GitHub User: mikejgray">@mikejgray</a></p>
+</li>
+<li>
+<p>May 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-dismissal">skill-ovos-dismissal</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/ChanceNCounter" title="GitHub User: ChanceNCounter">@ChanceNCounter</a> to OVOS</p>
+</li>
+<li>
+<p>May 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-dictation">skill-ovos-dictation</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Jun 2023 - Home Assistant plugin starts being maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/mikejgray" title="GitHub User: mikejgray">@mikejgray</a></p>
+</li>
+<li>
+<p>Jun 2023 - <a href="https://github.com/OpenVoiceOS/quebra_frases">quebra_frases</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Jun 2023 - <a href="https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb">ovos-translate-plugin-nllb</a> released</p>
+</li>
+<li>
+<p>Jun 2023 - <a href="https://fasterwhisper.ziggyai.online/stt">fasterwhisper.ziggyai.online</a> public STT server added (large, GPU)</p>
+</li>
+<li>
+<p>Jun 2023 - <a href="https://blog.graywind.org/posts/ovos-homeassistant-notify-integration/">Home Assistant Notify</a> integration released by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/mikejgray" title="GitHub User: mikejgray">@mikejgray</a></p>
+</li>
+<li>
+<p>Jun 2023 - First (and second!) successful run of OpenVoiceOS on Windows, using WSL2 and <a href="https://github.com/openvoiceos/ovos-docker">ovos-docker</a></p>
+</li>
+<li>
+<p>Jun 2023 - <a href="https://github.com/OpenVoiceOS/ovos-docker-tts">ovos-docker-tts</a> TTS containers released, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/goldyfruit" title="GitHub User: goldyfruit">@goldyfruit</a></p>
+</li>
+<li>
+<p>Jun 2023 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-azure">ovos-tts-plugin-azure</a> released</p>
+</li>
+<li>
+<p>Jun 2023 - <a href="https://github.com/OpenVoiceOS/ovos-utterance-corrections-plugin">ovos-utterance-corrections-plugin</a> released</p>
+</li>
+<li>
+<p>Jul 2023 - <a href="https://github.com/OpenVoiceOS/mycroft-gui-qt6">mycroft-gui-qt6</a> forked from mycroft-gui at last commit supporting QT6 before license change to GPL (reverted shortly after)</p>
+</li>
+<li>
+<p>Jul 2023 - <a href="https://github.com/OpenVoiceOS/mycroft-gui-qt5">mycroft-gui-qt5</a> forked from mycroft-gui at last commit supporting QT5</p>
+</li>
+<li>
+<p>Jul 2023 - <a href="https://pipertts.ziggyai.online">pipertts.ziggyai.online</a> public TTS server added</p>
+</li>
+<li>
+<p>Jul 2023 - <a href="https://tts.smartgic.io/piper">tts.smartgic.io/piper</a> public TTS server added</p>
+</li>
+<li>
+<p>Jul 2023 - piper TTS public servers become default OVOS voice (alan pope)</p>
+</li>
+<li>
+<p>Jul 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-spotify">skill-ovos-spotify</a> port of the mycroft-spotify skill by community member and original author <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/forslund" title="GitHub User: forslund">@forslund</a></p>
+</li>
+<li>
+<p>Aug 2023 - <a href="https://github.com/OpenVoiceOS/ovos-translate-server-plugin">ovos-translate-server-plugin</a> released</p>
+</li>
+<li>
+<p>Aug 2023 - <a href="https://github.com/OpenVoiceOS/ovos-docker-tx">ovos-docker-tx</a> translation containers released, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/goldyfruit" title="GitHub User: goldyfruit">@goldyfruit</a></p>
+</li>
+<li>
+<p>Aug 2023 - <a href="https://nllb.openvoiceos.org">nllb.openvoiceos.org</a> public translation server added</p>
+</li>
+<li>
+<p>Aug 2023 - <a href="https://translator.smartgic.io/nllb">translator.smartgic.io/nllb</a> public translation server added</p>
+</li>
+<li>
+<p>Aug 2023 - adopt NLLB public servers as default translation plugin</p>
+</li>
+<li>
+<p>Aug 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-wolfie">skill-ovos-wolfie</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Aug 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-ddg">skill-ovos-ddg</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Aug 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-wikipedia">skill-ovos-wikipedia</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Aug 2023 - <a href="https://github.com/OpenVoiceOS/ovos-stt-azure-plugin">ovos-stt-azure-plugin</a> released</p>
+</li>
+<li>
+<p>Sep 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-parrot">skill-ovos-parrot</a> transferred from <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/JarbasAl" title="GitHub User: JarbasAl">@JarbasAl</a> to OVOS</p>
+</li>
+<li>
+<p>Sep 2023 - <a href="https://stt.smartgic.io/fasterwhisper">stt.smartgic.io/fasterwhisper</a> public STT server (large, GPU)</p>
+</li>
+<li>
+<p>Sep 2023 - GUI fully functional with <a href="https://github.com/openvoiceos/ovos-docker">ovos-docker</a> containers</p>
+</li>
+<li>
+<p>Sep 2023 - <a href="https://github.com/OpenVoiceOS/ovos-persona-server">persona-server</a> alpha version released</p>
+</li>
+<li>
+<p>Sep 2023 - <a href="https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-ggwave">ovos-audio-transformer-plugin-ggwave</a> released</p>
+</li>
+<li>
+<p>Oct 2023 - <a href="https://ovosnllb.ziggyai.online">ovosnllb.ziggyai.online</a>  public translation server added</p>
+</li>
+<li>
+<p>Oct 2023 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3-server">ovos-tts-plugin-mimic3-server</a> deprecated</p>
+</li>
+<li>
+<p>Oct 2023 - <a href="https://github.com/OpenVoiceOS/ovos-PHAL-sensors">ovos-PHAL-sensors</a> released, exposing OVOS sensors in Home Assistant</p>
+</li>
+<li>
+<p>Oct 2023 - <a href="https://github.com/OpenVoiceOS/ovos-bidirectional-translation-plugin">ovos-bidirectional-translation-plugin</a> released</p>
+</li>
+<li>
+<p>Nov 2023 - Plasma Bigscreen <a href="https://invent.kde.org/plasma/plasma-bigscreen/-/commit/05441d4b687950b6235ef466cbb9c777631618d8">moves to QT6 and explicitly drops support for OVOS</a></p>
+</li>
+<li>
+<p>Dec 2023 - <a href="https://github.com/OpenVoiceOS/ovos-installer">ovos-installer</a> first release! codename <code>Duke Nukem</code>, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/goldyfruit" title="GitHub User: goldyfruit">@goldyfruit</a></p>
+</li>
+<li>
+<p>Dec 2023 - <code>ovos-logs</code> cli tool by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/sgee" title="GitHub User: sgee">@sgee</a> added to <code>ovos-utils</code></p>
+</li>
+<li>
+<p>Dec 2023 - <a href="https://github.com/OpenVoiceOS/ovos-docs-viewer">ovos-docs-viewer</a> cli tool released</p>
+</li>
+<li>
+<p>Dec 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-spelling">skill-ovos-spelling</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Dec 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-ip">skill-ovos-ip</a> forked from Mycroft</p>
+</li>
+<li>
+<p>Dec 2023 - <a href="https://github.com/OpenVoiceOS/skill-ovos-wallpapers">skill-ovos-wallpapers</a> transferred to OVOS</p>
+</li>
+<li>
+<p>Dec 2023 - <a href="https://github.com/OpenVoiceOS/ovos-i2csound">ovos-i2csound</a> released by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/builderjer" title="GitHub User: builderjer">@builderjer</a></p>
+</li>
+<li>
+<p>??? 202? - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic2">ovos-tts-plugin-mimic2</a> deprecated</p>
+</li>
+<li>
+<p>Jan 2024 - <a href="https://github.com/OpenVoiceOS/skill-ovos-boot-finished">skill-ovos-boot-finished</a> forked from Neon</p>
+</li>
+<li>
+<p>Jan 2024 - <a href="https://github.com/OpenVoiceOS/skill-ovos-audio-recording">skill-ovos-audio-recording</a> forked from Neon</p>
+</li>
+<li>
+<p>Jan 2024 - <a href="https://github.com/OpenVoiceOS/ovos-utterance-plugin-cancel">ovos-utterance-plugin-cancel</a> forked from Neon, deprecates dismissal skill</p>
+</li>
+<li>
+<p>Jan 2024 - <a href="https://github.com/OpenVoiceOS/ovos-mark1-utils">ovos-mark1-utils</a> released</p>
+</li>
+<li>
+<p>Jan 2024 - Mycroft forums move to <a href="https://community.openconversational.ai/">Open Conversational AI</a></p>
+</li>
+<li>
+<p>Jan 2024 - <a href="https://github.com/OpenVoiceOS/ovos-vad-plugin-noise">ovos-vad-plugin-noise</a> released to support older platforms</p>
+</li>
+<li>
+<p>Feb 2024 - <a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-edge-tts">ovos-tts-plugin-edge-tts</a> released</p>
+</li>
+<li>
+<p>Feb 2024 - Selene servers and Mycroft AI website <a href="https://community.openconversational.ai/t/mycroft-servers-down-any-quick-and-dirty-trick/">go down</a></p>
+</li>
+<li>
+<p>Feb 2024 - <a href="https://github.com/OpenVoiceOS/skill-ovos-randomness">skill-ovos-randomness</a> released, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/mikejgray" title="GitHub User: mikejgray">@mikejgray</a></p>
+</li>
+<li>
+<p>Feb 2024 - <a href="https://github.com/OVOSHatchery">OVOSHatchery</a> created to incubate new projects</p>
+</li>
+<li>
+<p>Feb 2024 - <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Chance" title="GitHub User: Chance">@Chance</a> leaves OpenVoiceOS</p>
+</li>
+<li>
+<p>Feb 2024 - <a href="https://github.com/OpenVoiceOS/skill-ovos-wordnet">skill-ovos-wordnet</a> released</p>
+</li>
+<li>
+<p>Mar 2024 - Community Mycroft <a href="https://github.com/orgs/OVOSHatchery/repositories?type=fork&amp;q=skill">skills updated to OVOS</a> under OVOSHatchery</p>
+</li>
+<li>
+<p>Mar 2024 - <a href="https://openvoiceos.github.io/OVOS-skills-store">OVOS Skill Store</a> released!</p>
+</li>
+<li>
+<p>Mar 2024 - <a href="https://ovoshatchery.github.io/OVOS-Hatchery-skills">Hatchery Skill Store</a> released!</p>
+</li>
+<li>
+<p>Mar 2024 - First successful run of OpenVoiceOS natively on Mac OS with Apple Silicon</p>
+</li>
+<li>
+<p>Mar 2024 - <a href="https://github.com/OpenVoiceOS/ovos-installer">ovos-installer</a> second release, codename <code>Doom</code> supports Mark II device, maintained by community member <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/goldyfruit" title="GitHub User: goldyfruit">@goldyfruit</a></p>
+</li>
+<li>
+<p>Apr 2024 - <a href="https://community.openconversational.ai/t/open-voice-os-running-on-a-mark-ii-with-its-local-ai-running-mistral/14572">Mark 2 demo</a> running Open Voice OS connected to a local A.I.</p>
+</li>
+<li>
+<p>Apr 2024 - First successful run of <a href="https://github.com/JarbasHiveMind/HiveMind-voice-sat">HiveMind Satellite</a> on Mark 1 device</p>
+</li>
+<li>
+<p>Jan 2024 - <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a> introduced, centralizing media state and playback control.</p>
+</li>
+<li>
+<p>Jun 2024 - <a href="https://github.com/mikejgray/ovos-windows">First successful run of OpenVoiceOS natively on Windows</a>: <a href="https://drive.google.com/file/d/171801mbhbpG79BvlOlUCxVyMPcDGgnbM/view?usp=sharing">https://drive.google.com/file/d/171801mbhbpG79BvlOlUCxVyMPcDGgnbM/view?usp=sharing</a></p>
+</li>
+<li>
+<p>Jul 2024 - Introduction of <a href="https://github.com/OpenVoiceOS/ovos-gguf-plugin">ovos-gguf-plugin</a> and <a href="https://github.com/OpenVoiceOS/ovos-document-chunkers">ovos-document-chunkers</a>, enabling local LLM inference and RAG capabilities.</p>
+</li>
+<li>
+<p>Sep 2024 - <code>ovos-core</code> version <strong>0.1.0</strong> released, hitting the first major feature milestone after adopting Semantic Versioning.</p>
+</li>
+<li>
+<p>Oct 2024 - <code>ovos-core</code> version <strong>0.2.0</strong> released, introducing refined pipeline routing.</p>
+</li>
+<li>
+<p>Oct 2024 - <strong>Pipeline Stability Milestone</strong>: Core pipeline plugins (<code>adapt</code>, <code>padatious</code>, <code>ocp</code>) reached version <strong>1.0.0</strong>, marking the stability of the modular intent pipeline architecture.</p>
+</li>
+<li>
+<p>Mar 2025 - <code>ovos-core</code> version <strong>1.0.0</strong> released, a landmark stable release representing full architectural maturity.</p>
+</li>
+<li>
+<p>Jun 2025 - Introduction of <a href="https://github.com/OpenVoiceOS/ovoscope">ovoscope</a>, the formal end-to-end testing framework for OVOS skills and core components.</p>
+</li>
+<li>
+<p>Jun 2025 - <code>ovos-utils</code> version <strong>0.8.0</strong> released, standardizing cross-platform utilities.</p>
+</li>
+<li>
+<p>Oct 2025 - <code>ovos-core</code> version <strong>2.0.0</strong> released, a <strong>major breaking release</strong> formalizing the multi-intent-pipeline architecture.</p>
+</li>
+<li>
+<p>Oct 2025 - Introduction of <a href="https://github.com/OpenVoiceOS/ovos-pydantic-models">ovos-pydantic-models</a> to standardize ecosystem-wide data structures.</p>
+</li>
+<li>
+<p>Nov 2025 - <code>ovos-workshop</code> version <strong>8.0.0</strong> released, a <strong>major breaking release</strong> that decoupled GUI and resource management into mixins.</p>
+</li>
+<li>
+<p>Jan 2026 - <code>ovos-plugin-manager</code> version <strong>2.2.0</strong> released, adding strict entry point validation.</p>
+</li>
+<li>
+<p>Mar 2026 - <code>ovos-bus-client</code> version <strong>1.5.0</strong> released, introducing <strong>AsyncMessageBusClient</strong> for native async/await support.</p>
+</li>
+<li>
+<p>Mar 2026 - <code>ovos-audio</code> version <strong>1.2.0</strong> released, achieving <strong>98% test coverage</strong>.</p>
+</li>
+<li>
+<p>Mar 2026 - Introduction of <a href="https://github.com/OpenVoiceOS/ovos-claude-plugin">ovos-claude-plugin</a>, integrating Anthropic's Claude into the OVOS persona system.</p>
+</li>
+<li>
+<p>Mar 2026 - <strong>The Great GUI Refactor</strong>: <code>ovos-gui</code> version <strong>1.0.0</strong> released as a <strong>major breaking change</strong>, removing the legacy QML/page system in favor of a <strong>template-only architecture</strong> (HTMX based).</p>
+</li>
+<li>
+<p>Mar 2026 - <strong>ovos-media Stabilization</strong>: Major refactor removing <code>OVOSAbstractApplication</code> from <code>OCPMediaPlayer</code>, preparing the media service for its upcoming 1.0 release.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "navigation.tracking", "navigation.instant", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/analytics.js"></script>
+      
+    
+  </body>
+</html>
