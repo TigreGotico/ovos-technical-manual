@@ -24,12 +24,10 @@ uncovered edge cases, especially around plugin loading and error paths.
 
 **Estimated Impact**: Medium — reduces regression risk significantly.
 
-### 3. Enrich this `SUGGESTIONS.md`
+### 4. Create `dev` branch and align with OVOS standards
 
-**Problem/Opportunity**: This file was auto-generated and contains only generic
-suggestions.
+**Problem/Opportunity**: This repository currently only has a `master` branch, while all other OpenVoiceOS repositories use `dev` as the main development branch. This can lead to confusion for contributors and breaks the "dev: Main development branch" mandate.
 
-**Proposed Solution**: After reading the source code, replace these stubs with
-repo-specific, evidence-backed proposals (pointing to specific files/lines).
+**Proposed Solution**: Create a `dev` branch from `master`, set it as the default branch, and update all GitHub Actions to trigger on `dev`.
 
-**Estimated Impact**: High — makes this file useful for future maintainers.
+**Estimated Impact**: Medium — improves consistency across the workspace.

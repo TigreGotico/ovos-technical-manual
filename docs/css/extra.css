@@ -1,3 +1,100 @@
-.wy-nav-content {
-    max-width: 1200px !important;
+/* Custom OVOS Branding - Strict Black and Red Theme */
+
+:root {
+  /* Override Material Primary Colors to Black */
+  --md-primary-fg-color:        #000000 !important;
+  --md-primary-fg-color--light: #222222 !important;
+  --md-primary-fg-color--dark:  #000000 !important;
+
+  /* Accent color - OVOS Red */
+  --md-accent-fg-color:         #ff0000 !important;
+  --md-accent-fg-color--transparent: rgba(255, 0, 0, 0.1) !important;
+  
+  /* Link and UI highlight colors */
+  --md-typeset-a-color:         #ff0000 !important;
+}
+
+/* Ensure the header is always black even in light mode */
+.md-header {
+  background-color: #000000 !important;
+}
+
+/* Make content wider but still readable */
+.md-grid {
+  max-width: 75rem;
+}
+
+/* Hero-like Introduction Style - Black/Red Gradient */
+.ovos-hero {
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, #000000 30%, #ff0000 100%);
+  color: #ffffff;
+  border-radius: 0.8rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ovos-hero h1 {
+  color: #ffffff !important;
+  margin-top: 0 !important;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
+.ovos-hero p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  max-width: 800px;
+  margin: 1rem auto 0;
+  opacity: 0.9;
+}
+
+/* Admonitions with Red Accents */
+.md-typeset .admonition {
+  border-radius: 0.2rem;
+  border-left-width: 0.4rem;
+}
+
+.md-typeset .admonition.info, 
+.md-typeset .admonition.note {
+  border-left-color: #ff0000;
+}
+
+.md-typeset .admonition-title {
+  background-color: rgba(255, 0, 0, 0.05);
+}
+
+/* Custom styles for the search box focus */
+.md-search__input:focus + .md-search__icon {
+  color: #ff0000;
+}
+
+/* Table Header - Pure Black */
+.md-typeset table:not([class]) th {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Navigation Tabs refinements */
+.md-tabs {
+  background-color: #000000 !important;
+}
+
+.md-tabs__link--active {
+  color: #ff0000 !important;
+}
+
+/* Scrollbar styling for that dark tech look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff0000;
 }

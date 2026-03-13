@@ -1,127 +1,285 @@
-site_name: OVOS Technical Manual
-site_url: https://openvoiceos.github.io/ovos-technical-manual
+site_name: OpenVoiceOS Technical Manual
+site_url: https://tigregotico.github.io/ovos-technical-manual
+repo_name: TigreGotico/ovos-technical-manual
+repo_url: https://github.com/TigreGotico/ovos-technical-manual
+edit_uri: edit/master/docs/
+
+theme:
+  name: material
+  logo: https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true
+  favicon: https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - navigation.tracking
+    - navigation.instant
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: grey
+      accent: red
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: grey
+      accent: red
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+markdown_extensions:
+  - admonition
+  - abbr
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: TigreGotico
+      repo: ovos-technical-manual
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
 nav:
   - Home:
       - Introduction: index.md
+      - Glossary: glossary.md
   - Getting Started:
-      - ovos-installer: 50-ovos_installer.md
-      - Manual Install: 001-release_channels.md
-  - RaspOVOS:
-      - Tutorial: 51-install_raspovos.md
-      - Default Skills: 54-skill-examples.md
-      - Troubleshooting: 55-raspovos_troubleshooting.md
+      - Installation Options: release-channels.md
+      - ovos-installer: ovos-installer.md
+      - RaspOVOS Tutorial: install-raspovos.md
+      - Troubleshooting: raspovos-troubleshooting.md
+      - Skill Examples: skill-examples.md
+  - Core Architecture:
+      - High-level Overview: architecture-overview.md
+      - Life of an Utterance: life-of-an-utterance.md
+      - MessageBus Service: bus-service.md
+      - Plugin Manager: plugin-manager.md
+      - Configuration:
+          - Overview: config.md
+          - Reference: config-reference.md
+          - Locations: locations-ref.md
+      - Core Services:
+          - ovos-core: core.md
+          - Skill Manager: skill-manager.md
+          - Intent Service: intent-service.md
+          - Skill Installer: skill-installer.md
+          - Speech Service: speech-service.md
+          - Audio Service: audio-service.md
+          - GUI Service: gui-service.md
+          - PHAL (Hardware): phal.md
+  - Intent Pipeline:
+      - Overview & Reference: pipelines-overview.md
+      - Pipeline Matchers:
+          - Adapt: adapt-pipeline.md
+          - Padatious: padatious-pipeline.md
+          - Model2Vec: m2v-pipeline.md
+          - Converse: converse-pipeline.md
+          - Common Query: cq-pipeline.md
+          - Persona: persona-pipeline.md
+          - Stop: stop-pipeline.md
+          - OCP: ocp-pipeline.md
+          - Fallback: fallback-pipeline.md
+      - Logic & Concepts:
+          - Prompts: prompts.md
+          - Context: context.md
+          - Intent Layers: layers.md
+      - Transformers:
+          - Overview: transformer-plugins.md
+          - Utterance: utterance-transformers.md
+          - Intent: intent-transformers.md
+          - Dialog: dialog-transformers.md
+          - Audio: audio-transformers.md
+          - TTS: tts-transformers.md
   - Language Support:
-      - Translations: lang_support.md
-      - GitLocalize Tutorial: gitlocalize_tutorial.md
-  - Architecture:
-      - Overview: 99-architecture-overview.md
-      - Bus: 100-bus_service.md
-      - Listener: 101-speech_service.md
-      - Core: 102-core.md
-      - Skills and Intents: 399-intents.md
-      - Audio: 103-audio_service.md
-      - GUI: 104-gui_service.md
-      - Platform/Hardware Abstraction Layer: 340-PHAL.md
-      - Plugin Manager: 300-plugin-manager.md
-      - Configuration: 110-config.md
-  - Intent Pipelines:
-      - Overview: pipelines_overview.md
-      - Adapt: adapt_pipeline.md
-      - Padatious: padatious_pipeline.md
-      - Model2Vec: m2v_pipeline.md
-      - Converse: converse_pipeline.md
-      - Stop: stop_pipeline.md
-      - Persona: 153-persona_pipeline.md
-      - Common Query: cq_pipeline.md
-      - OCP: 631-OCP_pipeline.md
-      - Fallback: fallback_pipeline.md
-  - Transformers:
-      - Audio: audio_transformers.md
-      - Utterance: utterance_transformers.md
-      - Intents: intent_transformers.md
-      - Dialog: dialog_transformers.md
-      - TTS: tts_transformers.md
-  - AI Agents:
-      - Personas: 150-personas.md
-      - AI Transformers: 151-llm-transformers.md
-      - Specialized Solvers: 150-advanced_solvers.md
-      - Agent Engine Plugins: 154-agent-plugins.md
-      - Mixture of Solvers: 155-mos-plugin.md
-      - ovos-judge: 156-ovos-judge.md
-      - Claude Plugin: 157-claude-plugin.md
-      - OpenAI Plugin: 158-openai-plugin.md
-      - GGUF / Local LLM Plugin: 159-gguf-plugin.md
-  - Self Hosting:
-      - Persona Server: 202-persona_server.md
-      - HiveMind: 152-hivemind-agents.md
-      - STT Server: 200-stt_server.md
-      - TTS Server: 201-tts_server.md
-      - Translate Server: 203-translate_server.md
-      - Wyoming Bridges: 204-wyoming-bridges.md
+      - Overview: lang-support.md
+      - Language Selection: lang-selection.md
+      - Customizing Resources: lang-customization.md
+      - Bidirectional Translation: bidirectional-translation.md
+      - Contributing: gitlocalize-tutorial.md
+      - Translation Plugins: translation-plugins.md
+      - Translation Server: translate-server.md
+      - Technical Parsers:
+          - Language Names: lang-parser.md
+          - Numbers: number-parser.md
+          - Dates & Time: date-parser.md
+          - Colors: color-parser.md
+          - Quebra Frases: quebra-frases.md
+          - Padacioso: padacioso.md
   - Skill Development:
-      - Design Guidelines: 400-skill-design-guidelines.md
-      - Anatomy: 401-skill_structure.md
-      - Dialog: 402-statements.md
-      - Intent Design: 403-intents.md
-      - Customization: 405-customization.md
-      - Bus Interaction: 406-messagebus.md
-      - Filesystem: 407-skill_filesystem.md
-      - Skill Settings: 408-skill_settings.md
-      - Skill API: 409-skill_api.md
-      - Runtime Requirements: 410-skill_runtime_requirements.md
-      - Skill Json: 411-skill_json.md
-      - Skill Classes: 413-intent-layers.md
-      - SSML: 420-ssml.md
-      - F.A.Q.: 430-skill_dev_faq.md
-  - Continuous Conversation:
-      - Prompts: 500-prompts.md
-      - Follow up Questions: 501-context.md
-      - Converse: 502-converse.md
-      - Intent Layers: 503-layers.md
-      - Session Aware Skills: 504-session.md
+      - Design Guidelines: skill-design-guidelines.md
+      - Best Practices: skill-best-practices.md
+      - Anatomy of a Skill: skill-structure.md
+      - Logic & Intents:
+          - Intent Design: intents.md
+          - Intent Layers: intent-layers.md
+          - Continuous Conversation: converse.md
+          - Context & Sessions: session.md
+          - Dialog & Statements: statements.md
+          - SSML: ssml.md
+          - Customization: customization.md
+          - skill.json: skill-json.md
+          - F.A.Q.: skill-dev-faq.md
+      - Skill APIs:
+          - OVOSSkill API: ovos-skill.md
+          - Skill Base Classes: skill-classes.md
+          - Decorators: decorators.md
+          - Skill Settings: skill-settings.md
+          - Meta Settings: skill-settings-meta.md
+          - Filesystem: skill-filesystem.md
+          - Resource Files: resource-files.md
+          - GUI Support: skill-gui.md
+          - Runtime Requirements: skill-runtime-requirements.md
   - Advanced Skill Types:
-      - Fallback Skills: 600-fallbacks.md
-      - Common Query Skills: 610-common_query.md
-      - Media Skills: 630-OCP_skills.md
-      - Universal Skills: 620-universal_skills.md
-  - Skill Testing:
-      - Overview: 450-skill-testing.md
-      - Usage Guide: 451-ovoscope-usage.md
-      - CI Integration: 452-ovoscope-ci.md
-      - Advanced Testing: 453-ovoscope-advanced.md
-  - GUI:
-      - Protocol: 701-gui_protocol.md
-      - OVOS Shell: 702-ovos-shell.md
-  - Voice Apps:
-      - Standalone Apps: 590-voice_apps.md
-  - MessageBus:
-      - Messagebus Client: 900-bus_client.md
-      - Session Management: 901-bus-session.md
-      - GUI Interface: 720-skill_gui.md
-      - Enclosure Api: 800-mk1_api.md
-      - Pydantic Models: 905-pydantic-models.md
-  - Plugin Development:
-      - Microphone: 310-mic_plugins.md
-      - Voice Activity Detection: 311-vad_plugins.md
-      - Wake Word: 312-wake_word_plugins.md
-      - Speech To Text: 313-stt_plugins.md
-      - Text To Speech: 320-tts_plugins.md
-      - Grapheme to Phoneme: 321-g2p_plugins.md
-      - Transformers: 330-transformer_plugins.md
-      - Language Detection/Translation: 350-translation_plugins.md
-      - OCP Stream Extractors: 370-ocp_plugins.md
-      - Media Playback: 371-media_plugins.md
-  - Misc. Utilities:
-      - Number Parser: 891-number_parser.md
-      - Date Parser: 890-date_parser.md
-      - Color Parser: 893-color_parser.md
-      - Quebra Frases: 910-quebra_frases.md
-      - Padacioso: 920-padacioso.md
-      - Mark1 Utils: 801-mk1_utils.md
-  - Misc. Information:
-      - License: 002-license.md
-      - Timeline: 003-timeline.md
-theme: readthedocs
+      - Fallback Skills: fallbacks.md
+      - Common Query Skills: common-query.md
+      - Media Skills (OCP): ocp-skills.md
+      - Universal Skills: universal-skills.md
+  - End-to-End Testing (ovoscope):
+      - Overview: ovoscope-overview.md
+      - Usage Guide: ovoscope-usage.md
+      - CI Integration: ovoscope-ci.md
+      - MiniCroft: ovoscope-minicroft.md
+      - End2EndTest Reference: ovoscope-end2end-test.md
+      - PHAL Testing: ovoscope-phal.md
+      - Pipeline Testing: ovoscope-pipeline.md
+      - Audio Testing: audio-testing.md
+      - Listener Testing: listener.md
+      - OCP Testing: ocp.md
+      - Pydantic Integration: pydantic-integration.md
+      - Capture Sessions: capture-session.md
+      - FakeBus Reference: fakebus.md
+      - Skill Testing Architecture: skill-testing.md
+  - Plugin Ecosystem:
+      - Index & Overview: plugins-index.md
+      - AI & Agents:
+          - Agent Engines: agent-plugins.md
+          - Mixture of Solvers: mos-plugin.md
+          - Personas: personas.md
+          - Specialized Solvers: advanced-solvers.md
+          - ovos-judge: ovos-judge.md
+          - Claude: claude-plugin.md
+          - OpenAI: openai-plugin.md
+          - GGUF / Local LLM: gguf-plugin.md
+          - LLM Transformers: llm-transformers.md
+      - Speech & Audio:
+          - Microphone: mic-plugins.md
+          - VAD: vad-plugins.md
+          - Wake Word: wake-word-plugins.md
+          - STT: stt-plugins.md
+          - TTS: tts-plugins.md
+          - G2P: g2p-plugins.md
+      - Media & GUI:
+          - ovos-media: ovos-media.md
+          - OCP Extractors: ocp-plugins.md
+          - Media Playback: media-plugins.md
+          - GUI Protocol: gui-protocol.md
+          - OVOS Shell: ovos-shell.md
+          - GUI Adapters: gui-adapters.md
+          - Qt5 GUI: qt5-gui.md
+          - Homescreen: homescreen.md
+  - Advanced & Self Hosting:
+      - STT Server: stt-server.md
+      - TTS Server: tts-server.md
+      - Persona Server: persona-server.md
+      - Translate Server: translate-server.md
+      - HiveMind: hivemind-agents.md
+      - Wyoming Bridges: wyoming-bridges.md
+      - Pydantic Models: pydantic-models.md
+      - Models Reference: models.md
+      - Pydantic Dev Guide: pydantic-dev-guide.md
+      - Deprecation Log: deprecation-log.md
+  - Utilities & Reference:
+      - Library Docs:
+          - ovos-workshop:
+              - Overview: workshop-overview.md
+              - OVOSSkill API: ovos-skill.md
+              - Skill Base Classes: skill-classes.md
+              - Decorators: decorators.md
+              - Intent Layers: intent-layers.md
+              - Settings: skill-settings.md
+              - Resource Files: resource-files.md
+          - ovos-bus-client:
+              - Overview: bus-client-overview.md
+              - Message Objects: message-ref.md
+              - MessageBus Client: client-ref.md
+              - Async Client: async-client.md
+              - Session Management: session.md
+              - High-level APIs: apis-ref.md
+              - Configuration: configuration-ref.md
+          - ovos-utils:
+              - Overview: utils-overview.md
+              - Logging: log-ref.md
+              - Process Management: process-utils-ref.md
+              - Bus Events: events.md
+              - Utilities: utilities.md
+              - FakeBus: fakebus.md
+          - ovos-config:
+              - Overview: config.md
+              - Reference: config-reference.md
+              - Locations: locations-ref.md
+          - ovos-pydantic-models:
+              - Overview: pydantic-models.md
+              - Message Base: message-base.md
+              - Missing Messages: missing-messages.md
+              - Developer Guide: pydantic-dev-guide.md
+      - Tools:
+          - ovos-diagnostics: diagnostics.md
+          - ovos-docs-viewer: docs-viewer.md
+          - gh-automations: gh-automations-overview.md
+          - gh-automations Release: gh-automations-release.md
+          - gh-automations Workflows: gh-automations-workflows.md
+      - Document Processing:
+          - Document Chunkers: document-chunkers.md
+      - Misc:
+          - Eggscript: eggscript.md
+          - Mark 1 Hardware: mark1.md
+          - Timeline: timeline.md
+          - License: license.md
+
 extra_css:
   - css/extra.css
 

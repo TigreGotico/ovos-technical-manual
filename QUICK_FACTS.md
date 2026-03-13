@@ -10,3 +10,5 @@ OpenVoiceOS component: ovos-technical-manual
 | License | Apache-2.0 |
 | Repository | [https://github.com/OpenVoiceOS/ovos-technical-manual](https://github.com/OpenVoiceOS/ovos-technical-manual) |
 | Python Support | >=3.9 |
+| Build Tool | `mkdocs` |
+| Theme | `mkdocs-material` |
