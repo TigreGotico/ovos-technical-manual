@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://openvoiceos.github.io/ovos-technical-manual/100-bus_service/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Bus - OVOS Technical Manual</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Bus";
+        var mkdocs_page_input_path = "100-bus_service.md";
+        var mkdocs_page_url = "/ovos-technical-manual/100-bus_service/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> OVOS Technical Manual
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../50-ovos_installer/">ovos-installer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../001-release_channels/">Manual Install</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">RaspOVOS</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../51-install_raspovos/">Tutorial</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../54-skill-examples/">Default Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../55-raspovos_troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Language Support</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../lang_support/">Translations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../gitlocalize_tutorial/">GitLocalize Tutorial</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../99-architecture-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Bus</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-the-server">Running the Server</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#implementation-messagebuseventhandler">Implementation: MessageBusEventHandler</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#broadcast-behaviour">Broadcast Behaviour</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#open">open()</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#on_messagemessage">on_message(message)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check_originorigin-bool">check_origin(origin) → bool</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#max_message_size">max_message_size</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#message-structure">Message Structure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sessions">Sessions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#message-targeting-and-routing">Message Targeting and Routing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#key-message-categories">Key Message Categories</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#core-intent-pipeline">Core / Intent Pipeline</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#skill-manager">Skill Manager</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#session-sync">Session Sync</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#connectivity-phal">Connectivity / PHAL</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#services-that-connect-to-the-bus">Services That Connect to the Bus</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#alternative-backends">Alternative Backends</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#benchmark-summary-localhost-cpython-311">Benchmark Summary (localhost, CPython 3.11)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#webrockets-known-limitations">webrockets Known Limitations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rust-configuration-via-environment-variables">Rust Configuration (via environment variables)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#filter-debug-mode">Filter / Debug Mode</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#related-pages">Related Pages</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../101-speech_service/">Listener</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../102-core/">Core</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../399-intents/">Skills and Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../103-audio_service/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../104-gui_service/">GUI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../340-PHAL/">Platform/Hardware Abstraction Layer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../300-plugin-manager/">Plugin Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../110-config/">Configuration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Intent Pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipelines_overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adapt_pipeline/">Adapt</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../padatious_pipeline/">Padatious</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../m2v_pipeline/">Model2Vec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../converse_pipeline/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../stop_pipeline/">Stop</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../153-persona_pipeline/">Persona</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cq_pipeline/">Common Query</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../631-OCP_pipeline/">OCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../fallback_pipeline/">Fallback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Transformers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../audio_transformers/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../utterance_transformers/">Utterance</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../intent_transformers/">Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dialog_transformers/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tts_transformers/">TTS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">AI Agents</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-personas/">Personas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../151-llm-transformers/">AI Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-advanced_solvers/">Specialized Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../154-agent-plugins/">Agent Engine Plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../155-mos-plugin/">Mixture of Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../156-ovos-judge/">ovos-judge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../157-claude-plugin/">Claude Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../158-openai-plugin/">OpenAI Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../159-gguf-plugin/">GGUF / Local LLM Plugin</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Self Hosting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../202-persona_server/">Persona Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../152-hivemind-agents/">HiveMind</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../200-stt_server/">STT Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../201-tts_server/">TTS Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../203-translate_server/">Translate Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../204-wyoming-bridges/">Wyoming Bridges</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../400-skill-design-guidelines/">Design Guidelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../401-skill_structure/">Anatomy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../402-statements/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../403-intents/">Intent Design</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../405-customization/">Customization</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../406-messagebus/">Bus Interaction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../407-skill_filesystem/">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../408-skill_settings/">Skill Settings</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../409-skill_api/">Skill API</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../410-skill_runtime_requirements/">Runtime Requirements</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../411-skill_json/">Skill Json</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../413-intent-layers/">Skill Classes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../420-ssml/">SSML</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../430-skill_dev_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Continuous Conversation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../500-prompts/">Prompts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../501-context/">Follow up Questions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../502-converse/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../503-layers/">Intent Layers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../504-session/">Session Aware Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced Skill Types</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../600-fallbacks/">Fallback Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../610-common_query/">Common Query Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../630-OCP_skills/">Media Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../620-universal_skills/">Universal Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Testing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../450-skill-testing/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../451-ovoscope-usage/">Usage Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../452-ovoscope-ci/">CI Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../453-ovoscope-advanced/">Advanced Testing</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">GUI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../701-gui_protocol/">Protocol</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../702-ovos-shell/">OVOS Shell</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Voice Apps</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../590-voice_apps/">Standalone Apps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MessageBus</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../900-bus_client/">Messagebus Client</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../901-bus-session/">Session Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../720-skill_gui/">GUI Interface</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../800-mk1_api/">Enclosure Api</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../905-pydantic-models/">Pydantic Models</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Plugin Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../310-mic_plugins/">Microphone</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../311-vad_plugins/">Voice Activity Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../312-wake_word_plugins/">Wake Word</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../313-stt_plugins/">Speech To Text</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../320-tts_plugins/">Text To Speech</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../321-g2p_plugins/">Grapheme to Phoneme</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../330-transformer_plugins/">Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../350-translation_plugins/">Language Detection/Translation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../370-ocp_plugins/">OCP Stream Extractors</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../371-media_plugins/">Media Playback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Utilities</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../891-number_parser/">Number Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../890-date_parser/">Date Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../893-color_parser/">Color Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../910-quebra_frases/">Quebra Frases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../920-padacioso/">Padacioso</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../801-mk1_utils/">Mark1 Utils</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../002-license/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../003-timeline/">Timeline</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">OVOS Technical Manual</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Architecture</li>
+      <li class="breadcrumb-item active">Bus</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="bus-service">Bus Service</h1>
+<p>The <strong>Message Bus</strong> is the central nervous system of the OVOS platform. All services communicate by publishing and subscribing to typed <code>Message</code> objects through this central WebSocket broker.</p>
+<hr />
+<h2 id="overview">Overview</h2>
+<p><code>ovos-messagebus</code> is a pure fan-out WebSocket broker. Every message received from one client is broadcast verbatim to every connected client. The bus performs no filtering, routing, or transformation.</p>
+<pre><code>┌─────────────────────────────────────────────┐
+│              ovos-messagebus                │
+│                                             │
+│  Tornado IOLoop (daemon thread)             │
+│  ┌──────────────────────────────────────┐   │
+│  │  MessageBusEventHandler             │   │
+│  │  (Tornado WebSocketHandler)         │   │
+│  │  ┌──────────────────────────────┐   │   │
+│  │  │  client_connections: list    │   │   │
+│  │  │  Fan-out broadcast           │   │   │
+│  │  └──────────────────────────────┘   │   │
+│  └──────────────────────────────────────┘   │
+└─────────────────────────────────────────────┘
+         │           │           │
+    ovos-core   ovos-audio   ovos-gui
+    (clients via ovos-bus-client)
+</code></pre>
+<hr />
+<h2 id="running-the-server">Running the Server</h2>
+<pre><code class="language-bash">ovos-messagebus
+# or
+python -m ovos_messagebus
+</code></pre>
+<p>The server reads connection parameters from <code>mycroft.conf</code> (<code>websocket</code> section) and starts listening on a daemon thread. On SIGTERM/SIGINT the daemon thread exits with the main process — no explicit cleanup is required.</p>
+<hr />
+<h2 id="configuration">Configuration</h2>
+<p>All settings live under the <code>websocket</code> key in <code>mycroft.conf</code>:</p>
+<pre><code class="language-json">{
+  &quot;websocket&quot;: {
+    &quot;host&quot;: &quot;127.0.0.1&quot;,
+    &quot;port&quot;: 8181,
+    &quot;route&quot;: &quot;/core&quot;,
+    &quot;ssl&quot;: false,
+    &quot;max_msg_size&quot;: 25,
+    &quot;filter&quot;: false,
+    &quot;filter_logs&quot;: [&quot;gui.status.request&quot;, &quot;gui.page.upload&quot;]
+  }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td><code>"127.0.0.1"</code></td>
+<td>Bind address. Use <code>"0.0.0.0"</code> only if remote clients (e.g. HiveMind) need to connect.</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td><code>8181</code></td>
+<td>TCP port. The GUI service uses a separate port (<code>18181</code>).</td>
+</tr>
+<tr>
+<td><code>route</code></td>
+<td><code>"/core"</code></td>
+<td>WebSocket URL path. Full URL: <code>ws://host:port/core</code>.</td>
+</tr>
+<tr>
+<td><code>ssl</code></td>
+<td><code>false</code></td>
+<td>Enable WSS/TLS. Requires <code>ssl_cert</code> and <code>ssl_key</code> paths.</td>
+</tr>
+<tr>
+<td><code>max_msg_size</code></td>
+<td><code>25</code></td>
+<td>Max WebSocket frame size in megabytes.</td>
+</tr>
+<tr>
+<td><code>filter</code></td>
+<td><code>false</code></td>
+<td>Enable debug logging of message types before broadcast.</td>
+</tr>
+<tr>
+<td><code>filter_logs</code></td>
+<td><code>["gui.status.request", ...]</code></td>
+<td>Message types excluded from filter logging.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Security:</strong> Never expose the messagebus to the public internet. It provides full control over the OVOS instance. For remote access, use <a href="https://jarbashivemind.github.io/HiveMind-community-docs/">HiveMind</a>.</p>
+</blockquote>
+<hr />
+<h2 id="implementation-messagebuseventhandler">Implementation: <code>MessageBusEventHandler</code></h2>
+<p><strong>Module:</strong> <code>ovos_messagebus.event_handler.MessageBusEventHandler</code></p>
+<p>Tornado <code>WebSocketHandler</code> subclass implementing the OVOS message bus. All connected clients share a single module-level connection list (<code>client_connections</code>).</p>
+<h3 id="broadcast-behaviour">Broadcast Behaviour</h3>
+<p>The bus is a pure fan-out: no routing, no filtering, no topic subscriptions at the server level. Every message every client sends is forwarded to every client (including the sender):</p>
+<pre><code class="language-python"># ovos_messagebus/event_handler.py:77
+for client in client_connections:
+    client.write_message(message)
+</code></pre>
+<p>Subscription filtering is handled entirely in the client library (<code>ovos-bus-client</code>).</p>
+<h3 id="open"><code>open()</code></h3>
+<p>Called when a new WebSocket connection is established. Writes a <code>connected</code> message (with <code>context.session.session_id = "default"</code>) to the new client only, then appends <code>self</code> to <code>client_connections</code>.</p>
+<h3 id="on_messagemessage"><code>on_message(message)</code></h3>
+<p>Called for each incoming WebSocket frame. Broadcasts the raw message string to <strong>all</strong> connections. When <code>filter: true</code>, the message type, source, destination, and session are logged before broadcast.</p>
+<h3 id="check_originorigin-bool"><code>check_origin(origin) → bool</code></h3>
+<p>Always returns <code>True</code>. OVOS does not enforce CORS/origin checks.</p>
+<h3 id="max_message_size"><code>max_message_size</code></h3>
+<pre><code class="language-python">config.get(&quot;websocket&quot;, {}).get(&quot;max_msg_size&quot;, 25) * 1024 * 1024
+</code></pre>
+<p>Default: 25 MB. Messages larger than this cause Tornado to close the connection.</p>
+<hr />
+<h2 id="message-structure">Message Structure</h2>
+<p>Every message on the bus is a JSON object with three fields:</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;recognizer_loop:utterance&quot;,
+  &quot;data&quot;: {&quot;utterances&quot;: [&quot;what time is it&quot;], &quot;lang&quot;: &quot;en-us&quot;},
+  &quot;context&quot;: {&quot;session&quot;: {&quot;session_id&quot;: &quot;default&quot;}, &quot;source&quot;: &quot;listener&quot;}
+}
+</code></pre>
+<ul>
+<li><code>type</code> — identifies the event</li>
+<li><code>data</code> — arbitrary JSON payload</li>
+<li><code>context</code> — routing/session metadata</li>
+</ul>
+<p>The bus recognises only one special message type: <code>connected</code> (emitted to a new client immediately after it opens a connection). All other types are application-level.</p>
+<p>See <a href="../900-bus_client/">Bus Client</a> for the <code>Message</code> Python API.</p>
+<hr />
+<h2 id="sessions">Sessions</h2>
+<p>Every message may carry a <code>session</code> object inside its <code>context</code>. Sessions enable:</p>
+<ul>
+<li>Per-user conversational context</li>
+<li>Independent pipeline configuration per client</li>
+<li>Site/device identification (<code>site_id</code>)</li>
+<li>Skill and intent blacklisting per session</li>
+</ul>
+<p>The default session (<code>session_id="default"</code>) is used by the local microphone. HiveMind satellites each have their own session.</p>
+<p>See <a href="../901-bus-session/">Bus Session</a> for full <code>Session</code> and <code>SessionManager</code> documentation.</p>
+<hr />
+<h2 id="message-targeting-and-routing">Message Targeting and Routing</h2>
+<p>The bus itself performs no routing — every client receives every message. However, <code>context["source"]</code> and <code>context["destination"]</code> allow applications (notably HiveMind) to implement their own routing logic.</p>
+<p>The <code>Message</code> object provides:</p>
+<ul>
+<li><code>.reply(msg_type, data)</code> — swap <code>source</code>↔<code>destination</code>, preserving context</li>
+<li><code>.forward(msg_type, data)</code> — copy context verbatim under a new type</li>
+<li><code>.response(data)</code> — shorthand for <code>reply(self.msg_type + ".response", ...)</code></li>
+</ul>
+<hr />
+<h2 id="key-message-categories">Key Message Categories</h2>
+<h3 id="core-intent-pipeline">Core / Intent Pipeline</h3>
+<table>
+<thead>
+<tr>
+<th>Message type</th>
+<th>Publisher</th>
+<th>Consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>recognizer_loop:utterance</code></td>
+<td><code>ovos-dinkum-listener</code></td>
+<td><code>ovos-core</code></td>
+</tr>
+<tr>
+<td><code>speak</code></td>
+<td><code>ovos-core</code> (skills)</td>
+<td><code>ovos-audio</code></td>
+</tr>
+<tr>
+<td><code>complete_intent_failure</code></td>
+<td><code>ovos-core</code></td>
+<td>fallback skills</td>
+</tr>
+<tr>
+<td><code>ovos.utterance.handled</code></td>
+<td><code>ovos-core</code></td>
+<td>GUI clients</td>
+</tr>
+</tbody>
+</table>
+<h3 id="skill-manager">Skill Manager</h3>
+<table>
+<thead>
+<tr>
+<th>Message type</th>
+<th>Publisher</th>
+<th>Consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mycroft.skills.initialized</code></td>
+<td><code>ovos-core</code></td>
+<td>GUI clients, tools</td>
+</tr>
+<tr>
+<td><code>skillmanager.list</code></td>
+<td>*</td>
+<td><code>ovos-core</code></td>
+</tr>
+<tr>
+<td><code>ovos.skills.install</code></td>
+<td>*</td>
+<td><code>ovos-core</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="session-sync">Session Sync</h3>
+<table>
+<thead>
+<tr>
+<th>Message type</th>
+<th>Publisher</th>
+<th>Consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ovos.session.sync</code></td>
+<td>new client</td>
+<td><code>ovos-core</code></td>
+</tr>
+<tr>
+<td><code>ovos.session.update_default</code></td>
+<td><code>ovos-core</code></td>
+<td>all clients</td>
+</tr>
+</tbody>
+</table>
+<h3 id="connectivity-phal">Connectivity / PHAL</h3>
+<table>
+<thead>
+<tr>
+<th>Message type</th>
+<th>Publisher</th>
+<th>Consumers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mycroft.network.connected</code></td>
+<td><code>ovos-PHAL</code></td>
+<td><code>ovos-core</code>, skills</td>
+</tr>
+<tr>
+<td><code>mycroft.internet.connected</code></td>
+<td><code>ovos-PHAL</code></td>
+<td><code>ovos-core</code>, skills</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="services-that-connect-to-the-bus">Services That Connect to the Bus</h2>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../102-core/">ovos-core</a></td>
+<td>Intent pipeline, skill orchestration</td>
+</tr>
+<tr>
+<td>ovos-audio</td>
+<td>TTS rendering and audio playback</td>
+</tr>
+<tr>
+<td>ovos-gui</td>
+<td>GUI namespace management</td>
+</tr>
+<tr>
+<td>ovos-dinkum-listener</td>
+<td>Wake word detection and STT transcription</td>
+</tr>
+<tr>
+<td>ovos-PHAL</td>
+<td>Hardware abstraction layer</td>
+</tr>
+</tbody>
+</table>
+<p>GUI clients connect to <code>ovos-gui</code>'s own WebSocket (<code>ws://localhost:18181/gui</code>), not directly to the messagebus.</p>
+<hr />
+<h2 id="alternative-backends">Alternative Backends</h2>
+<p><code>ovos-messagebus</code> ships the Tornado backend by default. Two additional backends are available for deployments needing higher throughput:</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Install</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tornado</strong> (default)</td>
+<td><code>pip install ovos-messagebus</code></td>
+<td>Pure Python, most compatible</td>
+</tr>
+<tr>
+<td><strong>webrockets</strong></td>
+<td><code>pip install "ovos-messagebus[webrockets]"</code></td>
+<td>Rust-powered; +24% throughput at 50+ clients</td>
+</tr>
+<tr>
+<td><strong>ovos-rust-messagebus</strong></td>
+<td>Build from <a href="https://github.com/OscillateLabsLLC/ovos-rust-messagebus">source</a></td>
+<td>+18-20% throughput at 5-20 clients</td>
+</tr>
+</tbody>
+</table>
+<p>All backends expose the same OVOS wire protocol.</p>
+<p>Run the webrockets backend:</p>
+<pre><code class="language-bash">python -m ovos_messagebus.backends.webrockets_backend
+</code></pre>
+<p>Run the Rust binary:</p>
+<pre><code class="language-bash">git clone https://github.com/OscillateLabsLLC/ovos-rust-messagebus
+cd ovos-rust-messagebus &amp;&amp; cargo build --release
+./target/release/ovos-rust-messagebus
+</code></pre>
+<h3 id="benchmark-summary-localhost-cpython-311">Benchmark Summary (localhost, CPython 3.11)</h3>
+<pre><code>Scenario          Tornado       webrockets    Rust
+─────────────────────────────────────────────────
+5c × 200m       48,820/s      54,103/s      57,770/s  ← Rust best
+20c × 1,000m    65,937/s      71,841/s      78,849/s  ← Rust best
+50c × 2,000m    63,858/s      78,891/s      76,585/s  ← webrockets best
+100c × 500m     74,154/s      76,799/s      ⚠ errors  ← webrockets best
+</code></pre>
+<p><strong>Summary:</strong>
+- Rust wins at low-to-medium concurrency (5–20 clients): +18–20% over Tornado
+- webrockets wins at high concurrency (50+ clients): +24% over Tornado and more stable than Rust
+- Tornado has the lowest minimum latency at low concurrency and zero setup friction
+- For typical OVOS deployments (1–20 services), the Rust binary is fastest; for HiveMind hubs with 50+ nodes, webrockets is more stable</p>
+<h3 id="webrockets-known-limitations">webrockets Known Limitations</h3>
+<ul>
+<li><code>max_msg_size</code> config key is silently ignored — use a reverse proxy</li>
+<li>No TLS support — terminate TLS at a reverse proxy and forward plain WebSocket traffic</li>
+</ul>
+<h3 id="rust-configuration-via-environment-variables">Rust Configuration (via environment variables)</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OVOS_BUS_HOST</code></td>
+<td><code>0.0.0.0</code></td>
+<td>Bind address</td>
+</tr>
+<tr>
+<td><code>OVOS_BUS_PORT</code></td>
+<td><code>8181</code></td>
+<td>TCP port</td>
+</tr>
+<tr>
+<td><code>OVOS_BUS_MAX_MSG_SIZE</code></td>
+<td><code>25</code> MB</td>
+<td>Maximum message payload size</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="filter-debug-mode">Filter / Debug Mode</h2>
+<p>Set <code>websocket.filter: true</code> in <code>mycroft.conf</code> to log all message types before broadcasting. This does not affect message delivery.</p>
+<pre><code>DEBUG: &lt;msg_type&gt; source: [...] destination: [...]
+       SESSION: {...}
+</code></pre>
+<p>Messages listed in <code>filter_logs</code> are excluded from the log to reduce noise (default: <code>["gui.status.request", "gui.page.upload"]</code>).</p>
+<p>Deserialization failures are logged at DEBUG level and the raw payload is forwarded unchanged.</p>
+<hr />
+<h2 id="related-pages">Related Pages</h2>
+<ul>
+<li><a href="../900-bus_client/">Bus Client</a> — <code>MessageBusClient</code>, <code>Message</code>, <code>Session</code> Python API</li>
+<li><a href="../901-bus-session/">Bus Session</a> — <code>Session</code>, <code>SessionManager</code>, <code>IntentContextManager</code></li>
+<li><a href="../102-core/">ovos-core</a> — Intent service, skill manager</li>
+<li><a href="../110-config/">Configuration</a> — <code>mycroft.conf</code> configuration</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../99-architecture-overview/" class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../101-speech_service/" class="btn btn-neutral float-right" title="Listener">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../99-architecture-overview/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../101-speech_service/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../javascripts/analytics.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

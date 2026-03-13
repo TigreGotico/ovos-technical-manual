@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://openvoiceos.github.io/ovos-technical-manual/340-PHAL/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Platform/Hardware Abstraction Layer - OVOS Technical Manual</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Platform/Hardware Abstraction Layer";
+        var mkdocs_page_input_path = "340-PHAL.md";
+        var mkdocs_page_url = "/ovos-technical-manual/340-PHAL/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> OVOS Technical Manual
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../50-ovos_installer/">ovos-installer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../001-release_channels/">Manual Install</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">RaspOVOS</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../51-install_raspovos/">Tutorial</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../54-skill-examples/">Default Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../55-raspovos_troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Language Support</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../lang_support/">Translations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../gitlocalize_tutorial/">GitLocalize Tutorial</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../99-architecture-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../100-bus_service/">Bus</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../101-speech_service/">Listener</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../102-core/">Core</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../399-intents/">Skills and Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../103-audio_service/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../104-gui_service/">GUI</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Platform/Hardware Abstraction Layer</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#phal-service">PHAL Service</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#plugin-loading-rules">Plugin loading rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#processstatus-lifecycle">ProcessStatus lifecycle</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#adminphal-service">AdminPHAL Service</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#key-differences-from-phal">Key differences from PHAL</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#security-model">Security model</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration_1">Configuration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#writing-phal-plugins">Writing PHAL Plugins</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#base-class">Base class</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#validator">Validator</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#entry-points">Entry points</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#plugin-configuration">Plugin configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#lifecycle">Lifecycle</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#choosing-between-phal-and-a-skill">Choosing Between PHAL and a Skill</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#available-plugins">Available Plugins</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../300-plugin-manager/">Plugin Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../110-config/">Configuration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Intent Pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipelines_overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adapt_pipeline/">Adapt</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../padatious_pipeline/">Padatious</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../m2v_pipeline/">Model2Vec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../converse_pipeline/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../stop_pipeline/">Stop</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../153-persona_pipeline/">Persona</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cq_pipeline/">Common Query</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../631-OCP_pipeline/">OCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../fallback_pipeline/">Fallback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Transformers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../audio_transformers/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../utterance_transformers/">Utterance</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../intent_transformers/">Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dialog_transformers/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tts_transformers/">TTS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">AI Agents</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-personas/">Personas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../151-llm-transformers/">AI Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-advanced_solvers/">Specialized Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../154-agent-plugins/">Agent Engine Plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../155-mos-plugin/">Mixture of Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../156-ovos-judge/">ovos-judge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../157-claude-plugin/">Claude Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../158-openai-plugin/">OpenAI Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../159-gguf-plugin/">GGUF / Local LLM Plugin</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Self Hosting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../202-persona_server/">Persona Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../152-hivemind-agents/">HiveMind</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../200-stt_server/">STT Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../201-tts_server/">TTS Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../203-translate_server/">Translate Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../204-wyoming-bridges/">Wyoming Bridges</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../400-skill-design-guidelines/">Design Guidelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../401-skill_structure/">Anatomy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../402-statements/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../403-intents/">Intent Design</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../405-customization/">Customization</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../406-messagebus/">Bus Interaction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../407-skill_filesystem/">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../408-skill_settings/">Skill Settings</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../409-skill_api/">Skill API</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../410-skill_runtime_requirements/">Runtime Requirements</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../411-skill_json/">Skill Json</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../413-intent-layers/">Skill Classes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../420-ssml/">SSML</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../430-skill_dev_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Continuous Conversation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../500-prompts/">Prompts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../501-context/">Follow up Questions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../502-converse/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../503-layers/">Intent Layers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../504-session/">Session Aware Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced Skill Types</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../600-fallbacks/">Fallback Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../610-common_query/">Common Query Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../630-OCP_skills/">Media Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../620-universal_skills/">Universal Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Testing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../450-skill-testing/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../451-ovoscope-usage/">Usage Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../452-ovoscope-ci/">CI Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../453-ovoscope-advanced/">Advanced Testing</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">GUI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../701-gui_protocol/">Protocol</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../702-ovos-shell/">OVOS Shell</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Voice Apps</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../590-voice_apps/">Standalone Apps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MessageBus</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../900-bus_client/">Messagebus Client</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../901-bus-session/">Session Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../720-skill_gui/">GUI Interface</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../800-mk1_api/">Enclosure Api</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../905-pydantic-models/">Pydantic Models</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Plugin Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../310-mic_plugins/">Microphone</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../311-vad_plugins/">Voice Activity Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../312-wake_word_plugins/">Wake Word</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../313-stt_plugins/">Speech To Text</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../320-tts_plugins/">Text To Speech</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../321-g2p_plugins/">Grapheme to Phoneme</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../330-transformer_plugins/">Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../350-translation_plugins/">Language Detection/Translation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../370-ocp_plugins/">OCP Stream Extractors</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../371-media_plugins/">Media Playback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Utilities</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../891-number_parser/">Number Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../890-date_parser/">Date Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../893-color_parser/">Color Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../910-quebra_frases/">Quebra Frases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../920-padacioso/">Padacioso</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../801-mk1_utils/">Mark1 Utils</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../002-license/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../003-timeline/">Timeline</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">OVOS Technical Manual</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Architecture</li>
+      <li class="breadcrumb-item active">Platform/Hardware Abstraction Layer</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="phal-platformhardware-abstraction-layer">PHAL — Platform/Hardware Abstraction Layer</h1>
+<p>PHAL (Platform/Hardware Abstraction Layer) provides a plugin-based system for integrating
+hardware-specific and platform-level functionality into OVOS. PHAL plugins run as
+independent services alongside the core voice assistant, receive the OVOS MessageBus
+client at construction, and may listen to or emit any bus event.</p>
+<p>Two services are provided:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Entry point</th>
+<th>Config section</th>
+<th>Default enable</th>
+<th>Privilege</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PHAL</code></td>
+<td><code>opm.phal</code></td>
+<td><code>mycroft.conf["PHAL"]</code></td>
+<td>Auto (validator + not <code>enabled: false</code>)</td>
+<td>Current user</td>
+</tr>
+<tr>
+<td><code>AdminPHAL</code></td>
+<td><code>opm.phal.admin</code></td>
+<td><code>mycroft.conf["PHAL"]["admin"]</code></td>
+<td>Opt-in (<code>"enabled": true</code> required)</td>
+<td>Root / privileged</td>
+</tr>
+</tbody>
+</table>
+<pre><code>┌──────────────────────────────────────────────────────┐
+│  ovos-core  /  ovos-audio  /  skills                 │
+│           (OVOS MessageBus)                          │
+└──────────────┬───────────────────────────────────────┘
+               │
+      ┌────────┴─────────────────────────────────────┐
+      │  PHAL  (user-space)                          │
+      │    ovos-PHAL-plugin-alsa                     │
+      │    ovos-PHAL-plugin-network-manager          │
+      │    ovos-PHAL-plugin-wifi-setup               │
+      │    …                                         │
+      └────────────────────────────────────────────┬─┘
+                                                   │
+                                           ┌───────┴───────┐
+                                           │  AdminPHAL    │
+                                           │  (root)       │
+                                           │  plugin-mk2   │
+                                           │  plugin-system│
+                                           └───────────────┘
+</code></pre>
+<hr />
+<h2 id="phal-service">PHAL Service</h2>
+<p><strong>Module:</strong> <code>ovos_PHAL.service.PHAL</code></p>
+<pre><code class="language-python">from ovos_PHAL import PHAL
+
+phal = PHAL(
+    config=None,      # dict from mycroft.conf[&quot;PHAL&quot;], or None to auto-read
+    bus=None,         # MessageBusClient; created automatically if None
+    skill_id=&quot;PHAL&quot;,
+    on_ready=...,
+    on_error=...,
+    on_stopping=...,
+    on_started=...,
+    on_alive=...,
+    watchdog=lambda: None
+)
+phal.start()     # load_plugins(), set ProcessStatus to ready
+phal.shutdown()  # set ProcessStatus to stopping
+</code></pre>
+<h3 id="plugin-loading-rules">Plugin loading rules</h3>
+<p><code>load_plugins()</code> iterates over all plugins discovered via <code>find_phal_plugins()</code> (entry
+point group <code>opm.phal</code>) and applies these rules in order:</p>
+<ol>
+<li><strong>Admin-only check</strong> — if the plugin name appears in <code>admin_config</code>, skip it (it will
+   be loaded by <code>AdminPHAL</code> instead).</li>
+<li><strong>Explicit disable</strong> — if <code>config.get("enabled") is False</code>, skip.</li>
+<li><strong>Validator</strong> — if the plugin class has a <code>validator</code> attribute, call
+   <code>plug.validator.validate(config)</code>:</li>
+<li>Returns <code>True</code> → load</li>
+<li>Returns <code>False</code> → silently skip (hardware not present)</li>
+<li>Raises exception → skip, log error</li>
+<li><strong>No validator</strong> — defaults to enabled; only <code>enabled: false</code> can disable.</li>
+<li><strong>Instantiation</strong> — <code>plug(bus=self.bus, config=config)</code>; stored in <code>self.drivers[name]</code>.</li>
+</ol>
+<h3 id="processstatus-lifecycle">ProcessStatus lifecycle</h3>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alive</code></td>
+<td>Service object created</td>
+</tr>
+<tr>
+<td><code>started</code></td>
+<td><code>start()</code> called</td>
+</tr>
+<tr>
+<td><code>ready</code></td>
+<td>All plugins loaded</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>Exception during <code>load_plugins()</code></td>
+</tr>
+<tr>
+<td><code>stopping</code></td>
+<td><code>shutdown()</code> called</td>
+</tr>
+</tbody>
+</table>
+<h3 id="configuration">Configuration</h3>
+<pre><code class="language-json">{
+  &quot;PHAL&quot;: {
+    &quot;ovos-PHAL-plugin-alsa&quot;: {},
+    &quot;ovos-PHAL-plugin-display-manager-ipc&quot;: {
+      &quot;enabled&quot;: true
+    },
+    &quot;ovos-PHAL-plugin-gpio&quot;: {
+      &quot;enabled&quot;: false
+    }
+  }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Config key</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"enabled": false</code></td>
+<td>Explicitly disable this plugin</td>
+</tr>
+<tr>
+<td><code>"enabled": true</code></td>
+<td>Force-enable even if validator would skip</td>
+</tr>
+<tr>
+<td>Any other keys</td>
+<td>Passed as <code>config</code> to the plugin constructor</td>
+</tr>
+</tbody>
+</table>
+<p>Plugins with a passing validator and no <code>enabled: false</code> are loaded automatically —
+no config entry is needed just to enable a plugin.</p>
+<hr />
+<h2 id="adminphal-service">AdminPHAL Service</h2>
+<p><strong>Module:</strong> <code>ovos_PHAL.admin.AdminPHAL</code></p>
+<p>A subclass of <code>PHAL</code> that loads admin-privilege plugins. Run as <code>root</code> or with the
+hardware capabilities required by its plugins.</p>
+<pre><code class="language-python">from ovos_PHAL import AdminPHAL
+
+admin = AdminPHAL(
+    config=None,
+    bus=None,
+    skill_id=&quot;PHAL.admin&quot;,
+    ...
+)
+</code></pre>
+<pre><code class="language-bash"># Typically run via systemd as root
+sudo ovos_PHAL_admin
+</code></pre>
+<h3 id="key-differences-from-phal">Key differences from <code>PHAL</code></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>PHAL</code> (user)</th>
+<th><code>AdminPHAL</code> (admin)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entry point group</td>
+<td><code>opm.phal</code></td>
+<td><code>opm.phal.admin</code></td>
+</tr>
+<tr>
+<td>Config section</td>
+<td><code>PHAL</code></td>
+<td><code>PHAL.admin</code></td>
+</tr>
+<tr>
+<td>Default enable</td>
+<td>Yes (validator + not <code>enabled: false</code>)</td>
+<td><strong>No — requires <code>"enabled": true</code></strong></td>
+</tr>
+<tr>
+<td>Skip logic</td>
+<td>Skips plugins in <code>admin_config</code></td>
+<td>Skips plugins in <code>user_config</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="security-model">Security model</h3>
+<p>Admin plugins are intended for hardware requiring elevated permissions: I²C, SPI, GPIO,
+system power management, thermal control. The explicit <code>enabled: true</code> requirement is a
+security boundary — installed-but-unconfigured admin plugins never run accidentally.
+Skills and the core pipeline never run as root.</p>
+<h3 id="configuration_1">Configuration</h3>
+<pre><code class="language-json">{
+  &quot;PHAL&quot;: {
+    &quot;admin&quot;: {
+      &quot;ovos-PHAL-plugin-system&quot;: {
+        &quot;enabled&quot;: true
+      },
+      &quot;ovos-PHAL-plugin-mk2&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;some_option&quot;: &quot;value&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<hr />
+<h2 id="writing-phal-plugins">Writing PHAL Plugins</h2>
+<h3 id="base-class">Base class</h3>
+<pre><code class="language-python">from ovos_plugin_manager.templates.phal import PHALPlugin
+
+class MyHardwarePlugin(PHALPlugin):
+    def __init__(self, bus=None, config=None):
+        super().__init__(bus=bus, config=config)
+        # hardware setup
+        self.bus.on(&quot;mycroft.stop&quot;, self.handle_stop)
+
+    def handle_stop(self, message):
+        pass  # respond to bus events
+
+    def shutdown(self):
+        pass  # clean up hardware
+</code></pre>
+<p>The base class:
+- Stores <code>self.bus</code> and <code>self.config</code>
+- Provides <code>self.skill_id</code> (the entry point name)
+- Calls <code>self.initialize()</code> at the end of <code>__init__</code> if defined</p>
+<h3 id="validator">Validator</h3>
+<p>Controls whether the plugin is auto-enabled:</p>
+<pre><code class="language-python">from ovos_plugin_manager.templates.phal import PHALPlugin, PHALValidator
+
+class MyValidator(PHALValidator):
+    @staticmethod
+    def validate(config=None) -&gt; bool:
+        &quot;&quot;&quot;Return True if hardware is present and plugin should load.&quot;&quot;&quot;
+        try:
+            import smbus
+            smbus.SMBus(1).read_byte(0x1a)
+            return True
+        except Exception:
+            return False
+
+class MyHardwarePlugin(PHALPlugin):
+    validator = MyValidator
+</code></pre>
+<p>For admin plugins, the validator runs <strong>after</strong> the explicit <code>enabled: true</code> check.</p>
+<h3 id="entry-points">Entry points</h3>
+<p><strong>User PHAL plugin:</strong></p>
+<pre><code class="language-toml"># pyproject.toml
+[project.entry-points.&quot;opm.phal&quot;]
+my-phal-plugin = &quot;my_package:MyHardwarePlugin&quot;
+</code></pre>
+<p><strong>Admin PHAL plugin:</strong></p>
+<pre><code class="language-toml">[project.entry-points.&quot;opm.phal.admin&quot;]
+my-admin-phal-plugin = &quot;my_package:MyAdminPlugin&quot;
+</code></pre>
+<p><strong>Dual registration</strong> (plugin can run as either user or admin — the service that has the
+plugin name in its config section loads it; the other skips it):</p>
+<pre><code class="language-toml">[project.entry-points.&quot;opm.phal&quot;]
+my-phal-plugin = &quot;my_package:MyPlugin&quot;
+
+[project.entry-points.&quot;opm.phal.admin&quot;]
+my-phal-plugin = &quot;my_package:MyPlugin&quot;
+</code></pre>
+<h3 id="plugin-configuration">Plugin configuration</h3>
+<pre><code class="language-json">{
+  &quot;PHAL&quot;: {
+    &quot;my-phal-plugin&quot;: {
+      &quot;enabled&quot;: true,
+      &quot;i2c_bus&quot;: 1,
+      &quot;brightness&quot;: 80
+    }
+  }
+}
+</code></pre>
+<pre><code class="language-python">class MyPlugin(PHALPlugin):
+    def __init__(self, bus=None, config=None):
+        super().__init__(bus=bus, config=config)
+        self.brightness = self.config.get(&quot;brightness&quot;, 100)
+</code></pre>
+<h3 id="lifecycle">Lifecycle</h3>
+<ul>
+<li>Set up bus listeners in <code>__init__</code></li>
+<li>Provide a <code>shutdown()</code> method for clean teardown</li>
+<li>No hot-reload — configuration changes require restarting the PHAL service</li>
+</ul>
+<hr />
+<h2 id="choosing-between-phal-and-a-skill">Choosing Between PHAL and a Skill</h2>
+<table>
+<thead>
+<tr>
+<th>Use PHAL when…</th>
+<th>Use a Skill when…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Low-level system or hardware integration</td>
+<td>Voice interactions and user-facing features</td>
+</tr>
+<tr>
+<td>No voice trigger needed — reacts to hardware events</td>
+<td>Responds to user utterances</td>
+</tr>
+<tr>
+<td>Needs to run at startup regardless of voice activity</td>
+<td>Should only activate when invoked</td>
+</tr>
+<tr>
+<td>Requires root (<code>AdminPHAL</code>)</td>
+<td>Always runs unprivileged</td>
+</tr>
+</tbody>
+</table>
+<p>In some cases both are appropriate: a PHAL plugin for backend hardware support and a
+skill as a voice frontend.</p>
+<p><img alt="Should you use a skill or a PHAL plugin?" src="../img/phal_or_skill.png" /></p>
+<hr />
+<h2 id="available-plugins">Available Plugins</h2>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-alsa">ovos-PHAL-plugin-alsa</a></td>
+<td>Volume control</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-system">ovos-PHAL-plugin-system</a></td>
+<td>Reboot, shutdown, factory reset (admin)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk1">ovos-PHAL-plugin-mk1</a></td>
+<td>Mycroft Mark 1 hardware integration</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-wifi-setup">ovos-PHAL-plugin-wifi-setup</a></td>
+<td>Central Wi-Fi setup</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-gui-network-client">ovos-PHAL-plugin-gui-network-client</a></td>
+<td>GUI-based Wi-Fi setup</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-balena-wifi">ovos-PHAL-plugin-balena-wifi</a></td>
+<td>Wi-Fi hotspot setup</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-network-manager">ovos-PHAL-plugin-network-manager</a></td>
+<td>Network Manager integration</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-ipgeo">ovos-PHAL-plugin-ipgeo</a></td>
+<td>Geolocation using IP address</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-gpsd">ovos-PHAL-plugin-gpsd</a></td>
+<td>Geolocation using GPS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-respeaker-2mic">ovos-PHAL-plugin-respeaker-2mic</a></td>
+<td>ReSpeaker 2-mic HAT support</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-respeaker-4mic">ovos-PHAL-plugin-respeaker-4mic</a></td>
+<td>ReSpeaker 4-mic HAT support</td>
+</tr>
+<tr>
+<td><a href="https://github.com/NeonGeckoCom/neon-phal-plugin-linear_led">neon-phal-plugin-linear_led</a></td>
+<td>LED control for Mark 2</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../104-gui_service/" class="btn btn-neutral float-left" title="GUI"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../300-plugin-manager/" class="btn btn-neutral float-right" title="Plugin Manager">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../104-gui_service/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../300-plugin-manager/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../javascripts/analytics.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

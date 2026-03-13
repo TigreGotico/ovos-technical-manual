@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://openvoiceos.github.io/ovos-technical-manual/159-gguf-plugin/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>GGUF / Local LLM Plugin - OVOS Technical Manual</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "GGUF / Local LLM Plugin";
+        var mkdocs_page_input_path = "159-gguf-plugin.md";
+        var mkdocs_page_url = "/ovos-technical-manual/159-gguf-plugin/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> OVOS Technical Manual
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../50-ovos_installer/">ovos-installer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../001-release_channels/">Manual Install</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">RaspOVOS</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../51-install_raspovos/">Tutorial</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../54-skill-examples/">Default Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../55-raspovos_troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Language Support</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../lang_support/">Translations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../gitlocalize_tutorial/">GitLocalize Tutorial</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../99-architecture-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../100-bus_service/">Bus</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../101-speech_service/">Listener</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../102-core/">Core</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../399-intents/">Skills and Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../103-audio_service/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../104-gui_service/">GUI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../340-PHAL/">Platform/Hardware Abstraction Layer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../300-plugin-manager/">Plugin Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../110-config/">Configuration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Intent Pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipelines_overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adapt_pipeline/">Adapt</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../padatious_pipeline/">Padatious</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../m2v_pipeline/">Model2Vec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../converse_pipeline/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../stop_pipeline/">Stop</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../153-persona_pipeline/">Persona</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cq_pipeline/">Common Query</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../631-OCP_pipeline/">OCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../fallback_pipeline/">Fallback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Transformers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../audio_transformers/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../utterance_transformers/">Utterance</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../intent_transformers/">Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dialog_transformers/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tts_transformers/">TTS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">AI Agents</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../150-personas/">Personas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../151-llm-transformers/">AI Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-advanced_solvers/">Specialized Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../154-agent-plugins/">Agent Engine Plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../155-mos-plugin/">Mixture of Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../156-ovos-judge/">ovos-judge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../157-claude-plugin/">Claude Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../158-openai-plugin/">OpenAI Plugin</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">GGUF / Local LLM Plugin</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#plugins-overview">Plugins Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#shared-client-ggufclient">Shared Client: GGUFClient</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#common-configuration-keys">Common Configuration Keys</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#minimal-configuration-hub-model">Minimal configuration (Hub model)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#local-file-configuration">Local file configuration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#chat-engine-opmagentschat">Chat Engine (opm.agents.chat)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#offline-persona-example">Offline persona example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summarizer-opmagentssummarizer">Summarizer (opm.agents.summarizer)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#chat-summarizer-opmagentssummarizerchat">Chat Summarizer (opm.agents.summarizer.chat)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#coreference-engine-opmagentscoref">Coreference Engine (opm.agents.coref)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reranker-opmagentsreranker">ReRanker (opm.agents.reranker)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#extractive-qa-opmagentsextractive_qa">Extractive QA (opm.agents.extractive_qa)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nli-engine-opmagentsnli">NLI Engine (opm.agents.nli)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#yesno-classifier-opmagentsyesno">Yes/No Classifier (opm.agents.yesno)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#context-manager-memory-opmagentsmemory">Context Manager / Memory (opm.agents.memory)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#offline-persona-with-memory">Offline persona with memory</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#utterance-transformer-opmtransformertext">Utterance Transformer (opm.transformer.text)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dialog-transformer-opmtransformerdialog">Dialog Transformer (opm.transformer.dialog)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#model-selection-guide">Model Selection Guide</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#gpu-acceleration">GPU Acceleration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cross-references">Cross-References</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Self Hosting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../202-persona_server/">Persona Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../152-hivemind-agents/">HiveMind</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../200-stt_server/">STT Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../201-tts_server/">TTS Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../203-translate_server/">Translate Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../204-wyoming-bridges/">Wyoming Bridges</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../400-skill-design-guidelines/">Design Guidelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../401-skill_structure/">Anatomy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../402-statements/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../403-intents/">Intent Design</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../405-customization/">Customization</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../406-messagebus/">Bus Interaction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../407-skill_filesystem/">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../408-skill_settings/">Skill Settings</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../409-skill_api/">Skill API</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../410-skill_runtime_requirements/">Runtime Requirements</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../411-skill_json/">Skill Json</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../413-intent-layers/">Skill Classes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../420-ssml/">SSML</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../430-skill_dev_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Continuous Conversation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../500-prompts/">Prompts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../501-context/">Follow up Questions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../502-converse/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../503-layers/">Intent Layers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../504-session/">Session Aware Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced Skill Types</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../600-fallbacks/">Fallback Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../610-common_query/">Common Query Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../630-OCP_skills/">Media Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../620-universal_skills/">Universal Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Testing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../450-skill-testing/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../451-ovoscope-usage/">Usage Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../452-ovoscope-ci/">CI Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../453-ovoscope-advanced/">Advanced Testing</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">GUI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../701-gui_protocol/">Protocol</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../702-ovos-shell/">OVOS Shell</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Voice Apps</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../590-voice_apps/">Standalone Apps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MessageBus</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../900-bus_client/">Messagebus Client</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../901-bus-session/">Session Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../720-skill_gui/">GUI Interface</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../800-mk1_api/">Enclosure Api</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../905-pydantic-models/">Pydantic Models</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Plugin Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../310-mic_plugins/">Microphone</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../311-vad_plugins/">Voice Activity Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../312-wake_word_plugins/">Wake Word</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../313-stt_plugins/">Speech To Text</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../320-tts_plugins/">Text To Speech</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../321-g2p_plugins/">Grapheme to Phoneme</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../330-transformer_plugins/">Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../350-translation_plugins/">Language Detection/Translation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../370-ocp_plugins/">OCP Stream Extractors</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../371-media_plugins/">Media Playback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Utilities</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../891-number_parser/">Number Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../890-date_parser/">Date Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../893-color_parser/">Color Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../910-quebra_frases/">Quebra Frases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../920-padacioso/">Padacioso</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../801-mk1_utils/">Mark1 Utils</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../002-license/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../003-timeline/">Timeline</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">OVOS Technical Manual</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">AI Agents</li>
+      <li class="breadcrumb-item active">GGUF / Local LLM Plugin</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="gguf-local-llm-agent-plugin-ovos-gguf-plugin">GGUF / Local LLM Agent Plugin (<code>ovos-gguf-plugin</code>)</h1>
+<p><code>ovos-gguf-plugin</code> provides feature-parity with <a href="../157-claude-plugin/">ovos-claude-plugin</a> using
+locally-running GGUF models powered by <a href="https://github.com/abetlen/llama-cpp-python"><code>llama-cpp-python</code></a>.
+No API keys, no network access, no cloud dependency — suitable for offline, air-gapped, or
+privacy-sensitive deployments.</p>
+<p>GGUF models can be loaded from a <a href="https://huggingface.co">Hugging Face Hub</a> repository (downloaded
+on first use) or from a local <code>.gguf</code> file path.</p>
+<p>Install: <code>pip install ovos-gguf-plugin</code></p>
+<p>Repository: <code>OpenVoiceOS Workspace/Agent Plugins/ovos-gguf-plugin</code></p>
+<hr />
+<h2 id="plugins-overview">Plugins Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Entry point</th>
+<th>Class</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opm.agents.chat</code></td>
+<td><code>GGUFChatEngine</code></td>
+<td><code>ovos_gguf_solver/chat.py</code></td>
+</tr>
+<tr>
+<td><code>opm.agents.summarizer</code></td>
+<td><code>GGUFSummarizerEngine</code></td>
+<td><code>ovos_gguf_solver/summarizer.py</code></td>
+</tr>
+<tr>
+<td><code>opm.agents.summarizer.chat</code></td>
+<td><code>GGUFChatSummarizerEngine</code></td>
+<td><code>ovos_gguf_solver/summarizer.py</code></td>
+</tr>
+<tr>
+<td><code>opm.agents.coref</code></td>
+<td><code>GGUFCoreferenceEngine</code></td>
+<td><code>ovos_gguf_solver/coref.py</code></td>
+</tr>
+<tr>
+<td><code>opm.agents.reranker</code></td>
+<td><code>GGUFReRankerEngine</code></td>
+<td><code>ovos_gguf_solver/reranker.py</code></td>
+</tr>
+<tr>
+<td><code>opm.agents.extractive_qa</code></td>
+<td><code>GGUFExtractiveQAEngine</code></td>
+<td><code>ovos_gguf_solver/qa.py</code></td>
+</tr>
+<tr>
+<td><code>opm.agents.nli</code></td>
+<td><code>GGUFNLIEngine</code></td>
+<td><code>ovos_gguf_solver/nli.py</code></td>
+</tr>
+<tr>
+<td><code>opm.agents.yesno</code></td>
+<td><code>GGUFYesNoEngine</code></td>
+<td><code>ovos_gguf_solver/nli.py</code></td>
+</tr>
+<tr>
+<td><code>opm.agents.memory</code></td>
+<td><code>GGUFContextManager</code></td>
+<td><code>ovos_gguf_solver/memory.py</code></td>
+</tr>
+<tr>
+<td><code>opm.transformer.text</code></td>
+<td><code>GGUFUtteranceTransformer</code></td>
+<td><code>ovos_gguf_solver/transformers.py</code></td>
+</tr>
+<tr>
+<td><code>opm.transformer.dialog</code></td>
+<td><code>GGUFDialogTransformer</code></td>
+<td><code>ovos_gguf_solver/transformers.py</code></td>
+</tr>
+</tbody>
+</table>
+<p>A legacy <code>GGUFSolver</code> entry point (<code>neon.plugin.solver</code>) is also provided for backwards
+compatibility with older <code>ovos-persona</code> versions.</p>
+<hr />
+<h2 id="shared-client-ggufclient">Shared Client: <code>GGUFClient</code></h2>
+<p>All engines delegate to <code>GGUFClient</code> — <code>ovos_gguf_solver/api.py:GGUFClient</code>.</p>
+<p><strong>The model is lazy-loaded on the first API call.</strong> Construction is always cheap — no model is
+loaded until a request is made. This means OVOS startup is not delayed even when multiple GGUF
+engines are configured.</p>
+<hr />
+<h2 id="common-configuration-keys">Common Configuration Keys</h2>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td><code>str</code></td>
+<td>required</td>
+<td>Hugging Face repo ID (<code>"owner/repo-name-GGUF"</code>) or absolute path to a <code>.gguf</code> file.</td>
+</tr>
+<tr>
+<td><code>remote_filename</code></td>
+<td><code>str</code></td>
+<td><code>null</code></td>
+<td>Glob pattern to select a specific GGUF file from the repo (e.g. <code>"*Q4_K_M.gguf"</code>). Required when using a Hub repo.</td>
+</tr>
+<tr>
+<td><code>n_gpu_layers</code></td>
+<td><code>int</code></td>
+<td><code>0</code></td>
+<td>Number of layers to offload to GPU. <code>0</code> = CPU only. <code>-1</code> = all layers on GPU.</td>
+</tr>
+<tr>
+<td><code>n_ctx</code></td>
+<td><code>int</code></td>
+<td><code>2048</code></td>
+<td>Context window size in tokens.</td>
+</tr>
+<tr>
+<td><code>temperature</code></td>
+<td><code>float</code></td>
+<td><code>0.7</code></td>
+<td>Sampling temperature.</td>
+</tr>
+<tr>
+<td><code>max_tokens</code></td>
+<td><code>int</code></td>
+<td><code>512</code></td>
+<td>Maximum tokens in the completion.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="minimal-configuration-hub-model">Minimal configuration (Hub model)</h3>
+<pre><code class="language-json">{
+  &quot;model&quot;: &quot;microsoft/Phi-3-mini-4k-instruct-gguf&quot;,
+  &quot;remote_filename&quot;: &quot;*Q4_K_M.gguf&quot;,
+  &quot;n_gpu_layers&quot;: 0
+}
+</code></pre>
+<h3 id="local-file-configuration">Local file configuration</h3>
+<pre><code class="language-json">{
+  &quot;model&quot;: &quot;/home/user/models/llama-3.1-8b.gguf&quot;,
+  &quot;n_gpu_layers&quot;: 20,
+  &quot;n_ctx&quot;: 4096
+}
+</code></pre>
+<hr />
+<h2 id="chat-engine-opmagentschat">Chat Engine (<code>opm.agents.chat</code>)</h2>
+<p><strong>Class:</strong> <code>GGUFChatEngine</code> — <code>ovos_gguf_solver/chat.py:GGUFChatEngine</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-gguf-chat-plugin</code></p>
+<p>Multi-turn conversational LLM using a local GGUF model. API-compatible with <code>ClaudeChatEngine</code>
+and <code>OpenAIChatEngine</code> — drop-in replacement for offline use.</p>
+<pre><code class="language-json">{
+  &quot;ovos-gguf-chat-plugin&quot;: {
+    &quot;model&quot;: &quot;microsoft/Phi-3-mini-4k-instruct-gguf&quot;,
+    &quot;remote_filename&quot;: &quot;*Q4_K_M.gguf&quot;,
+    &quot;n_gpu_layers&quot;: 0,
+    &quot;system_prompt&quot;: &quot;You are a helpful assistant.&quot;
+  }
+}
+</code></pre>
+<h3 id="offline-persona-example">Offline persona example</h3>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;Local Phi-3&quot;,
+  &quot;handlers&quot;: [&quot;ovos-gguf-chat-plugin&quot;],
+  &quot;ovos-gguf-chat-plugin&quot;: {
+    &quot;model&quot;: &quot;microsoft/Phi-3-mini-4k-instruct-gguf&quot;,
+    &quot;remote_filename&quot;: &quot;*Q4_K_M.gguf&quot;,
+    &quot;n_gpu_layers&quot;: 0,
+    &quot;system_prompt&quot;: &quot;You are a concise, helpful voice assistant.&quot;
+  }
+}
+</code></pre>
+<p>Activate by voice: <code>"Chat with Local Phi-3"</code>.</p>
+<hr />
+<h2 id="summarizer-opmagentssummarizer">Summarizer (<code>opm.agents.summarizer</code>)</h2>
+<p><strong>Class:</strong> <code>GGUFSummarizerEngine</code> — <code>ovos_gguf_solver/summarizer.py:GGUFSummarizerEngine</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-gguf-summarizer-plugin</code></p>
+<p>Condenses a plain-text document into 1–3 sentences using a local GGUF model.</p>
+<pre><code class="language-json">{
+  &quot;ovos-gguf-summarizer-plugin&quot;: {
+    &quot;model&quot;: &quot;/path/to/model.gguf&quot;,
+    &quot;max_tokens&quot;: 256
+  }
+}
+</code></pre>
+<hr />
+<h2 id="chat-summarizer-opmagentssummarizerchat">Chat Summarizer (<code>opm.agents.summarizer.chat</code>)</h2>
+<p><strong>Class:</strong> <code>GGUFChatSummarizerEngine</code> — <code>ovos_gguf_solver/summarizer.py:GGUFChatSummarizerEngine</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-gguf-chat-summarizer-plugin</code></p>
+<p>Converts a structured <code>List[AgentMessage]</code> chat history into a concise narrative summary. Used
+internally by <code>GGUFContextManager</code> for memory compression.</p>
+<pre><code class="language-json">{
+  &quot;ovos-gguf-chat-summarizer-plugin&quot;: {
+    &quot;model&quot;: &quot;/path/to/model.gguf&quot;
+  }
+}
+</code></pre>
+<hr />
+<h2 id="coreference-engine-opmagentscoref">Coreference Engine (<code>opm.agents.coref</code>)</h2>
+<p><strong>Class:</strong> <code>GGUFCoreferenceEngine</code> — <code>ovos_gguf_solver/coref.py:GGUFCoreferenceEngine</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-gguf-coref-plugin</code></p>
+<p>Resolves pronouns and ambiguous references in voice commands. Uses the same fast pronoun
+wordlist check as <code>ClaudeCoreferenceEngine</code> to avoid model inference on utterances with no
+pronouns.</p>
+<pre><code class="language-json">{
+  &quot;ovos-gguf-coref-plugin&quot;: {
+    &quot;model&quot;: &quot;/path/to/model.gguf&quot;,
+    &quot;context_ttl&quot;: 120
+  }
+}
+</code></pre>
+<hr />
+<h2 id="reranker-opmagentsreranker">ReRanker (<code>opm.agents.reranker</code>)</h2>
+<p><strong>Class:</strong> <code>GGUFReRankerEngine</code> — <code>ovos_gguf_solver/reranker.py:GGUFReRankerEngine</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-gguf-reranker-plugin</code></p>
+<p>Scores candidate answers 0.0–1.0 using a local GGUF model and returns them sorted descending.
+Used by the <a href="../cq_pipeline/">Common Query pipeline</a>, OCP media search, and
+<a href="../155-mos-plugin/">Mixture of Solvers</a> as judge/king/referee.</p>
+<pre><code class="language-json">{
+  &quot;ovos-gguf-reranker-plugin&quot;: {
+    &quot;model&quot;: &quot;Qwen/Qwen2.5-1.5B-Instruct-GGUF&quot;,
+    &quot;remote_filename&quot;: &quot;*Q4_K_M.gguf&quot;
+  }
+}
+</code></pre>
+<p>For a non-LLM local reranker with no model download required, consider
+<code>ovos-flashrank-reranker-plugin</code> (cross-encoder transformer, CPU-only).</p>
+<hr />
+<h2 id="extractive-qa-opmagentsextractive_qa">Extractive QA (<code>opm.agents.extractive_qa</code>)</h2>
+<p><strong>Class:</strong> <code>GGUFExtractiveQAEngine</code> — <code>ovos_gguf_solver/qa.py:GGUFExtractiveQAEngine</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-gguf-extractive-qa-plugin</code></p>
+<p>Given evidence text and a question, extracts and returns the exact passage that answers it.</p>
+<pre><code class="language-json">{
+  &quot;ovos-gguf-extractive-qa-plugin&quot;: {
+    &quot;model&quot;: &quot;/path/to/model.gguf&quot;
+  }
+}
+</code></pre>
+<hr />
+<h2 id="nli-engine-opmagentsnli">NLI Engine (<code>opm.agents.nli</code>)</h2>
+<p><strong>Class:</strong> <code>GGUFNLIEngine</code> — <code>ovos_gguf_solver/nli.py:GGUFNLIEngine</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-gguf-nli-plugin</code></p>
+<p>Determines whether a <em>premise</em> logically entails a <em>hypothesis</em> using a local GGUF model.</p>
+<pre><code class="language-json">{
+  &quot;ovos-gguf-nli-plugin&quot;: {
+    &quot;model&quot;: &quot;/path/to/model.gguf&quot;
+  }
+}
+</code></pre>
+<hr />
+<h2 id="yesno-classifier-opmagentsyesno">Yes/No Classifier (<code>opm.agents.yesno</code>)</h2>
+<p><strong>Class:</strong> <code>GGUFYesNoEngine</code> — <code>ovos_gguf_solver/nli.py:GGUFYesNoEngine</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-gguf-yesno-plugin</code></p>
+<p>Classifies a user's ambiguous confirmation as <code>True</code> (yes), <code>False</code> (no), or <code>None</code> (unclear).</p>
+<pre><code class="language-json">{
+  &quot;ovos-gguf-yesno-plugin&quot;: {
+    &quot;model&quot;: &quot;/path/to/model.gguf&quot;
+  }
+}
+</code></pre>
+<hr />
+<h2 id="context-manager-memory-opmagentsmemory">Context Manager / Memory (<code>opm.agents.memory</code>)</h2>
+<p><strong>Class:</strong> <code>GGUFContextManager</code> — <code>ovos_gguf_solver/memory.py:GGUFContextManager</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-gguf-memory-plugin</code></p>
+<p>Manages per-session conversation history with optional automatic compression via the local GGUF
+model when history exceeds <code>max_history</code> messages.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>system_prompt</code></td>
+<td><code>str</code></td>
+<td><code>""</code></td>
+<td>System prompt prepended to every built context.</td>
+</tr>
+<tr>
+<td><code>max_history</code></td>
+<td><code>int</code></td>
+<td><code>20</code></td>
+<td>Number of user/assistant messages before compression. <code>0</code> = disable.</td>
+</tr>
+<tr>
+<td><code>compress</code></td>
+<td><code>bool</code></td>
+<td><code>true</code></td>
+<td>Enable automatic history compression via the local model.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-json">{
+  &quot;ovos-gguf-memory-plugin&quot;: {
+    &quot;model&quot;: &quot;/path/to/model.gguf&quot;,
+    &quot;system_prompt&quot;: &quot;You are a helpful assistant.&quot;,
+    &quot;max_history&quot;: 10,
+    &quot;compress&quot;: true
+  }
+}
+</code></pre>
+<h3 id="offline-persona-with-memory">Offline persona with memory</h3>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;Offline Assistant&quot;,
+  &quot;memory_module&quot;: &quot;ovos-gguf-memory-plugin&quot;,
+  &quot;handlers&quot;: [&quot;ovos-gguf-chat-plugin&quot;],
+  &quot;ovos-gguf-chat-plugin&quot;: {
+    &quot;model&quot;: &quot;/path/to/model.gguf&quot;,
+    &quot;system_prompt&quot;: &quot;You are a helpful assistant.&quot;
+  },
+  &quot;ovos-gguf-memory-plugin&quot;: {
+    &quot;model&quot;: &quot;/path/to/model.gguf&quot;,
+    &quot;max_history&quot;: 10,
+    &quot;compress&quot;: true
+  }
+}
+</code></pre>
+<hr />
+<h2 id="utterance-transformer-opmtransformertext">Utterance Transformer (<code>opm.transformer.text</code>)</h2>
+<p><strong>Class:</strong> <code>GGUFUtteranceTransformer</code> — <code>ovos_gguf_solver/transformers.py:GGUFUtteranceTransformer</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-utterance-transformer-gguf-plugin</code></p>
+<p>Runs after ASR, before intent matching. Normalises informal or noisy speech to standard form
+using a local GGUF model. Falls back to the original utterance on inference error.</p>
+<pre><code class="language-json">{
+  &quot;utterance_transformers&quot;: {
+    &quot;ovos-utterance-transformer-gguf-plugin&quot;: {
+      &quot;model&quot;: &quot;microsoft/Phi-3-mini-4k-instruct-gguf&quot;,
+      &quot;remote_filename&quot;: &quot;*Q4_K_M.gguf&quot;,
+      &quot;n_gpu_layers&quot;: 0
+    }
+  }
+}
+</code></pre>
+<hr />
+<h2 id="dialog-transformer-opmtransformerdialog">Dialog Transformer (<code>opm.transformer.dialog</code>)</h2>
+<p><strong>Class:</strong> <code>GGUFDialogTransformer</code> — <code>ovos_gguf_solver/transformers.py:GGUFDialogTransformer</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-dialog-transformer-gguf-plugin</code></p>
+<p>Runs after skill response generation, before TTS synthesis. Rewrites skill responses using a
+local GGUF model. Only invoked when a <code>rewrite_prompt</code> is configured. Falls back to the original
+dialog on inference error.</p>
+<pre><code class="language-json">{
+  &quot;dialog_transformers&quot;: {
+    &quot;ovos-dialog-transformer-gguf-plugin&quot;: {
+      &quot;model&quot;: &quot;/path/to/model.gguf&quot;,
+      &quot;rewrite_prompt&quot;: &quot;Rewrite in a warm, friendly tone. Remove markdown.&quot;,
+      &quot;n_gpu_layers&quot;: 20
+    }
+  }
+}
+</code></pre>
+<hr />
+<h2 id="model-selection-guide">Model Selection Guide</h2>
+<table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Recommended model size</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Real-time voice (low latency)</td>
+<td>1B–3B parameters</td>
+<td><code>Phi-3-mini</code> Q4_K_M</td>
+</tr>
+<tr>
+<td>General purpose</td>
+<td>7B–8B parameters</td>
+<td><code>Llama-3.1-8B</code> Q4_K_M</td>
+</tr>
+<tr>
+<td>Complex reasoning</td>
+<td>13B+ parameters</td>
+<td><code>Llama-3.1-13B</code> Q4_K_M</td>
+</tr>
+<tr>
+<td>Memory-constrained devices</td>
+<td>1B parameters</td>
+<td><code>Qwen2.5-1.5B</code> Q4_K_M</td>
+</tr>
+</tbody>
+</table>
+<p>Quantization level guide:
+- <code>Q4_K_M</code> — good balance of quality and speed (recommended default)
+- <code>Q8_0</code> — higher quality, roughly 2× the memory of Q4
+- <code>Q2_K</code> — smallest/fastest, lowest quality</p>
+<hr />
+<h2 id="gpu-acceleration">GPU Acceleration</h2>
+<p>Set <code>n_gpu_layers</code> to offload transformer layers to a CUDA or Metal GPU:</p>
+<pre><code class="language-json">{
+  &quot;model&quot;: &quot;/path/to/llama-3.1-8b.gguf&quot;,
+  &quot;n_gpu_layers&quot;: -1
+}
+</code></pre>
+<p><code>-1</code> offloads all layers (full GPU inference). Values &gt; 0 offload that many layers (partial
+offload for limited VRAM). <code>0</code> = CPU only.</p>
+<p>Requires <code>llama-cpp-python</code> to be compiled with CUDA or Metal support:</p>
+<pre><code class="language-bash">CMAKE_ARGS=&quot;-DLLGGML_CUDA=on&quot; pip install llama-cpp-python --force-reinstall
+</code></pre>
+<hr />
+<h2 id="cross-references">Cross-References</h2>
+<ul>
+<li><a href="../154-agent-plugins/">Agent Engine Types</a> — base class contracts and full type reference</li>
+<li><a href="../150-personas/">Personas &amp; PersonaService</a> — how to load and activate personas</li>
+<li><a href="../151-llm-transformers/">LLM Transformers</a> — utterance and dialog transformer pipeline</li>
+<li><a href="../155-mos-plugin/">Mixture of Solvers</a> — using GGUF engines as offline workers in MoS</li>
+<li><a href="../157-claude-plugin/">Claude Plugin</a> — Anthropic Claude cloud alternative</li>
+<li><a href="../158-openai-plugin/">OpenAI Plugin</a> — OpenAI-compatible API alternative</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../158-openai-plugin/" class="btn btn-neutral float-left" title="OpenAI Plugin"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../202-persona_server/" class="btn btn-neutral float-right" title="Persona Server">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../158-openai-plugin/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../202-persona_server/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../javascripts/analytics.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

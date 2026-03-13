@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://openvoiceos.github.io/ovos-technical-manual/451-ovoscope-usage/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Usage Guide - OVOS Technical Manual</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Usage Guide";
+        var mkdocs_page_input_path = "451-ovoscope-usage.md";
+        var mkdocs_page_url = "/ovos-technical-manual/451-ovoscope-usage/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> OVOS Technical Manual
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../50-ovos_installer/">ovos-installer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../001-release_channels/">Manual Install</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">RaspOVOS</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../51-install_raspovos/">Tutorial</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../54-skill-examples/">Default Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../55-raspovos_troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Language Support</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../lang_support/">Translations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../gitlocalize_tutorial/">GitLocalize Tutorial</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../99-architecture-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../100-bus_service/">Bus</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../101-speech_service/">Listener</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../102-core/">Core</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../399-intents/">Skills and Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../103-audio_service/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../104-gui_service/">GUI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../340-PHAL/">Platform/Hardware Abstraction Layer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../300-plugin-manager/">Plugin Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../110-config/">Configuration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Intent Pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipelines_overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adapt_pipeline/">Adapt</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../padatious_pipeline/">Padatious</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../m2v_pipeline/">Model2Vec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../converse_pipeline/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../stop_pipeline/">Stop</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../153-persona_pipeline/">Persona</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cq_pipeline/">Common Query</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../631-OCP_pipeline/">OCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../fallback_pipeline/">Fallback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Transformers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../audio_transformers/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../utterance_transformers/">Utterance</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../intent_transformers/">Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dialog_transformers/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tts_transformers/">TTS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">AI Agents</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-personas/">Personas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../151-llm-transformers/">AI Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-advanced_solvers/">Specialized Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../154-agent-plugins/">Agent Engine Plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../155-mos-plugin/">Mixture of Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../156-ovos-judge/">ovos-judge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../157-claude-plugin/">Claude Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../158-openai-plugin/">OpenAI Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../159-gguf-plugin/">GGUF / Local LLM Plugin</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Self Hosting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../202-persona_server/">Persona Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../152-hivemind-agents/">HiveMind</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../200-stt_server/">STT Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../201-tts_server/">TTS Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../203-translate_server/">Translate Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../204-wyoming-bridges/">Wyoming Bridges</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../400-skill-design-guidelines/">Design Guidelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../401-skill_structure/">Anatomy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../402-statements/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../403-intents/">Intent Design</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../405-customization/">Customization</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../406-messagebus/">Bus Interaction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../407-skill_filesystem/">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../408-skill_settings/">Skill Settings</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../409-skill_api/">Skill API</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../410-skill_runtime_requirements/">Runtime Requirements</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../411-skill_json/">Skill Json</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../413-intent-layers/">Skill Classes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../420-ssml/">SSML</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../430-skill_dev_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Continuous Conversation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../500-prompts/">Prompts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../501-context/">Follow up Questions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../502-converse/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../503-layers/">Intent Layers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../504-session/">Session Aware Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced Skill Types</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../600-fallbacks/">Fallback Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../610-common_query/">Common Query Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../630-OCP_skills/">Media Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../620-universal_skills/">Universal Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Testing</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../450-skill-testing/">Overview</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Usage Guide</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pattern-1-adapt-intent-match">Pattern 1 — Adapt Intent Match</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pattern-2-padatious-intent-match">Pattern 2 — Padatious Intent Match</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pattern-3-recording-mode-bootstrap-fixtures">Pattern 3 — Recording Mode (Bootstrap Fixtures)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pattern-4-replay-from-json-fixture">Pattern 4 — Replay from JSON Fixture</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pattern-5-reusing-minicroft-across-tests">Pattern 5 — Reusing MiniCroft Across Tests</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pattern-6-multi-turn-conversation">Pattern 6 — Multi-Turn Conversation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pattern-7-testing-fallback-skills">Pattern 7 — Testing Fallback Skills</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pattern-8-session-state-validation">Pattern 8 — Session State Validation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#disabling-individual-assertion-groups">Disabling Individual Assertion Groups</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#async-messages">Async Messages</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cli-shortcuts">CLI Shortcuts</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#see-also">See Also</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../452-ovoscope-ci/">CI Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../453-ovoscope-advanced/">Advanced Testing</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">GUI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../701-gui_protocol/">Protocol</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../702-ovos-shell/">OVOS Shell</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Voice Apps</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../590-voice_apps/">Standalone Apps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MessageBus</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../900-bus_client/">Messagebus Client</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../901-bus-session/">Session Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../720-skill_gui/">GUI Interface</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../800-mk1_api/">Enclosure Api</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../905-pydantic-models/">Pydantic Models</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Plugin Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../310-mic_plugins/">Microphone</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../311-vad_plugins/">Voice Activity Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../312-wake_word_plugins/">Wake Word</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../313-stt_plugins/">Speech To Text</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../320-tts_plugins/">Text To Speech</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../321-g2p_plugins/">Grapheme to Phoneme</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../330-transformer_plugins/">Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../350-translation_plugins/">Language Detection/Translation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../370-ocp_plugins/">OCP Stream Extractors</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../371-media_plugins/">Media Playback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Utilities</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../891-number_parser/">Number Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../890-date_parser/">Date Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../893-color_parser/">Color Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../910-quebra_frases/">Quebra Frases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../920-padacioso/">Padacioso</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../801-mk1_utils/">Mark1 Utils</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../002-license/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../003-timeline/">Timeline</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">OVOS Technical Manual</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Skill Testing</li>
+      <li class="breadcrumb-item active">Usage Guide</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ovoscope-usage-guide">ovoscope Usage Guide</h1>
+<p>This page covers practical usage of ovoscope — from installation through all common
+testing patterns. See <a href="../450-skill-testing/">450-skill-testing.md</a> for the conceptual
+overview and architecture.</p>
+<hr />
+<h2 id="installation">Installation</h2>
+<p>Install ovoscope and the skill under test in the same virtual environment:</p>
+<pre><code class="language-bash"># Editable installs — recommended during development
+uv pip install -e ovoscope/ -e Skills/ovos-skill-hello-world/
+
+# Or via PyPI
+pip install ovoscope ovos-skill-hello-world
+</code></pre>
+<p>Verify the skill is discoverable via its entry point before writing tests:</p>
+<pre><code class="language-bash">python -c &quot;
+from ovos_plugin_manager.skills import find_skill_plugins
+plugins = list(find_skill_plugins())
+print('Found skills:', plugins)
+assert 'ovos-skill-hello-world.openvoiceos' in plugins
+&quot;
+</code></pre>
+<p>If the skill is not listed, check your <code>pyproject.toml</code> entry point registration:</p>
+<pre><code class="language-toml">[project.entry-points.&quot;ovos.plugin.skill&quot;]
+&quot;my-skill.author&quot; = &quot;my_skill:MySkill&quot;
+</code></pre>
+<hr />
+<h2 id="quick-start">Quick Start</h2>
+<p>The canonical example uses <code>ovos-skill-hello-world.openvoiceos</code>, which has two intents:</p>
+<ul>
+<li><strong>HelloWorldIntent</strong> (Adapt) — triggered by "hello world"</li>
+<li><strong>Greetings.intent</strong> (Padatious) — triggered by greetings like "good morning"</li>
+</ul>
+<pre><code class="language-python">import unittest
+from ovos_bus_client.message import Message
+from ovos_bus_client.session import Session
+from ovoscope import End2EndTest
+
+SKILL_ID = &quot;ovos-skill-hello-world.openvoiceos&quot;
+
+class TestHelloWorld(unittest.TestCase):
+    def test_hello_world(self):
+        session = Session(&quot;test-session-1&quot;)
+        session.pipeline = [&quot;ovos-adapt-pipeline-plugin-high&quot;]
+        utterance = Message(
+            &quot;recognizer_loop:utterance&quot;,
+            {&quot;utterances&quot;: [&quot;hello world&quot;], &quot;lang&quot;: &quot;en-US&quot;},
+            {&quot;session&quot;: session.serialize(), &quot;source&quot;: &quot;A&quot;, &quot;destination&quot;: &quot;B&quot;},
+        )
+        test = End2EndTest(
+            skill_ids=[SKILL_ID],
+            source_message=utterance,
+            expected_messages=[
+                utterance,
+                Message(f&quot;{SKILL_ID}.activate&quot;, data={}, context={&quot;skill_id&quot;: SKILL_ID}),
+                Message(f&quot;{SKILL_ID}:HelloWorldIntent&quot;,
+                        data={&quot;utterance&quot;: &quot;hello world&quot;, &quot;lang&quot;: &quot;en-US&quot;},
+                        context={&quot;skill_id&quot;: SKILL_ID}),
+                Message(&quot;mycroft.skill.handler.start&quot;,
+                        data={&quot;name&quot;: &quot;HelloWorldSkill.handle_hello_world_intent&quot;},
+                        context={&quot;skill_id&quot;: SKILL_ID}),
+                Message(&quot;speak&quot;,
+                        data={&quot;lang&quot;: &quot;en-US&quot;, &quot;expect_response&quot;: False},
+                        context={&quot;skill_id&quot;: SKILL_ID}),
+                Message(&quot;mycroft.skill.handler.complete&quot;,
+                        data={&quot;name&quot;: &quot;HelloWorldSkill.handle_hello_world_intent&quot;},
+                        context={&quot;skill_id&quot;: SKILL_ID}),
+                Message(&quot;ovos.utterance.handled&quot;, data={}, context={&quot;skill_id&quot;: SKILL_ID}),
+            ],
+        )
+        test.execute(timeout=10)
+</code></pre>
+<p><code>execute()</code> raises <code>AssertionError</code> on the first mismatch. Assertions use subset matching:
+only keys present in <code>expected.data</code> and <code>expected.context</code> are checked — extra keys in
+the received message are ignored.</p>
+<hr />
+<h2 id="pattern-1-adapt-intent-match">Pattern 1 — Adapt Intent Match</h2>
+<p>Set <code>session.pipeline</code> to restrict matching to Adapt only. This avoids accidental
+Padatious matches and makes tests deterministic:</p>
+<pre><code class="language-python">from ovoscope import ADAPT_PIPELINE
+
+session = Session(&quot;test-adapt&quot;)
+session.pipeline = ADAPT_PIPELINE  # [&quot;ovos-adapt-pipeline-plugin-high&quot;, ...medium, ...low]
+</code></pre>
+<p>The pipeline constants exported by ovoscope cover all standard stages:</p>
+<pre><code class="language-python">from ovoscope import (
+    ADAPT_PIPELINE,
+    PADATIOUS_PIPELINE,
+    CONVERSE_PIPELINE,
+    FALLBACK_PIPELINE,
+    STOP_PIPELINE,
+    COMMON_QUERY_PIPELINE,
+    DEFAULT_TEST_PIPELINE,  # all standard stages, no AI/persona/OCP
+)
+</code></pre>
+<hr />
+<h2 id="pattern-2-padatious-intent-match">Pattern 2 — Padatious Intent Match</h2>
+<p>Padatious uses <code>.intent</code> file names as the message type. Restrict the session pipeline
+to Padatious only so Adapt does not shadow the match:</p>
+<pre><code class="language-python">session = Session(&quot;test-padatious&quot;)
+session.pipeline = [&quot;ovos-padatious-pipeline-plugin-high&quot;]
+message = Message(
+    &quot;recognizer_loop:utterance&quot;,
+    {&quot;utterances&quot;: [&quot;good morning&quot;], &quot;lang&quot;: &quot;en-US&quot;},
+    {&quot;session&quot;: session.serialize(), &quot;source&quot;: &quot;A&quot;, &quot;destination&quot;: &quot;B&quot;},
+)
+test = End2EndTest(
+    skill_ids=[SKILL_ID],
+    source_message=message,
+    expected_messages=[
+        message,
+        Message(f&quot;{SKILL_ID}.activate&quot;, data={}, context={&quot;skill_id&quot;: SKILL_ID}),
+        Message(f&quot;{SKILL_ID}:Greetings.intent&quot;,   # Padatious intent file name
+                data={&quot;utterance&quot;: &quot;good morning&quot;, &quot;lang&quot;: &quot;en-US&quot;},
+                context={&quot;skill_id&quot;: SKILL_ID}),
+        Message(&quot;mycroft.skill.handler.start&quot;,
+                data={&quot;name&quot;: &quot;HelloWorldSkill.handle_greetings&quot;},
+                context={&quot;skill_id&quot;: SKILL_ID}),
+        Message(&quot;speak&quot;,
+                data={&quot;lang&quot;: &quot;en-US&quot;, &quot;expect_response&quot;: False},
+                context={&quot;skill_id&quot;: SKILL_ID}),
+        Message(&quot;mycroft.skill.handler.complete&quot;,
+                data={&quot;name&quot;: &quot;HelloWorldSkill.handle_greetings&quot;},
+                context={&quot;skill_id&quot;: SKILL_ID}),
+        Message(&quot;ovos.utterance.handled&quot;, data={}, context={&quot;skill_id&quot;: SKILL_ID}),
+    ],
+)
+test.execute(timeout=10)
+</code></pre>
+<p>For Padatious the <code>speak</code> message's <code>utterance</code> value may vary due to dialog file
+randomisation. Omit <code>"utterance"</code> from <code>expected.data</code> if it is non-deterministic —
+assert on <code>lang</code> and <code>meta</code> instead.</p>
+<hr />
+<h2 id="pattern-3-recording-mode-bootstrap-fixtures">Pattern 3 — Recording Mode (Bootstrap Fixtures)</h2>
+<p>When you don't yet know the exact message sequence, let ovoscope record it from a live
+run:</p>
+<pre><code class="language-python">from ovoscope import End2EndTest
+from ovos_bus_client.message import Message
+from ovos_bus_client.session import Session
+
+SKILL_ID = &quot;ovos-skill-hello-world.openvoiceos&quot;
+session = Session(&quot;recorder-session&quot;)
+session.pipeline = [&quot;ovos-adapt-pipeline-plugin-high&quot;]
+message = Message(
+    &quot;recognizer_loop:utterance&quot;,
+    {&quot;utterances&quot;: [&quot;hello world&quot;], &quot;lang&quot;: &quot;en-US&quot;},
+    {&quot;session&quot;: session.serialize(), &quot;source&quot;: &quot;A&quot;, &quot;destination&quot;: &quot;B&quot;},
+)
+
+# Run live, capture messages, return a ready-to-use End2EndTest
+test = End2EndTest.from_message(
+    message=message,
+    skill_ids=[SKILL_ID],
+    timeout=20,
+)
+
+# Save to a JSON fixture — safe to commit (anonymize=True strips personal data)
+test.save(&quot;tests/fixtures/hello_world_adapt.json&quot;, anonymize=True)
+</code></pre>
+<p><code>anonymize=True</code> (the default) strips real location and personal data from the session
+context before saving.</p>
+<hr />
+<h2 id="pattern-4-replay-from-json-fixture">Pattern 4 — Replay from JSON Fixture</h2>
+<p>Committed JSON fixtures make tests fully self-contained:</p>
+<pre><code class="language-python">import unittest
+from ovoscope import End2EndTest
+
+class TestFromFixture(unittest.TestCase):
+    def test_adapt_from_fixture(self):
+        test = End2EndTest.from_path(&quot;tests/fixtures/hello_world_adapt.json&quot;)
+        test.execute(timeout=10)
+
+    def test_padatious_from_fixture(self):
+        test = End2EndTest.from_path(&quot;tests/fixtures/hello_world_padatious.json&quot;)
+        test.execute(timeout=10)
+</code></pre>
+<p>Skills still need to be installed: the JSON stores <code>skill_ids</code> and <code>execute()</code> calls
+<code>get_minicroft()</code> which loads the real plugin. The fixture stores the expected message
+sequence, not the skill code.</p>
+<p>You can also use the CLI to replay fixtures without writing test code:</p>
+<pre><code class="language-bash">ovoscope run tests/fixtures/hello_world_adapt.json --timeout 30
+</code></pre>
+<hr />
+<h2 id="pattern-5-reusing-minicroft-across-tests">Pattern 5 — Reusing MiniCroft Across Tests</h2>
+<p>Creating a <code>MiniCroft</code> is expensive because it trains intent models. Reuse it across
+tests in the same class:</p>
+<pre><code class="language-python">import unittest
+from ovoscope import End2EndTest, get_minicroft
+
+SKILL_ID = &quot;ovos-skill-hello-world.openvoiceos&quot;
+
+class TestHelloWorldShared(unittest.TestCase):
+    def setUp(self):
+        self.minicroft = get_minicroft([SKILL_ID])
+
+    def tearDown(self):
+        if self.minicroft:
+            self.minicroft.stop()
+
+    def test_adapt_match(self):
+        session = Session(&quot;shared&quot;)
+        session.pipeline = [&quot;ovos-adapt-pipeline-plugin-high&quot;]
+        message = Message(
+            &quot;recognizer_loop:utterance&quot;,
+            {&quot;utterances&quot;: [&quot;hello world&quot;], &quot;lang&quot;: &quot;en-US&quot;},
+            {&quot;session&quot;: session.serialize(), &quot;source&quot;: &quot;A&quot;, &quot;destination&quot;: &quot;B&quot;},
+        )
+        test = End2EndTest(
+            minicroft=self.minicroft,   # pass existing instance — NOT stopped after execute()
+            skill_ids=[SKILL_ID],
+            source_message=message,
+            expected_messages=[...],
+        )
+        test.execute(timeout=10)
+</code></pre>
+<p>When <code>minicroft</code> is passed explicitly, <code>End2EndTest</code> sets <code>managed=False</code> and does
+<strong>not</strong> call <code>minicroft.stop()</code> at the end of <code>execute()</code>. Your <code>tearDown</code> owns cleanup.</p>
+<hr />
+<h2 id="pattern-6-multi-turn-conversation">Pattern 6 — Multi-Turn Conversation</h2>
+<p>Pass a list of <code>Message</code> objects as <code>source_message</code> to test a multi-turn dialogue.
+ovoscope emits them in order and propagates session state between turns:</p>
+<pre><code class="language-python">session = Session(&quot;multi-turn&quot;)
+session.pipeline = [&quot;ovos-adapt-pipeline-plugin-high&quot;]
+
+turn1 = Message(
+    &quot;recognizer_loop:utterance&quot;,
+    {&quot;utterances&quot;: [&quot;hello world&quot;], &quot;lang&quot;: &quot;en-US&quot;},
+    {&quot;session&quot;: session.serialize(), &quot;source&quot;: &quot;A&quot;, &quot;destination&quot;: &quot;B&quot;},
+)
+
+# Turn 2 omits &quot;session&quot; — ovoscope propagates it from the last received message
+turn2 = Message(
+    &quot;recognizer_loop:utterance&quot;,
+    {&quot;utterances&quot;: [&quot;good morning&quot;], &quot;lang&quot;: &quot;en-US&quot;},
+    {&quot;source&quot;: &quot;A&quot;, &quot;destination&quot;: &quot;B&quot;},
+)
+
+test = End2EndTest(
+    skill_ids=[SKILL_ID],
+    source_message=[turn1, turn2],   # list of turns
+    expected_messages=[
+        turn1,
+        # ... turn 1 messages ...
+        Message(&quot;ovos.utterance.handled&quot;, data={}, context={&quot;skill_id&quot;: SKILL_ID}),
+        turn2,
+        # ... turn 2 messages ...
+        Message(&quot;ovos.utterance.handled&quot;, data={}, context={&quot;skill_id&quot;: SKILL_ID}),
+    ],
+)
+test.execute(timeout=20)
+</code></pre>
+<hr />
+<h2 id="pattern-7-testing-fallback-skills">Pattern 7 — Testing Fallback Skills</h2>
+<p>Fallback skills receive a <code>"ovos.skills.fallback.ping"</code> message before the main fallback
+handler fires. The expected sequence is longer than a normal intent match:</p>
+<pre><code class="language-python">session = Session(&quot;fallback-session&quot;)
+session.pipeline = [&quot;ovos-fallback-skill-plugin-high&quot;]
+message = Message(
+    &quot;recognizer_loop:utterance&quot;,
+    {&quot;utterances&quot;: [&quot;what is the meaning of life&quot;], &quot;lang&quot;: &quot;en-US&quot;},
+    {&quot;session&quot;: session.serialize(), &quot;source&quot;: &quot;A&quot;, &quot;destination&quot;: &quot;B&quot;},
+)
+test = End2EndTest(
+    skill_ids=[&quot;my-fallback-skill.author&quot;],
+    source_message=message,
+    expected_messages=[
+        message,
+        Message(&quot;ovos.skills.fallback.ping&quot;, {}),
+        # ... handler messages ...
+        Message(&quot;ovos.utterance.handled&quot;, {}),
+    ],
+)
+test.execute(timeout=15)
+</code></pre>
+<p><code>DEFAULT_KEEP_SRC</code> (pre-populated in ovoscope) ensures that <code>ovos.skills.fallback.ping</code>
+routing is always validated against the original source message context, not the rolling
+flip-point tracker.</p>
+<hr />
+<h2 id="pattern-8-session-state-validation">Pattern 8 — Session State Validation</h2>
+<p>Use <code>final_session</code> and <code>activation_points</code> to assert on session state at the end of
+a test:</p>
+<pre><code class="language-python">from ovos_bus_client.session import Session
+from ovoscope import End2EndTest
+
+SKILL_ID = &quot;ovos-skill-hello-world.openvoiceos&quot;
+
+expected_session = Session(&quot;state-check&quot;)
+expected_session.pipeline = [&quot;ovos-adapt-pipeline-plugin-high&quot;]
+expected_session.activate_skill(SKILL_ID)   # must remain active after the interaction
+
+session = Session(&quot;state-check&quot;)
+session.pipeline = [&quot;ovos-adapt-pipeline-plugin-high&quot;]
+message = Message(
+    &quot;recognizer_loop:utterance&quot;,
+    {&quot;utterances&quot;: [&quot;hello world&quot;], &quot;lang&quot;: &quot;en-US&quot;},
+    {&quot;session&quot;: session.serialize(), &quot;source&quot;: &quot;A&quot;, &quot;destination&quot;: &quot;B&quot;},
+)
+
+test = End2EndTest(
+    skill_ids=[SKILL_ID],
+    source_message=message,
+    expected_messages=[...],
+    final_session=expected_session,
+    test_final_session=True,
+    test_active_skills=True,
+    activation_points=[f&quot;{SKILL_ID}.activate&quot;],
+    deactivation_points=[&quot;intent.service.skills.deactivate&quot;],
+)
+test.execute(timeout=10)
+</code></pre>
+<p>Fields validated against <code>final_session</code>: <code>active_skills</code>, <code>lang</code>, <code>pipeline</code>,
+<code>system_unit</code>, <code>date_format</code>, <code>time_format</code>, <code>site_id</code>, <code>session_id</code>,
+<code>blacklisted_skills</code>, <code>blacklisted_intents</code>.</p>
+<hr />
+<h2 id="disabling-individual-assertion-groups">Disabling Individual Assertion Groups</h2>
+<p>Some assertion groups can be turned off when a message is noisy or non-deterministic:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_message_number</code></td>
+<td><code>True</code></td>
+<td>Assert exact message count</td>
+</tr>
+<tr>
+<td><code>test_msg_type</code></td>
+<td><code>True</code></td>
+<td>Assert message type for each position</td>
+</tr>
+<tr>
+<td><code>test_msg_data</code></td>
+<td><code>True</code></td>
+<td>Assert expected data keys match</td>
+</tr>
+<tr>
+<td><code>test_msg_context</code></td>
+<td><code>True</code></td>
+<td>Assert expected context keys match</td>
+</tr>
+<tr>
+<td><code>test_routing</code></td>
+<td><code>True</code></td>
+<td>Assert source/destination routing</td>
+</tr>
+<tr>
+<td><code>test_active_skills</code></td>
+<td><code>True</code></td>
+<td>Assert skill activation state</td>
+</tr>
+<tr>
+<td><code>test_final_session</code></td>
+<td><code>True</code></td>
+<td>Assert final session state</td>
+</tr>
+</tbody>
+</table>
+<p>Example — disable data and routing checks for a noisy third-party message:</p>
+<pre><code class="language-python">test = End2EndTest(
+    ...
+    test_msg_data=False,
+    test_routing=False,
+)
+</code></pre>
+<hr />
+<h2 id="async-messages">Async Messages</h2>
+<p>Some messages arrive from external threads and may appear at any time (e.g., GUI updates
+that race with bus messages). Declare them in <code>async_messages</code> to collect them separately
+without affecting the ordered assertion:</p>
+<pre><code class="language-python">test = End2EndTest(
+    skill_ids=[SKILL_ID],
+    source_message=message,
+    expected_messages=[...],      # sync messages only
+    async_messages=[&quot;gui.page.show&quot;],
+    test_async_messages=True,     # assert &quot;gui.page.show&quot; was received
+    test_async_message_number=True,
+)
+</code></pre>
+<p>Async messages are stored in <code>CaptureSession.async_responses</code> and are excluded from
+<code>test_message_number</code> count.</p>
+<hr />
+<h2 id="cli-shortcuts">CLI Shortcuts</h2>
+<p>The <code>ovoscope</code> command-line tool provides five subcommands:</p>
+<pre><code class="language-bash"># Record a fixture from an installed skill
+ovoscope record \
+    --skill-id ovos-skill-hello-world.openvoiceos \
+    --utterance &quot;hello&quot; \
+    --output fixture.json \
+    --lang en-US
+
+# Replay a fixture
+ovoscope run fixture.json --verbose --timeout 30
+
+# Compare two fixtures
+ovoscope diff expected.json actual.json
+
+# Validate fixture schema
+ovoscope validate test/fixtures/*.json
+
+# Scan workspace for E2E coverage
+ovoscope coverage &quot;OpenVoiceOS Workspace/&quot; --format table
+</code></pre>
+<p>Live recording from a running OVOS instance:</p>
+<pre><code class="language-bash">ovoscope record --live \
+    --bus-url ws://localhost:8181/core \
+    --skill-id ovos-skill-date-time.openvoiceos \
+    --utterance &quot;what time is it&quot; \
+    --output datetime_fixture.json
+</code></pre>
+<hr />
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>Timeout — no messages received</strong>: the skill plugin is not loaded. Verify
+<code>find_skill_plugins()</code> returns your skill ID. Also check that <code>session.pipeline</code> is not
+empty.</p>
+<p><strong>Skill not loading</strong>: set <code>LOG.set_level("DEBUG")</code> and watch for <code>"Loaded skill: ..."</code> in
+output. If it never prints, the entry point is wrong.</p>
+<p><strong>Intent not matching</strong>: for Adapt, confirm all required keywords are present in the
+utterance. For Padatious, check that training phrase files exist under
+<code>~/.local/share/</code>.</p>
+<p><strong><code>get_minicroft()</code> hangs</strong>: a skill is raising an exception during <code>_startup</code>. Set
+<code>LOG.set_level("DEBUG")</code> and watch for tracebacks.</p>
+<p><strong>Flaky tests from session ID collisions</strong>: use unique session IDs per test class, or
+generate them:</p>
+<pre><code class="language-python">import uuid
+session = Session(str(uuid.uuid4()))
+</code></pre>
+<hr />
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../450-skill-testing/">450-skill-testing.md</a> — architecture overview</li>
+<li><a href="../452-ovoscope-ci/">452-ovoscope-ci.md</a> — CI/CD integration</li>
+<li><a href="../453-ovoscope-advanced/">453-ovoscope-advanced.md</a> — audio, OCP, PHAL, pydantic testing</li>
+<li><a href="../ovoscope/docs/end2end-test.md">ovoscope: end2end-test.md</a> — full <code>End2EndTest</code> field reference</li>
+<li><a href="../ovoscope/docs/minicroft.md">ovoscope: minicroft.md</a> — full <code>MiniCroft</code> reference</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../450-skill-testing/" class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../452-ovoscope-ci/" class="btn btn-neutral float-right" title="CI Integration">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../450-skill-testing/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../452-ovoscope-ci/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../javascripts/analytics.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

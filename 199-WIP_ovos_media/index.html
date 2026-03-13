@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://openvoiceos.github.io/ovos-technical-manual/199-WIP_ovos_media/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>ovos-media - OVOS Technical Manual</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ovos-media";
+        var mkdocs_page_input_path = "199-WIP_ovos_media.md";
+        var mkdocs_page_url = "/ovos-technical-manual/199-WIP_ovos_media/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> OVOS Technical Manual
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../50-ovos_installer/">ovos-installer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../001-release_channels/">Manual Install</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">RaspOVOS</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../51-install_raspovos/">Tutorial</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../54-skill-examples/">Default Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../55-raspovos_troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Language Support</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../lang_support/">Translations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../gitlocalize_tutorial/">GitLocalize Tutorial</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../99-architecture-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../100-bus_service/">Bus</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../101-speech_service/">Listener</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../102-core/">Core</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../399-intents/">Skills and Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../103-audio_service/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../104-gui_service/">GUI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../340-PHAL/">Platform/Hardware Abstraction Layer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../300-plugin-manager/">Plugin Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../110-config/">Configuration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Intent Pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipelines_overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adapt_pipeline/">Adapt</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../padatious_pipeline/">Padatious</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../m2v_pipeline/">Model2Vec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../converse_pipeline/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../stop_pipeline/">Stop</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../153-persona_pipeline/">Persona</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cq_pipeline/">Common Query</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../631-OCP_pipeline/">OCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../fallback_pipeline/">Fallback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Transformers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../audio_transformers/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../utterance_transformers/">Utterance</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../intent_transformers/">Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dialog_transformers/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tts_transformers/">TTS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">AI Agents</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-personas/">Personas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../151-llm-transformers/">AI Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-advanced_solvers/">Specialized Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../154-agent-plugins/">Agent Engine Plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../155-mos-plugin/">Mixture of Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../156-ovos-judge/">ovos-judge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../157-claude-plugin/">Claude Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../158-openai-plugin/">OpenAI Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../159-gguf-plugin/">GGUF / Local LLM Plugin</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Self Hosting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../202-persona_server/">Persona Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../152-hivemind-agents/">HiveMind</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../200-stt_server/">STT Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../201-tts_server/">TTS Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../203-translate_server/">Translate Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../204-wyoming-bridges/">Wyoming Bridges</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../400-skill-design-guidelines/">Design Guidelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../401-skill_structure/">Anatomy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../402-statements/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../403-intents/">Intent Design</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../405-customization/">Customization</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../406-messagebus/">Bus Interaction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../407-skill_filesystem/">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../408-skill_settings/">Skill Settings</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../409-skill_api/">Skill API</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../410-skill_runtime_requirements/">Runtime Requirements</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../411-skill_json/">Skill Json</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../413-intent-layers/">Skill Classes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../420-ssml/">SSML</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../430-skill_dev_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Continuous Conversation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../500-prompts/">Prompts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../501-context/">Follow up Questions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../502-converse/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../503-layers/">Intent Layers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../504-session/">Session Aware Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced Skill Types</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../600-fallbacks/">Fallback Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../610-common_query/">Common Query Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../630-OCP_skills/">Media Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../620-universal_skills/">Universal Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Testing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../450-skill-testing/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../451-ovoscope-usage/">Usage Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../452-ovoscope-ci/">CI Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../453-ovoscope-advanced/">Advanced Testing</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">GUI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../701-gui_protocol/">Protocol</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../702-ovos-shell/">OVOS Shell</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Voice Apps</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../590-voice_apps/">Standalone Apps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MessageBus</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../900-bus_client/">Messagebus Client</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../901-bus-session/">Session Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../720-skill_gui/">GUI Interface</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../800-mk1_api/">Enclosure Api</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../905-pydantic-models/">Pydantic Models</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Plugin Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../310-mic_plugins/">Microphone</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../311-vad_plugins/">Voice Activity Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../312-wake_word_plugins/">Wake Word</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../313-stt_plugins/">Speech To Text</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../320-tts_plugins/">Text To Speech</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../321-g2p_plugins/">Grapheme to Phoneme</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../330-transformer_plugins/">Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../350-translation_plugins/">Language Detection/Translation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../370-ocp_plugins/">OCP Stream Extractors</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../371-media_plugins/">Media Playback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Utilities</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../891-number_parser/">Number Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../890-date_parser/">Date Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../893-color_parser/">Color Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../910-quebra_frases/">Quebra Frases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../920-padacioso/">Padacioso</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../801-mk1_utils/">Mark1 Utils</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../002-license/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../003-timeline/">Timeline</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">OVOS Technical Manual</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">ovos-media</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ovos-media">ovos-media</h1>
+<blockquote>
+<p><strong>EXPERIMENTAL</strong> — <code>ovos-media</code> is the new standalone audio/video daemon for OpenVoiceOS.
+It is a work in progress and does not yet ship with OVOS by default, but can be manually enabled.</p>
+</blockquote>
+<p>To use <code>ovos-media</code> you need to disable the old audio service and enable the OCP pipeline in <code>ovos-core</code>:</p>
+<pre><code class="language-json">{
+  &quot;enable_old_audioservice&quot;: false
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;intents&quot;: {
+    &quot;pipeline&quot;: [
+      &quot;converse&quot;,
+      &quot;ocp_high&quot;,
+      &quot;...&quot;,
+      &quot;common_qa&quot;,
+      &quot;ocp_medium&quot;,
+      &quot;...&quot;,
+      &quot;ocp_fallback&quot;,
+      &quot;fallback_low&quot;
+    ]
+  }
+}
+</code></pre>
+<hr />
+<h2 id="architecture-history">Architecture History</h2>
+<p>OCP (OVOS Common Play) was originally implemented as an <code>AudioBackend</code> plugin inside the Mycroft
+audio service — a severe misuse of an interface designed for thin wrappers around playback binaries.
+The result was <code>ovos-ocp-audio-plugin</code>: a monolith that crammed NLP, search orchestration, player
+state machine, MPRIS, and GUI into a single mycroft audio backend.</p>
+<p>The NLP portion was later extracted into <code>ovos-ocp-pipeline-plugin</code> (now <code>ocp-pipeline</code>), and the
+player is now being migrated to <code>ovos-media</code>. Both the old plugin and the new daemon currently
+exist in parallel:</p>
+<pre><code>[Current / target]
+  ovos-core intent pipeline
+    └── ocp-pipeline-plugin
+          └── Search dispatch → OCP skills → results → ovos-media
+
+  ovos-media (standalone daemon)
+    ├── Player state machine (OCPMediaCatalog)
+    ├── MPRIS
+    ├── Media backend plugins
+    └── GUI (still coupled — target: GUI adapter plugins)
+</code></pre>
+<hr />
+<h2 id="ocp-pipeline-plugin">OCP Pipeline Plugin</h2>
+<p><strong>Package:</strong> <code>ocp-pipeline</code>
+<strong>Entry point group:</strong> <code>opm.pipeline</code>
+<strong>Class:</strong> <code>OCPPipelinePlugin</code></p>
+<p>The OCP pipeline plugin is the NLP brain of the media stack. It integrates with <code>ovos-core</code>'s
+intent pipeline, handles all media query classification, and dispatches search to OCP skills.
+It does NOT handle playback.</p>
+<h3 id="what-it-does">What It Does</h3>
+<ol>
+<li>
+<p><strong>Classification</strong> — determines the media type (music, podcast, radio, video, audiobook, news, etc.)
+   using a trained <code>AhocorasickNER</code> classifier and vocabulary files from <code>ocp_pipeline/locale/</code>.</p>
+</li>
+<li>
+<p><strong>Search dispatch</strong> — emits <code>ovos.common_play.query</code> on the bus. All registered OCP skills
+   respond with <code>ovos.common_play.query.response</code>, providing <code>MediaEntry</code>/<code>Playlist</code> objects scored 0–100.</p>
+</li>
+<li>
+<p><strong>Result selection</strong> — collects responses up to a timeout, sorts by score, picks the best result.</p>
+</li>
+<li>
+<p><strong>Playback routing</strong> — emits <code>ovos.common_play.play</code> with the selected result to the active player.</p>
+</li>
+</ol>
+<h3 id="per-session-player-state">Per-Session Player State</h3>
+<p>The pipeline plugin tracks one <code>OCPPlayerProxy</code> per session — important for HiveMind where each
+satellite has its own player:</p>
+<pre><code class="language-python">@dataclass
+class OCPPlayerProxy:
+    session_id: str
+    available_extractors: List[str]
+    ocp_available: bool
+    player_state: PlayerState = PlayerState.STOPPED
+    media_state: MediaState = MediaState.UNKNOWN
+    media_type: MediaType = MediaType.GENERIC
+    skill_id: Optional[str] = None
+</code></pre>
+<h3 id="pipeline-configuration">Pipeline Configuration</h3>
+<pre><code class="language-json">{
+  &quot;intents&quot;: {
+    &quot;pipeline&quot;: [
+      &quot;...&quot;,
+      &quot;ocp_pipeline_plugin&quot;,
+      &quot;...&quot;
+    ]
+  }
+}
+</code></pre>
+<h3 id="ocp-skills">OCP Skills</h3>
+<p>OCP skills inherit <code>OVOSCommonPlaybackSkill</code> and register by emitting <code>ovos.common_play.announce</code>:</p>
+<pre><code class="language-python">from ovos_workshop.skills.common_play import OVOSCommonPlaybackSkill, MediaType
+from ovos_utils.ocp import MediaEntry
+
+class MyMusicSkill(OVOSCommonPlaybackSkill):
+    @ocp_search()
+    def search_my_service(self, phrase, media_type):
+        # Return MediaEntry or Playlist objects scored 0-100
+        if media_type == MediaType.MUSIC:
+            yield MediaEntry(
+                title=&quot;My Song&quot;,
+                uri=&quot;https://example.com/song.mp3&quot;,
+                confidence=85,
+                media_type=MediaType.MUSIC,
+            )
+
+    @ocp_featured_media()
+    def featured_media(self):
+        # Optional: return a playlist for the OCP browse UI
+        return Playlist(title=&quot;My Playlist&quot;, media=[...])
+</code></pre>
+<p>Skills must NOT handle playback. They must NOT have intents for play/pause/stop/next.</p>
+<h3 id="bus-messages">Bus Messages</h3>
+<h4 id="inbound-to-pipeline-from-skills-player">Inbound (to pipeline from skills / player)</h4>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ovos.common_play.query.response</code></td>
+<td>OCP skill returning search results</td>
+</tr>
+<tr>
+<td><code>ovos.common_play.announce</code></td>
+<td>OCP skill announcing presence</td>
+</tr>
+<tr>
+<td><code>ovos.common_play.player.state</code></td>
+<td>Player state update</td>
+</tr>
+<tr>
+<td><code>ovos.common_play.media.state</code></td>
+<td>Media state update</td>
+</tr>
+<tr>
+<td><code>ovos.common_play.track.state</code></td>
+<td>Track state update</td>
+</tr>
+</tbody>
+</table>
+<h4 id="outbound-from-pipeline-to-skills-player">Outbound (from pipeline to skills / player)</h4>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ovos.common_play.query</code></td>
+<td>Dispatch search to all OCP skills</td>
+</tr>
+<tr>
+<td><code>ovos.common_play.play</code></td>
+<td>Tell player to play selected result</td>
+</tr>
+<tr>
+<td><code>ovos.common_play.pause</code></td>
+<td>Pause</td>
+</tr>
+<tr>
+<td><code>ovos.common_play.resume</code></td>
+<td>Resume</td>
+</tr>
+<tr>
+<td><code>ovos.common_play.stop</code></td>
+<td>Stop</td>
+</tr>
+<tr>
+<td><code>ovos.common_play.next</code></td>
+<td>Next track</td>
+</tr>
+<tr>
+<td><code>ovos.common_play.prev</code></td>
+<td>Previous track</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ovos-media-player">ovos-media Player</h2>
+<p><strong>Entry point:</strong> <code>ovos-media</code> (runs <code>ovos_media.__main__:main</code>)</p>
+<p>Key modules:
+- <code>ovos_media/player.py</code> — <code>OCPMediaCatalog</code> (<code>OVOSCommonPlaybackSkill</code> subclass); manages playlists, track history, liked songs
+- <code>ovos_media/media_backends/</code> — <code>AudioService</code>, <code>VideoService</code>, <code>WebService</code> — each manages typed backend plugins
+- <code>ovos_media/gui.py</code> — <code>OCPGUIInterface</code>, <code>OCPGUIState</code> — pushes GUI state to mycroft-gui
+- <code>ovos_media/mpris.py</code> — MPRIS integration</p>
+<h3 id="available-media-backend-plugins">Available Media Backend Plugins</h3>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ovos-media-plugin-vlc</code></td>
+<td>audio + video</td>
+<td>Headless VLC instance</td>
+</tr>
+<tr>
+<td><code>ovos-media-plugin-mplayer</code></td>
+<td>audio</td>
+<td>mplayer</td>
+</tr>
+<tr>
+<td><code>ovos-media-plugin-mpv</code></td>
+<td>audio</td>
+<td>mpv</td>
+</tr>
+<tr>
+<td><code>ovos-media-plugin-ffplay</code></td>
+<td>audio + video</td>
+<td>ffplay</td>
+</tr>
+<tr>
+<td><code>ovos-media-plugin-simple</code></td>
+<td>audio</td>
+<td>Simple fallback</td>
+</tr>
+<tr>
+<td><code>ovos-media-plugin-chromecast</code></td>
+<td>audio + video</td>
+<td>Chromecast via pychromecast</td>
+</tr>
+<tr>
+<td><code>ovos-media-plugin-spotify</code></td>
+<td>audio</td>
+<td>Spotify Connect</td>
+</tr>
+<tr>
+<td><code>ovos-media-plugin-mass</code></td>
+<td>audio</td>
+<td>Music Assistant</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stream-extractor-plugins">Stream Extractor Plugins</h3>
+<p>OCP supports stream extractor plugins (<code>opm.ocp.extractor</code> entry point group) that transform
+non-playable URIs into playable streams before handing them to the media backend:
+- <code>ovos-ocp-youtube-plugin</code> — extracts audio stream from YouTube URLs
+- <code>ovos-ocp-m3u-plugin</code> — parses M3U playlists
+- <code>ovos-ocp-rss-plugin</code> — parses podcast RSS feeds</p>
+<hr />
+<h2 id="media-intents">Media Intents</h2>
+<p>Before the regular intent stage, OCP handles these utterances (taking into account current player state):</p>
+<ul>
+<li><code>"play {query}"</code> — always available</li>
+<li><code>"previous"</code> — requires media loaded</li>
+<li><code>"next"</code> — requires media loaded</li>
+<li><code>"pause"</code> — requires media loaded</li>
+<li><code>"play"</code> / <code>"resume"</code> — requires media loaded</li>
+<li><code>"stop"</code> — requires media loaded</li>
+<li><code>"I like that song"</code> — requires music playing</li>
+</ul>
+<hr />
+<h2 id="mpris-integration">MPRIS Integration</h2>
+<p>OCP integrates with MPRIS, allowing OCP to control and be controlled by external players.
+Via MPRIS (and KDEConnect), OCP can display data from external players and control playback
+in connected devices.</p>
+<pre><code class="language-json">{
+  &quot;media&quot;: {
+    &quot;enable_mpris&quot;: true,
+    &quot;dbus_type&quot;: &quot;session&quot;
+  }
+}
+</code></pre>
+<p>Confirm OCP is registered with dbus:</p>
+<pre><code class="language-bash">dbus-send --session --dest=org.freedesktop.DBus --type=method_call --print-reply \
+  /org/freedesktop/DBus org.freedesktop.DBus.ListNames
+# Should show: &quot;org.mpris.MediaPlayer2.OCP&quot;
+</code></pre>
+<hr />
+<h2 id="configuration">Configuration</h2>
+<pre><code class="language-json">{
+  &quot;media&quot;: {
+    &quot;enable_mpris&quot;: false,
+
+    &quot;preferred_audio_services&quot;: [&quot;gui&quot;, &quot;vlc&quot;, &quot;mplayer&quot;, &quot;cli&quot;],
+    &quot;preferred_video_services&quot;: [&quot;gui&quot;, &quot;vlc&quot;],
+    &quot;preferred_web_services&quot;: [&quot;gui&quot;, &quot;browser&quot;],
+
+    &quot;audio_players&quot;: {
+      &quot;vlc&quot;: {
+        &quot;module&quot;: &quot;ovos-media-audio-plugin-vlc&quot;,
+        &quot;aliases&quot;: [&quot;VLC&quot;],
+        &quot;active&quot;: true
+      },
+      &quot;cli&quot;: {
+        &quot;module&quot;: &quot;ovos-media-audio-plugin-cli&quot;,
+        &quot;aliases&quot;: [&quot;Command Line&quot;],
+        &quot;active&quot;: true
+      },
+      &quot;gui&quot;: {
+        &quot;module&quot;: &quot;ovos-media-audio-plugin-gui&quot;,
+        &quot;aliases&quot;: [&quot;GUI&quot;, &quot;Graphical User Interface&quot;],
+        &quot;active&quot;: true
+      }
+    },
+
+    &quot;video_players&quot;: {
+      &quot;vlc&quot;: {
+        &quot;module&quot;: &quot;ovos-media-video-plugin-vlc&quot;,
+        &quot;aliases&quot;: [&quot;VLC&quot;],
+        &quot;active&quot;: true
+      },
+      &quot;gui&quot;: {
+        &quot;module&quot;: &quot;ovos-media-video-plugin-gui&quot;,
+        &quot;aliases&quot;: [&quot;GUI&quot;, &quot;Graphical User Interface&quot;],
+        &quot;active&quot;: true
+      }
+    },
+
+    &quot;web_players&quot;: {
+      &quot;browser&quot;: {
+        &quot;module&quot;: &quot;ovos-media-web-plugin-browser&quot;,
+        &quot;aliases&quot;: [&quot;Browser&quot;, &quot;Local Browser&quot;, &quot;Default Browser&quot;],
+        &quot;active&quot;: true
+      },
+      &quot;gui&quot;: {
+        &quot;module&quot;: &quot;ovos-media-web-plugin-gui&quot;,
+        &quot;aliases&quot;: [&quot;GUI&quot;, &quot;Graphical User Interface&quot;],
+        &quot;active&quot;: true
+      }
+    }
+  }
+}
+</code></pre>
+<hr />
+<h2 id="legacy-compatibility">Legacy Compatibility</h2>
+<h3 id="classicaudioserviceinterface">ClassicAudioServiceInterface</h3>
+<p>When <code>ovos-media</code> is not running (i.e., the system still uses <code>ovos-ocp-audio-plugin</code> inside
+<code>ovos-audio</code>), the pipeline plugin falls back to emitting <code>mycroft.audio.service.*</code> bus messages
+to control the classic audio service via <code>ovos_bus_client.apis.ocp.ClassicAudioServiceInterface</code>.</p>
+<h3 id="legacycommonplay-bridge">LegacyCommonPlay Bridge</h3>
+<p>For skills that still use the old Mycroft <code>CommonPlaySkill</code> base class (pre-OCP), the pipeline
+plugin includes a bridge:
+- Emits <code>play:query</code> instead of <code>ovos.common_play.query</code>
+- Collects <code>play:query.response</code> from old-style skills
+- Emits <code>play:start</code> to tell the winning skill to handle playback itself</p>
+<p>This bridge is marked for removal in <code>ovos-core 0.1.0</code>.</p>
+<hr />
+<h2 id="known-coupling-issues">Known Coupling Issues</h2>
+<h3 id="gui-still-qt5mycroft-gui-bound">GUI still Qt5/mycroft-gui bound</h3>
+<p><code>ovos_media/gui.py</code> still ships Qt5 QML files (<code>ovos_media/qt5/</code>) and drives the GUI in the
+mycroft-gui style. No alternative renderers (web UI, kiosk, headless) are supported without
+replacing <code>gui.py</code>. The GUI adapter plugin system (<code>opm.gui_adapter</code>) is the planned fix but
+has not yet been applied to <code>ovos-media</code>.</p>
+<h3 id="ocpmediacatalog-is-a-skill">OCPMediaCatalog is a skill</h3>
+<p><code>ovos_media/player.py</code> inherits from <code>OVOSCommonPlaybackSkill</code>. This registers <code>ovos-media</code> as
+a skill on the bus and loads skill infrastructure (settings, locale, etc.). It also registers
+<code>@ocp_search()</code> for liked songs and <code>@ocp_featured_media()</code> for the browse view.</p>
+<h3 id="no-nextprev-in-some-backends">No next/prev in some backends</h3>
+<p>The Music Assistant audio backend does not implement <code>next()</code> or <code>previous()</code> through the legacy
+<code>AudioBackend</code> interface — only through the MA queue API.</p>
+<hr />
+<h2 id="features">Features</h2>
+<h3 id="liked-songs">Liked Songs</h3>
+<p>Like a currently playing song via GUI or the intent "I like that song". Liked songs can be played
+via the intent "play my favorite songs" or through the GUI.</p>
+<h3 id="skills-browse-featured-media">Skills Browse / Featured Media</h3>
+<p>Some skills provide <code>@ocp_featured_media()</code>. These are accessible from the OCP skills menu in the GUI.</p>
+<h3 id="file-browser-integration">File Browser Integration</h3>
+<p>Selected files and folders will be played in OCP. Folders are treated as playlists.</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../javascripts/analytics.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

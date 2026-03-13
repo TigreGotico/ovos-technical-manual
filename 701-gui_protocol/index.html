@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://openvoiceos.github.io/ovos-technical-manual/701-gui_protocol/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Protocol - OVOS Technical Manual</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Protocol";
+        var mkdocs_page_input_path = "701-gui_protocol.md";
+        var mkdocs_page_url = "/ovos-technical-manual/701-gui_protocol/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> OVOS Technical Manual
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../50-ovos_installer/">ovos-installer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../001-release_channels/">Manual Install</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">RaspOVOS</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../51-install_raspovos/">Tutorial</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../54-skill-examples/">Default Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../55-raspovos_troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Language Support</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../lang_support/">Translations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../gitlocalize_tutorial/">GitLocalize Tutorial</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../99-architecture-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../100-bus_service/">Bus</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../101-speech_service/">Listener</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../102-core/">Core</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../399-intents/">Skills and Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../103-audio_service/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../104-gui_service/">GUI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../340-PHAL/">Platform/Hardware Abstraction Layer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../300-plugin-manager/">Plugin Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../110-config/">Configuration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Intent Pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipelines_overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adapt_pipeline/">Adapt</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../padatious_pipeline/">Padatious</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../m2v_pipeline/">Model2Vec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../converse_pipeline/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../stop_pipeline/">Stop</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../153-persona_pipeline/">Persona</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cq_pipeline/">Common Query</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../631-OCP_pipeline/">OCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../fallback_pipeline/">Fallback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Transformers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../audio_transformers/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../utterance_transformers/">Utterance</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../intent_transformers/">Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dialog_transformers/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tts_transformers/">TTS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">AI Agents</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-personas/">Personas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../151-llm-transformers/">AI Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-advanced_solvers/">Specialized Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../154-agent-plugins/">Agent Engine Plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../155-mos-plugin/">Mixture of Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../156-ovos-judge/">ovos-judge</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../157-claude-plugin/">Claude Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../158-openai-plugin/">OpenAI Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../159-gguf-plugin/">GGUF / Local LLM Plugin</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Self Hosting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../202-persona_server/">Persona Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../152-hivemind-agents/">HiveMind</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../200-stt_server/">STT Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../201-tts_server/">TTS Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../203-translate_server/">Translate Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../204-wyoming-bridges/">Wyoming Bridges</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../400-skill-design-guidelines/">Design Guidelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../401-skill_structure/">Anatomy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../402-statements/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../403-intents/">Intent Design</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../405-customization/">Customization</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../406-messagebus/">Bus Interaction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../407-skill_filesystem/">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../408-skill_settings/">Skill Settings</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../409-skill_api/">Skill API</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../410-skill_runtime_requirements/">Runtime Requirements</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../411-skill_json/">Skill Json</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../413-intent-layers/">Skill Classes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../420-ssml/">SSML</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../430-skill_dev_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Continuous Conversation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../500-prompts/">Prompts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../501-context/">Follow up Questions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../502-converse/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../503-layers/">Intent Layers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../504-session/">Session Aware Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced Skill Types</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../600-fallbacks/">Fallback Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../610-common_query/">Common Query Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../630-OCP_skills/">Media Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../620-universal_skills/">Universal Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Testing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../450-skill-testing/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../451-ovoscope-usage/">Usage Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../452-ovoscope-ci/">CI Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../453-ovoscope-advanced/">Advanced Testing</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">GUI</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Protocol</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#ovos-messagebus-messages">OVOS MessageBus Messages</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#messages-emitted-by-skills-via-guiinterface">Messages emitted by skills (via GUIInterface)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#guivalueset">gui.value.set</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#guipageshow">gui.page.show</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#guipagedelete">gui.page.delete</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#guipagedeleteall">gui.page.delete.all</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#guieventsend">gui.event.send</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#messages-consumed-by-namespacemanager-from-skills-core">Messages consumed by NamespaceManager (from skills / core)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#ovosguiscreenclose">ovos.gui.screen.close</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#guiclearnamespace">gui.clear.namespace</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#messages-emitted-by-ovos-gui-service">Messages emitted by ovos-gui service</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#guinamespaceremoved">gui.namespace.removed</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#guinamespacedisplayed">gui.namespace.displayed</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#status-events-forwarded-to-adapters">Status events forwarded to adapters</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#touch-interaction-responses-emitted-back-to-the-bus">Touch / Interaction responses (emitted back to the bus)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#skill_idconfirmresponse">&lt;skill_id&gt;.confirm.response</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#skill_idselectresponse">&lt;skill_id&gt;.select.response</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#qt-websocket-protocol-legacy-adapter">Qt WebSocket Protocol (Legacy Adapter)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#connection-handshake">Connection handshake</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#namespace-stack-management-mycroftsystemactive_skills">Namespace stack management (mycroft.system.active_skills)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#session-data-sync-mycroftsession">Session data sync (mycroft.session.*)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#page-management-mycroftguilist">Page management (mycroft.gui.list.*)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#events-mycrofteventstriggered">Events (mycroft.events.triggered)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#special-event-page_gained_focus">Special event: page_gained_focus</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#system-status-events">System status events</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#qt-client-ovos-core-bus">Qt client → OVOS core bus</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary-message-flows">Summary: message flows</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../702-ovos-shell/">OVOS Shell</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Voice Apps</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../590-voice_apps/">Standalone Apps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MessageBus</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../900-bus_client/">Messagebus Client</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../901-bus-session/">Session Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../720-skill_gui/">GUI Interface</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../800-mk1_api/">Enclosure Api</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../905-pydantic-models/">Pydantic Models</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Plugin Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../310-mic_plugins/">Microphone</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../311-vad_plugins/">Voice Activity Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../312-wake_word_plugins/">Wake Word</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../313-stt_plugins/">Speech To Text</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../320-tts_plugins/">Text To Speech</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../321-g2p_plugins/">Grapheme to Phoneme</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../330-transformer_plugins/">Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../350-translation_plugins/">Language Detection/Translation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../370-ocp_plugins/">OCP Stream Extractors</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../371-media_plugins/">Media Playback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Utilities</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../891-number_parser/">Number Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../890-date_parser/">Date Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../893-color_parser/">Color Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../910-quebra_frases/">Quebra Frases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../920-padacioso/">Padacioso</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../801-mk1_utils/">Mark1 Utils</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../002-license/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../003-timeline/">Timeline</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">OVOS Technical Manual</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">GUI</li>
+      <li class="breadcrumb-item active">Protocol</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="gui-protocol">GUI Protocol</h1>
+<p>The <code>ovos-gui</code> service exposes two communication channels:</p>
+<ol>
+<li><strong>OVOS MessageBus</strong> — used by skills and core components to set GUI state.</li>
+<li><strong>Qt WebSocket</strong> (port 18181, via <code>ovos-legacy-mycroft-gui-plugin</code>) — used by Qt5/Qt6
+   GUI clients (<code>mycroft-gui-qt5</code>, <code>ovos-shell</code>) to receive display commands and send
+   back user interaction events.</li>
+</ol>
+<p>The transport protocol between <code>ovos-gui</code> and Qt clients is implemented in the
+<a href="https://github.com/OpenVoiceOS/mycroft-gui-qt5">mycroft-gui-qt5</a> library.</p>
+<p><img alt="imagem" src="https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/92e73af7-f7d2-4aa3-a294-77f87aa22390" /></p>
+<hr />
+<h2 id="ovos-messagebus-messages">OVOS MessageBus Messages</h2>
+<h3 id="messages-emitted-by-skills-via-guiinterface">Messages emitted by skills (via <code>GUIInterface</code>)</h3>
+<h4 id="guivalueset"><code>gui.value.set</code></h4>
+<p>Sent by <code>GUIInterface.__setitem__</code> / <code>_sync_data()</code> to write session variables into
+the skill's namespace.</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;gui.value.set&quot;,
+  &quot;data&quot;: {
+    &quot;current_temp&quot;: 22,
+    &quot;condition&quot;: &quot;Sunny&quot;,
+    &quot;__from&quot;: &quot;ovos-skill-weather&quot;,
+    &quot;__idle&quot;: null,
+    &quot;__animations&quot;: false
+  }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>__from</code></td>
+<td>Skill ID (namespace owner)</td>
+</tr>
+<tr>
+<td><code>__idle</code></td>
+<td>Idle timeout in seconds, or <code>null</code></td>
+</tr>
+<tr>
+<td><code>__animations</code></td>
+<td>Whether page transitions should animate</td>
+</tr>
+<tr>
+<td>All other keys</td>
+<td>Skill-defined session variables</td>
+</tr>
+</tbody>
+</table>
+<p><code>NamespaceManager</code> stores all keys in <code>namespace.data</code> and forwards non-reserved keys
+to adapters via <code>on_session_update()</code>.</p>
+<hr />
+<h4 id="guipageshow"><code>gui.page.show</code></h4>
+<p>Sent by <code>GUIInterface._show_pages()</code> to request a template or page be shown.</p>
+<p><strong>Template format (SYSTEM_*):</strong></p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;gui.page.show&quot;,
+  &quot;data&quot;: {
+    &quot;page_names&quot;: [&quot;SYSTEM_weather&quot;],
+    &quot;index&quot;: 0,
+    &quot;persistence&quot;: true,
+    &quot;__from&quot;: &quot;ovos-skill-weather&quot;,
+    &quot;__idle&quot;: null,
+    &quot;__animations&quot;: false
+  }
+}
+</code></pre>
+<p>When <code>page_names[0]</code> starts with <code>SYSTEM_</code>, <code>NamespaceManager</code> reads the namespace's
+current <code>data</code> dict and dispatches to all loaded adapters via
+<code>adapter.dispatch_template(template, skill_id, data)</code>.</p>
+<p><strong>Legacy format (framework-specific pages):</strong></p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;gui.page.show&quot;,
+  &quot;data&quot;: {
+    &quot;page_names&quot;: [&quot;Weather.qml&quot;],
+    &quot;index&quot;: 0,
+    &quot;__from&quot;: &quot;ovos-skill-weather&quot;
+  }
+}
+</code></pre>
+<p>Non-<code>SYSTEM_*</code> names are handled by the unchanged legacy path inside <code>NamespaceManager</code>
+(forwarded to Qt clients via the legacy adapter).</p>
+<hr />
+<h4 id="guipagedelete"><code>gui.page.delete</code></h4>
+<p>Removes a specific page from a skill's namespace page list.</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;gui.page.delete&quot;,
+  &quot;data&quot;: {
+    &quot;page_names&quot;: [&quot;Weather.qml&quot;],
+    &quot;__from&quot;: &quot;ovos-skill-weather&quot;
+  }
+}
+</code></pre>
+<hr />
+<h4 id="guipagedeleteall"><code>gui.page.delete.all</code></h4>
+<p>Clears all pages from a skill's namespace.</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;gui.page.delete.all&quot;,
+  &quot;data&quot;: {
+    &quot;__from&quot;: &quot;ovos-skill-weather&quot;
+  }
+}
+</code></pre>
+<hr />
+<h4 id="guieventsend"><code>gui.event.send</code></h4>
+<p>Sends an arbitrary event into a skill's namespace (used for confirm/select responses
+and custom interactions).</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;gui.event.send&quot;,
+  &quot;data&quot;: {
+    &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+    &quot;event_name&quot;: &quot;skill.selection.confirmed&quot;,
+    &quot;params&quot;: {&quot;confirmed&quot;: true}
+  }
+}
+</code></pre>
+<hr />
+<h3 id="messages-consumed-by-namespacemanager-from-skills-core">Messages consumed by <code>NamespaceManager</code> (from skills / core)</h3>
+<h4 id="ovosguiscreenclose"><code>ovos.gui.screen.close</code></h4>
+<p>Request to remove a skill's namespace from the active display stack and deactivate it.</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;ovos.gui.screen.close&quot;,
+  &quot;data&quot;: {
+    &quot;skill_id&quot;: &quot;ovos-skill-weather&quot;
+  }
+}
+</code></pre>
+<p>Triggers <code>adapter.on_namespace_deactivated(skill_id)</code> on all adapters.</p>
+<hr />
+<h4 id="guiclearnamespace"><code>gui.clear.namespace</code></h4>
+<p>Legacy equivalent of <code>ovos.gui.screen.close</code>. Session data is discarded.</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;gui.clear.namespace&quot;,
+  &quot;data&quot;: {
+    &quot;__from&quot;: &quot;ovos-skill-weather&quot;
+  }
+}
+</code></pre>
+<hr />
+<h3 id="messages-emitted-by-ovos-gui-service">Messages emitted by <code>ovos-gui</code> service</h3>
+<h4 id="guinamespaceremoved"><code>gui.namespace.removed</code></h4>
+<p>Emitted by <code>NamespaceManager</code> after a namespace has been deactivated and cleared.</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;gui.namespace.removed&quot;,
+  &quot;data&quot;: {
+    &quot;skill_id&quot;: &quot;ovos-skill-weather&quot;
+  }
+}
+</code></pre>
+<h4 id="guinamespacedisplayed"><code>gui.namespace.displayed</code></h4>
+<p>Emitted when a namespace moves to the top of the active display stack.</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;gui.namespace.displayed&quot;,
+  &quot;data&quot;: {
+    &quot;skill_id&quot;: &quot;ovos-skill-weather&quot;
+  }
+}
+</code></pre>
+<hr />
+<h3 id="status-events-forwarded-to-adapters">Status events forwarded to adapters</h3>
+<p><code>NamespaceManager</code> subscribes to the following core bus messages and forwards them to all
+adapters via <code>adapter.on_status_event(event_name, data)</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Bus message type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>recognizer_loop:wakeword</code></td>
+<td>Wake word detected</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:record_begin</code></td>
+<td>Microphone opened</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:record_end</code></td>
+<td>Microphone closed</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:utterance</code></td>
+<td>Utterance recognised</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:recognition_unknown</code></td>
+<td>STT gave no result</td>
+</tr>
+<tr>
+<td><code>speak</code></td>
+<td>TTS about to speak</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:audio_output_start</code></td>
+<td>Audio playback started</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:audio_output_end</code></td>
+<td>Audio playback ended</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:sleep</code></td>
+<td>Device going to sleep</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:wake_up</code></td>
+<td>Device waking up</td>
+</tr>
+<tr>
+<td><code>mycroft.awoken</code></td>
+<td>Wake-up acknowledged</td>
+</tr>
+<tr>
+<td><code>ovos.utterance.handled</code></td>
+<td>Intent matched and handled</td>
+</tr>
+<tr>
+<td><code>ovos.utterance.cancelled</code></td>
+<td>Utterance cancelled</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="touch-interaction-responses-emitted-back-to-the-bus">Touch / Interaction responses (emitted back to the bus)</h3>
+<p>When a touch-capable adapter receives user input on confirm/select templates:</p>
+<h4 id="skill_idconfirmresponse"><code>&lt;skill_id&gt;.confirm.response</code></h4>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;ovos-skill-weather.confirm.response&quot;,
+  &quot;data&quot;: {
+    &quot;confirmed&quot;: true
+  }
+}
+</code></pre>
+<h4 id="skill_idselectresponse"><code>&lt;skill_id&gt;.select.response</code></h4>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;ovos-skill-weather.select.response&quot;,
+  &quot;data&quot;: {
+    &quot;value&quot;: &quot;Berlin&quot;
+  }
+}
+</code></pre>
+<p>Skills must register handlers for these events if they use <code>show_confirm()</code> or <code>show_select()</code>.</p>
+<hr />
+<h2 id="qt-websocket-protocol-legacy-adapter">Qt WebSocket Protocol (Legacy Adapter)</h2>
+<blockquote>
+<p>This section applies only when <code>ovos-legacy-mycroft-gui-plugin</code> is installed.</p>
+</blockquote>
+<p>All messages are JSON objects sent over the WebSocket connection at <code>ws://localhost:18181</code>.</p>
+<h3 id="connection-handshake">Connection handshake</h3>
+<p><strong>Qt client → <code>ovos-gui</code> (OVOS MessageBus):</strong></p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.gui.connected&quot;,
+  &quot;data&quot;: {
+    &quot;gui_id&quot;: &quot;unique_identifier_provided_by_client&quot;,
+    &quot;framework&quot;: &quot;qt5&quot;
+  }
+}
+</code></pre>
+<p><strong><code>ovos-gui</code> → Qt client (OVOS MessageBus reply):</strong></p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.gui.port&quot;,
+  &quot;data&quot;: {
+    &quot;port&quot;: 18181,
+    &quot;gui_id&quot;: &quot;qt-client-1&quot;,
+    &quot;framework&quot;: &quot;qt5&quot;
+  }
+}
+</code></pre>
+<p>The Qt client then opens a WebSocket connection to <code>ws://localhost:18181</code>.</p>
+<p>When a client connects, <code>plugin.synchronize(client)</code> replays the full current state:
+1. Re-sends <code>mycroft.session.list.insert</code> for every namespace in the active stack (in order).
+2. For each namespace, re-sends <code>mycroft.gui.list.insert</code> with its current QML page.
+3. Re-sends all <code>mycroft.session.set</code> messages for every key in <code>namespace.data</code>.</p>
+<hr />
+<h3 id="namespace-stack-management-mycroftsystemactive_skills">Namespace stack management (<code>mycroft.system.active_skills</code>)</h3>
+<p>The reserved namespace <code>mycroft.system.active_skills</code> defines the display priority.
+The first item is always the namespace currently shown.</p>
+<p><strong>Insert namespace</strong> (skill becomes visible):</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.session.list.insert&quot;,
+  &quot;namespace&quot;: &quot;mycroft.system.active_skills&quot;,
+  &quot;position&quot;: 0,
+  &quot;data&quot;: [{&quot;skill_id&quot;: &quot;ovos-skill-weather&quot;}]
+}
+</code></pre>
+<p><strong>Move namespace</strong> (existing skill re-activated):</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.session.list.move&quot;,
+  &quot;namespace&quot;: &quot;mycroft.system.active_skills&quot;,
+  &quot;from&quot;: 2,
+  &quot;to&quot;: 0,
+  &quot;items_number&quot;: 1
+}
+</code></pre>
+<p><strong>Remove namespace</strong> (skill cleared / idle):</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.session.list.remove&quot;,
+  &quot;namespace&quot;: &quot;mycroft.system.active_skills&quot;,
+  &quot;position&quot;: 0,
+  &quot;items_number&quot;: 1
+}
+</code></pre>
+<hr />
+<h3 id="session-data-sync-mycroftsession">Session data sync (<code>mycroft.session.*</code>)</h3>
+<p>Session data is a key/value dictionary kept synchronized between <code>ovos-gui</code> and each
+Qt client. Values may be strings, numbers, booleans, or lists.</p>
+<p><strong>Set / update a key:</strong></p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.session.set&quot;,
+  &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+  &quot;data&quot;: {
+    &quot;current_temp&quot;: 22,
+    &quot;condition&quot;: &quot;Sunny&quot;
+  }
+}
+</code></pre>
+<p><strong>Delete a key:</strong></p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.session.delete&quot;,
+  &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+  &quot;property&quot;: &quot;current_temp&quot;
+}
+</code></pre>
+<p><strong>List operations</strong> (for list-typed session values):</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.session.list.insert&quot;,
+  &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+  &quot;property&quot;: &quot;forecast&quot;,
+  &quot;position&quot;: 0,
+  &quot;values&quot;: [{&quot;date&quot;: &quot;tomorrow&quot;, &quot;temperature&quot;: 13}]
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.session.list.update&quot;,
+  &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+  &quot;property&quot;: &quot;forecast&quot;,
+  &quot;position&quot;: 0,
+  &quot;values&quot;: [{&quot;date&quot;: &quot;tomorrow&quot;, &quot;temperature&quot;: 15}]
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.session.list.move&quot;,
+  &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+  &quot;property&quot;: &quot;forecast&quot;,
+  &quot;from&quot;: 2,
+  &quot;to&quot;: 0,
+  &quot;items_number&quot;: 1
+}
+</code></pre>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.session.list.remove&quot;,
+  &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+  &quot;property&quot;: &quot;forecast&quot;,
+  &quot;position&quot;: 0,
+  &quot;items_number&quot;: 1
+}
+</code></pre>
+<hr />
+<h3 id="page-management-mycroftguilist">Page management (<code>mycroft.gui.list.*</code>)</h3>
+<p>Each active skill is associated with a list of page URIs.</p>
+<p><strong>Insert new page at position:</strong></p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.gui.list.insert&quot;,
+  &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+  &quot;position&quot;: 0,
+  &quot;data&quot;: [{&quot;url&quot;: &quot;SYSTEM:Weather.qml&quot;, &quot;page&quot;: &quot;Weather.qml&quot;}]
+}
+</code></pre>
+<p>The <code>SYSTEM:</code> URI scheme is resolved by the Qt client: first checks <code>$OVOS_SYSTEM_TEMPLATES/Weather.qml</code>, then falls back to the compiled-in default at <code>/usr/share/mycroft-gui/system-templates/Weather.qml</code>.</p>
+<p><strong>Move pages:</strong></p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.gui.list.move&quot;,
+  &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+  &quot;from&quot;: 0,
+  &quot;to&quot;: 2,
+  &quot;items_number&quot;: 1
+}
+</code></pre>
+<p><strong>Remove pages:</strong></p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.gui.list.remove&quot;,
+  &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+  &quot;position&quot;: 0,
+  &quot;items_number&quot;: 1
+}
+</code></pre>
+<hr />
+<h3 id="events-mycrofteventstriggered">Events (<code>mycroft.events.triggered</code>)</h3>
+<p>Events can be emitted by the GUI client (e.g. user tapped a button) or by the skill
+(e.g. a voice command caused a state change).</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.events.triggered&quot;,
+  &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+  &quot;event_name&quot;: &quot;my.gui.event&quot;,
+  &quot;parameters&quot;: {&quot;item&quot;: 3}
+}
+</code></pre>
+<h4 id="special-event-page_gained_focus">Special event: <code>page_gained_focus</code></h4>
+<p>Used when <code>ovos-gui</code> wants a specific page to become the active view. The Qt client
+renders the requested page on receipt. Clients may also emit this event after a user
+swipes to a new page.</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.events.triggered&quot;,
+  &quot;namespace&quot;: &quot;ovos-skill-weather&quot;,
+  &quot;event_name&quot;: &quot;page_gained_focus&quot;,
+  &quot;data&quot;: {&quot;number&quot;: 0}
+}
+</code></pre>
+<p>The <code>number</code> field is the zero-based page position within the namespace's page list.</p>
+<h4 id="system-status-events">System status events</h4>
+<p>Core bus events forwarded to Qt clients:</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;mycroft.events.triggered&quot;,
+  &quot;namespace&quot;: &quot;system&quot;,
+  &quot;event_name&quot;: &quot;recognizer_loop:wakeword&quot;,
+  &quot;data&quot;: {}
+}
+</code></pre>
+<hr />
+<h3 id="qt-client-ovos-core-bus">Qt client → OVOS core bus</h3>
+<p>Messages received from Qt clients over the WebSocket are forwarded to the OVOS core bus
+unchanged. This allows Qt GUI interactions (button presses, text input) to reach skills
+as normal bus events.</p>
+<hr />
+<h2 id="summary-message-flows">Summary: message flows</h2>
+<pre><code>Skill call:   gui.show_weather(22, &quot;Sunny&quot;)
+  → bus:      gui.value.set       (skill namespace data)
+  → bus:      gui.page.show       (SYSTEM_weather)
+  → adapter:  handle_show_weather (AbstractGUIPlugin)
+  → WS:       mycroft.session.set (sync data to Qt)
+  → WS:       mycroft.gui.list.insert (SYSTEM:Weather.qml)
+  → WS:       mycroft.events.triggered / page_gained_focus
+
+User taps confirm button on Qt:
+  → WS:       mycroft.events.triggered / skill.confirm.confirmed
+  → bus:      &lt;skill_id&gt;.confirm.response  {confirmed: true}
+  → skill:    handler registered for that event
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../453-ovoscope-advanced/" class="btn btn-neutral float-left" title="Advanced Testing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../702-ovos-shell/" class="btn btn-neutral float-right" title="OVOS Shell">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../453-ovoscope-advanced/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../702-ovos-shell/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../javascripts/analytics.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

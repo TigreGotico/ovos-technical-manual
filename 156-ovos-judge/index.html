@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://openvoiceos.github.io/ovos-technical-manual/156-ovos-judge/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>ovos-judge - OVOS Technical Manual</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ovos-judge";
+        var mkdocs_page_input_path = "156-ovos-judge.md";
+        var mkdocs_page_url = "/ovos-technical-manual/156-ovos-judge/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> OVOS Technical Manual
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../50-ovos_installer/">ovos-installer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../001-release_channels/">Manual Install</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">RaspOVOS</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../51-install_raspovos/">Tutorial</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../54-skill-examples/">Default Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../55-raspovos_troubleshooting/">Troubleshooting</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Language Support</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../lang_support/">Translations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../gitlocalize_tutorial/">GitLocalize Tutorial</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Architecture</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../99-architecture-overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../100-bus_service/">Bus</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../101-speech_service/">Listener</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../102-core/">Core</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../399-intents/">Skills and Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../103-audio_service/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../104-gui_service/">GUI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../340-PHAL/">Platform/Hardware Abstraction Layer</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../300-plugin-manager/">Plugin Manager</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../110-config/">Configuration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Intent Pipelines</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pipelines_overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../adapt_pipeline/">Adapt</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../padatious_pipeline/">Padatious</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../m2v_pipeline/">Model2Vec</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../converse_pipeline/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../stop_pipeline/">Stop</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../153-persona_pipeline/">Persona</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../cq_pipeline/">Common Query</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../631-OCP_pipeline/">OCP</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../fallback_pipeline/">Fallback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Transformers</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../audio_transformers/">Audio</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../utterance_transformers/">Utterance</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../intent_transformers/">Intents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../dialog_transformers/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tts_transformers/">TTS</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">AI Agents</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../150-personas/">Personas</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../151-llm-transformers/">AI Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../150-advanced_solvers/">Specialized Solvers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../154-agent-plugins/">Agent Engine Plugins</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../155-mos-plugin/">Mixture of Solvers</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">ovos-judge</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#judge-actions">Judge Actions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#send_utterance">send_utterance</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#evaluate">evaluate</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#done">done</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#test-prompts">Test Prompts</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#minimal-prompt">Minimal prompt</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#full-regression-prompt">Full regression prompt</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tips">Tips</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#target-personas">Target Personas</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ovos-local">OVOS Local</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hivemind">HiveMind</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#openai-chatbot">OpenAI ChatBot</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#custom-personas">Custom personas</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#headless-ci-mode">Headless / CI Mode</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#github-actions">GitHub Actions</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#web-ui-and-rest-api">Web UI and REST API</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#rest-endpoints">REST endpoints</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#real-time-websocket-messages">Real-time WebSocket messages</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#buseventcollector">BusEventCollector</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cross-references">Cross-References</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../157-claude-plugin/">Claude Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../158-openai-plugin/">OpenAI Plugin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../159-gguf-plugin/">GGUF / Local LLM Plugin</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Self Hosting</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../202-persona_server/">Persona Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../152-hivemind-agents/">HiveMind</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../200-stt_server/">STT Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../201-tts_server/">TTS Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../203-translate_server/">Translate Server</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../204-wyoming-bridges/">Wyoming Bridges</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../400-skill-design-guidelines/">Design Guidelines</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../401-skill_structure/">Anatomy</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../402-statements/">Dialog</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../403-intents/">Intent Design</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../405-customization/">Customization</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../406-messagebus/">Bus Interaction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../407-skill_filesystem/">Filesystem</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../408-skill_settings/">Skill Settings</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../409-skill_api/">Skill API</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../410-skill_runtime_requirements/">Runtime Requirements</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../411-skill_json/">Skill Json</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../413-intent-layers/">Skill Classes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../420-ssml/">SSML</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../430-skill_dev_faq/">F.A.Q.</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Continuous Conversation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../500-prompts/">Prompts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../501-context/">Follow up Questions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../502-converse/">Converse</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../503-layers/">Intent Layers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../504-session/">Session Aware Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced Skill Types</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../600-fallbacks/">Fallback Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../610-common_query/">Common Query Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../630-OCP_skills/">Media Skills</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../620-universal_skills/">Universal Skills</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Skill Testing</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../450-skill-testing/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../451-ovoscope-usage/">Usage Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../452-ovoscope-ci/">CI Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../453-ovoscope-advanced/">Advanced Testing</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">GUI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../701-gui_protocol/">Protocol</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../702-ovos-shell/">OVOS Shell</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Voice Apps</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../590-voice_apps/">Standalone Apps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MessageBus</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../900-bus_client/">Messagebus Client</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../901-bus-session/">Session Management</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../720-skill_gui/">GUI Interface</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../800-mk1_api/">Enclosure Api</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../905-pydantic-models/">Pydantic Models</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Plugin Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../310-mic_plugins/">Microphone</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../311-vad_plugins/">Voice Activity Detection</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../312-wake_word_plugins/">Wake Word</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../313-stt_plugins/">Speech To Text</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../320-tts_plugins/">Text To Speech</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../321-g2p_plugins/">Grapheme to Phoneme</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../330-transformer_plugins/">Transformers</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../350-translation_plugins/">Language Detection/Translation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../370-ocp_plugins/">OCP Stream Extractors</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../371-media_plugins/">Media Playback</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Utilities</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../891-number_parser/">Number Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../890-date_parser/">Date Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../893-color_parser/">Color Parser</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../910-quebra_frases/">Quebra Frases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../920-padacioso/">Padacioso</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../801-mk1_utils/">Mark1 Utils</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Misc. Information</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../002-license/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../003-timeline/">Timeline</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">OVOS Technical Manual</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">AI Agents</li>
+      <li class="breadcrumb-item active">ovos-judge</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ovos-judge-llm-driven-qa-testing">ovos-judge — LLM-Driven QA Testing</h1>
+<p><code>ovos-judge</code> is an automated QA tool for OpenVoiceOS skills and personas. A configurable LLM
+acts as a <strong>judge</strong>: it generates test utterances, sends them to a running OVOS instance (or any
+compatible persona), captures the spoken response and MessageBus events, and evaluates whether
+the skill under test behaved correctly.</p>
+<p>Install: <code>pip install ovos-judge</code></p>
+<p>Repository: <code>OpenVoiceOS Workspace/Agent Plugins/ovos-judge</code></p>
+<hr />
+<h2 id="quick-start">Quick Start</h2>
+<pre><code class="language-bash">pip install ovos-judge ovos-solver-openai-plugin
+ovos-judge              # http://localhost:8888
+</code></pre>
+<p>Open the browser, pick a chat plugin for the judge, select a persona target (e.g. OVOS Local),
+write a test prompt, and click <strong>Start Test</strong>.</p>
+<hr />
+<h2 id="architecture">Architecture</h2>
+<pre><code>Browser (index.html + app.js)
+    │  HTTP / WebSocket
+FastAPI app (app.py)
+    │                   │
+JudgeLLM             PersonaTarget
+(judge.py)           (persona_client.py)
+    │                   │
+Any OPM              ovos-persona
+chat plugin          + BusEventCollector (optional)
+</code></pre>
+<p>The session loop — <code>session.py:TestSession</code> — alternates between two passes:</p>
+<ol>
+<li><strong>Judge → send_utterance</strong>: the judge LLM chooses the next utterance to test.</li>
+<li><strong>PersonaTarget → response</strong>: the utterance is sent to OVOS; the response and any bus events
+   are collected.</li>
+<li><strong>Judge → evaluate</strong>: the judge receives a JSON context object (spoken text, skill_id,
+   intent, intent_failed, response_time, bus_events) and returns a pass/fail verdict with
+   reasoning.</li>
+</ol>
+<p>Session states: <code>IDLE → RUNNING → COMPLETED</code> — <code>session.py:27</code></p>
+<hr />
+<h2 id="judge-actions">Judge Actions</h2>
+<p>The judge LLM responds with one of three JSON actions on each round.</p>
+<h3 id="send_utterance"><code>send_utterance</code></h3>
+<pre><code class="language-json">{
+  &quot;action&quot;: &quot;send_utterance&quot;,
+  &quot;utterance&quot;: &quot;what is the weather in Lisbon&quot;,
+  &quot;expected_skill&quot;: &quot;skill-weather&quot;,
+  &quot;test_description&quot;: &quot;weather in a specific city&quot;
+}
+</code></pre>
+<p><code>expected_skill</code> is an optional substring match against the captured <code>skill_id</code>. If set and
+the skill does not match, the judge automatically marks the exchange as FAIL critical —
+regardless of what the test prompt says.</p>
+<h3 id="evaluate"><code>evaluate</code></h3>
+<pre><code class="language-json">{
+  &quot;action&quot;: &quot;evaluate&quot;,
+  &quot;pass&quot;: true,
+  &quot;reasoning&quot;: &quot;Skill responded with temperature and conditions as expected.&quot;,
+  &quot;severity&quot;: &quot;info&quot;
+}
+</code></pre>
+<p><code>severity</code> values: <code>critical</code> (skill completely broken), <code>warning</code> (partial/degraded),
+<code>info</code> (minor issue or pass).</p>
+<h3 id="done"><code>done</code></h3>
+<pre><code class="language-json">{
+  &quot;action&quot;: &quot;done&quot;,
+  &quot;summary&quot;: &quot;6/8 tests passed. Weather by city and forecast work. Wind speed queries fail.&quot;
+}
+</code></pre>
+<hr />
+<h2 id="test-prompts">Test Prompts</h2>
+<p>The test prompt is injected into the judge LLM's system prompt at <code>{user_prompt}</code> —
+<code>judge.py:16</code>. It directly controls what gets tested.</p>
+<h3 id="minimal-prompt">Minimal prompt</h3>
+<pre><code>Test the alarm skill. Set alarms, cancel them, and list upcoming alarms.
+</code></pre>
+<h3 id="full-regression-prompt">Full regression prompt</h3>
+<pre><code>Test the date/time skill (skill-date-time.openvoiceos).
+
+Utterances to try:
+- &quot;what time is it&quot;
+- &quot;what's today's date&quot;
+- &quot;what time is it in Tokyo&quot;
+- &quot;how many days until Christmas&quot;
+
+Pass criteria:
+- Response must include a specific time, date, or duration
+- skill_id must match &quot;skill-date-time&quot;
+
+Fail criteria:
+- Empty response
+- &quot;I don't know&quot; or fallback phrase
+
+Run 8–10 tests then summarise.
+</code></pre>
+<h3 id="tips">Tips</h3>
+<ul>
+<li><strong>Be specific about the skill</strong> — include its skill ID so the judge uses <code>expected_skill</code>
+  automatically.</li>
+<li><strong>Specify pass/fail criteria</strong> — improves consistency across different LLM backends.</li>
+<li><strong>Include edge cases</strong> — invalid inputs, ambiguous queries, rapid follow-ups.</li>
+<li><strong>Set a scope limit</strong> — e.g. "Run 10–15 utterances" to keep CI runtimes bounded.</li>
+<li><strong>Use <code>max_rounds</code></strong> — 10–20 rounds is usually sufficient for a single skill.</li>
+</ul>
+<hr />
+<h2 id="target-personas">Target Personas</h2>
+<p>ovos-judge sends test utterances to a <code>PersonaTarget</code> — <code>persona_client.py</code>. Three bundled
+personas are included:</p>
+<h3 id="ovos-local">OVOS Local</h3>
+<p>Connects to a running <code>ovos-core</code> via MessageBus. This is the primary target for skill QA.
+<code>BusEventCollector</code> (<code>persona_client.py:44</code>) also subscribes to the same bus to capture
+<code>skill_id</code>, <code>intent_type</code>, and <code>intent_failed</code>.</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;OVOS Local&quot;,
+  &quot;solvers&quot;: [&quot;ovos-solver-bus-plugin&quot;],
+  &quot;ovos-solver-bus-plugin&quot;: {&quot;autoconnect&quot;: true, &quot;host&quot;: &quot;127.0.0.1&quot;, &quot;port&quot;: 8181}
+}
+</code></pre>
+<h3 id="hivemind">HiveMind</h3>
+<p>Connects to a HiveMind satellite or hub. Bus event capture is not available for HiveMind
+targets — <code>skill_id</code> and <code>intent</code> will be empty.</p>
+<h3 id="openai-chatbot">OpenAI ChatBot</h3>
+<p>Points at the OpenAI API. Useful for testing prompt-based personas or as a reference baseline
+to compare against OVOS skill responses.</p>
+<h3 id="custom-personas">Custom personas</h3>
+<p>In the web UI, select <strong>Persona File Path</strong> and enter the absolute path to any persona JSON
+file, or select <strong>Custom JSON</strong> and paste the config directly. Any OPM solver plugin can be
+used as a persona backend.</p>
+<hr />
+<h2 id="headless-ci-mode">Headless / CI Mode</h2>
+<p>Run ovos-judge without a browser for CI pipelines:</p>
+<pre><code class="language-bash">ovos-judge --config my_test.json
+ovos-judge --config my_test.json --output result.json
+</code></pre>
+<p>Exit codes: <code>0</code> = all exchanges passed; <code>1</code> = one or more failures.</p>
+<p>Config file format (<code>TestSessionConfig</code> — <code>models.py:16</code>):</p>
+<pre><code class="language-json">{
+  &quot;persona&quot;: {
+    &quot;name&quot;: &quot;OVOS Local&quot;,
+    &quot;bus_host&quot;: &quot;127.0.0.1&quot;,
+    &quot;bus_port&quot;: 8181
+  },
+  &quot;judge&quot;: {
+    &quot;plugin&quot;: &quot;ovos-solver-openai-plugin&quot;,
+    &quot;prompt&quot;: &quot;Test the weather skill. Try current weather, forecasts, and weather in specific cities.&quot;,
+    &quot;lang&quot;: &quot;en-us&quot;,
+    &quot;max_rounds&quot;: 20,
+    &quot;timeout&quot;: 30
+  }
+}
+</code></pre>
+<h3 id="github-actions">GitHub Actions</h3>
+<pre><code class="language-yaml">- name: Run ovos-judge QA
+  run: |
+    pip install ovos-judge ovos-solver-openai-plugin
+    ovos-judge --config test/qa/weather_skill.json
+  env:
+    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+</code></pre>
+<hr />
+<h2 id="web-ui-and-rest-api">Web UI and REST API</h2>
+<p>The web server starts on <code>http://0.0.0.0:8888</code> by default.</p>
+<pre><code class="language-bash">ovos-judge --port 8080 --host 127.0.0.1 --data-dir /srv/judge
+</code></pre>
+<p>Session results are persisted automatically to <code>~/.local/share/ovos-judge/sessions/</code>
+(<code>SessionStore</code> — <code>store.py:1</code>). Results survive server restarts.</p>
+<h3 id="rest-endpoints">REST endpoints</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/session</code></td>
+<td>Create and start a session</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/session/{id}</code></td>
+<td>Session state, all exchanges</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/api/session/{id}/stop</code></td>
+<td>Stop a running session</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/session/{id}/export?format=json\|html</code></td>
+<td>Download results</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/sessions</code></td>
+<td>List all sessions, newest first</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td><code>/api/session/{id}</code></td>
+<td>Delete a session</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/api/plugins</code></td>
+<td>List installed chat plugins and bundled personas</td>
+</tr>
+<tr>
+<td><code>WS</code></td>
+<td><code>/ws/{id}</code></td>
+<td>Real-time session events</td>
+</tr>
+</tbody>
+</table>
+<h3 id="real-time-websocket-messages">Real-time WebSocket messages</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Direction</th>
+<th>Key fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>judge_utterance</code></td>
+<td>server → client</td>
+<td><code>utterance</code>, <code>test_description</code>, <code>round</code></td>
+</tr>
+<tr>
+<td><code>persona_response</code></td>
+<td>server → client</td>
+<td><code>spoken</code>, <code>response_time</code>, <code>skill_id</code>, <code>intent</code>, <code>intent_failed</code></td>
+</tr>
+<tr>
+<td><code>judge_eval</code></td>
+<td>server → client</td>
+<td><code>pass</code>, <code>reasoning</code>, <code>severity</code></td>
+</tr>
+<tr>
+<td><code>session_done</code></td>
+<td>server → client</td>
+<td><code>total</code>, <code>passed</code>, <code>failed</code>, <code>summary</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="buseventcollector">BusEventCollector</h2>
+<p><code>BusEventCollector</code> — <code>persona_client.py:44</code> — subscribes to five MessageBus event types when
+using the OVOS Local persona:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Captured field</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mycroft.skill.handler.start</code></td>
+<td><code>skill_id</code>, <code>intent_type</code></td>
+</tr>
+<tr>
+<td><code>intent_failure</code> / <code>complete_intent_failure</code></td>
+<td><code>intent_failed: true</code></td>
+</tr>
+<tr>
+<td><code>speak</code></td>
+<td>Full spoken text</td>
+</tr>
+</tbody>
+</table>
+<p>The collector is fault-tolerant: if <code>ovos-bus-client</code> is not installed or the bus is
+unreachable, the session continues without bus metadata.</p>
+<hr />
+<h2 id="cross-references">Cross-References</h2>
+<ul>
+<li><a href="../150-personas/">Personas</a> — persona format that ovos-judge uses as test targets</li>
+<li><a href="../154-agent-plugins/">Agent Engine Types</a> — OPM chat plugins usable as judge LLMs</li>
+<li><a href="../100-bus_service/">MessageBus</a> — bus event reference</li>
+<li><a href="../152-hivemind-agents/">HiveMind Agents</a> — testing skills deployed to remote HiveMind nodes</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../155-mos-plugin/" class="btn btn-neutral float-left" title="Mixture of Solvers"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../157-claude-plugin/" class="btn btn-neutral float-right" title="Claude Plugin">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../155-mos-plugin/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../157-claude-plugin/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../javascripts/analytics.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
