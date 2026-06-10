@@ -83,7 +83,22 @@ A lower `threshold` accepts quieter speech; raise it to require stronger speech 
 
 ## Speaker Verification
 
-[TigreGotico/speakeronnx](https://github.com/TigreGotico/speakeronnx) is a pure-`onnxruntime` speaker embedding library. The companion plugin `ovos-ww-verifier-plugin-speaker` uses it to gate wake-word detections against enrolled household speaker embeddings — only recognized household members can activate the assistant.
+[TigreGotico/speakeronnx](https://github.com/TigreGotico/speakeronnx) is a pure-`onnxruntime` speaker embedding library (wespeaker resnet34 and ecapa512 models, cc-by-4.0; more model integrations tracked in its issues). The companion plugin `ovos-ww-verifier-plugin-speaker` gates wake-word detections against enrolled household profiles — only recognized household members can activate the assistant; guests are silently ignored. With no profiles enrolled the verifier fails open (everyone allowed).
+
+Enrollment is a one-time CLI step per person:
+
+```bash
+ovos-speaker-enroll Alice clip1.wav clip2.wav clip3.wav
+```
+
+Profiles are stored as embedding vectors in `~/.local/share/ovos_speaker_verifier/profiles.json` — no audio is retained. Configuration:
+
+```json
+{
+  "model": "wespeaker-resnet34",
+  "threshold": 0.45
+}
+```
 
 Use case: household authorization — a shared-wake-word deployment where each registered user's voice profile allows or denies activation.
 

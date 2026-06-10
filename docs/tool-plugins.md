@@ -42,39 +42,33 @@ Entry point: `ovos.plugin.phal` / `ovos-phal-plugin-tools`.
 
 ### MessageBus event table
 
-| Message type | Direction | Description |
+| Message type | Direction | Payload |
 |---|---|---|
-| `ovos.tools.discover` | → PHAL | Request list of all registered tools and their schemas |
-| `ovos.tools.discover.response` | PHAL → | Response with JSON Schema list of all tools |
-| `ovos.tools.<toolbox_id>.call` | → PHAL | Invoke a named tool in a specific toolbox |
-| `ovos.tools.<toolbox_id>.call.response` | PHAL → | Tool result or error |
+| `ovos.tools.list` | → plugin | *(none)* |
+| `ovos.tools.list.response` | plugin → | `{tools: [{name, description, argument_schema, output_schema, toolbox_id}]}` |
+| `ovos.tools.get` | → plugin | `{name: str}` |
+| `ovos.tools.get.response` | plugin → | Full schema dict or `{error: str}` |
+| `ovos.tools.invoke` | → plugin | `{name: str, args: dict}` |
+| `ovos.tools.invoke.response` | plugin → | `{name, result: dict}` or `{name, error: str}` |
+| `ovos.tools.reload` | → plugin | *(none)* |
+| `ovos.tools.reload.response` | plugin → | `{loaded: [str, ...], total_tools: int}` |
 
-### Discovery payload
+Every request is answered — unknown tools, bad arguments, and tool exceptions
+come back as an `error` field, never silence.
 
-```json
-{
-  "type": "ovos.tools.discover.response",
-  "data": {
-    "tools": [
-      {
-        "name": "web_search",
-        "description": "Searches the web for information...",
-        "toolbox_id": "ovos-web-search-tools",
-        "argument_schema": { "type": "object", "properties": {...}, "required": [...] },
-        "output_schema": { "type": "object", "properties": {...} }
-      }
-    ]
-  }
-}
-```
+### Third-party usage
 
-### Tool call payload
+```python
+from ovos_bus_client import MessageBusClient
+from ovos_bus_client.message import Message
 
-```json
-{
-  "type": "ovos.tools.ovos-web-search-tools.call",
-  "data": { "name": "web_search", "kwargs": {"query": "OVOS voice assistant"} }
-}
+bus = MessageBusClient()
+bus.run_in_thread()
+
+tools = bus.wait_for_response(Message("ovos.tools.list"))
+schema = bus.wait_for_response(Message("ovos.tools.get", {"name": "add"}))
+result = bus.wait_for_response(Message("ovos.tools.invoke",
+                                       {"name": "add", "args": {"a": 1, "b": 2}}))
 ```
 
 ---
