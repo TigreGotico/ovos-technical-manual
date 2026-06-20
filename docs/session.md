@@ -1,6 +1,6 @@
 # Session Aware Skills
 
-> Specification: [OVOS-SESSION-1](https://openvoiceos.github.io/ovos-technical-manual/) (Session wire shape) and [OVOS-SESSION-2](https://openvoiceos.github.io/ovos-technical-manual/) (Session lifecycle & state ownership)
+> Specification: [OVOS-SESSION-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-session-1.md) (Session wire shape) and [OVOS-SESSION-2](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-session-2.md) (Session lifecycle & state ownership)
 
 **What / why (beginners):** a single OVOS device can be talking to many clients at once — your phone, a kitchen satellite, a HiveMind node. Each request arrives carrying a `Session` that identifies *who* is asking and *in what language*. If your skill stores any state (a chat history, a game in progress, a "current selection"), you must key that state by `session_id` instead of stashing it in a single instance variable — otherwise two users would clobber each other.
 

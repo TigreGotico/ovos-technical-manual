@@ -1,5 +1,7 @@
 # Stop Pipeline
 
+> Specification: [OVOS-STOP-1: Stop Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-stop-1.md).
+
 The **stop pipeline** is a core component of the Open Voice OS (OVOS) pipeline architecture. It defines the logic responsible for stopping ongoing interactions with active skills. This includes aborting responses, halting speech, and terminating background tasks that skills may be performing. 
 
 Because stopping is a **fundamental feature of a voice assistant**, it is implemented as a **dedicated pipeline plugin**, not just a fallback or intent handler.

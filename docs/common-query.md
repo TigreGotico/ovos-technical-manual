@@ -1,6 +1,6 @@
 # Common Query Framework
 
-> Specification: [OVOS-INTENT-3](https://openvoiceos.github.io/ovos-technical-manual/) (Intent Definition)
+> Specification: [OVOS-INTENT-3](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-3.md) (Intent Definition)
 
 The Common Query Framework handles the common use case of "general information" or question answering. Many Skills may implement handlers for "what is X" or "when did Y"; the Common Query Framework queries all of them and selects a single "best" answer to speak. This is similar to the [OCP](ocp-skills.md) framework that handles the common use of "playing" music or other media.
 

@@ -1,6 +1,6 @@
 # Intent Design
 
-> Specification: [OVOS-INTENT-1](https://openvoiceos.github.io/ovos-technical-manual/) (Sentence Template Grammar), [OVOS-INTENT-2](https://openvoiceos.github.io/ovos-technical-manual/) (Locale Resource Formats), [OVOS-INTENT-3](https://openvoiceos.github.io/ovos-technical-manual/) (Intent Definition)
+> Specification: [OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-1.md) (Sentence Template Grammar), [OVOS-INTENT-2](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-2.md) (Locale Resource Formats), [OVOS-INTENT-3](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-3.md) (Intent Definition)
 
 A user can accomplish the same task by expressing their intent in multiple ways. The role of the intent parser is to
 extract from the user's speech key data elements that specify their intent in more detail. This data can then be passed
@@ -32,7 +32,7 @@ In the example above, we might extract data elements like:
   to give Julie yesterday's weather, particularly as Melbourne is renowned for having changeable weather.
 
 
-OVOS provides two kinds of intent, each with its own strengths. The [OVOS-INTENT-3](https://openvoiceos.github.io/ovos-technical-manual/) specification calls them **template intents** and **keyword intents**; the two are not interoperable — an intent is defined by exactly one of the two methods.
+OVOS provides two kinds of intent, each with its own strengths. The [OVOS-INTENT-3](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-3.md) specification calls them **template intents** and **keyword intents**; the two are not interoperable — an intent is defined by exactly one of the two methods.
 
 **Template intents** (example based) are matched against whole phrases. These are generally more accurate, but require you to include sample phrases covering the breadth of ways a user might ask. They live in `.intent` files.
 
@@ -95,7 +95,7 @@ We strongly recommend you avoid using regex, it is very hard to make portable ac
 
 We suggest using template intents (`.intent` files) instead if you find yourself needing regex.
 
-> Regex (`.rx`) is **not** a resource role in the [OVOS-INTENT-2](https://openvoiceos.github.io/ovos-technical-manual/) specification — it is an Adapt-specific extension. Prefer `.entity` slot constraints or template intents for portability.
+> Regex (`.rx`) is **not** a resource role in the [OVOS-INTENT-2](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-2.md) specification — it is an Adapt-specific extension. Prefer `.entity` slot constraints or template intents for portability.
 
 These files live in the Skill's `locale/<lang>/` directory. They can have one or more lines providing different ways an entity may be referenced. OVOS executes these lines in the order they appear and returns the first result as an entity to the Intent Handler.
 
@@ -364,7 +364,7 @@ Now, we can say things like "do you like greenish tomatoes?" and it will tag typ
 
 #### Number matching
 
-> **Engine-specific:** the `#` digit token and the `:0` unknown-token shown below are **Padatious extensions**. They are **not** part of the [OVOS-INTENT-1](https://openvoiceos.github.io/ovos-technical-manual/) Sentence Template Grammar (which has no digit token and no wildcard), so they are not portable to other intent engines. Use them only when you know your skill targets Padatious.
+> **Engine-specific:** the `#` digit token and the `:0` unknown-token shown below are **Padatious extensions**. They are **not** part of the [OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-1.md) Sentence Template Grammar (which has no digit token and no wildcard), so they are not portable to other intent engines. Use them only when you know your skill targets Padatious.
 
 Let's say you are writing an Intent to call a phone number. You can make it only match specific formats of numbers by writing out possible arrangements using `#` where a number would go. For example, with the following intent:
 
@@ -453,7 +453,7 @@ or even on a single-line:
 
 ```
 
-> The empty-branch trick `(from {place} | )` makes a segment optional. The portable [OVOS-INTENT-1](https://openvoiceos.github.io/ovos-technical-manual/) equivalent is the square-bracket optional `[from {place}]` — `[x]` is defined as exactly equivalent to `(x|)`. Prefer the bracket form when you want spec-conformant templates.
+> The empty-branch trick `(from {place} | )` makes a segment optional. The portable [OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-1.md) equivalent is the square-bracket optional `[from {place}]` — `[x]` is defined as exactly equivalent to `(x|)`. Prefer the bracket form when you want spec-conformant templates.
 
 Nested parentheses are supported to create even more complex combinations, such as the following:
 

@@ -1,5 +1,7 @@
 # OVOS Intent Pipeline
 
+> Specification: the utterance lifecycle is defined by [OVOS-PIPELINE-1: Utterance Lifecycle and Pipeline](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-pipeline-1.md).
+
 The OpenVoiceOS (OVOS) Intent Pipeline is a modular and extensible system designed to interpret user utterances and map them to appropriate actions or responses. It orchestrates various intent parsers and fallback mechanisms to ensure accurate and contextually relevant responses.
 
 ---

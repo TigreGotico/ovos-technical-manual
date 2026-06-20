@@ -1,5 +1,7 @@
 # The Life of an Utterance
 
+> Specification: [OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-pipeline-1.md) (utterance lifecycle) and [OVOS-MSG-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-msg-1.md) (bus messages).
+
 This guide provides a technical, step-by-step walkthrough of how a voice command is processed by OpenVoiceOS, from the moment sound hits the microphone to the final spoken response.
 
 ---

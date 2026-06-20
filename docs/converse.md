@@ -1,6 +1,6 @@
 # Converse
 
-> Specification: [OVOS-SESSION-1](https://openvoiceos.github.io/ovos-technical-manual/) / [OVOS-SESSION-2](https://openvoiceos.github.io/ovos-technical-manual/) (Session) — converse runs per active skill within a Session.
+> Specification: [OVOS-SESSION-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-session-1.md) / [OVOS-SESSION-2](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-session-2.md) (Session) — converse runs per active skill within a Session.
 
 **What / why (beginners):** `converse()` lets a skill keep listening *after* it has just spoken, without registering a new intent for every possible follow-up. Once your skill runs, it goes onto the **Active Skills List** for a few minutes; while it is there, every new utterance is offered to its `converse()` method *before* normal intent parsing. This is how you handle "yes / no / thanks / the red one" replies that only make sense right after your skill acted.
 

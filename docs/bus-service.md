@@ -1,5 +1,7 @@
 # Bus Service
 
+> Specification: the wire format is defined by [OVOS-MSG-1: Bus Message](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-msg-1.md). This page describes the reference implementation.
+
 The **Message Bus** is the central nervous system of the OVOS platform. All services communicate by publishing and subscribing to typed `Message` objects through this central WebSocket broker.
 
 **In plain terms:** every OVOS service (core, audio, listener, GUI) connects to one shared WebSocket. Whatever any service sends, every other service receives — there is no central router deciding who gets what. Services just listen for the message types they care about and ignore the rest.
