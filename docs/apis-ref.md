@@ -8,6 +8,13 @@
 
 **Module:** `ovos_bus_client.apis.gui.GUIInterface`
 
+!!! note "Upcoming: GUIInterface is being relocated"
+    `GUIInterface` is slated to move out of `ovos-bus-client` into the dedicated
+    `ovos-gui-api-client` package via
+    [OpenVoiceOS/ovos-workshop#420](https://github.com/OpenVoiceOS/ovos-workshop/pull/420).
+    Import it through your skill base class (`self.gui`) rather than from
+    `ovos_bus_client.apis.gui` directly so your code survives the move.
+
 Interface to the `ovos-gui` display service. Values set on the interface are synced to QML via the `sessionData` mechanism. Used as `self.gui` inside skills.
 
 ```python
@@ -37,34 +44,34 @@ Values become available in QML as `sessionData.temperature`.
 
 ### Showing Pages
 
-Pages are `PageTemplates` enum values corresponding to pre-built OVOS system QML pages:
+`show_page` takes the QML page name (a string) and an optional idle override:
 
 ```python
-from ovos_bus_client.apis.gui import PageTemplates
+gui.show_page("my_page.qml", override_idle=10)
 
-gui.show_page(PageTemplates.TEXT)        # SYSTEM_text
-gui.show_page(PageTemplates.IMAGE)       # SYSTEM_image
-gui.show_page(PageTemplates.URL)         # SYSTEM_url
-gui.show_page(PageTemplates.LOADING)     # SYSTEM_loading
+# Show several pages at once
+gui.show_pages(["page1.qml", "page2.qml"], index=0)
 
 ```
 
-Available templates:
+!!! note "Upcoming: `PageTemplates` enum for system pages"
+    Draft PR
+    [OpenVoiceOS/ovos-bus-client#197](https://github.com/OpenVoiceOS/ovos-bus-client/pull/197)
+    adds a `PageTemplates` enum so skills can show the pre-built OVOS system pages
+    by symbolic name instead of a raw string:
 
-| Template | Description |
-|---|---|
-| `IDLE` | Default idle/homescreen state |
-| `LOADING` | Loading spinner |
-| `STATUS` | Status message |
-| `TEXT` | Plain text display |
-| `ERROR` | Error message |
-| `IMAGE` | Static image |
-| `ANIMATED_IMAGE` | Animated/GIF image |
-| `HTML` | Inline HTML |
-| `URL` | Web URL in a browser frame |
-| `WEATHER` | Weather widget |
-| `CLOCK` | Clock widget |
-| `FACE` | Avatar face |
+    ```python
+    from ovos_bus_client.apis.gui import PageTemplates   # available after #197
+
+    gui.show_page(PageTemplates.TEXT)        # "SYSTEM_text"
+    gui.show_page(PageTemplates.IMAGE)       # "SYSTEM_image"
+    gui.show_page(PageTemplates.URL)         # "SYSTEM_url"
+    gui.show_page(PageTemplates.LOADING)     # "SYSTEM_loading"
+    ```
+
+    Planned templates: `LOADING`, `STATUS`, `TEXT`, `ERROR`, `IMAGE`,
+    `ANIMATED_IMAGE`, `HTML`, `URL`, `WEATHER`, `CLOCK`, `FACE`. The same PR
+    deprecates [`EnclosureAPI`](#enclosureapi).
 
 ### GUI Events (from QML → skill)
 
@@ -86,8 +93,8 @@ gui.set_on_gui_changed(self.on_gui_changed)
 |---|---|---|
 | `connected` | `bool` | True if at least one GUI client is connected |
 | `gui_disabled` | `bool` | True if GUI is disabled in config |
-| `page` | `PageTemplates` | Currently active page |
-| `pages` | `list` | All active pages for this skill |
+| `page` | `str \| None` | Currently active page name (`None` if no page is shown) |
+| `pages` | `list[str]` | All active pages for this skill |
 | `skill_id` | `str` | Namespace used for GUI events |
 
 ---
@@ -159,10 +166,18 @@ when = scheduler.get_scheduled_event_status("my_timer")
 | Event | Direction | Description |
 |---|---|---|
 | `mycroft.scheduler.schedule_event` | → scheduler | Add an event |
-| `mycroft.schedule.update_event` | → scheduler | Update event data |
+| `mycroft.schedule.update_event` ⚠ | → scheduler | Update event data — see note below |
 | `mycroft.scheduler.remove_event` | → scheduler | Cancel an event |
 | `mycroft.scheduler.get_event` | → scheduler | Query next execution time |
 | `{skill_id}:{name}` | scheduler → skill | Fires when event is due |
+
+!!! warning "Known mismatch: `update_scheduled_event` is a no-op"
+    `EventSchedulerInterface.update_scheduled_event` emits
+    `mycroft.schedule.update_event` (`apis/events.py`), but the server-side
+    `EventScheduler` daemon only listens on `mycroft.scheduler.update_event`
+    (`util/scheduler.py`) — note `scheduler` vs `schedule`. The two spellings
+    never meet, so scheduled-event updates are silently dropped. To change a
+    scheduled event's data today, cancel it and re-schedule.
 
 ---
 

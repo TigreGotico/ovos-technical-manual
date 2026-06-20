@@ -248,14 +248,15 @@ from ovos_pydantic_models import (
 
 def handle_tts_query(self, message):
     typed = from_bus_message(message, OpmTtsQueryMessage)
-    # respond with capabilities
+    # respond with the plugin inventory
     reply_data = OpmTtsQueryReplyData(
-        plugin_name="my-tts-plugin",
+        plugins={"en-us": ["my-tts-plugin"], "de-de": ["my-tts-plugin"]},
         langs=["en-us", "de-de"],
-        voices=[{"name": "alice", "lang": "en-us"}],
+        configs={"my-tts-plugin": {}},
+        options={"en-us": [{"voice": "alice"}]},
     )
     self.bus.emit(Message(
-        "ovos.plugin.tts.query.response",
+        "opm.tts.query.response",
         reply_data.model_dump(),
         message.context,
     ))

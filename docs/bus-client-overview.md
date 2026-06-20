@@ -9,7 +9,7 @@
 |---|---|
 | [message.md](message-ref.md) | `Message`, `CollectionMessage`, `GUIMessage`, `dig_for_message` |
 | [client.md](client-ref.md) | `MessageBusClient` — connect, emit, listen, wait, collect |
-| [async_client.md](async-client.md) | `AsyncMessageBusClient` — asyncio client, benchmarks, API reference |
+| [async_client.md](async-client.md) | `AsyncMessageBusClient` — asyncio client *(upcoming, [PR #200](https://github.com/OpenVoiceOS/ovos-bus-client/pull/200))* |
 | [session.md](session.md) | `Session`, `SessionManager`, `IntentContextManager` |
 | [apis.md](apis-ref.md) | `GUIInterface`, `EventSchedulerInterface`, `OCPInterface`, `EnclosureAPI` |
 | [configuration.md](configuration-ref.md) | Connection config, defaults, encryption |
@@ -47,12 +47,12 @@ ovos_bus_client/
 ├── session.py          # Session, SessionManager, IntentContextManager
 ├── client/
 │   ├── client.py       # MessageBusClient, GUIWebsocketClient  (sync, thread-based)
-│   ├── async_client.py # AsyncMessageBusClient, AsyncMessageWaiter, AsyncMessageCollector
 │   ├── collector.py    # MessageCollector (used by collect_responses)
 │   └── waiter.py       # MessageWaiter (used by wait_for_response)
+│   # async_client.py   # AsyncMessageBusClient — upcoming, PR #200 (not yet in dev)
 ├── apis/
 │   ├── events.py       # EventSchedulerInterface
-│   ├── gui.py          # GUIInterface, PageTemplates
+│   ├── gui.py          # GUIInterface  (PageTemplates enum: upcoming, PR #197)
 │   ├── ocp.py          # OCPInterface, ClassicAudioServiceInterface (deprecated)
 │   └── enclosure.py    # EnclosureAPI (legacy, being deprecated)
 ├── util/

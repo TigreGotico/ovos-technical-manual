@@ -215,18 +215,12 @@ See [configuration.md](configuration-ref.md) for details.
 
 ---
 
-## Async alternative
+## Async alternative (upcoming)
 
-If your application already uses `asyncio`, use `AsyncMessageBusClient` instead.
-It provides the same `emit`, `wait_for_response`, `wait_for_message`, and `collect_responses` interface as coroutines, with no threads required.
-
-```python
-from ovos_bus_client import AsyncMessageBusClient
-
-bus = AsyncMessageBusClient()
-await bus.connect()
-await bus.emit(Message("speak", {"utterance": "Hello"}))
-
-```
-
-See [async_client.md](async-client.md) for the full reference and benchmarks.
+An asyncio-native `AsyncMessageBusClient` is proposed in draft PR
+[OpenVoiceOS/ovos-bus-client#200](https://github.com/OpenVoiceOS/ovos-bus-client/pull/200).
+It would provide the same `emit`, `wait_for_response`, `wait_for_message`, and
+`collect_responses` interface as coroutines, with no threads required. It is **not
+yet released** — until #200 merges, the synchronous `MessageBusClient` on this page
+is the only client. See [async_client.md](async-client.md) for the proposed
+reference and benchmarks.

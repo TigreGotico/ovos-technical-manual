@@ -34,11 +34,17 @@ msg = Message("speak", {"utterance": "Hi!"}, {"skill_id": "my-skill"})
 ## Serialization
 
 ```python
-json_str = msg.serialize()           # → JSON string (encrypted if secret_key configured)
+json_str = msg.serialize()           # → plain JSON string
 msg2     = Message.deserialize(json_str)  # → Message
-d        = msg.as_dict               # → plain dict (calls serialize internally)
+d        = msg.as_dict               # → plain dict
 
 ```
+
+The `Message` envelope is re-exported unchanged from
+[`ovos_spec_tools.message`](https://github.com/OpenVoiceOS/ovos-spec-tools)
+(the OVOS-MSG-1 spec). `serialize` / `deserialize` produce and consume **plain
+JSON** with no transport concerns mixed in — encryption is **not** a `Message`
+responsibility (see [Encryption](#encryption) below).
 
 ## Routing Methods
 
@@ -75,13 +81,20 @@ ack = message.response({"status": "ok"})
 
 ```
 
-### `publish(msg_type, data, context=None)`
+### `publish(msg_type, data, context=None)` — deprecated
 
-Copy context without a `target` key — used for broadcast messages.
+Copy context without a `target` key, used for broadcast messages. **Deprecated** —
+it emits a `DeprecationWarning` and is not part of OVOS-MSG-1. Use
+[`forward`](#forwardmsg_type-datanone) instead.
 
 ## Encryption
 
-If `websocket.secret_key` is set in `mycroft.conf`, all messages are AES-encrypted on the wire using `encrypt_as_dict` / `decrypt_from_dict`. The `Message` class handles this transparently.
+Encryption is **not** a `Message` feature and is **deprecated**. The optional
+layer-2 AES-GCM scheme lives at the transport edge —
+`MessageBusClient.emit` / `on_message` call internal `_maybe_encrypt` /
+`_maybe_decrypt` helpers — and only engages when `websocket.secret_key` is set in
+`mycroft.conf`. Because its key-setup / key-exchange half was never implemented,
+the client emits a `DeprecationWarning` whenever it encrypts or decrypts.
 
 ```json
 {
@@ -93,7 +106,10 @@ If `websocket.secret_key` is set in `mycroft.conf`, all messages are AES-encrypt
 
 ```
 
-If `allow_unencrypted` is `false`, the client will raise `RuntimeError` when it receives a plaintext message.
+If `allow_unencrypted` is `false`, the client raises a `RuntimeError` when it
+receives a plaintext message. The `encrypt_as_dict` / `decrypt_from_dict` helpers
+remain importable from `ovos_bus_client.message` for any consumer that used them
+directly, but new code should not rely on this scheme.
 
 ---
 

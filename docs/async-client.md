@@ -1,6 +1,15 @@
 # AsyncMessageBusClient
 
-**Module:** `ovos_bus_client.client.async_client`
+!!! info "Upcoming feature — not yet released"
+    `AsyncMessageBusClient` is **not in a released version of `ovos-bus-client`**.
+    It is proposed in draft PR
+    [OpenVoiceOS/ovos-bus-client#200](https://github.com/OpenVoiceOS/ovos-bus-client/pull/200)
+    (`feat: AsyncMessageBusClient`). The module path, the optional `[async]`
+    extra, the benchmarks, and every API on this page describe that PR — none of
+    it is importable until #200 merges and ships. For production code today, use
+    the synchronous [`MessageBusClient`](client-ref.md).
+
+**Module (proposed):** `ovos_bus_client.client.async_client`
 
 `AsyncMessageBusClient` is an asyncio-native WebSocket client that provides the same interface as `MessageBusClient` but with `async/await` instead of blocking threads. It uses the [`websockets`](https://websockets.readthedocs.io/) library under the hood.
 
