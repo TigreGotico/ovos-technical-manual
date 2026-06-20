@@ -6,9 +6,10 @@ touchscreen, laptop). It wraps the `mycroft-gui-qt5` library (`Mycroft 1.0` [QML
 inside a full-screen, frameless Kirigami application window.
 
 It is distinct from the standalone `mycroft-gui-qt5` developer app: `ovos-shell` provides
-the production UI chrome — status bar, sliding quick-settings panel, notifications, OSD,
-splash screen, shutdown dialog, and homescreen — while delegating all skill rendering to
-`Mycroft.SkillView`.
+the production UI chrome — status indicator, sliding quick-settings panel, notifications,
+OSD, splash screen, pairing/OAuth loaders, and shutdown dialog — while delegating all skill
+rendering to `Mycroft.SkillView`. The idle screen itself is supplied by a homescreen
+skill (see [Home Screen](homescreen.md)), not by the shell.
 
 > **Voice First.** The visual interface is always secondary to the voice interface.
 > All interactions should be completable with voice alone; touchscreen controls supplement
@@ -22,18 +23,16 @@ splash screen, shutdown dialog, and homescreen — while delegating all skill re
 ovos-shell/
 ├── application/             ← Main executable (ovos-shell binary)
 │   ├── main.cpp             ← QApplication entry point
+│   ├── plugins/             ← EnvironmentSummary, ResetOperations
 │   ├── qml/                 ← Shell QML
 │   │   ├── main.qml             ← Root window (Kirigami.AbstractApplicationWindow)
-│   │   ├── homescreen/          ← Built-in idle/homescreen
-│   │   │   ├── HomescreenController.qml  ← Data broker (bus events → QML properties)
-│   │   │   ├── idle.qml                  ← Root idle screen
-│   │   │   ├── MainPage.qml, NightTimePage.qml
-│   │   │   └── … (17 more sub-components)
-│   │   ├── panel/               ← Sliding quick-settings panel
+│   │   ├── panel/               ← Sliding quick-settings panel (+ quicksettings/)
 │   │   ├── osd/                 ← On-screen display (volume, etc.)
-│   │   ├── StatusIndicator.qml
-│   │   ├── ListenerAnimation.qml
-│   │   └── …
+│   │   ├── StatusIndicator.qml, ListenerAnimation.qml
+│   │   ├── SplashScreen.qml, ShutdownOptions.qml, ServiceWatcher.qml
+│   │   ├── NotificationsSystem.qml, NotificationPop*.qml
+│   │   ├── OAuthLoader.qml, OAuthQrCodeLoader.qml, PairingArea.qml
+│   │   └── Keyboard.qml, FactoryResetUI.qml, KdeConnect.qml
 ├── lib/                     ← OVOSPlugin 1.0 QML module (Configuration, PlacesModel)
 ├── theme/                   ← OVOS Kirigami theme plugin (KF5 ≥ 5.91)
 ├── theme-legacy/            ← OVOS Kirigami theme plugin (KF5 < 5.91)
@@ -51,8 +50,8 @@ ovos-shell/
 | KF5 DBusAddons | D-Bus service registration |
 | KF5 Config / ConfigWidgets | Settings persistence |
 
-`ovos-shell` does **not** duplicate system templates. It inherits all 21 template QML
-files from `mycroft-gui-qt5` (installed to `$prefix/share/mycroft-gui/system-templates/`).
+`ovos-shell` does not bundle skill-page QML itself. Skill pages and the built-in
+`SYSTEM_*` pages are resolved by the `Mycroft.SkillView` runtime from `mycroft-gui-qt5`.
 
 ---
 
@@ -72,15 +71,15 @@ files from `mycroft-gui-qt5` (installed to `$prefix/share/mycroft-gui/system-tem
 - Hosts `StatusIndicator`, `ListenerAnimation`, `SlidingPanel`, notification popups, OSD
 
 
-- Shows `homescreen/idle.qml` via `Loader` when the skill stack is empty:
+- When the skill stack is empty, the shell shows a plain background image; the actual idle
+  screen is drawn by a homescreen skill rendered through `Mycroft.SkillView`:
 
 ```qml
-Loader {
-    id: homescreenLoader
+Image {
+    source: "background.png"
+    fillMode: Image.PreserveAspectFit
     anchors.fill: parent
-    z: 1
-    source: "homescreen/idle.qml"
-    visible: !mainView.currentItem && serviceWatcher.guiServiceAlive
+    opacity: !mainView.currentItem && serviceWatcher.guiServiceAlive
 }
 
 ```
@@ -111,115 +110,23 @@ Loader {
 
 ---
 
-## Homescreen (Built-In Idle Screen)
+## Homescreen (Idle Screen)
 
-The homescreen is built directly into `ovos-shell`. It replaces `ovos-skill-homescreen`,
-which is deprecated.
+The shell does not draw the idle screen itself. When the namespace stack is empty it shows
+a plain background image; the actual homescreen is provided by a skill (default
+`skill-ovos-homescreen.openvoiceos`) whose resting-screen page is rendered through
+`Mycroft.SkillView`. Skills register idle screens with `@resting_screen_handler`. See
+[Home Screen](homescreen.md) for the configuration and the resting-screen API.
 
-### Architecture
-
-```
-ovos-legacy-mycroft-gui-plugin
-  HomescreenManager
-      │  emits homescreen.data.time, .weather, .wallpaper,
-      │         .notifications, .apps, .examples, .connectivity
-      │         homescreen.widget.timer, .alarm, .media
-      ▼
-ovos-shell  application/qml/homescreen/
-  HomescreenController.qml
-      │  subscribes to homescreen.data.* + homescreen.widget.*
-      │  exposes: timeString, weatherCode, applicationsModel, …
-      ▼
-  idle.qml
-      │  root Item; instantiates HomescreenController
-      │  provides sessionData shim for sub-components
-      ▼
-  MainPage.qml, NightTimePage.qml, WeatherArea.qml, …
-
-```
-
-### `HomescreenController.qml`
-
-Subscribes to bus events via `Mycroft.MycroftController.onIntentRecevied` and exposes
-**plain QML properties** — no `sessionData`, no SkillView namespace.
-
-| Bus event consumed | QML properties updated |
-|---|---|
-| `homescreen.data.time` | `timeString`, `dateString`, `weekdayString`, `dayString`, `monthString`, `yearString` |
-| `homescreen.data.weather` | `weatherEnabled`, `weatherCode`, `weatherTemp` |
-| `homescreen.data.wallpaper` | `wallpaperPath`, `selectedWallpaper` |
-| `homescreen.data.notifications` | `notificationCounter`, `notificationModel` |
-| `homescreen.data.apps` | `applicationsModel`, `appsEnabled` |
-| `homescreen.data.examples` | `skillExamples`, `examplesEnabled`, `examplesPrefix` |
-| `homescreen.data.connectivity` | `systemConnectivity` |
-| `homescreen.widget.timer` | `timerWidgetData`, `timerWidgetCount` |
-| `homescreen.widget.alarm` | `alarmWidgetData`, `alarmWidgetCount` |
-| `homescreen.widget.media` | `mediaWidgetEnabled`, `mediaWidgetData`, `mediaWidgetState` |
-| `mycroft.device.show.idle` / `ovos.homescreen.displayed` | emits `homescreenRequested()` signal |
-
-`idle.qml` defines a `property QtObject sessionData` shim that maps each `sessionData.xxx`
-name to `homescreenController.yyy`, so sub-components (`DayMonthDisplay`, `WeatherArea`,
-etc.) continue using `sessionData.xxx` via QML scope lookup without modification.
-
-### Homescreen sub-components
-
-| File | Role |
-|---|---|
-| `HomescreenController.qml` | Data broker |
-| `idle.qml` | Root idle screen; mounts HomescreenController; hosts StackLayout and apps Drawer |
-| `MainPage.qml` | Main idle view (clock, weather, examples, widgets) |
-| `NightTimePage.qml` | Night-mode clock-only view |
-| `HorizontalDisplayLayout.qml` | Landscape two-column layout |
-| `VerticalDisplayLayout.qml` | Portrait single-column layout |
-| `TimeDisplay.qml` | Large clock label |
-| `WeatherArea.qml` | Weather icon + temperature; offline indicator |
-| `WidgetsArea.qml` | Timer / alarm / media widget row |
-| `MediaWidgetButton.qml` | [OCP](ocp-pipeline.md) playback controls widget |
-| `MediaWidgetDisplay.qml` | OCP track info display |
-| `AppsBar.qml` | App launcher icons (bottom Drawer) |
-| `ExamplesDisplay.qml` | Rotating example utterances bar |
-
-### Data source: `HomescreenManager`
-
-All homescreen data is produced by `HomescreenManager` in `ovos-legacy-mycroft-gui-plugin`.
-It subscribes to:
-
-- Datetime via `ovos_date_parser.get_date_strings()` (every 10 s)
-
-
-- Weather via `skill-ovos-weather.openvoiceos.weather.request` / `.response` (every 900 s)
-
-
-- Wallpaper via `homescreen.wallpaper.set` ([PHAL](ovoscope-phal.md) wallpaper manager)
-
-
-- Notifications via `ovos.notification.update_counter` / `ovos.notification.update_storage_model`
-
-
-- Apps via `homescreen.register.app` / `detach_skill`
-
-
-- Examples via `homescreen.register.examples` / `detach_skill` (every 900 s refresh)
-
-
-- Connectivity via `mycroft.network.connected`, `mycroft.internet.connected`, `enclosure.notify.no_internet`
-
-
-- Timer/alarm widgets via `ovos.widgets.timer.*` / `ovos.widgets.alarm.*`
-
-
-- OCP media via `gui.player.media.service.sync.status` / `ovos.common_play.track_info.response`
-
-### Deprecated: `ovos-skill-homescreen`
-
-| Was in skill | Now in |
-|---|---|
-| `gui/qt5/*.qml` | `ovos-shell/application/qml/homescreen/` |
-| Python data coordination | `ovos-legacy-mycroft-gui-plugin` `HomescreenManager` |
-| `@resting_screen_handler` | Not needed — homescreen is shown when stack is empty |
-
-The skill now contains only a stub `handle_idle` that emits `ovos.homescreen.displayed`
-and will be archived once all deployments have updated.
+!!! warning "Upcoming — unreleased GUI rework"
+    The GUI-rework branches move homescreen data coordination into a `HomescreenManager`
+    inside `ovos-legacy-mycroft-gui-plugin` (`feat/session-id-contract`), which subscribes
+    to datetime, weather, wallpaper, notification, app, example, connectivity, and widget
+    sources and re-emits them as `homescreen.data.*` / `homescreen.widget.*` bus messages
+    for a client to render. This is **not** in any released shell and the shell itself
+    contains no `homescreen/` QML on `master`. The resting-screen skill API
+    (`@resting_screen_handler`, `idle_display_skill`) remains the supported mechanism on
+    released OVOS.
 
 ---
 
@@ -284,28 +191,8 @@ Colors must include an alpha prefix (e.g. `FF` for fully opaque).
 The `Configuration` class watches all three directories with `QFileSystemWatcher` and
 emits `schemeListChanged()` when files are added or removed.
 
-### System Template Override (`OVOS_SYSTEM_TEMPLATES`)
-
-Set this environment variable before launching `ovos-shell` to override individual
-system-template QML files. Only the templates you want to customise need to be present
-in the directory; others fall through to `mycroft-gui-qt5` defaults.
-
-```bash
-#!/bin/bash
-
-# /usr/bin/ovos-shell-launch (example wrapper)
-export OVOS_SYSTEM_TEMPLATES=/usr/share/ovos-shell/system-templates
-exec /usr/bin/ovos-shell "$@"
-
-```
-
-Template resolution order:
-
-1. `$OVOS_SYSTEM_TEMPLATES/<Name>.qml` — if the env var is set **and** the file exists
-
-
-2. `$MYCROFT_SYSTEM_TEMPLATES_DIR/<Name>.qml` — compiled-in default
-   (`/usr/share/mycroft-gui/system-templates/`)
+The `Configuration` QML singleton (`OVOSPlugin.Configuration`) is implemented in
+`lib/configuration.cpp` and exposes these read/write properties to QML.
 
 ---
 

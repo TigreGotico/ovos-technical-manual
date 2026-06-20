@@ -1,14 +1,22 @@
 # OpenVoiceOS Home Screen
 
-The home screen is the central place for all your tasks. It is what your device displays when it is idle
+The home screen is what a device with a display shows when it is idle — clock, date,
+weather, widgets, and so on. It is an ordinary **skill** that registers a *resting screen*;
+when the [GUI](gui-service.md) namespace stack is empty, the configured homescreen skill is
+asked to display its idle page.
+
+`ovos-gui` tracks the configured homescreen via its `HomescreenManager`
+(`ovos_gui/homescreen.py`) and shows it when nothing else is on screen.
 
 ## Configuration
 
-Select a homescreen in `mycroft.conf` or via `ovos-shell`
+Select a homescreen skill in `mycroft.conf` (or via [ovos-shell](ovos-shell.md)):
 
-```javascript
-"gui": {
+```json
+{
+  "gui": {
     "idle_display_skill": "skill-ovos-homescreen.openvoiceos"
+  }
 }
 
 ```
@@ -20,7 +28,7 @@ The resting face API provides skill authors the ability to extend their skills t
 ```
 import requests
 from ovos_workshop.skills import OVOSSkill
-from ovos_workshop.descorators import intent_handler, resting_screen_handler
+from ovos_workshop.decorators import intent_handler, resting_screen_handler
 
 
 class CatSkill(OVOSSkill):
@@ -45,7 +53,7 @@ A more advanced example, refreshing a webpage on a timer
 
 ```python
 from ovos_workshop.skills import OVOSSkill
-from ovos_workshop.descorators import intent_handler, resting_screen_handler
+from ovos_workshop.decorators import intent_handler, resting_screen_handler
 
 class WebpageHomescreen(OVOSSkill):
 

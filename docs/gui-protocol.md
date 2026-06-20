@@ -5,11 +5,12 @@ The `ovos-gui` service exposes two communication channels:
 1. **OVOS [MessageBus](bus-service.md)** — used by skills and core components to set GUI state.
 
 
-2. **Qt WebSocket** (port 18181, via `ovos-legacy-mycroft-gui-plugin`) — used by Qt5/Qt6
+2. **Qt WebSocket** (default port 18181, served by `ovos-gui` itself) — used by Qt5/Qt6
    GUI clients (`mycroft-gui-qt5`, `ovos-shell`) to receive display commands and send
    back user interaction events.
 
-The transport protocol between `ovos-gui` and Qt clients is implemented in the
+The Qt WebSocket server runs inside `ovos-gui` (`ovos_gui/bus.py`, Tornado). The
+client-side transport is implemented in the
 [mycroft-gui-qt5](https://github.com/OpenVoiceOS/mycroft-gui-qt5) library.
 
 ![imagem](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/92e73af7-f7d2-4aa3-a294-77f87aa22390)
@@ -32,8 +33,7 @@ the skill's namespace.
     "current_temp": 22,
     "condition": "Sunny",
     "__from": "ovos-skill-weather",
-    "__idle": null,
-    "__animations": false
+    "__idle": null
   }
 }
 
@@ -43,55 +43,36 @@ the skill's namespace.
 |---|---|
 | `__from` | [Skill](skill-design-guidelines.md) ID (namespace owner) |
 | `__idle` | Idle timeout in seconds, or `null` |
-| `__animations` | Whether page transitions should animate |
 | All other keys | Skill-defined session variables |
 
-`NamespaceManager` stores all keys in `namespace.data` and forwards non-reserved keys
-to adapters via `on_session_update()`.
+`NamespaceManager` stores all keys in `namespace.data`. The reserved keys
+(`RESERVED_KEYS = ['__from', '__idle']`) are stripped before the values are mirrored to
+clients as `mycroft.session.set`.
 
 ---
 
 #### `gui.page.show`
 
-Sent by `GUIInterface._show_pages()` to request a template or page be shown.
-
-**Template format (SYSTEM_*):**
+Sent by `GUIInterface.show_page()` / `show_pages()` to request one or more pages be shown.
 
 ```json
 {
   "type": "gui.page.show",
   "data": {
-    "page_names": ["SYSTEM_weather"],
+    "page_names": ["SYSTEM_TextFrame"],
     "index": 0,
-    "persistence": true,
     "__from": "ovos-skill-weather",
-    "__idle": null,
-    "__animations": false
+    "__idle": null
   }
 }
 
 ```
 
-When `page_names[0]` starts with `SYSTEM_`, `NamespaceManager` reads the namespace's
-current `data` dict and dispatches to all loaded adapters via
-`adapter.dispatch_template(template, skill_id, data)`.
-
-**Legacy format (framework-specific pages):**
-
-```json
-{
-  "type": "gui.page.show",
-  "data": {
-    "page_names": ["Weather.qml"],
-    "index": 0,
-    "__from": "ovos-skill-weather"
-  }
-}
-
-```
-
-Non-`SYSTEM_*` names are handled by the unchanged legacy path inside `NamespaceManager`
-(forwarded to Qt clients via the legacy adapter).
+`page_names` are page resource identifiers. The built-in pages use `SYSTEM_*` names (e.g.
+`SYSTEM_TextFrame`, `SYSTEM_ImageFrame`, `SYSTEM_Face`); skills may also ship their own
+`.qml` pages and reference them by name. `NamespaceManager` records the page list against
+the namespace and mirrors it to clients as `mycroft.gui.list.insert` with the resolved
+page URIs.
 
 ---
 
@@ -130,16 +111,16 @@ Clears all pages from a skill's namespace.
 
 #### `gui.event.send`
 
-Sends an arbitrary event into a skill's namespace (used for confirm/select responses
-and custom interactions).
+Sends an arbitrary event into a skill's namespace. `NamespaceManager` forwards it to
+clients as `mycroft.events.triggered` with `namespace = __from`.
 
 ```json
 {
   "type": "gui.event.send",
   "data": {
-    "namespace": "ovos-skill-weather",
-    "event_name": "skill.selection.confirmed",
-    "params": {"confirmed": true}
+    "__from": "ovos-skill-weather",
+    "event_name": "my.gui.event",
+    "params": {"item": 3}
   }
 }
 
@@ -149,27 +130,10 @@ and custom interactions).
 
 ### Messages consumed by `NamespaceManager` (from skills / core)
 
-#### `ovos.gui.screen.close`
-
-Request to remove a skill's namespace from the active display stack and deactivate it.
-
-```json
-{
-  "type": "ovos.gui.screen.close",
-  "data": {
-    "skill_id": "ovos-skill-weather"
-  }
-}
-
-```
-
-Triggers `adapter.on_namespace_deactivated(skill_id)` on all adapters.
-
----
-
 #### `gui.clear.namespace`
 
-Legacy equivalent of `ovos.gui.screen.close`. [Session](session.md) data is discarded.
+Removes a skill's namespace from the active display stack and discards its
+[Session](session.md) data.
 
 ```json
 {
@@ -177,6 +141,21 @@ Legacy equivalent of `ovos.gui.screen.close`. [Session](session.md) data is disc
   "data": {
     "__from": "ovos-skill-weather"
   }
+}
+
+```
+
+---
+
+#### `mycroft.gui.screen.close`
+
+A global "back" request. `NamespaceManager.handle_namespace_global_back()` removes the
+namespace currently at the top of the active stack. It carries no payload.
+
+```json
+{
+  "type": "mycroft.gui.screen.close",
+  "data": {}
 }
 
 ```
@@ -215,10 +194,11 @@ Emitted when a namespace moves to the top of the active display stack.
 
 ---
 
-### Status events forwarded to adapters
+### Status events forwarded to GUI clients
 
-`NamespaceManager` subscribes to the following core bus messages and forwards them to all
-adapters via `adapter.on_status_event(event_name, data)`:
+`NamespaceManager` subscribes to the following core bus messages and re-emits each to
+connected Qt clients (via `forward_to_gui` → `mycroft.events.triggered` in the `system`
+namespace), so the UI can react to listening/speaking state:
 
 | Bus message type | Meaning |
 |---|---|
@@ -233,40 +213,10 @@ adapters via `adapter.on_status_event(event_name, data)`:
 | `recognizer_loop:sleep` | Device going to sleep |
 | `recognizer_loop:wake_up` | Device waking up |
 | `mycroft.awoken` | Wake-up acknowledged |
+| `mycroft.skill.handler.start` | A skill handler started |
+| `mycroft.skill.handler.complete` | A skill handler completed |
 | `ovos.utterance.handled` | Intent matched and handled |
 | `ovos.utterance.cancelled` | Utterance cancelled |
-
----
-
-### Touch / Interaction responses (emitted back to the bus)
-
-When a touch-capable adapter receives user input on confirm/select templates:
-
-#### `<skill_id>.confirm.response`
-
-```json
-{
-  "type": "ovos-skill-weather.confirm.response",
-  "data": {
-    "confirmed": true
-  }
-}
-
-```
-
-#### `<skill_id>.select.response`
-
-```json
-{
-  "type": "ovos-skill-weather.select.response",
-  "data": {
-    "value": "Berlin"
-  }
-}
-
-```
-
-Skills must register handlers for these events if they use `show_confirm()` or `show_select()`.
 
 ---
 
@@ -453,12 +403,14 @@ Each active skill is associated with a list of page URIs.
   "type": "mycroft.gui.list.insert",
   "namespace": "ovos-skill-weather",
   "position": 0,
-  "data": [{"url": "SYSTEM:Weather.qml", "page": "Weather.qml"}]
+  "data": [{"url": "SYSTEM:TextFrame.qml", "page": "TextFrame.qml"}]
 }
 
 ```
 
-The `SYSTEM:` URI scheme is resolved by the Qt client: first checks `$OVOS_SYSTEM_TEMPLATES/Weather.qml`, then falls back to the compiled-in default at `/usr/share/mycroft-gui/system-templates/Weather.qml`.
+The `SYSTEM:` URI scheme is resolved by the Qt client to the matching system-template QML
+file (see [OVOS Shell](ovos-shell.md) for the `OVOS_SYSTEM_TEMPLATES` override and
+resolution order). Skill-provided `.qml` pages are sent as ordinary file URIs.
 
 **Move pages:**
 
@@ -502,23 +454,20 @@ Events can be emitted by the GUI client (e.g. user tapped a button) or by the sk
 
 ```
 
-#### Special event: `page_gained_focus`
+#### Page focus / interaction (client → core)
 
-Used when `ovos-gui` wants a specific page to become the active view. The Qt client
-renders the requested page on receipt. Clients may also emit this event after a user
-swipes to a new page.
+When the user swipes to a different page or interacts with one, the Qt client signals
+core. `ovos-gui` listens for `gui.page_gained_focus` and `gui.page_interaction` on the
+OVOS bus; both carry `skill_id` and a zero-based `page_number`. The interaction event also
+resets the namespace's idle-removal timer.
 
 ```json
 {
-  "type": "mycroft.events.triggered",
-  "namespace": "ovos-skill-weather",
-  "event_name": "page_gained_focus",
-  "data": {"number": 0}
+  "type": "gui.page_gained_focus",
+  "data": {"skill_id": "ovos-skill-weather", "page_number": 0}
 }
 
 ```
-
-The `number` field is the zero-based page position within the namespace's page list.
 
 #### System status events
 
@@ -544,20 +493,38 @@ as normal bus events.
 
 ---
 
-## Summary: message flows
+## Summary: message flow
 
 ```
-Skill call:   gui.show_weather(22, "Sunny")
-  → bus:      gui.value.set       (skill namespace data)
-  → bus:      gui.page.show       (SYSTEM_weather)
-  → adapter:  handle_show_weather (AbstractGUIPlugin)
-  → WS:       mycroft.session.set (sync data to Qt)
-  → WS:       mycroft.gui.list.insert (SYSTEM:Weather.qml)
-  → WS:       mycroft.events.triggered / page_gained_focus
+Skill call:   self.gui.show_text("Hello", title="Greeting")
+  → bus:      gui.value.set            (skill namespace data)
+  → bus:      gui.page.show            (SYSTEM_TextFrame)
+  → ovos-gui: NamespaceManager records page + data on the namespace
+  → WS:       mycroft.session.list.insert (namespace into active stack)
+  → WS:       mycroft.gui.list.insert     (SYSTEM:TextFrame.qml)
+  → WS:       mycroft.session.set         (sync data to Qt)
+  → Qt client renders the page
 
-User taps confirm button on Qt:
-  → WS:       mycroft.events.triggered / skill.confirm.confirmed
-  → bus:      <skill_id>.confirm.response  {confirmed: true}
-  → skill:    handler registered for that event
-
+User swipes / taps on Qt:
+  → WS → bus: gui.page_gained_focus / gui.page_interaction (skill_id, page_number)
+  → ovos-gui updates focused page and reschedules namespace timeout
 ```
+
+---
+
+!!! warning "Upcoming — unreleased GUI rework"
+    On the GUI-rework branches (`ovos-gui` @ `feat/gui-rework-landing` and related, see
+    [GUI Service](gui-service.md)) the bus contract changes:
+
+    - `gui.page.show` accepts **only** `SYSTEM_*` template names; `page_names[0]` must
+      start with `SYSTEM_` or `handle_show_page()` raises.
+    - Instead of mirroring to Qt clients directly, `NamespaceManager` calls
+      `adapter.dispatch_template(template, skill_id, data, session_id)` on every loaded
+      `opm.gui_adapter` plugin; the Qt WebSocket protocol moves into the
+      `ovos-legacy-mycroft-gui-plugin` adapter.
+    - Forwarded status events go to adapters via
+      `adapter.on_status_event(event_name, data)` rather than straight to Qt clients.
+    - `gui.namespace.removed` / `gui.namespace.displayed` are still emitted; the
+      `gui.page.delete` / `gui.page.delete.all` handlers are removed.
+
+    See [GUI Adapter Plugins](gui-adapters.md) for the adapter-side API.

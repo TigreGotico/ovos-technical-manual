@@ -1,500 +1,183 @@
 # GUI Service (ovos-gui)
 
-`ovos-gui` is the GUI orchestration daemon for OpenVoiceOS. It tracks display state,
-routes template and page events to all loaded adapter plugins, and manages the namespace
-stack that determines what is currently visible on screen. `ovos-gui` does **not** render
-anything itself — rendering is delegated to independently installable GUI adapter plugins.
+`ovos-gui` is the GUI orchestration daemon for OpenVoiceOS. It tracks display state and
+manages the **namespace stack** that determines what is currently visible on screen.
+
+## How a skill draws on screen (beginner view)
+
+A skill never talks to the display directly. It calls methods on `self.gui` (a
+`GUIInterface`), which emit messages on the OVOS [MessageBus](bus-service.md). `ovos-gui`
+receives those messages, keeps track of what each skill wants shown, and forwards the
+result to whatever GUI client is connected (typically [ovos-shell](ovos-shell.md) running
+the Qt/[Kirigami](qt5-gui.md) UI).
+
+A minimal example — display some text:
+
+```python
+from ovos_workshop.skills import OVOSSkill
+from ovos_workshop.decorators import intent_handler
+
+class HelloSkill(OVOSSkill):
+    @intent_handler("hello.intent")
+    def handle_hello(self, message):
+        self.speak("Here is your message")
+        self.gui.show_text("Hello from OVOS", title="Greeting")
+```
+
+`show_text()` writes the text into the skill's namespace and tells the GUI client to load
+the built-in text page. When the skill is done, the namespace is removed and the screen
+returns to the previous view or the idle/homescreen.
 
 ---
 
----
+## Architecture (current)
 
-## Terminology: Templates vs Pages
+`self.gui` is a `SkillGUI` (subclass of `GUIInterface` from
+`ovos_bus_client.apis.gui`). It emits these bus messages:
 
-### **Template** (SYSTEM_* abstraction)
-A **template** is a pre-defined, semantic UI layout standardized across all OVOS skills.
-Each template has a fixed data schema (e.g., `SYSTEM_weather` has `current_temp`, `condition`, etc.).
-Templates are identified by `SYSTEM_*` names (`SYSTEM_weather`, `SYSTEM_text`, `SYSTEM_list`, etc.).
-Skills use templates via `GUIInterface` methods: `gui.show_weather()`, `gui.show_text()`, etc.
+| Bus message | Emitted by | Purpose |
+|---|---|---|
+| `gui.value.set` | `GUIInterface.__setitem__` / `_sync_data()` | Write session variables into the skill's namespace |
+| `gui.page.show` | `GUIInterface.show_page()` / `show_pages()` | Request one or more QML pages be shown |
+| `gui.page.delete` / `gui.page.delete.all` | `remove_page()` / `remove_all_pages()` | Remove pages from the namespace |
+| `gui.event.send` | `send_event()` | Send a custom event into the namespace |
+| `gui.clear.namespace` | `clear()` | Remove the skill's namespace from the active stack |
 
-### **Page** (in rendering layer)
-A **page** is a rendering artifact — the [QML](qt5-gui.md) file or HTML view that displays a template.
-Example: `Weather.qml` renders `SYSTEM_weather`; `Text.qml` renders `SYSTEM_text`.
-Adapters map templates to pages via handler methods: `handle_show_weather()`, `handle_show_text()`, etc.
-
-**In this manual:**
-
-- **"Template"** refers to the `SYSTEM_*` identifier and data contract
-
-
-- **"Page"** refers to the QML/HTML rendering artifact in the adapter
-
----
-
-## Architecture
-
-The GUI system has two orthogonal abstractions:
-
-1. **Template-based `GUIInterface`** (`ovos-gui-api-client`) — skills call typed methods
-   (`show_weather()`, `show_text()`, …) to display structured data.
-   Each call emits `gui.value.set` + `gui.page.show` on the OVOS [MessageBus](bus-service.md) with a
-   template identifier (`SYSTEM_weather`, `SYSTEM_text`, etc.) from the `PageTemplates` enum.
-
-2. **GUI adapter plugin system** (`opm.gui_adapter` entry point) — any number of adapters
-   may be installed simultaneously. All loaded adapters receive every template event
-   concurrently, enabling multi-modal output (Qt window + terminal + web at once).
+`ovos-gui` itself **is** the GUI WebSocket server. `ovos_gui/bus.py` runs a
+[Tornado](https://www.tornadoweb.org/) WebSocket endpoint (default port `18181`) that Qt
+clients connect to. `NamespaceManager` (`ovos_gui/namespace.py`) translates the bus
+messages above into the Qt wire protocol (`mycroft.session.*`, `mycroft.gui.list.*`) and
+pushes them to every connected client. See [GUI Protocol](gui-protocol.md) for the wire
+format.
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│  Skill (OVOSSkill)                                       │
-│                                                          │
-│  self.gui.show_weather(22, 18, 26, "Sunny", ...)         │
+│  Skill (OVOSSkill)                                        │
+│  self.gui.show_text("Hello", title="Greeting")           │
 └────────────────────┬─────────────────────────────────────┘
                      │  gui.value.set  +  gui.page.show
-                     │  (MessageBus)
+                     │  (OVOS MessageBus)
                      ▼
 ┌──────────────────────────────────────────────────────────┐
-│  ovos-gui  —  NamespaceManager                           │
-│                                                          │
-│  Routes SYSTEM_* templates to adapters                  │
-│  → calls adapter.dispatch_template() on all adapters     │
-└──────┬───────────────────────────┬───────────────────────┘
-       │                           │
-       ▼                           ▼
-┌─────────────────┐   ┌────────────────────────────────────┐
-│ LegacyMycoft    │   │  Any other opm.gui_adapter plugin  │
-│ GuiPlugin       │   │  (pyhtmx, TUI, e-ink, …)           │
-│                 │   │                                    │
-│ Tornado WS      │   │  Implements handle_show_weather()  │
-│ server          │   │  however it sees fit               │
-│ port 18181      │   └────────────────────────────────────┘
-│                 │
-│ mycroft.session │
-│ .set / list.*   │
-│ / gui.list.*    │
-│                 │
-└────────┬────────┘
-         │  WebSocket
-         ▼
-   Qt5 / Qt6 GUI client
-   (mycroft-gui)
-   renders bundled QML
-
+│  ovos-gui  —  NamespaceManager (namespace.py)            │
+│              GUIWebsocketHandler (bus.py, Tornado)        │
+│  Maintains the active namespace stack and per-namespace  │
+│  session data + page list; mirrors it to every client    │
+│  as mycroft.session.* / mycroft.gui.list.* messages      │
+└────────────────────┬─────────────────────────────────────┘
+                     │  WebSocket (port 18181)
+                     ▼
+            Qt5 / Qt6 GUI client (mycroft-gui / ovos-shell)
+            resolves and renders the requested QML pages
 ```
 
-### Package responsibilities
+### `GUIInterface` display methods
 
-| Package | Role |
+`self.gui` exposes these display methods (from `ovos_bus_client.apis.gui.GUIInterface`):
+
+| Method | QML page shown |
 |---|---|
-| `ovos-gui-api-client` | `GUIInterface` with 21 typed `show_*()` methods; `PageTemplates` enum; `FillMode`, `ListItem`, `GridItem`, `SelectItem` data types |
-| `ovos-workshop` | `OVOSSkill.gui` returns a `GUIInterface` sourced from `ovos-gui-api-client` |
-| `ovos-plugin-manager` | `AbstractGUIPlugin` base class; `PluginTypes.GUI_ADAPTER`; `OVOSGUIAdapterFactory` |
-| `ovos-gui` | `NamespaceManager` routes SYSTEM_* template events to all loaded adapters; starts adapters at service startup |
-| `ovos-legacy-mycroft-gui-plugin` | Adapter that translates templates to the mycroft-gui Qt WebSocket protocol; bundles all 21 QML pages |
+| `show_page(name, ...)` / `show_pages(names, ...)` | arbitrary page resource(s) |
+| `show_text(text, title=None, ...)` | `SYSTEM_TextFrame` |
+| `show_image(url, caption=None, title=None, fill=None, ...)` | `SYSTEM_ImageFrame` |
+| `show_animated_image(url, ...)` | `SYSTEM_AnimatedImageFrame` |
+| `show_html(html, resource_url=None, ...)` | `SYSTEM_HtmlFrame` |
+| `show_url(url, ...)` | `SYSTEM_UrlFrame` |
+| `show_input_box(title=None, ...)` | `SYSTEM_InputBox` |
+| `show_face(awake=True, ...)` | `SYSTEM_Face` |
+| `show_loading_animation(text, ...)` | `SYSTEM_Loading` |
+| `show_status_animation(text, success, ...)` | `SYSTEM_Status` |
+| `show_notification(content, ...)` / `show_controlled_notification(content, ...)` | notification overlay |
+
+Skills may also ship their own `.qml` pages and call `show_page("my_page.qml")`. Page
+resources are resolved by the Qt client (see [GUI Protocol](gui-protocol.md)).
 
 ---
 
 ## Namespaces
 
-GUI state is organized into **namespaces**, each corresponding to a `skill_id`. Each namespace
-holds session data (key/value pairs) and the currently displayed template.
+GUI state is organized into **namespaces**, each corresponding to a `skill_id`. Each
+namespace holds session data (key/value pairs) and an ordered list of displayed pages.
 
-- `NamespaceManager` maintains an ordered **active stack**. The namespace at position 0
-  is the one currently displayed.
+- `NamespaceManager` maintains an ordered **active stack** (mirrored to clients as the
+  reserved `mycroft.system.active_skills` namespace). The namespace at position 0 is the
+  one currently displayed.
 
-- Skills display templates via `gui.show_*()` methods. Users interact with the rendered template.
+- Skills display pages via `gui.show_*()`. Users interact with the rendered page.
 
+- When a skill clears its namespace (`gui.clear()` → `gui.clear.namespace`), the namespace
+  is removed from the active stack and the next namespace becomes visible.
 
-- When a skill clears its namespace (`gui.clear()` / `ovos.gui.screen.close`), the
-  namespace is removed from the active stack and the next namespace becomes visible.
-
-- When the stack is empty, the GUI adapter shows an idle/homescreen view.
+- When the stack is empty, the GUI client shows its idle/homescreen view.
 
 Example lifecycle:
 
 ```
-OVOS idle          → homescreen namespace active
+OVOS idle          → homescreen / idle view
 "play music"       → music player namespace at position 0
-"what time is it"  → clock namespace at position 0; music player at 1
+"what time is it"  → clock skill namespace at position 0; music player at 1
 clock times out    → music player namespace at position 0
-music ends         → stack empty → homescreen shown
-
+music ends         → stack empty → idle view shown
 ```
 
-> **Note:** GUI does not yet track namespaces per [Session](session.md). In a future release, remote
-> [HiveMind](hivemind-agents.md) satellites will each have their own independent GUI state.
-
----
-
-## Data Flow for a `show_weather()` Call
-
-```
-skill.gui.show_weather(22, 18, 26, "Sunny")
-│
-├─ gui["current_temp"] = 22   ─┐
-├─ gui["min_temp"]     = 18    │  GUIInterface.__setitem__
-├─ gui["max_temp"]     = 26    │  (queued, no bus emit yet)
-├─ gui["condition"]    = "Sunny" ┘
-│
-├─ GUIInterface._show_pages(["SYSTEM_weather"])
-│    ├─ bus.emit("gui.value.set", {current_temp, min_temp, ...})
-│    └─ bus.emit("gui.page.show", {page_names: ["SYSTEM_weather"], ...})
-│
-└─ NamespaceManager.handle_show_page()
-     ├─ page_names[0].startswith("SYSTEM_")  →  True
-     ├─ read namespace.data  (updated by handle_set_value just before)
-     └─ for adapter in self.adapters:
-          adapter.dispatch_template("SYSTEM_weather", skill_id, data)
-            └─ adapter.handle_show_weather(skill_id, data)
-
-```
-
----
-
-## GUI Adapter Plugins
-
-Adapters register under the `opm.gui_adapter` entry point group:
-
-```toml
-
-# pyproject.toml
-[project.entry-points."opm.gui_adapter"]
-my-adapter = "my_package:MyGUIPlugin"
-
-```
-
-**Base class:** `ovos_plugin_manager.templates.gui.AbstractGUIPlugin`
-
-```python
-from ovos_plugin_manager.templates.gui import AbstractGUIPlugin
-
-class MyGUIPlugin(AbstractGUIPlugin):
-    def __init__(self, config: dict, bus=None):
-        super().__init__(config, bus)
-        # start any servers, load resources, etc.
-
-```
-
-### Template handlers
-
-Override any of the 21 methods to render the corresponding template.
-All default to **no-ops**:
-
-```python
-def handle_show_idle(self, skill_id: str, data: dict) -> None: ...
-def handle_show_loading(self, skill_id: str, data: dict) -> None: ...
-def handle_show_status(self, skill_id: str, data: dict) -> None: ...
-def handle_show_error(self, skill_id: str, data: dict) -> None: ...
-def handle_show_text(self, skill_id: str, data: dict) -> None: ...
-def handle_show_image(self, skill_id: str, data: dict) -> None: ...
-def handle_show_animated_image(self, skill_id: str, data: dict) -> None: ...
-def handle_show_list(self, skill_id: str, data: dict) -> None: ...
-def handle_show_grid(self, skill_id: str, data: dict) -> None: ...
-def handle_show_table(self, skill_id: str, data: dict) -> None: ...
-def handle_show_html(self, skill_id: str, data: dict) -> None: ...
-def handle_show_url(self, skill_id: str, data: dict) -> None: ...
-def handle_show_audio_player(self, skill_id: str, data: dict) -> None: ...
-def handle_show_video_player(self, skill_id: str, data: dict) -> None: ...
-def handle_show_clock(self, skill_id: str, data: dict) -> None: ...
-def handle_show_timer(self, skill_id: str, data: dict) -> None: ...
-def handle_show_weather(self, skill_id: str, data: dict) -> None: ...
-def handle_show_map(self, skill_id: str, data: dict) -> None: ...
-def handle_show_confirm(self, skill_id: str, data: dict) -> None: ...
-def handle_show_select(self, skill_id: str, data: dict) -> None: ...
-def handle_show_face(self, skill_id: str, data: dict) -> None: ...
-
-```
-
-### Lifecycle hooks
-
-```python
-def on_namespace_activated(self, skill_id: str) -> None: ...
-
-```
-Called when a skill's namespace moves to the top of the active stack.
-
-```python
-def on_namespace_deactivated(self, skill_id: str) -> None: ...
-
-```
-Called when a skill clears its namespace or when it is removed by the idle timer.
-
-```python
-def on_idle(self) -> None: ...
-
-```
-Called when the GUI returns to the idle/resting state with no active skill.
-
-### Session data hook
-
-```python
-def on_session_update(self, skill_id: str, data: dict) -> None: ...
-
-```
-Called on every `gui.value.set` message — i.e. whenever a skill sets a GUI variable.
-Reserved keys (`__from`, `__idle`, `__animations`) are stripped before delivery.
-Adapters that maintain live data bindings (e.g. SSE push) can use this for incremental updates.
-
-### Status event hook
-
-```python
-def on_status_event(self, event_name: str, data: dict) -> None: ...
-
-```
-
-`NamespaceManager` forwards these core bus events to all adapters:
-
-| `event_name` | Meaning |
-|---|---|
-| `recognizer_loop:wakeword` | Wake word detected |
-| `recognizer_loop:record_begin` | Microphone opened |
-| `recognizer_loop:record_end` | Microphone closed |
-| `recognizer_loop:utterance` | [Utterance](life-of-an-utterance.md) recognised |
-| `recognizer_loop:recognition_unknown` | [STT](stt-plugins.md) gave no result |
-| `speak` | [TTS](tts-plugins.md) about to speak |
-| `recognizer_loop:audio_output_start` | Audio playback started |
-| `recognizer_loop:audio_output_end` | Audio playback ended |
-| `recognizer_loop:sleep` | Device going to sleep |
-| `recognizer_loop:wake_up` | Device waking up |
-| `mycroft.awoken` | Wake-up acknowledged |
-| `ovos.utterance.handled` | Intent matched and handled |
-| `ovos.utterance.cancelled` | Utterance cancelled |
-
-### Factory
-
-```python
-from ovos_plugin_manager.templates.gui import OVOSGUIAdapterFactory
-
-# Load all installed adapters (used by ovos-gui at startup)
-adapters = OVOSGUIAdapterFactory.create_all(config={...}, bus=my_bus)
-
-# Load a single adapter by name
-adapter = OVOSGUIAdapterFactory.create("my-adapter", config={}, bus=my_bus)
-
-# Discover installed adapters (without instantiating)
-from ovos_plugin_manager.templates.gui import find_gui_adapter_plugins
-plugins = find_gui_adapter_plugins()   # {name: class, ...}
-
-```
-
----
-
-## Templates
-
-Skills display content through 21 pre-defined **templates** (from `ovos-gui-api-client`).
-All skill display goes through standardized templates. Custom QML/HTML is not supported.
-
-```python
-from ovos_gui_api_client import PageTemplates, GUIInterface, FillMode, ListItem, GridItem, SelectItem
-
-```
-
-### All 21 Templates
-
-| Template identifier | `GUIInterface` method | Key session data keys |
-|---|---|---|
-| `SYSTEM_idle` | Reserved — not called by skills | — |
-| `SYSTEM_loading` | `gui.show_loading(text="")` | `label` |
-| `SYSTEM_status` | `gui.show_status(text, success)` | `label`, `success` |
-| `SYSTEM_error` | `gui.show_error(text, detail=None)` | `label`, `detail` |
-| `SYSTEM_text` | `gui.show_text(text, title=None)` | `text`, `title` |
-| `SYSTEM_image` | `gui.show_image(url, caption, title, fill, background_color)` | `image`, `title`, `caption`, `fill`, `background_color` |
-| `SYSTEM_animated_image` | `gui.show_animated_image(...)` or `show_image(..., animated=True)` | same as IMAGE |
-| `SYSTEM_list` | `gui.show_list(items, title=None)` | `title`, `items` |
-| `SYSTEM_grid` | `gui.show_grid(items, title=None)` | `title`, `items` |
-| `SYSTEM_table` | `gui.show_table(columns, rows, title=None)` | `title`, `columns`, `rows` |
-| `SYSTEM_html` | `gui.show_html(html, resource_url=None)` | `html`, `resource_url` |
-| `SYSTEM_url` | `gui.show_url(url)` | `url` |
-| `SYSTEM_audio_player` | `gui.show_audio_player(title, artist, album, image, position, duration, playing)` | `title`, `artist`, `album`, `image`, `position`, `duration`, `playing` |
-| `SYSTEM_video_player` | `gui.show_video_player(uri, title, playing)` | `uri`, `title`, `playing` |
-| `SYSTEM_clock` | `gui.show_clock()` | — |
-| `SYSTEM_timer` | `gui.show_timer(end_time, label, count_up)` | `end_time`, `label`, `count_up` |
-| `SYSTEM_weather` | `gui.show_weather(current_temp, min_temp, max_temp, condition, icon, location)` | `current_temp`, `min_temp`, `max_temp`, `condition`, `icon`, `location` |
-| `SYSTEM_map` | `gui.show_map(latitude, longitude, zoom, label)` | `latitude`, `longitude`, `zoom`, `label` |
-| `SYSTEM_confirm` | `gui.show_confirm(question)` | `question` |
-| `SYSTEM_select` | `gui.show_select(items, prompt)` | `prompt`, `items` |
-| `SYSTEM_face` | `gui.show_face(awake=True)` | `sleeping` |
-
-### `FillMode` (used by `show_image()`)
-
-```python
-class FillMode(str, enum.Enum):
-    FIT     = "fit"      # preserve aspect ratio, letterbox
-    CROP    = "crop"     # fill area, crop overflow
-    STRETCH = "stretch"  # fill area exactly, ignore aspect ratio
-
-```
-
-### `ListItem` / `GridItem` / `SelectItem`
-
-```python
-@dataclass
-class ListItem:
-    title: str
-    subtitle: Optional[str] = None
-    image: Optional[str] = None   # URL or path
-
-@dataclass
-class GridItem:
-    image: str            # URL or path (required)
-    title: Optional[str] = None
-
-@dataclass
-class SelectItem:
-    label: str   # text shown to the user
-    value: Any   # machine value returned on selection
-
-```
-
-### Confirm and Select interaction
-
-`SYSTEM_confirm` and `SYSTEM_select` are **visual accompaniments** to voice prompts.
-Touch shortcuts (if the adapter supports them) fire:
-
-```
-<skill_id>.confirm.response  →  {"confirmed": bool}
-<skill_id>.select.response   →  {"value": <selected value>}
-
-```
-
-Skills must register handlers for these events **and** handle the spoken reply.
-
----
-
-## Qt Adapter (`ovos-legacy-mycroft-gui-plugin`)
-
-**Entry point:** `opm.gui_adapter = ovos_legacy_mycroft_gui:LegacyMycoftGuiPlugin`
-
-This adapter implements the template rendering interface for Qt5/Qt6 GUI clients.
-It translates OVOS **templates** to Qt WebSocket messages and provides 21 system QML pages
-bundled in `mycroft-gui-qt5` and installed to `$prefix/share/mycroft-gui/system-templates/`.
-
-**Startup actions:**
-
-1. Starts the **Tornado WebSocket server** (default port `18181`) via `create_gui_service(self)`.
-
-
-2. Registers `mycroft.gui.connected` on the OVOS core bus so Qt clients receive the WebSocket port.
-
-
-3. Starts **`HomescreenManager`** — replaces `ovos-skill-homescreen` (deprecated). Subscribes
-   to datetime, weather, wallpaper, notification, app, widget, and connectivity events and
-   re-emits them as `homescreen.data.*` / `homescreen.widget.*` bus messages.
-
-### Template Implementation (QML Pages)
-
-Each template is rendered by a bundled QML page in the Qt adapter.
-
-| Template ID | QML Page |
-|---|---|
-| `SYSTEM_idle` | `Idle.qml` |
-| `SYSTEM_loading` | `Loading.qml` |
-| `SYSTEM_status` | `Status.qml` |
-| `SYSTEM_error` | `Error.qml` |
-| `SYSTEM_text` | `Text.qml` |
-| `SYSTEM_image` | `Image.qml` |
-| `SYSTEM_animated_image` | `AnimatedImage.qml` |
-| `SYSTEM_list` | `List.qml` |
-| `SYSTEM_grid` | `Grid.qml` |
-| `SYSTEM_table` | `Table.qml` |
-| `SYSTEM_html` | `Html.qml` |
-| `SYSTEM_url` | `Url.qml` |
-| `SYSTEM_audio_player` | `AudioPlayer.qml` |
-| `SYSTEM_video_player` | `VideoPlayer.qml` |
-| `SYSTEM_clock` | `Clock.qml` |
-| `SYSTEM_timer` | `Timer.qml` |
-| `SYSTEM_weather` | `Weather.qml` |
-| `SYSTEM_map` | `Map.qml` |
-| `SYSTEM_confirm` | `Confirm.qml` |
-| `SYSTEM_select` | `Select.qml` |
-| `SYSTEM_face` | `Face.qml` |
-
-QML pages are sent as `SYSTEM:<Name>.qml` URIs; the Qt client resolves them via the
-`OVOS_SYSTEM_TEMPLATES` env var or the compiled-in default
-(`/usr/share/mycroft-gui/system-templates/`).
-
-### HomescreenManager events
-
-| Event emitted | Payload keys |
-|---|---|
-| `homescreen.data.time` | `time_string`, `date_string`, `weekday_string`, `day_string`, `month_string`, `year_string` |
-| `homescreen.data.weather` | `weather_api_enabled`, `weather_code`, `weather_temp` |
-| `homescreen.data.wallpaper` | `wallpaper_path`, `selected_wallpaper` |
-| `homescreen.data.notifications` | `notification_counter`, `notification_model` |
-| `homescreen.data.apps` | `applications_model` |
-| `homescreen.data.examples` | `skill_examples`, `skill_info_enabled`, `skill_info_prefix` |
-| `homescreen.data.connectivity` | `system_connectivity` |
-| `homescreen.widget.timer` | `count`, widget fields |
-| `homescreen.widget.alarm` | `count`, widget fields |
-| `homescreen.widget.media` | `enabled`, `widget`, `state` |
+> **Note:** GUI does not yet track namespaces per [Session](session.md). Today all clients
+> share one global display stack.
 
 ---
 
 ## Configuration
 
+The GUI WebSocket server is configured under `gui_websocket` in `mycroft.conf`:
+
 ```json
 {
-  "gui": {
-    "adapters": {
-      "ovos-legacy-mycroft-gui": {
-        "base_port": 18181,
-        "default_qt_version": 5
-      },
-      "my-custom-adapter": {
-        "port": 9090
-      }
-    }
+  "gui_websocket": {
+    "host": "0.0.0.0",
+    "base_port": 18181,
+    "route": "/gui"
   }
 }
-
 ```
 
 | Key | Description |
 |---|---|
-| `gui.adapters.<name>` | Per-adapter configuration dict passed as `config` to `AbstractGUIPlugin.__init__` |
-| `base_port` | TCP port the legacy adapter's Tornado WebSocket server listens on (default: `18181`) |
-| `default_qt_version` | Qt version assumed when a client does not declare its framework (default: `5`) |
+| `host` | Interface the Tornado WebSocket server binds to |
+| `base_port` | TCP port Qt clients connect to (default: `18181`) |
+| `route` | WebSocket route path (default: `/gui`) |
 
 ---
 
-## Minimal Adapter Example
+!!! warning "Upcoming — unreleased GUI rework"
+    The following describes a **plugin-based rendering rework** that is **not yet
+    released** and not present on any published package. It spans these branches:
 
-```python
+    - `ovos-gui` @ `feat/gui-rework-landing`
+    - `ovos-plugin-manager` @ `gui`
+    - `ovos-gui-api-client` @ `dev` (PyPI `0.0.2a1`, pre-release)
+    - `ovos-legacy-mycroft-gui-plugin` @ `feat/session-id-contract`
 
-# my_adapter/__init__.py
-from ovos_plugin_manager.templates.gui import AbstractGUIPlugin
+    Do not rely on any of this on a stable install. The contract (notably the
+    `session_id` argument on adapter callbacks) is still in flux across these branches.
 
-class MyGUIPlugin(AbstractGUIPlugin):
+    **What changes.** `ovos-gui` stops being a Qt WebSocket server and becomes a pure
+    router. Rendering moves into independently installable **GUI adapter plugins**
+    (`opm.gui_adapter` entry-point group). All loaded adapters receive every display event
+    concurrently, enabling multi-modal output (Qt + browser + terminal at once). The Qt
+    WebSocket server moves into the `ovos-legacy-mycroft-gui-plugin` adapter.
 
-    def handle_show_text(self, skill_id: str, data: dict) -> None:
-        title = data.get("title", "")
-        text = data.get("text", "")
-        print(f"[{skill_id}] {title}\n{text}")
+    **Templates instead of QML page names.** Skills display one of a fixed set of
+    semantic **templates** (`SYSTEM_weather`, `SYSTEM_text`, `SYSTEM_list`, …) defined by
+    the `PageTemplates` enum in `ovos-gui-api-client`. Custom QML page names are no longer
+    accepted by the router — `handle_show_page()` raises if `page_names[0]` does not start
+    with `SYSTEM_`. The template-based `GUIInterface` lives in `ovos-gui-api-client`
+    (separate from the released `ovos_bus_client.apis.gui.GUIInterface`).
 
-    def handle_show_weather(self, skill_id: str, data: dict) -> None:
-        print(
-            f"[{skill_id}] {data['current_temp']}° "
-            f"{data['condition']} @ {data.get('location', '')}"
-        )
-
-    def on_namespace_deactivated(self, skill_id: str) -> None:
-        print(f"[{skill_id}] screen cleared")
-
-```
-
-```toml
-
-# pyproject.toml
-[project.entry-points."opm.gui_adapter"]
-my-adapter = "my_adapter:MyGUIPlugin"
-
-```
-
-Install, restart `ovos-gui`, and the adapter is discovered and loaded automatically
-alongside any other installed adapters.
+    See [GUI Adapter Plugins](gui-adapters.md) for the adapter API and the full template
+    list, and the Upcoming section of [GUI Protocol](gui-protocol.md) for the routing
+    messages.
 
 ---
 
-See [GUI Protocol](gui-protocol.md) for the full Qt WebSocket wire protocol used by
-`LegacyMycoftGuiPlugin`. See [OVOS Shell](ovos-shell.md) for the production Qt5/[Kirigami](qt5-gui.md)
-shell application.
+See [GUI Protocol](gui-protocol.md) for the full Qt WebSocket wire protocol. See
+[OVOS Shell](ovos-shell.md) for the production Qt5/[Kirigami](qt5-gui.md) shell
+application, and [Home Screen](homescreen.md) for idle-screen skills.
