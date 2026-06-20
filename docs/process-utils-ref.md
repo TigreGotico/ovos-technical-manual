@@ -2,6 +2,8 @@
 
 **Module:** `ovos_utils.process_utils`
 
+`ovos_utils.process_utils` provides the building blocks OVOS services use to manage their own lifecycle: declaring what they need to run (`RuntimeRequirements`), tracking and broadcasting their state over the message bus (`ProcessStatus` / `ProcessState`), single-instance locking (`PIDLock`), and clock-safe waiting (`MonotonicEvent`). Skill and plugin authors mostly interact with `RuntimeRequirements`; the rest is used by service entry points.
+
 ---
 
 ## `RuntimeRequirements`

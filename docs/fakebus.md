@@ -66,9 +66,25 @@ bus.emit(FakeMessage("recognizer_loop:utterance", {"utterances": ["hello"]}))
 
 ---
 
+## `AsyncFakeBus`
+
+In-process stand-in for `AsyncMessageBusClient`, for asyncio-native code. It mirrors the same surface as `FakeBus`, but `connect()` / `close()` / `emit()` / `wait_for_message()` / `wait_for_response()` are **coroutines** (must be `await`ed), while `on()` / `once()` / `remove()` stay synchronous. The same session-injection side effects apply, so multi-turn flows behave identically.
+
+```python
+from ovos_utils.fakebus import AsyncFakeBus, FakeMessage
+
+bus = AsyncFakeBus()
+await bus.connect()
+await bus.emit(FakeMessage("recognizer_loop:utterance", {"utterances": ["hello"]}))
+reply = await bus.wait_for_response(FakeMessage("my.query"))
+
+```
+
+---
+
 ## `FakeMessage`
 
-Drop-in replacement for `ovos_bus_client.Message`. Transparently proxies to the real `Message` class if `ovos-bus-client` is installed:
+`FakeMessage` is a re-export of the canonical OVOS message envelope, `ovos_spec_tools.message.Message` (the reference implementation of the **OVOS-MSG-1** spec). It is **the same class** that `ovos_bus_client.Message` subclasses, so messages are interoperable across all three import paths — there is no proxying or runtime class-swapping involved.
 
 ```python
 from ovos_utils.fakebus import FakeMessage
@@ -76,6 +92,8 @@ from ovos_utils.fakebus import FakeMessage
 msg = FakeMessage("skill:action", {"key": "value"}, {"session_id": "abc"})
 
 ```
+
+`ovos-spec-tools` is a hard dependency of `ovos-utils`, so `FakeMessage` is always the real envelope class — installing `ovos-bus-client` is not required.
 
 | Attribute | Description |
 |---|---|
@@ -85,24 +103,29 @@ msg = FakeMessage("skill:action", {"key": "value"}, {"session_id": "abc"})
 
 ### Key Methods
 
+OVOS-MSG-1 defines `forward` / `reply` / `response` as the three normative message derivations (§5).
+
 | Method | Description |
 |---|---|
 | `serialize() → str` | JSON-encode the message |
-| `FakeMessage.deserialize(value) → FakeMessage` | Construct from JSON string |
-| `forward(msg_type, data)` | Create a message with the same context |
-| `reply(msg_type, data, context)` | Create a reply (swaps source ↔ destination) |
-| `response(data, context)` | Shorthand for `reply(msg_type + ".response", ...)` |
-| `publish(msg_type, data, context)` | Forward without a target |
+| `FakeMessage.deserialize(value) → FakeMessage` | Construct from a JSON string |
+| `as_dict() → dict` | Return the message as a plain dict |
+| `forward(msg_type, data=None, context=None)` | Relay under a new topic, preserving context (no routing-key swap) |
+| `reply(msg_type, data=None, context=None)` | §5.2 — reply addressed back to the source (swaps `source` ↔ `destination`) |
+| `response(data=None, context=None)` | §5.3 — sugar for `reply(msg_type + ".response", ...)` |
+| `publish(msg_type, data, context=None)` | **Deprecated** (see below) — relay under a new topic and drop `target` |
+
+> **`publish` is deprecated.** It is not part of OVOS-MSG-1 and is slated for removal in the next major (`1.0.0`). It is attached to the `Message` class at import time for backwards compatibility (`ovos-utils` and `ovos-bus-client` both attach it idempotently). Use `forward()` when you want to relay without the routing-key swap, or `reply()` when you want the swap.
 
 ### `isinstance` Compatibility
 
-`FakeMessage` uses a metaclass (`_MutableMessage`) that makes `isinstance(msg, FakeMessage)` return `True` for real `ovos_bus_client.Message` objects as well, so code that checks `isinstance(msg, FakeMessage)` works in both environments.
+`isinstance(msg, FakeMessage)` works across packages because `FakeMessage`, `ovos_spec_tools.Message`, and `ovos_bus_client.Message` form a single class hierarchy — `FakeMessage` *is* `ovos_spec_tools.Message`, and `ovos_bus_client.Message` is a subclass of it. (The historical `_MutableMessage` metaclass and dynamic `__new__` indirection have been removed; they are no longer needed now that spec-tools is a hard dependency.)
 
 ---
 
 ## `Message` (Deprecated)
 
-`ovos_utils.fakebus.Message` is a deprecated alias for `FakeMessage`. Import from `ovos_bus_client` directly.
+`ovos_utils.fakebus.Message` is a deprecated alias for the OVOS-MSG-1 envelope; importing and instantiating it emits a `DeprecationWarning`. New code should import `ovos_spec_tools.Message` (or `ovos_bus_client.Message`) directly.
 
 ---
 

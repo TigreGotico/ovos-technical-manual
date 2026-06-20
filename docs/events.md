@@ -2,6 +2,8 @@
 
 **Module:** `ovos_utils.events`
 
+`ovos_utils.events` provides the bookkeeping that skills use around message bus handlers: `EventContainer` tracks every handler a skill registers so they can all be cleanly removed on shutdown, and the handler wrappers add the standard start/stop/error reporting and skill-ID unmunging that intent handlers rely on. `EventSchedulerInterface` (now moved to `ovos-bus-client`) schedules timed and repeating events over the bus.
+
 ---
 
 ## `EventContainer`

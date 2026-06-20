@@ -68,7 +68,7 @@ pip install ovos-utils
 - [FakeBus](fakebus.md) — `FakeBus`, `FakeMessage` — in-process message bus for testing
 
 
-- [Events](bus-service.md) — `EventContainer`, `EventSchedulerInterface`, handler wrappers
+- [Events](events.md) — `EventContainer`, `EventSchedulerInterface`, handler wrappers
 
 
-- [Utilities](utils-overview.md) — file, network, sound, threading, XDG helpers
+- [Utilities](utilities.md) — file, network, sound, threading, XDG helpers

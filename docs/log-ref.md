@@ -2,6 +2,8 @@
 
 **Module:** `ovos_utils.log`
 
+`ovos_utils.log` gives you `LOG` — a ready-to-use, OVOS-wide logger you import and call with no setup. It writes self-identifying log lines (module, function, and line of the caller) and can optionally rotate log files. Most code just needs `from ovos_utils.log import LOG`, then `LOG.info(...)`.
+
 ---
 
 ## `LOG`
@@ -35,7 +37,9 @@ LOG("my-service").info("Ready")
 
 ```
 
-Or set the class-level name:
+> **Gotcha:** `LOG.__init__` is a `@classmethod`, so `LOG("my-service")` is **not** a per-call prefix — it mutates the shared class-level `LOG.name` for the whole process. The two forms below are equivalent. For per-service naming at startup, prefer `init_service_logger()`.
+
+Or set the class-level name directly:
 
 ```python
 LOG.name = "audio"
