@@ -1,6 +1,6 @@
 # OVOS Persona Server
 
-The OVOS Persona Server exposes any OVOS [persona](personas.md) over HTTP using the APIs of the major LLM vendors, so an OVOS persona becomes a drop-in replacement for an LLM backend in third-party tools. A single server simultaneously serves OpenAI-, Ollama-, Anthropic-, Gemini-, Cohere-, AWS Bedrock- and HuggingFace TGI-compatible endpoints, plus optional embeddings/RAG, MCP, UTCP and A2A surfaces.
+The OVOS Persona Server exposes any OVOS [persona](personas.md) over HTTP using the APIs of the major LLM vendors, so an OVOS persona becomes a drop-in replacement for an LLM backend in third-party tools. A single server simultaneously serves OpenAI-, Ollama-, Anthropic-, Gemini-, Cohere-, AWS Bedrock- and HuggingFace TGI-compatible endpoints, plus embeddings, MCP, UTCP and A2A surfaces.
 
 It is a FastAPI app served by `uvicorn`. A persona is loaded from a JSON file at startup; the persona's `solvers` do the actual work (anything from a local rule-based bot to a remote LLM).
 
@@ -67,14 +67,14 @@ Endpoints are mounted under vendor-specific prefixes. Legacy unprefixed paths (`
 | `/openai/v1/completions` | POST | OpenAI legacy completions |
 | `/ollama/api/chat` | POST | Ollama chat |
 | `/ollama/api/generate` | POST | Ollama generate |
-| `/ollama/api/tags`, `/show`, `/ps`, `/embed`, `/embeddings` | GET/POST | Ollama model listing + embeddings |
+| `/ollama/api/tags`, `/show`, `/ps`, `/pull`, `/push`, `/embeddings` | GET/POST | Ollama model listing + embeddings |
 | `/anthropic/v1/...` | POST | Anthropic Messages |
 | `/gemini/v1beta/models/...` | POST | Google Gemini |
 | `/cohere/v1/...` | POST | Cohere |
 | `/bedrock/model/...` | POST | AWS Bedrock |
 | `/tgi/...` | POST | HuggingFace Text Generation Inference |
-| `/openai/v1/files/...`, `/openai/v1/vector_stores/...` | * | OpenAI files + vector stores (RAG; requires the `rag` extra) |
-| `/utcp` | GET | UTCP tool-discovery manual |
+| `/tools/manual` | GET | UTCP tool-discovery manual |
+| `/tools/{name}` | POST | UTCP tool invocation |
 | `/a2a` | * | Agent-to-Agent (only when `--a2a-base-url` is set; requires the `a2a` extra) |
 | `/mcp` | * | MCP streamable-HTTP transport (mounted when the `mcp` extra is installed) |
 

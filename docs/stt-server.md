@@ -85,7 +85,7 @@ options:
   `--multi` loads one engine instance per language on demand (one model per `lang`), instead of a single shared model.
 
 - **Compatibility routers**  
-  Beyond the native endpoints, the app mounts drop-in compatible routers so existing cloud-STT clients work unchanged, e.g. Wit.ai (`POST /wit/speech`, override the SDK host with the `WIT_URL` env var), Chromium speech-api (`POST /speech-api/v2/recognize`), and routers for OpenAI Whisper, Deepgram, Google, AssemblyAI, Azure, IBM Watson, AWS, Vosk, Kaldi, Gladia, ElevenLabs, Groq and Speechmatics. A `GET /utcp` manual advertises the endpoints to UTCP agents, and an MCP server mounts when `pip install 'ovos-stt-http-server[mcp]'` is present.
+  Beyond the native endpoints, the app mounts drop-in compatible routers so existing cloud-STT clients work unchanged, e.g. Wit.ai (`POST /wit/speech`, override the SDK host with the `WIT_URL` env var), Chromium speech-api (`POST /speech-api/v2/recognize`), and routers for OpenAI Whisper, Whisper.cpp server, Deepgram, Google, AssemblyAI, Azure, IBM Watson, AWS Transcribe, Vosk and Speechmatics. A `GET /utcp` manual advertises the endpoints to UTCP agents, and an MCP server mounts when `pip install 'ovos-stt-http-server[mcp]'` is present.
 
 - **Scalability**  
   Stateless design lets you run multiple instances behind a load balancer or in Kubernetes.

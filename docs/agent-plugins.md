@@ -70,7 +70,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 
 ## ovos-judge
 
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-judge](https://github.com/OpenVoiceOS/ovos-judge)
+- **GitHub**: [https://github.com/TigreGotico/ovos-judge](https://github.com/TigreGotico/ovos-judge)
 
 
 - **Description**: > **⚠️ 100% VIBE CODED WARNING**
@@ -88,7 +88,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 
 ## ovos-flashrank-reranker-plugin
 
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin](https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin)
+- **GitHub**: [https://github.com/TigreGotico/ovos-flashrank-reranker-plugin](https://github.com/TigreGotico/ovos-flashrank-reranker-plugin)
 
 
 - **Description**: The `FlashRankMultipleChoiceSolver` plugin is designed for the Open Voice OS (OVOS) platform to help select the best

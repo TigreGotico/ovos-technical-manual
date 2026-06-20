@@ -45,9 +45,11 @@ best = engine.select_answer("play bohemian rhapsody", candidates)
 
 ```
 
-Available implementations: `ClaudeReRankerEngine` ([Claude plugin](claude-plugin.md)),
-`GGUFReRankerEngine` ([GGUF plugin](gguf-plugin.md)), `ovos-flashrank-reranker-plugin`
-(local transformer-based, no API key required).
+Available implementations: `ClaudeReRankerEngine` ([Claude plugin](claude-plugin.md),
+entry point `ovos-reranker-claude-plugin`). The local `ovos-flashrank-reranker-plugin`
+(transformer-based, no API key required) is not a new-style `ReRankerEngine`: it ships
+`FlashRankMultipleChoiceSolver` under the deprecated `opm.solver.multiple_choice` group,
+so it is consumed as a `MultipleChoiceSolver` rather than via `opm.agents.reranker`.
 
 ---
 

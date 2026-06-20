@@ -126,13 +126,13 @@ fully local, privacy-preserving conversational agents:
 {
   "name": "OldSchoolBot",
   "solvers": [
-    "ovos-solver-wikipedia-plugin",
-    "ovos-solver-ddg-plugin",
-    "ovos-solver-plugin-wolfram-alpha",
-    "ovos-solver-wordnet-plugin",
+    "ovos-wikipedia-plugin",
+    "ovos-ddg-plugin",
+    "ovos-wolfram-alpha-plugin",
+    "ovos-wordnet-plugin",
     "ovos-solver-failure-plugin"
   ],
-  "ovos-solver-plugin-wolfram-alpha": {"appid": "Y7353-XXX"}
+  "ovos-wolfram-alpha-plugin": {"appid": "Y7353-XXX"}
 }
 
 ```

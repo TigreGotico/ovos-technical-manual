@@ -60,7 +60,7 @@ app, engine = start_translate_server(
 uvicorn.run(app, host="0.0.0.0", port=9686)
 ```
 
-`start_translate_server()` loads the plugins and returns `(app, engine)` where `app` is a FastAPI application; you run it with `uvicorn` (the `ovos-translate-server` CLI does exactly this). Plugin configs are read from `Configuration().get("language", {})` using the plugin name as key.
+`start_translate_server()` loads the plugins and returns `(app, engine)` where `app` is a FastAPI application; you run it with `uvicorn` (the `ovos-translate-server` CLI does exactly this). The translate and detect plugins are instantiated with an empty config (`config={}`); the server does not read plugin configuration from `mycroft.conf`.
 
 ---
 

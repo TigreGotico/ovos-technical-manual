@@ -58,16 +58,19 @@ Default priority is `10` — runs early in the transformer chain before other pl
 
 ### OVOS Transcription Validator
 
-`ovos-transcription-validator-plugin` uses a local Ollama model to classify ASR output as valid
-or invalid *before* it reaches intent matching. Invalid transcriptions are discarded, preventing
-skills from firing on garbled speech like `"Potato stop green light now yes."`.
+`ovos-transcription-validator-plugin` calls an OpenAI-compatible chat endpoint (any local or
+remote server exposing `/chat/completions`, e.g. Ollama, llama.cpp, vLLM) to classify ASR output
+as valid or invalid *before* it reaches intent matching. Invalid transcriptions are discarded,
+preventing skills from firing on garbled speech like `"Potato stop green light now yes."`. The
+default `api_url` is the public `https://llama.smartgic.io/v1` demo endpoint.
 
 ```json
 {
   "utterance_transformers": {
     "ovos-transcription-validator-plugin": {
-      "model": "gemma3:1b",
-      "ollama_url": "http://192.168.1.200:11434",
+      "model": "qwen2.5:7b",
+      "api_url": "https://llama.smartgic.io/v1",
+      "api_key": "sk-xxxx",
       "mode": "reprompt"
     }
   }

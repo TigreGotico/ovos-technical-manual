@@ -3,7 +3,7 @@
 
 `ovos-document-chunkers` is a library of document chunking utilities for NLP preprocessing and Retrieval-Augmented Generation (RAG) pipelines. It splits raw documents — plain text, Markdown, HTML, PDF, DOC, and DOCX — into sentences or paragraphs using multiple backend strategies ranging from simple regex tokenisation to state-of-the-art neural models.
 
-The library was sponsored by [Royal Dutch Visio](https://visio.org/) for use in assistive technology and voice-accessible NLP pipelines.
+The library was sponsored by VisioLab, part of [Royal Dutch Visio](https://visio.org/), for use in assistive technology and voice-accessible NLP pipelines.
 
 ## Design
 

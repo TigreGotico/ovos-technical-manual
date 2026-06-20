@@ -159,14 +159,12 @@ MySTTConfig = {
 | [ovos-stt-plugin-wav2vec](#ovos-stt-plugin-wav2vec) | OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) |
 | [ovos-stt-plugin-azure](#ovos-stt-plugin-azure) | No description available |
 | [ovos-stt-plugin-chromium](#ovos-stt-plugin-chromium) | No description available |
-| [ovos-stt-plugin-onnxasr](#ovos-stt-plugin-onnxasr) | An OpenVoiceOS Speech-to-Text plugin backed by the lightweight [onnx-asr](https://github.com/istupakov/onnx-asr) library. This plugin runs offline and supports high-performance models like Nvidia Canary, Parakeet, and OpenAI Whisper via ONNX Runtime. |
 | [ovos-stt-plugin-mms](#ovos-stt-plugin-mms) | OVOS plugin for [The Massively Multilingual Speech (MMS) project](https://huggingface.co/docs/transformers/main/en/model_doc/mms) |
 | [ovos-stt-server-plugin](#ovos-stt-server-plugin) | OpenVoiceOS companion plugin for [OpenVoiceOS STT Server](https://github.com/OpenVoiceOS/ovos-stt-http-server) |
 | [ovos-stt-http-server](#ovos-stt-http-server) | Turn any OVOS STT plugin into a micro service! |
 | [ovos-stt-plugin-wav2vec2](#ovos-stt-plugin-wav2vec2) | OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) |
 | [ovos-stt-plugin-whisper](#ovos-stt-plugin-whisper) | OpenVoiceOS STT plugin for [Whisper](https://github.com/guillaumekln/faster-whisper), using transformers library |
 | [ovos-stt-plugin-MyNorthAI](#ovos-stt-plugin-mynorthai) | No description available |
-| [ovos-stt-plugin-ROVER](#ovos-stt-plugin-rover) | This plugin provides a **meta-STT engine** for OVOS that aggregates the output of multiple individual STT backends using the **ROVER** (Recognizer Output Voting Error Reduction) algorithm. |
 | [ovos-stt-plugin-whispercpp](#ovos-stt-plugin-whispercpp) | OpenVoiceOS STT plugin for [whispercpp](https://github.com/ggerganov/whisper.cpp) |
 | [ovos-stt-plugin-fasterwhisper](#ovos-stt-plugin-fasterwhisper) | OpenVoiceOS STT plugin for [Faster Whisper](https://github.com/guillaumekln/faster-whisper) |
 | [ovos-stt-plugin-coreml](#ovos-stt-plugin-coreml) | An OVOS Speech-to-Text plugin that runs speech recognition models natively on Apple devices using CoreML. |
@@ -216,30 +214,6 @@ MySTTConfig = {
 
 
 - **Description**: No description available
-
----
-
-## ovos-stt-plugin-onnxasr
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-onnxasr](https://github.com/OpenVoiceOS/ovos-stt-plugin-onnxasr)
-
-
-- **Description**: An OpenVoiceOS Speech-to-Text plugin backed by the lightweight [onnx-asr](https://github.com/istupakov/onnx-asr) library. This plugin runs offline and supports high-performance models like Nvidia Canary, Parakeet, and OpenAI Whisper via ONNX Runtime.
-
-### Default Configuration
-
-```json
-{
-  "stt": {
-    "module": "ovos-stt-plugin-onnx-asr",
-    "ovos-stt-plugin-onnx-asr": {
-      "model": "nemo-canary-1b-v2",
-      "quantization": "int8"
-    }
-  }
-}
-
-```
 
 ---
 
@@ -344,50 +318,6 @@ MySTTConfig = {
 
 
 - **Description**: No description available
-
----
-
-## ovos-stt-plugin-ROVER
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-ROVER](https://github.com/OpenVoiceOS/ovos-stt-plugin-ROVER)
-
-
-- **Description**: This plugin provides a **meta-STT engine** for OVOS that aggregates the output of multiple individual STT backends using the **ROVER** (Recognizer Output Voting Error Reduction) algorithm.
-
-### Default Configuration
-
-```json
-{
-  "stt": {
-    "module": "ovos-stt-plugin-rover",
-    "ovos-stt-plugin-rover": {
-        "timeout": 12,
-        "workers": 4,
-        "backends": [
-          {
-            "module": "ovos-stt-plugin-whisper",
-            "config": {
-              "model": "small.en"
-            }
-          },
-          {
-            "module": "ovos-stt-plugin-vosk",
-            "config": {
-              "model": "vosk-model-en-us"
-            }
-          },
-          {
-            "module": "ovos-stt-plugin-xxx",
-            "config": {
-              "model": "..."
-            }
-          }
-        ]
-    }
-  }
-}
-
-```
 
 ---
 

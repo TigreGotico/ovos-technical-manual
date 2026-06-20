@@ -54,7 +54,7 @@ from ovos_plugin_manager.tts import find_tts_plugins
 
 # Find and load the plugin
 plugins = find_tts_plugins()
-tts_class = plugins["ovos-tts-plugin-piper"]
+tts_class = plugins["ovos-tts-plugin-mimic"]
 
 # Initialize (requires lang and config)
 tts = tts_class(lang="en-us", config={})

@@ -28,7 +28,6 @@ The `hotwords` section in your `mycroft.conf` allows you to configure the wakewo
   "hey_mycroft": {
     "module": "ovos-ww-plugin-precise-onnx",
     "model": "https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.onnx",
-    "expected_duration": 3,
     "trigger_level": 3,
     "sensitivity": 0.5,
     "listen": true
@@ -53,7 +52,7 @@ The `hotwords` section in your `mycroft.conf` allows you to configure the wakewo
 
 When developing a custom wake word plugin, the following methods are essential:
 
-- **`found_wake_word(frame_data)`**: This method must be defined. It checks whether a wake word is found in the provided audio data.
+- **`found_wake_word()`**: This method must be defined. It returns whether the wake word has been detected and resets internal state.
 
 
 - **`update(chunk)`**: An optional method for processing live audio chunks and making streaming predictions.
@@ -61,7 +60,7 @@ When developing a custom wake word plugin, the following methods are essential:
 
 - **`stop()`**: An optional method to shut down the plugin, like unloading data or halting external processes.
 
-> ⚠️ `found_wake_word(frame_data)` should ignore `frame_data`, this has been deprecated and is only provided for backwards-compatibility. Plugins are now expected to handle real time audio via `update` method
+> ⚠️ `found_wake_word()` takes no audio argument; the legacy `frame_data` parameter has been removed. Plugins are now expected to handle real time audio via the `update` method
 
 ### Registering Your Plugin
 
@@ -83,14 +82,13 @@ from ovos_plugin_manager.templates.hotwords import HotWordEngine
 from threading import Event
 
 class MyWWPlugin(HotWordEngine):
-    def __init__(self, key_phrase="hey mycroft", config=None, lang="en-us"):
-        super().__init__(key_phrase, config, lang)
+    def __init__(self, key_phrase="hey mycroft", config=None):
+        super().__init__(key_phrase, config)
         self.detection = Event()
         self.engine = MyWW(key_phrase)
 
-    def found_wake_word(self, frame_data):
-        # NOTE: frame_data should be ignored, it is deprecated
-        # inference happens via the self.update_method
+    def found_wake_word(self):
+        # inference happens via the self.update method
         detected = self.detection.is_set()
         if detected:
             self.detection.clear()
