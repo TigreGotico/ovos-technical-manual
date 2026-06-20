@@ -1,49 +1,49 @@
-
 # FAQ — `ovos-technical-manual`
 
-## What is the "Great GUI Refactor" of March 2026?
-OpenVoiceOS has moved to a **template-only architecture**. This means the core `ovos-gui` service no longer renders custom QML or HTML files provided by skills. Instead, skills provide data to one of 21 standardized `SYSTEM_*` templates, which are rendered by adapter plugins (Qt, Web/HTMX, Terminal).
+## How does a skill draw on a screen today?
 
-## Is `self.gui` deprecated?
-Yes, in `OVOSSkill` version 9.0.0, the default `self.gui` property is being phased out. Skills should now explicitly initialize `GUIInterface` from `ovos-gui-api-client` if they require visual output.
+A skill uses `self.gui`, a `SkillGUI` (subclass of `GUIInterface`) that ships in
+`ovos-workshop` (currently v8). It is imported from `ovos_bus_client.apis.gui` and
+exposes helpers like `self.gui.show_text(...)`, `show_image(...)`, `show_list(...)`,
+and `show_page("MyPage.qml")` for custom QML. `self.gui` is **not** deprecated.
 
-## How do I migrate my legacy QML skill?
-Instead of calling `self.gui.show_page("MyPage.qml")`, you should use one of the standard template methods, such as `self.gui.show_text()`, `self.gui.show_image()`, or `self.gui.show_list()`. If your skill requires a completely custom UI, consider developing it as a standalone **Voice App**.
+## What is the GUI rework I keep hearing about?
+
+A template/adapter rework is in progress but **not yet released**. It is specified in
+[OVOS-GUI-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-gui-1.md) (a
+closed vocabulary of 22 `SYSTEM_*` templates; `ovos-gui` becomes a pure state/dispatch
+hub; `session_id`-only addressing) and lands via these open PRs:
+
+- [ovos-gui#112](https://github.com/OpenVoiceOS/ovos-gui/pull/112) — adapter/template rework
+- [ovos-workshop#420](https://github.com/OpenVoiceOS/ovos-workshop/pull/420) — rebinds `self.gui` to the standalone `ovos-gui-api-client`
+- [ovos-legacy-mycroft-gui-plugin#3](https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3) and [pyhtmx-gui-client#1](https://github.com/OpenVoiceOS/pyhtmx-gui-client/pull/1) — `opm.gui_adapter` adapters
+
+Until these merge, build against the current `self.gui` API described in
+[GUI Support](docs/skill-gui.md). Pages describing the rework are marked **Upcoming**.
 
 ## Where is the project history?
-See the [Timeline](docs/timeline.md) for a complete history of major milestones from 2015 to the present.
+
+See the [Timeline](docs/timeline.md).
 
 ## Where can I find info on deprecated features?
-Refer to the [Deprecation Log](docs/deprecation-log.md) for tracking removals and migration guides.
 
----
+See the [Deprecation Log](docs/deprecation-log.md).
 
-## Technical Setup
+## How do I build the manual locally?
 
-## How do I install the manual locally?
+The manual is a MkDocs site, not a PyPI package. Clone it and serve:
+
 ```bash
-pip install ovos-technical-manual
-```
-Or for development (recommended):
-```bash
-uv pip install -e ovos-technical-manual/
+git clone https://github.com/OpenVoiceOS/ovos-technical-manual
+cd ovos-technical-manual
+uv venv && uv pip install mkdocs mkdocs-material pymdown-extensions pygments==2.18.0
+mkdocs serve   # preview at http://127.0.0.1:8000
 ```
 
-## How do I build the docs?
-The manual uses `mkdocs`. You can run a local server to preview changes:
-```bash
-mkdocs serve
-```
+(`pygments` must be pinned `<2.19`; newer pygments crashes `pymdown-extensions`.)
 
 ## Where do I report documentation errors?
-Open an issue on the [ovos-technical-manual](https://github.com/OpenVoiceOS/ovos-technical-manual) repository. Ensure you are targeting the `master` branch for any proposed fixes.
 
-## Why do the docs look different when I build them locally?
-To ensure the documentation matches the official theme, you must have `mkdocs-material` and `pymdown-extensions` installed. If you are using the shared workspace environment, they should already be available via `uv`.
-
-```bash
-pip install mkdocs-material pymdown-extensions mkdocs-material-extensions
-```
-
-## What Python versions are supported?
-See `QUICK_FACTS.md` — currently `3.10+` is standard for the workspace.
+Open an issue or PR on
+[ovos-technical-manual](https://github.com/OpenVoiceOS/ovos-technical-manual);
+the site deploys from `master`.

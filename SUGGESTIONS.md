@@ -1,33 +1,36 @@
-
 # Suggestions — `ovos-technical-manual`
 
-> This file tracks proposed improvements for human developers. Each entry includes
-> the problem/opportunity, proposed solution, and estimated impact.
+> Proposed improvements for human developers. Each entry: the problem/opportunity,
+> a proposed solution, and estimated impact.
 
-### 1. Add type hints to public API
+### 1. Add a link-checking step to CI
 
-**Problem/Opportunity**: Functions and classes may lack full type annotations,
-reducing IDE support and making the codebase harder to audit.
+**Problem/Opportunity**: Internal links and anchors break silently during renames
+and reorganizations; the deploy workflow does not run a strict build.
 
-**Proposed Solution**: Annotate all public function signatures with PEP 484
-type hints. Run `mypy` to verify.
+**Proposed Solution**: Run `mkdocs build --strict` in CI (it fails on broken
+internal links and missing nav targets) before `gh-deploy`.
 
-**Estimated Impact**: Low effort, high long-term benefit for maintainability.
+**Estimated Impact**: Medium — catches broken navigation before it reaches the site.
 
-### 2. Expand unit test coverage
+### 2. Publish the formal specs to a stable URL
 
-**Problem/Opportunity**: Test coverage may be incomplete, leading to undetected
-regressions during refactors or dependency upgrades.
+**Problem/Opportunity**: Pages now reference `OpenVoiceOS/architecture` specs
+(OVOS-MSG-1, GUI-1, …) via GitHub blob URLs because the specs are not yet published
+to a canonical docs site.
 
-**Proposed Solution**: Review `test/` coverage report and add tests for
-uncovered edge cases, especially around plugin loading and error paths.
+**Proposed Solution**: Publish the `architecture` specs (e.g. their own MkDocs site
+or a section here) and update the spec reference links to the canonical URLs.
 
-**Estimated Impact**: Medium — reduces regression risk significantly.
+**Estimated Impact**: Medium — gives the spec references stable, versioned anchors.
 
-### 4. Create `dev` branch and align with OVOS standards
+### 3. Create a `dev` branch and align with OVOS standards
 
-**Problem/Opportunity**: This repository currently only has a `master` branch, while all other OpenVoiceOS repositories use `dev` as the main development branch. This can lead to confusion for contributors and breaks the "dev: Main development branch" mandate.
+**Problem/Opportunity**: This repository only has `master`, while other OpenVoiceOS
+repositories develop on `dev`. The site deploys on push to `master`, so docs land
+live with no staging step.
 
-**Proposed Solution**: Create a `dev` branch from `master`, set it as the default branch, and update all GitHub Actions to trigger on `dev`.
+**Proposed Solution**: Create `dev` from `master`, set it as the default branch, and
+deploy a preview from `dev` (PR → `dev` → `master`).
 
-**Estimated Impact**: Medium — improves consistency across the workspace.
+**Estimated Impact**: Medium — adds a review/staging step and matches the org flow.
