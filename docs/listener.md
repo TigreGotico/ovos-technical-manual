@@ -110,9 +110,9 @@ listener.shutdown()
 | Method | Signature | Description |
 |--------|-----------|-------------|
 | `feed_audio(chunk)` — `ovoscope/listener.py:351` | `(bytes) → List[Message]` | Calls `AudioTransformersService.feed_audio()`. Requires `ovos-dinkum-listener`. |
-| `feed_speech(chunk)` — `ovoscope/listener.py:371` | `(bytes) → List[Message]` | Calls `AudioTransformersService.feed_speech()`. Requires `ovos-dinkum-listener`. |
-| `transform(chunk)` — `ovoscope/listener.py:390` | `(bytes) → tuple[bytes, dict, List[Message]]` | Full transform pipeline; returns `(audio, ctx, messages)`. Requires `ovos-dinkum-listener`. |
-| `listen(audio, ...)` — `ovoscope/listener.py:410` | `(audio, language, stt_instance, ...) → List[Message]` | Full pipeline: audio → transformers → STT → utterance message. Requires `ovos-dinkum-listener`. |
+| `feed_speech(chunk)` — `ovoscope/listener.py:369` | `(bytes) → List[Message]` | Calls `AudioTransformersService.feed_speech()`. Requires `ovos-dinkum-listener`. |
+| `transform(chunk)` — `ovoscope/listener.py:387` | `(bytes) → tuple[bytes, dict, List[Message]]` | Full transform pipeline; returns `(audio, ctx, messages)`. Requires `ovos-dinkum-listener`. |
+| `listen(audio, ...)` — `ovoscope/listener.py:405` | `(audio, language, stt_instance, ...) → List[Message]` | Full pipeline: audio → transformers → STT → utterance message. Requires `ovos-dinkum-listener`. |
 
 **VAD methods:**
 
@@ -132,9 +132,9 @@ listener.shutdown()
 
 | Method | Description |
 |--------|-------------|
-| `shutdown()` — `ovoscope/listener.py:606` | Gracefully shuts down transformer plugins and all wake-word engines. |
+| `shutdown()` — `ovoscope/listener.py:614` | Gracefully shuts down transformer plugins and all wake-word engines. |
 
-#### `listen()` — `ovoscope/listener.py:410`
+#### `listen()` — `ovoscope/listener.py:405`
 
 ```
 listen(
@@ -155,7 +155,7 @@ Runs the complete listener pipeline:
 2. Passes bytes through `AudioTransformersService.transform()` — all loaded transformer plugins run
 
 
-3. Converts the (possibly modified) bytes to `AudioData` via `_wav_to_audio_data()` — `listener.py:59`
+3. Converts the (possibly modified) bytes to `AudioData` via `_wav_to_audio_data()` — `listener.py:80`
 
 
 4. Calls `stt_instance.execute(audio_data, language)` if provided
@@ -166,7 +166,7 @@ Runs the complete listener pipeline:
 
 6. Returns all captured messages (from transformers **and** the utterance step)
 
-`_wav_to_audio_data(audio, sample_rate, sample_width)` — `listener.py:59`:
+`_wav_to_audio_data(audio, sample_rate, sample_width)` — `listener.py:80`:
 
 - File path → `AudioData.from_file(path)` (handles WAV/AIFF/FLAC headers)
 
@@ -224,7 +224,7 @@ listener = get_mini_listener(
 | `ww_plugin` | `str` | OPM WakeWord plugin name to load via `OVOSWakeWordFactory` |
 | `ww_instances` | `dict[str, Any]` | Pre-built WakeWord engines keyed by phrase name |
 
-### `ListenerTest` — `ovoscope/listener.py:181`
+### `ListenerTest` — `ovoscope/listener.py:728`
 
 Declarative test runner, analogous to `End2EndTest`.
 
@@ -268,6 +268,11 @@ A zero-dependency VAD stub:
 - **Speech** = any non-zero byte present
 
 
+- `extract_speech()` walks the audio in **960-byte frames** (30 ms at 16 kHz/16-bit)
+  and keeps any frame that is not all-zero — so a frame mixing silence and speech is
+  kept whole.
+
+
 - Tracks `chunks_processed` counter; `reset()` zeroes it.
 
 ```python
@@ -278,7 +283,8 @@ listener = MiniListener({"listener": {"audio_transformers": {}}}, vad_instance=v
 
 print(listener.is_silence(b"\x00" * 512))   # True
 print(listener.is_silence(b"\x01" * 512))   # False
-print(listener.extract_speech(b"\x00" * 512 + b"\x01" * 512))  # → b"\x01" * 512
+# one silent 960-byte frame + one speech frame → only the speech frame survives
+print(listener.extract_speech(b"\x00" * 960 + b"\x01" * 960))  # → b"\x01" * 960
 listener.shutdown()
 
 ```

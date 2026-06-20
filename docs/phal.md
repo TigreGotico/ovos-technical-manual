@@ -9,25 +9,26 @@ client at construction, and may listen to or emit any bus event.
 
 ??? abstract "Technical Reference"
 
-    - `PHAL.run()` — [`ovos_PHAL/service.py:35`](https://github.com/OpenVoiceOS/ovos-PHAL/blob/dev/ovos_PHAL/service.py) — Main service thread for user-level plugins.
+    - `PHAL.start()` — [`ovos_PHAL/service.py:97`](https://github.com/OpenVoiceOS/ovos-PHAL/blob/dev/ovos_PHAL/service.py) — Loads user-level plugins and reports `ProcessStatus` ready. `PHAL` is a plain object, not a thread.
 
 
-    - `AdminPHAL.run()` — [`ovos_PHAL/admin.py:65`](https://github.com/OpenVoiceOS/ovos-PHAL/blob/dev/ovos_PHAL/admin.py) — Main service thread for privileged/root-level plugins.
+    - `AdminPHAL.load_plugins()` — [`ovos_PHAL/admin.py:45`](https://github.com/OpenVoiceOS/ovos-PHAL/blob/dev/ovos_PHAL/admin.py) — Discovery/validation for privileged/root-level plugins (`find_admin_plugins`).
 
 
-    - `PHAL.load_plugins()` — [`ovos_PHAL/service.py:80`](https://github.com/OpenVoiceOS/ovos-PHAL/blob/dev/ovos_PHAL/service.py) — logic for discovery and validation of plugins via OPM.
+    - `PHAL.load_plugins()` — [`ovos_PHAL/service.py:67`](https://github.com/OpenVoiceOS/ovos-PHAL/blob/dev/ovos_PHAL/service.py) — discovery and validation of user plugins via OPM (`find_phal_plugins`).
     
     ---
     
 
 ## Overview
 
-Two services are provided:
+Two services are provided. Each discovers plugins from its own OPM entry-point group
+and is launched by its own console script (`ovos_PHAL` / `ovos_PHAL_admin`):
 
-| Service | Entry point | Config section | Default enable | Privilege |
-|---|---|---|---|---|
-| `PHAL` | `opm.phal` | `mycroft.conf["PHAL"]` | Auto (validator + not `enabled: false`) | Current user |
-| `AdminPHAL` | `opm.phal.admin` | `mycroft.conf["PHAL"]["admin"]` | Opt-in (`"enabled": true` required) | Root / privileged |
+| Service | OPM group | Console script | Config section | Default enable | Privilege |
+|---|---|---|---|---|---|
+| `PHAL` | `opm.phal` | `ovos_PHAL` | `mycroft.conf["PHAL"]` | Auto (validator + not `enabled: false`) | Current user |
+| `AdminPHAL` | `opm.phal.admin` | `ovos_PHAL_admin` | `mycroft.conf["PHAL"]["admin"]` | Opt-in (`"enabled": true` required) | Root / privileged |
 
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -101,19 +102,28 @@ point group `opm.phal`) and applies these rules in order:
 
 
 4. **No validator** — defaults to enabled; only `enabled: false` can disable.
+   Note: the `PHALPlugin` base sets `validator = PHALValidator` by default, so most
+   plugins do take the validator path. The default validator just returns
+   `config.get("enabled", True) is True`; a subclass overrides `validate()` to add a
+   real hardware probe.
 
 
 5. **Instantiation** — `plug(bus=self.bus, config=config)`; stored in `self.drivers[name]`.
 
 ### ProcessStatus lifecycle
 
+`start()` and `shutdown()` drive a `ProcessStatus` object (`ovos-utils`) that other
+services can query over the bus:
+
 | State | When |
 |---|---|
-| `alive` | Service object created |
-| `started` | `start()` called |
-| `ready` | All plugins loaded |
-| `error` | Exception during `load_plugins()` |
-| `stopping` | `shutdown()` called |
+| `started` | `start()` called (`set_started()`) |
+| `ready` | `load_plugins()` returned without raising (`set_ready()`) |
+| `error` | Exception during `load_plugins()` (`set_error()`) |
+| `stopping` | `shutdown()` called (`set_stopping()`) |
+
+The `alive` callback exists in the hook map but `PHAL.start()` does not call
+`set_alive()`; the status goes straight to `started` then `ready`.
 
 ### Configuration
 
@@ -134,8 +144,8 @@ point group `opm.phal`) and applies these rules in order:
 
 | Config key | Effect |
 |---|---|
-| `"enabled": false` | Explicitly disable this plugin |
-| `"enabled": true` | Force-enable even if validator would skip |
+| `"enabled": false` | Explicitly disable this plugin (skipped before the validator runs) |
+| `"enabled": true` | Passed to the validator; the default validator treats it as enabled, but a custom `validate()` can still skip on missing hardware |
 | Any other keys | Passed as `config` to the plugin constructor |
 
 Plugins with a passing validator and no `enabled: false` are loaded automatically —
@@ -214,8 +224,8 @@ Skills and the core pipeline never run as root.
 from ovos_plugin_manager.templates.phal import PHALPlugin
 
 class MyHardwarePlugin(PHALPlugin):
-    def __init__(self, bus=None, config=None):
-        super().__init__(bus=bus, config=config)
+    def __init__(self, bus=None, name="MyHardwarePlugin", config=None):
+        super().__init__(bus=bus, name=name, config=config)
         # hardware setup
         self.bus.on("mycroft.stop", self.handle_stop)
 
@@ -223,19 +233,26 @@ class MyHardwarePlugin(PHALPlugin):
         pass  # respond to bus events
 
     def shutdown(self):
+        super().shutdown()  # unregisters the base enclosure handlers
         pass  # clean up hardware
 
 ```
 
-The base class:
+The base class (`PHALPlugin`) is a `threading.Thread`. Key points:
 
-- Stores `self.bus` and `self.config`
+- Stores `self.bus`, `self.config` and `self.name`. There is **no** `self.skill_id`
+  attribute; when it emits events it derives a per-plugin id of the form
+  `ovos.PHAL.<name>`.
 
 
-- Provides `self.skill_id` (the entry point name)
+- Its `__init__` calls `self.start()` itself — instantiating a plugin already runs
+  its thread. Do all setup **before** `super().__init__()` returns, or guard against
+  the thread already running.
 
 
-- Calls `self.initialize()` at the end of `__init__` if defined
+- It auto-registers a large set of legacy enclosure (`enclosure.eyes.*`,
+  `enclosure.mouth.*`) and `recognizer_loop:*` bus handlers; override the matching
+  `on_*` methods to react to them. Call `super().shutdown()` to unregister them.
 
 ### Validator
 
@@ -360,7 +377,6 @@ skill as a voice frontend.
 | [ovos-PHAL-plugin-gpsd](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-gpsd) | Geolocation using GPS |
 | [ovos-PHAL-plugin-respeaker-2mic](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-respeaker-2mic) | ReSpeaker 2-mic HAT support |
 | [ovos-PHAL-plugin-respeaker-4mic](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-respeaker-4mic) | ReSpeaker 4-mic HAT support |
-| [neon-phal-plugin-linear_led](https://github.com/NeonGeckoCom/neon-phal-plugin-linear_led) | LED control for Mark 2 |
 
 # PHAL plugins Reference
 
