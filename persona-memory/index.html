@@ -5865,31 +5865,31 @@
 
 
 <h1 id="persona-memory-plugins">Persona Memory Plugins<a class="headerlink" href="#persona-memory-plugins" title="Permanent link">&para;</a></h1>
-<p>Persona memory is managed through the <code>AgentContextManager</code> interface (OPM <code>opm.agents.memory</code>), introduced in <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/363">OpenVoiceOS/ovos-plugin-manager#363</a> (merged). Plugins build the conversation context — the list of messages sent to the LLM before each turn — and persist history between turns and sessions.</p>
-<p>Integration into <code>ovos-persona</code> is tracked in <a href="https://github.com/OpenVoiceOS/ovos-persona/pull/143">OpenVoiceOS/ovos-persona#143</a> (open).</p>
+<p><strong>What this is:</strong> a pluggable way to control what an OVOS persona "remembers". Instead of a fixed conversation buffer, a memory plugin decides which past messages (and any summaries or retrieved snippets) get prepended to the LLM call on each turn, and how that history is persisted across turns and sessions.</p>
+<p>Persona memory is managed through the <code>AgentContextManager</code> interface (OPM <code>opm.agents.memory</code>), introduced in <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/363">OpenVoiceOS/ovos-plugin-manager#363</a> (merged). Integration into <code>ovos-persona</code> landed in <a href="https://github.com/OpenVoiceOS/ovos-persona/pull/143">OpenVoiceOS/ovos-persona#143</a> (merged).</p>
 <hr />
 <h2 id="interface">Interface<a class="headerlink" href="#interface" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">AgentContextManager</span><span class="p">:</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span> <span class="nf">build_conversation_context</span><span class="p">(</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="bp">self</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="n">utterance</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">AgentMessage</span><span class="p">]:</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return messages to prepend before the current utterance.&quot;&quot;&quot;</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="o">...</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">def</span> <span class="nf">update_history</span><span class="p">(</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="bp">self</span><span class="p">,</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="n">exchange</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">AgentMessage</span><span class="p">,</span> <span class="n">AgentMessage</span><span class="p">],</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Called after each completed user/assistant exchange.&quot;&quot;&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.agents</span> <span class="kn">import</span> <span class="n">AgentContextManager</span><span class="p">,</span> <span class="n">AgentMessage</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">class</span> <span class="nc">MyMemory</span><span class="p">(</span><span class="n">AgentContextManager</span><span class="p">):</span>  <span class="c1"># all three methods are abstract</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">def</span> <span class="nf">build_conversation_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utterance</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">AgentMessage</span><span class="p">]:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Messages to prepend before the current utterance (system prompt,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="sd">        summaries, retrieved history, tool definitions).&quot;&quot;&quot;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="o">...</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="k">def</span> <span class="nf">get_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">AgentMessage</span><span class="p">]:</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the stored history for a session (plugins may trim/summarize here).&quot;&quot;&quot;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="o">...</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="k">def</span> <span class="nf">update_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">AgentMessage</span><span class="p">],</span> <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append new turns after each interaction. Takes a list of messages,</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="sd">        not a single exchange tuple.&quot;&quot;&quot;</span>
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="o">...</span>
 </span></code></pre></div>
-<p>The short-term memory that was previously hard-coded in <code>ovos-persona</code> is packaged as a plugin under the same interface, so all memory strategies are composable.</p>
+<p><code>AgentMessage</code> (<code>role</code>, <code>content</code>, optional <code>tool_calls</code> / <code>tool_call_id</code> / <code>name</code>) is the canonical message type. The short-term memory previously hard-coded in <code>ovos-persona</code> is now a plugin under this interface, so all memory strategies are composable.</p>
 <hr />
 <h2 id="per-session-persona-tracking">Per-Session Persona Tracking<a class="headerlink" href="#per-session-persona-tracking" title="Permanent link">&para;</a></h2>
-<p><a href="https://github.com/OpenVoiceOS/ovos-persona/pull/140">OpenVoiceOS/ovos-persona#140</a> (open, depends on <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-bus-client/issues/192" title="GitHub Issue: TigreGotico/ovos-bus-client #192">ovos-bus-client#192</a>) adds session isolation to persona management:</p>
+<p><a href="https://github.com/OpenVoiceOS/ovos-persona/pull/140">OpenVoiceOS/ovos-persona#140</a> (merged, built on <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-bus-client/issues/192" title="GitHub Issue: TigreGotico/ovos-bus-client #192">ovos-bus-client#192</a>) adds session isolation to persona management:</p>
 <ul>
 <li>Each <code>Session</code> can activate a different persona.</li>
 <li>Conversation history is tracked per session, not globally.</li>
@@ -5999,9 +5999,28 @@
 <td><code>"ovos_memory"</code></td>
 <td>Vector store collection name</td>
 </tr>
+<tr>
+<td><code>min_score</code></td>
+<td><code>0.0</code></td>
+<td>Minimum similarity to inject a retrieved turn</td>
+</tr>
+<tr>
+<td><code>request_timeout</code></td>
+<td><code>30</code></td>
+<td>HTTP timeout in seconds</td>
+</tr>
+<tr>
+<td><code>inject_as_system</code></td>
+<td><code>false</code></td>
+<td>Inject retrieved turns into the system message instead of as prior turns</td>
+</tr>
 </tbody>
 </table>
 <p>Fallback: if the vector store endpoint is unavailable, in-process cosine similarity is used.</p>
+<div class="admonition warning">
+<p class="admonition-title">Upcoming — unreleased</p>
+<p><a href="https://github.com/OpenVoiceOS/ovos-memory-plugins/pull/9">OpenVoiceOS/ovos-memory-plugins#9</a> (<code>feat!</code>, open) makes this plugin <strong>fully local</strong>: it replaces the server-coupled <code>ovos-memory-plugin-rag</code> / <code>RAGMemory</code> with <code>ovos-memory-plugin-local-rag</code> / <code>LocalRAGMemory</code>, which embeds and stores exchanges in-process via OVOS embeddings plugins (<code>opm.embeddings.text</code> + <code>EmbeddingsDB</code>) — no network, no cloud key. <code>ovos-memory-plugins</code> is local-first only; any server- or OpenAI-coupled RAG lives in <code>ovos-openai-plugin</code> instead. After that PR lands, the entry point above and its <code>api_url</code>-based config no longer apply.</p>
+</div>
 <hr />
 <h2 id="plugin-entry-points">Plugin Entry Points<a class="headerlink" href="#plugin-entry-points" title="Permanent link">&para;</a></h2>
 <table>

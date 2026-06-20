@@ -5918,7 +5918,7 @@
 <p><a href="https://github.com/TigreGotico/ovos-PHAL-plugin-tools">TigreGotico/ovos-PHAL-plugin-tools</a> is a PHAL plugin that loads all installed <code>ToolBox</code> plugins and registers them on the MessageBus, making them available to any component that can send bus messages.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-PHAL-plugin-tools
 </span></code></pre></div>
-<p>Entry point: <code>ovos.plugin.phal</code> / <code>ovos-phal-plugin-tools</code>.</p>
+<p>Entry point group: <code>opm.phal</code>; plugin name <code>ovos-phal-plugin-tools</code>.</p>
 <h3 id="messagebus-event-table">MessageBus event table<a class="headerlink" href="#messagebus-event-table" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5987,7 +5987,7 @@ come back as an <code>error</code> field, never silence.</p>
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-agentic-loop-toolboxes">ovos-agentic-loop Toolboxes<a class="headerlink" href="#ovos-agentic-loop-toolboxes" title="Permanent link">&para;</a></h2>
-<p><a href="../agentic-loop/">ovos-agentic-loop</a> bundles five ready-to-use toolboxes:</p>
+<p><a href="../agentic-loop/">ovos-agentic-loop</a> bundles six ready-to-use toolboxes:</p>
 <table>
 <thead>
 <tr>
@@ -5998,11 +5998,11 @@ come back as an <code>error</code> field, never silence.</p>
 <tbody>
 <tr>
 <td><code>ovos-math-tools</code></td>
-<td><code>evaluate_expression</code>, <code>unit_convert</code>, <code>statistics_summary</code></td>
+<td><code>evaluate_expression</code>, <code>unit_convert</code>, <code>statistics_summary</code>, <code>solve_equation</code></td>
 </tr>
 <tr>
 <td><code>ovos-filesystem-tools</code></td>
-<td><code>read_file</code>, <code>write_file</code>, <code>list_directory</code>, <code>find_files</code></td>
+<td><code>read_file</code>, <code>write_file</code>, <code>list_directory</code>, <code>search_in_files</code>, <code>find_files</code></td>
 </tr>
 <tr>
 <td><code>ovos-shell-tools</code></td>

@@ -5869,236 +5869,217 @@
 <hr />
 <h2 id="stt-server-compat-routes">STT Server Compat Routes<a class="headerlink" href="#stt-server-compat-routes" title="Permanent link">&para;</a></h2>
 <p><code>pip install ovos-stt-http-server</code></p>
-<p>Status: PRs <a href="https://github.com/OpenVoiceOS/ovos-stt-http-server/pulls">#53–#69</a> (open/draft).</p>
+<p>Status: merged to <code>dev</code>.</p>
 <table>
 <thead>
 <tr>
 <th>Prefix</th>
 <th>Vendor</th>
-<th>PR</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>/openai</code></td>
 <td>OpenAI Whisper (<code>/openai/v1/audio/transcriptions</code>)</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/53" title="GitHub Issue: TigreGotico/ovos-technical-manual #53">#53</a></td>
 </tr>
 <tr>
 <td><code>/deepgram</code></td>
-<td>Deepgram (<code>/deepgram/v1/listen</code>)</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/54" title="GitHub Issue: TigreGotico/ovos-technical-manual #54">#54</a></td>
+<td>Deepgram</td>
 </tr>
 <tr>
 <td><code>/google</code></td>
-<td>Google Cloud Speech (<code>/google/speech:recognize</code>)</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/55" title="GitHub Issue: TigreGotico/ovos-technical-manual #55">#55</a></td>
+<td>Google Cloud Speech</td>
 </tr>
 <tr>
 <td><code>/assemblyai</code></td>
 <td>AssemblyAI</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/56" title="GitHub Issue: TigreGotico/ovos-technical-manual #56">#56</a></td>
 </tr>
 <tr>
 <td><code>/speechmatics</code></td>
 <td>Speechmatics</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/57" title="GitHub Issue: TigreGotico/ovos-technical-manual #57">#57</a></td>
 </tr>
 <tr>
 <td><code>/azure-stt</code></td>
 <td>Microsoft Azure Speech</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/58" title="GitHub Issue: TigreGotico/ovos-technical-manual #58">#58</a></td>
 </tr>
 <tr>
 <td><code>/aws</code></td>
 <td>AWS Transcribe</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/60" title="GitHub Issue: TigreGotico/ovos-technical-manual #60">#60</a></td>
 </tr>
 <tr>
 <td><code>/watson/speech-to-text</code></td>
 <td>IBM Watson STT</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/61" title="GitHub Issue: TigreGotico/ovos-technical-manual #61">#61</a></td>
 </tr>
 <tr>
 <td><code>/wit</code></td>
 <td>Wit.ai</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/62" title="GitHub Issue: TigreGotico/ovos-technical-manual #62">#62</a></td>
 </tr>
 <tr>
 <td><code>/vosk</code></td>
 <td>Vosk-server WebSocket</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/63" title="GitHub Issue: TigreGotico/ovos-technical-manual #63">#63</a></td>
-</tr>
-<tr>
-<td><code>/whisper-cpp</code></td>
-<td>whisper.cpp HTTP server</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/64" title="GitHub Issue: TigreGotico/ovos-technical-manual #64">#64</a></td>
-</tr>
-<tr>
-<td><code>/vosk-grpc</code></td>
-<td>Vosk gRPC variant</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/65" title="GitHub Issue: TigreGotico/ovos-technical-manual #65">#65</a></td>
 </tr>
 <tr>
 <td><code>/vosk-webrtc</code></td>
 <td>Vosk WebRTC variant</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/66" title="GitHub Issue: TigreGotico/ovos-technical-manual #66">#66</a></td>
 </tr>
 <tr>
-<td><code>/vosk-mqtt</code></td>
-<td>Vosk MQTT variant</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/67" title="GitHub Issue: TigreGotico/ovos-technical-manual #67">#67</a></td>
+<td><code>/whisper-cpp</code></td>
+<td>whisper.cpp HTTP server</td>
+</tr>
+<tr>
+<td><code>/gladia</code></td>
+<td>Gladia</td>
+</tr>
+<tr>
+<td><code>/groq</code></td>
+<td>Groq Whisper</td>
+</tr>
+<tr>
+<td><code>/elevenlabs</code></td>
+<td>ElevenLabs Scribe</td>
+</tr>
+<tr>
+<td><code>/speech-api</code></td>
+<td>Chromium/Google <code>speech-api</code></td>
 </tr>
 <tr>
 <td><code>/client</code></td>
 <td>Kaldi GStreamer Server</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/69" title="GitHub Issue: TigreGotico/ovos-technical-manual #69">#69</a></td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="tts-server-compat-routes">TTS Server Compat Routes<a class="headerlink" href="#tts-server-compat-routes" title="Permanent link">&para;</a></h2>
 <p><code>pip install ovos-tts-server</code></p>
-<p>Status: PRs <a href="https://github.com/OpenVoiceOS/ovos-tts-server/pulls">#87–#94</a> (open/draft).</p>
+<p>Status: merged to <code>dev</code>.</p>
 <table>
 <thead>
 <tr>
 <th>Prefix</th>
 <th>Vendor</th>
-<th>PR</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>/elevenlabs</code></td>
 <td>ElevenLabs</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/87" title="GitHub Issue: TigreGotico/ovos-technical-manual #87">#87</a></td>
 </tr>
 <tr>
 <td><code>/openai</code></td>
 <td>OpenAI TTS</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/88" title="GitHub Issue: TigreGotico/ovos-technical-manual #88">#88</a></td>
 </tr>
 <tr>
 <td><code>/coqui</code></td>
 <td>Coqui TTS</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/89" title="GitHub Issue: TigreGotico/ovos-technical-manual #89">#89</a></td>
 </tr>
 <tr>
 <td><code>/google-tts</code></td>
 <td>Google Cloud TTS</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/90" title="GitHub Issue: TigreGotico/ovos-technical-manual #90">#90</a></td>
 </tr>
 <tr>
 <td><code>/amazon-polly</code></td>
 <td>Amazon Polly</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/91" title="GitHub Issue: TigreGotico/ovos-technical-manual #91">#91</a></td>
 </tr>
 <tr>
 <td><code>/azure-tts</code></td>
 <td>Microsoft Azure TTS</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/92" title="GitHub Issue: TigreGotico/ovos-technical-manual #92">#92</a></td>
 </tr>
 <tr>
-<td><code>/piper</code></td>
-<td>Piper TTS</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/93" title="GitHub Issue: TigreGotico/ovos-technical-manual #93">#93</a></td>
+<td><code>/cartesia</code></td>
+<td>Cartesia</td>
 </tr>
 <tr>
-<td><code>/process</code></td>
-<td>MaryTTS (<code>/process</code>, <code>/voices</code>, <code>/locales</code>)</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/94" title="GitHub Issue: TigreGotico/ovos-technical-manual #94">#94</a></td>
+<td><code>/deepgram</code></td>
+<td>Deepgram Aura</td>
+</tr>
+<tr>
+<td><code>/playht</code></td>
+<td>PlayHT</td>
+</tr>
+<tr>
+<td><code>/marytts</code></td>
+<td>MaryTTS (<code>/marytts/process</code>, <code>/voices</code>, <code>/locales</code>)</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="translate-server-compat-routes">Translate Server Compat Routes<a class="headerlink" href="#translate-server-compat-routes" title="Permanent link">&para;</a></h2>
 <p><code>pip install ovos-translate-server</code></p>
-<p>Status: PRs <a href="https://github.com/OpenVoiceOS/ovos-translate-server/pulls">#17–#22</a> (draft).</p>
+<p>Status: merged to <code>dev</code> (the server is now FastAPI, replacing the former Flask app).</p>
 <table>
 <thead>
 <tr>
 <th>Prefix</th>
 <th>Vendor</th>
-<th>PR</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Base</td>
-<td>FastAPI migration (replaces Flask)</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/17" title="GitHub Issue: TigreGotico/ovos-technical-manual #17">#17</a></td>
-</tr>
-<tr>
 <td><code>/libretranslate</code></td>
 <td>LibreTranslate</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/18" title="GitHub Issue: TigreGotico/ovos-technical-manual #18">#18</a></td>
 </tr>
 <tr>
 <td><code>/deepl</code></td>
 <td>DeepL v2</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/19" title="GitHub Issue: TigreGotico/ovos-technical-manual #19">#19</a></td>
+</tr>
+<tr>
+<td><code>/deeplx</code></td>
+<td>DeepLX</td>
 </tr>
 <tr>
 <td><code>/google</code></td>
 <td>Google Translate v2</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/20" title="GitHub Issue: TigreGotico/ovos-technical-manual #20">#20</a></td>
 </tr>
 <tr>
 <td><code>/azure</code></td>
 <td>Azure Translator v3</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/21" title="GitHub Issue: TigreGotico/ovos-technical-manual #21">#21</a></td>
 </tr>
 <tr>
 <td><code>/amazon</code></td>
 <td>Amazon Translate</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/22" title="GitHub Issue: TigreGotico/ovos-technical-manual #22">#22</a></td>
+</tr>
+<tr>
+<td><code>/lingva</code></td>
+<td>Lingva Translate</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="persona-server-compat-routes">Persona Server Compat Routes<a class="headerlink" href="#persona-server-compat-routes" title="Permanent link">&para;</a></h2>
 <p><code>pip install ovos-persona-server</code></p>
-<p>Status: PRs <a href="https://github.com/OpenVoiceOS/ovos-persona-server/pulls">#29–#34</a> (draft).</p>
-<p>The persona server baseline is an OpenAI-compatible chat API (<code>/v1/chat/completions</code>). Additional vendor routers are layered on top:</p>
+<p>Status: merged to <code>dev</code>.</p>
+<p>The persona server baseline is an OpenAI-compatible chat API (<code>/v1/chat/completions</code>, also mounted at <code>/openai/v1</code>). Additional vendor routers are layered on top:</p>
 <table>
 <thead>
 <tr>
 <th>Prefix</th>
 <th>Vendor</th>
-<th>PR</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>/openai</code>, <code>/ollama</code></td>
-<td>OpenAI + Ollama (refactored)</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/29" title="GitHub Issue: TigreGotico/ovos-technical-manual #29">#29</a></td>
+<td><code>/openai/v1</code>, <code>/ollama/api</code></td>
+<td>OpenAI + Ollama</td>
 </tr>
 <tr>
 <td><code>/anthropic/v1</code></td>
 <td>Anthropic Claude</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/30" title="GitHub Issue: TigreGotico/ovos-technical-manual #30">#30</a></td>
 </tr>
 <tr>
-<td><code>/gemini/v1beta</code></td>
+<td><code>/gemini/v1beta/models</code></td>
 <td>Google Gemini</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/31" title="GitHub Issue: TigreGotico/ovos-technical-manual #31">#31</a></td>
 </tr>
 <tr>
 <td><code>/cohere/v1</code></td>
 <td>Cohere</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/32" title="GitHub Issue: TigreGotico/ovos-technical-manual #32">#32</a></td>
 </tr>
 <tr>
 <td><code>/tgi</code></td>
 <td>HuggingFace TGI</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/33" title="GitHub Issue: TigreGotico/ovos-technical-manual #33">#33</a></td>
 </tr>
 <tr>
 <td><code>/bedrock/model</code></td>
 <td>AWS Bedrock</td>
-<td><a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/34" title="GitHub Issue: TigreGotico/ovos-technical-manual #34">#34</a></td>
 </tr>
 </tbody>
 </table>

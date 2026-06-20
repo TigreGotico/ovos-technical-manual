@@ -3864,6 +3864,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#github-native-zero-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub-Native, Zero Servers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#design-principles" class="md-nav__link">
     <span class="md-ellipsis">
       Design Principles
@@ -3873,18 +3882,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#system-architecture" class="md-nav__link">
+  <a href="#leagues-modalities" class="md-nav__link">
     <span class="md-ellipsis">
-      System Architecture
+      Leagues (Modalities)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hf-dataset-contract" class="md-nav__link">
+  <a href="#declarative-registry" class="md-nav__link">
     <span class="md-ellipsis">
-      HF Dataset Contract
+      Declarative Registry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prediction-contract-huggingface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prediction Contract (HuggingFace)
     </span>
   </a>
   
@@ -3894,15 +3912,6 @@
   <a href="#elo-ratings" class="md-nav__link">
     <span class="md-ellipsis">
       ELO Ratings
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api-endpoints-arena-core" class="md-nav__link">
-    <span class="md-ellipsis">
-      API Endpoints (Arena Core)
     </span>
   </a>
   
@@ -5754,6 +5763,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#github-native-zero-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub-Native, Zero Servers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#design-principles" class="md-nav__link">
     <span class="md-ellipsis">
       Design Principles
@@ -5763,18 +5781,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#system-architecture" class="md-nav__link">
+  <a href="#leagues-modalities" class="md-nav__link">
     <span class="md-ellipsis">
-      System Architecture
+      Leagues (Modalities)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hf-dataset-contract" class="md-nav__link">
+  <a href="#declarative-registry" class="md-nav__link">
     <span class="md-ellipsis">
-      HF Dataset Contract
+      Declarative Registry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prediction-contract-huggingface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prediction Contract (HuggingFace)
     </span>
   </a>
   
@@ -5784,15 +5811,6 @@
   <a href="#elo-ratings" class="md-nav__link">
     <span class="md-ellipsis">
       ELO Ratings
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api-endpoints-arena-core" class="md-nav__link">
-    <span class="md-ellipsis">
-      API Endpoints (Arena Core)
     </span>
   </a>
   
@@ -5836,13 +5854,24 @@
 
 <h1 id="plugin-arena">Plugin Arena<a class="headerlink" href="#plugin-arena" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>Status:</strong> <a href="https://github.com/TigreGotico/ovos-plugin-arena">TigreGotico/ovos-plugin-arena</a> — in development.</p>
+<p><strong>Status:</strong> <a href="https://github.com/OpenVoiceOS/ovos-plugin-arena">OpenVoiceOS/ovos-plugin-arena</a> — in development. Only the <strong>intent</strong> league is live today; STT, TTS and wake word are pending.</p>
 </blockquote>
-<p>The Plugin Arena answers the question <em>"which OVOS plugin should I use?"</em> with two complementary signals:</p>
+<p><strong>What this is:</strong> a way to answer <em>"which OVOS plugin should I use?"</em> It compares plugins on two signals:</p>
 <ol>
-<li><strong>Traditional benchmarks</strong> — WER/CER for STT, detection metrics for wake word, accuracy for intent — computed offline and published as queryable HuggingFace datasets.</li>
-<li><strong>Human preference</strong> — chess-style ELO ratings produced by blind A/B battles where users pick the better of two plugin outputs.</li>
+<li><strong>Benchmarks</strong> — accuracy/F1 for intent, WER for STT, detection metrics for wake word — computed offline against labelled datasets and published openly as HuggingFace datasets.</li>
+<li><strong>Human preference</strong> — chess-style ELO ratings from blind A/B "battles" where people pick the better of two plugin outputs. The initial ELO is seeded from the benchmarks; human votes refine it.</li>
 </ol>
+<p>The arena is the <em>rating and voting</em> venue — <strong>not</strong> an execution venue. It never installs, isolates, or runs plugins.</p>
+<hr />
+<h2 id="github-native-zero-servers">GitHub-Native, Zero Servers<a class="headerlink" href="#github-native-zero-servers" title="Permanent link">&para;</a></h2>
+<p>The arena is a <strong>repository</strong>, not a service. There is no backend, no database, and no account system:</p>
+<ul>
+<li><strong>Data artifacts</strong> are JSON files committed by scheduled GitHub Actions (<code>assemble.yml</code> daily, <code>tally.yml</code> hourly).</li>
+<li><strong>The UI</strong> is a static Astro site published to <strong>GitHub Pages</strong>.</li>
+<li><strong>Votes</strong> are <strong>GitHub issues</strong>.</li>
+<li><strong>Plugin predictions</strong> are produced <em>outside</em> the arena as offline batch jobs and published as HuggingFace datasets.</li>
+</ul>
+<p>Forking the repo and editing JSON yields a working arena. A local FastAPI shim may exist as a development tool only; it is not a deployment target.</p>
 <hr />
 <h2 id="design-principles">Design Principles<a class="headerlink" href="#design-principles" title="Permanent link">&para;</a></h2>
 <table>
@@ -5854,182 +5883,151 @@
 </thead>
 <tbody>
 <tr>
+<td><strong>GitHub-native</strong></td>
+<td>Artifacts are committed JSON, the UI is GitHub Pages, votes are GitHub issues. No backend, no database.</td>
+</tr>
+<tr>
 <td><strong>Decentralized predictions</strong></td>
-<td>Plugins run <em>outside</em> the arena, as offline batch jobs anywhere. The arena never installs, isolates, or executes plugins.</td>
+<td>Plugins run outside the arena as offline jobs anywhere. The arena never installs or executes plugins in CI.</td>
 </tr>
 <tr>
 <td><strong>HuggingFace as artifact layer</strong></td>
-<td>Every prediction run is published as a queryable HF dataset (e.g. <code>OpenVoiceOS/ovos-stt-bench-pt-PT</code>). Predictions are a public benchmark independent of the arena.</td>
+<td>Every prediction run is published as a queryable HF dataset, independent of the arena.</td>
 </tr>
 <tr>
-<td><strong>Arena stores battle outcomes only</strong></td>
-<td>Votes, ratings, users — never raw predictions, never audio blobs.</td>
-</tr>
-<tr>
-<td><strong>Organic growth</strong></td>
-<td>New datasets and plugins are added by publishing more prediction datasets — no arena code changes.</td>
+<td><strong>Everything declarative</strong></td>
+<td>Every competitor and dataset is a JSON file under <code>registry/</code>. Editing JSON is enough to extend the arena.</td>
 </tr>
 <tr>
 <td><strong>Replayable ratings</strong></td>
-<td>ELO standings are deterministically recomputable from the persisted vote log.</td>
+<td>Battle ids are content hashes; the ELO seed is a deterministic function of the published predictions; human votes replay in <strong>issue-number order</strong>. Standings are reproducible from public data alone.</td>
+</tr>
+<tr>
+<td><strong>All predictions kept</strong></td>
+<td>Bad predictions are first-class content — failure cases guide plugin improvements.</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="system-architecture">System Architecture<a class="headerlink" href="#system-architecture" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌────────────────────┐   publish    ┌──────────────────────────────────┐
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│ Prediction Runners │ ───────────► │ HuggingFace datasets             │
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│ (offline, cron)    │              │ ovos-&lt;mod&gt;-bench-&lt;ds&gt;-&lt;lang&gt;     │
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└────────────────────┘              └───────────┬──────────────────────┘
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                                                │ sample
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                                                ▼
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                       ┌──────────────────────────────────────┐
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                       │ Arena backend (FastAPI + SQLite)     │
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                       │  matchmaking · battles · votes · ELO │
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                       └───────────┬──────────────────────────┘
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                                   │ blind A/B
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                                   ▼
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                       ┌──────────────────────┐
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                       │ Frontend (web)       │
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                       │  listen/read · vote  │
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                       └──────────────────────┘
-</span></code></pre></div>
-<hr />
-<h2 id="hf-dataset-contract">HF Dataset Contract<a class="headerlink" href="#hf-dataset-contract" title="Permanent link">&para;</a></h2>
-<p>Dataset naming: <code>OpenVoiceOS/ovos-&lt;modality&gt;-bench-&lt;dataset&gt;-&lt;lang&gt;</code></p>
-<p>Minimum columns (all modalities):</p>
+<h2 id="leagues-modalities">Leagues (Modalities)<a class="headerlink" href="#leagues-modalities" title="Permanent link">&para;</a></h2>
+<p>Each modality is an independent league with its own benchmarks, battle pools and ELO standings: <code>stt</code>, <code>tts</code>, <code>wake_word</code>, and <strong>three intent leagues</strong> (keyword and template paradigms consume different supervision, so they are never ranked against each other):</p>
 <table>
 <thead>
 <tr>
-<th>Column</th>
-<th>Type</th>
+<th>League</th>
+<th>Who competes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>intent_template</code></td>
+<td>template/embedding engines (Padatious, Padacioso, Nebulento, …)</td>
+</tr>
+<tr>
+<td><code>intent_keyword</code></td>
+<td>keyword engines (Adapt, Palavreado, …)</td>
+</tr>
+<tr>
+<td><code>intent</code></td>
+<td>open league — mixed-paradigm pipeline <strong>fusions</strong> (ensembles)</td>
+</tr>
+</tbody>
+</table>
+<p>A "competitor" is a <strong>shippable config</strong>, not just a plugin: a single-stage pipeline benchmarks one engine, a multi-stage pipeline is an ensemble fighter in its own right, and the same plugin under a different config is a <em>different competitor</em>. <code>competitor_id</code> is the stable key for predictions, battles, ELO and leaderboards.</p>
+<hr />
+<h2 id="declarative-registry">Declarative Registry<a class="headerlink" href="#declarative-registry" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Competitors</strong> — <code>registry/competitors/&lt;modality&gt;/&lt;id&gt;.json</code>. For intent, <code>config</code> is a valid <code>mycroft.conf</code> fragment (an <code>intents</code> section with an ordered <code>pipeline</code> of <code>&lt;plugin&gt;-&lt;tier&gt;</code> stages).</li>
+<li><strong>Datasets</strong> — <code>registry/datasets/&lt;modality&gt;/&lt;id&gt;.json</code>. One corpus per entry: HF source id + revision, <code>reference_fields</code> (the datashape contract), license, <code>lang</code> (or <code>lang: multi</code> + <code>langs</code>), and a <code>role</code> (<code>train</code>/<code>eval</code>). Keyword and template training corpora are distinct datasets with distinct datashapes.</li>
+</ul>
+<hr />
+<h2 id="prediction-contract-huggingface">Prediction Contract (HuggingFace)<a class="headerlink" href="#prediction-contract-huggingface" title="Permanent link">&para;</a></h2>
+<p>Predictions live in HF dataset repos — one per benchmark modality, named <code>ovos-&lt;modality&gt;-bench-&lt;dataset_id&gt;</code> (league underscores dashed), as per-competitor JSON lines at <code>predictions/&lt;lang&gt;/&lt;competitor_id&gt;.jsonl</code>, one row per (language, sample).</p>
+<p>Core <code>PredictionRow</code> fields (<code>arena/models.py</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><code>competitor_id</code></td>
+<td>Stable competitor key</td>
+</tr>
+<tr>
 <td><code>sample_id</code></td>
-<td>str</td>
 <td>Stable ID within the source dataset</td>
 </tr>
 <tr>
 <td><code>dataset_id</code></td>
-<td>str</td>
-<td>Source corpus identifier + revision</td>
+<td>Source corpus identifier</td>
 </tr>
 <tr>
 <td><code>lang</code></td>
-<td>str</td>
 <td>BCP-47</td>
 </tr>
 <tr>
-<td><code>plugin_id</code></td>
-<td>str</td>
-<td>OPM plugin name</td>
+<td><code>modality</code></td>
+<td>League (inferred from fields when absent)</td>
 </tr>
 <tr>
-<td><code>plugin_version</code></td>
-<td>str</td>
-<td>Exact installed version</td>
+<td><code>plugin_id</code>, <code>plugin_version</code></td>
+<td>Plugin name + exact installed version</td>
 </tr>
 <tr>
 <td><code>prediction</code></td>
-<td>str/audio</td>
 <td>Modality-specific payload</td>
 </tr>
 <tr>
 <td><code>runner_version</code></td>
-<td>str</td>
 <td>Reproducibility anchor</td>
 </tr>
 <tr>
 <td><code>created_at</code></td>
-<td>timestamp</td>
-<td></td>
+<td>Timestamp</td>
 </tr>
 </tbody>
 </table>
-<p>Per-modality extensions:</p>
+<p>Modality-specific fields (kept inline or in <code>extras</code>):</p>
 <ul>
-<li><strong>STT</strong>: <code>audio</code> (ref to source sample), <code>reference_text</code>, <code>wer</code>, <code>cer</code>, <code>rtf</code>.</li>
-<li><strong>TTS</strong>: <code>input_text</code>, synthesized <code>prediction</code> audio, <code>voice</code>, <code>rtf</code>.</li>
-<li><strong>Wake word</strong>: <code>audio</code>, <code>label</code> (contains-ww or not), <code>prediction</code> (score/decision), <code>latency_ms</code>.</li>
+<li><strong>Intent</strong>: <code>utterance</code>, <code>reference_intent</code>, <code>exact_match</code>, <code>confidence</code>, <code>bucket</code>, <code>reference_slots</code>, <code>predicted_slots</code>.</li>
+<li><strong>STT</strong>: <code>reference_text</code>, <code>wer</code>.</li>
+<li><strong>Shared diagnostics</strong>: <code>latency_ms</code>.</li>
 </ul>
 <hr />
 <h2 id="elo-ratings">ELO Ratings<a class="headerlink" href="#elo-ratings" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Standard ELO formula, K=32 for new plugins (&lt; 30 battles), K=16 for veterans.</li>
-<li>Automated benchmark results (WER, RTF, detection F1) flow through the same ELO pipeline via <code>POST /api/v1/arena/votes/metric</code>.</li>
-<li>Full vote log is replayable: <code>POST /api/v1/arena/ranking/recompute</code> replays all votes in chronological order.</li>
+<li>Standard ELO formula (<code>arena/elo.py</code>): <code>K_FACTOR = 32</code> for new competitors (<code>&lt; 30</code> battles), <code>K_FACTOR_VETERAN = 16</code> once past the <code>VETERAN_THRESHOLD = 30</code> battles.</li>
+<li>The ELO seed is derived deterministically from the published benchmark predictions; human votes (GitHub issues) replay in issue-number order on top of it.</li>
+<li>Standings are fully recomputable from public data alone — the leaderboard JSON committed by <code>tally.yml</code> is a cache, not the source of truth.</li>
 </ul>
-<hr />
-<h2 id="api-endpoints-arena-core">API Endpoints (Arena Core)<a class="headerlink" href="#api-endpoints-arena-core" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Path</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GET</td>
-<td><code>/api/v1/arena/plugins</code></td>
-<td>List registered plugins</td>
-</tr>
-<tr>
-<td>POST</td>
-<td><code>/api/v1/arena/battles</code></td>
-<td>Create a blind A/B matchup</td>
-</tr>
-<tr>
-<td>POST</td>
-<td><code>/api/v1/arena/votes</code></td>
-<td>Submit a human preference vote</td>
-</tr>
-<tr>
-<td>POST</td>
-<td><code>/api/v1/arena/votes/metric</code></td>
-<td>Submit an automated metric vote</td>
-</tr>
-<tr>
-<td>GET</td>
-<td><code>/api/v1/arena/ranking</code></td>
-<td>Current ELO leaderboard</td>
-</tr>
-<tr>
-<td>POST</td>
-<td><code>/api/v1/arena/ranking/recompute</code></td>
-<td>Replay all votes and recompute</td>
-</tr>
-</tbody>
-</table>
 <hr />
 <h2 id="supported-modalities">Supported Modalities<a class="headerlink" href="#supported-modalities" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Modality</th>
-<th>Adapter status</th>
+<th>Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>TTS</td>
-<td>Working</td>
-</tr>
-<tr>
 <td>Intent</td>
-<td>Working</td>
+<td>Live (<code>benchmarks/intent_intents_for_eval.py</code>, multiple engines × languages)</td>
 </tr>
 <tr>
 <td>STT</td>
-<td>Stub</td>
+<td>Pending — prediction runner exists; arena benchmark script + registry entries pending</td>
 </tr>
 <tr>
 <td>Wake word</td>
-<td>Stub</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>TTS</td>
+<td>Pending — planned as human-vote-only boards (no auto metric, no ELO seed)</td>
 </tr>
 </tbody>
 </table>
