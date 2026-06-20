@@ -118,15 +118,19 @@ a plain background image; the actual homescreen is provided by a skill (default
 `Mycroft.SkillView`. Skills register idle screens with `@resting_screen_handler`. See
 [Home Screen](homescreen.md) for the configuration and the resting-screen API.
 
-!!! warning "Upcoming — unreleased GUI rework"
-    The GUI-rework branches move homescreen data coordination into a `HomescreenManager`
-    inside `ovos-legacy-mycroft-gui-plugin` (`feat/session-id-contract`), which subscribes
-    to datetime, weather, wallpaper, notification, app, example, connectivity, and widget
-    sources and re-emits them as `homescreen.data.*` / `homescreen.widget.*` bus messages
-    for a client to render. This is **not** in any released shell and the shell itself
-    contains no `homescreen/` QML on `master`. The resting-screen skill API
-    (`@resting_screen_handler`, `idle_display_skill`) remains the supported mechanism on
-    released OVOS.
+!!! warning "Upcoming — unreleased"
+    The GUI rework ([OpenVoiceOS/ovos-gui#112](https://github.com/OpenVoiceOS/ovos-gui/pull/112),
+    specified by [architecture#63](https://github.com/OpenVoiceOS/architecture/pull/63))
+    moves homescreen data coordination into a `HomescreenManager` inside
+    `ovos-legacy-mycroft-gui-plugin`
+    ([PR #3](https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3),
+    `feat/session-id-contract`), which subscribes to datetime, weather, wallpaper,
+    notification, app, example, connectivity, and widget sources and re-emits them as
+    `homescreen.data.*` / `homescreen.widget.*` bus messages for a client to render. This
+    is **not** in any released shell and the shell itself contains no `homescreen/` QML on
+    `master`. The resting-screen skill API (`@resting_screen_handler`, `idle_display_skill`)
+    remains the supported mechanism on released OVOS. A Qt6 client successor is in flight at
+    [mycroft-gui-qt6#7](https://github.com/OpenVoiceOS/mycroft-gui-qt6/pull/7).
 
 ---
 

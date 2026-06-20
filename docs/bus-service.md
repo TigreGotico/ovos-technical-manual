@@ -247,15 +247,39 @@ GUI clients connect to `ovos-gui`'s own WebSocket (`ws://localhost:18181/gui`), 
 
 ---
 
-## Alternative Implementation
+## Alternative Implementations
 
-`ovos-messagebus` is the reference Tornado-based server and is all you need for a normal install (`pip install ovos-messagebus`). Because the wire protocol is just JSON frames over a WebSocket, the server is interchangeable — any process that fans messages out to all connected clients on the same route will work.
+`ovos-messagebus` is the reference **Tornado**-based server and is all you need for a normal install (`pip install ovos-messagebus`). Tornado is the current default and the only backend on `dev`. Because the wire protocol is just JSON frames over a WebSocket, the server is interchangeable — any process that fans messages out to all connected clients on the same route will work.
 
 A separate, drop-in Rust implementation exists as its own project for deployments that want lower overhead:
 
 - [OscillateLabsLLC/ovos-rust-messagebus](https://github.com/OscillateLabsLLC/ovos-rust-messagebus) — speaks the same OVOS wire protocol; build and run it in place of the Python server. See that project's README for build and configuration details.
 
-**In plain terms:** start with the default Python server; only reach for the Rust build if profiling shows the bus is a bottleneck.
+**In plain terms:** on a stable install, run the default Python (Tornado) server; only reach for the Rust build if profiling shows the bus is a bottleneck.
+
+!!! warning "Upcoming — unreleased"
+    Pluggable high-performance backends are in flight via
+    [OpenVoiceOS/ovos-messagebus#51](https://github.com/OpenVoiceOS/ovos-messagebus/pull/51)
+    (branch `webrockets`). It keeps **Tornado** as the default reference server and adds two
+    optional alternatives, benchmarked side by side with `benchmark/run_benchmark.py` at four
+    load levels (5 / 20 / 50 / 100 concurrent clients):
+
+    - **webrockets** — a high-performance websocket backend, written in Python.
+    - **Rust** — the [`ovos-rust-messagebus`](https://github.com/OscillateLabsLLC/ovos-rust-messagebus)
+      v1.1.2 server, run in place of the Python process.
+
+    Throughput vs the Tornado baseline from the PR's measurements:
+
+    | Load | webrockets | Rust |
+    |---|---|---|
+    | 5 clients × 200 msgs | +11% | +18% |
+    | 20 clients × 1000 msgs | +9% | +20% |
+    | 50 clients × 2000 msgs | +24% | +20% |
+    | 100 clients × 500 msgs | +4% | connection errors (saturation) |
+
+    webrockets leads at higher concurrency; the Rust backend showed connection
+    saturation (28 connection errors) at the 100-client level. None of this is on a
+    published release — do not rely on it on a stable install.
 
 ---
 

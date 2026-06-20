@@ -147,30 +147,35 @@ The GUI WebSocket server is configured under `gui_websocket` in `mycroft.conf`:
 
 ---
 
-!!! warning "Upcoming — unreleased GUI rework"
+!!! warning "Upcoming — unreleased"
     The following describes a **plugin-based rendering rework** that is **not yet
-    released** and not present on any published package. It spans these branches:
+    released** and not present on any published package. It is specified by
+    [OpenVoiceOS/architecture#63](https://github.com/OpenVoiceOS/architecture/pull/63)
+    (the **OVOS-GUI-1** spec) and landed by
+    [OpenVoiceOS/ovos-gui#112](https://github.com/OpenVoiceOS/ovos-gui/pull/112)
+    (branch `feat/gui-rework-landing`), with adapters in
+    [ovos-legacy-mycroft-gui-plugin#3](https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3)
+    and [pyhtmx-gui-client#1](https://github.com/OpenVoiceOS/pyhtmx-gui-client/pull/1).
+    Do not rely on any of this on a stable install.
 
-    - `ovos-gui` @ `feat/gui-rework-landing`
-    - `ovos-plugin-manager` @ `gui`
-    - `ovos-gui-api-client` @ `dev` (PyPI `0.0.2a1`, pre-release)
-    - `ovos-legacy-mycroft-gui-plugin` @ `feat/session-id-contract`
+    **What changes.** Per OVOS-GUI-1, `ovos-gui` becomes a **pure state-and-dispatch hub**:
+    it runs **no WebSocket server** and renders nothing. It loads every installed
+    **GUI adapter plugin** (`opm.gui_adapter` entry-point group) via
+    `OVOSGUIAdapterFactory.create_all(bus, config)` and fans each display event out to all
+    of them concurrently, enabling multi-modal output (Qt + browser + terminal at once). A
+    headless device with zero adapters degrades to a no-op dispatch — it never crashes. The
+    Qt WebSocket server moves into the `ovos-legacy-mycroft-gui-plugin` adapter.
 
-    Do not rely on any of this on a stable install. The contract (notably the
-    `session_id` argument on adapter callbacks) is still in flux across these branches.
+    **Templates instead of QML page names.** Skills display one of a **closed vocabulary of
+    22 `SYSTEM_*` templates** (`SYSTEM_weather`, `SYSTEM_text`, `SYSTEM_list`, …) defined by
+    the spec. Custom QML page names are no longer accepted by the router. The template-based
+    `GUIInterface` moves into the standalone `ovos-gui-api-client` package (separate from the
+    current `ovos_bus_client.apis.gui.GUIInterface`).
 
-    **What changes.** `ovos-gui` stops being a Qt WebSocket server and becomes a pure
-    router. Rendering moves into independently installable **GUI adapter plugins**
-    (`opm.gui_adapter` entry-point group). All loaded adapters receive every display event
-    concurrently, enabling multi-modal output (Qt + browser + terminal at once). The Qt
-    WebSocket server moves into the `ovos-legacy-mycroft-gui-plugin` adapter.
-
-    **Templates instead of QML page names.** Skills display one of a fixed set of
-    semantic **templates** (`SYSTEM_weather`, `SYSTEM_text`, `SYSTEM_list`, …) defined by
-    the `PageTemplates` enum in `ovos-gui-api-client`. Custom QML page names are no longer
-    accepted by the router — `handle_show_page()` raises if `page_names[0]` does not start
-    with `SYSTEM_`. The template-based `GUIInterface` lives in `ovos-gui-api-client`
-    (separate from the released `ovos_bus_client.apis.gui.GUIInterface`).
+    **Addressing is `session_id`-only.** The spec drops any separate site/room/location
+    dimension: a GUI message is routed solely by its `session_id`, and a shared/multi-room
+    screen is expressed by clients sharing one `session_id`. This is the intended target
+    design, not a regression.
 
     See [GUI Adapter Plugins](gui-adapters.md) for the adapter API and the full template
     list, and the Upcoming section of [GUI Protocol](gui-protocol.md) for the routing

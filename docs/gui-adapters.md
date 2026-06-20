@@ -1,21 +1,22 @@
 # GUI Adapter Plugins
 
-!!! warning "Upcoming — unreleased GUI rework"
+!!! warning "Upcoming — unreleased"
     This whole page describes the **GUI-rendering rework**, which is **not yet released**.
-    Nothing here is available on a stable install. It is implemented across these
-    branches:
+    Nothing here is available on a stable install. It is specified by the **OVOS-GUI-1**
+    spec ([OpenVoiceOS/architecture#63](https://github.com/OpenVoiceOS/architecture/pull/63))
+    and implemented across these PRs/branches:
 
-    - `ovos-plugin-manager` @ `gui` — `AbstractGUIPlugin`, `opm.gui_adapter` plugin type
-    - `ovos-gui` @ `feat/gui-rework-landing` — the router that dispatches to adapters
-    - `ovos-gui-api-client` @ `dev` (PyPI `0.0.2a1`, pre-release) — `PageTemplates` + the
-      template-based `GUIInterface`
-    - `ovos-legacy-mycroft-gui-plugin` @ `feat/session-id-contract` — the Qt adapter
-    - `pyhtmx-gui-client` @ `feat/gui-adapter` — the browser/HTMX adapter
+    - `ovos-plugin-manager` @ `gui` — `AbstractGUIPlugin`, `opm.gui_adapter` plugin type,
+      `OVOSGUIAdapterFactory`
+    - [ovos-gui#112](https://github.com/OpenVoiceOS/ovos-gui/pull/112) @ `feat/gui-rework-landing` — the router that dispatches to adapters
+    - `ovos-gui-api-client` — the template-based `GUIInterface`
+    - [ovos-legacy-mycroft-gui-plugin#3](https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3) @ `feat/session-id-contract` — the Qt adapter
+    - [pyhtmx-gui-client#1](https://github.com/OpenVoiceOS/pyhtmx-gui-client/pull/1) @ `feat/gui-adapter` — the browser/HTMX adapter
 
-    The per-call routing argument is still in flux: the `ovos-plugin-manager` base class
-    currently names it `site_id`, while the `ovos-gui` router and the latest legacy-plugin
-    branch pass `session_id`. Treat the signatures below as approximate until the rework
-    lands on `dev`.
+    The per-call routing argument is **`session_id`**. Per OVOS-GUI-1, this is the sole
+    routing key — there is no separate site/room/location dimension; a shared/multi-room
+    screen is expressed by its clients sharing one `session_id`. The landing PRs rename the
+    earlier `site_id` parameter to `session_id` throughout the adapter contract.
 
 In the rework, `ovos-gui` no longer renders or talks to Qt clients directly. It becomes a
 router that dispatches each display event to every installed **GUI adapter plugin**. Each
@@ -47,9 +48,8 @@ class MyGUIPlugin(AbstractGUIPlugin):
 ### Template handlers
 
 Override any of the following methods to render a template. Each receives `skill_id: str`
-(the namespace), `data: dict` (current session data), and a routing id
-(`session_id`/`site_id`, default `"default"`). All default to no-ops, so partial
-implementations are valid.
+(the namespace), `data: dict` (current session data), and `session_id: str` (the routing
+id, default `"default"`). All default to no-ops, so partial implementations are valid.
 
 | Method | Template | Key data keys |
 |---|---|---|
@@ -79,10 +79,10 @@ implementations are valid.
 ### Lifecycle hooks
 
 ```python
-def on_namespace_activated(self, skill_id: str, site_id: str = "default") -> None:
+def on_namespace_activated(self, skill_id: str, session_id: str = "default") -> None:
     """Called when a namespace moves to the top of the display stack."""
 
-def on_namespace_deactivated(self, skill_id: str, site_id: str = "default") -> None:
+def on_namespace_deactivated(self, skill_id: str, session_id: str = "default") -> None:
     """Called when a namespace is removed from the display stack."""
 
 def on_idle(self) -> None:

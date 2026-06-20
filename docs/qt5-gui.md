@@ -7,7 +7,13 @@
     accepts your own `.qml` files, this is a supported path, not a legacy one.
 
 !!! info
-    Currently only a [QT5 gui-client](https://github.com/OpenVoiceOS/mycroft-gui-qt5) is available, help wanted to [migrate to QT6](https://github.com/OVOSHatchery/mycroft-gui-qt6)!
+    Currently only a [QT5 gui-client](https://github.com/OpenVoiceOS/mycroft-gui-qt5) is available, help wanted to [migrate to QT6](https://github.com/OpenVoiceOS/mycroft-gui-qt6)!
+
+!!! warning "Upcoming — unreleased"
+    A Qt6/Kirigami successor with the session-based GUI protocol is in flight at
+    [OpenVoiceOS/mycroft-gui-qt6#7](https://github.com/OpenVoiceOS/mycroft-gui-qt6/pull/7)
+    (branch `feat/gui-protocol-rework`). It is not released and still needs a human
+    C++/Qt6 build review.
 
 ## Introduction to QML
 

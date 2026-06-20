@@ -512,9 +512,11 @@ User swipes / taps on Qt:
 
 ---
 
-!!! warning "Upcoming — unreleased GUI rework"
-    On the GUI-rework branches (`ovos-gui` @ `feat/gui-rework-landing` and related, see
-    [GUI Service](gui-service.md)) the bus contract changes:
+!!! warning "Upcoming — unreleased"
+    On the GUI-rework branch ([OpenVoiceOS/ovos-gui#112](https://github.com/OpenVoiceOS/ovos-gui/pull/112),
+    `feat/gui-rework-landing`), specified by the **OVOS-GUI-1** spec
+    ([OpenVoiceOS/architecture#63](https://github.com/OpenVoiceOS/architecture/pull/63);
+    see [GUI Service](gui-service.md)) the bus contract changes:
 
     - `gui.page.show` accepts **only** `SYSTEM_*` template names; `page_names[0]` must
       start with `SYSTEM_` or `handle_show_page()` raises.

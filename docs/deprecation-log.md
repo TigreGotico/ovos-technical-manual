@@ -26,6 +26,15 @@ Following the [OVOS Deprecation Policy](architecture-overview.md), deprecated fe
     their own `.qml`/custom pages via `show_page` — see
     [GUI Skills](skill-gui.md).
 
+!!! warning "Upcoming — unreleased"
+    The [GUI rework](gui-service.md) rebinds the skill-side GUI API. Unreleased PR
+    [OpenVoiceOS/ovos-workshop#420](https://github.com/OpenVoiceOS/ovos-workshop/pull/420)
+    moves `GUIInterface` out of `ovos_bus_client.apis.gui` into the standalone
+    **`ovos-gui-api-client`** package and drops the `ui_directories` argument from
+    `SkillGUI`. This is a real future direction, not a released change — no published
+    `ovos-workshop` ships it yet. The `ovos_bus_client.apis.gui` import remains current on
+    stable installs.
+
 ### [ovos-media] OVOSAbstractApplication
 **Date:** March 2026  
 **Status:** **REMOVED** (Stabilization Refactor)

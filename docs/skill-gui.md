@@ -8,9 +8,18 @@ shown, and any connected GUI client (Qt shell, web, terminal, ...) renders it.
 (`self.gui["name"] = "OVOS"`), then call a `show_*` method to display a page.
 
 Under the hood, `self.gui` is a `SkillGUI` instance (a subclass of `GUIInterface`)
-created automatically for every `OVOSSkill`. The base class lives in
-`ovos_bus_client.apis.gui.GUIInterface`; the skill wrapper is
+created automatically for every `OVOSSkill`. On current `ovos-workshop` v8 the base class
+lives in `ovos_bus_client.apis.gui.GUIInterface`; the skill wrapper is
 `ovos_workshop.skills.ovos.SkillGUI`, namespaced to your `skill_id`.
+
+!!! warning "Upcoming — unreleased"
+    [OpenVoiceOS/ovos-workshop#420](https://github.com/OpenVoiceOS/ovos-workshop/pull/420)
+    (`feat!: bind OVOSSkill.gui to ovos-gui-api-client`) rebinds `self.gui` to a
+    `GUIInterface` from the standalone **`ovos-gui-api-client`** package (instead of
+    `ovos_bus_client.apis.gui`) and drops the `ui_directories` constructor argument, since
+    skills under the [GUI rework](gui-service.md) no longer ship QML. This is **not** on a
+    released `ovos-workshop`; on stable installs `self.gui` is still the
+    `ovos_bus_client.apis.gui.GUIInterface`-based `SkillGUI` described above.
 
 ## Quick start
 
