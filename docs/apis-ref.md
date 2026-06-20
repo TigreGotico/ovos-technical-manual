@@ -35,8 +35,8 @@ gui["city"] = "Paris"
 # Read a value
 temp = gui.get("temperature")
 
-# Remove a value
-del gui["temperature"]
+# Clear all synced values for this skill
+gui.clear()
 
 ```
 
@@ -266,5 +266,6 @@ Bus events handled:
 |---|---|
 | `mycroft.scheduler.schedule_event` | Add/update a scheduled event |
 | `mycroft.scheduler.remove_event` | Remove an event |
-| `mycroft.schedule.update_event` | Update event payload |
+| `mycroft.scheduler.update_event` | Update event payload |
 | `mycroft.scheduler.get_event` | Return next execution time |
+| `mycroft.scheduler.list_events` | List all registered events |

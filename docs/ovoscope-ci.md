@@ -288,13 +288,16 @@ The ovoscope repository itself uses the standard OVOS workflow set:
 
 | Workflow | File | Trigger | Purpose |
 | :--- | :--- | :--- | :--- |
-| **Unit Tests** | `unit_tests.yml` | PR/push to `dev` | Runs `pytest --cov=ovoscope` on 58 tests, posts coverage comment |
-| **Build Tests** | `build_tests.yml` | PR to `dev`, push to `master` | Matrix build (Python 3.10, 3.11) with `python -m build` |
-| **License Check** | `license_tests.yml` | PR to `dev`, push to `master` | Calls `gh-automations/license-check.yml` reusable |
-| **Pip Audit** | `pipaudit.yml` | Push to `dev`/`master` | CVE scanning via `pypa/gh-action-pip-audit` |
-| **Release Alpha** | `release_workflow.yml` | PR merge to `dev` | Runs tests first, then calls `publish-alpha.yml` |
-| **Stable Release** | `publish_stable.yml` | Push to `master` | Calls `publish-stable.yml` with bot loop guard |
-| **Labels** | `conventional-label.yaml` | PR open/edit | Auto-labels PRs with conventional commit types |
+| **Build Tests** | `build-tests.yml` | PR to `dev`/`master`/`main` | Calls `gh-automations/build-tests.yml` reusable |
+| **Code Coverage** | `coverage.yml` | PR to `dev` | Calls `gh-automations/coverage.yml` reusable |
+| **Coverage Pages** | `coverage-pages.yml` | Push to `dev` | Publishes coverage report to Pages |
+| **License Check** | `license-check.yml` | PR/push to `dev`/`master` | Calls `gh-automations/license-check.yml` reusable |
+| **Pip Audit** | `pip-audit.yml` | PR/push to `dev`/`master` | Calls `gh-automations/pip-audit.yml` reusable |
+| **Lint** | `lint.yml` | PR to `dev`/`master`/`main` | Calls `gh-automations/lint.yml` reusable |
+| **Release Alpha** | `release-workflow.yml` | PR to `dev` | Runs build-tests, then calls `publish-alpha.yml` |
+| **Stable Release** | `publish-stable.yml` | Push to `master` | Calls `publish-stable.yml` |
+| **Release Preview** | `release-preview.yml` | PR to `dev` | Calls `gh-automations/release-preview.yml` reusable |
+| **Labels** | `conventional-label.yml` | PR open/edit | Auto-labels PRs with conventional commit types |
 The release workflow gates alpha publishing on test success — a failing test blocks the release.
 ---
 

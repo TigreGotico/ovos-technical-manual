@@ -378,7 +378,7 @@ the main fallback message. The expected sequence is longer than a normal intent 
 session = Session("fallback-session")
 
 # use a pipeline that includes fallback
-session.pipeline = ["ovos-fallback-skill-plugin-high"]
+session.pipeline = ["ovos-fallback-pipeline-plugin-high"]
 message = Message(
     "recognizer_loop:utterance",
     {"utterances": ["what is the meaning of life"], "lang": "en-US"},

@@ -31,7 +31,6 @@ Shared utility library used by all OVOS components. Provides logging, process li
 | `ovos_utils.gui` | GUI interface utilities |
 | `ovos_utils.skills` | [Skill](skill-design-guidelines.md) ID helpers |
 | `ovos_utils.ocp` | [OCP](ocp-pipeline.md) (media player) helpers |
-| `ovos_utils.signal` | IPC signal file helpers |
 | `ovos_utils.smtp_utils` | Email-sending utilities |
 
 ---
