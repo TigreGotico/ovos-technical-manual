@@ -12,9 +12,7 @@ Read by `load_message_bus_config()` from the `websocket` section.
     "host": "127.0.0.1",
     "port": 8181,
     "route": "/core",
-    "ssl": false,
-    "secret_key": null,
-    "allow_unencrypted": true
+    "ssl": false
   }
 }
 
@@ -26,33 +24,41 @@ Read by `load_message_bus_config()` from the `websocket` section.
 | `port` | `8181` | MessageBus port |
 | `route` | `"/core"` | WebSocket route |
 | `ssl` | `false` | Enable WSS |
-| `secret_key` | `null` | AES encryption key. If set, all messages are encrypted. |
-| `allow_unencrypted` | `true` | When `secret_key` is set, whether to accept plaintext messages. Set to `false` to enforce encryption. |
+| `shared_connection` | `true` | If true, each skill gets its own websocket connection |
+| `max_msg_size` | `25` | Reject bus messages larger than this (MB) |
+
+`load_message_bus_config()` returns a `MessageBusConfig` namedtuple with exactly four fields: `host`, `port`, `route`, `ssl`. Other `websocket.*` keys are read directly from the merged config by the components that use them.
 
 ## GUI Bus
 
-Read by `load_gui_message_bus_config()` from the `gui` section.
+Read by `load_gui_message_bus_config()` from the `gui` section. Note that the
+default `mycroft.conf` defines the GUI socket under a **separate** `gui_websocket`
+section (`host: "0.0.0.0"`, `base_port: 18181`, `route: "/gui"`); the loader reads
+`gui.host`/`gui.port`/`gui.route`, which are absent by default, so it falls back to
+the hardcoded values below.
 
 ```json
 {
   "gui": {
-    "host": "127.0.0.1",
-    "port": 18181,
-    "route": "/",
-    "ssl": false,
     "disable_gui": false
+  },
+  "gui_websocket": {
+    "host": "0.0.0.0",
+    "base_port": 18181,
+    "route": "/gui",
+    "ssl": false
   }
 }
 
 ```
 
-| Key | Default | Description |
+| Key | Default (loader fallback) | Description |
 |---|---|---|
-| `host` | `"127.0.0.1"` | GUI bus host |
-| `port` | `18181` | GUI bus port |
-| `route` | `"/"` | WebSocket route |
+| `host` | `"127.0.0.1"` | GUI bus host (read from `gui.host`) |
+| `port` | `18181` | GUI bus port (read from `gui.port`) |
+| `route` | `"/"` | WebSocket route (read from `gui.route`) |
 | `ssl` | `false` | Enable WSS |
-| `disable_gui` | `false` | If true, `GUIInterface.gui_disabled` returns True |
+| `disable_gui` | `false` | If true, suppresses GUI bus messages |
 
 ## Session
 

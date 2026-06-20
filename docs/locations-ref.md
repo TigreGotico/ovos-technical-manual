@@ -13,10 +13,10 @@ All paths respect the `OVOS_CONFIG_BASE_FOLDER` environment variable (default: `
 | Constant | Default Path | Description |
 |---|---|---|
 | `DEFAULT_CONFIG` | `<package>/mycroft.conf` | Bundled default config (read-only) |
-| `DISTRIBUTION_CONFIG` | `/etc/xdg/mycroft/mycroft.conf` | Distribution-level override |
-| `SYSTEM_CONFIG` | `/etc/mycroft/mycroft.conf` | System-level config |
+| `DISTRIBUTION_CONFIG` | `/usr/share/mycroft/mycroft.conf` | Distribution-level override (env: `OVOS_DISTRIBUTION_CONFIG`) |
+| `SYSTEM_CONFIG` | `/etc/mycroft/mycroft.conf` | System-level config (env: `MYCROFT_SYSTEM_CONFIG`) |
 | `USER_CONFIG` | `~/.config/mycroft/mycroft.conf` | XDG user config (primary editable) |
-| `WEB_CONFIG_CACHE` | `~/.config/mycroft/web_cache.json` | Remote config cache |
+| `WEB_CONFIG_CACHE` | `~/.config/mycroft/web_cache.json` | Remote config cache (env: `MYCROFT_WEB_CACHE`) |
 | `OLD_USER_CONFIG` | `~/.mycroft/mycroft.conf` | Legacy pre-XDG location (migration) |
 
 ---
@@ -36,7 +36,7 @@ path = get_xdg_config_save_path()
 
 ```
 
-Returns the XDG config directory for the current base folder. Creates it if it does not exist.
+Returns the XDG config save directory for the current base folder. (At import time the module ensures the user-config and web-cache directories exist, but these helpers only build the path string.)
 
 ### `get_xdg_data_save_path()`
 
@@ -49,7 +49,7 @@ path = get_xdg_data_save_path()
 
 ```
 
-Returns the XDG data directory. Creates it if it does not exist.
+Returns the XDG data save directory (path string only).
 
 ### `get_xdg_cache_save_path()`
 
@@ -62,7 +62,7 @@ path = get_xdg_cache_save_path()
 
 ```
 
-Returns the XDG cache directory. Creates it if it does not exist.
+Returns the XDG cache save directory (path string only).
 
 ### `find_user_config()`
 

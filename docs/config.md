@@ -6,21 +6,57 @@ For a detailed list of every available configuration option, see the **[Configur
 
 ---
 
+## Where config lives (start here)
+
+OVOS ships a complete default config bundled inside the `ovos-config` package
+(`mycroft.conf`). You never edit that file. Instead you create a small file at
+**`~/.config/mycroft/mycroft.conf`** containing only the keys you want to change;
+everything you don't mention keeps its default.
+
+At read time OVOS stacks several files on top of each other and merges them. The
+file closest to *you* wins:
+
+```
+bundled default  →  remote (web_cache.json)  →  /usr/share/...  →  /etc/mycroft/...  →  ~/.config/mycroft/mycroft.conf  →  runtime patch
+     lowest priority  ───────────────────────────────────────────────────────────────►  highest priority
+```
+
+So to switch to a German voice you only need:
+
+```json
+{
+  "lang": "de-de"
+}
+```
+
+dropped into `~/.config/mycroft/mycroft.conf`. Dicts are deep-merged, so this leaves
+every other setting untouched.
+
+---
+
 ## Config Layer Stack
 
 Layers are merged in this priority order (highest wins):
 
 ```
-MycroftDefaultConfig   (bundled default.conf — read-only)
-OvosDistributionConfig (distribution override, e.g. /etc/xdg/mycroft/mycroft.conf)
-MycroftSystemConfig    (/etc/mycroft/mycroft.conf — read-only)
+MycroftDefaultConfig   (bundled mycroft.conf — read-only)
 RemoteConf             (~/.config/mycroft/web_cache.json)
+OvosDistributionConfig (/usr/share/mycroft/mycroft.conf — read-only)
+MycroftSystemConfig    (/etc/mycroft/mycroft.conf — read-only)
 MycroftUserConfig      (~/.config/mycroft/mycroft.conf — XDG user config)
 __patch                (in-memory overlay applied last)
 
 ```
 
-All layers are `LocalConf` dict subclasses backed by a file. Only the user config layer (`~/.config/mycroft/mycroft.conf`) should be edited by users.
+The XDG user layer is actually a *list* of configs (one per XDG config dir, e.g.
+`/etc/xdg/mycroft/mycroft.conf` plus `~/.config/mycroft/mycroft.conf`), all merged
+in order. All layers are `LocalConf` dict subclasses backed by a file. Only the user
+config (`~/.config/mycroft/mycroft.conf`) should be edited by users.
+
+> The merge order in `load_all_configs()` is: default → remote → distribution →
+> system → xdg user configs → in-memory patch. The remote layer is skipped when
+> `disable_remote_config` is set, and the user/XDG layers when `disable_user_config`
+> is set.
 
 ---
 
@@ -53,13 +89,16 @@ All paths respect the `OVOS_CONFIG_BASE_FOLDER` environment variable (default: `
 | Constant | Default Path | Description |
 |---|---|---|
 | `DEFAULT_CONFIG` | `<package>/mycroft.conf` | Bundled default config (read-only) |
-| `DISTRIBUTION_CONFIG` | `/etc/xdg/mycroft/mycroft.conf` | Distribution-level override |
-| `SYSTEM_CONFIG` | `/etc/mycroft/mycroft.conf` | System-level config |
+| `DISTRIBUTION_CONFIG` | `/usr/share/mycroft/mycroft.conf` | Distribution-level override (env: `OVOS_DISTRIBUTION_CONFIG`) |
+| `SYSTEM_CONFIG` | `/etc/mycroft/mycroft.conf` | System-level config (env: `MYCROFT_SYSTEM_CONFIG`) |
 | `USER_CONFIG` | `~/.config/mycroft/mycroft.conf` | XDG user config (primary editable) |
-| `WEB_CONFIG_CACHE` | `~/.config/mycroft/web_cache.json` | Remote config cache |
+| `WEB_CONFIG_CACHE` | `~/.config/mycroft/web_cache.json` | Remote config cache (env: `MYCROFT_WEB_CACHE`) |
 | `OLD_USER_CONFIG` | `~/.mycroft/mycroft.conf` | Legacy pre-XDG location (migration) |
 
-File formats: JSON (`.json` or `.conf`, with C-style `//` comments supported) or YAML (`.yml` or `.yaml`).
+In addition to `USER_CONFIG`, every XDG config dir is scanned, so a system-wide
+`/etc/xdg/mycroft/mycroft.conf` is also merged at the user layer (below your
+`~/.config` file). File formats: JSON (`.json` or `.conf`, with C-style `//`
+comments supported) or YAML (`.yml` or `.yaml`).
 
 ---
 
@@ -101,16 +140,22 @@ The system config (`/etc/mycroft/mycroft.conf`) can enforce constraints:
 
 | Key in system config | Effect |
 |---|---|
-| `protected_keys` | Dict of `{layer: [key, ...]}` — keys that cannot be overridden by higher-priority layers |
+| `protected_keys` | Dict of `{"remote"\|"user": [key, ...]}` — keys stripped from that layer before merging |
 | `disable_user_config` | If `true`, the user XDG config layer is ignored |
 | `disable_remote_config` | If `true`, the remote config layer (`web_cache.json`) is ignored |
 
-Example — prevent users from accidentally exposing the messagebus:
+These constraints are read from the `system` section, and **only** from the
+distribution or system config — values set in the default or user/remote layers are
+ignored. Nested keys use `:` as the separator (e.g. `"listener:sample_rate"`).
+
+Example — stop users from rebinding the messagebus host (must live in the `system` section of `/etc/mycroft/mycroft.conf`):
 
 ```json
 {
-  "protected_keys": {
-    "user": ["gui_websocket.host", "websocket.host"]
+  "system": {
+    "protected_keys": {
+      "user": ["gui_websocket:host", "websocket:host"]
+    }
   }
 }
 
@@ -122,16 +167,16 @@ Example — prevent users from accidentally exposing the messagebus:
 
 ## Patch Mechanism
 
-The `__patch` overlay is an in-memory dict merged on top of all file-backed layers. Used for temporary overrides that should not be persisted to disk.
+The `__patch` overlay is an in-memory dict merged on top of all file-backed layers. Used for temporary overrides that should not be persisted to disk. Writing a key on the singleton goes into this patch:
 
 ```python
-config.patch({"lang": "fr-fr"})   # apply in-memory patch
-config.patch_reset()               # clear the patch
+config = Configuration()
+config["lang"] = "fr-fr"   # stored in the in-memory __patch layer
 
 ```
 
-Bus event `configuration.patch` triggers `patch()` with the provided `config` data payload.
-Bus event `configuration.patch.clear` triggers `patch_reset()`.
+The patch is applied/cleared via the bus handlers below — there is no public
+`patch()`/`patch_reset()` instance API.
 
 ---
 
@@ -139,13 +184,15 @@ Bus event `configuration.patch.clear` triggers `patch_reset()`.
 
 `Configuration.set_config_update_handlers(bus)` registers the following listeners:
 
-| Bus Event | Action |
-|---|---|
-| `configuration.updated` | Reload all config layers |
-| `configuration.patch` | Apply `data["config"]` as an in-memory patch |
-| `configuration.patch.clear` | Clear the in-memory patch |
+| Bus Event | Handler | Action |
+|---|---|---|
+| `configuration.updated` | `Configuration.updated` | Reload all config layers |
+| `configuration.patch` | `Configuration.patch` | Apply `data["config"]` as an in-memory patch |
+| `configuration.patch.clear` | `Configuration.patch_clear` | Clear the in-memory patch |
+| `configuration.cache.clear` | `Configuration.clear_cache` | Drop the cached merged config |
+| `mycroft.paired` / `mycroft.internet.connected` | `Configuration.handle_remote_update` | Re-fetch the remote layer |
 
-`Configuration.set_config_watcher()` uses `inotify`/`watchdog` to monitor config files on disk and reloads automatically when they change.
+`Configuration.set_config_watcher()` uses `ovos-utils`' `FileWatcher` (watchdog) to monitor config files on disk and reloads automatically when they change.
 
 ---
 
@@ -158,12 +205,12 @@ Each layer is a `LocalConf` instance — a file-backed `dict` subclass.
 | Class | Path | Notes |
 |---|---|---|
 | `LocalConf` | any path | Base class; supports JSON and YAML |
-| `ReadOnlyConfig` | any path | Raises `PermissionError` on mutation |
-| `MycroftDefaultConfig` | bundled `default.conf` | `ReadOnlyConfig` |
-| `OvosDistributionConfig` | `/etc/xdg/mycroft/mycroft.conf` | Distribution-level |
+| `ReadOnlyConfig` | any path | Raises `PermissionError` on mutation (unless `allow_overwrite=True`) |
+| `MycroftDefaultConfig` | bundled `mycroft.conf` | `ReadOnlyConfig` |
+| `OvosDistributionConfig` | `/usr/share/mycroft/mycroft.conf` | `ReadOnlyConfig` |
 | `MycroftSystemConfig` | `/etc/mycroft/mycroft.conf` | `ReadOnlyConfig` |
-| `RemoteConf` | `~/.config/mycroft/web_cache.json` | Cached remote config |
-| `MycroftUserConfig` | `~/.config/mycroft/mycroft.conf` | Primary user layer |
+| `RemoteConf` | `~/.config/mycroft/web_cache.json` | Cached remote config (`LocalConf`) |
+| `MycroftUserConfig` | `~/.config/mycroft/mycroft.conf` | Primary user layer (`LocalConf`; alias `MycroftXDGConfig`) |
 
 ```python
 from ovos_config.models import LocalConf, MycroftUserConfig
@@ -179,12 +226,12 @@ user.store()   # write to disk
 
 | Method | Description |
 |---|---|
-| `load_config()` | Read from `self.path` and merge into self |
+| `load_local(path=None)` | Read from `path` (or `self.path`) and merge into self |
 | `store(path=None)` | Write current contents to disk |
 | `merge(conf)` | Deep-merge another dict into self |
-| `reload()` | Re-read from disk, discarding in-memory changes |
+| `reload()` | Re-read from disk if the file changed since last load |
 
-`LocalConf` uses a `NamedLock` (keyed by file path) to coordinate concurrent reads and writes.
+`LocalConf` uses a single shared `NamedLock("ovos_config")` (class-level) to coordinate concurrent reads and writes across all instances.
 
 ### Merge Semantics
 
@@ -200,13 +247,20 @@ user.store()   # write to disk
 
 ## Accessing Individual Layers
 
+The individual layers are class attributes on `Configuration` (not per-instance):
+
 ```python
-config = Configuration()
-config.system    # MycroftSystemConfig (LocalConf)
-config.remote    # RemoteConf (LocalConf)
-config.user      # MycroftUserConfig (LocalConf)
+Configuration.default       # MycroftDefaultConfig
+Configuration.distribution  # OvosDistributionConfig
+Configuration.system        # MycroftSystemConfig
+Configuration.remote        # RemoteConf
+Configuration.xdg_configs   # list[LocalConf] — the user/XDG layer(s)
 
 ```
+
+There is no `.user` attribute; the editable user config is the last entry in
+`Configuration.xdg_configs`. To write the user file directly, use
+`MycroftUserConfig()` (see Config Models above).
 
 ---
 
@@ -357,55 +411,6 @@ ovos-config telemetry --disable   # opt out
 
 - [ovos-core](core.md) — `skills`, `intents`, `utterance_transformers` config sections
 
-# ovos-config
-
-`ovos-config` is the configuration layer for the entire OVOS ecosystem. It provides:
-
-- A layered, merged `Configuration` singleton that all OVOS components read from
-
-
-- File-backed `LocalConf` dict models for each layer in the stack
-
-
-- XDG-aware path helpers for locating config files
-
-
-- Environment variable overrides for the XDG base folder, filename, and default config path
-
-
-- A `ovos-config` CLI tool for inspecting and modifying configuration
-
----
-
-## Navigation
-
-| Document | Contents |
-|---|---|
-| [configuration.md](configuration-ref.md) | `Configuration` singleton, config stack, patch mechanism, bus integration |
-| [models.md](pydantic-models.md) | `LocalConf`, `ReadOnlyConfig`, concrete layer classes |
-| [locations.md](locations-ref.md) | XDG path helpers and path constants |
-| [meta.md](config.md) | Environment variable overrides, `get_ovos_config()`, `set_*` helpers |
-| [cli.md](config.md) | `ovos-config` CLI: `show`, `get`, `set`, `telemetry`, `autoconfigure` |
-
----
-
-## Quick Start
-
-```python
-from ovos_config import Configuration
-
-config = Configuration()
-lang = config["lang"]                         # read a value
-tts_module = config["tts"]["module"]          # nested access
-
-# Update the user config layer
-from ovos_config.config import update_mycroft_config
-update_mycroft_config({"lang": "de-de"})
-
-```
-
----
-
 ## Package Layout
 
 ```
@@ -422,32 +427,17 @@ ovos_config/
 
 ---
 
-## Config Layer Stack
-
-Layers are merged in this priority order (highest wins):
-
-```
-MycroftDefaultConfig   (bundled default.conf)
-OvosDistributionConfig (distribution override, e.g. /etc/xdg/mycroft/mycroft.conf)
-MycroftSystemConfig    (/etc/mycroft/mycroft.conf)
-RemoteConf             (~/.config/mycroft/web_cache.json)
-MycroftUserConfig      (~/.config/mycroft/mycroft.conf  — XDG user config)
-__patch                (in-memory overlay applied last)
-
-```
-
-All layers are `LocalConf` dict subclasses backed by a file. See [models.md](pydantic-models.md) for details.
-
----
-
 ## Entry Points
 
 `ovos-config` registers no plugin entry points of its own. It is consumed by every other OVOS component as a dependency.
 
-The CLI is registered via:
+The CLI is registered via `setup.py`:
 
-```toml
-[project.scripts]
-ovos-config = "ovos_config.__main__:config"
+```python
+entry_points={
+    "console_scripts": [
+        "ovos-config=ovos_config.__main__:config"
+    ]
+}
 
 ```

@@ -8,7 +8,8 @@ This page provides a comprehensive reference for the core configuration options 
 
 | Key | Default | Description |
 |---|---|---|
-| `lang` | `"en-us"` | Primary BCP-47 language code for STT and TTS. |
+| `lang` | `"en-US"` | Primary BCP-47 language code for STT and TTS. |
+| `secondary_langs` | `[]` | Extra languages whose resource files are loaded; intents are only matched when the utterance is tagged with that lang at STT. |
 | `system_unit` | `"metric"` | Measurement units (`metric` or `imperial`). |
 | `temperature_unit`| `"celsius"`| Temperature units (`celsius` or `fahrenheit`). |
 | `date_format` | `"MDY"` | Date format for display and parsing. |
@@ -59,9 +60,10 @@ The `intents.pipeline` defines the order in which matchers are evaluated.
 | Key | Default | Description |
 |---|---|---|
 | `sample_rate` | `16000` | Audio sampling rate in Hz. |
-| `sample_width` | `2` | Bytes per sample (2 = 16-bit). |
 | `fake_barge_in` | `true` | Mute output during recording. |
 | `recording_timeout`| `10.0` | Max seconds for a single recording. |
+| `remove_silence` | `true` | Strip leading/trailing silence before sending audio to STT. |
+| `wake_word` | `"hey_mycroft"` | Default hotword (matches an entry under `hotwords`). |
 
 ### Microphone Plugin
 
