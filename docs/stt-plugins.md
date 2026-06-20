@@ -1,6 +1,28 @@
 # STT Plugins
 
-STT plugins are responsible for converting spoken audio into text
+STT (Speech-to-Text) plugins convert spoken audio into text. They are the bridge
+between the listener and the intent pipeline.
+
+## Using an STT plugin
+
+Install a plugin and point your `mycroft.conf` at it:
+
+```bash
+pip install ovos-stt-plugin-fasterwhisper
+```
+
+```json
+{
+  "stt": {
+    "module": "ovos-stt-plugin-fasterwhisper",
+    "ovos-stt-plugin-fasterwhisper": {
+      "model": "small"
+    }
+  }
+}
+```
+
+The roster below lists available plugins and their default configurations.
 
 ## `STT`
 
@@ -19,7 +41,7 @@ The bare minimum STT class will look something like
 from ovos_plugin_manager.templates.stt import STT
 
 class MySTT(STT):
-    def execute(audio, language=None):
+    def execute(self, audio, language=None):
         # Handle audio data and return transcribed text
         [...]
         return text
@@ -36,16 +58,25 @@ The thread this method creates should be based on the [StreamThread class](). `h
 
 ## Entry point
 
-To make the class detectable as an STT plugin, the package needs to provide an entry point under the `opm.plugin.stt` namespace.
+To make the class detectable as an STT plugin, the package needs to provide an entry point under the `opm.stt` namespace.
 
 ```python
 setup([...],
-      entry_points = {'opm.plugin.stt': 'example_stt = my_stt:mySTT'}
+      entry_points = {'opm.stt': 'example_stt = my_stt:mySTT'}
       )
 
 ```
 
 Where `example_stt` is the STT plugin name, `my_stt` is the Python module and `mySTT` is the class in the module to return.
+
+To expose your sample configurations (the `MySTTConfig` dict below) for UI discovery, register them under `opm.stt.config`:
+
+```python
+entry_points = {
+    'opm.stt': 'example_stt = my_stt:mySTT',
+    'opm.stt.config': 'example_stt.config = my_stt:MySTTConfig'
+}
+```
 
 > 💡 **Backward Compatibility**: `ovos-plugin-manager` still supports legacy `mycroft.plugin.stt` entry points, but new plugins should use the `opm.*` namespace.
 

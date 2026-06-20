@@ -19,8 +19,8 @@ You can configure the VAD plugin in your `mycroft.conf`:
 {
  "listener": {
    "VAD": {
-     "module": "ovos-vad-plugin-webrtc",
-     "ovos-vad-plugin-webrtc": {
+     "module": "ovos-vad-plugin-webrtcvad",
+     "ovos-vad-plugin-webrtcvad": {
        "vad_mode": 3
      }
    }
@@ -33,8 +33,11 @@ You can configure the VAD plugin in your `mycroft.conf`:
 
 | Plugin | Description |
 |--------|-------------|
-| [ovos-vad-plugin-webrtc](https://github.com/OpenVoiceOS/ovos-vad-plugin-webrtc) | Based on Google's WebRTC VAD. Highly efficient and widely used. |
-| [ovos-vad-plugin-silero](https://github.com/OpenVoiceOS/ovos-vad-plugin-silero) | Uses a deep learning model for high-accuracy VAD, particularly in noisy environments. |
+| [ovos-vad-plugin-webrtcvad](https://github.com/OpenVoiceOS/ovos-vad-plugin-webrtcvad) | Based on Google's WebRTC VAD (`webrtcvad-wheels`). Lightweight, CPU-only, widely used. `vad_mode` (0–3) trades sensitivity for aggressiveness. |
+| [ovos-vad-plugin-silero](https://github.com/OpenVoiceOS/ovos-vad-plugin-silero) | Uses the Silero deep-learning model for high-accuracy VAD, particularly in noisy environments. |
+| [ovos-vad-plugin-noise](https://github.com/OpenVoiceOS/ovos-vad-plugin-noise) | Simple energy/noise-threshold VAD with no model download. |
+
+> Specification: audio capture and VAD are deployer-defined components feeding the listener; see [OVOS-AUDIO-IN-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-audio-in-1.md) for the audio-input service that consumes their output.
 
 ---
 
@@ -55,7 +58,15 @@ class VADEngine:
         """Return True if the chunk is silence, False if it is speech."""
         return False
 
+    def reset(self):
+        """Reset any internal state between utterances (optional)."""
+
 ```
+
+Subclasses only need to implement `is_silence`. The base class provides
+`extract_speech(audio)`, which uses `is_silence` over a sliding window to trim
+leading/trailing silence from a buffer, and a `runtime_requirements` classmethod
+used by the plugin manager to advertise network/offline behaviour.
 
 ## Creating Your Own VAD Plugin
 
@@ -77,13 +88,15 @@ class MyCustomVAD(VADEngine):
 
 ### 2. Registration
 
-Register your plugin in `pyproject.toml`:
+Register your plugin in `pyproject.toml` under the `opm.VAD` group (note the uppercase `VAD`):
 
 ```toml
-[project.entry-points."opm.plugin.vad"]
+[project.entry-points."opm.VAD"]
 my-custom-vad = "my_package.module:MyCustomVAD"
 
 ```
+
+> 💡 The legacy alias `ovos.plugin.VAD` is still accepted, but new plugins should use `opm.VAD`.
 
 ## Standalone Usage
 
@@ -94,7 +107,7 @@ from ovos_plugin_manager.vad import find_vad_plugins
 
 # Load the plugin
 plugins = find_vad_plugins()
-vad_class = plugins["ovos-vad-plugin-webrtc"]
+vad_class = plugins["ovos-vad-plugin-webrtcvad"]
 vad = vad_class()
 
 # Process an audio chunk

@@ -10,8 +10,13 @@ A G2P plugin takes a word or an utterance and returns a list of phonemes in a sp
 
 | Plugin | Alphabet | Description |
 |--------|----------|-------------|
-| [ovos-g2p-plugin-phoneme-guesser](https://github.com/OpenVoiceOS/ovos-g2p-plugin-phoneme-guesser) | ARPA/IPA | Uses various heuristics and small models to guess pronunciation. |
-| [ovos-g2p-plugin-mimic](https://github.com/OpenVoiceOS/ovos-g2p-plugin-mimic) | ARPA | Uses the Mimic 1 engine for G2P conversion. |
+| `ovos-g2p-plugin-mimic` | ARPA | Uses the Mimic 1 engine for G2P conversion. Shipped by [ovos-tts-plugin-mimic](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic) (the TTS plugin also registers an `opm.g2p` entry point). |
+| [ovos-g2p-plugin-espeak](https://github.com/OVOSHatchery/ovos-g2p-plugin-espeak) | IPA | Wraps `espeak-phonemizer` for broad multilingual IPA coverage. |
+
+The [phoonnx](https://github.com/TigreGotico/phoonnx) TTS engine bundles its own G2P/phonemizer stack used at synthesis time.
+
+!!! warning "Upcoming — unreleased"
+    phoonnx has open PRs adding new IPA and diacritic G2P backends not yet on a release: a 387-language IPA phonemizer ([#192](https://github.com/TigreGotico/phoonnx/pull/192)), a unified alphabet/script-conversion model ([#188](https://github.com/TigreGotico/phoonnx/pull/188), [#190](https://github.com/TigreGotico/phoonnx/pull/190)), and Slavic stress / Arabic diacritization backends ([#187](https://github.com/TigreGotico/phoonnx/pull/187), [#152](https://github.com/TigreGotico/phoonnx/pull/152)).
 
 ---
 
@@ -23,19 +28,23 @@ All G2P plugins inherit from the `Grapheme2PhonemePlugin` base class.
 
 ```python
 class Grapheme2PhonemePlugin:
-    def get_arpa(self, word, lang):
+    def get_arpa(self, word, lang, ignore_oov=False):
         """Return phonemes in Arpabet format."""
-        pass
+        raise NotImplementedError
 
-    def get_ipa(self, word, lang):
+    def get_ipa(self, word, lang, ignore_oov=False):
         """Return phonemes in IPA format."""
-        pass
+        raise NotImplementedError
 
-    def utterance2visemes(self, utterance, lang):
+    def utterance2visemes(self, utterance, lang, default_dur=0.4):
         """Return visemes for lip-sync animation."""
-        pass
+        ...
 
 ```
+
+A plugin implements whichever of `get_arpa` / `get_ipa` it can. The base class
+derives `utterance2arpa`, `utterance2ipa`, and `utterance2visemes` from those, and
+exposes an `available_languages` classmethod for discovery.
 
 ## Creating Your Own Plugin
 
@@ -60,7 +69,7 @@ class MyG2P(Grapheme2PhonemePlugin):
 Register your plugin in `pyproject.toml`:
 
 ```toml
-[project.entry-points."opm.plugin.g2p"]
+[project.entry-points."opm.g2p"]
 my-g2p = "my_package.module:MyG2P"
 
 ```
@@ -72,7 +81,7 @@ from ovos_plugin_manager.g2p import find_g2p_plugins
 
 # Find and load the plugin
 plugins = find_g2p_plugins()
-g2p_class = plugins["ovos-g2p-plugin-phoneme-guesser"]
+g2p_class = plugins["ovos-g2p-plugin-mimic"]
 g2p = g2p_class()
 
 # Convert word to phonemes

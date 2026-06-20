@@ -8,12 +8,16 @@ OVOS supports different wake word detection plugins, each with its own strengths
 
 The default OVOS plugins are:
 
-- **[ovos-ww-plugin-precise-lite](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite)**: A model-based plugin that uses a trained machine learning model to detect wake words.
+- **[ovos-ww-plugin-precise-onnx](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx)**: The default model-based plugin, using a trained Precise model exported to ONNX to detect wake words.
 
 
-- **[ovos-ww-plugin-vosk](https://github.com/OpenVoiceOS/ovos-ww-plugin-vosk)**: A text-based plugin leveraging Vosk, which allows you to define a wake word without requiring a trained model. This is useful during the initial stages of data collection.
+- **[ovos-ww-plugin-vosk](https://github.com/OpenVoiceOS/ovos-ww-plugin-vosk)**: A text-based plugin leveraging Vosk, which lets you define a wake word without training a model. This is useful during the initial stages of data collection.
 
-Each plugin has its pros and cons, with Vosk offering a faster setup for simple wakeword recognition without model training.
+Each plugin has its pros and cons: the Precise model is the most accurate for the
+default `hey mycroft`, while Vosk offers faster setup for arbitrary wake phrases
+without model training.
+
+> Specification: wake-word detection is one of the deployer-defined capture mechanisms that trigger the audio-input service (referenced in [OVOS-AUDIO-IN-1 §5.1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-audio-in-1.md) as the source of a `request_lang` hint).
 
 ## Wakeword Configuration
 
@@ -22,8 +26,8 @@ The `hotwords` section in your `mycroft.conf` allows you to configure the wakewo
 ```json
 "hotwords": {
   "hey_mycroft": {
-    "module": "ovos-ww-plugin-precise-lite",
-    "model": "https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite",
+    "module": "ovos-ww-plugin-precise-onnx",
+    "model": "https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.onnx",
     "expected_duration": 3,
     "trigger_level": 3,
     "sensitivity": 0.5,
@@ -61,10 +65,10 @@ When developing a custom wake word plugin, the following methods are essential:
 
 ### Registering Your Plugin
 
-To make your plugin detectable, provide an entry point under the `opm.plugin.wake_word` namespace:
+To make your plugin detectable, provide an entry point under the `opm.wake_word` namespace:
 
 ```python
-setup([...], entry_points={'opm.plugin.wake_word': 'example_ww = my_ww:MyWakeWordEngine'})
+setup([...], entry_points={'opm.wake_word': 'example_ww = my_ww:MyWakeWordEngine'})
 
 ```
 
@@ -108,8 +112,7 @@ class MyWWPlugin(HotWordEngine):
 | [ovos-ww-plugin-openWakeWord](#ovos-ww-plugin-openwakeword) | No description available |
 | [ovos-ww-plugin-nyumaya-legacy](#ovos-ww-plugin-nyumaya-legacy) | No description available |
 | [ovos-ww-plugin-vosk](#ovos-ww-plugin-vosk) | Mycroft wake word plugin for [Vosk](https://alphacephei.com/vosk/) |
-| [ovos-ww-plugin-precise-onnx](#ovos-ww-plugin-precise-onnx) | --- |
-| [ovos-ww-plugin-efficient-wordnet](#ovos-ww-plugin-efficient-wordnet) | --- |
+| [ovos-ww-plugin-precise-onnx](#ovos-ww-plugin-precise-onnx) | ONNX-exported Precise wake word model (current default). |
 
 ## ovos-ww-plugin-openWakeWord
 
@@ -158,7 +161,7 @@ class MyWWPlugin(HotWordEngine):
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx)
 
 
-- **Description**: ---
+- **Description**: Runs Precise wake word models exported to ONNX. Current default wake word plugin.
 
 ### Default Configuration
 
@@ -176,15 +179,6 @@ class MyWWPlugin(HotWordEngine):
 }
 
 ```
-
----
-
-## ovos-ww-plugin-efficient-wordnet
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-ww-plugin-efficient-wordnet](https://github.com/OpenVoiceOS/ovos-ww-plugin-efficient-wordnet)
-
-
-- **Description**: ---
 
 ---
 

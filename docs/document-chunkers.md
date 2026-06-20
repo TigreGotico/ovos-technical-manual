@@ -1,15 +1,9 @@
 
-# `ovos-document-chunkers` — Documentation Index
+# Document Chunkers
 
 `ovos-document-chunkers` is a library of document chunking utilities for NLP preprocessing and Retrieval-Augmented Generation (RAG) pipelines. It splits raw documents — plain text, Markdown, HTML, PDF, DOC, and DOCX — into sentences or paragraphs using multiple backend strategies ranging from simple regex tokenisation to state-of-the-art neural models.
 
 The library was sponsored by [Royal Dutch Visio](https://visio.org/) for use in assistive technology and voice-accessible NLP pipelines.
-
-## Contents
-
-| Document | Description |
-|---|---|
-| [chunkers.md](document-chunkers.md) | All chunker classes with full API reference |
 
 ## Design
 
@@ -48,13 +42,13 @@ ovos_document_chunkers/
 
 ## Text Segmenters
 
-Three backends are available for text segmentation:
+Four backends are available for text segmentation:
 
 | Backend | Type | Languages | Notes |
 |---|---|---|---|
 | `quebra_frases` (regex) | Rule-based | Language-agnostic | Lightweight, no model download |
 | `PySBD` | Rule-based | 22 languages | Pragmatic sentence boundary disambiguation |
-| `WtP` | Neural (ONNX or PyTorch) | 85 languages | [Transformer](transformer-plugins.md)-based, optional CUDA |
+| `WtP` | Neural (ONNX or PyTorch) | 85 languages | Transformer-based (`wtpsplit`), optional CUDA |
 | `SaT` | Neural (PyTorch) | 85 languages | State-of-the-art, optional CUDA |
 
 ## File Format Support
@@ -113,19 +107,9 @@ for sent in splitter.chunk("https://example.com/page.html"):
 | `textract-py3` | `PDFParagraphSplitter`, `DOCParagraphSplitter`, `DOCxParagraphSplitter` and sentence variants |
 | `requests` | URL-based input for all file chunkers |
 
-## Quick Links
-
-| Resource | Path |
-|---|---|
-| Machine-readable facts | `../QUICK_FACTS.md` |
-| Common questions | `../FAQ.md` |
-| Change log | `../MAINTENANCE_REPORT.md` |
-| Known issues | `../AUDIT.md` |
-| Improvement proposals | `../SUGGESTIONS.md` |
-
 ## Cross-References
 
 - [ovos-media-classifier](https://github.com/OpenVoiceOS/ovos-media-classifier) — companion media classification library
 
 
-- [ovos-plugin-manager](https://github.com/OpenVoiceOS/ovos-plugin-manager) — provides the base templates for chunker plugins.
+- [ovos-document-chunkers](https://github.com/OpenVoiceOS/ovos-document-chunkers) — source repository. Chunkers are plain classes (not `ovos-plugin-manager` plugins); import the splitter you need directly.

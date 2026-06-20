@@ -1,6 +1,8 @@
 # Microphone Plugins in OVOS
 
-Microphone plugins in Open Voice OS (OVOS) are responsible for capturing audio input and feeding it to the listener. Since `ovos-core` version **0.0.8**, these plugins allow for flexible integration with different audio backends and platforms.
+Microphone plugins in Open Voice OS (OVOS) are responsible for capturing audio input and feeding the raw PCM stream to the listener. They let you swap audio backends and platforms without touching the rest of the voice stack.
+
+> The audio-capture mechanism is **deployer-defined** and sits outside the formal audio-input service contract — the listener consumes whatever a microphone plugin produces. See the [OVOS-AUDIO-IN-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-audio-in-1.md) specification for how captured audio enters the utterance lifecycle.
 
 ## Usage Guide
 
@@ -55,19 +57,30 @@ class Microphone:
     sample_channels: int = 1
     chunk_size: int = 4096
 
+    @property
+    def frames_per_chunk(self) -> int:
+        return self.chunk_size // (self.sample_width * self.sample_channels)
+
+    @property
+    def seconds_per_chunk(self) -> float:
+        return self.frames_per_chunk / self.sample_rate
+
+    @abc.abstractmethod
     def start(self):
         """Initialize the microphone and start recording."""
-        pass
 
+    @abc.abstractmethod
     def read_chunk(self) -> Optional[bytes]:
         """Read a single chunk of audio data from the microphone."""
-        pass
 
+    @abc.abstractmethod
     def stop(self):
         """Stop recording and release any resources."""
-        pass
 
 ```
+
+`read_chunk` returns raw little-endian PCM bytes of `chunk_size` length. The default
+format (16 kHz, 16-bit, mono) is what the listener expects downstream.
 
 ## Creating Your Own Plugin
 
@@ -100,13 +113,15 @@ class MyCustomMic(Microphone):
 
 ### 2. Registration
 
-In your `pyproject.toml`, register the plugin under the `opm.plugin.microphone` group:
+In your `pyproject.toml`, register the plugin under the `opm.microphone` group:
 
 ```toml
-[project.entry-points."opm.plugin.microphone"]
+[project.entry-points."opm.microphone"]
 my-custom-mic = "my_package.module:MyCustomMic"
 
 ```
+
+> 💡 The legacy alias `ovos.plugin.microphone` is still accepted by `ovos-plugin-manager`, but new plugins should register under `opm.microphone`.
 
 ## Standalone Usage
 
@@ -143,14 +158,9 @@ finally:
 - **Testing**: The `files` plugin is ideal for automated testing environments where live input isn’t available.
 
 
-- **Remote audio**: The `socket` plugin is a proof-of-concept for networked microphones and is not recommended for production use without customization.# Microphone Plugins Reference
+- **Remote audio**: The `socket` plugin is a proof-of-concept for networked microphones and is not recommended for production use without customization.
 
-| Plugin | Description |
-|--------|-------------|
-| [ovos-microphone-plugin-alsa](#ovos-microphone-plugin-alsa) | OpenVoiceOS Microphone plugin |
-| [ovos-microphone-plugin-sounddevice](#ovos-microphone-plugin-sounddevice) | Open Voice OS microphone plugin for [python-sounddevice](https://github.com/spatialaudio/python-sounddevice/) library. |
-| [ovos-microphone-plugin-files](#ovos-microphone-plugin-files) | OpenVoiceOS Microphone Files plugin |
-| [ovos-microphone-plugin-pyaudio](#ovos-microphone-plugin-pyaudio) | OpenVoiceOS Microphone plugin |
+# Microphone Plugins Reference
 
 ## ovos-microphone-plugin-alsa
 
