@@ -177,7 +177,7 @@ Customize the pipeline via `mycroft.conf` under `skills.converse`:
 | `converse_blacklist` | Skills not allowed to enter converse mode |
 | `converse_whitelist` | Skills explicitly allowed to converse |
 | `converse_activation` | Controls when a skill can self-activate |
-| `max_activations` | Default number of consecutive times a skill can activate itself per minute (`-1` = unlimited) |
+| `max_activations` | Default number of consecutive times a skill can activate itself (`-1` = unlimited); the counter resets when the skill is deactivated |
 | `skill_activations` | Per-skill override of `max_activations` |
 | `cross_activation` | If `true`, any skill can activate **or deactivate** any other skill (the same key gates both) |
 | `converse_priorities` | Per-skill priority overrides used when `converse_activation` is `priority` |
@@ -233,7 +233,7 @@ A malicious or badly designed skill using the converse method can potentially hi
 
 Protections include:
 
-* Timeouts for inactivity (`timeout`) and maximum runtime (`max_skill_runtime`).
+* Timeouts for inactivity (`timeout`) drop idle skills from the active list.
 
 
 * `max_activations` limits per skill.
@@ -257,7 +257,7 @@ Protections include:
 * This mechanism is ideal for multi-turn conversations like dialogs, games, or assistant flows that require memory of previous input.
 
 
-* Converse priority is under active development; priority is currently assumed to be 50. Per-skill overrides are available via `converse_priorities` in config.
+* In `priority` activation mode, every skill defaults to priority 50; per-skill overrides are set via `converse_priorities` in config. A skill may only self-activate if no higher-priority skill is already active.
 
 ---
 

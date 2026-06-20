@@ -29,21 +29,21 @@ container.add_intent('search', [
 ])
 container.add_entity('engine', ['abc', 'xyz'])
 container.calc_intent('find cats using xyz')
-# {'name': 'search', 'entities': {'query': 'cats', 'engine': 'xyz'}, 'conf': 1.0}
+# {'name': 'search', 'entities': {'query': 'cats', 'engine': 'xyz'}, 'conf': 0.96}
 
 # wildcards — * matches anything; the name is the registered intent name
 container.add_intent('say', ["say *"])
 container.calc_intent('say something, whatever')
 # {'name': 'say', 'entities': {}, 'conf': 0.85}
-
-# typed entities — simplematch types like :int parse and cast the value
-container.add_intent('pick_number', ['pick number {number:int}'])
-container.calc_intent('pick number 3')
-# {'name': 'pick_number', 'entities': {'number': 3}, 'conf': 1.0}
 ```
+
+Slot names follow the OVOS sentence-template grammar (`{lowercase_with_underscores}`);
+the colon-typed `simplematch` syntax such as `{number:int}` is **not** supported —
+templates are expanded and normalized through `ovos_spec_tools`, which rejects it.
 
 A wildcard (`*`) carries a confidence penalty proportional to how much of the
 template it covers — `"say *"` is one wildcard out of two tokens, so the score
 drops from `1.0` to `0.85`. Entity placeholders like `{number}` are not
-wildcards and carry no penalty. An entity value that was never registered with
-`add_entity` still matches but at a reduced confidence (around `0.9`).
+wildcards and carry no penalty. An entity whose name was never registered with
+`add_entity` still matches but at a slightly reduced confidence (a small `0.04`
+penalty, e.g. `0.96`).

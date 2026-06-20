@@ -92,7 +92,7 @@ The entry point group is the canonical identifier used in `setup.py` / `pyprojec
 | Language Translator | `opm.lang.translate` | `LanguageTranslator` |
 | Language Detector | `opm.lang.detect` | `LanguageDetector` |
 | Keyword Extraction | `opm.keywords` | `KeywordExtractor` |
-| Utterance Segmentation | `opm.segmentation` | `UtteranceSegmenter` |
+| Utterance Segmentation | `opm.segmentation` | `Segmenter` |
 | Tokenization | `opm.tokenization` | `Tokenizer` |
 | POS Tagger | `opm.postag` | `PosTagger` |
 

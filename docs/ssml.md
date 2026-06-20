@@ -31,14 +31,14 @@ from ovos_workshop.skills import OVOSSkill
 class MySkill(OVOSSkill):
 
     def handle_intent(self, message):
-        # Create an instance of SSMLBuilder
-        ssml_builder = SSMLBuilder()
+        # Create an instance of SSMLBuilder (speak_tag=True wraps output in <speak>)
+        ssml_builder = SSMLBuilder(speak_tag=True)
         
         # Generate SSML
         ssml_text = ssml_builder.sentence("Hello, world!").pause(500, "ms").say_slow("How are you today?").build()
         
         # Output:
-        # '<speak>\n<s>Hello, world!</s> <break time=500ms/><prosody rate='0.4'>How are you today?</prosody>\n</speak>'
+        # "<speak>\n<s>Hello, world!</s> <break time=500ms/> <prosody rate='0.4'>How are you today?</prosody>\n</speak>"
         
         # Speak the SSML text
         self.speak(ssml_text)

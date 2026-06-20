@@ -117,7 +117,9 @@ print(f"Transformed: {transformed}")
 
 The discovery helpers (`find_*_transformer_plugins`, `load_*_transformer_plugin`) live in
 `ovos_plugin_manager.text_transformers`, `.intent_transformers`, `.metadata_transformers`,
-`.audio_transformers`, `.dialog_transformers`, and `.tts_transformers`.
+`.audio_transformers`, and `.dialog_transformers` (the dialog module also exposes the
+`find_tts_transformer_plugins` / `load_tts_transformer_plugin` helpers — there is no
+separate `tts_transformers` module).
 
 ## Creating a Plugin
 

@@ -86,8 +86,9 @@ Supported media types include `music`, `podcast`, `movie`, `radio`, `audiobook`,
 
 ## Search and result filtering
 
-After classifying, OCP emits `ovos.common_play.search` and gathers results from
-skills, then filters them in `filter_results()`:
+After classifying, OCP emits `ovos.common_play.query` and gathers
+`ovos.common_play.query.response` results from skills, then filters them in
+`filter_results()`:
 
 * **Confidence** — drops results whose `match_confidence` is below `min_score`.
 * **Media-type consistency** — when a non-GENERIC type was classified, results of
@@ -133,12 +134,8 @@ e.g. "next song" does nothing when no player is active.
 | `search_fallback` | bool | `true` | Run a generic search when no type-specific results are found. |
 | `entity_csvs` | list | `[]` | User-supplied keyword CSVs feeding the entity matcher. |
 
-The config block is read from `intents.ovos-ocp-pipeline-plugin`.
-
-!!! warning "Upcoming — unreleased"
-    Explicit default-config handling and an `intents.OCP` fallback key are proposed
-    in [ovos-ocp-pipeline-plugin#123](https://github.com/OpenVoiceOS/ovos-ocp-pipeline-plugin/pull/123)
-    and are not yet on `dev`.
+The config block is read from `intents.ovos-ocp-pipeline-plugin` (the plugin's
+entry-point ID), the section ovos-core passes to the plugin when loading it.
 
 ---
 

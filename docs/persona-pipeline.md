@@ -66,7 +66,7 @@ Insert the tier IDs you need into your `mycroft.conf` under the `intents.pipelin
 |--------------------------|-----------------------------------------------------------------------------|
 | `handle_fallback`        | When `true`, the low tier routes unmatched utterances to the default persona |
 | `default_persona`        | Persona used by default (e.g., after boot or reset)                         |
-| `min_intent_confidence`  | Confidence floor for the medium-tier keyword intents (default `0.6`)        |
+| `min_intent_confidence`  | Confidence floor for the high-tier persona-control intents (summon/list/active/ask; default `0.6`) |
 | `personas_path`          | Directory to load persona JSON files from (defaults to the XDG persona dir) |
 | `persona_blacklist`      | Persona names to exclude                                                     |
 | `ignore_plugin_personas` | When `true`, skip personas provided by installed plugins                     |

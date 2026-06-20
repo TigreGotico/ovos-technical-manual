@@ -183,11 +183,11 @@ pip install ovos-bidirectional-translation-plugin
 
 ```
 
-* **Configuration**:
+* **Configuration** (the utterance half registers under the entry-point name `ovos-utterance-translation-plugin`):
 
 ```json
 "utterance_transformers": {
-    "ovos-bidirectional-utterance-transformer": {
+    "ovos-utterance-translation-plugin": {
       "verify_lang": true,
       "ignore_invalid_langs": true
     }

@@ -34,7 +34,7 @@ class MeaningFallback(FallbackSkill):
         self.register_fallback(self.handle_fallback, 10)
 
     def handle_fallback(self, message):
-        utterance = message.data.get("utterance", "")
+        utterance = message.data.get("utterances", [""])[0]
         if ("what" in utterance and "meaning" in utterance and
                 ("life" in utterance or "universe" in utterance
                  or "everything" in utterance)):
@@ -62,7 +62,7 @@ class MeaningFallback(FallbackSkill):
 
     @fallback_handler(priority=10)
     def handle_fallback(self, message):
-        utterance = message.data.get("utterance", "")
+        utterance = message.data.get("utterances", [""])[0]
         if ("what" in utterance and "meaning" in utterance and
                 ("life" in utterance or "universe" in utterance
                  or "everything" in utterance)):
