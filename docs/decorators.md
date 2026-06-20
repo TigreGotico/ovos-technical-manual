@@ -70,7 +70,7 @@ A method can have multiple `@intent_handler` decorators to handle multiple inten
 
 ### `@conversational_intent`
 
-`conversational_intent` — `ovos_workshop/decorators/__init__.py:117`
+`conversational_intent` — `ovos_workshop/decorators/__init__.py:134`
 
 Register a Padatious `.intent` file as a converse-only matcher. Only active when the skill is in converse mode. Requires the skill to extend `ConversationalSkill`.
 
@@ -88,7 +88,7 @@ def handle_help_in_converse(self, message): ...
 
 ### `@fallback_handler`
 
-`fallback_handler` — `ovos_workshop/decorators/__init__.py:133`
+`fallback_handler` — `ovos_workshop/decorators/__init__.py:150`
 
 Register a method as a fallback handler with a given priority (0–100, lower = higher priority).
 
@@ -106,7 +106,7 @@ def handle_unknown(self, message):
 
 ### `@common_query`
 
-`common_query` — `ovos_workshop/decorators/__init__.py:94`
+`common_query` — `ovos_workshop/decorators/__init__.py:111`
 
 Register a method as a CommonQuery handler. The method must return `(answer, confidence)` or `None`.
 
@@ -129,7 +129,7 @@ def handle_query(self, phrase, lang):
 
 ### `@converse_handler`
 
-`converse_handler` — `ovos_workshop/decorators/__init__.py:108`
+`converse_handler` — `ovos_workshop/decorators/__init__.py:125`
 
 Alias a method as the skill's `converse` handler instead of overriding `converse()` directly.
 
@@ -396,7 +396,7 @@ def reset_everything(self, message):
 
 ### `@homescreen_app`
 
-`homescreen_app` — `ovos_workshop/decorators/__init__.py:149`
+`homescreen_app` — `ovos_workshop/decorators/__init__.py:166`
 
 Register a method as a homescreen app launcher. The icon file must be inside the `gui/` subfolder of the skill.
 
@@ -415,7 +415,7 @@ def launch_app(self, message):
 
 ### `@skill_api_method`
 
-`skill_api_method` — `ovos_workshop/decorators/__init__.py:77`
+`skill_api_method` — `ovos_workshop/decorators/__init__.py:94`
 
 Expose a method over the bus so other skills or applications can call it via `SkillApi`. See [skill-api.md](ovos-skill.md) for the full RPC documentation.
 

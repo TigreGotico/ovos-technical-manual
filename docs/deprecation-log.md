@@ -18,50 +18,13 @@ Following the [OVOS Deprecation Policy](architecture-overview.md), deprecated fe
 
 ## 2026
 
-### [ovos-workshop] OVOSSkill.gui Property
-**Date:** March 2026  
-**Status:** **DEPRECATED** (Scheduled for removal in `ovos-workshop` 9.0.0)
-
-Direct access to `self.gui` within `OVOSSkill` is being phased out as a default property to allow for more flexible GUI initialization and to reduce overhead for headless skills.
-
-*   **Impact:** Skills requiring a GUI should now explicitly initialize their GUI interface or use specific GUI mixins.
-
-
-*   **Replacement:** The internal `SkillGUI` class is being replaced by the more generic `GUIInterface`.
-
-
-*   **Migration Path:** Most skills will continue to work via the deprecated property for now, but developers are encouraged to move towards explicit initialization in `initialize()`.
-
-### [ovos-bus-client] GUI APIs
-**Date:** March 2026  
-**Status:** Deprecated (Scheduled for removal in `ovos-bus-client` 2.0.0)
-
-The legacy GUI interface helpers in `ovos-bus-client.apis.gui` have been deprecated in favor of a standalone, more robust client library.
-
-*   **Deprecated Module:** `ovos_bus_client.apis.gui`
-
-
-*   **Replacement:** [ovos-gui-api-client](https://github.com/OpenVoiceOS/ovos-gui-api-client)
-
-
-*   **Impact:** Skill developers should migrate from `self.gui` (when used directly) to the dedicated API client. For `OVOSSkill` users, the internal `self.gui` is being updated to use the new client transparently.
-
-### [ovos-gui] Legacy QML/Page System
-**Date:** March 2026  
-**Status:** **REMOVED** (Major Release `ovos-gui` 1.0.0)
-
-The legacy QML page-based system, which relied on skills providing `.qml` files to be rendered by a heavy Qt-based GUI service, has been removed.
-
-*   **Impact:** The `ovos-gui` service now implements a **template-only architecture** (HTMX based).
-
-
-*   **Migration Path:**
-
-
-    *   **GUIs:** Clients should implement the [formal adapter interface contract (TECH-005)](gui-adapters.md).
-
-
-    *   **Skills:** Use standardized GUI templates provided by `ovos-workshop` rather than custom QML files. Custom UI logic should be handled via HTMX templates or dedicated Voice Apps.
+!!! note "GUI status"
+    In `ovos-workshop` v8 `self.gui` (a `SkillGUI`, subclass of
+    `GUIInterface` from `ovos_bus_client.apis.gui`) is a live, supported default
+    property on every `OVOSSkill`. It is **not** deprecated and is not scheduled
+    for removal. Skills may use the built-in `SYSTEM_*` page templates or ship
+    their own `.qml`/custom pages via `show_page` — see
+    [GUI Skills](skill-gui.md).
 
 ### [ovos-media] OVOSAbstractApplication
 **Date:** March 2026  
@@ -95,10 +58,10 @@ Documentation and protocol extensions specific to the original Mycroft-Qt implem
 
 Older skill base classes imported from `mycroft.skills` or early `ovos-workshop` versions are being consolidated.
 
-*   **Deprecated:** `MycroftSkill`, `OVOSSkill` (legacy imports)
+*   **Deprecated:** `MycroftSkill` and skill classes imported from `mycroft.skills`
 
 
-*   **Replacement:** `OVOSSkill` from `ovos_workshop.skills.ovos`
+*   **Replacement:** `OVOSSkill` from `ovos_workshop.skills.ovos` (also re-exported from `ovos_workshop.skills`)
 
 
 *   **Note:** Version 8.0.0 finalized the internal refactor to separate GUI, intent, and resource management into mixins.

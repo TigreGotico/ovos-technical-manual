@@ -28,12 +28,12 @@ class MySkill(OVOSSkill):
     def handle_start_game(self, message):
         self.speak("Game started!")
 
-    @layer_intent("game_mode", "guess.intent")
+    @layer_intent("guess.intent", layer_name="game_mode")
     def handle_guess(self, message):
         guess = message.data.get("number")
         self.speak(f"You guessed {guess}")
 
-    @layer_intent("game_mode", "quit.intent")
+    @layer_intent("quit.intent", layer_name="game_mode")
     @disables_layer("game_mode")
     def handle_quit(self, message):
         self.speak("Game over!")
@@ -105,11 +105,11 @@ self.intent_layers.deactivate_layer("game_mode")
 if self.intent_layers.is_active("game_mode"):
     ...
 
-# Activate one layer and deactivate all others
-self.intent_layers.replace_layer("new_mode")
+# Replace a layer's intent list (creates it if missing)
+self.intent_layers.replace_layer("new_mode", ["my.intent"])
 
-# Reset to no active layers
-self.intent_layers.reset()
+# Disable all layers (back to no active layers)
+self.intent_layers.disable()
 
 ```
 

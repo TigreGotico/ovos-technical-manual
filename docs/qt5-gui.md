@@ -1,18 +1,10 @@
-# Mycroft-GUI QT5 (Legacy)
+# Mycroft-GUI QT5
 
-!!! warning "LEGACY SYSTEM"
-    As of **The Great GUI Refactor (March 2026)**, direct QML development for skills is **deprecated**. 
-    OpenVoiceOS has moved to a **template-only architecture** (HTMX based) to ensure cross-platform 
-    compatibility. 
-    
-
-    *   **New Skills:** Should use the standardized `SYSTEM_*` templates provided by `GUIInterface`.
-
-
-    *   **Custom UIs:** Should be developed as standalone Voice Apps or via HTMX templates.
-
-
-    *   **Reference:** See [GUI Service](gui-service.md) for the modern architecture.
+!!! info "When to use this page"
+    For most skills the built-in `SYSTEM_*` page templates (see
+    [GUI Skills](skill-gui.md)) are enough and require no UI code. Read on when
+    you want a fully custom screen rendered by the Qt/QML client — `show_page`
+    accepts your own `.qml` files, this is a supported path, not a legacy one.
 
 !!! info
     Currently only a [QT5 gui-client](https://github.com/OpenVoiceOS/mycroft-gui-qt5) is available, help wanted to [migrate to QT6](https://github.com/OVOSHatchery/mycroft-gui-qt6)!

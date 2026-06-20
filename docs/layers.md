@@ -170,7 +170,7 @@ An excerpt from the game to illustrate usage of `IntentLayer` decorators
 > **NOTE**: IntentLayers do not yet support [Session](session.md), in this example all [voice satellites](https://jarbashivemind.github.io/HiveMind-community-docs/07_voicesat/) would join the game
 
 ```python
-from ovos_workshop.skills.decorators import layer_intent, enables_layer, \
+from ovos_workshop.decorators.layers import layer_intent, enables_layer, \
     disables_layer, resets_layers
 
 

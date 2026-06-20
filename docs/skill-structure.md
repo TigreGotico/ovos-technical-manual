@@ -200,7 +200,7 @@ dependencies = [
     "ovos-workshop>=0.0.1"
 ]
 
-[project.entry-points."ovos.plugin.skill"]
+[project.entry-points."opm.skill"]
 "ovos-skill-hello-world.yourname" = "ovos_skill_hello_world:HelloWorldSkill"
 
 [tool.setuptools.package-data]

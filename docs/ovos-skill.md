@@ -247,7 +247,7 @@ Return values must be JSON-serializable. Standard Python builtins (`str`, `int`,
 
 ## `@skill_api_method` Decorator
 
-`skill_api_method` — `ovos_workshop/decorators/__init__.py:77`
+`skill_api_method` — `ovos_workshop/decorators/__init__.py:94`
 
 Tag a skill method as part of the public API. The decorator sets `func.api_method = True`. During skill initialization `OVOSSkill` discovers all methods with this attribute and registers a bus listener for each one at `<skill_id>.<method_name>`.
 

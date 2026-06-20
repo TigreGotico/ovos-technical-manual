@@ -2,7 +2,7 @@
 
 `ovos-workshop` provides all base classes needed to write skills for OpenVoiceOS. Every skill ultimately inherits from `OVOSSkill`.
 
-**Package:** `ovos-workshop` | **Entry point group:** `opm.skills`
+**Package:** `ovos-workshop` | **Entry point group:** `opm.skill`
 
 ---
 
@@ -13,13 +13,12 @@ OVOSSkill                             ovos_workshop/skills/ovos.py
 ├── ConversationalSkill               ovos_workshop/skills/converse.py
 │   └── ActiveSkill                   ovos_workshop/skills/active.py
 ├── FallbackSkill                     ovos_workshop/skills/fallback.py
-├── CommonQuerySkill                  ovos_workshop/skills/common_query_skill.py
+├── IdleDisplaySkill                  ovos_workshop/skills/idle_display_skill.py
 ├── OVOSCommonPlaybackSkill           ovos_workshop/skills/common_play.py
 │   └── OVOSGameSkill                 ovos_workshop/skills/game_skill.py
 │       └── ConversationalGameSkill   ovos_workshop/skills/game_skill.py
 ├── UniversalSkill                    ovos_workshop/skills/auto_translatable.py
-│   ├── UniversalFallback             ovos_workshop/skills/auto_translatable.py
-│   └── UniversalCommonQuerySkill     ovos_workshop/skills/auto_translatable.py (deprecated)
+│   └── UniversalFallback             ovos_workshop/skills/auto_translatable.py
 └── OVOSAbstractApplication           ovos_workshop/app.py
 
 ```
@@ -53,7 +52,7 @@ def create_skill():
 `pyproject.toml` entry point:
 
 ```toml
-[project.entry-points."opm.skills"]
+[project.entry-points."opm.skill"]
 hello-world-skill = "hello_world_skill:HelloWorldSkill"
 
 ```
@@ -281,17 +280,19 @@ Priority can be overridden in config:
 
 ---
 
-## CommonQuerySkill
+## CommonQuery — `@common_query` on `OVOSSkill`
 
-**Module:** `ovos_workshop.skills.common_query_skill.CommonQuerySkill`
-
-Participates in the `question:query` / `common_qa` pipeline. The skill attempts to answer a natural language question and returns a confidence score. The pipeline collects responses from all skills and speaks the highest-confidence answer.
+There is no dedicated `CommonQuerySkill` base class — decorate a method on a
+regular `OVOSSkill` with `@common_query()` to join the `question:query` /
+`common_qa` pipeline. The handler answers a natural language question and returns
+a confidence score; the pipeline collects responses from all skills and speaks
+the highest-confidence answer.
 
 ```python
-from ovos_workshop.skills.common_query_skill import CommonQuerySkill
+from ovos_workshop.skills.ovos import OVOSSkill
 from ovos_workshop.decorators import common_query
 
-class MyQuerySkill(CommonQuerySkill):
+class MyQuerySkill(OVOSSkill):
     @common_query()
     def handle_query(self, phrase, lang):
         if "capital of france" in phrase.lower():
@@ -299,6 +300,11 @@ class MyQuerySkill(CommonQuerySkill):
         return None, 0
 
 ```
+
+!!! note "Under the hood"
+    On startup `OVOSSkill` scans for a method tagged by `@common_query`
+    (`ovos.py:920`) and wires up the CommonQuery ping/answer bus handlers
+    automatically — only one such handler per skill is supported.
 
 ---
 
@@ -343,7 +349,7 @@ class MyMusicSkill(OVOSCommonPlaybackSkill):
 ## OVOSGameSkill
 
 **Module:** `ovos_workshop.skills.game_skill.OVOSGameSkill`
-**Source:** `ovos_workshop/skills/game_skill.py:14`
+**Source:** `ovos_workshop/skills/game_skill.py:13`
 
 Extends `OVOSCommonPlaybackSkill`. Structured base for OCP-integrated voice games. Subclasses must implement all six abstract methods: `on_play_game`, `on_pause_game`, `on_resume_game`, `on_stop_game`, `on_save_game`, `on_load_game`.
 
@@ -379,7 +385,7 @@ class TriviaGameSkill(OVOSGameSkill):
 ## ConversationalGameSkill
 
 **Module:** `ovos_workshop.skills.game_skill.ConversationalGameSkill`
-**Source:** `ovos_workshop/skills/game_skill.py:151`
+**Source:** `ovos_workshop/skills/game_skill.py:150`
 
 Extends `OVOSGameSkill`. Adds a **converse loop**: every utterance that does not match a registered intent is piped to `on_game_command()` while the game is playing. Also adds auto-save support, default pause/resume dialogs, and `on_abandon_game()`.
 
@@ -411,7 +417,7 @@ class AdventureSkill(ConversationalGameSkill):
 ## UniversalSkill
 
 **Module:** `ovos_workshop.skills.auto_translatable.UniversalSkill`
-**Source:** `ovos_workshop/skills/auto_translatable.py:14`
+**Source:** `ovos_workshop/skills/auto_translatable.py:11`
 
 Extends `OVOSSkill`. Automatically translates incoming utterances to `self.internal_language` before the intent handler runs, and translates `self.speak()` output back to the user's language. Requires a translator plugin to be configured.
 
@@ -436,7 +442,7 @@ class MySkill(UniversalSkill):
 ## UniversalFallback
 
 **Module:** `ovos_workshop.skills.auto_translatable.UniversalFallback`
-**Source:** `ovos_workshop/skills/auto_translatable.py:314`
+**Source:** `ovos_workshop/skills/auto_translatable.py:311`
 
 Combines `UniversalSkill` and `FallbackSkill`. [Fallback](fallback-pipeline.md) handlers receive utterances in `self.internal_language`. `self.speak()` translates output back to the user's language.
 
