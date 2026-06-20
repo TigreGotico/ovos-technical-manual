@@ -161,7 +161,7 @@ Example — stop users from rebinding the messagebus host (must live in the `sys
 
 ```
 
-> Admin [PHAL](ovoscope-phal.md) is a special service that runs as root — it can **only** access `/etc/mycroft/mycroft.conf`.
+> Admin [PHAL](phal.md) is a special service that runs as root — it can **only** access `/etc/mycroft/mycroft.conf`.
 
 ---
 

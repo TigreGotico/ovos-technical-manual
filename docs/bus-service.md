@@ -59,7 +59,7 @@ All settings live under the `websocket` key in `mycroft.conf`:
     "port": 8181,
     "route": "/core",
     "ssl": false,
-    "max_msg_size": 10,
+    "max_msg_size": 25,
     "filter": false,
     "filter_logs": ["gui.status.request", "gui.page.upload"]
   }
@@ -69,11 +69,11 @@ All settings live under the `websocket` key in `mycroft.conf`:
 
 | Key | Default | Description |
 |---|---|---|
-| `host` | `"0.0.0.0"` | Bind address. The shipped default binds all interfaces; set `"127.0.0.1"` to restrict to localhost. |
+| `host` | `"127.0.0.1"` | Bind address. The shipped default restricts to localhost; set `"0.0.0.0"` to bind all interfaces. |
 | `port` | `8181` | TCP port. The GUI service uses a separate port (`18181`). |
 | `route` | `"/core"` | WebSocket URL path. Full URL: `ws://host:port/core`. |
 | `ssl` | `false` | Enable WSS/TLS. |
-| `max_msg_size` | `10` | Max WebSocket frame size in megabytes. |
+| `max_msg_size` | `25` | Max WebSocket frame size in megabytes. |
 | `filter` | `false` | Enable debug logging of message types before broadcast. |
 | `filter_logs` | `["gui.status.request", "gui.page.upload"]` | Message types excluded from filter logging. |
 
@@ -108,10 +108,10 @@ Subscription filtering is handled entirely in the client library (`ovos-bus-clie
     - `main()` — [`ovos_messagebus/__main__.py:43`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/__main__.py) — Entry point initializing the Tornado application and IOLoop.
 
 
-    - `MessageBusEventHandler.on_message()` — [`ovos_messagebus/event_handler.py:61`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/event_handler.py) — Core broadcast logic.
+    - `MessageBusEventHandler.on_message()` — [`ovos_messagebus/event_handler.py:50`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/event_handler.py) — Core broadcast logic.
 
 
-    - `load_message_bus_config()` — [`ovos_messagebus/load_config.py:33`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/load_config.py) — Configuration loader using `ovos-config`.
+    - `load_message_bus_config()` — [`ovos_messagebus/load_config.py:31`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/load_config.py) — Configuration loader using `ovos-config`.
     
     ### `open()`
     
@@ -131,7 +131,9 @@ Subscription filtering is handled entirely in the client library (`ovos-bus-clie
     config.get("websocket", {}).get("max_msg_size", 10) * 1024 * 1024
     ```
     
-    Default: 10 MB. Messages larger than this cause Tornado to close the connection.
+    The shipped `mycroft.conf` sets `max_msg_size` to 25, so the effective default is
+    25 MB (the code's hardcoded fallback of 10 only applies if the key is absent).
+    Messages larger than this cause Tornado to close the connection.
     
     ---
     
@@ -226,7 +228,7 @@ The `Message` object provides:
 | `ovos.session.sync` | new client | `ovos-core` |
 | `ovos.session.update_default` | `ovos-core` | all clients |
 
-### Connectivity / [PHAL](ovoscope-phal.md)
+### Connectivity / [PHAL](phal.md)
 
 | Message type | Publisher | Consumers |
 |---|---|---|

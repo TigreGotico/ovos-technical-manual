@@ -40,7 +40,7 @@ Skills declare their runtime requirements (`network_before_load`, `internet_befo
 | `mycroft.internet.connected` | Load skills requiring internet |
 | `mycroft.gui.available` | Load skills requiring GUI |
 
-Network/internet state is queried from [PHAL](ovoscope-phal.md) at startup via `ovos.PHAL.internet_check`; falls back to a direct HTTP check if PHAL is unavailable.
+Network/internet state is queried from [PHAL](phal.md) at startup via `ovos.PHAL.internet_check`; falls back to a direct HTTP check if PHAL is unavailable.
 
 ## Loading a Skill
 
