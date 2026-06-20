@@ -2,6 +2,8 @@
 
 The **Message Bus** is the central nervous system of the OVOS platform. All services communicate by publishing and subscribing to typed `Message` objects through this central WebSocket broker.
 
+**In plain terms:** every OVOS service (core, audio, listener, GUI) connects to one shared WebSocket. Whatever any service sends, every other service receives — there is no central router deciding who gets what. Services just listen for the message types they care about and ignore the rest.
+
 ---
 
 ## Overview
@@ -55,7 +57,7 @@ All settings live under the `websocket` key in `mycroft.conf`:
     "port": 8181,
     "route": "/core",
     "ssl": false,
-    "max_msg_size": 25,
+    "max_msg_size": 10,
     "filter": false,
     "filter_logs": ["gui.status.request", "gui.page.upload"]
   }
@@ -65,13 +67,13 @@ All settings live under the `websocket` key in `mycroft.conf`:
 
 | Key | Default | Description |
 |---|---|---|
-| `host` | `"127.0.0.1"` | Bind address. Use `"0.0.0.0"` only if remote clients (e.g. [HiveMind](hivemind-agents.md)) need to connect. |
+| `host` | `"0.0.0.0"` | Bind address. The shipped default binds all interfaces; set `"127.0.0.1"` to restrict to localhost. |
 | `port` | `8181` | TCP port. The GUI service uses a separate port (`18181`). |
 | `route` | `"/core"` | WebSocket URL path. Full URL: `ws://host:port/core`. |
-| `ssl` | `false` | Enable WSS/TLS. Requires `ssl_cert` and `ssl_key` paths. |
-| `max_msg_size` | `25` | Max WebSocket frame size in megabytes. |
+| `ssl` | `false` | Enable WSS/TLS. |
+| `max_msg_size` | `10` | Max WebSocket frame size in megabytes. |
 | `filter` | `false` | Enable debug logging of message types before broadcast. |
-| `filter_logs` | `["gui.status.request", ...]` | Message types excluded from filter logging. |
+| `filter_logs` | `["gui.status.request", "gui.page.upload"]` | Message types excluded from filter logging. |
 
 > **Security:** Never expose the messagebus to the public internet. It provides full control over the OVOS instance. For remote access, use [HiveMind](https://jarbashivemind.github.io/HiveMind-community-docs/).
 
@@ -124,10 +126,10 @@ Subscription filtering is handled entirely in the client library (`ovos-bus-clie
     ### `max_message_size`
     
     ```python
-    config.get("websocket", {}).get("max_msg_size", 25) * 1024 * 1024
+    config.get("websocket", {}).get("max_msg_size", 10) * 1024 * 1024
     ```
     
-    Default: 25 MB. Messages larger than this cause Tornado to close the connection.
+    Default: 10 MB. Messages larger than this cause Tornado to close the connection.
     
     ---
     
@@ -245,73 +247,15 @@ GUI clients connect to `ovos-gui`'s own WebSocket (`ws://localhost:18181/gui`), 
 
 ---
 
-## Alternative Backends
+## Alternative Implementation
 
-`ovos-messagebus` ships the Tornado backend by default. Two additional backends are available for deployments needing higher throughput:
+`ovos-messagebus` is the reference Tornado-based server and is all you need for a normal install (`pip install ovos-messagebus`). Because the wire protocol is just JSON frames over a WebSocket, the server is interchangeable — any process that fans messages out to all connected clients on the same route will work.
 
-| Backend | Install | Notes |
-|---|---|---|
-| **Tornado** (default) | `pip install ovos-messagebus` | Pure Python, most compatible |
-| **webrockets** | `pip install "ovos-messagebus[webrockets]"` | Rust-powered; +24% throughput at 50+ clients |
-| **ovos-rust-messagebus** | Build from [source](https://github.com/OscillateLabsLLC/ovos-rust-messagebus) | +18-20% throughput at 5-20 clients |
+A separate, drop-in Rust implementation exists as its own project for deployments that want lower overhead:
 
-All backends expose the same OVOS wire protocol.
+- [OscillateLabsLLC/ovos-rust-messagebus](https://github.com/OscillateLabsLLC/ovos-rust-messagebus) — speaks the same OVOS wire protocol; build and run it in place of the Python server. See that project's README for build and configuration details.
 
-Run the webrockets backend:
-
-```bash
-python -m ovos_messagebus.backends.webrockets_backend
-
-```
-
-Run the Rust binary:
-
-```bash
-git clone https://github.com/OscillateLabsLLC/ovos-rust-messagebus
-cd ovos-rust-messagebus && cargo build --release
-./target/release/ovos-rust-messagebus
-
-```
-
-### Benchmark Summary (localhost, CPython 3.11)
-
-```
-Scenario          Tornado       webrockets    Rust
-─────────────────────────────────────────────────
-5c × 200m       48,820/s      54,103/s      57,770/s  ← Rust best
-20c × 1,000m    65,937/s      71,841/s      78,849/s  ← Rust best
-50c × 2,000m    63,858/s      78,891/s      76,585/s  ← webrockets best
-100c × 500m     74,154/s      76,799/s      ⚠ errors  ← webrockets best
-
-```
-
-**Summary:**
-
-- Rust wins at low-to-medium concurrency (5–20 clients): +18–20% over Tornado
-
-
-- webrockets wins at high concurrency (50+ clients): +24% over Tornado and more stable than Rust
-
-
-- Tornado has the lowest minimum latency at low concurrency and zero setup friction
-
-
-- For typical OVOS deployments (1–20 services), the Rust binary is fastest; for HiveMind hubs with 50+ nodes, webrockets is more stable
-
-### webrockets Known Limitations
-
-- `max_msg_size` config key is silently ignored — use a reverse proxy
-
-
-- No TLS support — terminate TLS at a reverse proxy and forward plain WebSocket traffic
-
-### Rust Configuration (via environment variables)
-
-| Variable | Default | Description |
-|---|---|---|
-| `OVOS_BUS_HOST` | `0.0.0.0` | Bind address |
-| `OVOS_BUS_PORT` | `8181` | TCP port |
-| `OVOS_BUS_MAX_MSG_SIZE` | `25` MB | Maximum message payload size |
+**In plain terms:** start with the default Python server; only reach for the Rust build if profiling shows the bus is a bottleneck.
 
 ---
 
@@ -327,7 +271,7 @@ DEBUG: <msg_type> source: [...] destination: [...]
 
 Messages listed in `filter_logs` are excluded from the log to reduce noise (default: `["gui.status.request", "gui.page.upload"]`).
 
-Deserialization failures are logged at DEBUG level and the raw payload is forwarded unchanged.
+When `filter` is off (the default), the bus never deserializes messages — it emits and re-broadcasts the raw frame as-is. Deserialization only happens in `filter` mode for the log line; if a frame fails to deserialize there, it is dropped (not logged, not re-broadcast).
 
 ---
 

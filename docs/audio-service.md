@@ -2,17 +2,19 @@
 
 `ovos-audio` is the component responsible for [TTS](tts-plugins.md) synthesis and audio playback. It ensures that only one thing is speaking at a time and manages audio focus between different media sources.
 
+**In plain terms:** when a skill says "tell the user X", that `speak` message lands here. `ovos-audio` turns the text into sound with a TTS plugin and plays it, ducking any background music while it talks.
+
 ---
 
 ??? abstract "Technical Reference"
 
-    - `PlaybackService.run()` — [`ovos_audio/service.py:180`](https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/service.py) — Main service thread handling the [TTS](tts-plugins.md) queue.
+    - `PlaybackService.run()` — [`ovos_audio/service.py`](https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/service.py) — Main service thread; registers the `speak` handler and drives the [TTS](tts-plugins.md) queue.
 
 
-    - `PlaybackThread.run()` — [`ovos_audio/playback.py:45`](https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/playback.py) — logic for playing back the synthesized audio chunks.
+    - `PlaybackThread.run()` — [`ovos_audio/playback.py:163`](https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/playback.py) — logic for playing back the synthesized audio chunks.
 
 
-    - `AudioService.play()` — [`ovos_audio/audio.py:150`](https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/audio.py) — logic for routing media playback to the correct backend (MPV, VLC, etc.).
+    - `AudioService.play()` — [`ovos_audio/audio.py:395`](https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/audio.py) — routes media playback to the correct backend by URI scheme (MPV, VLC, etc.).
     
     ---
     

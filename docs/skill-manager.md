@@ -4,22 +4,24 @@
 
 The `SkillManager` is a core component of `ovos-core`. It is a daemon `Thread` that owns the full lifecycle of skill plugins: discovery, loading, connectivity-gating, and graceful shutdown.
 
+**In plain terms:** when OVOS starts, the SkillManager finds every installed skill, decides which ones are allowed to load right now (some need the network or a screen first), starts them, and re-scans periodically so newly installed skills show up without a restart.
+
 ---
 
 ??? abstract "Technical Reference"
 
-    - `SkillManager.run()` — [`ovos_core/skill_manager.py:204`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py) — Main loop handling skill loading and periodic scans.
+    - `SkillManager.run()` — [`ovos_core/skill_manager.py:476`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py) — Main loop; re-scans for new skills every 30 s via `self._stop_event.wait(30)`.
 
 
-    - `SkillManager.load_plugin()` — [`ovos_core/skill_manager.py:301`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py) — logic for loading a specific skill via `PluginSkillLoader`.
+    - `SkillManager.load_plugin_skills()` — [`ovos_core/skill_manager.py:347`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py) — loads discovered skills via `PluginSkillLoader` (from `ovos_workshop.skill_launcher`).
 
 
-    - `SkillManager._check_connectivity()` — [`ovos_core/skill_manager.py:450`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py) — connectivity gating based on `RuntimeRequirements`.
+    - `SkillManager._sync_skill_loading_state()` — [`ovos_core/skill_manager.py:181`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py) — connectivity gating based on `RuntimeRequirements`.
     
 
 ## Skill Discovery
 
-Skills are Python packages that register themselves via the `opm.skills` entry point group. `ovos-plugin-manager` discovers them with `find_skill_plugins()`, which returns a `{skill_id: SkillClass}` dict.
+Skills are Python packages that register themselves via the `opm.skill` entry point group (the older `ovos.plugin.skill` group is still accepted as a deprecated alias). `ovos-plugin-manager` discovers them with `find_skill_plugins()`, which returns a `{skill_id: SkillClass}` dict.
 
 ```python
 from ovos_plugin_manager.skills import find_skill_plugins
@@ -45,14 +47,14 @@ Network/internet state is queried from [PHAL](ovoscope-phal.md) at startup via `
 The loading process follows this flow:
 
 ```
-find_skill_plugins()
-  → _get_plugin_skill_loader(skill_id, skill_class)
-    → PluginSkillLoader.load(skill_class)
-      → mycroft.skill.loaded (bus event)
+load_plugin_skills()
+  → find_skill_plugins()                              # {skill_id: SkillClass}
+    → _get_plugin_skill_loader(skill_id, skill_class) # build a PluginSkillLoader
+      → _load_plugin_skill(skill_id, skill_class)     # instantiate & start the skill
 
 ```
 
-Each skill gets its own bus connection when `websocket.shared_connection` is `false` in config (providing isolation from "BusBricker" style attacks).
+Each skill gets its own bus connection when `websocket.shared_connection` is `false` in config (see `_get_internal_skill_bus()`), providing isolation from "BusBricker" style attacks.
 
 ## Blacklisting
 

@@ -2,6 +2,8 @@
 
 `ovos-media` is the standalone audio/video daemon for OpenVoiceOS. It replaces the legacy audio service with a more robust and modular media player based on the OpenVoiceOS [Common Play](ocp-pipeline.md) ([OCP](ocp-pipeline.md)) framework.
 
+**In plain terms:** the old audio service could only play one kind of stream through a thin wrapper. `ovos-media` is a proper media daemon: it has separate audio/video/web players you pick per request, supports MPRIS (so your phone's media controls work), and keeps per-session state so multiple devices can each play their own thing.
+
 To use `ovos-media` you need to disable the old audio service and enable the OCP pipeline in `ovos-core`:
 
 ```json
@@ -21,7 +23,7 @@ To use `ovos-media` you need to disable the old audio service and enable the OCP
       "common_qa",
       "ocp_medium",
       "...",
-      "ocp_fallback",
+      "ocp_low",
       "fallback_low"
     ]
   }
@@ -60,9 +62,9 @@ exist in parallel:
 
 ## OCP Pipeline Plugin
 
-**Package:** `ocp-pipeline`
+**Package:** `ocp-pipeline` (`ovos_ocp_pipeline_plugin`)
 **Entry point group:** `opm.pipeline`
-**Class:** `OCPPipelinePlugin`
+**Class:** `OCPPipelineMatcher` (entry point `ovos-ocp-pipeline-plugin`); the legacy bridge is `MycroftCPSLegacyPipeline` (`ovos-ocp-pipeline-plugin-legacy`)
 
 The OCP pipeline plugin is the NLP brain of the media stack. It integrates with `ovos-core`'s
 intent pipeline, handles all media query classification, and dispatches search to OCP skills.
@@ -101,12 +103,16 @@ class OCPPlayerProxy:
 
 ### Pipeline Configuration
 
+The OCP matcher contributes several confidence-ranked pipeline stages — `ocp_high`, `ocp_medium`, `ocp_low`, plus `ocp_legacy` for old-style CommonPlay skills. Place them at the appropriate confidence tier in your pipeline:
+
 ```json
 {
   "intents": {
     "pipeline": [
       "...",
-      "ocp_pipeline_plugin",
+      "ocp_high",
+      "ocp_medium",
+      "ocp_low",
       "..."
     ]
   }
@@ -188,21 +194,26 @@ Key modules:
 
 ### Available Media Backend Plugins
 
+Media backends are typed: audio players register on the `opm.media.audio` entry-point group,
+video players on `opm.media.video`, and web players on `opm.media.web`. They are configured under
+`media.audio_players` / `media.video_players` / `media.web_players` (see the config example below).
+
 | Package | Type | Description |
 |---|---|---|
-| `ovos-media-plugin-vlc` | audio + video | Headless VLC instance |
-| `ovos-media-plugin-mplayer` | audio | mplayer |
-| `ovos-media-plugin-mpv` | audio | mpv |
-| `ovos-media-plugin-ffplay` | audio + video | ffplay |
-| `ovos-media-plugin-simple` | audio | Simple fallback |
-| `ovos-media-plugin-chromecast` | audio + video | Chromecast via pychromecast |
-| `ovos-media-plugin-spotify` | audio | Spotify Connect |
-| `ovos-media-plugin-mass` | audio | Music Assistant |
+| `ovos-media-audio-plugin-vlc` / `ovos-media-video-plugin-vlc` | audio / video | VLC instance |
+| `ovos-media-audio-plugin-mplayer` | audio | mplayer |
+| `ovos-media-audio-plugin-mpv` | audio | mpv |
+| `ovos-media-audio-plugin-cli` | audio | Command-line player (simple fallback) |
+| `ovos-media-audio-plugin-spotify` | audio | Spotify Connect |
+| `ovos-media-audio-plugin-mass` | audio | Music Assistant |
+| `ovos-media-web-plugin-browser` | web | Open in local browser |
+| `ovos-media-audio-plugin-gui` / `ovos-media-video-plugin-gui` / `ovos-media-web-plugin-gui` | audio / video / web | Hand off to the GUI player |
 
 ### Stream Extractor Plugins
 
-OCP supports stream extractor plugins (`opm.ocp.extractor` entry point group) that transform
-non-playable URIs into playable streams before handing them to the media backend:
+OCP supports stream extractor plugins (`opm.ocp.extractor` entry-point group; the older
+`ovos.ocp.extractor` group is a deprecated alias) that transform non-playable URIs into playable
+streams before handing them to the media backend:
 
 - `ovos-ocp-youtube-plugin` — extracts audio stream from YouTube URLs
 

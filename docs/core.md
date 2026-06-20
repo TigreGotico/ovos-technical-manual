@@ -2,6 +2,8 @@
 
 `ovos-core` is the central intelligence of OpenVoiceOS. It acts as the orchestrator, managing the lifecycle of skills, coordinating the intent pipeline, and ensuring smooth communication between all parts of the system.
 
+**In plain terms:** `ovos-core` is the "brain" service. It does not capture audio or speak — those are separate services. Its job is to load your skills, take the transcribed text off the bus, decide which skill handles it, and hand off the reply. Everything it does flows over the [MessageBus](bus-service.md).
+
 ## Role in the System
 
 Every user utterance, whether captured from a microphone or received via a remote client, flows through `ovos-core`. It performs the heavy lifting of:

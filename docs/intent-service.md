@@ -4,17 +4,19 @@
 
 `IntentService` is the component of `ovos-core` responsible for routing user utterances through the configured **Intent Pipeline** until a match is found.
 
+**In plain terms:** this is the part that takes the words you said and figures out *which* skill should answer. It runs each matcher in your pipeline in order (converse, adapt, padatious, …) and stops at the first one confident enough to handle the request.
+
 ---
 
 ??? abstract "Technical Reference"
 
-    - `IntentService.handle_utterance()` — [`ovos_core/intent_services/service.py:384`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py) — Main entry point for processing utterances.
+    - `IntentService.handle_utterance()` — [`ovos_core/intent_services/service.py:415`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py) — Main entry point for processing utterances.
 
 
-    - `IntentService._handle_intent_match()` — [`ovos_core/intent_services/service.py:420`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py) — logic for emitting match messages and activating skills.
+    - `IntentService._emit_match_message()` — [`ovos_core/intent_services/service.py:275`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py) — logic for emitting match messages and activating skills.
 
 
-    - `OVOSPipelineFactory.create_pipeline()` — [`ovos_plugin_manager/pipeline.py`](https://github.com/OpenVoiceOS/ovos-plugin-manager/blob/dev/ovos_plugin_manager/pipeline.py) — factory for building the matcher pipeline from config.
+    - `OVOSPipelineFactory.load_plugin()` — [`ovos_plugin_manager/pipeline.py`](https://github.com/OpenVoiceOS/ovos-plugin-manager/blob/dev/ovos_plugin_manager/pipeline.py) — factory that builds matcher pipeline plugins from config (`get_installed_pipeline_ids()` lists them).
     
 
 ## Utterance Handling Flow
@@ -52,7 +54,7 @@ The language for an utterance is chosen based on a priority list from message co
 
 4. Config default / `message.data["lang"]`.
 
-The chosen language is validated against `valid_langs` from config using `langcodes.closest_match`.
+The chosen language is validated against `valid_langs` from config using `closest_lang()` (from `ovos_spec_tools`), which tolerates near-matches such as `en` vs `en-us`.
 
 ## Multilingual Matching
 

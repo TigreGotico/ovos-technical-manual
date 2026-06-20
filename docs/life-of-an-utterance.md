@@ -73,7 +73,7 @@ The (potentially modified) utterance is now evaluated against the **Intent Pipel
 
 ## 5. [Skill](skill-design-guidelines.md) Execution
 **Service:** A specific Skill (running in `ovos-core`)
-**Bus Event:** `{skill_id}:activate` and the specific intent message.
+**Bus Event:** `{skill_id}.activate` and the specific intent message.
 
 Once a match is found, `ovos-core` emits a message specifically for the winning skill.
 

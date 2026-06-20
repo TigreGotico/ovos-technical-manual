@@ -4,17 +4,19 @@
 
 The `SkillsStore` is a built-in subsystem of `ovos-core` that provides runtime skill and package management via the [MessageBus](bus-service.md).
 
+**In plain terms:** other parts of the system (or you, over the bus) can ask OVOS to `pip install` a skill or library while it is running — no shell access or restart needed. It is opt-in and guarded behind the `allow_pip` config flag.
+
 ---
 
 ??? abstract "Technical Reference"
 
-    - `SkillsStore.install_package()` — [`ovos_core/skill_installer.py:315`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_installer.py) — Core logic for calling `pip` or `uv`.
+    - `SkillsStore.pip_install()` — [`ovos_core/skill_installer.py:85`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_installer.py) — Core logic for calling `pip` or `uv`.
 
 
-    - `SkillsStore.handle_install()` — [`ovos_core/skill_installer.py:120`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_installer.py) — Bus event handler for `ovos.skills.install`.
+    - `SkillsStore.handle_install_skill()` — [`ovos_core/skill_installer.py:288`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_installer.py) — Bus event handler for `ovos.skills.install`.
 
 
-    - `ovos_plugin_manager.utils.plugin_utils.reload_plugins()` — [`ovos_plugin_manager/utils/plugin_utils.py`](https://github.com/OpenVoiceOS/ovos-plugin-manager/blob/dev/ovos_plugin_manager/utils/plugin_utils.py) — entry point cache invalidation after install.
+    - After a successful install, `ovos_core/skill_installer.py` re-imports `ovos_plugin_manager` (Python's `importlib.reload`) so the new entry points are picked up.
     
     ---
     
@@ -27,12 +29,13 @@ To prevent issues with concurrent package management, a named lock (`ovos_pip.lo
 
 ## Configuration
 
-The installer can be configured in `mycroft.conf`:
+The installer can be configured in `mycroft.conf`. It is **disabled unless `allow_pip` is `true`** — every install/uninstall handler bails out with a `DISABLED` error otherwise:
 
 ```json
 {
   "skills": {
     "installer": {
+      "allow_pip": true,
       "constraints": "https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-stable.txt",
       "sounds": {
         "pip_error": "snd/error.mp3",
@@ -44,23 +47,29 @@ The installer can be configured in `mycroft.conf`:
 
 ```
 
+The `constraints` file pins allowed versions; packages listed in it are also treated as **protected** and cannot be uninstalled.
+
 ## Install/Uninstall Events
 
-You can trigger installation and uninstallation by emitting messages on the MessageBus:
+You can trigger installation and uninstallation by emitting messages on the MessageBus. Note that the **skill** events and the **pip** events take different payloads: skills are installed from a single GitHub URL, while the generic pip events take a list of package specifiers.
 
-### Installation
+### Skill installation
+
+A skill is installed from a GitHub repo URL (it is validated and then installed as `git+<url>`):
 
 ```
-ovos.skills.install        data: {"packages": ["ovos-skill-foo"]}
+ovos.skills.install        data: {"url": "https://github.com/OpenVoiceOS/skill-foo"}
   → ovos.skills.install.complete  (success)
   → ovos.skills.install.failed    (error)
 
 ```
 
-### Uninstallation
+### Skill uninstallation
+
+Uninstall by `skill_id` (or package name); a `skill_id` like `skill-foo.author` is mapped to the package name `skill-foo-author`:
 
 ```
-ovos.skills.uninstall      data: {"packages": ["ovos-skill-foo"]}
+ovos.skills.uninstall      data: {"skill": "skill-foo.author"}
   → ovos.skills.uninstall.complete
   → ovos.skills.uninstall.failed
 
