@@ -126,16 +126,16 @@ The `OVOSPersonaAgentExecutor` wraps the active persona and exposes it at `/a2a`
 
 ### ovos-a2a-solver-plugin — OVOS as A2A Consumer
 
-[OpenVoiceOS/ovos-a2a-agent-plugin](https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin) (pip: `ovos-a2a-solver-plugin`) is an `A2AChatEngine` plugin (OPM group `opm.agents.chat`, entry point `ovos-a2a-solver`) that delegates persona reasoning to any external A2A server.
+[OpenVoiceOS/ovos-a2a-agent-plugin](https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin) (pip: `ovos-a2a-agent`) is an `A2AAgentEngine` `ChatEngine` plugin (OPM group `opm.agents.chat`, entry point `ovos-a2a-agent`) that delegates persona reasoning to any external A2A server.
 
 ```yaml
 # persona YAML
 name: my-a2a-persona
-engine: ovos-a2a-solver
+engine: ovos-a2a-agent
 engine_config:
-  agent_url: "https://my-a2a-agent.example.com"
-  auth_header: "Bearer <token>"
-  timeout: 60
+  url: "https://my-a2a-agent.example.com"
+  api_key: "<token>"
+  timeout: 30
   streaming: false
 ```
 
@@ -143,10 +143,10 @@ Config keys:
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `agent_url` | — | Root URL of the A2A server (**required**) |
-| `auth_header` | — | Full `Authorization` header value |
-| `timeout` | `60` | HTTP timeout in seconds |
-| `streaming` | `false` | Use `tasks/sendSubscribe` (SSE) when `true` |
+| `url` | — | Base URL of the A2A server (**required**) |
+| `api_key` | — | Bearer token, added via a request interceptor |
+| `timeout` | `30` | Seconds per call |
+| `streaming` | `false` | Use the SSE streaming endpoint when `true` |
 
 ### HiveMind A2A Bridge
 

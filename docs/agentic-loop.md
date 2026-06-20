@@ -1,6 +1,6 @@
 # Agentic Loop Architectures
 
-[ovos-agentic-loop](https://github.com/TigreGotico/ovos-agentic-loop) implements seven agentic reasoning patterns as standard OPM `ChatEngine` plugins. Each pattern wires a configurable inner LLM brain with one or more `ToolBox` plugins to produce multi-step reasoning over OVOS personas.
+[ovos-agentic-loop](https://github.com/TigreGotico/ovos-agentic-loop) implements eight agentic reasoning patterns as standard OPM `ChatEngine` plugins. Each pattern wires a configurable inner LLM brain with one or more `ToolBox` plugins to produce multi-step reasoning over OVOS personas.
 
 ---
 
@@ -20,6 +20,7 @@ pip install 'ovos-agentic-loop[web]'
 | Entry point | Class | Best for |
 |---|---|---|
 | `ovos-react-loop` | `ReActLoopEngine` | General tool-using Q&A |
+| `ovos-native-toolcall-loop` | `NativeToolCallEngine` | Tool-using Q&A with brains that expose native `tool_calls` (falls back to the ReAct text loop otherwise) |
 | `ovos-plan-execute-loop` | `PlanAndExecuteEngine` | Multi-step tasks requiring an upfront plan |
 | `ovos-reflexion-loop` | `ReflexionEngine` | Tasks requiring self-critique and retry |
 | `ovos-self-ask-loop` | `SelfAskEngine` | Compositional questions needing sub-questions |
