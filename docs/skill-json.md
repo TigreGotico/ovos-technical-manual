@@ -103,6 +103,19 @@ At least **one valid installation path is required**.
 
 ---
 
+## Packaging: the `opm.skill` Entry Point
+
+`skill.json` describes a skill for discovery and display, but it is not how OVOS *loads* an installed skill. A pip-installed skill is found through the `opm.skill` entry-point group (singular) declared in its `pyproject.toml` / `setup.py`:
+
+```toml
+[project.entry-points."opm.skill"]
+"skill-xxx.exampleauthor" = "skill_xxx:MySkill"
+```
+
+The entry-point name is the `skill_id` and the value points at the skill class. `find_skill_plugins()` in `ovos-plugin-manager` enumerates this group to load skills.
+
+---
+
 ## Tips & Caveats
 
 - This metadata format is a **standard** part of the OVOS skill discovery process and continues to evolve to support new ecosystem features.

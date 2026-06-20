@@ -1,58 +1,49 @@
 # Fallback [Skill](skill-design-guidelines.md)
 
+A **Fallback** skill is the last line of defense: it is only consulted when no intent matched the utterance. This is where you put a catch-all ("I didn't understand"), an LLM, a web search, or any handler that should run *only* when nothing more specific did.
+
 ## Order of precedence
 
-The Fallback **Skills** all have a priority and will be checked in order from low priority value to high priority value. 
-If a Fallback **Skill** can handle the **[Utterance](life-of-an-utterance.md)** it will create a response and return `True`. 
+Fallback Skills each have a **priority** and are tried in order from low priority value to high priority value (lower number = tried earlier). When a Fallback Skill handles the **[Utterance](life-of-an-utterance.md)** it returns `True` and no further fallbacks are tried.
 
-After this no other Fallback **Skills** are tried. This means the priority for Fallbacks that can handle a _broad_ range of queries should be _high_ \(80-100\) and Fallbacks that only responds to a very specific range of queries should be higher \(20-80\). The more specific, the lower the priority value.
+Pick your priority by how broad your handler is:
+
+- Very specific handlers should use a **low** value (e.g. 20-50) so they get a chance before broad ones.
+- Broad, catch-all handlers (an LLM, "I don't understand") should use a **high** value (80-100) so specific skills win first.
 
 ---
 
-##  Fallback Handlers
+## Fallback Handlers
 
-Import the `FallbackSkill` base class, create a derived class and register the handler with the fallback system
+Import the `FallbackSkill` base class, derive from it, and register a handler with the fallback system.
 
-Implement the fallback handler \(the method that will be called to potentially handle the **Utterance**\). 
-
-The method implements logic to determine if the **Utterance** can be handled and shall output speech if it can handle the query. 
-
-It shall return Boolean `True` if the **Utterance** was handled and Boolean `False` if not.
-
+The handler decides whether it can handle the **Utterance**, speaks if it can, and returns `True` if it handled it or `False` if not.
 
 ```python
 from ovos_workshop.skills.fallback import FallbackSkill
 
+
 class MeaningFallback(FallbackSkill):
     """
-        A Fallback skill to answer the question about the
-        meaning of life, the universe and everything.
+    A Fallback skill to answer the question about the
+    meaning of life, the universe and everything.
     """
+
     def initialize(self):
-         """
-             Registers the fallback handler
-         """
-         self.register_fallback(self.handle_fallback, 10)
-         # Any other initialize code you like can be placed here
+        # register the handler with priority 10
+        self.register_fallback(self.handle_fallback, 10)
 
     def handle_fallback(self, message):
-        """
-            Answers question about the meaning of life, the universe
-            and everything.
-        """
-        utterance = message.data.get("utterance")
-        if 'what' in utterance
-            and 'meaning' in utterance
-            and ('life' in utterance
-                or 'universe' in utterance
-                or 'everything' in utterance):
-            self.speak('42')
+        utterance = message.data.get("utterance", "")
+        if ("what" in utterance and "meaning" in utterance and
+                ("life" in utterance or "universe" in utterance
+                 or "everything" in utterance)):
+            self.speak("42")
             return True
-        else:
-            return False
-
+        return False
 ```
-> **NOTE**: a `FallbackSkill` can register any number of fallback handlers
+
+> **NOTE**: a `FallbackSkill` can register any number of fallback handlers.
 
 The above example can be found [here](https://github.com/forslund/fallback-meaning).
 
@@ -60,56 +51,51 @@ The above example can be found [here](https://github.com/forslund/fallback-meani
 
 ## Decorators
 
-Alternatively, you can use decorators 
+Alternatively, use the `@fallback_handler` decorator — no manual `register_fallback` call needed.
 
 ```python
-from ovos_workshop.decorators.fallback_handler import fallback_handler
+from ovos_workshop.skills.fallback import FallbackSkill
+from ovos_workshop.decorators import fallback_handler
 
 
 class MeaningFallback(FallbackSkill):
-    """
-        A Fallback skill to answer the question about the
-        meaning of life, the universe and everything.
-    """
-    
+
     @fallback_handler(priority=10)
     def handle_fallback(self, message):
-        """
-            Answers question about the meaning of life, the universe
-            and everything.
-        """
-        utterance = message.data.get("utterance")
-        if 'what' in utterance
-            and 'meaning' in utterance
-            and ('life' in utterance
-                or 'universe' in utterance
-                or 'everything' in utterance):
-            self.speak('42')
+        utterance = message.data.get("utterance", "")
+        if ("what" in utterance and "meaning" in utterance and
+                ("life" in utterance or "universe" in utterance
+                 or "everything" in utterance)):
+            self.speak("42")
             return True
-        else:
-            return False
-
+        return False
 ```
+
+`fallback_handler` can also be imported from `ovos_workshop.decorators.fallback_handler`.
 
 ---
 
-## Check utterances
+## `can_answer`
 
-Fallback skills should report if they are able to answer a question, without actually executing any action.
+Fallback skills can report *whether* they would answer a question, without actually executing the action or speaking. This lets other OVOS components probe how an utterance will be handled with no side effects, and can skip work in the fallback pipeline.
 
-Besides providing performance improvements this allows other OVOS components to check how a utterance will be handled without side effects
+This method is **not implemented by default** — override it in your skill if you want this behavior:
 
 ```python
-    def can_answer(self, utterances: List[str], lang: str) -> bool:
-        """
-        Check if the skill can answer the particular question. Override this
-        method to validate whether a query can possibly be handled. By default,
-        assumes a skill can answer if it has any registered handlers
-        @param utterances: list of possible transcriptions to parse
-        @param lang: BCP-47 language code associated with utterances
-        @return: True if skill can handle the query
-        """
-        return len(self._fallback_handlers) > 0
+from ovos_bus_client.session import SessionManager
 
+
+class MeaningFallback(FallbackSkill):
+
+    def can_answer(self, message) -> bool:
+        """
+        Return True if this skill could answer the utterance as a fallback.
+
+        - Utterance transcriptions: message.data["utterances"]
+        - Session (e.g. for language): SessionManager.get(message)
+        """
+        utterances = message.data.get("utterances", [])
+        return any("meaning" in u for u in utterances)
 ```
 
+> The `can_answer` signature takes the full `Message` (transcriptions are in `message.data["utterances"]`), not a bare list of strings.

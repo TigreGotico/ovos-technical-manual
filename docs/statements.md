@@ -166,14 +166,23 @@ def handle_what_is(self, message):
 
 ## Using translatable resources
 
-There may be a situation where the dialog file and the `speak_dialog()` method do not give the Skill enough flexibility. For instance, there may be a need to manipulate the statement from the dialog file before having it spoken by OVOS.
+There may be a situation where the dialog file and the `speak_dialog()` method do not give the Skill enough flexibility. For instance, there may be a need to manipulate the statement from the dialog file *before* having it spoken by OVOS, or to load a list/lookup table of localized strings.
 
-The OVOSSkill class provides four multilingual methods to address these needs.  Each method uses a file, and multilingualism is accomplished using the country/language directory system.
+Use the skill's `SkillResources` object, available as `self.resources`. It is initialized per language for the current [Session](session.md) and exposes loaders for each resource type. Each loader uses the same `locale/<lang>/` directory system, so the right localized file is chosen automatically.
 
-The `translate()` method returns a random string from a ".dialog" file (modified by a data dictionary). &#x20;
+```python
+# render a random line from a .dialog file (with mustache substitution),
+# WITHOUT speaking it
+text = self.resources.render_dialog("how.are.you", {"name": "Alice"})
 
-The `translate_list()` method returns a list of strings from a ".list" file (each modified by the data dictionary). Same as translate\_template() just with a different file extension.
+# load a list of strings from a .list file
+items = self.resources.load_list_file("options")
 
-The `translate_namedvalue()` method returns a dictionary formed from CSV entries in a ".value" file.
+# load a {name: value} lookup from a .value file (CSV-style entries)
+mapping = self.resources.load_named_value_file("synonyms")
 
-The `translate_template()` method returns a list of strings from a ".template" file (each modified by the data dictionary). Same as translate\_list() just with a different file extension.
+# load lines from a .template file
+templates = self.resources.load_template_file("greeting")
+```
+
+> The legacy `self.translate()`, `self.translate_list()`, `self.translate_namedvalue()` and `self.translate_template()` helper methods have been **removed** from `OVOSSkill`. Use the `self.resources.*` loaders shown above instead.

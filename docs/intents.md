@@ -1,5 +1,7 @@
 # Intent Design
 
+> Specification: [OVOS-INTENT-1](https://openvoiceos.github.io/ovos-technical-manual/) (Sentence Template Grammar), [OVOS-INTENT-2](https://openvoiceos.github.io/ovos-technical-manual/) (Locale Resource Formats), [OVOS-INTENT-3](https://openvoiceos.github.io/ovos-technical-manual/) (Intent Definition)
+
 A user can accomplish the same task by expressing their intent in multiple ways. The role of the intent parser is to
 extract from the user's speech key data elements that specify their intent in more detail. This data can then be passed
 to other services, such as Skills to help the user accomplish their intended task.
@@ -30,23 +32,20 @@ In the example above, we might extract data elements like:
   to give Julie yesterday's weather, particularly as Melbourne is renowned for having changeable weather.
 
 
-OVOS has two separate Intent parsing engines each with their own strengths. 
-Each of these can be used in most situations, however they will process the utterance in different ways.
+OVOS provides two kinds of intent, each with its own strengths. The [OVOS-INTENT-3](https://openvoiceos.github.io/ovos-technical-manual/) specification calls them **template intents** and **keyword intents**; the two are not interoperable — an intent is defined by exactly one of the two methods.
 
-**Example based** intents are trained on whole phrases. These intents are generally more accurate however require you to include sample phrases that cover the
-breadth of ways that a User may ask about something.
+**Template intents** (example based) are matched against whole phrases. These are generally more accurate, but require you to include sample phrases covering the breadth of ways a user might ask. They live in `.intent` files.
 
-**Keyword / Rule based ** these intents look for specific required keywords. They are more flexible, but since these are essentially rule based this can result in a lot of false matches.
-A badly designed intent may totally throw the intent parser off guard. The main advantage of keyword based intents is the integration with [conversational context](context.md), they facilitate continuous dialogs
+**Keyword intents** (rule based) look for specific required keywords. They are more flexible, but being rule based they can produce false matches; a badly designed keyword intent can throw the parser off. Their main advantage is tight integration with [conversational context](context.md) for continuous dialogs. They are built from `.voc` files.
 
-OVOS is moving towards a plugin system for intent engines, currently only the default MycroftAI intent parsers are supported
+The intent engines are loaded as pipeline plugins. The two default engines are:
 
-- **[Padatious](padatious-pipeline.md)** is a light-weight neural network that is trained on whole phrases. You can find the official documentation [here](https://mycroft-ai.gitbook.io/docs/mycroft-technologies/padatious)
+- **[Padatious](padatious-pipeline.md)** — a lightweight neural network trained on whole phrases (template intents).
 
 
-- **[Adapt](adapt-pipeline.md)** is a keyword based parser. You can find the official documentation [here](https://mycroft-ai.gitbook.io/docs/mycroft-technologies/adapt)
+- **[Adapt](adapt-pipeline.md)** — a keyword based parser (keyword intents).
 
-> NOTE: Padatious doesnt handle numbers well, internally sees all digits as "#". If you need to use digits in your intents, it is recommended you use Adapt instead.
+> NOTE: Padatious does not handle numbers well — internally it sees all digits as "#". If you need to match digits, use Adapt (keyword intents) instead.
 
 
 We will now look at each in more detail, including how to use them in a [Skill](skill-design-guidelines.md).
@@ -61,8 +60,9 @@ Keyword based intent parsers determine user intent based on a list of keywords o
 
 Vocab files define keywords that the intent parser will look for in a Users utterance to determine their intent.
 
-These files can be located in either the `vocab/lang-code/` or `locale/lang-code/` directories of a Skill. They can have one or more lines to list synonyms or terms that have the same meaning in the context of this Skill. 
-OVOS will match _any_ of these keywords with the Intent.
+These files live in the Skill's `locale/<lang>/` directory (e.g. `locale/en-us/Potato.voc`). They can have one or more lines listing synonyms or terms with the same meaning in the context of this Skill. OVOS will match _any_ of these keywords with the Intent.
+
+> Language directories are named with BCP-47 tags and compared case-insensitively, so `en-us` and `en-US` denote the same language (OVOS-INTENT-2 §3). The older split layout (`vocab/<lang>/`, `regex/<lang>/`, `dialog/<lang>/`) is still supported for legacy skills, but new skills should use a single `locale/<lang>/` folder per language.
 
 Consider a simple `Potato.voc`. Within this file we might include:
 
@@ -93,9 +93,11 @@ Regular expressions (or regex) allow us to capture entities based on the structu
 
 We strongly recommend you avoid using regex, it is very hard to make portable across languages, hard to translate and the reported confidence of the intents is not great.
 
-We suggest using example based intents instead if you find yourself needing regex
+We suggest using template intents (`.intent` files) instead if you find yourself needing regex.
 
-These files can be located in either the `regex/lang-code/` or `locale/lang-code/` directories of a Skill. They can have one or more lines to provide different ways that an entity may be referenced. OVOS will execute these lines in the order they appear and return the first result as an entity to the Intent Handler.
+> Regex (`.rx`) is **not** a resource role in the [OVOS-INTENT-2](https://openvoiceos.github.io/ovos-technical-manual/) specification — it is an Adapt-specific extension. Prefer `.entity` slot constraints or template intents for portability.
+
+These files live in the Skill's `locale/<lang>/` directory. They can have one or more lines providing different ways an entity may be referenced. OVOS executes these lines in the order they appear and returns the first result as an entity to the Intent Handler.
 
 Let's consider a `type.rx` file to extract the type of potato we are interested in. Within this file we might include:
 
@@ -285,9 +287,9 @@ Example based parsers have a number of key benefits over other intent parsing te
 
 Most example based intent parsers use a series of example sentences to train a machine learning model to identify an intent. Regex can also be used behind the scenes for example to extract entities
 
-The examples are stored in a Skill's `vocab/lang` or `local/lang` directory, in files ending in the file extension `.intent`. For example, if you were to create a _tomato_ Skill to respond to questions about a _tomato_, you would create the file
+The examples are stored in a Skill's `locale/<lang>/` directory, in files ending in the file extension `.intent`. For example, if you were to create a _tomato_ Skill to respond to questions about a _tomato_, you would create the file
 
-`vocab/en-us/what.is.a.tomato.intent`
+`locale/en-us/what.is.a.tomato.intent`
 
 This file would contain examples of questions asking what a _tomato_ is.
 
@@ -307,7 +309,7 @@ The above example allows us to map many phrases to a single intent, however ofte
 
 #### Defining entities
 
-Let's now find out OVOS's opinion on different types of tomatoes. To do this we will create a new intent file: `vocab/en-us/do.you.like.intent`
+Let's now find out OVOS's opinion on different types of tomatoes. To do this we will create a new intent file: `locale/en-us/do.you.like.intent`
 
 with examples of questions about mycroft's opinion about tomatoes:
 
@@ -329,7 +331,7 @@ Note the `{type}` in the above examples. These are wild-cards where matching con
 
 In the above example, `{type}` will match anything. While this makes the intent flexible, it will also match if we say something like Do you like eating tomatoes?. It would think the type of tomato is `"eating"` which doesn't make much sense. Instead, we can specify what type of things the {type} of tomato should be. We do this by defining the type entity file here:
 
-`vocab/en-us/type.entity`
+`locale/en-us/type.entity`
 
 which might contain something like:
 
@@ -361,6 +363,8 @@ class TomatoSkill(OVOSSkill):
 Now, we can say things like "do you like greenish tomatoes?" and it will tag type as: `"greenish"`. However, if we say "do you like eating tomatoes?" - the phrase will not match as `"eating"` is not included in our `type.entity` file.
 
 #### Number matching
+
+> **Engine-specific:** the `#` digit token and the `:0` unknown-token shown below are **Padatious extensions**. They are **not** part of the [OVOS-INTENT-1](https://openvoiceos.github.io/ovos-technical-manual/) Sentence Template Grammar (which has no digit token and no wildcard), so they are not portable to other intent engines. Use them only when you know your skill targets Padatious.
 
 Let's say you are writing an Intent to call a phone number. You can make it only match specific formats of numbers by writing out possible arrangements using `#` where a number would go. For example, with the following intent:
 
@@ -449,6 +453,8 @@ or even on a single-line:
 
 ```
 
+> The empty-branch trick `(from {place} | )` makes a segment optional. The portable [OVOS-INTENT-1](https://openvoiceos.github.io/ovos-technical-manual/) equivalent is the square-bracket optional `[from {place}]` — `[x]` is defined as exactly equivalent to `(x|)`. Prefer the bracket form when you want spec-conformant templates.
+
 Nested parentheses are supported to create even more complex combinations, such as the following:
 
 ```text
@@ -473,7 +479,7 @@ The `intent_handler()` _decorator_ can be used to create an examples based inten
 
 You may also see the `@intent_file_handler` decorator used in Skills. This has been deprecated and you can now replace any instance of this with the simpler `@intent_handler` decorator.
 
-From our first example above, we created a file `vocab/en-us/what.is.a.tomato.intent`. To register an intent using this file we can use:
+From our first example above, we created a file `locale/en-us/what.is.a.tomato.intent`. To register an intent using this file we can use:
 
 ```python
 @intent_handler('what.is.a.tomato.intent')

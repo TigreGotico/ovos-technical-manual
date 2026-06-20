@@ -26,8 +26,9 @@ The `SSMLBuilder` class simplifies the creation of SSML strings by providing int
 
 ```python
 from ovos_utils.ssml import SSMLBuilder
+from ovos_workshop.skills import OVOSSkill
 
-class MySkill:
+class MySkill(OVOSSkill):
 
     def handle_intent(self, message):
         # Create an instance of SSMLBuilder

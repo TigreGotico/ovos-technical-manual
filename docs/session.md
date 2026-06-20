@@ -1,6 +1,8 @@
 # Session Aware Skills
 
-Introduced in `ovos-core` version **0.0.8**
+> Specification: [OVOS-SESSION-1](https://openvoiceos.github.io/ovos-technical-manual/) (Session wire shape) and [OVOS-SESSION-2](https://openvoiceos.github.io/ovos-technical-manual/) (Session lifecycle & state ownership)
+
+**What / why (beginners):** a single OVOS device can be talking to many clients at once — your phone, a kitchen satellite, a HiveMind node. Each request arrives carrying a `Session` that identifies *who* is asking and *in what language*. If your skill stores any state (a chat history, a game in progress, a "current selection"), you must key that state by `session_id` instead of stashing it in a single instance variable — otherwise two users would clobber each other.
 
 If you want your skills to handle simultaneous users you need to make them [Session](https://openvoiceos.github.io/ovos-technical-manual/bus_service/#session) aware
 
@@ -108,7 +110,7 @@ class UtteranceRepeaterSkill(OVOSSkill):
     def handle_repeat_stt(self, message):
         sess = SessionManager.get(message)
         if sess.session_id not in self.chat_sessions:
-            utt = self.translate('nothing')
+            utt = self.resources.render_dialog('nothing')
         else:
             utt = self.chat_sessions[sess.session_id]["prev_stt"]
         self.speak_dialog('repeat.stt', {"stt": utt})

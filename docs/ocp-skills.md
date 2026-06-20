@@ -1,10 +1,16 @@
 # OCP Skills
 
-OCP skills are built from the OVOSCommonPlaybackSkill class
+OCP (OVOS Common Playback) skills are built from the `OVOSCommonPlaybackSkill` class.
 
-These skills work as media providers, they return results for OCP to playback
+**What / why (beginners):** an OCP skill is a *media provider*. You do **not** write intents like "play X" — OCP owns the "play music / play a podcast / play the radio" voice interaction. Your skill only answers the question *"given this search phrase, what can you play?"*. You decorate one or more search methods with `@ocp_search`, return a list (or yield a stream) of result dicts with a confidence score, and OCP picks the best match across every installed OCP skill and handles the actual playback, queueing and GUI.
 
-The actual voice interaction is handled by OCP, skills only implement the returning of results
+```python
+from ovos_utils.ocp import MediaType, PlaybackType
+from ovos_workshop.decorators.ocp import ocp_search, ocp_featured_media
+from ovos_workshop.skills.common_play import OVOSCommonPlaybackSkill
+```
+
+> `MediaType` and `PlaybackType` are imported from `ovos_utils.ocp`. The OCP decorators (`ocp_search`, `ocp_featured_media`, `ocp_play`, `ocp_pause`, `ocp_resume`, `ocp_next`, `ocp_previous`) live in `ovos_workshop.decorators.ocp`.
 
 ## Search Results
 
@@ -42,7 +48,7 @@ General Steps to create a skill
 - subclass your skill from `OVOSCommonPlaybackSkill`
 
 
-- In the \_\_init\_\_ method indicate [the media types you want to handle](https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin/blob/31701ded43a4f7ff6c02833d6aaf1bc0740257fc/ovos_plugin_common_play/ocp/status.py#L95)
+- Pass `supported_media` to `super().__init__()` to indicate [the media types you want to handle](https://github.com/OpenVoiceOS/ovos-utils/blob/dev/ovos_utils/ocp.py) (`MediaType` / `PlaybackType` live in `ovos_utils.ocp`)
 
 
 - `self.voc_match(phrase, "skill_name")` to handle specific requests for your skill
@@ -66,7 +72,7 @@ General Steps to create a skill
 - Implement a confidence score formula
 
 
-  - [Values are between 0 and 100](https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin/blob/31701ded43a4f7ff6c02833d6aaf1bc0740257fc/ovos_plugin_common_play/ocp/status.py#L4)
+  - Values are between 0 and 100
 
 
   - High confidence scores cancel other OCP skill searches
@@ -93,10 +99,10 @@ from ovos_workshop.skills.common_play import OVOSCommonPlaybackSkill
 class SomaFMSkill(OVOSCommonPlaybackSkill):
 
     def __init__(self, *args, **kwargs):
-        # media type this skill can handle
-        self.supported_media = [MediaType.MUSIC, MediaType.RADIO]
-        self.skill_icon = join(dirname(__file__), "ui", "somafm.png")
-        super().__init__(*args, **kwargs)
+        super().__init__(
+            supported_media=[MediaType.MUSIC, MediaType.RADIO],
+            skill_icon=join(dirname(__file__), "ui", "somafm.png"),
+            *args, **kwargs)
 
     @ocp_featured_media()
     def featured_media(self):
@@ -110,7 +116,7 @@ class SomaFMSkill(OVOSCommonPlaybackSkill):
             "bg_image": ch.image,
             "skill_icon": self.skill_icon,
             "title": ch.title,
-            "author": "SomaFM",
+            "artist": "SomaFM",
             "length": 0
         } for ch in radiosoma.get_stations()]
 
@@ -146,7 +152,7 @@ class SomaFMSkill(OVOSCommonPlaybackSkill):
                 "bg_image": ch.image,
                 "skill_icon": self.skill_icon,
                 "title": ch.title,
-                "artistr": "SomaFM",
+                "artist": "SomaFM",
                 "length": 0
             }
 
@@ -160,13 +166,14 @@ OCP skills often need to match hundreds or thousands of strings against the quer
 To help with this the OCP skill class provides efficient keyword matching
 
 ```python
-def register_ocp_keyword(self, label: str, samples: List, langs: List[str] = None):
+def register_ocp_keyword(self, media_type: MediaType, label: str,
+                         samples: List, langs: List[str] = None):
     """ register strings as native OCP keywords (eg, movie_name, artist_name ...)
-    ocp keywords can be efficiently matched with self.ocp_match helper method
-    that uses Aho–Corasick algorithm
+    for a given media_type. ocp keywords can be efficiently matched with the
+    self.ocp_voc_match helper method that uses the Aho–Corasick algorithm
     """
 
-def load_ocp_keyword_from_csv(self, csv_path: str, lang: str):
+def load_ocp_keyword_from_csv(self, csv_path: str, lang: str = None):
     """ load entities from a .csv file for usage with self.ocp_voc_match
     see the ocp_entities.csv datatsets for example files built from wikidata SPARQL queries
 
@@ -199,7 +206,7 @@ wordlists can also be loaded from a .csv file, see [the OCP dataset](https://git
 ```python
 import json
 
-from ovos_utils.messagebus import FakeBus
+from ovos_utils.fakebus import FakeBus
 from ovos_utils.ocp import MediaType
 from ovos_workshop.skills.common_play import OVOSCommonPlaybackSkill
 
@@ -280,9 +287,10 @@ match_confidence: int  # 0-100
 class MyJamsSkill(OVOSCommonPlaybackSkill):
 
     def __init__(self, *args, **kwargs):
-        self.supported_media = [MediaType.MUSIC]
-        self.skill_icon = join(dirname(__file__), "ui", "myjams.png")
-        super().__init__(*args, **kwargs)
+        super().__init__(
+            supported_media=[MediaType.MUSIC],
+            skill_icon=join(dirname(__file__), "ui", "myjams.png"),
+            *args, **kwargs)
 
     @ocp_search()
     def search_my_jams(self, phrase, media_type):

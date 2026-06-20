@@ -2,64 +2,30 @@
 
 > This list is a work in progress, [Suggestions and Pull Requests welcome](https://github.com/OpenVoiceOS/ovos-technical-manual)!
 
-## How do I know what is currently happening in the GUI?
+## How do I know if a screen / GUI client is available?
+
+`ovos_utils.gui` exposes helper functions to query GUI availability. Use these to decide whether to show a page or fall back to voice-only behavior.
 
 ```python
-from ovos_utils.gui import GUITracker
+from ovos_utils.gui import can_display, is_gui_installed, is_gui_connected
 from ovos_workshop.skills import OVOSSkill
 from ovos_workshop.decorators import intent_handler
 
 
-class MyGUIEventTracker(GUITracker):
-    # GUI event handlers
-    # skill can/should subclass this
-    
-    def on_idle(self, namespace):
-        print("IDLE", namespace)
-        timestamp = self.idle_ts
+class MySkill(OVOSSkill):
 
-    def on_active(self, namespace):
-        # NOTE: page has not been loaded yet
-        # event will fire right after this one
-        print("ACTIVE", namespace)
-        # check namespace values, they should all be set before this event
-        values = self.gui_values[namespace]
-
-    def on_new_page(self, page, namespace, index):
-        print("NEW PAGE", namespace, index, namespace)
-        # check all loaded pages
-        for n in self.gui_pages:  # list of named tuples
-            nspace = n.name  # namespace / skill_id
-            pages = n.pages  # ordered list of page uris
-
-    def on_gui_value(self, namespace, key, value):
-        # WARNING this will pollute logs quite a lot, and you will get
-        # duplicates, better to check values on a different event,
-        # demonstrated in on_active
-        print("VALUE", namespace, key, value)
-
-
-class MySkill(OVOSSkill): 
-    def initialize(self):
-        self.tracker = MyGUIEventTracker(bus=self.bus)
-    
     @intent_handler("gui.status.intent")
     def handle_status_intent(self, message):
-        print("device has screen:", self.tracker.can_display())
-        print("mycroft-gui installed:", self.tracker.is_gui_installed())
-        print("gui connected:", self.tracker.is_gui_connected())
-        # Insert logic to handle the response
-            
-    @intent_handler("list.idle.screens.intent")
-    def handle_idle_screens_intent(self, message):
-        # check registered idle screens
-        print("Registered idle screens:")
-        for name in self.tracker.idle_screens:
-            skill_id = self.tracker.idle_screens[name]
-            print("   - ", name, ":", skill_id)
-            # Insert logic to handle the response
-
+        print("device has a screen:", can_display())
+        print("mycroft-gui installed:", is_gui_installed())
+        print("gui client connected:", is_gui_connected(self.bus))
+        if is_gui_connected(self.bus):
+            self.gui.show_text("Hello from the GUI!")
+        else:
+            self.speak("I have nothing to show, no screen is connected")
 ```
+
+> The legacy `GUITracker` class has been **removed** from `ovos_utils.gui`. Use the standalone `can_display()`, `is_gui_installed()`, and `is_gui_connected(bus)` functions instead. To react to GUI lifecycle events, listen to the relevant `gui.*` messagebus messages with `self.add_event(...)`.
 
 ## How do I stop an intent mid execution?
 
@@ -81,8 +47,8 @@ class Test(OVOSSkill):
     send "my.own.abort.msg" and confirm intent3 is aborted
     say "stop" and confirm all intents are aborted
     """
-    def __init__(self):
-        super(Test, self).__init__("KillableSkill")
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.my_special_var = "default"
 
     def handle_intent_aborted(self):
@@ -127,7 +93,7 @@ Sometimes you may want to send files or binary data over the messagebus, `ovos_u
 Sending a file
 
 ```python
-from ovos_utils.messagebus import send_binary_file_message, decode_binary_message
+from ovos_bus_client.util import send_binary_file_message, decode_binary_message
 from ovos_workshop.skills import OVOSSkill
 
 
@@ -149,7 +115,7 @@ class MySkill(OVOSSkill):
 Sending binary data directly
 
 ```python
-from ovos_utils.messagebus import send_binary_data_message, decode_binary_message
+from ovos_bus_client.util import send_binary_data_message, decode_binary_message
 from ovos_workshop.skills import OVOSSkill
 
 

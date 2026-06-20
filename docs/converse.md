@@ -1,10 +1,14 @@
 # Converse
 
-Each [Skill](skill-design-guidelines.md) may define a `converse()` method. This method will be called anytime the Skill has been recently active and a new utterance is processed.&#x20;
+> Specification: [OVOS-SESSION-1](https://openvoiceos.github.io/ovos-technical-manual/) / [OVOS-SESSION-2](https://openvoiceos.github.io/ovos-technical-manual/) (Session) — converse runs per active skill within a Session.
 
-The converse method expects a single argument which is a standard Mycroft Message object. This is the same object an intent handler receives.
+**What / why (beginners):** `converse()` lets a skill keep listening *after* it has just spoken, without registering a new intent for every possible follow-up. Once your skill runs, it goes onto the **Active Skills List** for a few minutes; while it is there, every new utterance is offered to its `converse()` method *before* normal intent parsing. This is how you handle "yes / no / thanks / the red one" replies that only make sense right after your skill acted.
 
-Converse methods must return a Boolean value. True if an utterance was handled, otherwise False.
+Each [Skill](skill-design-guidelines.md) may define a `converse()` method. This method is called any time the Skill has been recently active and a new utterance is processed.
+
+The converse method expects a single argument, a standard `Message` object — the same object an intent handler receives.
+
+Converse methods must return a Boolean: `True` if the utterance was handled (it is consumed and intent parsing is skipped), otherwise `False`.
 
 ## Basic usage
 
@@ -20,7 +24,7 @@ class IceCreamSkill(OVOSSkill):
         self.flavors = ['vanilla', 'chocolate', 'mint']
 
     @intent_handler('request.icecream.intent')
-    def handle_request_icecream(self):
+    def handle_request_icecream(self, message):
         self.speak_dialog('welcome')
         selection = self.ask_selection(self.flavors, 'what.flavor')
         self.speak_dialog('coming-right-up', {'flavor': selection})
@@ -96,8 +100,8 @@ In the case of our Ice Cream Skill - we might have a function that will execute 
 At this point, we also want to be responsive to the customers thanks, so we call `self.activate()` to manually add our Skill to the front of the Active Skills List.
 
 ```python
+from ovos_bus_client.message import Message
 from ovos_workshop.skills import OVOSSkill
-from ovos_workshop.decorators import intent_handler
 
 
 class IceCreamSkill(OVOSSkill):
@@ -111,7 +115,7 @@ class IceCreamSkill(OVOSSkill):
         Override this method to do any optional preparation.
         @param message: `{self.skill_id}.activate` Message
         """
-        LOG.info("Skill has been activated")
+        self.log.info("Skill has been activated")
 
 ```
 
@@ -122,6 +126,7 @@ The active skill list will be pruned by `ovos-core`, any skills that have not be
 Individual Skills may react to this event, to clean up state or, in some rare cases, to reactivate themselves
 
 ```python
+from ovos_bus_client.message import Message
 from ovos_workshop.skills import OVOSSkill
 
 
@@ -141,6 +146,7 @@ class AlwaysActiveSkill(OVOSSkill):
 A skill can also deactivate itself at any time
 
 ```python
+from ovos_bus_client.message import Message
 from ovos_workshop.skills import OVOSSkill
 
 
@@ -154,8 +160,6 @@ class LazySkill(OVOSSkill):
 
 ## Conversational Intents
 
-Introduced in `ovos-core` version **0.0.8**
-
 Skills can have extra intents valid while they are active, those are internal and not part of the main intent system, instead each skill checks them BEFORE calling `converse`
 
 the `@conversational_intent` decorator can be used to define converse intent handlers
@@ -163,6 +167,10 @@ the `@conversational_intent` decorator can be used to define converse intent han
 these intents only trigger after an initial interaction, essentially they are only follow up questions
 
 ```python
+from ovos_workshop.skills import OVOSSkill
+from ovos_workshop.decorators import intent_handler, conversational_intent
+
+
 class DogFactsSkill(OVOSSkill):
 
     @intent_handler("dog_facts.intent")

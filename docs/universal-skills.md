@@ -4,7 +4,7 @@ The `UniversalSkill` class is designed to facilitate automatic translation of in
 
 This skill is particularly useful when native language support is not feasible, providing a convenient way to handle multilingual interactions.
 
-> Introduced in `ovos-core` version **0.0.8**
+> A `UniversalFallback` class (`ovos_workshop.skills.auto_translatable.UniversalFallback`) combines `UniversalSkill` with `FallbackSkill` for auto-translating [fallback](fallbacks.md) handlers. There is no `UniversalCommonQuerySkill` — for translated question answering, combine the `@common_query` decorator with the translation helpers yourself.
 
 ## Overview
 
@@ -16,7 +16,7 @@ The `speak` method, used for generating spoken responses, automatically translat
 
 ## Language Plugins
 
-To run `UniversalSkills` you need to configure [Translation plugins](https://openvoiceos.github.io/ovos-technical-manual/lang_plugins.md) in `mycroft.conf`
+To run `UniversalSkills` you need to configure [Translation plugins](translation-plugins.md) in `mycroft.conf`
 
 ```javascript
   // Translation plugins
@@ -72,8 +72,9 @@ class MyMultilingualSkill(UniversalSkill):
                                  Keys added here will have values translated in message.data.
         """
         # skill hardcoded in portuguese
-        super().__init__(internal_language="pt-pt", translate_tags=translate_tags,
-                         autodetect=autodetect, translate_keys=translate_keys, *args, **kwargs)
+        super().__init__(internal_language="pt-pt", translate_tags=True,
+                         autodetect=False, translate_keys=["utterance", "utterances"],
+                         *args, **kwargs)
 
 ```
 
@@ -119,6 +120,7 @@ We'll use the `UniversalSkill` class to support translations for other languages
 
 ```python
 from ovos_workshop.skills.auto_translatable import UniversalSkill
+from ovos_workshop.decorators import intent_handler
 
 
 class EnglishCatFactsSkill(UniversalSkill):
@@ -153,6 +155,7 @@ Our skill listens for messages containing a `"phrase"` payload in message.data t
 Then it speaks a hardcoded spanish utterance, and it gets translated into the language of the bus message [Session](session.md)
 
 ```python
+from ovos_bus_client.message import Message
 from ovos_workshop.skills.auto_translatable import UniversalSkill
 
 class SpanishDatabaseSkill(UniversalSkill):

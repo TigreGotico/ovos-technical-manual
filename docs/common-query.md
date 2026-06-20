@@ -1,59 +1,48 @@
 # Common Query Framework
 
-The Common Query Framework handles the common use case of "general information" or question answering. Many Skills may implement handlers for "what is X" or "when did Y", the Common Query Framework allows all these Skills be queried and a single "best" answer to be selected. This is similar to the [Common Play](ocp-pipeline.md) Framework that handles the common use of "playing" music or other media.
+> Specification: [OVOS-INTENT-3](https://openvoiceos.github.io/ovos-technical-manual/) (Intent Definition)
 
-The Common Query [Skill](skill-design-guidelines.md) System is led by the Common Query Pipeline. The pipeline handles queries matching a question pattern such as "What is the height of the Eiffle Tower" and "When is lunch". 
+The Common Query Framework handles the common use case of "general information" or question answering. Many Skills may implement handlers for "what is X" or "when did Y"; the Common Query Framework queries all of them and selects a single "best" answer to speak. This is similar to the [OCP](ocp-skills.md) framework that handles the common use of "playing" music or other media.
 
-A matched question will be sent to all Skills based upon the `CommonQuerySkill` base class. The Skills will return wether they can answer the query along with an answer when applicable. The "best" match will be selected and spoken to the user.
+**What / why (beginners):** if your skill can answer free-form questions ("how old is X", "what is Y"), you do *not* register `.intent` files for every phrasing. Instead you mark one method with the `@common_query` decorator. The Common Query pipeline detects question-shaped utterances, asks every common-query skill in parallel, and only the winner gets to speak. You return an answer plus a confidence score and the framework does the arbitration.
 
-## CommonQuerySkill
+## The `@common_query` decorator
 
-A Skill interfacing with the Common Query Framework inherits from the the `CommonQuerySkill` and needs to define a method `CQS_match_query_phrase()` taking an utterance as argument.
-
-The general structure is:
+A common-query handler is a regular method on an `OVOSSkill` decorated with `@common_query`. It receives the question phrase and the language, and returns a `(answer, confidence)` tuple — or `None` if it cannot answer.
 
 ```python
-from ovos_workshop.skills.common_query_skill import CommonQuerySkill, CQSMatchLevel
+from ovos_workshop.skills import OVOSSkill
+from ovos_workshop.decorators import common_query
 
-class MyCommonQuerySkill(CommonQuerySkill):
-    def CQS_match_query_phrase(self, utt):
-       # Parsing implementation
-       # [...]
-       return (utt, CQSMatchLevel.LEVEL, answer_string)
 
+class MyQuestionSkill(OVOSSkill):
+
+    @common_query()
+    def handle_query(self, phrase: str, lang: str):
+        # return None if you can't answer
+        # otherwise return (answer_string, confidence)  where 0.0 <= confidence <= 1.0
+        return "the answer", 0.8
 ```
 
-The `CQS_match_query_phrase()` method will parse the utterance and determine if it can handle the query. if it can't answer it will return `None` and if it _can_ answer it will return a data tuple with the format
+The handler contract:
 
-```python
-((str)Input Query, CQSMatchLevel, (str)Answer Text)
+- **Input:** `phrase` (the question string) and `lang` (a BCP-47 code).
+- **Output:** a `(answer: str, confidence: float)` tuple, or `None`.
+- **Confidence** is a float between `0.0` and `1.0`. The pipeline ignores answers with confidence below `0.5`. The highest-confidence answer across all skills is the one spoken to the user.
 
-```
-
-The input query is returned to map the query to the answer.
-
-`CQSMatchLevel` is an Enum with the possible values
-
-* `CQSMatchLevel.EXACT`: The Skill is very confident that it has the precise answer the user is looking for. There was a category match and a known entity is referenced.
-
-
-* `CQSMatchLevel.CATEGORY`: The Skill could determine that the type of question matches a category that the Skill is good at finding.
-
-
-* `CQSMatchLevel.GENERAL`: This Skill tries to answer all questions and found an answer.
-
-To show visuals or take some other action in response to being selected, see the [`CQS_action()` method](common-query.md#cqs\_action) below.
+> The classic `CommonQuerySkill` / `UniversalCommonQuerySkill` base classes and the `CQS_match_query_phrase()` / `CQSMatchLevel` API have been **removed**. Use the `@common_query` decorator on a plain `OVOSSkill` instead. The pipeline still selects a single best answer the same way; only the skill-side API changed.
 
 ## An Example
 
-Let's make a simple Skill that tells us the age of the various Monty Python members. A quick draft looks like this. (You can find the complete code [here](https://github.com/forslund/common-query-tutorial))
+Let's make a simple Skill that tells us the age of the various Monty Python members.
 
 ```python
-from ovos_workshop.skills.common_query_skill import CommonQuerySkill, CQSMatchLevel
+from ovos_workshop.skills import OVOSSkill
+from ovos_workshop.decorators import common_query
 
-# Dict mapping python members to their age and whether they're alive or dead     
+# Dict mapping python members to their age and whether they're alive or dead
 PYTHONS = {
-    'eric idle': (77,'alive'),
+    'eric idle': (77, 'alive'),
     'michael palin': (77, 'alive'),
     'john cleese': (80, 'alive'),
     'graham chapman': (48, 'dead'),
@@ -63,127 +52,73 @@ PYTHONS = {
 
 
 def python_in_utt(utterance):
-    """Find a monty python member in the utterance.
-    Arguments:
-        utterance (str): Sentence to check for Monty Python members
-    Returns:
-        (str) name of Monty Python member or None
-    """
+    """Find a monty python member in the utterance, or return None."""
     for key in PYTHONS:
         if key in utterance.lower():
-            # Return the found python
             return key
-
-    # No python found
     return None
 
 
-class PythonAgeSkill(CommonQuerySkill):
+class PythonAgeSkill(OVOSSkill):
     """A Skill for checking the age of the python crew."""
 
     def format_answer(self, python):
-        """Create string with answer for the specified "python" person."""
+        """Create the answer string for the specified "python" person."""
         age, status = PYTHONS[python]
-        if status == 'alive':
-            return self.dialog_renderer.render('age_alive',
-                                               {'person': python, 'age': age})
-        else:
-            return self.dialog_renderer.render('age_dead',
-                                               {'person': python, 'age': age})
+        key = 'age_alive' if status == 'alive' else 'age_dead'
+        return self.dialog_renderer.render(key, {'person': python, 'age': age})
 
-    def CQS_match_query_phrase(self, utt):
-        """Check the utterance if it is a question we can answer.
+    @common_query()
+    def match_age_query(self, phrase, lang):
+        # Check if this is an age query and a python is mentioned
+        age_query = self.voc_match(phrase, 'age')
+        python = python_in_utt(phrase)
 
-        Arguments:
-            utt: The question
-
-        Returns: tuple (input utterance, match level, response sentence, extra)
-        """
-        # Check if this is an age query
-        age_query = self.voc_match(utt, 'age')
-
-        # Check if a monty python member is mentioned
-        python = full_python_in_utt(utt)
-
-        # If this is an age query and a monty python member is mentioned the
-        # skill can answer this
         if age_query and python:
-            # return high confidence
-            return (utt, CQSMatchLevel.CATEGORY, self.format_answer(python))
-        else:
-            return None
-
+            confidence = 1.0 if 'monty python' in phrase.lower() else 0.7
+            return self.format_answer(python), confidence
+        # can't answer -> return None
+        return None
 ```
 
-As seen above the `CQS_match_query_phrase()` checks if this is an age related utterance and if the utterance contains the name of a Monty Python member. If both criteria are met it returns a match with a `CQSMatchLevel.CATEGORY` confidence together with a rendered dialog containing the answer.
+`match_age_query()` checks whether this is an age-related question that also names a Monty Python member. If both are true it returns the rendered answer plus a confidence; otherwise it returns `None`, signalling it cannot answer.
 
-If both criteria are not fulfilled the method will return `None` indicating that it can't answer the query.
-
-This will be able to provide answers to queries such as
+This will provide answers to queries such as
 
 > "how old is Graham Chapman"
 >
 > "what's Eric Idle's age"
 
-To make this more exact we can add support for checking for the words "monty python", and if present return the highest confidence.
-
-The method for parsing the example is quite simplistic but there are many different toolkits out there for doing the question parsing. [Adapt](https://pypi.org/project/adapt-parser/), [little questions](https://pypi.org/project/little-questions/), [padaos](https://pypi.org/project/padaos/) and many more!
+There are many toolkits for parsing the question itself — [Adapt](https://pypi.org/project/adapt-parser/), [little questions](https://pypi.org/project/little-questions/), [padaos](https://pypi.org/project/padaos/) and more — but `self.voc_match` against a `.voc` file is usually enough.
 
 ## Match Confidence
 
-If we want to make sure this Skill is used when the user explicitly states it's the age of a Monty Python member, a slight modification to the Skill can be made:
+Confidence is a single float in `[0.0, 1.0]`. Use a higher value when you are more certain you have the *exact* answer the user wants, and a lower value when your skill is a more general fallback for a category of questions. In the example above, an explicit "monty python" mention bumps confidence to `1.0`, making this skill very likely to be chosen.
 
-We'll change the end of the `CQS_match_query_phrase()` method to
+Only answers with confidence `>= 0.5` are considered. The pipeline collects all qualifying answers and speaks the single highest-confidence one.
 
-```python
-    def CQS_match_query_phrase(self, utt):
-        # (...)
-        if 'monty python' in utt.lower():
-            confidence = CQSMatchLevel.EXACT
-        else:
-            confidence = CQSMatchLevel.CATEGORY            
-        # return high confidence
-        return (utt, confidence, self.format_answer(python))
+## Selection Callback
 
-```
+In some cases the Skill should do additional work *only when its answer was the one selected and spoken* — for example, preparing for follow-up questions or showing an image. Pass a callback to the decorator; it runs after your answer is spoken.
 
-So if the utterance contains the phrase "monty python" the confidence will be set to `CQSMatchLevel.EXACT` making the Skill very very likely to be chosen to answer the query.
-
-## CQS\_action()
-
-In some cases the Skill should do additional operations when selected as the best match. It could be prepared for follow-up questions or show an image on the screen. The `CQS_action()` method allows for this, when a Skill is selected this method will be called.
-
-Let's make our Python Age Skill gloat that it was selected by adding a `CQS_action()` method like this:
-
-where `phrase` is the same phrase that were sent to `CQS_match_query_phrase()` and `data` is optional additional data from the query matching method.
+The callback signature is `(phrase, answer, lang)` for a plain function, or `(self, phrase, answer, lang)` for an instance method — the framework inspects the signature and passes `self` only when the first parameter is named `self`.
 
 ```python
-    def CQS_action(self, utt, data):
-        self.log.info('I got selected! What you say about that Wolfram Alpha Skill!?!?')
+from ovos_workshop.skills import OVOSSkill
+from ovos_workshop.decorators import common_query
 
+
+def on_selected(self, phrase, answer, lang):
+    self.log.info(f"I was selected to answer: {phrase}")
+    self.gui.show_text(answer)
+
+
+class PythonAgeSkill(OVOSSkill):
+
+    @common_query(callback=on_selected)
+    def match_age_query(self, phrase, lang):
+        ...
+        return answer, confidence
 ```
 
-Now each time the Skill is called the above message will be added to the log! Not very useful you say? Hmm, yes... let's add something useful, like show the age on the Mark-1 display.
-
-To accomplish this we need to get the age into the `CQS_action()` method in some way. we could store last age in as an internal variable but the more elegant way is to send data as part of the match tuple. 
-To do this we must extend the returned match tuple from `CQS_match_query_phrase()` with a data entry. So the return statement becomes
-
-```python
-    def CQS_match_query_phrase(self, utt):
-        # (...)
-        data = {'age': PYTHONS[python], 'python': python}
-        return (utt, confidence, self.format_answer(python), data)
-
-```
-
-The data structure declared here will be sent to `CQS_Action()` and we can update the method to
-
-```python
-    def CQS_action(self, utt, data):
-        self.log.info('I got selected! What you say about that Wolfram Alpha Skill!?!?')
-        age = data.get('age')
-        if age:
-            self.log.info(f'Showing the age {age}')
-            self.enclosure.mouth_text(str(age))
-
-```
+> The selected answer is spoken automatically by the framework; you do **not** call `self.speak()` inside the common-query handler. The callback is purely for side effects (visuals, follow-up state, logging).
