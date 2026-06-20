@@ -10,7 +10,12 @@ The **Fallback Pipeline** in **OpenVoiceOS (OVOS)** manages how fallback skills 
 **Pipeline plugin ID:** `ovos-fallback-pipeline-plugin`
 **Stage names:** `fallback_high`, `fallback_medium`, `fallback_low`
 
-`FallbackService` is shipped inside `ovos-core` and registered via its own `pyproject.toml` entry point.
+`FallbackService` subclasses `ConfidenceMatcherPipeline`, so the single base ID auto-expands into the three `match_high`/`match_medium`/`match_low` matchers exposed as `fallback_high`, `fallback_medium`, `fallback_low`. It ships inside `ovos-core`:
+
+```ini
+[project.entry-points."opm.pipeline"]
+ovos-fallback-pipeline-plugin = "ovos_core.intent_services.fallback_service:FallbackService"
+```
 
 ---
 
@@ -18,11 +23,11 @@ The **Fallback Pipeline** in **OpenVoiceOS (OVOS)** manages how fallback skills 
 
 | Pipeline ID | Priority Range | Description | Use Case |
 |---|---|---|---|
-| `fallback_high` | 0–49 | High-priority fallback skills | Critical fallback handlers |
-| `fallback_medium` | 50–89 | Medium-priority fallback skills | General fallback skills |
-| `fallback_low` | 90–100+ | Low-priority fallback skills | Catch-all or chatbot fallback skills |
+| `fallback_high` | `0 < p ≤ 5` | High-priority fallback skills | Critical fallback handlers |
+| `fallback_medium` | `5 < p ≤ 90` | Medium-priority fallback skills | General fallback skills |
+| `fallback_low` | `90 < p ≤ 101` | Low-priority fallback skills | Catch-all or chatbot fallback skills |
 
-Fallback skills register with a priority, allowing the pipeline to query them in order. Priority can be overridden by users via config.
+Each matcher filters registered fallbacks with `range.start < priority ≤ range.stop` (exclusive start, inclusive stop). Lower priority numbers run first. A fallback that registers without a priority defaults to `101`, placing it in the `fallback_low` tier. Priorities can be overridden by users via config.
 
 ---
 
@@ -31,16 +36,19 @@ Fallback skills register with a priority, allowing the pipeline to query them in
 1. A fallback stage is hit in the pipeline (after all other matchers fail)
 
 
-2. `FallbackService.match_high/medium/low()` filters registered fallbacks by priority range
+2. `FallbackService.match_high/medium/low()` filters registered fallbacks to the stage's priority range
 
 
-3. For each fallback skill (sorted by priority), emits a converse-style request
+3. It pings candidates via `ovos.skills.fallback.ping` (carrying the priority `range`) and collects `ovos.skills.fallback.pong` acknowledgements (`can_handle`) within ~0.5s
 
 
-4. First skill that returns `True` wins — the utterance is consumed
+4. Candidates are sorted by priority ascending; the winning match dispatches to that skill via `ovos.skills.fallback.{skill_id}.request`
 
 
-5. If no fallback skill accepts the utterance, no fallback response is generated
+5. First skill that handles the utterance wins — it is consumed
+
+
+6. If no fallback skill accepts the utterance, no fallback response is generated
 
 ---
 
@@ -48,23 +56,23 @@ Fallback skills register with a priority, allowing the pipeline to query them in
 
 Skills integrate as fallbacks by:
 
-* Inheriting from `FallbackSkill` and implementing `can_answer()` and a `@fallback_handler`
+* Inheriting from `FallbackSkill` and decorating one or more handlers with `@fallback_handler(priority=...)` (lower number = higher priority; default `50`)
 
 
-* Registering on the message bus with a fallback priority via `ovos.skills.fallback.register`
+* Optionally overriding `can_answer(self, message)` to declare upfront whether the skill is willing to try (utterances are in `message.data["utterances"]`)
 
 
-* Listening for fallback queries carrying all utterance variations
+* On startup `ovos-workshop` registers the skill's lowest handler priority with the service via `ovos.skills.fallback.register`
 
 
-* Responding with success/failure on whether they handled the fallback
+* Returning `True` from a handler when it consumes the utterance, `False` to pass to the next fallback
 
 ```python
 from ovos_workshop.skills.fallback import FallbackSkill
 from ovos_workshop.decorators import fallback_handler
 
 class MyFallback(FallbackSkill):
-    def can_answer(self, utterances, lang) -> bool:
+    def can_answer(self, message) -> bool:
         return True   # always willing to try
 
     @fallback_handler(priority=50)

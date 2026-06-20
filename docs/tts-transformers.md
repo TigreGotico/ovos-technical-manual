@@ -26,6 +26,8 @@ The typical flow for speech output in OVOS is:
 
 TTS Transformers operate in step 4, allowing for dynamic audio enhancements without altering the original TTS output.
 
+They run inside the **ovos-audio** service, in the playback path: once the TTS engine has written a wav file, each loaded transformer's `transform(wav_file, context)` is called and is expected to return the path to the (possibly new) wav file to play. Transformers run in **descending priority** order (higher `priority` first), each receiving the previous one's output path.
+
 ---
 
 ## Configuration
@@ -98,6 +100,14 @@ Replace `"plugin_name"` with the identifier of the desired plugin and provide an
 
 ---
 
+!!! warning "Upcoming — unreleased"
+    The following super-resolution transformers exist in their repos but are **not yet published to PyPI**, so `pip install` will not find them. They upsample/enhance the TTS audio before playback.
+
+    * **OVOS FlashSR TTS Transformer** (`FlashSRTTSTransformer`): ONNX-based audio super-resolution, downloads its model from the Hugging Face Hub. Entry point `ovos-tts-transformer-FlashSR` under `opm.transformer.tts`. Source: [ovos-tts-transformer-FlashSR](https://github.com/OpenVoiceOS/ovos-tts-transformer-FlashSR).
+    * **OVOS NovaSR TTS Transformer** (`NovaSRTTSTransformer`): torch-based super-resolution upsampler. Entry point `ovos-tts-transformer-NovaSR` under `opm.transformer.tts`. Source: [ovos-tts-transformer-NovaSR](https://github.com/OpenVoiceOS/ovos-tts-transformer-NovaSR).
+
+---
+
 ## Creating Custom TTS Transformers
 
 To develop your own TTS Transformer:
@@ -105,30 +115,29 @@ To develop your own TTS Transformer:
 **Create a Python Class**:
 
 ```python
+from typing import Tuple
 from ovos_plugin_manager.templates.transformers import TTSTransformer
 
+
 class MyCustomTTSTransformer(TTSTransformer):
-   def __init__(self, config=None):
-       super().__init__("my-custom-tts-transformer", priority=10, config=config)
+    def __init__(self, name="my-custom-tts-transformer", priority=10, config=None):
+        super().__init__(name, priority, config)
 
-   def transform(self, wav_file: str, context: dict = None) -> Tuple[str, dict]:
-       """Transform passed wav_file and return path to transformed file"""
-       # Apply custom audio processing to wav_file
-       return modified_wav_file, context
-
+    def transform(self, wav_file: str, context: dict = None) -> Tuple[str, dict]:
+        """Transform passed wav_file and return path to transformed file"""
+        # Apply custom audio processing to wav_file, write the result,
+        # and return the path to the file that should be played
+        modified_wav_file = wav_file  # replace with your processed file path
+        return modified_wav_file, context
 ```
 
 
 **Register as a Plugin**:
-In your `setup.py`, include:
+Expose the class under the `opm.transformer.tts` entry-point group in your `pyproject.toml`:
 
-```python
-entry_points={
-   'ovos.plugin.tts_transformer': [
-       'my-custom-tts-transformer = my_module:MyCustomTTSTransformer'
-   ]
-}
-
+```toml
+[project.entry-points."opm.transformer.tts"]
+"my-custom-tts-transformer" = "my_module:MyCustomTTSTransformer"
 ```
 
 
@@ -144,5 +153,5 @@ After installation, add your transformer to the `mycroft.conf`:
 
 ---
 
-By leveraging TTS Transformers, you can enhance the auditory experience of your OVOS assistant, tailoring speech output to better suit your preferences or application requirements.([ovoshatchery.github.io][4])
+By leveraging TTS Transformers, you can enhance the auditory experience of your OVOS assistant, tailoring speech output to better suit your preferences or application requirements.
 

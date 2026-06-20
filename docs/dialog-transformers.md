@@ -16,6 +16,8 @@
 
 This pipeline ensures that all spoken responses can be uniformly modified according to the desired transformations.
 
+Dialog transformers run inside the **ovos-audio** service, in the `speak` handling path, just before text is handed to the TTS engine. Every loaded transformer's `transform(dialog, context)` is called in turn, each receiving the previous one's output. Transformers run in **descending priority** order: a plugin with a higher `priority` value runs first. Responses from blacklisted skills can be skipped via the service `blacklisted_skills` config.
+
 ---
 
 ## Configuration
@@ -118,13 +120,10 @@ pip install ovos-openai-plugin
 * **Features**:
 
 
-    * Detects the language of the user's input.
+    * Ships two cooperating plugins: an utterance transformer (`ovos-utterance-translation-plugin`, class `UtteranceTranslator`) that translates incoming user speech, and a dialog transformer (`ovos-dialog-translation-plugin`, class `DialogTranslator`) that translates the assistant's response back into the user's language.
 
 
-    * Works together with a companion utterance transformer plugin
-
-
-    * Translates the assistant's response back into the user's language.
+    * Together they enable round-trip multilingual interactions.
 
 
 * **Installation**:
@@ -134,13 +133,11 @@ pip install ovos-bidirectional-translation-plugin
 
 ```
 
-* **Configuration**:
+* **Configuration** (the dialog half registers under the entry-point name `ovos-dialog-translation-plugin`):
 
 ```json
 "dialog_transformers": {
-    "ovos-bidirectional-dialog-transformer": {
-      "bidirectional": true
-    }
+    "ovos-dialog-translation-plugin": {}
 }
 
 ```
@@ -156,33 +153,33 @@ To develop your own dialog transformer:
 **Create a Python Class**:
 
 ```python
+from typing import Tuple
 from ovos_plugin_manager.templates.transformers import DialogTransformer
 
-class MyCustomTransformer(DialogTransformer):
-   def __init__(self, config=None):
-       super().__init__("my-custom-transformer", priority=10, config=config)
 
-   def transform(self, dialog: str, context: dict = None) -> Tuple[str, dict]:
+class MyCustomTransformer(DialogTransformer):
+    def __init__(self, name="my-custom-transformer", priority=10, config=None):
+        super().__init__(name, priority, config)
+
+    def transform(self, dialog: str, context: dict = None) -> Tuple[str, dict]:
         """
         Optionally transform passed dialog and/or return additional context
         :param dialog: str utterance to mutate before TTS
-        :returns: str mutated dialog
+        :returns: tuple of (mutated dialog, context)
         """
-       # Modify the dialog as needed
+        # Modify the dialog as needed
+        modified_dialog = dialog.upper()
         return modified_dialog, context
-
 ```
 
+The base `__init__` signature is `__init__(self, name, priority=50, config=None)`. When `config` is not passed, the base class auto-loads it from `mycroft.conf` under `dialog_transformers[name]`.
+
 **Register as a Plugin**:
-In your `setup.py`, include:
+In your `pyproject.toml`, expose the class under the `opm.transformer.dialog` entry-point group:
 
-```python
-entry_points={
-   'ovos.plugin.dialog_transformer': [
-       'my-custom-transformer = my_module:MyCustomTransformer'
-   ]
-}
-
+```toml
+[project.entry-points."opm.transformer.dialog"]
+"my-custom-transformer" = "my_module:MyCustomTransformer"
 ```
 
 **Install and Configure**:

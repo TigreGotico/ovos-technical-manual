@@ -1,39 +1,67 @@
 # Padatious Pipeline
 
-The **Padatious Pipeline Plugin** brings examples-based intent recognition to the **OpenVoiceOS (OVOS)** pipeline. It enables developers to define intents using example sentences, offering a simple and code-free way to create natural language interfaces for voice skills.
+The **Padatious Pipeline Plugin** brings example-based intent recognition to the **OpenVoiceOS (OVOS)** pipeline. You define each intent by listing a few example sentences in a plain-text `.intent` file; Padatious trains a small neural network (backed by [fann2](https://github.com/FutureLinkCorporation/fann2)) on those examples and scores incoming utterances against them.
+
+**When it runs:** Padatious sits early in the pipeline. Its high-confidence stage runs before Adapt, so a strong example match wins over a keyword rule. The medium and low stages run later, as the pipeline relaxes its confidence requirements.
+
+**Minimal example** — drop a `weather.intent` file in your skill's `locale/en-us/` folder:
+
+```
+what is the weather
+tell me the weather
+what's the weather like
+```
+
+and wire it up:
+
+```python
+from ovos_workshop.decorators import intent_handler
+
+@intent_handler("weather.intent")
+def handle_weather(self, message):
+    ...
+```
 
 ---
 
 ## Pipeline Stages
 
-This plugin registers the following pipeline stages:
+The plugin ships a single OPM entry point, `ovos-padatious-pipeline-plugin`, mapped to the `PadatiousPipeline` class. Because that class is a `ConfidenceMatcherPipeline`, OVOS exposes three matcher stages from it, selected in your pipeline config by these legacy IDs:
 
-| Pipeline ID        | Description                              | Recommended Use                       |
-| ------------------ | ---------------------------------------- | ------------------------------------- |
-| `padatious_high`   | High-confidence Padatious intent matches | ✅ Primary stage for Padatious use     |
-| `padatious_medium` | Medium-confidence Padatious matches      | ⚠️ Backup if confidence tuning allows |
-| `padatious_low`    | Low-confidence Padatious matches         | 🚫 Not recommended (often inaccurate) |
+| Pipeline ID        | Matcher       | Recommended Use                       |
+| ------------------ | ------------- | ------------------------------------- |
+| `padatious_high`   | `match_high`  | Primary stage for Padatious use       |
+| `padatious_medium` | `match_medium`| Backup, if confidence tuning allows   |
+| `padatious_low`    | `match_low`   | Not recommended (often inaccurate)    |
 
-Each stage is triggered based on the confidence level of the parsed intent, as configured in your system.
+Each stage runs at a different point in the pipeline and applies a different confidence threshold to the same scored result.
 
 ---
 
 ## Configuration
 
-Configure Padatious thresholds in your `mycroft.conf`:
+Configure Padatious thresholds in your `mycroft.conf` under `intents` → `padatious`. The defaults are:
 
 ```json
 "intents": {
   "padatious": {
-    "conf_high": 0.85,
-    "conf_med": 0.65,
-    "conf_low": 0.45
+    "conf_high": 0.95,
+    "conf_med": 0.8,
+    "conf_low": 0.5
   }
 }
-
 ```
 
-These thresholds control which pipeline level receives a given intent result.
+These thresholds gate which matcher stage accepts a given result.
+
+Other useful config keys read by the plugin:
+
+| Key | Default | Effect |
+|---|---|---|
+| `cast_to_ascii` | `false` | Strip accents before matching |
+| `stem` | `false` | Apply Snowball stemming to examples and utterances |
+| `disable_padaos` | `false` | Disable the bundled regex fast-path and use only the neural matcher |
+| `intent_cache` | XDG data dir | Where trained intent models are cached |
 
 ---
 
@@ -103,4 +131,24 @@ Padatious is a good choice in OVOS when:
 * You can **control or guide user phrasing**, such as in kiosk or assistant environments.
 
 Avoid Padatious for complex conversational use cases, skills with overlapping intents, or scenarios requiring broad paraphrasing support.
+
+---
+
+## Advanced
+
+**Entry point and class.** The plugin registers one `opm.pipeline` entry point:
+
+```toml
+[project.entry-points."opm.pipeline"]
+"ovos-padatious-pipeline-plugin" = "ovos_padatious.opm:PadatiousPipeline"
+```
+
+`PadatiousPipeline` subclasses `ConfidenceMatcherPipeline`, exposing `match_high`, `match_medium`, and `match_low`. The `_high`/`_medium`/`_low` pipeline IDs are derived from that single plugin at runtime by the plugin manager — they are not separate entry points.
+
+**Files.** Skills register `.intent` files (example sentences) and `.entity` files (entity value lists). Registration happens over the bus via `padatious:register_intent` and `padatious:register_entity`; training is triggered by `mycroft.skills.train` and announced with `mycroft.skills.trained`.
+
+**Gotcha — training is asynchronous.** Padatious must train its model before it can match. On a cold start (or after installing a skill), matches will silently fail until training completes. Set `instant_train` to force synchronous training when you need deterministic behavior in tests.
+
+!!! warning "Upcoming — unreleased"
+    A second entry point, `DomainPadatiousPipeline`, which trains a separate model per skill domain to reduce cross-skill collisions, is proposed in [ovos-padatious-pipeline-plugin#69](https://github.com/OpenVoiceOS/ovos-padatious-pipeline-plugin/pull/69) and is not yet on `dev`.
 

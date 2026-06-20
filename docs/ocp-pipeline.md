@@ -1,150 +1,150 @@
 # OCP Pipeline
 
-The **OCP (OVOS Common Playback)** Pipeline Plugin integrates seamlessly into the OVOS intent processing framework,
-enabling intelligent handling of media-related voice commands. By leveraging classifiers, skill-registered catalogs, and
-playback-specific filters, OCP facilitates accurate recognition and execution of user requests such as "play music," "
-pause video," or "next song."
+The **OCP (OVOS Common Play)** Pipeline Plugin handles media playback commands —
+"play some jazz", "pause", "next song". It recognises that an utterance is about
+media, works out what kind of media is wanted, asks OCP-enabled skills to search
+for it, filters the results, and hands the best one to `ovos-audio` to play.
+
+Skills act purely as catalogs: they return search results, they do not play
+anything themselves. OCP centralises selection and playback.
 
 ---
 
-## Pipeline Components
+## Quick start
 
-The OCP Pipeline Plugin registers three components within the OVOS intent pipeline, each corresponding to different
-confidence levels in interpreting media-related intents:
+```bash
+pip install ovos-ocp-pipeline-plugin
+```
 
-| Pipeline ID  | Description                            | Recommended Use                                                                    |   
-
-|--------------|----------------------------------------|------------------------------------------------------------------------------------|
-| `ocp_high`   | High-confidence media intent matches   | ✅ Primary media commands                                                           |   
-
-| `ocp_medium` | Medium-confidence media intent matches | ⚠️ Ambiguous media queries                                                         |   
-
-| `ocp_low`    | Low-confidence media intent matches    | 🚫 Broad keyword matches. Only use if the device is exclusively for media playback |   
-
-These components should be ordered in the pipeline to prioritize higher-confidence matches
-
----
-
-## Intent Classification
-
-OCP employs a combination of techniques to classify and handle media-related intents:
-
-* **Keyword-Based Matching**: Identifies explicit media-related terms in user utterances.
-
-
-* **[Skill](skill-design-guidelines.md)-Registered Keywords**: Utilizes media keywords registered by OCP-aware skills (e.g., artist names, show
-  titles) to enhance intent recognition.
-
-* **Media Type Classification**: Assigns a media type (e.g., music, podcast, movie) to the query based on keywords or an
-  optional experimental classifier.
-
-> ⚠️ The `ocp_low` component relies on skill-registered keywords and may trigger on queries that include known media
-> terms, even if the user's intent is not to initiate playback.
-
----
-
-## Media Type Handling
-
-OCP supports various media types, including:
-
-* `music`
-
-
-* `podcast`
-
-
-* `movie`
-
-
-* `radio`
-
-
-* `audiobook`
-
-
-* `news`
-
-Media type classification is primarily based on keywords within the user's query. For example, a query containing "play
-the latest news" would be classified under the `news` media type. An experimental classifier can also be enabled to
-predict media types based on the full query context.
-
----
-
-## Result Filtering
-
-After gathering potential media results from OCP-enabled skills, the plugin applies several filters to ensure relevance
-and playability:
-
-* **Confidence Threshold**: Results with a `match_confidence` below the configured `min_score` are discarded.
-
-
-* **Media Type Consistency**: If a media type has been classified, results of differing types are removed.
-
-
-* **Plugin Availability**: Results requiring unavailable playback plugins (e.g., `spotify://` URIs without the Spotify
-  plugin) are excluded.
-
-* **Playback Mode Preference**: Respects user or system preferences for audio-only or video-only playback, filtering out
-  incompatible results.
-
----
-
-## Playback Management
-
-OCP delegates the actual media playback to the appropriate plugin managed by `ovos-audio`. Skills act solely as media
-catalogs, providing search results without handling playback directly. This separation ensures a consistent and
-centralized playback experience across different media types and sources.
-
-the OCP Pipeline keeps track of media player status across `Session`s, this is taken into account during the intent
-matching process
-
-eg. if no media player is active, then "next song" will not trigger
-
----
-
-## Configuration Options
-
-OCP behavior can be customized via the `mycroft.conf` file under the `intents` section:
+It registers confidence-tiered matchers (`ocp_high`, `ocp_medium`, `ocp_low`) plus
+a legacy matcher (`ocp_legacy`). A typical pipeline puts the high tier early and
+the low tier last:
 
 ```json
 {
   "intents": {
-    "OCP": {
-      "experimental_media_classifier": false,
-      "experimental_binary_classifier": false,
+    "pipeline": [
+      "ocp_high",
+      "ovos-padatious-pipeline-plugin-high",
+      "ovos-adapt-pipeline-plugin-high",
+      "ocp_medium",
+      "ovos-fallback-pipeline-plugin-medium",
+      "ocp_low"
+    ]
+  }
+}
+```
+
+Then install OCP-enabled media skills and ask to play something.
+
+---
+
+## Pipeline matchers
+
+The matcher class is `OCPPipelineMatcher`, a `ConfidenceMatcherPipeline`, so it
+exposes three tiers via `match_high` / `match_medium` / `match_low`:
+
+| Pipeline ID  | Tier   | When to use |
+|--------------|--------|-------------|
+| `ocp_high`   | high   | Explicit OCP intents ("play.intent", "pause", "next") — primary media commands. |
+| `ocp_medium` | medium | Utterance classified as a media query by keyword matching. |
+| `ocp_low`    | low    | Broad keyword hits — only on devices used mainly for media playback. |
+
+A separate class, `MycroftCPSLegacyPipeline`, is registered as the entry point
+`ovos-ocp-pipeline-plugin-legacy` and surfaces as the **`ocp_legacy`** matcher. It
+bridges to deprecated Mycroft CommonPlaySkill (CPS) skills and is off by default —
+only useful if you still run legacy CPS skills.
+
+> `ocp_low` keys off skill-registered media keywords, so it can fire on phrases
+> that merely contain a known artist or show name even when no playback was
+> intended. Place it last and only enable it on media-focused devices.
+
+---
+
+## How a media intent is recognised
+
+OCP combines several signals:
+
+* **Explicit intents** (`ocp_high`) — localized `.intent` files for play, pause,
+  resume, stop, next, previous, shuffle, etc.
+* **Keyword matching** (`ocp_medium` / `ocp_low`) — `voc_match_media()` maps
+  vocabulary (MusicKeyword, PodcastKeyword, MovieKeyword, NewsKeyword, …) to a
+  `MediaType` with a heuristic confidence. `is_ocp_query()` treats any non-GENERIC
+  media type as a playback query.
+* **Skill-registered keywords** — skills announce entities (artist names, show
+  titles) over `ovos.common_play.register_keyword`; these feed the
+  `AhocorasickNER` entity matcher and bias media-type classification.
+
+Media-type classification on `dev` is keyword/vocab based (localizable, but
+heuristic). If a query maps to exactly one media type that a skill can serve, that
+type is used with full confidence.
+
+Supported media types include `music`, `podcast`, `movie`, `radio`, `audiobook`,
+`news`, and many more from `ovos_utils.ocp.MediaType`.
+
+---
+
+## Search and result filtering
+
+After classifying, OCP emits `ovos.common_play.search` and gathers results from
+skills, then filters them in `filter_results()`:
+
+* **Confidence** — drops results whose `match_confidence` is below `min_score`.
+* **Media-type consistency** — when a non-GENERIC type was classified, results of
+  other types are removed (`filter_media`).
+* **Stream-extractor availability** — results needing a Stream Extractor plugin
+  (SEI) that is not installed are removed (`filter_SEI`). Available extractors come
+  from the `opm.ocp.extractor` plugin group, queried via
+  `ovos.common_play.SEI.get`.
+* **Playback mode** — audio-only / video-only preferences drop incompatible
+  results (`playback_mode`).
+
+OCP tracks player state per `Session` over the bus (`ovos.common_play.status`,
+`ovos.common_play.track.state`), so context-dependent commands behave correctly —
+e.g. "next song" does nothing when no player is active.
+
+---
+
+## Configuration
+
+```json
+{
+  "intents": {
+    "ovos-ocp-pipeline-plugin": {
       "legacy": false,
-      "classifier_threshold": 0.4,
-      "min_score": 40,
+      "min_score": 50,
       "filter_media": true,
       "filter_SEI": true,
       "playback_mode": 0,
-      "search_fallback": true
+      "search_fallback": true,
+      "entity_csvs": []
     }
   }
 }
-
 ```
 
-| Key                              | Type  | Default | Description                                                            |                                                       
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `legacy` | bool | `false` | Use the classic (Mycroft) audio service API instead of OCP. Not recommended. |
+| `min_score` | int | `50` | Minimum `match_confidence` to keep a skill result (0–100). |
+| `filter_media` | bool | `true` | Drop results whose media type differs from the classified one. |
+| `filter_SEI` | bool | `true` | Drop results needing an unavailable Stream Extractor plugin. |
+| `playback_mode` | int | `0` | `0` = auto, `10` = audio-only, `20` = video-only (`PlaybackMode`). |
+| `search_fallback` | bool | `true` | Run a generic search when no type-specific results are found. |
+| `entity_csvs` | list | `[]` | User-supplied keyword CSVs feeding the entity matcher. |
 
-|----------------------------------|-------|---------|------------------------------------------------------------------------| 
+The config block is read from `intents.ovos-ocp-pipeline-plugin`.
 
-| `experimental_media_classifier`  | bool  | false   | Enable ML-based media type classification (English only).              |                                                       
-
-| `experimental_binary_classifier` | bool  | false   | Enable ML-based media detection for `ocp_medium`.  (English only).     |                                                       
-
-| `legacy`                         | bool  | false   | Use legacy audio service API instead of OCP (not recommended).         |                                                       
-
-| `classifier_threshold`           | float | 0.4     | Minimum confidence for trusting classifier results (0.0–1.0).          |                                                       
-
-| `min_score`                      | int   | 40      | Minimum match confidence to retain a skill result (0–100).             |                                                       
-
-| `filter_media`                   | bool  | true    | Enable media type-based result filtering.                              |                                                       
-
-| `filter_SEI`                     | bool  | true    | Filter out results requiring unavailable plugins (Stream Extractors).  |                                                       
-
-| `playback_mode`                  | int   | 0       | Playback preference: `0` = auto, `10` = audio-only, `20` = video-only. |                                                       
-
-| `search_fallback`                | bool  | true    | Perform a generic media search if no type-specific results are found.  |
+!!! warning "Upcoming — unreleased"
+    Explicit default-config handling and an `intents.OCP` fallback key are proposed
+    in [ovos-ocp-pipeline-plugin#123](https://github.com/OpenVoiceOS/ovos-ocp-pipeline-plugin/pull/123)
+    and are not yet on `dev`.
 
 ---
+
+## Gotcha: legacy vs. OCP playback
+
+`ocp_legacy` and `legacy: true` are two different things. `ocp_legacy` is a
+pipeline matcher that routes to deprecated Mycroft CPS skills; `legacy: true` forces
+OCP to drive playback through the classic audio service API instead of OCP itself.
+Leave both off unless you specifically need to support pre-OCP skills.

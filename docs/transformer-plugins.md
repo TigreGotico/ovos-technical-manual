@@ -1,17 +1,23 @@
 # Transformer Plugins
 
-Transformer plugins in OVOS are powerful tools that allow you to intercept and modify data at various stages of the voice interaction pipeline. They can transform audio, text, metadata, and even intent matches.
+Transformer plugins let you intercept and modify data as it flows through the OVOS pipeline. Each type is a small class with a `transform()` method that runs at a fixed stage — turning raw audio into cleaner audio, fixing transcribed text before intent matching, enriching a matched intent, or post-processing speech before playback.
+
+A transformer never *replaces* a stage; it sits between two stages and reshapes what passes through. Several plugins of the same type can be active at once — they run in sequence, sorted by `priority` (highest first), so each one builds on the output of the previous.
 
 ## Transformer Types
 
-| Type | Stage | Base Class |
-|------|-------|------------|
-| **Audio** | Before STT | `AudioTransformer` |
-| **Utterance** | After STT, before Intent | `UtteranceTransformer` |
-| **Metadata** | After Utterance, before Intent | `MetadataTransformer` |
-| **Intent** | After Intent Match, before Skill | `IntentTransformer` |
-| **Dialog** | Before TTS | `DialogTransformer` |
-| **TTS** | After TTS, before Playback | `TTSTransformer` |
+All base classes live in `ovos_plugin_manager.templates.transformers` and share the same constructor: `__init__(self, name, priority=50, config=None)`, plus `bind(bus)` and `initialize()`.
+
+| Type | Stage | Base Class | Entry-point group |
+|------|-------|------------|-------------------|
+| **Audio** | Before STT | `AudioTransformer` | `opm.transformer.audio` |
+| **Utterance** | After STT, before Intent | `UtteranceTransformer` | `opm.transformer.text` |
+| **Metadata** | After Utterance, before Intent | `MetadataTransformer` | `opm.transformer.metadata` |
+| **Intent** | After Intent match, before Skill | `IntentTransformer` | `opm.transformer.intent` |
+| **Dialog** | Before TTS | `DialogTransformer` | `opm.transformer.dialog` |
+| **TTS** | After TTS, before Playback | `TTSTransformer` | `opm.transformer.tts` |
+
+The runner classes that load and chain these plugins (`UtteranceTransformersService`, `MetadataTransformersService`, `IntentTransformersService`) live in `ovos-core` (`ovos_core/transformers.py`). Audio, dialog, and TTS transformers are run by the listener and the audio/TTS stacks respectively.
 
 ---
 
@@ -43,9 +49,9 @@ class MyAudioTransformer(AudioTransformer):
 ---
 
 ## 2. Utterance Transformers
-**Entry point:** `opm.utterance_transformer`
+**Entry point:** `opm.transformer.text`
 
-Used to modify the transcribed text (utterances) before they are sent to the intent service. Common use cases include spelling correction, filtering, or expansion.
+Used to modify the transcribed text (utterances) before they are sent to the intent service. Common use cases include spelling correction, filtering, or expansion. See [Utterance Transformers](utterance-transformers.md) for details.
 
 ### Template
 
@@ -63,28 +69,28 @@ class MyUtteranceTransformer(UtteranceTransformer):
 ---
 
 ## 3. Metadata Transformers
-**Entry point:** `opm.metadata_transformer`
+**Entry point:** `opm.transformer.metadata`
 
-Used to inject or modify metadata in the message context. This runs after utterance transformers but before intent matching.
+Used to inject or modify metadata in the message context. This runs after utterance transformers but before intent matching. `transform(context)` returns a (possibly modified) context dict.
 
 ---
 
 ## 4. Intent Transformers
-**Entry point:** `opm.intent_transformer`
+**Entry point:** `opm.transformer.intent`
 
-Used to modify the `IntentHandlerMatch` object. This runs after a pipeline match is found but before the skill is triggered.
+Used to modify the `IntentHandlerMatch` object. This runs after a pipeline match is found but before the skill is triggered. See [Intent Transformers](intent-transformers.md) for details.
 
 ---
 
 ## 5. Dialog Transformers
-**Entry point:** `opm.dialog_transformer`
+**Entry point:** `opm.transformer.dialog`
 
 Used to modify the text that OVOS is about to speak, just before it is sent to the TTS engine.
 
 ---
 
 ## 6. TTS Transformers
-**Entry point:** `opm.tts_transformer`
+**Entry point:** `opm.transformer.tts`
 
 Used to process the generated WAV file after TTS synthesis but before it is played back.
 
@@ -95,19 +101,23 @@ Used to process the generated WAV file after TTS synthesis but before it is play
 You can use transformers independently of the full OVOS stack. Here is an example with an `UtteranceTransformer`:
 
 ```python
-from ovos_plugin_manager.utterance_transformers import find_utterance_transformer_plugins
+from ovos_plugin_manager.text_transformers import find_utterance_transformer_plugins
 
-# Find and load the plugin
+# Find and load the plugin (returns {plugin_name: class})
 plugins = find_utterance_transformer_plugins()
 transformer_class = plugins["ovos-utterance-normalizer"]
-transformer = transformer_class(name="normalizer")
+transformer = transformer_class()  # base __init__ supplies the name
 
-# Transform an utterance
+# Transform an utterance (utterances is a list of strings)
 utterances = ["hello world"]
 transformed, context = transformer.transform(utterances)
 print(f"Transformed: {transformed}")
 
 ```
+
+The discovery helpers (`find_*_transformer_plugins`, `load_*_transformer_plugin`) live in
+`ovos_plugin_manager.text_transformers`, `.intent_transformers`, `.metadata_transformers`,
+`.audio_transformers`, `.dialog_transformers`, and `.tts_transformers`.
 
 ## Creating a Plugin
 
@@ -117,10 +127,10 @@ print(f"Transformed: {transformed}")
 2.  **Implement** the `transform` method (or specific audio hooks).
 
 
-3.  **Register** the entry point in your `pyproject.toml`.
+3.  **Register** the entry point in your `pyproject.toml`, using the group for your transformer type (here, an utterance transformer):
 
 ```toml
-[project.entry-points."opm.utterance_transformer"]
+[project.entry-points."opm.transformer.text"]
 my-transformer = "my_package.module:MyTransformer"
 
 ```

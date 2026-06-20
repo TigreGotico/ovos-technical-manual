@@ -50,16 +50,19 @@ class IceCreamSkill(OVOSSkill):
 
 **Optional `get_response()` arguments:**
 
-- `data`: Dictionary to format the dialog file
+- `data`: Dictionary to format the dialog file (default `None`)
 
 
-- `validator`: A function to check if the user response is valid
+- `validator`: A function `(str) -> bool` to check if the user response is valid
 
 
-- `on_fail`: A fallback string to say if validation fails
+- `on_fail`: A fallback string — or a `(str) -> str` callable — to say if validation fails
 
 
-- `num_retries`: How many times to retry if the response isn’t valid
+- `num_retries`: How many times to retry if the response isn’t valid (default `-1`, retry until valid)
+
+`get_response()` returns the matched utterance as a `str`, or `None` if no valid response
+was captured. The first argument is the dialog/prompt to speak.
 
 ---
 
@@ -94,7 +97,10 @@ class IceCreamSkill(OVOSSkill):
 
 - Returns `None` if no valid response is detected.
 
-> uses [ovos-solver-YesNo-plugin](https://github.com/OpenVoiceOS/ovos-solver-YesNo-plugin) to understand complex affirmations and denials — even double negations.
+> Yes/No detection is a pluggable OPM agent plugin (group `opm.agents.yesno`). The
+> default is [ovos-yes-no-plugin](https://github.com/OpenVoiceOS/ovos-YesNo-plugin), a
+> heuristic engine that understands complex affirmations and denials — even double
+> negations. Override it per skill via the `ask_yesno_plugin` setting.
 
 Example mappings:
 
@@ -155,12 +161,16 @@ class IceCreamSkill(OVOSSkill):
 
 **Optional arguments:**
 
-- `min_conf` (float): Minimum confidence threshold for fuzzy matching
+- `min_conf` (float): Minimum confidence threshold for fuzzy matching (default `0.65`)
 
 
-- `numeric` (bool): If `True`, speak the list with numbered options
+- `numeric` (bool): If `True`, speak the list with numbered options (default `False`)
 
-User responses like "chocolate", "the second one", or "option three" are all supported.
+
+- `num_retries` (int): How many times to re-prompt on no match (default `-1`)
+
+Returns the selected list element, or `None` if nothing matched. User responses like
+"chocolate", "the second one", or "option three" are all supported.
 
 ---
 

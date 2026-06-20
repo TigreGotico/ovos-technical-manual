@@ -2,7 +2,12 @@
 
 Conversational context in Open Voice OS (OVOS) allows voice interactions to feel more natural by remembering parts of a conversation, like the subject being discussed. This is especially useful for follow-up questions where repeating context (like a person's name) would otherwise be necessary.
 
-Currently, conversational context is only supported with the [Adapt Intent Parser](https://mycroft.ai/documentation/adapt), not [Padatious](https://mycroft.ai/documentation/padatious).
+Currently, keyword-based conversational context is only consumed by the
+[Adapt](adapt-pipeline.md) pipeline, not [Padatious](padatious-pipeline.md).
+
+Context lives on the per-conversation [Session](session.md) (`Session.context`, an
+`IntentContextManager` from `ovos_bus_client.session`). It is **session-scoped** —
+not a single global store — so concurrent users/devices keep separate context.
 
 ---
 
@@ -37,9 +42,9 @@ To interact with the above handlers the user would need to say
 
 ```text
 User: How tall is John Cleese?
-Mycroft: John Cleese is 196 centimeters
+OVOS: John Cleese is 196 centimeters
 User: Where is John Cleese from?
-Mycroft: He's from England
+OVOS: He's from England
 
 ```
 
@@ -83,7 +88,14 @@ OVOS detects the `WhereFrom` keyword but not any `PythonPerson` keyword. The Con
 
 The context is limited by the keywords provided by the **current** Skill. 
 
-But we can use context across skills via `self.set_cross_skill_context` to enable conversations with **other** Skills as well. 
+There is also `self.set_cross_skill_context` / `self.remove_cross_skill_context`, intended
+to share a keyword with **other** Skills as well.
+
+!!! warning "Cross-skill context is not wired up"
+    `set_cross_skill_context` emits the `mycroft.skill.set_cross_context` bus message,
+    but no consumer for it currently exists in `ovos-core`, so on current releases it is
+    effectively a no-op. Prefer per-skill `set_context` (or inject shared values into the
+    Session context directly). The example below documents the intended behaviour.
 
 ```python
     @intent_handler(IntentBuilder().require(PythonPerson).require(WhereFrom))
@@ -102,9 +114,9 @@ In this example `Location` keyword is shared with the WeatherSkill
 
 ```text
 User: Where is John Cleese from?
-Mycroft: He's from England
+OVOS: He's from England
 User: What's the weather like over there?
-Mycroft: Raining and 14 degrees...
+OVOS: Raining and 14 degrees...
 
 ```
 
@@ -145,11 +157,11 @@ To make sure certain **Intents** can't be triggered unless some previous stage i
 
 ```text
 User: Hey Mycroft, bring me some Tea
-Mycroft: Of course, would you like Milk with that?
+OVOS: Of course, would you like Milk with that?
 User: No
-Mycroft: How about some Honey?
+OVOS: How about some Honey?
 User: All right then
-Mycroft: Here you go, here's your Tea with Honey
+OVOS: Here you go, here's your Tea with Honey
 
 ```
 
@@ -204,4 +216,24 @@ When starting up only the `TeaIntent` will be available. When that has been trig
 You can find an example [Tea Skill using conversational context on Github](https://github.com/krisgesling/tea-skill).
 
 As you can see, Conversational Context lends itself well to implementing a [dialog tree or conversation tree](https://en.wikipedia.org/wiki/Dialog_tree).
+
+## Under the hood
+
+`set_context` / `remove_context` are thin wrappers — they prefix the keyword with the
+skill id and emit bus messages that `ovos-core` handles on the active Session:
+
+| Message | Effect |
+|---|---|
+| `add_context` | inject a keyword (and optional value) into `Session.context` |
+| `remove_context` | drop a single keyword |
+| `clear_context` | wipe all context for the session |
+
+The decorators are equivalent to calling these methods:
+
+- `@adds_context('MilkContext')` calls `set_context('MilkContext')` after the handler runs.
+- `@removes_context('MilkContext')` calls `remove_context('MilkContext')`.
+
+Because context is attached to the Session, each handler receives the message it was
+triggered by; the Adapt pipeline reads `Session.context` when scoring intents, which is
+why missing keywords fall back to the most recent matching context entry.
 

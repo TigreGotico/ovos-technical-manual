@@ -6,6 +6,21 @@ Because stopping is a **fundamental feature of a voice assistant**, it is implem
 
 ---
 
+## Implementation
+
+**Module:** `ovos_core.intent_services.stop_service.StopService`
+**Pipeline plugin ID:** `ovos-stop-pipeline-plugin`
+**Stage names:** `stop_high`, `stop_medium`, `stop_low`
+
+`StopService` subclasses both `ConfidenceMatcherPipeline` and `OVOSAbstractApplication` (its `skill_id` is `stop.openvoiceos`). Because it is a `ConfidenceMatcherPipeline`, the single base plugin ID auto-expands into three confidence-tier matchers — `match_high`, `match_medium` and `match_low` — which you reference in the pipeline as `stop_high`, `stop_medium`, `stop_low`. It ships inside `ovos-core`:
+
+```ini
+[project.entry-points."opm.pipeline"]
+ovos-stop-pipeline-plugin = "ovos_core.intent_services.stop_service:StopService"
+```
+
+---
+
 ## Purpose
 
 A voice assistant must always be capable of responding to a "stop" command. Whether the user says *“stop,” “cancel,”* or another localized phrase, OVOS must quickly:
@@ -24,11 +39,11 @@ The `stop` pipeline guarantees this behavior through a flexible plugin system an
 
 ## How it works
 
-The stop pipeline activates based on **high-confidence** or **medium-confidence** utterance matches.
+The stop pipeline exposes three confidence tiers.
 
 ### High-confidence (`stop_high`)
 
-This is triggered when a user says an exact match for a stop command, e.g.,:
+Triggered when a user says an **exact** match (`voc_match(..., exact=True)`) for the `stop` or `global_stop` vocab, e.g.:
 
 * “Stop”
 
@@ -43,42 +58,33 @@ This is triggered when a user says an exact match for a stop command, e.g.,:
 
 The plugin:
 
-1. Checks if any **active skills** can be stopped.
+1. Collects the session's **active skills** (skipping session-blacklisted ones).
 
 
-2. Pings active skills
+2. Pings each via `{skill_id}.stop.ping` and waits up to `0.5s` for `skill.stop.pong` replies (`can_handle`).
 
 
-3. Waits briefly (0.5s) for replies.
+3. Forwards `{skill_id}.stop` to the skills that can be stopped, then listens for a `{skill_id}.stop.response` confirmation.
 
 
-4. Calls stop on relevant skills.
-
-
-5. If no skills are active, emits a **global stop**: `mycroft.stop`.
+4. If no skill is active (or the utterance matched `global_stop`), emits a **global stop**: `mycroft.stop`.
 
 ### Medium-confidence (`stop_medium`)
 
-Triggered for more complex phrases that include a stop command but are not exact matches, such as:
+A fuzzy (`exact=False`) match of the same `stop` / `global_stop` vocab, for phrases that contain a stop command but are not exact. When it matches, it delegates to `match_low` to compute a confidence score.
 
-* “Can you stop now?”
+### Low-confidence (`stop_low`)
 
-
-* “I don’t want that anymore”
-
-
-* “Stop playing music please”
-
-This match falls back to fuzzy intent matching.
+Scores the utterance against the `stop` vocab list via fuzzy matching (`match_one`), adds a small bonus when active skills are present, and rejects anything below `min_conf` (default `0.5`). Used as a permissive catch-all so phrases like “can you stop now?” still reach the stop logic.
 
 ---
 
 ## Localization
 
-The plugin supports stop commands in multiple languages using `.voc` files stored in:
+The plugin supports stop commands in multiple languages using `.voc` files bundled in `ovos-core` under `ovos_core/intent_services/locale/<lang>/`:
 
 ```
-locale/
+ovos_core/intent_services/locale/
   en-us/
     stop.voc
     global_stop.voc
@@ -88,7 +94,7 @@ locale/
 
 ```
 
-You can help with language support via [GitLocalize]()
+`match_high`/`match_medium` look up the `stop` and `global_stop` vocab groups; `match_low` uses the `stop` list only. Not every language ships both files (some provide only `stop.voc`).
 
 ---
 
@@ -106,18 +112,46 @@ The stop plugin interfaces with the OVOS session system:
 
 ---
 
+## Bus Events
+
+| Event | Direction | Purpose |
+|---|---|---|
+| `stop:global` | in | Handled by `handle_global_stop` — emits `mycroft.stop` (and `ovos.utterance.handled`) |
+| `stop:skill` | in | Handled by `handle_skill_stop` — forwards `{skill_id}.stop` |
+| `{skill_id}.stop.ping` | out | Asks a skill whether it can stop |
+| `skill.stop.pong` | in | Skill's `can_handle` reply |
+| `{skill_id}.stop` | out | Tells a specific skill to stop |
+| `{skill_id}.stop.response` | in | Skill's stop confirmation |
+| `mycroft.stop` | out | Global stop signal when no skill handles it |
+
+There is no `ovos.skills.stop` message; the per-skill signal is `{skill_id}.stop` and the global one is `mycroft.stop`.
+
+## Configuration
+
+The service reads its config from `mycroft.conf` under `skills.stop`. The only key it consults is `min_conf` (default `0.5`), the floor used by the low-confidence matcher:
+
+```json
+{
+  "skills": {
+    "stop": {
+      "min_conf": 0.5
+    }
+  }
+}
+```
+
 ## Design Philosophy
 
-* ⏱️ **Low latency**: Matches and stops skills within 0.5 seconds
+* **Low latency**: skills are pinged with a 0.5s wait, so stop resolves quickly
 
 
-* 🧩 **Extensible**: Other plugins can extend or override this pipeline
+* **Extensible**: other plugins can extend or override this pipeline
 
 
-* 🗣️ **Localized**: All behavior is language-aware and configurable
+* **Localized**: matching is language-aware via per-language vocab
 
 
-* 🔄 **Resilient**: Falls back to global stop if skills are unresponsive
+* **Resilient**: falls back to a global `mycroft.stop` if no skill responds
 
 ---
 

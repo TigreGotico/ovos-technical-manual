@@ -52,13 +52,13 @@ The entry point group is the canonical identifier used in `setup.py` / `pyprojec
 
 | Plugin type | Entry point group | Template base class |
 |---|---|---|
-| [STT](stt-plugins.md) ([Speech-to-Text](stt-plugins.md)) | `opm.plugin.stt` | `ovos_plugin_manager.templates.stt.STT` |
-| [TTS](tts-plugins.md) ([Text-to-Speech](tts-plugins.md)) | `opm.plugin.tts` | `ovos_plugin_manager.templates.tts.TTS` |
-| [Wake Word](wake-word-plugins.md) | `opm.plugin.wake_word` | `ovos_plugin_manager.templates.hotwords.HotWordEngine` |
-| Wake Word Verifier | `opm.plugin.wake_word.verifier` | `HotWordVerifier` |
-| [VAD](vad-plugins.md) ([Voice Activity Detection](vad-plugins.md)) | `opm.plugin.vad` | `VADEngine` |
-| Microphone | `opm.plugin.microphone` | `OVOSMicrophone` |
-| G2P (Grapheme-to-Phoneme) | `opm.plugin.g2p` | `Grapheme2PhonemePlugin` |
+| [STT](stt-plugins.md) ([Speech-to-Text](stt-plugins.md)) | `opm.stt` | `ovos_plugin_manager.templates.stt.STT` |
+| [TTS](tts-plugins.md) ([Text-to-Speech](tts-plugins.md)) | `opm.tts` | `ovos_plugin_manager.templates.tts.TTS` |
+| [Wake Word](wake-word-plugins.md) | `opm.wake_word` | `ovos_plugin_manager.templates.hotwords.HotWordEngine` |
+| Wake Word Verifier | `opm.wake_word.verifier` | `HotWordVerifier` |
+| [VAD](vad-plugins.md) ([Voice Activity Detection](vad-plugins.md)) | `opm.VAD` | `VADEngine` |
+| Microphone | `opm.microphone` | `Microphone` |
+| G2P (Grapheme-to-Phoneme) | `opm.g2p` | `Grapheme2PhonemePlugin` |
 
 ### System & Hardware Plugins
 
@@ -66,7 +66,13 @@ The entry point group is the canonical identifier used in `setup.py` / `pyprojec
 |---|---|---|
 | [PHAL](ovoscope-phal.md) (user) | `opm.phal` | `PHALPlugin` |
 | PHAL (admin/root) | `opm.phal.admin` | `AdminPlugin` |
-| GUI Adapter | `opm.gui_adapter` | `AbstractGUIPlugin` |
+| GUI | `opm.gui` | `GUIExtension` |
+
+!!! warning "Upcoming — unreleased"
+    A dedicated GUI-adapter plugin type (entry point `opm.gui_adapter`, base class
+    `AbstractGUIPlugin`) is in progress in
+    [ovos-plugin-manager#377](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/377).
+    Until it lands, the current GUI plugin type is `opm.gui` (`GUIExtension`).
 
 ### Transformer Plugins
 
@@ -96,6 +102,12 @@ The entry point group is the canonical identifier used in `setup.py` / `pyprojec
 |---|---|---|
 | Pipeline | `opm.pipeline` | `PipelinePlugin` |
 
+!!! note "Minimum OPM version"
+    The transformer (`opm.transformer.*`) and solver (`opm.solver.*`) groups require
+    `ovos-plugin-manager>=2.1.0`. The agent groups (`opm.agents.*`) require
+    `ovos-plugin-manager>=2.3.0a1`. Pin accordingly in your plugin's dependencies
+    (cap below `<3.0.0`).
+
 ### Media Plugins
 
 | Plugin type | Entry point group |
@@ -124,19 +136,20 @@ in new plugins:
 
 | Old entry point group | Canonical |
 |---|---|
-| `mycroft.plugin.stt` | `opm.plugin.stt` |
-| `mycroft.plugin.tts` | `opm.plugin.tts` |
-| `mycroft.plugin.wake_word` | `opm.plugin.wake_word` |
-| `opm.stt` | `opm.plugin.stt` |
-| `opm.tts` | `opm.plugin.tts` |
-| `opm.wake_word` | `opm.plugin.wake_word` |
+| `mycroft.plugin.stt` | `opm.stt` |
+| `mycroft.plugin.tts` | `opm.tts` |
+| `mycroft.plugin.wake_word` | `opm.wake_word` |
 | `ovos.plugin.phal` | `opm.phal` |
 | `ovos.plugin.phal.admin` | `opm.phal.admin` |
-| `ovos.plugin.VAD` | `opm.plugin.vad` |
+| `ovos.plugin.VAD` | `opm.VAD` |
+| `ovos.plugin.g2p` | `opm.g2p` |
+| `ovos.plugin.gui` | `opm.gui` |
 | `neon.plugin.lang.translate` | `opm.lang.translate` |
 | `neon.plugin.lang.detect` | `opm.lang.detect` |
 | `neon.plugin.text` | `opm.transformer.text` |
+| `neon.plugin.metadata` | `opm.transformer.metadata` |
 | `neon.plugin.audio` | `opm.transformer.audio` |
+| `neon.plugin.solver` | `opm.solver.question` |
 
 ---
 
@@ -228,11 +241,11 @@ setup(
     packages=find_packages(),
     install_requires=["ovos-plugin-manager>=0.0.1"],
     entry_points={
-        "opm.plugin.stt": [
+        "opm.stt": [
             "my-engine-stt = my_stt_plugin:MySTTPlugin"
         ],
         # Optional: language config exposure
-        "opm.plugin.stt.config": [
+        "opm.stt.config": [
             "my-engine-stt = my_stt_plugin:MySTTPluginConfig"
         ],
     },
@@ -243,10 +256,10 @@ setup(
 Using `pyproject.toml`:
 
 ```toml
-[project.entry-points."opm.plugin.stt"]
+[project.entry-points."opm.stt"]
 my-engine-stt = "my_stt_plugin:MySTTPlugin"
 
-[project.entry-points."opm.plugin.stt.config"]
+[project.entry-points."opm.stt.config"]
 my-engine-stt = "my_stt_plugin:MySTTPluginConfig"
 
 ```

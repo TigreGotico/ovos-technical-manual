@@ -1,144 +1,160 @@
 # Model2Vec Intent Pipeline
 
-The **Model2Vec Intent Pipeline** is an advanced plugin for OpenVoiceOS, designed to enhance intent classification using pretrained Model2Vec models. By leveraging vector-based representations of natural language, this pipeline offers improved accuracy over traditional deterministic engines, especially in scenarios where intent recognition is challenging.
+The **Model2Vec Intent Pipeline** matches utterances to skill intents using
+[Model2Vec](https://github.com/MinishLab/model2vec) static embeddings instead of
+deterministic parsers. Where Adapt looks for keywords and Padatious learns from
+example sentences, this pipeline embeds the utterance as a vector and picks the
+closest known intent. That makes it more forgiving of paraphrases and word order,
+and it works across languages when a multilingual model is used.
+
+It is meant to **augment** Adapt and Padatious, not replace them: put a Model2Vec
+matcher in your pipeline alongside the others and let confidence ordering decide.
 
 ---
 
-## Features
+## Quick start
 
-* **Model2Vec-Powered Classification:** Uses pretrained Model2Vec models for rich vector-based intent understanding.
-
-
-* **Seamless OVOS Integration:** Plug-and-play compatibility with existing OVOS intent pipelines.
-
-
-* **Multilingual & Language-Specific Models:** Offers large multilingual models distilled from LaBSE and smaller, efficient language-specific models ideal for limited hardware (e.g., Raspberry Pi).
-
-
-* **Dynamic Intent Syncing:** Automatically synchronizes with [Adapt](adapt-pipeline.md) and [Padatious](padatious-pipeline.md) intents at runtime.
-
-
-* **[Skill](skill-design-guidelines.md)-Aware Matching:** Classifies *only* official OVOS skill intents, reducing false positives by ignoring unregistered or personal skill intents.
-
-
-* **Supports Partial Translations:** Multilingual models allow usage of partially translated skills, provided their **dialogs** are translated.
-
-
----
-
-## Installation
-
-Install the plugin via pip:
+Install the plugin:
 
 ```bash
 pip install ovos-m2v-pipeline
-
 ```
+
+Add a matcher to your pipeline in `mycroft.conf`:
+
+```json
+{
+  "intents": {
+    "ovos-m2v-pipeline": {
+      "model": "Jarbas/ovos-model2vec-intents-LaBSE"
+    },
+    "pipeline": [
+      "ovos-converse-pipeline-plugin",
+      "ovos-m2v-pipeline-high",
+      "ovos-padatious-pipeline-plugin-high",
+      "ovos-adapt-pipeline-plugin-high",
+      "ovos-fallback-pipeline-plugin-low"
+    ]
+  }
+}
+```
+
+That is enough to get going. The model is downloaded from Hugging Face on first
+run. The sections below cover how matching works and how to tune it.
+
+---
+
+## How it works
+
+The plugin (`Model2VecIntentPipeline`) is a `ConfidenceMatcherPipeline`, so it
+exposes three confidence tiers — `match_high`, `match_medium`, `match_low` — that
+become the pipeline matcher IDs `ovos-m2v-pipeline-high` / `-medium` / `-low`.
+
+For an utterance it:
+
+1. Embeds the text with the configured Model2Vec model.
+2. Scores every label the model knows about.
+3. Keeps only labels that belong to **currently registered** Adapt/Padatious
+   intents (the pipeline tracks them over the bus via
+   `intent.service.adapt.manifest` / `intent.service.padatious.manifest` and the
+   `register_intent` / `padatious:register_intent` / `detach_intent` /
+   `detach_skill` events). Three special labels — `ocp:play`,
+   `common_query:common_query`, `stop:stop` — are also allowed, but only when the
+   corresponding downstream pipeline (`ovos-ocp-pipeline-plugin`,
+   `ovos-common-query-pipeline-plugin`, `ovos-stop-pipeline-plugin`) is present in
+   the session's pipeline list.
+4. Returns the highest-scoring label as an `IntentHandlerMatch` if its score
+   clears the tier threshold (`conf_high` / `conf_medium` / `conf_low`).
+
+Because matching is restricted to intents that are actually loaded, the model can
+ship knowledge of many skills without firing for skills you do not have installed.
+
+---
+
+## Two operating modes
+
+The pipeline has a `mode` config key:
+
+* **`classifier`** (default) — loads a `StaticModelPipeline` (embedding model plus
+  a trained linear classifier head). Scores are softmax probabilities. This is the
+  mode used by the published `Jarbas/ovos-model2vec-intents-*` models.
+* **`prototype`** — loads a bare `StaticModel` (embeddings only, no trained head)
+  and builds a prototype store at runtime from the example utterances skills
+  provide when they register Padatious intents. Scores are cosine similarities.
+  Adapt intents (which have no example sentences) are tracked by name but not
+  matched in this mode.
+
+A second entry point, `ovos-m2v-prototype-pipeline`
+(`Model2VecPrototypePipeline`), is the prototype mode exposed as a standalone
+plugin so it can run alongside the classifier one. It reads its config from
+`intents.ovos_m2v_prototype_pipeline`.
 
 ---
 
 ## Configuration
-
-Configure the plugin in your `mycroft.conf` file:
 
 ```json
 {
   "intents": {
     "ovos-m2v-pipeline": {
       "model": "Jarbas/ovos-model2vec-intents-LaBSE",
+      "mode": "classifier",
       "conf_high": 0.7,
       "conf_medium": 0.5,
       "conf_low": 0.15,
       "ignore_intents": []
-    },
-    "pipeline": [
-      "converse",
-      "ovos-m2v-pipeline-high",
-      "padatious_high",
-      "fallback_low"
-    ]
+    }
   }
 }
-
 ```
 
-**Parameters:**
+| Key | Default | Description |
+|-----|---------|-------------|
+| `model` | `Jarbas/ovos-model2vec-intents-distiluse-base-multilingual-cased-v2` | Local path or Hugging Face repo of the Model2Vec model. |
+| `mode` | `classifier` | `classifier` (trained head, softmax) or `prototype` (runtime prototypes, cosine). |
+| `conf_high` | `0.7` | Threshold for `match_high`. |
+| `conf_medium` | `0.5` | Threshold for `match_medium`. |
+| `conf_low` | `0.15` | Threshold for `match_low`. |
+| `ignore_intents` | `[]` | Intent labels to never match. |
+| `renormalize` | `false` | Classifier mode: renormalise probabilities over the surviving (registered) labels. |
 
-* `model`: Path to the pretrained Model2Vec model or Hugging Face repository.
+Prototype mode adds `prototype_k`, `prototype_strategy`, `prototype_top_k` and
+`prototype_tau` to control how prototype embeddings are selected per label.
 
-
-* `conf_high`: Confidence threshold for high-confidence matches (default: 0.7).
-
-
-* `conf_medium`: Confidence threshold for medium-confidence matches (default: 0.5).
-
-
-* `conf_low`: Confidence threshold for low-confidence matches (default: 0.15).
-
-
-* `ignore_intents`: List of intent labels to ignore during matching.
-
-> **Note:** Model2Vec models are pretrained and *do not* dynamically learn new skills at runtime.
-
----
-
-## How It Works
-
-1. Receives a user utterance as text input.
-
-
-2. Predicts intent labels using the pretrained Model2Vec embedding model.
-
-
-3. Filters out any intents *not* associated with currently loaded official OVOS skills.
-
-
-4. Returns the highest-confidence matching intent.
-
-This process enhances intent recognition, particularly in cases where traditional parsers like Adapt or Padatious may struggle.
+> The model is **pretrained**. It does not learn new skills at runtime — the
+> registered-intent filter just decides which of the model's known labels are
+> eligible. In prototype mode the store is rebuilt at runtime, but only from the
+> example utterances Padatious skills provide.
 
 ---
 
-## Models Overview
+## Models
 
-* **Multilingual Model:** Over 500MB, distilled from LaBSE, supports many languages and partially translated skills.
+Two families are published on Hugging Face:
 
+* **Multilingual** — distilled from LaBSE, larger, supports many languages and
+  partially translated skills (as long as their **dialogs** are localized).
+* **Language-specific** — roughly 10x smaller and nearly as accurate for a single
+  language, well suited to constrained hardware (e.g. Raspberry Pi).
 
-* **Language-Specific Models:** Smaller (\~10x smaller than multilingual), highly efficient, almost as accurate — ideal for devices with limited resources.
-
-Models can be specified via local paths or Hugging Face repositories:
+Browse them here:
 [OVOS Model2Vec Models on Hugging Face](https://huggingface.co/collections/Jarbas/ovos-model2vec-intents-681c478aecb9979e659b17f8)
 
----
-
-## Training Data
-
-The Model2Vec intent classifier is trained on a diverse, aggregated collection of intent examples from:
-
-* OVOS LLM Augment Intent Examples — synthetic utterances generated by large language models for OVOS skills.
-
-
-* Music Query Templates — focused on music-related intents.
-
-
-* Language-Specific Skill Intents — extracted CSV files from OpenVoiceOS GitLocalize covering English, Portuguese, Basque, Spanish, Galician, Dutch, French, German, Catalan, Italian, and Danish.
-
-Models are regularly updated with new data to improve performance and language coverage.
+The models are trained on aggregated intent examples: LLM-augmented OVOS
+utterances, music-query templates, and per-language skill intents.
 
 ---
 
-## Important Usage Notes
+## Gotcha: ordering against the deterministic engines
 
-* **Official OVOS Skills Only:** The Model2Vec pipeline classifies intents *only* from official OVOS skills. For personal or custom skills, you should continue to use Adapt and Padatious parsers alongside Model2Vec.
+Model2Vec generalises well, which also means it can claim an utterance a more
+precise parser would have nailed. The usual setup is to place
+`ovos-m2v-pipeline-high` after the high tiers of Padatious/Adapt (or interleaved by
+confidence) so exact matches win first and Model2Vec catches the paraphrases the
+others miss. Tune `conf_high`/`conf_medium`/`conf_low` to control how aggressive it
+is.
 
-
-* **Complementary Pipeline:** Model2Vec is designed to *augment* your intent pipeline, not replace Adapt or Padatious. Using all three together provides the best overall recognition.
-
-
-* **Padatious Intent Data & Training:** Padatious intent data and example utterances are available in [GitLocalize](https://gitlocalize.com/repo/xyz) for translations and new model training. The Model2Vec models are continuously updated with this data.
-
-
-* **Language Support:** The multilingual model (500MB+) supports many languages and works well with partially translated skills, as long as **dialogs** are localized.
-
-
-* **Optimization:** Language-specific models are on average 10x smaller and nearly as accurate as the multilingual model, making them ideal for constrained hardware or single-language setups.
+!!! warning "Upcoming — unreleased"
+    A hierarchical two-stage prototype variant (domain-then-intent) is proposed in
+    [ovos-m2v-pipeline#36](https://github.com/OpenVoiceOS/ovos-m2v-pipeline/pull/36)
+    and is not yet on `dev`.

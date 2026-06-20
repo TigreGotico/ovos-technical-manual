@@ -1,22 +1,38 @@
 # Adapt Pipeline Plugin
 
-The **Adapt Pipeline Plugin** brings rule-based intent parsing to the **OVOS intent pipeline** using the Adapt parser. It supports `high`, `medium`, and `low` confidence intent detection and integrates seamlessly with OVOS’s multi-stage pipeline.
+The **Adapt Pipeline Plugin** brings rule-based, keyword-driven intent parsing to the **OVOS intent pipeline** using the Adapt parser. A skill registers keywords (vocabulary) and a rule describing which keywords must appear; Adapt scores an utterance by how many of those keywords it finds. There is no training step and no neural network — matching is deterministic.
 
-While Adapt is powerful for **explicit, deterministic matching**, it has notable limitations in multilingual environments and complex skill ecosystems. **In general, Adapt is not recommended for broad deployments**—it is best suited for **personal skills** where you control the full context and can craft precise intent rules.
+**When it runs:** Adapt's high-confidence stage runs just after Padatious's, so an exact example match wins over a keyword rule, but a strong keyword match still beats most fallbacks. Its medium and low stages run later in the pipeline.
+
+**Minimal example** — a skill registers vocabulary and a rule:
+
+```python
+self.register_vocabulary("Light", "lamp")        # locale/.../Light.voc
+self.register_vocabulary("On", "switch on")      # locale/.../On.voc
+
+@intent_handler(IntentBuilder("LightOnIntent")
+                .require("On").require("Light"))
+def handle_light_on(self, message):
+    ...
+```
+
+"switch on the lamp" then matches with high confidence because both required keywords are present.
+
+While Adapt is good for **explicit, deterministic command-and-control**, it scales poorly across many skills and is hard to localize. **It is not recommended for broad deployments** — prefer it for **personal skills** where you control the full vocabulary.
 
 ---
 
 ## Pipeline Stages
 
-This plugin registers three pipelines:
+The plugin ships an OPM entry point, `ovos-adapt-pipeline-plugin`, mapped to the `AdaptPipeline` class. That class is a `ConfidenceMatcherPipeline`, so OVOS exposes three matcher stages from it, selected in your pipeline config by these legacy IDs:
 
-| Pipeline ID    | Description                          | Recommended Use        |
-| -------------- | ------------------------------------ | ---------------------- |
-| `adapt_high`   | High-confidence Adapt intent matches | ✅ Personal skills only |
-| `adapt_medium` | Medium-confidence Adapt matches      | ⚠️ Use with caution    |
-| `adapt_low`    | Low-confidence Adapt matches         | 🚫 Not recommended     |
+| Pipeline ID    | Matcher        | Recommended Use        |
+| -------------- | -------------- | ---------------------- |
+| `adapt_high`   | `match_high`   | Personal skills only   |
+| `adapt_medium` | `match_medium` | Use with caution       |
+| `adapt_low`    | `match_low`    | Not recommended        |
 
-Each pipeline is scored by Adapt and routed according to configured confidence thresholds.
+Each stage scores the utterance with Adapt and accepts it if the score clears that stage's threshold.
 
 ---
 
@@ -55,7 +71,7 @@ Adapt confidence thresholds can be set in `mycroft.conf`:
 
 ```
 
-* These thresholds control routing into `adapt_high`, `adapt_medium`, and `adapt_low`.
+* These thresholds gate which matcher stage accepts a result. The values shown are the source defaults.
 
 
 * The plugin is included by default in OVOS.
@@ -75,3 +91,22 @@ Use this plugin **only when**:
 * You are working in **a single language** and **control all skill interactions**.
 
 Avoid using Adapt for public-facing or general-purpose assistant skills. Modern alternatives like **[Padatious](padatious-pipeline.md)**, **LLM-based parsers**, or **neural fallback models** are more scalable and adaptable.
+
+---
+
+## Advanced
+
+**Entry points.** The plugin registers three `opm.pipeline` entry points, each a different matching strategy over the same Adapt engine:
+
+```toml
+[project.entry-points."opm.pipeline"]
+"ovos-adapt-pipeline-plugin"              = "ovos_adapt.opm:AdaptPipeline"
+"ovos-adapt-domain-pipeline-plugin"       = "ovos_adapt.opm:DomainAdaptPipeline"
+"ovos-adapt-hierarchical-pipeline-plugin" = "ovos_adapt.opm:HierarchicalAdaptPipeline"
+```
+
+`AdaptPipeline` is the flat parser most deployments use. `DomainAdaptPipeline` and `HierarchicalAdaptPipeline` partition intents per skill/domain to cut down on cross-skill keyword collisions; they read extra config under `intents.ovos_adapt_domain_pipeline` and `intents.ovos_adapt_hierarchical_pipeline`. All three subclass `ConfidenceMatcherPipeline` and expose `match_high`/`match_medium`/`match_low`.
+
+**Vocabulary files.** Skills supply keyword lists as `.voc` files (one phrase per line, with `(a|b)` alternatives and `[optional]` words expanded at registration), and regular-expression entities as `.rx` files using Python named groups, e.g. `(?P<Location>.+)`. Registration flows over the bus via `register_vocab` and `register_intent`.
+
+**Gotcha — collisions are silent.** Two skills that require overlapping vocabulary can shadow each other; the higher-scoring match wins with no warning. Make each skill's required keywords as specific as possible, and prefer the domain/hierarchical entry points when running many skills together.

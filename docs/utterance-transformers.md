@@ -16,11 +16,13 @@
 
 This sequence ensures that any necessary preprocessing is applied to the user's input, improving the reliability of intent matching.
 
+Utterance transformers register under the `opm.transformer.text` entry-point group and subclass `UtteranceTransformer` from `ovos_plugin_manager.templates.transformers`. They are loaded and chained by `UtteranceTransformersService` in `ovos-core`.
+
 ---
 
 ## Configuration
 
-To enable utterance transformers, add them to your `mycroft.conf` file under the `utterance_transformers` section:
+A transformer is only loaded if its plugin name appears under the `utterance_transformers` section of your `mycroft.conf`; an empty `{}` is enough to enable it. Set `"active": false` to load-skip it. When several are active they run sorted by `priority` (highest first), each operating on the output of the previous.
 
 ```json
 "utterance_transformers": {
@@ -138,11 +140,11 @@ pip install ovos-utterance-plugin-cancel
 
 ```
 
-* **Configuration**:
+* **Configuration** (the installed package is `ovos-utterance-plugin-cancel`, but its registered plugin name is `ovos-utterance-cancel-plugin`):
 
 ```json
 "utterance_transformers": {
-  "ovos-utterance-plugin-cancel": {}
+  "ovos-utterance-cancel-plugin": {}
 }
 
 ```
@@ -204,27 +206,30 @@ To develop your own utterance transformer:
 **Create a Python Class**:
 
 ```python
+from typing import List, Tuple
 from ovos_plugin_manager.templates.transformers import UtteranceTransformer
 
 class MyCustomTransformer(UtteranceTransformer):
    def __init__(self, config=None):
        super().__init__("my-custom-transformer", priority=10, config=config)
 
-   def transform(self, utterances, context):
-       # Modify the utterances as needed
+   def transform(self, utterances: List[str],
+                 context: dict = None) -> Tuple[List[str], dict]:
+       # utterances is a list of strings; return (utterances, extra_context)
+       context = context or {}
+       modified_utterances = [u.lower() for u in utterances]
        return modified_utterances, context
 
 ```
 
-**Register as a Plugin**:
-In your `setup.py`, include:
+The second return value is *additional* context that gets merged into the message context, not a replacement for it.
 
-```python
-entry_points={
-   'ovos.plugin.utterance_transformer': [
-       'my-custom-transformer = my_module:MyCustomTransformer'
-   ]
-}
+**Register as a Plugin**:
+In your `pyproject.toml`, register under the `opm.transformer.text` group:
+
+```toml
+[project.entry-points."opm.transformer.text"]
+my-custom-transformer = "my_module:MyCustomTransformer"
 
 ```
 

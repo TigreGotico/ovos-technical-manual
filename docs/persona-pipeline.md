@@ -6,30 +6,38 @@ The **`ovos-persona-pipeline-plugin`** provides a dynamic way to integrate perso
 
 ## Overview
 
-The `persona-pipeline` is a plugin for the OVOS pipeline architecture. It dynamically delegates user utterances to a configured **Persona**, which attempts to resolve the intent using a sequence of **[Solver](agent-plugins.md) Plugins** (e.g., LLMs, search tools, knowledge bases).
+The `persona-pipeline` is a plugin for the OVOS pipeline architecture, shipped in the separate **`ovos-persona`** package (not part of `ovos-core`). It dynamically delegates user utterances to a configured **Persona**, which attempts to resolve the intent using a sequence of **[Solver](agent-plugins.md) Plugins** (e.g., LLMs, search tools, knowledge bases).
 
 You can configure it to:
 
-- 🔀 Intercept all utterances and give full control to the persona.
+- Intercept all utterances and give full control to the persona.
 
 
-- 🧠 Fall back to the persona only if skills don't match.
+- Fall back to the persona only if skills don't match.
 
 
-- ⚙️ Operate based on confidence tiers (high/medium/low).
+- Operate based on confidence tiers (high/medium/low).
 
 ---
 
 ## Plugin Structure
 
-The plugin is composed of two components:
+Persona ships as the external `ovos-persona` package, which registers a single `opm.pipeline` entry point:
 
-| Plugin Name                            | Usage                            |
-|----------------------------------------|----------------------------------|
-| `ovos-persona-pipeline-plugin-high`    | For active persona interactions  |
-| `ovos-persona-pipeline-plugin-low`     | [Fallback](fallback-pipeline.md) persona handling        |
+```ini
+[project.entry-points."opm.pipeline"]
+ovos-persona-pipeline-plugin = "ovos_persona:PersonaService"
+```
 
-You must **insert these plugin IDs** in your `mycroft.conf` under the `intents.pipeline` key to activate persona handling at the appropriate tier.
+`PersonaService` is a `ConfidenceMatcherPipeline` (and an `OVOSAbstractApplication`), so the single base ID auto-expands into three confidence-tier matchers you can place in the pipeline:
+
+| Pipeline ID                            | Tier   | Usage                            |
+|----------------------------------------|--------|----------------------------------|
+| `ovos-persona-pipeline-plugin-high`    | high   | Active persona interactions and persona-control intents |
+| `ovos-persona-pipeline-plugin-medium`  | medium | Keyword-gated persona queries |
+| `ovos-persona-pipeline-plugin-low`     | low    | [Fallback](fallback-pipeline.md) persona handling |
+
+Insert the tier IDs you need into your `mycroft.conf` under the `intents.pipeline` key to activate persona handling at the appropriate stage.
 
 ---
 
@@ -41,7 +49,8 @@ You must **insert these plugin IDs** in your `mycroft.conf` under the `intents.p
     "persona": {
       "handle_fallback": true,
       "default_persona": "Remote Llama",
-      "short-term-memory": true
+      "min_intent_confidence": 0.6,
+      "personas_path": "~/.config/mycroft/ovos_persona"
     },
     "pipeline": [
       // Depending on strategy, insert plugin here
@@ -53,11 +62,16 @@ You must **insert these plugin IDs** in your `mycroft.conf` under the `intents.p
 
 ### `persona` section options:
 
-| Key                  | Description                                                                 |
-|----------------------|-----------------------------------------------------------------------------|
-| `handle_fallback`    | Enables fallback routing when no persona is active                          |
-| `default_persona`    | Sets a persona to use by default (e.g., after boot or reset)                |
-| `short-term-memory`  | Maintains conversation state within a session (boolean)                     |
+| Key                      | Description                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| `handle_fallback`        | When `true`, the low tier routes unmatched utterances to the default persona |
+| `default_persona`        | Persona used by default (e.g., after boot or reset)                         |
+| `min_intent_confidence`  | Confidence floor for the medium-tier keyword intents (default `0.6`)        |
+| `personas_path`          | Directory to load persona JSON files from (defaults to the XDG persona dir) |
+| `persona_blacklist`      | Persona names to exclude                                                     |
+| `ignore_plugin_personas` | When `true`, skip personas provided by installed plugins                     |
+
+> Conversation memory is configured **per persona** (the `memory_module` / `max_history` keys inside each persona's JSON), not in this pipeline section.
 
 ---
 
@@ -79,10 +93,10 @@ In this mode, **personas override** all skills. The persona handles every uttera
 
 ```
 
-- ✅ Best for immersive chatbot experiences
+- Best for immersive chatbot experiences
 
 
-- ⚠️ Skills like music, alarms, and weather will not trigger unless persona is disabled
+- Skills like music, alarms, and weather will not trigger unless persona is disabled
 
 ---
 
@@ -103,10 +117,10 @@ Only unmatched or low-confidence utterances are routed to the persona.
 
 ```
 
-- ✅ Preserves traditional voice assistant behavior
+- Preserves traditional voice assistant behavior
 
 
-- 💬 Persona fills in where skills fall short
+- Persona fills in where skills fall short
 
 ---
 
@@ -124,10 +138,10 @@ Even when no persona is active, this mode allows the pipeline to fall back to a 
 
 ```
 
-- ✅ Replaces `skill-ovos-fallback-chatgpt`
+- Replaces `skill-ovos-fallback-chatgpt`
 
 
-- 🔄 Fallbacks to a default persona response for a consistent assistant feel
+- Fallbacks to a default persona response for a consistent assistant feel
 
 ---
 
@@ -148,7 +162,7 @@ Even when no persona is active, this mode allows the pipeline to fall back to a 
     - If no persona is active and `handle_fallback` is enabled, use the **default_persona**.
 
 
-4. The persona delegates to its configured **solvers** until one returns a response.
+4. The persona delegates to its configured **handlers** (solver plugins) until one returns a response.
 
 
 5. The pipeline returns the matched response back to the user.
@@ -157,19 +171,14 @@ Even when no persona is active, this mode allows the pipeline to fall back to a 
 
 ## Persona Configuration
 
-Personas are defined in:
-
-```
-~/.config/ovos_persona/*.json
-
-```
+Personas are loaded from the XDG persona config directory (typically `~/.config/mycroft/ovos_persona/`, overridable via the `personas_path` config key). Each `*.json` file in that directory defines one persona (its name is the `"name"` field, or the filename without `.json`). Plugin-provided personas are also discovered unless `ignore_plugin_personas` is set.
 
 ### Example:
 
 ```json
 {
   "name": "Remote Llama",
-  "solvers": [
+  "handlers": [
     "ovos-solver-openai-plugin",
     "ovos-solver-failure-plugin"
   ],
@@ -182,12 +191,12 @@ Personas are defined in:
 
 ```
 
-Each persona defines a `solvers` list.
+Each persona defines a `handlers` list (the older key `solvers` is still accepted as a fallback).
 
-- Solvers are attempted **in order**.
+- Handlers are attempted **in order**.
 
 
-- The first solver to return a valid result ends the search.
+- The first handler to return a valid result ends the search.
 
 
 - Include a `"ovos-solver-failure-plugin"` as a final fallback for graceful error handling.
@@ -198,7 +207,7 @@ Each persona defines a `solvers` list.
 
 `"ovos-persona-pipeline-plugin-high"` supports a set of core voice intents to manage persona interactions seamlessly. 
 
-These intents provide **out-of-the-box functionality** for controlling the Persona Service, ensuring smooth integration with the conversational pipeline and enhancing user experience.
+These intents provide **out-of-the-box functionality** for controlling the Persona Service, ensuring smooth integration with the conversational pipeline and enhancing user experience. The backing intent/vocab files are `list_personas.intent`, `active_persona.intent`, `summon.intent` (activate), `ask.intent` (single-shot), and `Release.voc` (stop).
 
 ### **List Personas**
 
@@ -281,6 +290,20 @@ Enables users to query a persona directly without entering an interactive sessio
 
 
 - "Shut up"
+
+Releasing a persona (via the `Release.voc` keyword match) ends the active session: the service marks the session inactive so any in-flight streaming response stops and subsequent utterances flow back through the normal pipeline. Persona uses `skill_id` `persona.openvoiceos`.
+
+---
+
+## Related Pages
+
+- [Agent / Solver Plugins](agent-plugins.md) — the handler plugins a persona delegates to
+
+
+- [Fallback Pipeline](fallback-pipeline.md) — the low-tier fallback persona routing complements
+
+
+- [Life of an Utterance](life-of-an-utterance.md) — where the persona stages sit in the pipeline
 
 ---
 

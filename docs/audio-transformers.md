@@ -21,6 +21,8 @@ The typical audio processing pipeline in OVOS is as follows:
 
 Audio Transformers operate in step 2, allowing for enhancements and modifications to the audio signal before transcription.
 
+They run inside the **listener** (e.g. `ovos-dinkum-listener`), driven by the voice loop. As audio is captured, the loop feeds chunks to each loaded transformer (`feed_hotword`/`feed_speech` populate internal buffers); just before STT, the service calls each transformer's `transform(audio_data)`, which returns `(audio_data, context)`. Any returned context is merged into the `recognize_loop:utterance` message. Transformers run in **descending priority** order (higher `priority` first), and `reset()` clears the buffers at the end of each cycle.
+
 ---
 
 ## Configuration
@@ -84,6 +86,9 @@ For more information, visit the [GitHub repository](https://github.com/OpenVoice
 * **Features**:
 
 
+    * Subclasses `AudioLanguageDetector`, so its `transform` attaches `stt_lang` and `lang_probability` to the message context for downstream language routing.
+
+
     * Utilizes SpeechBrain models for language identification.
 
 
@@ -124,8 +129,8 @@ Your custom transformer should subclass:
 from ovos_plugin_manager.templates.transformers import AudioTransformer
 
 class MyCustomAudioTransformer(AudioTransformer):
-    def __init__(self, config=None):
-        super().__init__("my-custom-audio-transformer", priority=10, config=config)
+    def __init__(self, name="my-custom-audio-transformer", priority=10, config=None):
+        super().__init__(name, priority, config)
 
     def on_audio(self, audio_data):
         # Process non-speech audio chunks (e.g., noise)
@@ -180,16 +185,14 @@ class MyCustomAudioTransformer(AudioTransformer):
 
 ### Plugin Registration
 
-In your `setup.py`, register the plugin entry point:
+Expose the class under the `opm.transformer.audio` entry-point group in your `pyproject.toml`:
 
-```python
-entry_points={
-    'ovos.plugin.audio_transformer': [
-        'my-custom-audio-transformer = my_module:MyCustomAudioTransformer'
-    ]
-}
-
+```toml
+[project.entry-points."opm.transformer.audio"]
+"my-custom-audio-transformer" = "my_module:MyCustomAudioTransformer"
 ```
+
+The legacy alias `neon.plugin.audio` is still recognized for this group (some published plugins such as the GGWave transformer use it), but new plugins should use `opm.transformer.audio`.
 
 ### Configuration Example
 

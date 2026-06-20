@@ -32,7 +32,12 @@ Key purposes include:
 **Pipeline plugin ID:** `ovos-converse-pipeline-plugin`
 **Stage name:** `converse`
 
-`ConverseService` is shipped inside `ovos-core` and registered via its own `pyproject.toml` entry point.
+`ConverseService` ships inside `ovos-core` and is registered via the `opm.pipeline` entry point in its `pyproject.toml`:
+
+```ini
+[project.entry-points."opm.pipeline"]
+ovos-converse-pipeline-plugin = "ovos_core.intent_services.converse_service:ConverseService"
+```
 
 ---
 
@@ -71,7 +76,7 @@ As the Weather Skill was called it has now been added to the front of the Active
 
 4. A skill can activate/deactivate itself at any time via `self.make_active()` / `self.deactivate()`
 
-Active skills are tracked in `Session.active_skills` — `ovos_bus_client.session.Session`. The converse service reads and updates this list via `sess.activate_skill()` / `sess.deactivate_skill()`.
+Active skills are tracked in `Session.active_skills` — `ovos_bus_client.session.Session`. The converse service reads and updates this list via `session.activate_skill()` / `session.deactivate_skill()`, which also forward `intent.service.skills.activated` / `intent.service.skills.deactivated` on the bus.
 
 ---
 
@@ -91,16 +96,21 @@ Active skills are tracked in `Session.active_skills` — `ovos_bus_client.sessio
 2. `ConverseService.match()` iterates active skills in priority order
 
 
-3. For each skill, emits `{skill_id}.converse.request` and waits for a response
+3. It first pings each active skill via `{skill_id}.converse.ping` and waits up to `0.5s` for `skill.converse.pong` acknowledgements (`can_handle`) to learn which skills are willing to converse
 
 
-4. If the skill returns `True`, the utterance is consumed
+4. The first willing skill (highest priority) is matched; the actual dispatch is sent as `{skill_id}.converse.request` (emitted by the `converse:skill` handler)
 
 
-5. If not, the next active skill is tried
+5. If the skill's `converse()` returns `True`, the utterance is consumed and the skill is reactivated
 
 
-6. If no active skill accepts the input, the pipeline falls back to normal intent matching
+6. If not, the next willing skill is tried
+
+
+7. If no active skill accepts the input, the pipeline falls back to normal intent matching
+
+`ConverseService` is a plain `PipelinePlugin` with a single `match()` method — it is **not** a `ConfidenceMatcherPipeline`, so there are no `converse_high/medium/low` stages. The one stage ID is `converse`.
 
 ---
 
@@ -150,9 +160,7 @@ Customize the pipeline via `mycroft.conf` under `skills.converse`:
       "max_activations": -1,
       "skill_activations": {},
       "cross_activation": true,
-      "cross_deactivation": true,
-      "converse_priorities": {},
-      "max_skill_runtime": 10
+      "converse_priorities": {}
     }
   }
 }
@@ -171,9 +179,8 @@ Customize the pipeline via `mycroft.conf` under `skills.converse`:
 | `converse_activation` | Controls when a skill can self-activate |
 | `max_activations` | Default number of consecutive times a skill can activate itself per minute (`-1` = unlimited) |
 | `skill_activations` | Per-skill override of `max_activations` |
-| `cross_activation` | If `true`, any skill can activate any other skill |
-| `cross_deactivation` | If `true`, any skill can deactivate any other skill |
-| `max_skill_runtime` | Maximum seconds to wait for a skill's `converse()` response |
+| `cross_activation` | If `true`, any skill can activate **or deactivate** any other skill (the same key gates both) |
+| `converse_priorities` | Per-skill priority overrides used when `converse_activation` is `priority` |
 
 ---
 
@@ -211,12 +218,12 @@ Customize the pipeline via `mycroft.conf` under `skills.converse`:
 
 ### `get_response` Support
 
-During `skill.get_response`, the skill temporarily holds the converse channel:
+During `skill.get_response`, the skill temporarily holds the converse channel. This is tracked per-session via the skill's `UtteranceState.RESPONSE`: while set, `match()` routes the next utterance straight to that skill (match type `{skill_id}.converse.get_response`), bypassing the normal ping/pong path.
 
-- `skill.converse.get_response.enable` → lock converse to this skill
+- `skill.converse.get_response.enable` → `session.enable_response_mode(skill_id)` (lock converse to this skill)
 
 
-- `skill.converse.get_response.disable` → release lock
+- `skill.converse.get_response.disable` → `session.disable_response_mode(skill_id)` (release lock)
 
 ---
 

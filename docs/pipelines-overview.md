@@ -14,7 +14,7 @@ This layered approach ensures that OVOS can handle a wide range of user queries 
 
 ## Pipeline Structure
 
-OVOS pipelines are structured to prioritize intent matching based on confidence levels:
+When an utterance arrives, OVOS walks the pipeline in order and hands the utterance to each stage until one claims it. Stages are tried from most to least confident:
 
 *   **High Confidence**: Primary intent parsers that provide precise matches.
 
@@ -24,7 +24,9 @@ OVOS pipelines are structured to prioritize intent matching based on confidence 
 
 *   **Low Confidence**: [Fallback](fallback-pipeline.md) mechanisms for ambiguous or unrecognized inputs.
 
-Each component in the pipeline is a plugin that can be enabled, disabled, or reordered according to user preferences.
+The first stage that matches wins, so order matters: a high-confidence Padatious match is tried before any medium-confidence stage, which is tried before any low-confidence stage. Each component is a plugin that can be enabled, disabled, or reordered in your config.
+
+**Pipeline IDs vs. plugins.** The IDs you list in your `pipeline` config (like `adapt_high`) are not separate plugins. A confidence-aware plugin registers a single OPM entry point (e.g. `ovos-adapt-pipeline-plugin`), and OVOS derives the `_high`/`_medium`/`_low` matcher stages from it at runtime. Plugins that match at only one confidence level (such as `converse` or `common_qa`) expose a single bare ID. The legacy short IDs are mapped to plugin IDs by the `_PIPELINE_MIGRATION_MAP` in ovos-core.
 
 ---
 
@@ -65,7 +67,7 @@ Below is a list of available pipeline components, categorized by their confidenc
 | `adapt_low` | Low-confidence matches using Adapt | |
 | `ocp_low` | Low-confidence media-related queries | |
 | `fallback_low` | Low-priority fallback skill matches | |
-| `common_query` | Sends utterance to common_query skills | Best match among skills |
+| `common_qa` | Sends utterance to common-query skills | Best match among skills |
 | `ovos-persona-pipeline-plugin-low` | Persona catch-all fallback | |
 | `ovos-m2v-pipeline-low` | Multilingual intent classifier | Only supports default skills |
 

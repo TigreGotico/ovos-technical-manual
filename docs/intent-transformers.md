@@ -15,20 +15,22 @@ This is useful for:
 
 * Contextual enrichment
 
-Transformers operate on `IntentHandlerMatch` or `PipelineMatch` objects and are executed **in order of priority**. They enable complex processing pipelines without requiring every skill to reimplement entity logic.
+Each transformer subclasses `IntentTransformer` (`ovos_plugin_manager.templates.transformers`), registers under the `opm.transformer.intent` entry-point group, and operates on the `IntentHandlerMatch` object returned by the matching pipeline. They are loaded and chained by `IntentTransformersService` in `ovos-core` (`ovos_core/transformers.py`).
+
+Transformers run sorted by `priority`, **highest first** — so a transformer with `priority` 1 runs *last* and gets the final say over `match_data`. This lets you reimplement entity logic once instead of in every skill.
 
 ---
 
 ## Default Transformers
 
-In a standard OVOS installation, the following plugins are **installed and enabled by default**:
+`ovos-core` declares these two plugins as dependencies, so a standard install ships with them present. Each one only *runs* when its plugin name is listed under `intent_transformers` in your config:
 
-| Plugin                          | Description                                                                                        | Priority |
-|---------------------------------| -------------------------------------------------------------------------------------------------- | -------- |
-| `ovos-keyword-template-matcher` | Extracts values from `{placeholder}`-style intent templates                                        | 1        |
-| `ovos-ahocorasick-ner-plugin`   | Performs NER using Aho-Corasick keyword matching based on registered entities from skill templates | 5        |
+| Plugin name (config key)        | PyPI package                | Description                                                                                         | Priority |
+|---------------------------------|-----------------------------| -------------------------------------------------------------------------------------------------- | -------- |
+| `ovos-keyword-template-matcher` | `keyword-template-matcher`  | Extracts values from `{placeholder}`-style intent templates                                        | 1        |
+| `ovos-ahocorasick-ner-plugin`   | `ahocorasick-ner`           | Performs NER using Aho-Corasick keyword matching based on registered entities from skill templates | 5        |
 
-These are **not built into core**, but are bundled in standard OVOS setups and configured via `intent_transformers` in your configuration file.
+A transformer is loaded only if its plugin name appears under `intent_transformers`; set `"active": false` to skip it. (Note: `ahocorasick-ner` runs before `keyword-template-matcher`, since 5 > 1.)
 
 ---
 
@@ -55,16 +57,16 @@ To enable or disable specific transformers, modify your `mycroft.conf`:
 
 ### Example Workflow
 
-1. An utterance matches an intent via Padatious, Adapt, or another engine.
+1. An utterance matches an intent via Padatious, Adapt, or another engine, producing an `IntentHandlerMatch`.
 
 
-2. The matched intent is passed to the `IntentTransformersService`.
+2. The `IntentService` passes that match to `IntentTransformersService.transform(match)`.
 
 
-3. Each registered transformer plugin runs its `transform()` method.
+3. Each registered transformer plugin runs its `transform()` method in priority order (highest first), each receiving the match returned by the previous one.
 
 
-4. Extracted entities are injected into the intent’s `match_data`.
+4. Extracted entities are injected into the intent's `match_data`.
 
 
 5. The updated `match_data` is passed to the skill via the `Message` object.
@@ -117,18 +119,28 @@ match_data = {
 
 ## Writing Your Own Intent [Transformer](transformer-plugins.md)
 
-To create a custom transformer:
+Subclass `IntentTransformer` and implement `transform()` (the base declares it abstract). The method receives and must return an `IntentHandlerMatch`; mutate its `match_data` in place and return it. Register under the `opm.transformer.intent` entry-point group.
 
 ```python
 from ovos_plugin_manager.templates.transformers import IntentTransformer
+from ovos_plugin_manager.templates.pipeline import IntentHandlerMatch
 
 class MyCustomTransformer(IntentTransformer):
     def __init__(self, config=None):
         super().__init__("my-transformer", priority=10, config=config)
 
-    def transform(self, intent):
-        # Modify intent.match_data here
+    def transform(self, intent: IntentHandlerMatch) -> IntentHandlerMatch:
+        # enrich the matched intent, e.g. inject extracted entities
+        intent.match_data["my_entity"] = "value"
         return intent
 
 ```
+
+```toml
+[project.entry-points."opm.transformer.intent"]
+my-transformer = "my_module:MyCustomTransformer"
+
+```
+
+Unlike utterance transformers, intent transformers get the message bus attached (`bind(bus)`) when loaded, so `self.bus` is available inside `transform()`.
 
