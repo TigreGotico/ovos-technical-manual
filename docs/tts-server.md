@@ -37,7 +37,7 @@ In your `mycroft.conf` (or equivalent) under the `tts` section:
 **Launch the server**  
 
 ```bash
-ovos-stt-server \
+ovos-tts-server \
  --engine ovos-tts-plugin-xxx \
  --host 0.0.0.0 \
  --port 9666
@@ -59,22 +59,16 @@ curl http://localhost:9666/status
 
 ```bash
 $ ovos-tts-server --help
-usage: ovos-tts-server [-h] [--engine ENGINE] [--port PORT] [--host HOST] [--cache] [--lang LANG] [--gradio] [--title TITLE] [--description DESCRIPTION]
-                       [--info INFO] [--badge BADGE]
+usage: ovos-tts-server [-h] [--engine ENGINE] [--port PORT] [--host HOST] [--cache] [--lang LANG] [--mcp]
 
 options:
   -h, --help            show this help message and exit
   --engine ENGINE       tts plugin to be used
-  --port PORT           port number
-  --host HOST           host
+  --port PORT           port number (default: 9666)
+  --host HOST           host (default: 0.0.0.0)
   --cache               save every synth to disk
-  --lang LANG           default language supported by plugin
-  --gradio              Enable Gradio Web UI
-  --title TITLE         Title for webUI
-  --description DESCRIPTION
-                        Text description to print in UI
-  --info INFO           Text to display at end of UI
-  --badge BADGE         URL of visitor badge
+  --lang LANG           default language supported by plugin (default: en-us)
+  --mcp                 mount MCP server at /mcp (requires ovos-tts-server[mcp])
 
 ```
 
@@ -86,10 +80,13 @@ options:
   Spins up a FastAPI application exposing RESTful endpoints for synthesis and status checks.
 
 - **Plugin Loading**  
-  Dynamically loads any OVOS TTS plugin via Python entry points—no code changes needed when adding new voices.
+  `--engine` names any `opm.tts` plugin entry point; it is loaded dynamically via the OVOS Plugin Manager—no code changes needed when adding new voices. Plugin config is read from the `tts` section of your `mycroft.conf`.
 
 - **Caching**  
-  When `--cache` is enabled, every synthesis request is stored as a WAV file for debugging or reuse.
+  When `--cache` is enabled, every synthesis request is stored on disk for debugging or reuse.
+
+- **Compatibility routers**  
+  The app also mounts drop-in compatible routers so existing cloud-TTS clients work unchanged: ElevenLabs, OpenAI, Coqui, Google, Amazon Polly, Azure, MaryTTS, Cartesia, Deepgram Aura, and PlayHT. A `GET /utcp` manual advertises the endpoints to UTCP agents, and `--mcp` mounts an MCP server at `/mcp` (requires the `mcp` extra).
 
 - **Scalability**  
   Stateless by design—run multiple instances behind NGINX, Traefik, or Kubernetes with round‑robin or load‑based
@@ -99,24 +96,28 @@ options:
 
 ## HTTP API Endpoints
 
-| Endpoint                  | Method | Description                                       |
-|---------------------------|--------|---------------------------------------------------|
-| `/status`                 | GET    | Returns loaded plugin names and versions.         |
-| `/synthesize/{utterance}` | GET    | URL‑encoded text → WAV audio bytes.               |
-| `/v2/synthesize`          | GET    | JSON `{utterance: string, voice?: string}` → WAV. |
-| `/docs`                   | GET    | Interactive OpenAPI (Swagger) docs.               |
+| Endpoint                  | Method | Description                                                          |
+|---------------------------|--------|---------------------------------------------------------------------|
+| `/status`                 | GET    | Returns loaded plugin name, supported langs/voices, default model/voice. |
+| `/synthesize/{utterance}` | GET    | Legacy: URL‑encoded text in the path → synthesized audio file.      |
+| `/v2/synthesize`          | GET    | `utterance` (required) plus optional query params → synthesized audio file. |
+| `/utcp`                   | GET    | UTCP tool-discovery manual (JSON).                                  |
+| `/docs`                   | GET    | Interactive OpenAPI (Swagger) docs.                                 |
 
-> any query parameters passed to `/v2/synthesize` will be forwarded to the individual plugins `get_tts` method if they are defined as kwargs there. 
-> 💡 This allows `"voice"` and `"lang"` to be defined at runtime and not by plugin config at load time (for plugins that support it)
+> Both synthesis endpoints respond with a `FileResponse` (the audio file written by the plugin, WAV by default).
+> Any extra query parameters on `/v2/synthesize` (besides `utterance`) are forwarded to the plugin's `get_tts` method as kwargs.
+> 💡 This allows `"voice"` and `"lang"` to be set per-request at runtime rather than only by plugin config at load time (for plugins that support it). A missing `utterance` returns HTTP 400.
 
 ---
 
 ## Companion Plugin
 
-Point your OVOS instance at this TTS server:
+Point your OVOS instance at this TTS server with the companion client plugin
+(repo `ovos-tts-server-plugin`, class `OVOSServerTTS`, entry point and PyPI package
+`ovos-tts-plugin-server`):
 
 ```bash
-pip install ovos-tts-server-plugin
+pip install ovos-tts-plugin-server
 
 ```
 
@@ -127,15 +128,26 @@ pip install ovos-tts-server-plugin
   "tts": {
     "module": "ovos-tts-plugin-server",
     "ovos-tts-plugin-server": {
-        "host": "http://localhost:9667",
+        "host": "http://localhost:9666",
         "voice": "xxx",
-        "verify_ssl": false,
+        "v2": true,
+        "verify_ssl": true,
         "tts_timeout": 5
      }
  } 
 }
 
 ```
+
+Config keys:
+
+| Key | Default | Description |
+|-----|---------|-------------|
+| `host` | public servers | Server base URL, or a list of URLs to try in order. If unset, a built-in list of public OVOS TTS servers is shuffled and used. |
+| `v2` | `true` | Use `/v2/synthesize` (utterance as a query param); set `false` to use the legacy `/synthesize/{utterance}` path. |
+| `voice` | plugin default | Voice name forwarded as a query param (omitted when unset or `"default"`). |
+| `verify_ssl` | `true` | Verify the server's TLS certificate. |
+| `tts_timeout` | `5` | Per-request timeout in seconds. |
 
 ---
 
@@ -144,7 +156,7 @@ pip install ovos-tts-server-plugin
 **Create a Dockerfile**
 
 ```dockerfile
-FROM python:3.7-slim
+FROM python:3.11-slim
 RUN pip install ovos-tts-server
 RUN pip install {YOUR_TTS_PLUGIN}
 ENTRYPOINT ["ovos-tts-server", "--engine", "{YOUR_TTS_PLUGIN}"]
@@ -155,7 +167,7 @@ ENTRYPOINT ["ovos-tts-server", "--engine", "{YOUR_TTS_PLUGIN}"]
 
 ```bash
 docker build -t my-ovos-tts .
-docker run -p 8080:9666 my-ovos-tts
+docker run -p 9666:9666 my-ovos-tts
 
 ```
 
@@ -166,10 +178,12 @@ repository.
 
 ## Tips & Caveats
 
+- **Default port is 9666, not 8080.** The companion plugin defaults to `/v2/synthesize`; if you point an old client at the legacy `/synthesize/{utterance}` path, set `"v2": false` in its config.
+
 - **Audio Formats**: By default, outputs WAV (PCM). If you need MP3 or OGG, wrap with an external converter or check
   plugin support.
 
-- **Disk Usage**: Caching every file can grow large; monitor `./cache/` or disable with `--no-cache`.
+- **Disk Usage**: `--cache` saves every synthesis to disk; that directory grows unbounded. Omit the flag to disable caching (there is no `--no-cache` flag — caching is simply off by default).
 
 
 - **Security**: Consider adding API keys or putting a reverse proxy (NGINX, Traefik) in front for SSL termination and

@@ -149,22 +149,37 @@ Implementations: `ClaudeYesNoEngine`, `GGUFYesNoEngine`.
 
 ## Coreference Resolution — `opm.agents.coref`
 
+**Base class:** `CoreferenceEngine`
+
 Resolves pronouns and ambiguous references in voice commands against recent conversation context.
-Avoids redundant API calls by first checking a per-language pronoun wordlist.
+The base class owns the *state* (a per-language context vault); the plugin subclass provides the
+*intelligence* (the NLP that rewrites the text). `resolve()` first calls `contains_corefs()` to
+skip expensive work when no pronouns are present.
 
 ```python
 
-# After "Play Bohemian Rhapsody":
+# Stateless one-shot resolution:
 result = engine.resolve("Turn it off", lang="en")
+
+# With memory: register context, then resolve future turns against it
+engine.set_context("it", "Bohemian Rhapsody", lang="en")
+result = engine.resolve("Turn it off", lang="en", use_memory=True)
 
 # "Turn Bohemian Rhapsody off"
 
 ```
 
-`context_ttl` (default 120 s) controls how long a tracked context entry remains valid —
-`ovos_claude.coref:ClaudeCoreferenceEngine.__init__`.
+`use_memory` (default `False`) gates the learn/apply-context steps — pass `use_memory=True` to
+have `resolve()` apply previously registered context and learn new mappings from each turn.
+`context_ttl` (config key, default `120` s) controls how long a tracked context entry remains
+valid before it is pruned.
 
 Implementations: `ClaudeCoreferenceEngine`, `GGUFCoreferenceEngine`.
+
+> **Upcoming:** [pronomial](https://github.com/TigreGotico/pronomial) is gaining a new-style
+> `PronomialCoreferenceEngine` registered under `opm.agents.coref` (as `pronomial`) — a local,
+> no-API coreference backend with per-language pronoun wordlists. See
+> [TigreGotico/pronomial#6](https://github.com/TigreGotico/pronomial/pull/6) (draft).
 
 ---
 

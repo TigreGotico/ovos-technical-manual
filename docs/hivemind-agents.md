@@ -77,7 +77,7 @@ in your hivemind config file `~/.config/hivemind-core/server.json`
 	  "ovos-solver-openai-plugin": {
 		"api_url": "https://llama.smartgic.io/v1",
 		"key": "sk-xxxx",
-		"persona": "helpful, creative, clever, and very friendly."
+		"system_prompt": "You are helpful, creative, clever, and very friendly."
 	  }
 	}
     }
@@ -85,6 +85,25 @@ in your hivemind config file `~/.config/hivemind-core/server.json`
 }
 
 ```
+
+The `persona` value may be either an inline config dict (as above) or a path to an
+[ovos-persona](https://github.com/OpenVoiceOS/ovos-persona) JSON file (string, `~` is
+expanded).
+
+Then install the plugin and start the hub:
+
+```bash
+pip install hivemind-persona-agent-plugin
+hivemind-core add-client   # provision a client (one-time)
+hivemind-core listen       # start the server
+```
+
+> 💡 Unlike `hivemind-ovos-agent-plugin`, the persona agent needs no running
+> `ovos-core` and no OVOS messagebus — it answers straight from the configured
+> persona. The `"module"` value under `agent_protocol` must match the plugin's
+> entry-point name exactly (`hivemind-persona-agent-plugin`), and the same string is
+> reused as the key holding its config.
+
 ---
 
 ## HiveMind as a [Solver](agent-plugins.md) Plugin

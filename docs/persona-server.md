@@ -1,89 +1,128 @@
 # OVOS Persona Server
 
+The OVOS Persona Server exposes any OVOS [persona](https://openvoiceos.github.io/ovos-technical-manual/150-personas/) over HTTP using the APIs of the major LLM vendors, so an OVOS persona becomes a drop-in replacement for an LLM backend in third-party tools. A single server simultaneously serves OpenAI-, Ollama-, Anthropic-, Gemini-, Cohere-, AWS Bedrock- and HuggingFace TGI-compatible endpoints, plus optional embeddings/RAG, MCP, UTCP and A2A surfaces.
 
-The OVOS Persona Server makes any defined persona available through an API compatible with OpenAI and Ollama, allowing you to use OVOS personas as drop-in replacements for traditional large language models (LLMs) in other tools and platforms.
+It is a FastAPI app served by `uvicorn`. A persona is loaded from a JSON file at startup; the persona's `solvers` do the actual work (anything from a local rule-based bot to a remote LLM).
 
 ---
 
-## Usage Guide
-
-To start the Persona Server with a specific persona file:
+## Install
 
 ```bash
-$ ovos-persona-server --persona my_persona.json
-
+pip install ovos-persona-server
 ```
 
-This will launch a local server (default: `http://localhost:8337`) that exposes the persona via OpenAI and Ollama-compatible endpoints.
+Install the solver plugin(s) your persona references, e.g.:
+
+```bash
+pip install ovos-solver-openai-plugin
+```
 
 ---
 
-## Technical Explanation
+## Run
 
-A **persona** in OVOS is a predefined character or assistant configuration that can respond to user inputs, leveraging OVOS’s conversational tools. The **Persona Server** acts as a gateway that translates external API requests (like those from OpenAI or Ollama clients) into interactions with this persona.
+```bash
+ovos-persona-server --persona my_persona.json --host 0.0.0.0 --port 8337
+```
 
-This enables seamless integration with a variety of existing tools that expect LLM-like behavior, including frameworks, bots, or smart home assistants.
+| Argument | Default | Description |
+|----------|---------|-------------|
+| `--persona` | `None` | Path to the persona `.json` file to load |
+| `--host` | `0.0.0.0` | Host to bind |
+| `--port` | `8337` | TCP port |
+| `--a2a-base-url` | `None` | Enable the A2A endpoint at `/a2a` and set its public base URL (e.g. `http://myhost:8337/a2a`). Requires the `a2a` extra. |
+
+The console script is `ovos-persona-server` (module `ovos_persona_server.__main__:main`).
 
 ---
 
-## OpenAI-Compatible API Example
+## The Persona File
 
-You can use the `openai` Python SDK to interact with the Persona Server:
+A persona is a JSON object whose `solvers` list names the plugins that answer queries. Per-solver config is keyed by the plugin name. Example pointing at an OpenAI-compatible LLM:
+
+```json
+{
+  "name": "kb-assistant",
+  "solvers": ["ovos-solver-openai-plugin"],
+  "ovos-solver-openai-plugin": {
+    "api_url": "https://llama.smartgic.io/v1",
+    "model": "llama3.1:8b",
+    "key": "sk-xxx"
+  }
+}
+```
+
+Solvers are tried in order; the first that returns an answer wins. Some solvers are **not** LLMs and keep no chat history — in that case only the last user message is processed.
+
+---
+
+## HTTP API Endpoints
+
+Endpoints are mounted under vendor-specific prefixes. Legacy unprefixed paths (`/v1/...` for OpenAI, `/api/...` for Ollama) are also mounted for backward compatibility and return a deprecation header.
+
+| Endpoint | Method | Compatible with |
+|----------|--------|-----------------|
+| `/openai/v1/chat/completions` | POST | OpenAI chat (streaming + tool calls) |
+| `/openai/v1/completions` | POST | OpenAI legacy completions |
+| `/ollama/api/chat` | POST | Ollama chat |
+| `/ollama/api/generate` | POST | Ollama generate |
+| `/ollama/api/tags`, `/show`, `/ps`, `/embed`, `/embeddings` | GET/POST | Ollama model listing + embeddings |
+| `/anthropic/v1/...` | POST | Anthropic Messages |
+| `/gemini/v1beta/models/...` | POST | Google Gemini |
+| `/cohere/v1/...` | POST | Cohere |
+| `/bedrock/model/...` | POST | AWS Bedrock |
+| `/tgi/...` | POST | HuggingFace Text Generation Inference |
+| `/openai/v1/files/...`, `/openai/v1/vector_stores/...` | * | OpenAI files + vector stores (RAG; requires the `rag` extra) |
+| `/utcp` | GET | UTCP tool-discovery manual |
+| `/a2a` | * | Agent-to-Agent (only when `--a2a-base-url` is set; requires the `a2a` extra) |
+| `/mcp` | * | MCP streamable-HTTP transport (mounted when the `mcp` extra is installed) |
+
+There is no authentication; put the server behind a reverse proxy if it is exposed.
+
+---
+
+## OpenAI-Compatible Example
+
+Point the `openai` SDK at the OpenAI prefix (`/openai/v1`, or the legacy `/v1`):
 
 ```python
-import openai
+from openai import OpenAI
 
-openai.api_key = ""  # No API key required for local use
-openai.api_base = "http://localhost:8337"
-
-response = openai.ChatCompletion.create(
-    model="",  # Optional: some personas may define specific models
-    messages=[{"role": "user", "content": "tell me a joke"}],
-    stream=False,
+client = OpenAI(
+    api_key="not-needed",                       # no key required for local use
+    base_url="http://localhost:8337/openai/v1",
 )
 
-if isinstance(response, dict):
-    # Non-streaming response
-    print(response.choices[0].message.content)
-else:
-    # Streaming response
-    for token in response:
-        content = token["choices"][0]["delta"].get("content")
-        if content:
-            print(content, end="", flush=True)
-
+resp = client.chat.completions.create(
+    model="",                                    # ignored; the persona decides
+    messages=[{"role": "user", "content": "tell me a joke"}],
+)
+print(resp.choices[0].message.content)
 ```
-
-🛈 **Note:** Some persona solvers are **not LLMs** and do **not** maintain chat history. Only the last message in the `messages` list is processed in some cases.
 
 ---
 
-## Ollama-Compatible API
+## Ollama-Compatible Use
 
-The server is also fully compatible with tools expecting an Ollama API.
-
-For example, the [Home Assistant Ollama integration](https://www.home-assistant.io/integrations/ollama/) can connect directly to an OVOS Persona Server, treating it as a local LLM backend.
+The Ollama surface (`/ollama/api/...`, legacy `/api/...`) lets Ollama clients treat the persona as a local model. For example, the [Home Assistant Ollama integration](https://www.home-assistant.io/integrations/ollama/) can connect directly and use the persona as its LLM backend. `/ollama/api/tags` reports the model name(s) from the persona's solver config.
 
 ---
 
 ## Tips
 
-- Make sure your persona file (`.json`) includes all the configuration details required by the solver or conversational backend.
+- **Mind the prefix.** Clients must hit `/openai/v1` (or legacy `/v1`), not the bare host root — pointing a client at `http://localhost:8337` alone will 404. Tool calling is only supported with `stream=false`.
 
+- Make sure your persona file's `solvers` and their config are complete; a missing plugin or model means the persona cannot answer.
 
-- If using in a production setting, consider securing your endpoint and defining rate limits.
+- Capabilities (chat history, tool use, embeddings) depend entirely on the chosen solver plugins, so behavior varies by persona.
 
-
-- Since personas can be highly customized, capabilities may vary depending on the persona used.
+- For production, secure the endpoint (reverse proxy, rate limits) — the server itself is unauthenticated.
 
 ---
 
 ## Related Links
 
 - [OVOS Personas](https://openvoiceos.github.io/ovos-technical-manual/150-personas/)
-
-
 - [OpenAI Python SDK](https://github.com/openai/openai-python)
-
-
 - [Home Assistant Ollama Integration](https://www.home-assistant.io/integrations/ollama/)

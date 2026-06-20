@@ -1,12 +1,14 @@
 # GGUF / Local LLM Agent Plugin (`ovos-gguf-plugin`)
 
-`ovos-gguf-plugin` provides feature-parity with [ovos-claude-plugin](claude-plugin.md) using
-locally-running GGUF models powered by [`llama-cpp-python`](https://github.com/abetlen/llama-cpp-python).
-No API keys, no network access, no cloud dependency — suitable for offline, air-gapped, or
-privacy-sensitive deployments.
+`ovos-gguf-plugin` runs local GGUF models through
+[`llama-cpp-python`](https://github.com/abetlen/llama-cpp-python) — no API keys, no network,
+suitable for offline, air-gapped, or privacy-sensitive deployments. It provides a chat engine,
+a summarizer, translation / language-detection, a text-embeddings plugin, and a dialog
+transformer.
 
-GGUF models can be loaded from a [Hugging Face Hub](https://huggingface.co) repository (downloaded
-on first use) or from a local `.gguf` file path.
+Models load from a [Hugging Face Hub](https://huggingface.co) repository (downloaded on first
+use) or from a local `.gguf` file path. Each engine loads its own `llama_cpp.Llama` instance;
+one `Llama` can be shared between engines by passing `gguf_engine=` in code.
 
 Install: `pip install ovos-gguf-plugin`
 
@@ -16,45 +18,39 @@ Repository: `OpenVoiceOS Workspace/Agent Plugins/ovos-gguf-plugin`
 
 ## Plugins Overview
 
-| Entry point | Class | Source |
-|---|---|---|
-| `opm.agents.chat` | `GGUFChatEngine` | `ovos_gguf_solver/chat.py` |
-| `opm.agents.summarizer` | `GGUFSummarizerEngine` | `ovos_gguf_solver/summarizer.py` |
-| `opm.agents.summarizer.chat` | `GGUFChatSummarizerEngine` | `ovos_gguf_solver/summarizer.py` |
-| `opm.agents.coref` | `GGUFCoreferenceEngine` | `ovos_gguf_solver/coref.py` |
-| `opm.agents.reranker` | `GGUFReRankerEngine` | `ovos_gguf_solver/reranker.py` |
-| `opm.agents.extractive_qa` | `GGUFExtractiveQAEngine` | `ovos_gguf_solver/qa.py` |
-| `opm.agents.nli` | `GGUFNLIEngine` | `ovos_gguf_solver/nli.py` |
-| `opm.agents.yesno` | `GGUFYesNoEngine` | `ovos_gguf_solver/nli.py` |
-| `opm.agents.memory` | `GGUFContextManager` | `ovos_gguf_solver/memory.py` |
-| `opm.transformer.text` | `GGUFUtteranceTransformer` | `ovos_gguf_solver/transformers.py` |
-| `opm.transformer.dialog` | `GGUFDialogTransformer` | `ovos_gguf_solver/transformers.py` |
+| Entry point | Plugin name | Class | Source |
+|---|---|---|---|
+| `opm.agents.chat` | `ovos-chat-gguf-plugin` | `GGUFChatEngine` | `ovos_gguf_plugin/chat.py` |
+| `opm.agents.summarizer` | `ovos-summarizer-gguf-plugin` | `GGUFSummarizer` | `ovos_gguf_plugin/summarizer.py` |
+| `opm.lang.translate` | `ovos-translate-gguf-plugin` | `GGUFTextTranslator` | `ovos_gguf_plugin/translate.py` |
+| `opm.lang.detect` | `ovos-lang-detect-gguf-plugin` | `GGUFTextLangDetector` | `ovos_gguf_plugin/translate.py` |
+| `opm.embeddings.text` | `ovos-gguf-embeddings-plugin` | `GGUFEmbeddings` | `ovos_gguf_plugin/embeddings.py` |
+| `opm.transformer.dialog` | `ovos-dialog-transformer-gguf-plugin` | `GGUFDialogTransformer` | `ovos_gguf_plugin/dialog_transformers.py` |
 
-A legacy `GGUFSolver` entry point (`neon.plugin.solver`) is also provided for backwards
-compatibility with older `ovos-persona` versions.
-
----
-
-## Shared Client: `GGUFClient`
-
-All engines delegate to `GGUFClient` — `ovos_gguf_solver/api.py:GGUFClient`.
-
-**The model is lazy-loaded on the first API call.** Construction is always cheap — no model is
-loaded until a request is made. This means OVOS startup is not delayed even when multiple GGUF
-engines are configured.
+!!! note "Scope"
+    Unlike `ovos-claude-plugin`, this plugin does **not** ship coref / reranker / extractive-QA /
+    NLI / yes-no / memory engines, a chat-summarizer, or an utterance transformer. For a local
+    LLM reranker, use `ovos-flashrank-reranker-plugin` instead.
 
 ---
 
 ## Common Configuration Keys
 
+Model loading happens in `GGUFChatEngine`, which the other engines delegate to.
+
 | Key | Type | Default | Description |
 |---|---|---|---|
-| `model` | `str` | required | Hugging Face repo ID (`"owner/repo-name-GGUF"`) or absolute path to a `.gguf` file. |
-| `remote_filename` | `str` | `null` | Glob pattern to select a specific GGUF file from the repo (e.g. `"*Q4_K_M.gguf"`). Required when using a Hub repo. |
-| `n_gpu_layers` | `int` | `0` | Number of layers to offload to GPU. `0` = CPU only. `-1` = all layers on GPU. |
-| `n_ctx` | `int` | `2048` | Context window size in tokens. |
-| `temperature` | `float` | `0.7` | Sampling temperature. |
-| `max_tokens` | `int` | `512` | Maximum tokens in the completion. |
+| `model` | `str` | required | Hugging Face repo id (`"owner/repo-name-GGUF"`) or absolute path to a `.gguf` file. |
+| `remote_filename` | `str` | `*Q4_K_M.gguf` | Glob selecting the GGUF file from a Hub repo (ignored for local-file `model`). |
+| `n_gpu_layers` | `int` | `0` | Layers offloaded to GPU. `0` = CPU only; `-1` = all layers on GPU. |
+| `chat_format` | `str` | `null` | `llama-cpp-python` chat template name (auto-detected if unset). |
+| `max_tokens` | `int` | `null` | Maximum tokens in the completion (`null` = model/llama.cpp default). |
+| `verbose` | `bool` | `true` | Pass-through to `llama_cpp.Llama`. |
+| `system_prompt` | `str` | `null` | Default system prompt. |
+| `allow_system_prompts` | `bool` | `false` | When `true`, caller system messages are merged with the configured prompt; when `false`, stripped. |
+
+A `model` value that is an existing file path is loaded with `Llama(model_path=...)`; otherwise
+it is treated as a Hub repo id and loaded with `Llama.from_pretrained(repo_id=..., filename=...)`.
 
 ### Minimal configuration (Hub model)
 
@@ -72,8 +68,7 @@ engines are configured.
 ```json
 {
   "model": "/home/user/models/llama-3.1-8b.gguf",
-  "n_gpu_layers": 20,
-  "n_ctx": 4096
+  "n_gpu_layers": 20
 }
 
 ```
@@ -82,16 +77,17 @@ engines are configured.
 
 ## Chat Engine (`opm.agents.chat`)
 
-**Class:** `GGUFChatEngine` — `ovos_gguf_solver/chat.py:GGUFChatEngine`
+**Class:** `GGUFChatEngine` — `ovos_gguf_plugin/chat.py:GGUFChatEngine`
 
-**OPM plugin name:** `ovos-gguf-chat-plugin`
+**OPM plugin name:** `ovos-chat-gguf-plugin`
 
-Multi-turn conversational LLM using a local GGUF model. API-compatible with `ClaudeChatEngine`
-and `OpenAIChatEngine` — drop-in replacement for offline use.
+Multi-turn conversational LLM using a local GGUF model. Implements `continue_chat`,
+`stream_tokens`, and `stream_sentences` — API-compatible with `ClaudeChatEngine` and
+`OpenAIChatEngine` for offline use.
 
 ```json
 {
-  "ovos-gguf-chat-plugin": {
+  "ovos-chat-gguf-plugin": {
     "model": "microsoft/Phi-3-mini-4k-instruct-gguf",
     "remote_filename": "*Q4_K_M.gguf",
     "n_gpu_layers": 0,
@@ -106,8 +102,8 @@ and `OpenAIChatEngine` — drop-in replacement for offline use.
 ```json
 {
   "name": "Local Phi-3",
-  "handlers": ["ovos-gguf-chat-plugin"],
-  "ovos-gguf-chat-plugin": {
+  "handlers": ["ovos-chat-gguf-plugin"],
+  "ovos-chat-gguf-plugin": {
     "model": "microsoft/Phi-3-mini-4k-instruct-gguf",
     "remote_filename": "*Q4_K_M.gguf",
     "n_gpu_layers": 0,
@@ -123,15 +119,23 @@ Activate by voice: `"Chat with Local Phi-3"`.
 
 ## Summarizer (`opm.agents.summarizer`)
 
-**Class:** `GGUFSummarizerEngine` — `ovos_gguf_solver/summarizer.py:GGUFSummarizerEngine`
+**Class:** `GGUFSummarizer` — `ovos_gguf_plugin/summarizer.py:GGUFSummarizer`
 
-**OPM plugin name:** `ovos-gguf-summarizer-plugin`
+**OPM plugin name:** `ovos-summarizer-gguf-plugin`
 
-Condenses a plain-text document into 1–3 sentences using a local GGUF model.
+Condenses a document into a short summary using a local GGUF model. Delegates generation to a
+`GGUFChatEngine`. The system prompt and user prompt default to the plugin's localized
+`.prompt` files; override with `system_prompt` and `prompt_template` (a template with a
+`{content}` placeholder).
+
+| Key | Type | Default | Description |
+|---|---|---|---|
+| `system_prompt` | `str` | localized `summarize_system` prompt | Instruction for the summarisation model. |
+| `prompt_template` | `str` | localized `summarize_user` prompt | Template with a `{content}` placeholder. |
 
 ```json
 {
-  "ovos-gguf-summarizer-plugin": {
+  "ovos-summarizer-gguf-plugin": {
     "model": "/path/to/model.gguf",
     "max_tokens": 256
   }
@@ -141,196 +145,46 @@ Condenses a plain-text document into 1–3 sentences using a local GGUF model.
 
 ---
 
-## Chat Summarizer (`opm.agents.summarizer.chat`)
+## Translation & Language Detection (`opm.lang.translate`, `opm.lang.detect`)
 
-**Class:** `GGUFChatSummarizerEngine` — `ovos_gguf_solver/summarizer.py:GGUFChatSummarizerEngine`
+**Classes:** `GGUFTextTranslator` / `GGUFTextLangDetector` — `ovos_gguf_plugin/translate.py`
 
-**OPM plugin name:** `ovos-gguf-chat-summarizer-plugin`
+**OPM plugin names:** `ovos-translate-gguf-plugin` / `ovos-lang-detect-gguf-plugin`
 
-Converts a structured `List[AgentMessage]` chat history into a concise narrative summary. Used
-internally by `GGUFContextManager` for memory compression.
-
-```json
-{
-  "ovos-gguf-chat-summarizer-plugin": {
-    "model": "/path/to/model.gguf"
-  }
-}
-
-```
-
----
-
-## Coreference Engine (`opm.agents.coref`)
-
-**Class:** `GGUFCoreferenceEngine` — `ovos_gguf_solver/coref.py:GGUFCoreferenceEngine`
-
-**OPM plugin name:** `ovos-gguf-coref-plugin`
-
-Resolves pronouns and ambiguous references in voice commands. Uses the same fast pronoun
-wordlist check as `ClaudeCoreferenceEngine` to avoid model inference on utterances with no
-pronouns.
+Translate text between languages or detect a text's language using a local GGUF model.
 
 ```json
 {
-  "ovos-gguf-coref-plugin": {
-    "model": "/path/to/model.gguf",
-    "context_ttl": 120
-  }
-}
-
-```
-
----
-
-## ReRanker (`opm.agents.reranker`)
-
-**Class:** `GGUFReRankerEngine` — `ovos_gguf_solver/reranker.py:GGUFReRankerEngine`
-
-**OPM plugin name:** `ovos-gguf-reranker-plugin`
-
-Scores candidate answers 0.0–1.0 using a local GGUF model and returns them sorted descending.
-Used by the [Common Query pipeline](cq-pipeline.md), [OCP](ocp-pipeline.md) media search, and
-[Mixture of Solvers](mos-plugin.md) as judge/king/referee.
-
-```json
-{
-  "ovos-gguf-reranker-plugin": {
-    "model": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
-    "remote_filename": "*Q4_K_M.gguf"
-  }
-}
-
-```
-
-For a non-LLM local reranker with no model download required, consider
-`ovos-flashrank-reranker-plugin` (cross-encoder transformer, CPU-only).
-
----
-
-## Extractive QA (`opm.agents.extractive_qa`)
-
-**Class:** `GGUFExtractiveQAEngine` — `ovos_gguf_solver/qa.py:GGUFExtractiveQAEngine`
-
-**OPM plugin name:** `ovos-gguf-extractive-qa-plugin`
-
-Given evidence text and a question, extracts and returns the exact passage that answers it.
-
-```json
-{
-  "ovos-gguf-extractive-qa-plugin": {
-    "model": "/path/to/model.gguf"
-  }
-}
-
-```
-
----
-
-## NLI Engine (`opm.agents.nli`)
-
-**Class:** `GGUFNLIEngine` — `ovos_gguf_solver/nli.py:GGUFNLIEngine`
-
-**OPM plugin name:** `ovos-gguf-nli-plugin`
-
-Determines whether a *premise* logically entails a *hypothesis* using a local GGUF model.
-
-```json
-{
-  "ovos-gguf-nli-plugin": {
-    "model": "/path/to/model.gguf"
-  }
-}
-
-```
-
----
-
-## Yes/No Classifier (`opm.agents.yesno`)
-
-**Class:** `GGUFYesNoEngine` — `ovos_gguf_solver/nli.py:GGUFYesNoEngine`
-
-**OPM plugin name:** `ovos-gguf-yesno-plugin`
-
-Classifies a user's ambiguous confirmation as `True` (yes), `False` (no), or `None` (unclear).
-
-```json
-{
-  "ovos-gguf-yesno-plugin": {
-    "model": "/path/to/model.gguf"
-  }
-}
-
-```
-
----
-
-## Context Manager / Memory (`opm.agents.memory`)
-
-**Class:** `GGUFContextManager` — `ovos_gguf_solver/memory.py:GGUFContextManager`
-
-**OPM plugin name:** `ovos-gguf-memory-plugin`
-
-Manages per-session conversation history with optional automatic compression via the local GGUF
-model when history exceeds `max_history` messages.
-
-| Key | Type | Default | Description |
-|---|---|---|---|
-| `system_prompt` | `str` | `""` | System prompt prepended to every built context. |
-| `max_history` | `int` | `20` | Number of user/assistant messages before compression. `0` = disable. |
-| `compress` | `bool` | `true` | Enable automatic history compression via the local model. |
-
-```json
-{
-  "ovos-gguf-memory-plugin": {
-    "model": "/path/to/model.gguf",
-    "system_prompt": "You are a helpful assistant.",
-    "max_history": 10,
-    "compress": true
-  }
-}
-
-```
-
-### Offline persona with memory
-
-```json
-{
-  "name": "Offline Assistant",
-  "memory_module": "ovos-gguf-memory-plugin",
-  "handlers": ["ovos-gguf-chat-plugin"],
-  "ovos-gguf-chat-plugin": {
-    "model": "/path/to/model.gguf",
-    "system_prompt": "You are a helpful assistant."
-  },
-  "ovos-gguf-memory-plugin": {
-    "model": "/path/to/model.gguf",
-    "max_history": 10,
-    "compress": true
-  }
-}
-
-```
-
----
-
-## Utterance [Transformer](transformer-plugins.md) (`opm.transformer.text`)
-
-**Class:** `GGUFUtteranceTransformer` — `ovos_gguf_solver/transformers.py:GGUFUtteranceTransformer`
-
-**OPM plugin name:** `ovos-utterance-transformer-gguf-plugin`
-
-Runs after ASR, before intent matching. Normalises informal or noisy speech to standard form
-using a local GGUF model. Falls back to the original utterance on inference error.
-
-```json
-{
-  "utterance_transformers": {
-    "ovos-utterance-transformer-gguf-plugin": {
-      "model": "microsoft/Phi-3-mini-4k-instruct-gguf",
-      "remote_filename": "*Q4_K_M.gguf",
-      "n_gpu_layers": 0
+  "language": {
+    "translation_module": "ovos-translate-gguf-plugin",
+    "detection_module": "ovos-lang-detect-gguf-plugin",
+    "ovos-translate-gguf-plugin": {
+      "model": "/path/to/model.gguf"
+    },
+    "ovos-lang-detect-gguf-plugin": {
+      "model": "/path/to/model.gguf"
     }
+  }
+}
+
+```
+
+---
+
+## Text Embeddings (`opm.embeddings.text`)
+
+**Class:** `GGUFEmbeddings` — `ovos_gguf_plugin/embeddings.py:GGUFEmbeddings`
+
+**OPM plugin name:** `ovos-gguf-embeddings-plugin`
+
+Produces text embeddings via a GGUF embedding model executed through `llama.cpp`. A built-in
+registry maps friendly names to their Hub location; any other `model` value is treated as a
+repo id or local path.
+
+```json
+{
+  "ovos-gguf-embeddings-plugin": {
+    "model": "/path/to/embedding-model.gguf"
   }
 }
 
@@ -340,13 +194,14 @@ using a local GGUF model. Falls back to the original utterance on inference erro
 
 ## Dialog Transformer (`opm.transformer.dialog`)
 
-**Class:** `GGUFDialogTransformer` — `ovos_gguf_solver/transformers.py:GGUFDialogTransformer`
+**Class:** `GGUFDialogTransformer` — `ovos_gguf_plugin/dialog_transformers.py:GGUFDialogTransformer`
 
 **OPM plugin name:** `ovos-dialog-transformer-gguf-plugin`
 
-Runs after skill response generation, before [TTS](tts-plugins.md) synthesis. Rewrites skill responses using a
-local GGUF model. Only invoked when a `rewrite_prompt` is configured. Falls back to the original
-dialog on inference error.
+Runs after skill response generation, before [TTS](tts-plugins.md) synthesis. Rewrites skill
+responses with a local GGUF model. Only invoked when a `rewrite_prompt` is configured (via
+config or `context["prompt"]`); falls back to the original dialog otherwise. Default priority:
+`10`. The system prompt defaults to the localized `dialog_transform_system` prompt.
 
 ```json
 {
@@ -369,8 +224,7 @@ dialog on inference error.
 |---|---|---|
 | Real-time voice (low latency) | 1B–3B parameters | `Phi-3-mini` Q4_K_M |
 | General purpose | 7B–8B parameters | `Llama-3.1-8B` Q4_K_M |
-| Complex reasoning | 13B+ parameters | `Llama-3.1-13B` Q4_K_M |
-| Memory-constrained devices | 1B parameters | `Qwen2.5-1.5B` Q4_K_M |
+| Memory-constrained devices | 1B–1.5B parameters | `Qwen2.5-1.5B` Q4_K_M |
 
 Quantization level guide:
 
@@ -402,7 +256,7 @@ offload for limited VRAM). `0` = CPU only.
 Requires `llama-cpp-python` to be compiled with CUDA or Metal support:
 
 ```bash
-CMAKE_ARGS="-DLLGGML_CUDA=on" pip install llama-cpp-python --force-reinstall
+CMAKE_ARGS="-DGGML_CUDA=on" pip install llama-cpp-python --force-reinstall
 
 ```
 
@@ -416,7 +270,7 @@ CMAKE_ARGS="-DLLGGML_CUDA=on" pip install llama-cpp-python --force-reinstall
 - [Personas & PersonaService](personas.md) — how to load and activate personas
 
 
-- [LLM Transformers](llm-transformers.md) — utterance and dialog transformer pipeline
+- [LLM Transformers](llm-transformers.md) — dialog transformer pipeline
 
 
 - [Mixture of Solvers](mos-plugin.md) — using GGUF engines as offline workers in MoS

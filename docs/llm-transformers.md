@@ -9,6 +9,9 @@ independently of the persona system but can use the same LLM backends.
 
 - **Dialog transformers** (`opm.transformer.dialog`) — run after skill response generation, before TTS.
 
+LLM-backed implementations are provided by `ovos-claude-plugin` (utterance + dialog) and
+`ovos-openai-plugin` / `ovos-gguf-plugin` (dialog only).
+
 Multiple transformers of each type can be stacked. The `priority` config key controls
 execution order (lower number = runs earlier).
 
@@ -24,7 +27,7 @@ dict.
 
 `ClaudeUtteranceTransformer` — `ovos_claude/transformers.py:ClaudeUtteranceTransformer`
 
-Entry point: `opm.transformer.utterance` (`ovos-utterance-transformer-claude-plugin`)
+Entry point: `opm.transformer.text` (`ovos-utterance-transformer-claude-plugin`)
 
 Normalises informal or noisy speech to standard form. Falls back to the original utterance on
 API error.
@@ -50,27 +53,8 @@ print(result)  # ["What is 2 plus 2?"]
 ```
 
 Default priority is `10` — runs early in the transformer chain before other plugins.
-
-### GGUF Utterance Transformer
-
-`GGUFUtteranceTransformer` — `ovos_gguf_solver/transformers.py:GGUFUtteranceTransformer`
-
-Entry point: `opm.transformer.text` (`ovos-utterance-transformer-gguf-plugin`)
-
-Same behaviour using a locally-running GGUF model — no API key or network required:
-
-```json
-{
-  "utterance_transformers": {
-    "ovos-utterance-transformer-gguf-plugin": {
-      "model": "owner/repo-name-GGUF",
-      "remote_filename": "*Q4_K_M.gguf",
-      "n_gpu_layers": 0
-    }
-  }
-}
-
-```
+`ovos-claude-plugin` is the only LLM agent plugin that ships an utterance transformer;
+`ovos-gguf-plugin` and `ovos-openai-plugin` provide dialog transformers only.
 
 ### OVOS Transcription Validator
 
@@ -159,7 +143,7 @@ Works with any OpenAI-compatible endpoint — OpenAI, Ollama, llama.cpp, or
 
 ### GGUF Dialog Transformer
 
-`GGUFDialogTransformer` — `ovos_gguf_solver/transformers.py:GGUFDialogTransformer`
+`GGUFDialogTransformer` — `ovos_gguf_plugin/dialog_transformers.py:GGUFDialogTransformer`
 
 Fully offline alternative using a local GGUF model:
 

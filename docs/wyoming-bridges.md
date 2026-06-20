@@ -9,11 +9,20 @@ OVOS provides three Wyoming bridge packages that expose any installed OVOS plugi
 Wyoming-compatible server. This allows Home Assistant, Rhasspy, and other Wyoming clients
 to use OVOS engines without knowing anything about the OVOS plugin system.
 
-| Bridge | Package | Default port | OVOS plugin type |
+| Bridge | Package | Example port | OPM plugin group loaded |
 |---|---|---|---|
-| `wyoming-ovos-stt` | `wyoming-ovos-stt` | 7891 | `opm.plugin.stt` |
-| `wyoming-ovos-tts` | `wyoming-ovos-tts` | 7892 | `opm.plugin.tts` |
-| `wyoming-ovos-wakeword` | `wyoming-ovos-wakeword` | 7893 | `opm.plugin.wake_word` |
+| `wyoming-ovos-stt` | `wyoming-ovos-stt` | 7891 | `opm.stt` |
+| `wyoming-ovos-tts` | `wyoming-ovos-tts` | 7892 | `opm.tts` |
+| `wyoming-ovos-wakeword` | `wyoming-ovos-wakeword` | 7893 | `opm.wake_word` |
+
+> The port is not a built-in default — it is set by the `--uri` you pass. The
+> values above are the conventional ports used in the upstream READMEs and the
+> examples below. `wyoming-ovos-stt` requires `--uri`; `wyoming-ovos-tts` and
+> `wyoming-ovos-wakeword` default to `stdio://`.
+
+These three are standalone Wyoming **servers** (console-script entry points), not
+OVOS plugins themselves — each loads an installed OVOS plugin from the matching OPM
+entry-point group and re-exposes it over the Wyoming protocol.
 
 All three bridges:
 
@@ -23,7 +32,7 @@ All three bridges:
 - Read plugin configuration from `mycroft.conf` (standard OVOS config file)
 
 
-- Run as standalone async TCP servers using the `wyoming` library
+- Run as standalone async Wyoming servers (TCP, Unix socket, or stdio) using the `wyoming` library
 
 ---
 
@@ -377,9 +386,9 @@ without manual IP configuration.
 
 | Bridge | Entry point group | Base class | Factory |
 |---|---|---|---|
-| STT | `opm.plugin.stt` | `ovos_plugin_manager.templates.stt.STT` | `OVOSSTTFactory` |
-| TTS | `opm.plugin.tts` | `ovos_plugin_manager.templates.tts.TTS` | `OVOSTTSFactory` |
-| Wake word | `opm.plugin.wake_word` | `ovos_plugin_manager.templates.hotwords.HotWordEngine` | `OVOSWakeWordFactory` |
+| STT | `opm.stt` | `ovos_plugin_manager.templates.stt.STT` | `OVOSSTTFactory` |
+| TTS | `opm.tts` | `ovos_plugin_manager.templates.tts.TTS` | `OVOSTTSFactory` |
+| Wake word | `opm.wake_word` | `ovos_plugin_manager.templates.hotwords.HotWordEngine` | `OVOSWakeWordFactory` |
 
 All three bridges use `OVOSSTTFactory` / `OVOSTTSFactory` / `OVOSWakeWordFactory` from
 `ovos-plugin-manager` for plugin discovery and instantiation. See

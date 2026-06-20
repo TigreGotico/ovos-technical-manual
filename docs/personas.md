@@ -16,19 +16,25 @@ are discovered and loaded by `ovos-plugin-manager` at runtime using Python entry
 | Entry point group | Base class | Purpose |
 |---|---|---|
 | `opm.agents.chat` | `ChatEngine` | Multi-turn conversational LLM |
-| `opm.agents.chat.multimodal` | `MultimodalChatEngine` | Chat + vision (base64 images) |
+| `opm.agents.chat.multimodal` | `MultimodalChatEngine` | Chat + vision/audio/files (base64) |
+| `opm.agents.multimodal_adapter` | `MultimodalAdapter` | Describe non-text content as text |
 | `opm.agents.summarizer` | `SummarizerEngine` | Condense long text to a few sentences |
-| `opm.agents.summarizer.chat` | — | Compress structured chat history |
+| `opm.agents.summarizer.chat` | `ChatSummarizerEngine` | Compress structured chat history |
 | `opm.agents.reranker` | `ReRankerEngine` | Score and rank candidate answers |
+| `opm.agents.option_matcher` | `OptionMatcherEngine` | Match an utterance to a fixed option set |
 | `opm.agents.extractive_qa` | `ExtractiveQAEngine` | Extract the best passage from evidence |
 | `opm.agents.nli` | `NaturalLanguageInferenceEngine` | Entailment prediction (premise → hypothesis) |
-| `opm.agents.yesno` | — | Classify ambiguous responses as yes / no / unknown |
-| `opm.agents.coref` | — | Pronoun / coreference resolution |
+| `opm.agents.yesno` | `YesNoEngine` | Classify ambiguous responses as yes / no / unknown |
+| `opm.agents.coref` | `CoreferenceEngine` | Pronoun / coreference resolution |
 | `opm.agents.memory` | `AgentContextManager` | Per-session conversation history management |
 | `opm.agents.retrieval` | `RetrievalEngine` | Retrieval-augmented generation |
+| `opm.agents.retrieval.documents` | `DocumentIndexerEngine` | Index + retrieve over a document corpus |
+| `opm.agents.retrieval.qa` | `QAIndexerEngine` | Index + retrieve over a Q/A corpus |
+| `opm.agents.toolbox` | — | Tool/function-calling registry |
 
-All base classes live in `ovos_plugin_manager.templates.agents`. The `AgentMessage` dataclass
-carries messages between engines:
+Each group has a parallel `*.config` group for plugin config metadata. All base classes live in
+`ovos_plugin_manager.templates.agents`. The `AgentMessage` dataclass carries messages between
+engines:
 
 ```python
 from ovos_plugin_manager.templates.agents import AgentMessage, MessageRole
@@ -37,7 +43,7 @@ msg = AgentMessage(role=MessageRole.USER, content="What is the speed of light?")
 
 ```
 
-`MessageRole` values: `SYSTEM`, `DEVELOPER`, `USER`, `ASSISTANT`.
+`MessageRole` values: `SYSTEM`, `DEVELOPER`, `USER`, `ASSISTANT`, `TOOL`.
 
 See [Agent Plugins](agent-plugins.md) for the full engine-type reference and configuration
 examples for Claude, OpenAI, and local GGUF models.
@@ -93,6 +99,23 @@ history across turns:
 
 The `memory_module` key names an `opm.agents.memory` plugin. The default when omitted is
 `"ovos-agents-short-term-memory-plugin"` — `BasicShortTermMemory` from `ovos-persona`.
+
+#### Memory backends
+
+| Plugin / entry point | Package | Backend |
+|---|---|---|
+| `ovos-agents-short-term-memory-plugin` (`BasicShortTermMemory`) | `ovos-persona` | In-RAM short-term history, no API key |
+| `ovos-memory-plugin-longterm` (`LongTermMemory`) | `ovos-memory-plugins` | Local JSON/SQLite store (uses an OpenAI-compatible endpoint only for LLM summarization) |
+| `ovos-memory-claude-plugin` (`ClaudeContextManager`) | `ovos-claude-plugin` | LLM-compressed history via Claude |
+
+`ovos-memory-plugins` is **local-first**: server- / cloud-coupled RAG memory lives in
+`ovos-openai-plugin` as `PersonaServerRAGMemory` (`ovos-openai-rag-memory-plugin`), not here.
+
+> **Upcoming:** [OpenVoiceOS/ovos-memory-plugins#9](https://github.com/OpenVoiceOS/ovos-memory-plugins/pull/9)
+> (draft) makes the package purely local-first: it adds `LocalRAGMemory`
+> (`ovos-memory-plugin-local-rag`), a fully in-process RAG backend using local OVOS embeddings +
+> an `EmbeddingsDB` plugin (no HTTP, no cloud key), and removes the current server-coupled HTTP
+> `RAGMemory` (`ovos-memory-plugin-rag`) in favour of `ovos-openai-plugin`'s server RAG.
 
 ### Non-LLM personas
 
@@ -207,17 +230,18 @@ silently skipped. Both sources respect `persona_blacklist`.
 
 ---
 
-## OVOS Core as a [Solver](agent-plugins.md)
+## OVOS Core as a Chat Engine
 
-`ovos-solver-bus-plugin` exposes a running `ovos-core` instance as a persona handler. This
+`ovos-messagebus-chat-plugin` (entry point `ovos-messagebus`, class `OVOSMessagebusChatAgent`,
+group `opm.agents.chat`) exposes a running `ovos-core` instance as a persona handler. This
 enables OVOS to act as an agent inside another system — for example a Docker network or a
 [HiveMind](hivemind-agents.md) satellite — without exposing the [MessageBus](bus-service.md) directly.
 
 ```json
 {
   "name": "Open Voice OS",
-  "solvers": ["ovos-solver-bus-plugin", "ovos-solver-failure-plugin"],
-  "ovos-solver-bus-plugin": {
+  "handlers": ["ovos-messagebus", "ovos-solver-failure-plugin"],
+  "ovos-messagebus": {
     "autoconnect": true,
     "host": "127.0.0.1",
     "port": 8181
@@ -226,9 +250,15 @@ enables OVOS to act as an agent inside another system — for example a Docker n
 
 ```
 
-**Note:** `ovos-bus-solver-plugin` creates an infinite loop if used inside a persona that is
-*already* loaded by the same running `ovos-core`. It is intended for cross-instance bridging,
-not local routing. For secure remote access see [HiveMind Agents](hivemind-agents.md).
+This plugin replaces the removed `OVOSMessagebusSolver` / `ovos-solver-bus-plugin`, which lived
+under the deprecated `neon.plugin.solver` group; install
+[`ovos-messagebus-chat-plugin`](https://github.com/OpenVoiceOS/ovos-messagebus-chat-plugin) and
+migrate any persona that referenced the old solver to the `ovos-messagebus` chat engine.
+
+**Note:** routing OVOS back through itself creates an infinite loop if this engine is used inside
+a persona that is *already* loaded by the same running `ovos-core`. It is intended for
+cross-instance bridging, not local routing. For secure remote access see
+[HiveMind Agents](hivemind-agents.md).
 
 ---
 

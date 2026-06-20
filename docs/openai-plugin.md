@@ -8,22 +8,29 @@ Install: `pip install ovos-openai-plugin`
 
 Repository: `OpenVoiceOS Workspace/Agent Plugins/ovos-openai-plugin`
 
-!!! note "Version compatibility"
-    `ovos-persona >= 1.0.0` is required for `ovos-chat-openai-plugin`. If you cannot upgrade
-    `ovos-persona`, pin `ovos-openai-plugin <= 2.0.6` which ships the legacy
-    `ovos-solver-openai-plugin` entry point instead.
+!!! note "Removed legacy solver"
+    The old `ovos-solver-openai-plugin` entry point and the `OpenAIChatCompletionsSolver` /
+    `OpenAICompletionsSolver` classes no longer exist. Personas that referenced them must
+    switch to the `ovos-chat-openai-plugin` agent engine (still listed under a persona's
+    `solvers` / `handlers` key, which `ovos-persona` accepts).
 
 ---
 
 ## Plugins Overview
 
-| Entry point | Class | Purpose |
-|---|---|---|
-| `opm.agents.chat` | `OpenAIChatEngine` | Multi-turn chat for [personas](personas.md) |
-| `opm.transformer.dialog` | `OpenAIDialogTransformer` | Rewrite [TTS](tts-plugins.md) dialog in a different voice or style |
-| `opm.agents.summarizer` | `OpenAISummarizer` | Summarize arbitrary text |
-| `opm.lang.translate` | `OpenAITextTranslator` | Translate text between languages |
-| `opm.lang.detect` | `OpenAITextLangDetector` | Detect the language of text |
+| Entry point | Plugin name | Class | Purpose |
+|---|---|---|---|
+| `opm.agents.chat` | `ovos-chat-openai-plugin` | `OpenAIChatEngine` | Multi-turn chat for [personas](personas.md) |
+| `opm.agents.memory` | `ovos-openai-rag-memory-plugin` | `PersonaServerRAGMemory` | RAG memory backed by an `ovos-persona-server` vector store |
+| `opm.agents.summarizer` | `ovos-summarizer-openai-plugin` | `OpenAISummarizer` | Summarize arbitrary text |
+| `opm.transformer.dialog` | `ovos-dialog-transformer-openai-plugin` | `OpenAIDialogTransformer` | Rewrite [TTS](tts-plugins.md) dialog in a different voice or style |
+| `opm.lang.translate` | `ovos-translate-openai-plugin` | `OpenAITextTranslator` | Translate text between languages |
+| `opm.lang.detect` | `ovos-lang-detect-openai-plugin` | `OpenAITextLangDetector` | Detect the language of text |
+| `opm.plugin.persona` | `Remote Llama` | (pre-built persona) | Demo persona pointing at a public ollama/LLama server |
+
+All engines wrap the same `OpenAIChatCompletions` API client, so any OpenAI-compatible Chat
+Completions server (OpenAI, ollama, llama.cpp, vLLM, LocalAI, `ovos-persona-server`, …) works
+by pointing `api_url` at its `/v1` base.
 
 ---
 
@@ -33,10 +40,10 @@ All plugins wrap `OpenAIChatCompletions` internally.
 
 | Key | Type | Default | Description |
 |---|---|---|---|
-| `api_url` | `str` | `https://api.openai.com/v1` | Base URL of the Chat Completions endpoint. Change this for local or self-hosted models. |
-| `key` | `str` | `""` | API key sent as a Bearer token. Use `"sk-nokey"` for servers that don't require auth. |
-| `model` | `str` | `""` | Model identifier (e.g. `gpt-4o`, `llama3.1:8b`). Required by most backends. |
-| `max_tokens` | `int` | `100` | Maximum number of tokens in the completion. |
+| `api_url` | `str` | `https://api.openai.com/v1` | Base URL (the `/v1` root). `/chat/completions` is appended automatically. Change for local/self-hosted servers. |
+| `key` | `str` | `""` | API key sent as a Bearer token. Omit (or use `"sk-nokey"`) for servers that don't require auth. |
+| `model` | `str` | `gpt-4o-mini` | Model identifier (e.g. `gpt-4o`, `llama3.1:8b`). |
+| `max_tokens` | `int` | `300` | Maximum number of tokens in the completion. |
 | `temperature` | `float` | `0.5` | Sampling temperature. Higher = more creative. |
 | `top_p` | `float` | `0.2` | Nucleus sampling probability mass. |
 | `frequency_penalty` | `float` | `0` | Penalise repeated tokens by frequency. |
@@ -120,12 +127,9 @@ This lets you keep API keys on a single server and offload LLM computation:
 
 ## Persona Configuration
 
-### Standard persona (ovos-persona >= 1.0.0)
-
 ```json
 {
   "name": "My Local LLM",
-  "memory_module": "ovos-agents-short-term-memory-plugin",
   "handlers": ["ovos-chat-openai-plugin"],
   "ovos-chat-openai-plugin": {
     "api_url": "http://localhost:11434/v1",
@@ -137,23 +141,50 @@ This lets you keep API keys on a single server and offload LLM computation:
 
 ```
 
-### Legacy persona (ovos-persona < 1.0.0)
+A persona's chat engine can equally be listed under the `solvers` key — `ovos-persona`
+accepts either `handlers` or `solvers` and dispatches the same way.
+
+Activate by voice: `"Chat with My Local LLM"`.
+
+---
+
+## RAG Memory (`opm.agents.memory`)
+
+**Class:** `PersonaServerRAGMemory` — `ovos_openai_plugin/rag_memory.py:PersonaServerRAGMemory`
+
+**OPM plugin name:** `ovos-openai-rag-memory-plugin`
+
+A persona `memory_module` (an `AgentContextManager`). Before each turn it queries a vector store
+hosted by an [`ovos-persona-server`](persona-server.md) and injects the retrieved chunks into the
+conversation context; the persona's normal chat engine still generates the answer, so RAG
+composes with any chat backend. This is the server/OpenAI-coupled memory backend — local-only
+memory plugins live in `ovos-memory-plugins` instead.
+
+| Key | Type | Default | Description |
+|---|---|---|---|
+| `api_url` | `str` | `null` | Base URL of the persona-server's OpenAI-compatible API (e.g. `http://localhost:8337/openai/v1`). |
+| `vector_store_id` | `str` | — | Vector store to search. |
+| `key` | `str` | `null` | Optional bearer token. |
+| `inject_mode` | `str` | `system` | How retrieved context is added: `system` / `system_prompt` / `developer` / `user` / `tool`. |
+| `retrieval` | `dict` | — | Sub-block: `max_num_results`, `min_score`, `query_mode` (`utterance`/`history`), `query_history_turns`. |
+| `context` | `dict` | — | Sub-block: `header`, `chunk_prefix`, `chunk_separator`, `include_sources`, `tool_name`. |
+| `system_prompt` | `str` | `null` | Base system prompt (kept stable for caching when `inject_mode="system"`). |
+| `max_history` | `int` | `10` | Conversation turns retained. |
 
 ```json
 {
-  "name": "My Local LLM",
-  "solvers": ["ovos-solver-openai-plugin"],
-  "ovos-solver-openai-plugin": {
-    "api_url": "http://localhost:11434/v1",
-    "key": "sk-nokey",
-    "model": "llama3.1:8b",
-    "system_prompt": "You are a helpful assistant."
+  "name": "kb-assistant",
+  "solvers": ["ovos-chat-openai-plugin"],
+  "memory_module": "ovos-openai-rag-memory-plugin",
+  "ovos-openai-rag-memory-plugin": {
+    "api_url": "http://localhost:8337/openai/v1",
+    "vector_store_id": "vs_...",
+    "inject_mode": "system",
+    "retrieval": {"max_num_results": 5, "query_mode": "utterance"}
   }
 }
 
 ```
-
-Activate by voice: `"Chat with My Local LLM"`.
 
 ---
 

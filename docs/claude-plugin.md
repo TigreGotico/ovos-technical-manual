@@ -1,13 +1,18 @@
 # Claude Agent Plugin (`ovos-claude-plugin`)
 
-`ovos-claude-plugin` connects OVOS to the [Anthropic Claude](https://anthropic.com) API. It
-provides ten OPM agent engine implementations — covering every `opm.agents.*` type — plus two
-transformer plugins. All engines share a single `AnthropicClient` wrapper and the same base
-configuration keys.
+`ovos-claude-plugin` connects OVOS to the [Anthropic Claude](https://anthropic.com) API via the
+official `anthropic` Python SDK. It provides a full set of OPM agent engines — chat, multimodal
+chat, summarisation, coreference, reranking, extractive QA, NLI, yes/no, and memory — plus two
+transformer plugins. Every engine reads the same base keys from `AnthropicClient`; pass any
+Claude model id through (the plugin only defaults the model, it does not restrict it).
+
+A second chat engine, `ClaudeCodeChatEngine`, drives the locally-installed `claude` CLI (Claude
+Code) instead of the API SDK — useful when no API key is set but Claude Code is authenticated.
 
 Install: `pip install ovos-claude-plugin`
 
-For the pre-built Claude persona: `pip install ovos-claude-persona`
+The plugin ships a pre-built `Claude` persona via the `opm.plugin.persona` entry point —
+no separate package is required.
 
 Repository: `OpenVoiceOS Workspace/Agent Plugins/ovos-claude-plugin`
 
@@ -15,20 +20,22 @@ Repository: `OpenVoiceOS Workspace/Agent Plugins/ovos-claude-plugin`
 
 ## Plugins Overview
 
-| Entry point | Class | Purpose |
-|---|---|---|
-| `opm.agents.chat` | `ClaudeChatEngine` | Multi-turn chat for [personas](personas.md) |
-| `opm.agents.chat.multimodal` | `ClaudeMultimodalChatEngine` | Vision (base64 images) + multi-turn chat |
-| `opm.agents.summarizer` | `ClaudeSummarizerEngine` | Condense documents into plain-text summaries |
-| `opm.agents.summarizer.chat` | `ClaudeChatSummarizerEngine` | Compress chat history for long sessions |
-| `opm.agents.coref` | `ClaudeCoreferenceEngine` | Resolve pronouns and ambiguous references |
-| `opm.agents.reranker` | `ClaudeReRankerEngine` | Semantically rank candidate answers |
-| `opm.agents.extractive_qa` | `ClaudeExtractiveQAEngine` | Extract the exact passage answering a question |
-| `opm.agents.nli` | `ClaudeNLIEngine` | Predict whether a premise entails a hypothesis |
-| `opm.agents.yesno` | `ClaudeYesNoEngine` | Classify ambiguous responses as yes / no / unknown |
-| `opm.agents.memory` | `ClaudeContextManager` | Per-session memory with automatic history compression |
-| `opm.transformer.utterance` | `ClaudeUtteranceTransformer` | Normalise noisy ASR output before intent matching |
-| `opm.transformer.dialog` | `ClaudeDialogTransformer` | Rewrite skill responses before [TTS](tts-plugins.md) synthesis |
+| Entry point | Plugin name | Class | Purpose |
+|---|---|---|---|
+| `opm.agents.chat` | `ovos-chat-claude-plugin` | `ClaudeChatEngine` | Multi-turn chat for [personas](personas.md) |
+| `opm.agents.chat` | `ovos-chat-claude-code-plugin` | `ClaudeCodeChatEngine` | Same, via the local `claude` CLI (no API key) |
+| `opm.agents.chat.multimodal` | `ovos-chat-multimodal-claude-plugin` | `ClaudeMultimodalChatEngine` | Vision (base64 images) + multi-turn chat |
+| `opm.agents.summarizer` | `ovos-summarizer-claude-plugin` | `ClaudeSummarizerEngine` | Condense documents into plain-text summaries |
+| `opm.agents.summarizer.chat` | `ovos-chat-summarizer-claude-plugin` | `ClaudeChatSummarizerEngine` | Compress chat history for long sessions |
+| `opm.agents.coref` | `ovos-coref-claude-plugin` | `ClaudeCoreferenceEngine` | Resolve pronouns and ambiguous references |
+| `opm.agents.reranker` | `ovos-reranker-claude-plugin` | `ClaudeReRankerEngine` | Semantically rank candidate answers |
+| `opm.agents.extractive_qa` | `ovos-extractive-qa-claude-plugin` | `ClaudeExtractiveQAEngine` | Extract the exact passage answering a question |
+| `opm.agents.nli` | `ovos-nli-claude-plugin` | `ClaudeNLIEngine` | Predict whether a premise entails a hypothesis |
+| `opm.agents.yesno` | `ovos-yesno-claude-plugin` | `ClaudeYesNoEngine` | Classify ambiguous responses as yes / no / unknown |
+| `opm.agents.memory` | `ovos-memory-claude-plugin` | `ClaudeContextManager` | Per-session memory with automatic history compression |
+| `opm.plugin.persona` | `Claude` | (pre-built persona) | Ready-to-use Claude persona definition |
+| `opm.transformer.text` | `ovos-utterance-transformer-claude-plugin` | `ClaudeUtteranceTransformer` | Normalise noisy ASR output before intent matching |
+| `opm.transformer.dialog` | `ovos-dialog-transformer-claude-plugin` | `ClaudeDialogTransformer` | Rewrite skill responses before [TTS](tts-plugins.md) synthesis |
 
 ---
 
@@ -38,19 +45,23 @@ All plugins read from `AnthropicClient.__init__` — `ovos_claude/api.py:Anthrop
 
 | Key | Type | Default | Description |
 |---|---|---|---|
-| `api_key` | `str` | `""` | Anthropic API key. Falls back to `ANTHROPIC_API_KEY` env var if omitted. |
-| `model` | `str` | `claude-haiku-4-5-20251001` | Claude model ID (see table below). |
+| `api_key` | `str` | `null` | Anthropic API key. Falls back to `ANTHROPIC_API_KEY` env var when unset. |
+| `model` | `str` | `claude-haiku-4-5-20251001` | Claude model id. Any model string accepted by the Anthropic SDK is passed through unchanged. |
 | `max_tokens` | `int` | `512` | Maximum tokens in the completion. |
 | `temperature` | `float` | `0.7` | Sampling temperature 0–1. Higher = more creative. |
 | `top_p` | `float` | `1.0` | Nucleus sampling probability mass. |
+| `system_prompt` | `str` | `null` | Default system prompt injected before every call. |
 
 ### Model Selection
 
-| Model ID | Speed | Cost | Best for |
-|---|---|---|---|
-| `claude-haiku-4-5-20251001` | Fastest | Cheapest | Real-time voice (**default**) |
-| `claude-sonnet-4-6` | Medium | Medium | General purpose |
-| `claude-opus-4-6` | Slowest | Most expensive | Complex reasoning, long documents |
+The plugin hardcodes only the **default** model id, `claude-haiku-4-5-20251001` (fast and cheap,
+suited to real-time voice). It does not maintain its own model list — set `model` to any
+current Anthropic model id (for example a Sonnet- or Opus-tier model for harder reasoning or
+long documents) and it is forwarded to the SDK as-is.
+
+`ClaudeCodeChatEngine` (`ovos-chat-claude-code-plugin`) instead passes `model` to the `claude`
+CLI via `--model`, defaulting to the alias `"sonnet"`. It also accepts `claude_binary`,
+`timeout` (default `120`), and `tools` (default `""`, chat-only).
 
 ---
 
@@ -419,7 +430,7 @@ oldest half is summarised by Claude and stored as a single SYSTEM message —
 
 ---
 
-## Utterance [Transformer](transformer-plugins.md) (`opm.transformer.utterance`)
+## Utterance [Transformer](transformer-plugins.md) (`opm.transformer.text`)
 
 **Class:** `ClaudeUtteranceTransformer` — `ovos_claude/transformers.py:ClaudeUtteranceTransformer`
 

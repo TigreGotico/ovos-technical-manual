@@ -1,26 +1,28 @@
 # ovos-judge — LLM-Driven QA Testing
 
-`ovos-judge` is an automated QA tool for OpenVoiceOS skills and personas. A configurable LLM
-acts as a **judge**: it generates test utterances, sends them to a running OVOS instance (or any
-compatible persona), captures the spoken response and [MessageBus](bus-service.md) events, and evaluates whether
-the skill under test behaved correctly.
+`ovos-judge` is an automated QA tool for OpenVoiceOS skills and personas. A configurable
+**chat** LLM acts as a **judge**: it generates test utterances, sends them to a running OVOS
+instance (or any compatible persona), captures the spoken response and
+[MessageBus](bus-service.md) events, and evaluates whether the skill under test behaved
+correctly.
 
-Install: `pip install ovos-judge`
+Install: `pip install ovos-judge` (Apache-2.0).
 
-Repository: `OpenVoiceOS Workspace/Agent Plugins/ovos-judge`
+Repository: [`OpenVoiceOS/ovos-judge`](https://github.com/OpenVoiceOS/ovos-judge)
 
 ---
 
 ## Quick Start
 
 ```bash
-pip install ovos-judge ovos-solver-openai-plugin
+pip install ovos-judge ovos-chat-openai-plugin
 ovos-judge              # http://localhost:8888
 
 ```
 
-Open the browser, pick a chat plugin for the judge, select a persona target (e.g. OVOS Local),
-write a test prompt, and click **Start Test**.
+The judge LLM is an OPM **chat** plugin (`opm.agents.chat`, a `ChatEngine`), not a solver — it
+is loaded with `load_chat_plugin`. Open the browser, pick a chat plugin for the judge, select a
+persona target (e.g. OVOS Local), write a test prompt, and click **Start Test**.
 
 ---
 
@@ -34,8 +36,8 @@ FastAPI app (app.py)
 JudgeLLM             PersonaTarget
 (judge.py)           (persona_client.py)
     │                   │
-Any OPM              ovos-persona
-chat plugin          + BusEventCollector (optional)
+Any opm.agents.chat  ovos-persona
+ChatEngine           + BusEventCollector (optional)
 
 ```
 
@@ -51,7 +53,8 @@ The session loop — `session.py:TestSession` — alternates between two passes:
    intent, intent_failed, response_time, bus_events) and returns a pass/fail verdict with
    reasoning.
 
-[Session](session.md) states: `IDLE → RUNNING → COMPLETED` — `session.py:27`
+Session states (`SessionState` in `models.py`): `IDLE`, `RUNNING`, `PAUSED`, `COMPLETED`. A
+normal run goes `IDLE → RUNNING → COMPLETED`; `stop` also lands on `COMPLETED`.
 
 ---
 
@@ -104,8 +107,8 @@ regardless of what the test prompt says.
 
 ## Test Prompts
 
-The test prompt is injected into the judge LLM's system prompt at `{user_prompt}` —
-`judge.py:16`. It directly controls what gets tested.
+The test prompt is injected into the judge LLM's system prompt at the `{user_prompt}`
+placeholder of `SYSTEM_PROMPT` (`judge.py`). It directly controls what gets tested.
 
 ### Minimal prompt
 
@@ -176,8 +179,8 @@ personas are included:
 ### OVOS Local
 
 Connects to a running `ovos-core` via MessageBus. This is the primary target for skill QA.
-`BusEventCollector` (`persona_client.py:44`) also subscribes to the same bus to capture
-`skill_id`, `intent_type`, and `intent_failed`.
+`BusEventCollector` (`persona_client.py`) also subscribes to the same bus to capture
+`skill_id`, `intent` (from `intent_type`), and `intent_failed`.
 
 ```json
 {
@@ -218,7 +221,8 @@ ovos-judge --config my_test.json --output result.json
 
 Exit codes: `0` = all exchanges passed; `1` = one or more failures.
 
-Config file format (`TestSessionConfig` — `models.py:16`):
+Config file format (`TestSessionConfig` in `models.py`, with nested `PersonaConfig` and
+`JudgeConfig` from `config.py`):
 
 ```json
 {
@@ -228,11 +232,11 @@ Config file format (`TestSessionConfig` — `models.py:16`):
     "bus_port": 8181
   },
   "judge": {
-    "plugin": "ovos-solver-openai-plugin",
+    "plugin": "ovos-chat-openai-plugin",
     "prompt": "Test the weather skill. Try current weather, forecasts, and weather in specific cities.",
     "lang": "en-us",
-    "max_rounds": 20,
-    "timeout": 30
+    "max_rounds": 50,
+    "timeout": 30.0
   }
 }
 
@@ -244,7 +248,7 @@ Config file format (`TestSessionConfig` — `models.py:16`):
 
 - name: Run ovos-judge QA
   run: |
-    pip install ovos-judge ovos-solver-openai-plugin
+    pip install ovos-judge ovos-chat-openai-plugin
     ovos-judge --config test/qa/weather_skill.json
   env:
     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -263,7 +267,7 @@ ovos-judge --port 8080 --host 127.0.0.1 --data-dir /srv/judge
 ```
 
 Session results are persisted automatically to `~/.local/share/ovos-judge/sessions/`
-(`SessionStore` — `store.py:1`). Results survive server restarts.
+(`SessionStore` in `store.py`). Results survive server restarts.
 
 ### REST endpoints
 
@@ -291,17 +295,21 @@ Session results are persisted automatically to `~/.local/share/ovos-judge/sessio
 
 ## BusEventCollector
 
-`BusEventCollector` — `persona_client.py:44` — subscribes to five MessageBus event types when
-using the OVOS Local persona:
+`BusEventCollector` (`persona_client.py`) subscribes to five MessageBus event types (its
+`_WATCHED` list) when using the OVOS Local persona. Every event is stored in `bus_events`; two of
+them populate the structured fields the judge sees:
 
-| Event | Captured field |
+| Watched event | Effect |
 |---|---|
-| `mycroft.skill.handler.start` | `skill_id`, `intent_type` |
-| `intent_failure` / `complete_intent_failure` | `intent_failed: true` |
-| `speak` | Full spoken text |
+| `mycroft.skill.handler.start` | sets `skill_id` (from `skill_id`) and `intent` (from `intent_type`) |
+| `mycroft.skill.handler.complete` | recorded in `bus_events` |
+| `intent_failure` | sets `intent_failed: true` |
+| `complete_intent_failure` | sets `intent_failed: true` |
+| `speak` | recorded in `bus_events` |
 
-The collector is fault-tolerant: if `ovos-bus-client` is not installed or the bus is
-unreachable, the session continues without bus metadata.
+The spoken text is taken from the persona's own reply, not the `speak` event. The collector is
+fault-tolerant: if `ovos-bus-client` is not installed or the bus is unreachable, `connect()`
+returns `False` and the session continues without bus metadata.
 
 ---
 

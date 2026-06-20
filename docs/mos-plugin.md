@@ -1,48 +1,55 @@
 # Mixture of Solvers (MoS)
 
-`ovos-MoS` orchestrates multiple OVOS agent plugins to produce higher-quality answers through
-eight composition strategies. Any `ChatEngine` (LLM, solver, or another MoS) can serve as a
-worker, king, voter, or president — enabling arbitrarily deep recursive compositions.
+`ovos-MoS` combines several OVOS [solver plugins](advanced-solvers.md) into one, querying multiple
+**worker** solvers and then using a decider to pick or synthesise the final answer. Because every
+MoS class is itself a `QuestionSolver`, a whole MoS can be dropped in wherever a single solver is
+expected — including as a worker inside another MoS (a "Democracy of Kings", a "Duopoly of
+Democracies", and so on).
 
-Repository: `OpenVoiceOS Workspace/Agent Plugins/ovos-MoS`
+Repository: [`TigreGotico/ovos_MoS`](https://github.com/TigreGotico/ovos_MoS)
 
 ---
 
 ## Core Concept
 
-Instead of relying on a single model, a MoS engine:
+Instead of trusting a single solver, a MoS:
 
-1. Distributes the query to multiple **worker** plugins concurrently.
+1. Queries every **worker** solver and gathers their non-empty spoken answers.
+2. Applies a **strategy** (King / Democracy / Duopoly) to select or synthesise one answer.
+3. Returns that single answer via `get_spoken_answer`.
 
-
-2. Applies a **strategy** to combine or select from the worker responses.
-
-
-3. Returns a single best answer.
-
-Because every MoS engine is itself a `ChatEngine`, it can be used as a worker inside another
-MoS, enabling recursive compositions like a Democracy of Kings or a Tournament of Committees.
+There are three strategy families, each available in a ReRanker-driven and a generative (LLM)
+variant.
 
 ---
 
 ## Class Hierarchy
 
-```
-ChatEngine (ovos_plugin_manager.templates.agents)
-  ├── AbstractMoSEngine
-  │     ├── KingMoSEngine          — one decider selects/synthesises
-  │     ├── DemocracyMoSEngine     — majority voting
-  │     ├── DuopolyMoSEngine       — multi-round founder discussion
-  │     ├── TournamentMoSEngine    — bracket elimination
-  │     ├── JuryMoSEngine          — weighted voting
-  │     └── CommitteeMoSEngine     — multi-round convergence
-  ├── CascadeMoSEngine             — sequential with early stopping
-  └── ChainMoSEngine               — sequential refinement pipeline
+Everything lives in a single module, `ovos_MoS` (`ovos_MoS/__init__.py`). All classes subclass
+`QuestionSolver` from `ovos_plugin_manager.templates.solvers`.
 
 ```
+QuestionSolver (ovos_plugin_manager.templates.solvers)
+  └── AbstractMoS                       — gathers worker answers
+        ├── AbstractKingMoS             — one "king" decider
+        │     ├── ReRankerKingMoS       — king is a reranker, picks top answer
+        │     └── GenerativeKingMoS     — king is an LLM, synthesises an answer
+        ├── AbstractDuopolyMoS          — founders discuss, a president decides
+        │     ├── ReRankerDuopolyMoS    — president is a reranker
+        │     └── GenerativeDuopolyMoS  — president is an LLM
+        └── DemocracyMoS                — voters vote, majority wins
+              ├── ReRankerDemocracyMoS  — president reranks the voted shortlist
+              └── GenerativeDemocracyMoS— president synthesises from the shortlist
+```
 
-`AbstractMoSEngine.gather_responses` — `ovos_MoS/agents.py:31` — queries all workers in
-parallel via `ThreadPoolExecutor` and returns a `List[str]` of non-empty responses.
+`AbstractMoS.gather_responses(query, lang, units)` calls `get_spoken_answer` on each worker **in
+sequence** and returns a `List[str]` of non-empty answers. A worker that raises is logged and
+skipped; if no worker answers, the strategy returns
+`"No answer could be gathered from workers."`.
+
+> The "king", "voter", and "president" deciders are reranker solvers
+> (`MultipleChoiceSolver`, exposing `rerank` / `select_answer`) in the ReRanker variants, and
+> generative `QuestionSolver`s (LLMs) in the generative variants.
 
 ---
 
@@ -50,329 +57,129 @@ parallel via `ThreadPoolExecutor` and returns a `List[str]` of non-empty respons
 
 ### King
 
-One decider selects or synthesises the final answer from worker responses.
+One decider chooses or synthesises the final answer from the worker answers.
 
-**ReRanker king** — scores all worker answers and returns the highest-scored:
-
-```python
-from ovos_MoS.agents import KingMoSEngine
-
-engine = KingMoSEngine(king=my_reranker, workers=[chat1, chat2, chat3])
-answer = engine.get_response("What is the speed of light?")
-
-```
-
-**Generative king** — an LLM receives all worker answers and synthesises a new response:
+**ReRanker king** — `ReRankerKingMoS` reranks the worker answers and returns the top one:
 
 ```python
-engine = KingMoSEngine(king=my_llm, workers=[ddg_solver, wikipedia_solver])
+from ovos_MoS import ReRankerKingMoS
 
+workers = [QuestionSolver1(), QuestionSolver2(), QuestionSolver3()]
+mos = ReRankerKingMoS(king=my_reranker, workers=workers)
+answer = mos.spoken_answer("What is the speed of light?")
 ```
 
-The mode is detected automatically: `isinstance(self.king, ReRankerEngine)` at
-`ovos_MoS/agents.py:85`.
+**Generative king** — `GenerativeKingMoS` feeds all worker answers into an LLM, which writes a
+new response:
+
+```python
+from ovos_MoS import GenerativeKingMoS
+from ovos_gguf_solver import GGUFSolver
+
+king = GGUFSolver({"model": "RichardErkhov/GritLM_-_GritLM-7B-gguf",
+                   "remote_filename": "*Q4_K_M.gguf", "n_gpu_layers": -1})
+mos = GenerativeKingMoS(king=king, workers=[ddg_solver, wikipedia_solver])
+```
 
 ### Democracy
 
-Multiple voters each pick their preferred worker answer. Majority wins. Optional president for
-tie-breaking or synthesis.
+Each **voter** (a reranker) selects its preferred worker answer; the answer with the most votes
+wins (`DemocracyMoS`). The `ReRanker`/`Generative` subclasses add a **president** that, instead of
+a raw majority, reranks (`ReRankerDemocracyMoS`) or synthesises from (`GenerativeDemocracyMoS`) the
+deduplicated set of voted answers.
 
 ```python
-from ovos_MoS.agents import DemocracyMoSEngine
+from ovos_MoS import DemocracyMoS
 
-engine = DemocracyMoSEngine(
-    voters=[reranker1, reranker2, reranker3],
-    workers=[chat1, chat2]
-)
-
+mos = DemocracyMoS(voters=[reranker1, reranker2, reranker3],
+                   workers=[chat1, chat2])
 ```
 
 ### Duopoly
 
-Founders engage in `discussion_rounds` of back-and-forth discussion about the worker answers,
-then a president decides the final output. Best for complex, nuanced queries.
+`founders` (LLM `QuestionSolver`s) discuss the worker answers over `discussion_rounds` passes,
+each founder appending to a running discussion; a **president** then produces the final output —
+by reranking (`ReRankerDuopolyMoS`) or by generating from the discussion
+(`GenerativeDuopolyMoS`). Best for complex, nuanced queries.
 
 ```python
-from ovos_MoS.agents import DuopolyMoSEngine
+from ovos_MoS import GenerativeDuopolyMoS
 
-engine = DuopolyMoSEngine(
-    president=my_reranker,
+mos = GenerativeDuopolyMoS(
+    president=my_llm,
     founders=[llm1, llm2],
-    workers=[ddg, wikipedia],
-    config={"discussion_rounds": 3}
+    workers=[ddg, wikipedia],        # defaults to `founders` if omitted
+    config={"discussion_rounds": 3},
 )
-
 ```
 
-Discussion flow: workers answer concurrently → founders discuss in rounds → president decides.
-
-### Tournament
-
-Bracket-style elimination: worker answers compete head-to-head via a referee (ReRanker) until
-one champion remains. Requires only O(log N) reranker calls.
-
-```python
-from ovos_MoS.agents import TournamentMoSEngine
-
-engine = TournamentMoSEngine(referee=my_reranker, workers=[c1, c2, c3, c4])
-
-```
-
-### Cascade
-
-Sequential querying with early stopping. Workers are tried one by one (cheapest first). After
-each response, a scorer evaluates all accumulated answers. If the top score exceeds `threshold`,
-querying stops early.
-
-```python
-from ovos_MoS.agents import CascadeMoSEngine
-
-engine = CascadeMoSEngine(
-    scorer=my_reranker,
-    workers=[cheap_cache, web_search, expensive_llm],
-    config={"threshold": 0.8}
-)
-
-```
-
-Best for cost efficiency: cache hits stop the chain before the expensive LLM is called.
-
-### Jury
-
-Weighted voting — like Democracy but each juror carries a numeric weight. Assign higher weights
-to more accurate or expensive models.
-
-```python
-from ovos_MoS.agents import JuryMoSEngine
-
-engine = JuryMoSEngine(
-    jurors=[cheap_rr, mid_rr, expert_rr],
-    juror_weights=[1.0, 2.0, 5.0],
-    workers=[chat1, chat2, chat3]
-)
-
-```
-
-### Chain
-
-Sequential refinement pipeline. Each worker receives the previous worker's answer as context
-and improves it progressively.
-
-```python
-from ovos_MoS.agents import ChainMoSEngine
-
-engine = ChainMoSEngine(
-    workers=[fast_drafter, careful_refiner, style_polisher],
-    president=quality_reranker
-)
-
-```
-
-Worker 1 receives the raw query. Workers 2+ receive a refinement prompt with the query and
-the previous answer. An optional president selects the best version or synthesises from all.
-
-### Committee
-
-Multi-round convergence. All workers answer independently, then see each other's answers and
-revise. Repeats until convergence or `max_rounds`.
-
-```python
-from ovos_MoS.agents import CommitteeMoSEngine
-
-engine = CommitteeMoSEngine(
-    workers=[llm1, llm2, llm3],
-    president=my_reranker,
-    config={"max_rounds": 3}
-)
-
-```
+Flow: workers answer → founders discuss in rounds → president decides.
 
 ---
 
-## Config-Driven Usage (OPM Entry Points)
+## Constructor Contract
 
-Install `ovos-MoS` and configure via `mycroft.conf` or a persona JSON using the factory entry
-points registered under `opm.agents.chat`:
-
-| Entry point | Strategy |
-|---|---|
-| `ovos-mos-king-reranker` | King with ReRanker |
-| `ovos-mos-king-generative` | King with ChatEngine |
-| `ovos-mos-democracy` | Democracy |
-| `ovos-mos-duopoly-reranker` | Duopoly with ReRanker president |
-| `ovos-mos-duopoly-generative` | Duopoly with generative president |
-| `ovos-mos-tournament` | Tournament bracket |
-| `ovos-mos-cascade` | Cascade with early stopping |
-| `ovos-mos-jury` | Weighted jury |
-| `ovos-mos-chain` | Sequential chain |
-| `ovos-mos-committee` | Multi-round committee |
-
-### King (ReRanker) persona example
-
-```json
-{
-  "name": "My MoS Persona",
-  "handlers": ["ovos-mos-king-reranker"],
-  "ovos-mos-king-reranker": {
-    "king": {
-      "module": "ovos-reranker-claude-plugin",
-      "api_key": "sk-ant-..."
-    },
-    "workers": [
-      {"module": "ovos-solver-plugin-ddg"},
-      {"module": "ovos-solver-plugin-wikipedia"}
-    ],
-    "max_workers": 4,
-    "worker_timeout": 30
-  }
-}
-
-```
-
-### Cascade persona example
-
-```json
-{
-  "name": "Cost-Efficient Assistant",
-  "handlers": ["ovos-mos-cascade"],
-  "ovos-mos-cascade": {
-    "scorer": {"module": "ovos-reranker-claude-plugin", "api_key": "sk-ant-..."},
-    "workers": [
-      {"module": "ovos-solver-plugin-cache"},
-      {"module": "ovos-solver-plugin-ddg"},
-      {"module": "ovos-chat-openai-plugin", "key": "sk-...", "model": "gpt-4"}
-    ],
-    "threshold": 0.8
-  }
-}
-
-```
-
-### Committee with mixed LLMs
-
-```json
-{
-  "handlers": ["ovos-mos-committee"],
-  "ovos-mos-committee": {
-    "workers": [
-      {"module": "ovos-chat-openai-plugin", "model": "gpt-4"},
-      {"module": "ovos-chat-claude-plugin", "api_key": "sk-ant-...", "model": "claude-opus-4-6"},
-      {"module": "ovos-chat-gemini-plugin", "model": "gemini-pro"}
-    ],
-    "president": {
-      "module": "ovos-reranker-cross-encoder-plugin",
-      "type": "reranker"
-    },
-    "max_rounds": 3
-  }
-}
-
-```
-
----
-
-## Common Config Keys
-
-| Key | Default | Description |
+| Class | First positional | Other required |
 |---|---|---|
-| `max_workers` | `len(workers)` | Max concurrent threads for worker querying |
-| `worker_timeout` | `30.0` | Timeout in seconds per worker |
-| `discussion_rounds` | `3` | Duopoly: number of founder discussion rounds |
-| `threshold` | `0.8` | Cascade: score threshold for early stopping |
-| `max_rounds` | `3` | Committee: maximum revision rounds |
-| `juror_weights` | `[1.0, ...]` | Jury: weight per juror |
-| `system_prompt` | built-in | Custom system prompt for final answer |
+| `ReRankerKingMoS` / `GenerativeKingMoS` | `king` | `workers` |
+| `DemocracyMoS` | `voters` | `workers` |
+| `ReRankerDemocracyMoS` / `GenerativeDemocracyMoS` | `president` | `voters`, `workers` |
+| `ReRankerDuopolyMoS` / `GenerativeDuopolyMoS` | `president` | `founders` (`workers` optional, defaults to `founders`) |
+
+All classes also accept the standard `QuestionSolver` keyword arguments: `config`, `translator`,
+`detector`, `priority`, `enable_tx`, `enable_cache`, `internal_lang`.
+
+The public answer method is `get_spoken_answer(query, lang=None, units=None)` (overridden per
+strategy); call it via the inherited `spoken_answer(...)` wrapper, as in the examples above.
+
+---
+
+## Config Keys
+
+`config` is the standard solver config dict. The keys MoS itself reads:
+
+| Key | Used by | Default | Description |
+|---|---|---|---|
+| `discussion_rounds` | Duopoly | `3` | Number of founder discussion passes |
+| `discuss_prompt` | Duopoly | built-in | Instruction given to founders while discussing |
+| `system_prompt` | Generative King/Duopoly/Democracy | built-in | Instruction for the final-answer generation |
+| `prompt_template` | Generative variants | built-in | Format string assembling `{system}`, `{query}`, `{ans}`, and (Duopoly) `{discussion}` |
+
+There are no `max_workers`, `worker_timeout`, `threshold`, `max_rounds`, or `juror_weights` keys —
+workers are queried serially and every strategy runs to completion.
 
 ---
 
 ## Recursive Composition
 
-Every MoS engine is a `ChatEngine`, so they can be nested:
+Because each MoS is a `QuestionSolver`, nest them by passing one MoS as a worker (or king / voter /
+president) of another:
 
 ```python
+from ovos_MoS import ReRankerKingMoS, DemocracyMoS
 
 # Democracy of Kings
-king1 = KingMoSEngine(king=reranker1, workers=[chat1, chat2])
-king2 = KingMoSEngine(king=reranker2, workers=[chat3, chat4])
-democracy = DemocracyMoSEngine(voters=[voter1, voter2], workers=[king1, king2])
-
+king1 = ReRankerKingMoS(king=reranker1, workers=[chat1, chat2])
+king2 = ReRankerKingMoS(king=reranker2, workers=[chat3, chat4])
+democracy = DemocracyMoS(voters=[voter1, voter2], workers=[king1, king2])
 ```
-
-Convenience helpers in `ovos_MoS.compose` build common compositions:
-`democracy_of_kings`, `cascade_then_committee`, `chain_with_jury`,
-`tournament_of_committees`, `duopoly_with_cascade_workers`.
-
-**Self-loading guard:** The factory prevents any `ovos-mos-*` entry point from being loaded as
-a sub-plugin of another MoS engine, blocking infinite recursion —
-`_MOS_ENTRY_POINTS` — `ovos_MoS/factory.py:17`.
 
 ---
 
-## Concurrency
+## Gotcha
 
-`gather_concurrent` — `ovos_MoS/_concurrent.py:8` — uses `ThreadPoolExecutor`. Workers are
-I/O-bound (API/network calls), making threads appropriate. Individual worker failures are caught
-and logged; they do not propagate. If all workers fail, an empty list is returned.
-
-An asyncio alternative (`gather_async` — `ovos_MoS/_async.py:18`) is available for natively
-async applications.
-
----
-
-## Streaming
-
-MoS engines with generative kings or presidents support sentence-level streaming ([TTS](tts-plugins.md)-ready):
-
-```python
-for sentence in engine.stream_sentences(messages):
-    tts.speak(sentence)
-
-```
-
-Streaming support by strategy:
-
-| Strategy | Generative streaming |
-|---|---|
-| King (generative) | Delegates to king |
-| Duopoly (generative president) | Delegates to president |
-| Chain (generative president) | Delegates to president |
-| Others | Base class fallback |
-
----
-
-## Observability
-
-`MoSMetrics` — `ovos_MoS/metrics.py:70` — provides thread-safe timing and success rate tracking:
-
-```python
-from ovos_MoS.metrics import MoSMetrics
-
-metrics = MoSMetrics()
-with metrics.track_strategy("KingMoS"):
-    with metrics.track_worker("KingMoS", "ddg"):
-        answer = ddg.get_response(query)
-
-print(metrics.report_text())
-
-```
-
-Use metrics to tune `max_workers`, `worker_timeout`, `threshold`, and `juror_weights` for your
-specific workload.
+`ovos-MoS` is a library of solver classes; it registers **no plugin entry points**. You construct
+the MoS strategy directly in Python and pass already-instantiated solvers — there is no
+`opm.solver.*` / `opm.agents.*` entry point or `mycroft.conf` factory string for it. Workers must
+be `QuestionSolver` instances; the king/voters/president must be reranker
+(`MultipleChoiceSolver`) instances for the ReRanker variants and generative `QuestionSolver`s for
+the generative ones.
 
 ---
 
 ## Cross-References
 
-- [Agent Engine Types](agent-plugins.md) — base classes and configuration reference
-
-
-- [Personas](personas.md) — how to use a MoS engine inside a persona
-
-
-- [Claude Plugin](claude-plugin.md) — Claude ReRanker, Chat, and Memory engines
-
-
-- [OpenAI Plugin](openai-plugin.md) — OpenAI-compatible Chat and Summarizer engines
-
-
-- [GGUF Plugin](gguf-plugin.md) — local GGUF engines for offline MoS setups
+- [Solver Plugins](advanced-solvers.md) — the `QuestionSolver` / `MultipleChoiceSolver` base classes MoS builds on
+- [Personas](personas.md) — how solvers are wired into a persona
+- [OpenAI Plugin](openai-plugin.md) — OpenAI-compatible solvers usable as workers or kings
+- [GGUF Plugin](gguf-plugin.md) — local GGUF solvers for offline MoS setups

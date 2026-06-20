@@ -56,25 +56,16 @@ curl http://localhost:9666/status
 
 ```bash
 $ ovos-stt-server --help
-usage: ovos-stt-server [-h] --engine ENGINE [--lang-engine LANG_ENGINE] [--port PORT] [--host HOST] [--lang LANG] [--multi] [--gradio] [--cache] [--title TITLE]
-                       [--description DESCRIPTION] [--info INFO] [--badge BADGE]
+usage: ovos-stt-server [-h] --engine ENGINE [--lang-engine LANG_ENGINE] [--port PORT] [--host HOST] [--multi]
 
 options:
   -h, --help            show this help message and exit
-  --engine ENGINE       stt plugin to be used
+  --engine ENGINE       stt plugin to be used (required)
   --lang-engine LANG_ENGINE
                         audio language detection plugin to be used
-  --port PORT           port number
-  --host HOST           host
-  --lang LANG           default language supported by plugin
+  --port PORT           port number (default: 8080)
+  --host HOST           host (default: 0.0.0.0)
   --multi               Load a plugin instance per language (force lang support)
-  --gradio              Enable Gradio Web UI
-  --cache               Cache models for Gradio demo
-  --title TITLE         Title for webUI
-  --description DESCRIPTION
-                        Text description to print in UI
-  --info INFO           Text to display at end of UI
-  --badge BADGE         URL of visitor badge
 
 ```
 ---
@@ -82,30 +73,38 @@ options:
 ## Technical Explanation
 
 - **FastAPI core**  
-  The server spins up a FastAPI app exposing REST endpoints.
+  The server is a FastAPI app served by `uvicorn`, exposing REST endpoints.
 
 - **Plugin wrapping**  
-  Any OVOS STT plugin (Deepgram, Whisper, etc.) is loaded dynamically via entry points.
+  `--engine` names any `opm.stt` plugin entry point (Whisper, Deepgram, etc.); it is loaded dynamically via the OVOS Plugin Manager. Plugin config is read from the `stt` section of your `mycroft.conf`.
 
 - **Language detection**  
-  If you enable `--lang-engine`, incoming audio is passed through the detector, falling back to `--lang` or plugin defaults.
+  `--lang-engine` names an `opm.transformer.audio` plugin implementing `AudioLanguageDetector`. When a `/stt` request passes `lang=auto`, audio is routed through it before transcription.
+
+- **Multi-model mode**  
+  `--multi` loads one engine instance per language on demand (one model per `lang`), instead of a single shared model.
+
+- **Compatibility routers**  
+  Beyond the native endpoints, the app mounts drop-in compatible routers so existing cloud-STT clients work unchanged, e.g. Wit.ai (`POST /wit/speech`, override the SDK host with the `WIT_URL` env var), Chromium speech-api (`POST /speech-api/v2/recognize`), and routers for OpenAI Whisper, Deepgram, Google, AssemblyAI, Azure, IBM Watson, AWS, Vosk, Kaldi, Gladia, ElevenLabs, Groq and Speechmatics. A `GET /utcp` manual advertises the endpoints to UTCP agents, and an MCP server mounts when `pip install 'ovos-stt-http-server[mcp]'` is present.
 
 - **Scalability**  
   Stateless design lets you run multiple instances behind a load balancer or in Kubernetes.
-
-- **Optional Gradio UI**  
-  Launches a simple web demo for testing without writing any front‑end code.
 
 ---
 
 ## HTTP API Endpoints
 
+Native endpoints:
+
 | Endpoint       | Method | Description                                                |
 | -------------- | ------ | ---------------------------------------------------------- |
-| `/status`      | GET    | Returns plugin names, versions, and Gradio status.        |
-| `/stt`         | POST   | Transcribe audio → plain‑text transcript.                 |
-| `/lang_detect` | POST   | Detect language → JSON `{ "lang": "en", "conf": 0.83 }`.  |
+| `/status`      | GET    | Returns `{status, plugin, lang_plugin}`.                  |
+| `/stt`         | POST   | Raw audio bytes in the body (query: `lang`, `sample_rate`, `sample_width`) → plain‑text transcript. With `lang=auto`, language is detected first. |
+| `/lang_detect` | POST   | Raw audio bytes (query: `valid_langs`) → JSON `{ "lang": "en", "conf": 0.83 }`. |
+| `/utcp`        | GET    | UTCP tool-discovery manual (JSON).                        |
 | `/docs`        | GET    | Interactive FastAPI OpenAPI docs.                         |
+
+Compatibility routers (selection): `POST /wit/speech` (Wit.ai), `POST /speech-api/v2/recognize` (Chromium), plus OpenAI/Deepgram/Google/etc. See `/docs` for the full list.
 
 ---
 
@@ -154,18 +153,20 @@ for audio language detection
 **Create a Dockerfile**
 
 ```dockerfile
-FROM python:3.7-slim
-RUN pip install ovos-stt-http-server==0.0.1
+FROM python:3.11-slim
+RUN pip install ovos-stt-http-server
 RUN pip install {YOUR_STT_PLUGIN}
-ENTRYPOINT ["ovos-stt-http-server", "--engine", "{YOUR_STT_PLUGIN}"]
+ENTRYPOINT ["ovos-stt-server", "--engine", "{YOUR_STT_PLUGIN}"]
 
 ```
+
+The console script is `ovos-stt-server` (not `ovos-stt-http-server`, which is the PyPI package name).
 
 **Build & Run**
 
 ```bash
 docker build -t my-ovos-stt .
-docker run -p 8080:9666 my-ovos-stt
+docker run -p 8080:8080 my-ovos-stt
 
 ```
 
@@ -174,6 +175,8 @@ Pre-built containers are also available via the [ovos-docker-stt](https://github
 ---
 
 ## Tips & Caveats
+
+- **`/stt` takes raw audio bytes, not a multipart upload.** Send the PCM/WAV bytes as the request body (`curl --data-binary @audio.wav`), and pass `sample_rate`/`sample_width` as query params if they differ from the 16000/2 defaults — those defaults are assumed when reading the raw body.
 
 - **Audio Formats**: Ensure client sends PCM‑compatible formats (`.wav`, `.mp3` recommended).
 
