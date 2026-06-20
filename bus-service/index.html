@@ -6150,7 +6150,7 @@
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8181</span><span class="p">,</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">&quot;route&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/core&quot;</span><span class="p">,</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">&quot;ssl&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;max_msg_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;max_msg_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nt">&quot;filter_logs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;gui.status.request&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;gui.page.upload&quot;</span><span class="p">]</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="p">}</span>
@@ -6167,8 +6167,8 @@
 <tbody>
 <tr>
 <td><code>host</code></td>
-<td><code>"0.0.0.0"</code></td>
-<td>Bind address. The shipped default binds all interfaces; set <code>"127.0.0.1"</code> to restrict to localhost.</td>
+<td><code>"127.0.0.1"</code></td>
+<td>Bind address. The shipped default restricts to localhost; set <code>"0.0.0.0"</code> to bind all interfaces.</td>
 </tr>
 <tr>
 <td><code>port</code></td>
@@ -6187,7 +6187,7 @@
 </tr>
 <tr>
 <td><code>max_msg_size</code></td>
-<td><code>10</code></td>
+<td><code>25</code></td>
 <td>Max WebSocket frame size in megabytes.</td>
 </tr>
 <tr>
@@ -6224,10 +6224,10 @@
 <p><code>main()</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/__main__.py"><code>ovos_messagebus/__main__.py:43</code></a> — Entry point initializing the Tornado application and IOLoop.</p>
 </li>
 <li>
-<p><code>MessageBusEventHandler.on_message()</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/event_handler.py"><code>ovos_messagebus/event_handler.py:61</code></a> — Core broadcast logic.</p>
+<p><code>MessageBusEventHandler.on_message()</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/event_handler.py"><code>ovos_messagebus/event_handler.py:50</code></a> — Core broadcast logic.</p>
 </li>
 <li>
-<p><code>load_message_bus_config()</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/load_config.py"><code>ovos_messagebus/load_config.py:33</code></a> — Configuration loader using <code>ovos-config</code>.</p>
+<p><code>load_message_bus_config()</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/load_config.py"><code>ovos_messagebus/load_config.py:31</code></a> — Configuration loader using <code>ovos-config</code>.</p>
 </li>
 </ul>
 <h3 id="open"><code>open()</code><a class="headerlink" href="#open" title="Permanent link">&para;</a></h3>
@@ -6239,7 +6239,9 @@
 <h3 id="max_message_size"><code>max_message_size</code><a class="headerlink" href="#max_message_size" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;websocket&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_msg_size&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
 </span></code></pre></div>
-<p>Default: 10 MB. Messages larger than this cause Tornado to close the connection.</p>
+<p>The shipped <code>mycroft.conf</code> sets <code>max_msg_size</code> to 25, so the effective default is
+25 MB (the code's hardcoded fallback of 10 only applies if the key is absent).
+Messages larger than this cause Tornado to close the connection.</p>
 <hr />
 </details>
 <h2 id="message-structure">Message Structure<a class="headerlink" href="#message-structure" title="Permanent link">&para;</a></h2>
@@ -6380,7 +6382,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="connectivity-phal">Connectivity / <a href="../ovoscope-phal/">PHAL</a><a class="headerlink" href="#connectivity-phal" title="Permanent link">&para;</a></h3>
+<h3 id="connectivity-phal">Connectivity / <a href="../phal/">PHAL</a><a class="headerlink" href="#connectivity-phal" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>

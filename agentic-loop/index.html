@@ -5871,7 +5871,7 @@
 
 
 <h1 id="agentic-loop-architectures">Agentic Loop Architectures<a class="headerlink" href="#agentic-loop-architectures" title="Permanent link">&para;</a></h1>
-<p><a href="https://github.com/TigreGotico/ovos-agentic-loop">ovos-agentic-loop</a> implements seven agentic reasoning patterns as standard OPM <code>ChatEngine</code> plugins. Each pattern wires a configurable inner LLM brain with one or more <code>ToolBox</code> plugins to produce multi-step reasoning over OVOS personas.</p>
+<p><a href="https://github.com/TigreGotico/ovos-agentic-loop">ovos-agentic-loop</a> implements eight agentic reasoning patterns as standard OPM <code>ChatEngine</code> plugins. Each pattern wires a configurable inner LLM brain with one or more <code>ToolBox</code> plugins to produce multi-step reasoning over OVOS personas.</p>
 <hr />
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-agentic-loop
@@ -5894,6 +5894,11 @@
 <td><code>ovos-react-loop</code></td>
 <td><code>ReActLoopEngine</code></td>
 <td>General tool-using Q&amp;A</td>
+</tr>
+<tr>
+<td><code>ovos-native-toolcall-loop</code></td>
+<td><code>NativeToolCallEngine</code></td>
+<td>Tool-using Q&amp;A with brains that expose native <code>tool_calls</code> (falls back to the ReAct text loop otherwise)</td>
 </tr>
 <tr>
 <td><code>ovos-plan-execute-loop</code></td>

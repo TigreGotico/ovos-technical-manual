@@ -5946,7 +5946,7 @@ independently discoverable, configurable, and composable.</p>
 <h2 id="reranker-opmagentsreranker">ReRanker — <code>opm.agents.reranker</code><a class="headerlink" href="#reranker-opmagentsreranker" title="Permanent link">&para;</a></h2>
 <p><strong>Base class:</strong> <code>ReRankerEngine</code></p>
 <p>Scores a list of candidate answers by relevance to a query and returns them ranked highest-first.
-Used internally by the <a href="https://openvoiceos.github.io/ovos-technical-manual/360-solver_plugins/">Common Query pipeline</a>,
+Used internally by the <a href="../cq-pipeline/">Common Query pipeline</a>,
 <a href="../ocp-pipeline/">OCP</a> media search, and by <a href="../mos-plugin/">Mixture of Solvers</a> strategies as the judge/king/referee.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.agents</span> <span class="kn">import</span> <span class="n">ReRankerEngine</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -5969,9 +5969,11 @@ Used internally by the <a href="https://openvoiceos.github.io/ovos-technical-man
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>Available implementations: <code>ClaudeReRankerEngine</code> (<a href="../claude-plugin/">Claude plugin</a>),
-<code>GGUFReRankerEngine</code> (<a href="../gguf-plugin/">GGUF plugin</a>), <code>ovos-flashrank-reranker-plugin</code>
-(local transformer-based, no API key required).</p>
+<p>Available implementations: <code>ClaudeReRankerEngine</code> (<a href="../claude-plugin/">Claude plugin</a>,
+entry point <code>ovos-reranker-claude-plugin</code>). The local <code>ovos-flashrank-reranker-plugin</code>
+(transformer-based, no API key required) is not a new-style <code>ReRankerEngine</code>: it ships
+<code>FlashRankMultipleChoiceSolver</code> under the deprecated <code>opm.solver.multiple_choice</code> group,
+so it is consumed as a <code>MultipleChoiceSolver</code> rather than via <code>opm.agents.reranker</code>.</p>
 <hr />
 <h2 id="extractive-qa-opmagentsextractive_qa">Extractive QA — <code>opm.agents.extractive_qa</code><a class="headerlink" href="#extractive-qa-opmagentsextractive_qa" title="Permanent link">&para;</a></h2>
 <p><strong>Base class:</strong> <code>ExtractiveQAEngine</code></p>
@@ -6161,7 +6163,7 @@ plugins should use them.</p>
 <p><a href="../gguf-plugin/">GGUF Plugin</a> — local offline engine implementations</p>
 </li>
 <li>
-<p><a href="https://openvoiceos.github.io/ovos-technical-manual/360-solver_plugins/">OPM Plugin Types</a> — full solver plugin reference</p>
+<p><a href="../plugin-manager/">OPM Plugin Types</a> — full solver plugin reference</p>
 </li>
 </ul>
 

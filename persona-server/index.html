@@ -5844,7 +5844,7 @@
 
 
 <h1 id="ovos-persona-server">OVOS Persona Server<a class="headerlink" href="#ovos-persona-server" title="Permanent link">&para;</a></h1>
-<p>The OVOS Persona Server exposes any OVOS <a href="https://openvoiceos.github.io/ovos-technical-manual/150-personas/">persona</a> over HTTP using the APIs of the major LLM vendors, so an OVOS persona becomes a drop-in replacement for an LLM backend in third-party tools. A single server simultaneously serves OpenAI-, Ollama-, Anthropic-, Gemini-, Cohere-, AWS Bedrock- and HuggingFace TGI-compatible endpoints, plus optional embeddings/RAG, MCP, UTCP and A2A surfaces.</p>
+<p>The OVOS Persona Server exposes any OVOS <a href="../personas/">persona</a> over HTTP using the APIs of the major LLM vendors, so an OVOS persona becomes a drop-in replacement for an LLM backend in third-party tools. A single server simultaneously serves OpenAI-, Ollama-, Anthropic-, Gemini-, Cohere-, AWS Bedrock- and HuggingFace TGI-compatible endpoints, plus embeddings, MCP, UTCP and A2A surfaces.</p>
 <p>It is a FastAPI app served by <code>uvicorn</code>. A persona is loaded from a JSON file at startup; the persona's <code>solvers</code> do the actual work (anything from a local rule-based bot to a remote LLM).</p>
 <hr />
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
@@ -5936,7 +5936,7 @@
 <td>Ollama generate</td>
 </tr>
 <tr>
-<td><code>/ollama/api/tags</code>, <code>/show</code>, <code>/ps</code>, <code>/embed</code>, <code>/embeddings</code></td>
+<td><code>/ollama/api/tags</code>, <code>/show</code>, <code>/ps</code>, <code>/pull</code>, <code>/push</code>, <code>/embeddings</code></td>
 <td>GET/POST</td>
 <td>Ollama model listing + embeddings</td>
 </tr>
@@ -5966,14 +5966,14 @@
 <td>HuggingFace Text Generation Inference</td>
 </tr>
 <tr>
-<td><code>/openai/v1/files/...</code>, <code>/openai/v1/vector_stores/...</code></td>
-<td>*</td>
-<td>OpenAI files + vector stores (RAG; requires the <code>rag</code> extra)</td>
-</tr>
-<tr>
-<td><code>/utcp</code></td>
+<td><code>/tools/manual</code></td>
 <td>GET</td>
 <td>UTCP tool-discovery manual</td>
+</tr>
+<tr>
+<td><code>/tools/{name}</code></td>
+<td>POST</td>
+<td>UTCP tool invocation</td>
 </tr>
 <tr>
 <td><code>/a2a</code></td>
@@ -6026,7 +6026,7 @@
 <hr />
 <h2 id="related-links">Related Links<a class="headerlink" href="#related-links" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://openvoiceos.github.io/ovos-technical-manual/150-personas/">OVOS Personas</a></li>
+<li><a href="../personas/">OVOS Personas</a></li>
 <li><a href="https://github.com/openai/openai-python">OpenAI Python SDK</a></li>
 <li><a href="https://www.home-assistant.io/integrations/ollama/">Home Assistant Ollama Integration</a></li>
 </ul>

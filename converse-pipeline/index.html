@@ -6195,7 +6195,7 @@
 </tr>
 <tr>
 <td><code>max_activations</code></td>
-<td>Default number of consecutive times a skill can activate itself per minute (<code>-1</code> = unlimited)</td>
+<td>Default number of consecutive times a skill can activate itself (<code>-1</code> = unlimited); the counter resets when the skill is deactivated</td>
 </tr>
 <tr>
 <td><code>skill_activations</code></td>
@@ -6317,7 +6317,7 @@
 <p>Protections include:</p>
 <ul>
 <li>
-<p>Timeouts for inactivity (<code>timeout</code>) and maximum runtime (<code>max_skill_runtime</code>).</p>
+<p>Timeouts for inactivity (<code>timeout</code>) drop idle skills from the active list.</p>
 </li>
 <li>
 <p><code>max_activations</code> limits per skill.</p>
@@ -6342,7 +6342,7 @@
 <p>This mechanism is ideal for multi-turn conversations like dialogs, games, or assistant flows that require memory of previous input.</p>
 </li>
 <li>
-<p>Converse priority is under active development; priority is currently assumed to be 50. Per-skill overrides are available via <code>converse_priorities</code> in config.</p>
+<p>In <code>priority</code> activation mode, every skill defaults to priority 50; per-skill overrides are set via <code>converse_priorities</code> in config. A skill may only self-activate if no higher-priority skill is already active.</p>
 </li>
 </ul>
 <hr />

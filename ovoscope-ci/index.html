@@ -6385,44 +6385,62 @@ actually intend to exercise. See <a href="../ovoscope-pipeline/#advanced">Pipeli
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Unit Tests</strong></td>
-<td style="text-align: left;"><code>unit_tests.yml</code></td>
-<td style="text-align: left;">PR/push to <code>dev</code></td>
-<td style="text-align: left;">Runs <code>pytest --cov=ovoscope</code> on 58 tests, posts coverage comment</td>
+<td style="text-align: left;"><strong>Build Tests</strong></td>
+<td style="text-align: left;"><code>build-tests.yml</code></td>
+<td style="text-align: left;">PR to <code>dev</code>/<code>master</code>/<code>main</code></td>
+<td style="text-align: left;">Calls <code>gh-automations/build-tests.yml</code> reusable</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Build Tests</strong></td>
-<td style="text-align: left;"><code>build_tests.yml</code></td>
-<td style="text-align: left;">PR to <code>dev</code>, push to <code>master</code></td>
-<td style="text-align: left;">Matrix build (Python 3.10, 3.11) with <code>python -m build</code></td>
+<td style="text-align: left;"><strong>Code Coverage</strong></td>
+<td style="text-align: left;"><code>coverage.yml</code></td>
+<td style="text-align: left;">PR to <code>dev</code></td>
+<td style="text-align: left;">Calls <code>gh-automations/coverage.yml</code> reusable</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coverage Pages</strong></td>
+<td style="text-align: left;"><code>coverage-pages.yml</code></td>
+<td style="text-align: left;">Push to <code>dev</code></td>
+<td style="text-align: left;">Publishes coverage report to Pages</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>License Check</strong></td>
-<td style="text-align: left;"><code>license_tests.yml</code></td>
-<td style="text-align: left;">PR to <code>dev</code>, push to <code>master</code></td>
+<td style="text-align: left;"><code>license-check.yml</code></td>
+<td style="text-align: left;">PR/push to <code>dev</code>/<code>master</code></td>
 <td style="text-align: left;">Calls <code>gh-automations/license-check.yml</code> reusable</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Pip Audit</strong></td>
-<td style="text-align: left;"><code>pipaudit.yml</code></td>
-<td style="text-align: left;">Push to <code>dev</code>/<code>master</code></td>
-<td style="text-align: left;">CVE scanning via <code>pypa/gh-action-pip-audit</code></td>
+<td style="text-align: left;"><code>pip-audit.yml</code></td>
+<td style="text-align: left;">PR/push to <code>dev</code>/<code>master</code></td>
+<td style="text-align: left;">Calls <code>gh-automations/pip-audit.yml</code> reusable</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Lint</strong></td>
+<td style="text-align: left;"><code>lint.yml</code></td>
+<td style="text-align: left;">PR to <code>dev</code>/<code>master</code>/<code>main</code></td>
+<td style="text-align: left;">Calls <code>gh-automations/lint.yml</code> reusable</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Release Alpha</strong></td>
-<td style="text-align: left;"><code>release_workflow.yml</code></td>
-<td style="text-align: left;">PR merge to <code>dev</code></td>
-<td style="text-align: left;">Runs tests first, then calls <code>publish-alpha.yml</code></td>
+<td style="text-align: left;"><code>release-workflow.yml</code></td>
+<td style="text-align: left;">PR to <code>dev</code></td>
+<td style="text-align: left;">Runs build-tests, then calls <code>publish-alpha.yml</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Stable Release</strong></td>
-<td style="text-align: left;"><code>publish_stable.yml</code></td>
+<td style="text-align: left;"><code>publish-stable.yml</code></td>
 <td style="text-align: left;">Push to <code>master</code></td>
-<td style="text-align: left;">Calls <code>publish-stable.yml</code> with bot loop guard</td>
+<td style="text-align: left;">Calls <code>publish-stable.yml</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Release Preview</strong></td>
+<td style="text-align: left;"><code>release-preview.yml</code></td>
+<td style="text-align: left;">PR to <code>dev</code></td>
+<td style="text-align: left;">Calls <code>gh-automations/release-preview.yml</code> reusable</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Labels</strong></td>
-<td style="text-align: left;"><code>conventional-label.yaml</code></td>
+<td style="text-align: left;"><code>conventional-label.yml</code></td>
 <td style="text-align: left;">PR open/edit</td>
 <td style="text-align: left;">Auto-labels PRs with conventional commit types</td>
 </tr>

@@ -6088,7 +6088,7 @@
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>hey there
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>good morning
 </span></code></pre></div>
-<p>Loaded automatically as <code>HelloKeyword</code> (file name without extension, CamelCase from <code>alphanumeric_skill_id</code>).</p>
+<p>The Adapt entity name is the file name without its extension (<code>hello</code> for <code>hello.voc</code>); reference it in an <code>IntentBuilder</code> with <code>.require("hello")</code> / <code>.optionally("hello")</code>. Internally the keyword is namespaced as <code>alphanumeric_skill_id + "hello"</code> so skills never collide.</p>
 <h2 id="intent-files-padatious">Intent Files (Padatious)<a class="headerlink" href="#intent-files-padatious" title="Permanent link">&para;</a></h2>
 <p>One example utterance per line. Supports entity slots <code>{entity}</code> and alternation <code>(a | b)</code>:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># my.intent

@@ -6029,8 +6029,8 @@ Import it through your skill base class (<code>self.gui</code>) rather than from
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Read a value</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">temp</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;temperature&quot;</span><span class="p">)</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># Remove a value</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">del</span> <span class="n">gui</span><span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">]</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># Clear all synced values for this skill</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">gui</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </span></code></pre></div>
 <p>Values become available in QML as <code>sessionData.temperature</code>.</p>
 <h3 id="showing-pages">Showing Pages<a class="headerlink" href="#showing-pages" title="Permanent link">&para;</a></h3>
@@ -6274,12 +6274,16 @@ scheduled event's data today, cancel it and re-schedule.</p>
 <td>Remove an event</td>
 </tr>
 <tr>
-<td><code>mycroft.schedule.update_event</code></td>
+<td><code>mycroft.scheduler.update_event</code></td>
 <td>Update event payload</td>
 </tr>
 <tr>
 <td><code>mycroft.scheduler.get_event</code></td>
 <td>Return next execution time</td>
+</tr>
+<tr>
+<td><code>mycroft.scheduler.list_events</code></td>
+<td>List all registered events</td>
 </tr>
 </tbody>
 </table>

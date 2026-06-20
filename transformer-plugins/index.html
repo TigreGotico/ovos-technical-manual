@@ -6050,7 +6050,9 @@
 </span></code></pre></div>
 <p>The discovery helpers (<code>find_*_transformer_plugins</code>, <code>load_*_transformer_plugin</code>) live in
 <code>ovos_plugin_manager.text_transformers</code>, <code>.intent_transformers</code>, <code>.metadata_transformers</code>,
-<code>.audio_transformers</code>, <code>.dialog_transformers</code>, and <code>.tts_transformers</code>.</p>
+<code>.audio_transformers</code>, and <code>.dialog_transformers</code> (the dialog module also exposes the
+<code>find_tts_transformer_plugins</code> / <code>load_tts_transformer_plugin</code> helpers — there is no
+separate <code>tts_transformers</code> module).</p>
 <h2 id="creating-a-plugin">Creating a Plugin<a class="headerlink" href="#creating-a-plugin" title="Permanent link">&para;</a></h2>
 <ol>
 <li>

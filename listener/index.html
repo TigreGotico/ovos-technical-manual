@@ -6382,7 +6382,7 @@ captured message list on success.</p>
 <p><code>AudioTransformersService.load_plugins()</code> — <code>transformers.py:46</code> — uses
 <code>find_audio_transformer_plugins()</code> from <code>ovos-plugin-manager</code> to discover
 plugins by entry point.  If a plugin is registered under a legacy group (e.g.
-<code>neon.plugin.audio</code> instead of <code>opm.plugin.audio_transformer</code>), or is not
+<code>neon.plugin.audio</code> instead of <code>opm.transformer.audio</code>), or is not
 installed in the test environment, OPM discovery will not find it.</p>
 <p>Use <strong>Mode B</strong> (<code>plugin_instances</code>) in these cases. The plugin's behaviour
 through <code>AudioTransformersService</code>'s pipeline methods is identical regardless

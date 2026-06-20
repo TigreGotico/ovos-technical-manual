@@ -6170,14 +6170,14 @@
 </span></code></pre></div>
 <p>The <code>OVOSPersonaAgentExecutor</code> wraps the active persona and exposes it at <code>/a2a</code>. The agent card at <code>/.well-known/agent.json</code> advertises the persona's skills and capabilities. Both blocking (<code>tasks/send</code>) and streaming (<code>tasks/sendSubscribe</code>) modes are supported when the persona solver supports streaming.</p>
 <h3 id="ovos-a2a-solver-plugin-ovos-as-a2a-consumer">ovos-a2a-solver-plugin — OVOS as A2A Consumer<a class="headerlink" href="#ovos-a2a-solver-plugin-ovos-as-a2a-consumer" title="Permanent link">&para;</a></h3>
-<p><a href="https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin">OpenVoiceOS/ovos-a2a-agent-plugin</a> (pip: <code>ovos-a2a-solver-plugin</code>) is an <code>A2AChatEngine</code> plugin (OPM group <code>opm.agents.chat</code>, entry point <code>ovos-a2a-solver</code>) that delegates persona reasoning to any external A2A server.</p>
+<p><a href="https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin">OpenVoiceOS/ovos-a2a-agent-plugin</a> (pip: <code>ovos-a2a-agent</code>) is an <code>A2AAgentEngine</code> <code>ChatEngine</code> plugin (OPM group <code>opm.agents.chat</code>, entry point <code>ovos-a2a-agent</code>) that delegates persona reasoning to any external A2A server.</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># persona YAML</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-a2a-persona</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nt">engine</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ovos-a2a-solver</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nt">engine</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ovos-a2a-agent</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nt">engine_config</span><span class="p">:</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nt">agent_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://my-a2a-agent.example.com&quot;</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span><span class="nt">auth_header</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Bearer</span><span class="nv"> </span><span class="s">&lt;token&gt;&quot;</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://my-a2a-agent.example.com&quot;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;token&gt;&quot;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">  </span><span class="nt">streaming</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </span></code></pre></div>
 <p>Config keys:</p>
@@ -6191,24 +6191,24 @@
 </thead>
 <tbody>
 <tr>
-<td><code>agent_url</code></td>
+<td><code>url</code></td>
 <td>—</td>
-<td>Root URL of the A2A server (<strong>required</strong>)</td>
+<td>Base URL of the A2A server (<strong>required</strong>)</td>
 </tr>
 <tr>
-<td><code>auth_header</code></td>
+<td><code>api_key</code></td>
 <td>—</td>
-<td>Full <code>Authorization</code> header value</td>
+<td>Bearer token, added via a request interceptor</td>
 </tr>
 <tr>
 <td><code>timeout</code></td>
-<td><code>60</code></td>
-<td>HTTP timeout in seconds</td>
+<td><code>30</code></td>
+<td>Seconds per call</td>
 </tr>
 <tr>
 <td><code>streaming</code></td>
 <td><code>false</code></td>
-<td>Use <code>tasks/sendSubscribe</code> (SSE) when <code>true</code></td>
+<td>Use the SSE streaming endpoint when <code>true</code></td>
 </tr>
 </tbody>
 </table>

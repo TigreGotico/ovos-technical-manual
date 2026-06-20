@@ -5924,7 +5924,7 @@
 </li>
 <li>
 <p><strong>Compatibility routers</strong><br />
-  Beyond the native endpoints, the app mounts drop-in compatible routers so existing cloud-STT clients work unchanged, e.g. Wit.ai (<code>POST /wit/speech</code>, override the SDK host with the <code>WIT_URL</code> env var), Chromium speech-api (<code>POST /speech-api/v2/recognize</code>), and routers for OpenAI Whisper, Deepgram, Google, AssemblyAI, Azure, IBM Watson, AWS, Vosk, Kaldi, Gladia, ElevenLabs, Groq and Speechmatics. A <code>GET /utcp</code> manual advertises the endpoints to UTCP agents, and an MCP server mounts when <code>pip install 'ovos-stt-http-server[mcp]'</code> is present.</p>
+  Beyond the native endpoints, the app mounts drop-in compatible routers so existing cloud-STT clients work unchanged, e.g. Wit.ai (<code>POST /wit/speech</code>, override the SDK host with the <code>WIT_URL</code> env var), Chromium speech-api (<code>POST /speech-api/v2/recognize</code>), and routers for OpenAI Whisper, Whisper.cpp server, Deepgram, Google, AssemblyAI, Azure, IBM Watson, AWS Transcribe, Vosk and Speechmatics. A <code>GET /utcp</code> manual advertises the endpoints to UTCP agents, and an MCP server mounts when <code>pip install 'ovos-stt-http-server[mcp]'</code> is present.</p>
 </li>
 <li>
 <p><strong>Scalability</strong><br />

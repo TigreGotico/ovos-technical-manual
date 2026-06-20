@@ -5841,7 +5841,7 @@
 <p>Specification: <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-session-1.md">OVOS-SESSION-1</a> (Session wire shape) and <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-session-2.md">OVOS-SESSION-2</a> (Session lifecycle &amp; state ownership)</p>
 </blockquote>
 <p><strong>What / why (beginners):</strong> a single OVOS device can be talking to many clients at once — your phone, a kitchen satellite, a HiveMind node. Each request arrives carrying a <code>Session</code> that identifies <em>who</em> is asking and <em>in what language</em>. If your skill stores any state (a chat history, a game in progress, a "current selection"), you must key that state by <code>session_id</code> instead of stashing it in a single instance variable — otherwise two users would clobber each other.</p>
-<p>If you want your skills to handle simultaneous users you need to make them <a href="https://openvoiceos.github.io/ovos-technical-manual/bus_service/#session">Session</a> aware</p>
+<p>If you want your skills to handle simultaneous users you need to make them <a href="./">Session</a> aware</p>
 <p>Each remote client, usually a <a href="https://jarbashivemind.github.io/HiveMind-community-docs/07_voicesat/">voice satellite</a>, will send a <code>Session</code> with the <code>Message</code></p>
 <p>Your skill should keep track of any Session specific state separately, eg, a chat history</p>
 <blockquote>

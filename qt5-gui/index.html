@@ -6130,7 +6130,7 @@ C++/Qt6 build review.</p>
 <p>Before we dive deeper into the Design Guidelines, lets look at some concepts that a GUI developer should learn about:</p>
 <h3 id="units-theming">Units &amp; Theming<a class="headerlink" href="#units-theming" title="Permanent link">&para;</a></h3>
 <h4 id="units">Units:<a class="headerlink" href="#units" title="Permanent link">&para;</a></h4>
-<p>Mycroft.Units.GridUnit is the fundamental unit of space that should be used for all sizing inside the QML UI, expressed in pixels. Each GridUnit is predefined as 16 pixels</p>
+<p><code>Mycroft.Units.gridUnit</code> is the fundamental unit of space that should be used for all sizing inside the QML UI, expressed in pixels. Each <code>gridUnit</code> is predefined as 16 pixels</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Usage in QML Components example
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>width: Mycroft.Units.gridUnit * 2 // 32px Wide
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>height: Mycroft.Units.gridUnit // 16px Tall

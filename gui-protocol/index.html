@@ -6464,7 +6464,7 @@ namespace), so the UI can react to listening/speaking state:</p>
 </span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>The Qt client then opens a WebSocket connection to <code>ws://localhost:18181</code>.</p>
-<p>When a client connects, <code>plugin.synchronize(client)</code> replays the full current state:</p>
+<p>When a client connects, <code>GUIWebsocketHandler.synchronize()</code> replays the full current state:</p>
 <ol>
 <li>
 <p>Re-sends <code>mycroft.session.list.insert</code> for every namespace in the active stack (in order).</p>
@@ -6649,14 +6649,15 @@ as normal bus events.</p>
 (<a href="https://github.com/OpenVoiceOS/architecture/pull/63">OpenVoiceOS/architecture#63</a>;
 see <a href="../gui-service/">GUI Service</a>) the bus contract changes:</p>
 <ul>
-<li><code>gui.page.show</code> accepts <strong>only</strong> <code>SYSTEM_*</code> template names; <code>page_names[0]</code> must
-  start with <code>SYSTEM_</code> or <code>handle_show_page()</code> raises.</li>
+<li><code>gui.page.show</code> accepts <strong>only</strong> <code>SYSTEM_*</code> template names; if <code>page_names[0]</code> does
+  not start with <code>SYSTEM_</code>, <code>handle_show_page()</code> logs an error and drops the request
+  (custom QML is no longer supported).</li>
 <li>Instead of mirroring to Qt clients directly, <code>NamespaceManager</code> calls
   <code>adapter.dispatch_template(template, skill_id, data, session_id)</code> on every loaded
   <code>opm.gui_adapter</code> plugin; the Qt WebSocket protocol moves into the
   <code>ovos-legacy-mycroft-gui-plugin</code> adapter.</li>
 <li>Forwarded status events go to adapters via
-  <code>adapter.on_status_event(event_name, data)</code> rather than straight to Qt clients.</li>
+  <code>adapter.on_status_event(event_name, data, session_id)</code> rather than straight to Qt clients.</li>
 <li><code>gui.namespace.removed</code> / <code>gui.namespace.displayed</code> are still emitted; the
   <code>gui.page.delete</code> / <code>gui.page.delete.all</code> handlers are removed.</li>
 </ul>

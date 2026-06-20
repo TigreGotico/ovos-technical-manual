@@ -5745,23 +5745,22 @@
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">])</span>
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">container</span><span class="o">.</span><span class="n">add_entity</span><span class="p">(</span><span class="s1">&#39;engine&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span> <span class="s1">&#39;xyz&#39;</span><span class="p">])</span>
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="n">container</span><span class="o">.</span><span class="n">calc_intent</span><span class="p">(</span><span class="s1">&#39;find cats using xyz&#39;</span><span class="p">)</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1"># {&#39;name&#39;: &#39;search&#39;, &#39;entities&#39;: {&#39;query&#39;: &#39;cats&#39;, &#39;engine&#39;: &#39;xyz&#39;}, &#39;conf&#39;: 1.0}</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1"># {&#39;name&#39;: &#39;search&#39;, &#39;entities&#39;: {&#39;query&#39;: &#39;cats&#39;, &#39;engine&#39;: &#39;xyz&#39;}, &#39;conf&#39;: 0.96}</span>
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
 </span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="c1"># wildcards — * matches anything; the name is the registered intent name</span>
 </span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;say&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say *&quot;</span><span class="p">])</span>
 </span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="n">container</span><span class="o">.</span><span class="n">calc_intent</span><span class="p">(</span><span class="s1">&#39;say something, whatever&#39;</span><span class="p">)</span>
 </span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="c1"># {&#39;name&#39;: &#39;say&#39;, &#39;entities&#39;: {}, &#39;conf&#39;: 0.85}</span>
-</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
-</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="c1"># typed entities — simplematch types like :int parse and cast the value</span>
-</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;pick_number&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pick number {number:int}&#39;</span><span class="p">])</span>
-</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="n">container</span><span class="o">.</span><span class="n">calc_intent</span><span class="p">(</span><span class="s1">&#39;pick number 3&#39;</span><span class="p">)</span>
-</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="c1"># {&#39;name&#39;: &#39;pick_number&#39;, &#39;entities&#39;: {&#39;number&#39;: 3}, &#39;conf&#39;: 1.0}</span>
 </span></code></pre></div>
+<p>Slot names follow the OVOS sentence-template grammar (<code>{lowercase_with_underscores}</code>);
+the colon-typed <code>simplematch</code> syntax such as <code>{number:int}</code> is <strong>not</strong> supported —
+templates are expanded and normalized through <code>ovos_spec_tools</code>, which rejects it.</p>
 <p>A wildcard (<code>*</code>) carries a confidence penalty proportional to how much of the
 template it covers — <code>"say *"</code> is one wildcard out of two tokens, so the score
 drops from <code>1.0</code> to <code>0.85</code>. Entity placeholders like <code>{number}</code> are not
-wildcards and carry no penalty. An entity value that was never registered with
-<code>add_entity</code> still matches but at a reduced confidence (around <code>0.9</code>).</p>
+wildcards and carry no penalty. An entity whose name was never registered with
+<code>add_entity</code> still matches but at a slightly reduced confidence (a small <code>0.04</code>
+penalty, e.g. <code>0.96</code>).</p>
 
 
 

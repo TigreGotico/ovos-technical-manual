@@ -5974,10 +5974,10 @@
 <p><strong>Source:</strong> <code>ovos_workshop/filesystem.py</code></p>
 <hr />
 <h2 id="storage-path">Storage Path<a class="headerlink" href="#storage-path" title="Permanent link">&para;</a></h2>
-<p>Files are stored under:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>~/.local/share/ovos/filesystem/&lt;skill_id&gt;/
+<p>Files for a skill are stored under:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>~/.local/share/ovos/filesystem/skills/&lt;skill_id&gt;/
 </span></code></pre></div>
-<p>The exact base is determined by <code>get_xdg_data_save_path()</code> from <code>ovos-config</code>. The directory is created automatically if it does not exist.</p>
+<p>The exact base is determined by <code>get_xdg_data_save_path()</code> from <code>ovos-config</code>. The directory is created automatically if it does not exist. (<code>self.file_system</code> is constructed as <code>FileSystemAccess("skills/" + skill_id)</code>; a <code>FileSystemAccess</code> built directly with a bare name maps to <code>filesystem/&lt;name&gt;/</code> without the <code>skills/</code> segment.)</p>
 <hr />
 <h2 id="migration-from-legacy-paths">Migration from Legacy Paths<a class="headerlink" href="#migration-from-legacy-paths" title="Permanent link">&para;</a></h2>
 <p>If a directory exists at the legacy Mycroft location (<code>~/.mycroft/&lt;skill_id&gt;</code>) but the XDG path does not yet exist, the directory is automatically <strong>moved</strong> to the new location. A deprecation warning is logged during migration.</p>

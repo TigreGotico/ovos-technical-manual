@@ -5904,8 +5904,9 @@ type is used with full confidence.</p>
 <code>news</code>, and many more from <code>ovos_utils.ocp.MediaType</code>.</p>
 <hr />
 <h2 id="search-and-result-filtering">Search and result filtering<a class="headerlink" href="#search-and-result-filtering" title="Permanent link">&para;</a></h2>
-<p>After classifying, OCP emits <code>ovos.common_play.search</code> and gathers results from
-skills, then filters them in <code>filter_results()</code>:</p>
+<p>After classifying, OCP emits <code>ovos.common_play.query</code> and gathers
+<code>ovos.common_play.query.response</code> results from skills, then filters them in
+<code>filter_results()</code>:</p>
 <ul>
 <li><strong>Confidence</strong> — drops results whose <code>match_confidence</code> is below <code>min_score</code>.</li>
 <li><strong>Media-type consistency</strong> — when a non-GENERIC type was classified, results of
@@ -5990,13 +5991,8 @@ e.g. "next song" does nothing when no player is active.</p>
 </tr>
 </tbody>
 </table>
-<p>The config block is read from <code>intents.ovos-ocp-pipeline-plugin</code>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Upcoming — unreleased</p>
-<p>Explicit default-config handling and an <code>intents.OCP</code> fallback key are proposed
-in <a href="https://github.com/OpenVoiceOS/ovos-ocp-pipeline-plugin/pull/123">ovos-ocp-pipeline-plugin#123</a>
-and are not yet on <code>dev</code>.</p>
-</div>
+<p>The config block is read from <code>intents.ovos-ocp-pipeline-plugin</code> (the plugin's
+entry-point ID), the section ovos-core passes to the plugin when loading it.</p>
 <hr />
 <h2 id="gotcha-legacy-vs-ocp-playback">Gotcha: legacy vs. OCP playback<a class="headerlink" href="#gotcha-legacy-vs-ocp-playback" title="Permanent link">&para;</a></h2>
 <p><code>ocp_legacy</code> and <code>legacy: true</code> are two different things. <code>ocp_legacy</code> is a
