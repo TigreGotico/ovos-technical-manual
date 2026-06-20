@@ -1,6 +1,6 @@
 # OVOS Persona Server
 
-The OVOS Persona Server exposes any OVOS [persona](https://openvoiceos.github.io/ovos-technical-manual/150-personas/) over HTTP using the APIs of the major LLM vendors, so an OVOS persona becomes a drop-in replacement for an LLM backend in third-party tools. A single server simultaneously serves OpenAI-, Ollama-, Anthropic-, Gemini-, Cohere-, AWS Bedrock- and HuggingFace TGI-compatible endpoints, plus optional embeddings/RAG, MCP, UTCP and A2A surfaces.
+The OVOS Persona Server exposes any OVOS [persona](personas.md) over HTTP using the APIs of the major LLM vendors, so an OVOS persona becomes a drop-in replacement for an LLM backend in third-party tools. A single server simultaneously serves OpenAI-, Ollama-, Anthropic-, Gemini-, Cohere-, AWS Bedrock- and HuggingFace TGI-compatible endpoints, plus optional embeddings/RAG, MCP, UTCP and A2A surfaces.
 
 It is a FastAPI app served by `uvicorn`. A persona is loaded from a JSON file at startup; the persona's `solvers` do the actual work (anything from a local rule-based bot to a remote LLM).
 
@@ -123,6 +123,6 @@ The Ollama surface (`/ollama/api/...`, legacy `/api/...`) lets Ollama clients tr
 
 ## Related Links
 
-- [OVOS Personas](https://openvoiceos.github.io/ovos-technical-manual/150-personas/)
+- [OVOS Personas](personas.md)
 - [OpenAI Python SDK](https://github.com/openai/openai-python)
 - [Home Assistant Ollama Integration](https://www.home-assistant.io/integrations/ollama/)

@@ -52,7 +52,6 @@ Notice that the value of `false` is surrounded by "quotation marks". This is bec
 
 Both of these files would result in the same settings block.
 
-![](https://3867939753-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/assets%2F-LocrEaSe-b3SJ4H87SC%2Fsync%2F1535fed57a285e48b63090cb9e6c82591f3aacc0.png?generation=1599008778025054&alt=media)
 
 It is up to your personal preference which syntax you choose.
 

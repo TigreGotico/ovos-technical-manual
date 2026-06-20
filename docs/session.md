@@ -4,7 +4,7 @@
 
 **What / why (beginners):** a single OVOS device can be talking to many clients at once — your phone, a kitchen satellite, a HiveMind node. Each request arrives carrying a `Session` that identifies *who* is asking and *in what language*. If your skill stores any state (a chat history, a game in progress, a "current selection"), you must key that state by `session_id` instead of stashing it in a single instance variable — otherwise two users would clobber each other.
 
-If you want your skills to handle simultaneous users you need to make them [Session](https://openvoiceos.github.io/ovos-technical-manual/bus_service/#session) aware
+If you want your skills to handle simultaneous users you need to make them [Session](session.md) aware
 
 Each remote client, usually a [voice satellite](https://jarbashivemind.github.io/HiveMind-community-docs/07_voicesat/), will send a `Session` with the `Message`
 

@@ -57,7 +57,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 | [ovos-persona](#ovos-persona) | The **`PersonaPipeline`** brings multi-persona management to OpenVoiceOS (OVOS), enabling interactive conversations with virtual assistants. 🎙️ With personas, you can customize how queries are handled by assigning specific solvers to each persona. |
 | [ovos-openai-plugin](#ovos-openai-plugin) | Leverages [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to provide the following ovos plugins: |
 | [ovos-wikipedia-solver](#ovos-wikipedia-solver) | ```python |
-| [ovos-MoS](#ovos-mos) | Using [OpenVoiceOS agent plugins](https://openvoiceos.github.io/ovos-technical-manual/solvers), we implement three |
+| [ovos-MoS](#ovos-mos) | Using [OpenVoiceOS agent plugins](advanced-solvers.md), we implement three |
 | [ovos-chromadb-embeddings-plugin](#ovos-chromadb-embeddings-plugin) | The `ChromaEmbeddingsDB` plugin integrates with the [ChromaDB](https://www.trychroma.com/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using ChromaDB’s capabilities. |
 | [ovos-wolfram-alpha-solver](#ovos-wolfram-alpha-solver) | ```python |
 | [ovos-claude-plugin](#ovos-claude-plugin) | Anthropic Claude integration for [OpenVoiceOS](https://openvoiceos.org) — the open-source voice assistant platform. |
@@ -181,7 +181,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-MoS](https://github.com/OpenVoiceOS/ovos-MoS)
 
 
-- **Description**: Using [OpenVoiceOS agent plugins](https://openvoiceos.github.io/ovos-technical-manual/solvers), we implement three
+- **Description**: Using [OpenVoiceOS agent plugins](advanced-solvers.md), we implement three
 
 ### Configuration
 

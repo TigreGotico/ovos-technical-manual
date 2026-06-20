@@ -54,7 +54,7 @@ In this example:
 
 
 !!! warning
-    skills that are not [Session](https://openvoiceos.github.io/ovos-technical-manual/bus_service/#session) aware may behave weirdly with voice satellites, see the [parrot skill](https://github.com/OpenVoiceOS/skill-ovos-parrot/) for an example.
+    skills that are not [Session](session.md) aware may behave weirdly with voice satellites, see the [parrot skill](https://github.com/OpenVoiceOS/skill-ovos-parrot/) for an example.
 
 
 ## Active Skill List

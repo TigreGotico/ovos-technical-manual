@@ -6,7 +6,7 @@ Resource files are essential components of OVOS skills, containing data such as 
 
 These files define how a skill interacts with the user and responds to queries.
 
-> **RECAP**: the skill contains a `locale` folder with subfolders for each lang, eg `en-us`, learn more in [skill structure docs](https://openvoiceos.github.io/ovos-technical-manual/skill_structure/)
+> **RECAP**: the skill contains a `locale` folder with subfolders for each lang, eg `en-us`, learn more in [skill structure docs](skill-structure.md)
 
 
 ### Customizing Dialogs

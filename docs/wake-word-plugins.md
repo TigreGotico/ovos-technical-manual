@@ -37,7 +37,7 @@ The `hotwords` section in your `mycroft.conf` allows you to configure the wakewo
 
 ```
 
-> 💡 see the full docs for the [listener service](https://openvoiceos.github.io/ovos-technical-manual/101-speech_service/#hotwords)
+> 💡 see the full docs for the [listener service](speech-service.md)
 
 
 ## Tips and Caveats

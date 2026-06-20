@@ -14,7 +14,7 @@ All base classes live in `ovos_plugin_manager.templates.agents`. The deprecated 
 **Base class:** `ReRankerEngine`
 
 Scores a list of candidate answers by relevance to a query and returns them ranked highest-first.
-Used internally by the [Common Query pipeline](https://openvoiceos.github.io/ovos-technical-manual/360-solver_plugins/),
+Used internally by the [Common Query pipeline](cq-pipeline.md),
 [OCP](ocp-pipeline.md) media search, and by [Mixture of Solvers](mos-plugin.md) strategies as the judge/king/referee.
 
 ```python
@@ -281,4 +281,4 @@ plugins should use them.
 - [GGUF Plugin](gguf-plugin.md) — local offline engine implementations
 
 
-- [OPM Plugin Types](https://openvoiceos.github.io/ovos-technical-manual/360-solver_plugins/) — full solver plugin reference
+- [OPM Plugin Types](plugin-manager.md) — full solver plugin reference

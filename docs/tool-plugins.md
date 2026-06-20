@@ -2,7 +2,7 @@
 
 The OPM `ToolBox` framework provides a standardized mechanism for exposing discoverable, schema-validated functions to OVOS agents (persona solvers, agentic loops, MCP/UTCP clients).
 
-This page covers the plugin ecosystem, the PHAL bus provider, and integration with agentic loops. For full authoring documentation see the [upstream OpenVoiceOS technical manual](https://openvoiceos.github.io/ovos-technical-manual/tools.html).
+This page covers the plugin ecosystem, the PHAL bus provider, and integration with agentic loops. For full authoring documentation see the [Plugin Manager reference](plugin-manager.md).
 
 ---
 
@@ -26,7 +26,7 @@ my-toolbox = "my_package:MyToolBox"
 
 ### Authoring a ToolBox plugin
 
-The full authoring guide with `AgentTool`, `ToolArguments`, and `ToolOutput` examples is embedded in the [tools.md page in the upstream OpenVoiceOS manual](https://openvoiceos.github.io/ovos-technical-manual/tools.html) and mirrors the [OPM PR #340 docs](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/340).
+The full authoring guide with `AgentTool`, `ToolArguments`, and `ToolOutput` examples is embedded in the [Plugin Manager reference](plugin-manager.md) and mirrors the [OPM PR #340 docs](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/340).
 
 ---
 

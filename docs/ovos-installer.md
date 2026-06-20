@@ -4,7 +4,7 @@ Welcome to the quick-start guide for installing Open Voice OS (OVOS) using the o
 
 > ⚠️ Note: Some “exotic” hardware (like ReSpeaker microphones or certain audio HATs) may require extra configuration. The installer aims for wide compatibility, but specialized setups might need some manual intervention.
 
-Looking for a pre-built raspberry pi image instead? check out [raspOVOS](https://github.com/OpenVoiceOS/raspOVOS) and the companion [tutorial](https://openvoiceos.github.io/ovos-technical-manual/51-install_raspovos/)
+Looking for a pre-built raspberry pi image instead? check out [raspOVOS](https://github.com/OpenVoiceOS/raspOVOS) and the companion [tutorial](install-raspovos.md)
 
 ---
 
