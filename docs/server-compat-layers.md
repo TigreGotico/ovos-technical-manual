@@ -20,25 +20,27 @@ All compat routers are always loaded; no feature flag is needed.
 
 `pip install ovos-stt-http-server`
 
-Status: PRs [#53–#69](https://github.com/OpenVoiceOS/ovos-stt-http-server/pulls) (open/draft).
+Status: merged to `dev`.
 
-| Prefix | Vendor | PR |
-|--------|--------|----|
-| `/openai` | OpenAI Whisper (`/openai/v1/audio/transcriptions`) | #53 |
-| `/deepgram` | Deepgram (`/deepgram/v1/listen`) | #54 |
-| `/google` | Google Cloud Speech (`/google/speech:recognize`) | #55 |
-| `/assemblyai` | AssemblyAI | #56 |
-| `/speechmatics` | Speechmatics | #57 |
-| `/azure-stt` | Microsoft Azure Speech | #58 |
-| `/aws` | AWS Transcribe | #60 |
-| `/watson/speech-to-text` | IBM Watson STT | #61 |
-| `/wit` | Wit.ai | #62 |
-| `/vosk` | Vosk-server WebSocket | #63 |
-| `/whisper-cpp` | whisper.cpp HTTP server | #64 |
-| `/vosk-grpc` | Vosk gRPC variant | #65 |
-| `/vosk-webrtc` | Vosk WebRTC variant | #66 |
-| `/vosk-mqtt` | Vosk MQTT variant | #67 |
-| `/client` | Kaldi GStreamer Server | #69 |
+| Prefix | Vendor |
+|--------|--------|
+| `/openai` | OpenAI Whisper (`/openai/v1/audio/transcriptions`) |
+| `/deepgram` | Deepgram |
+| `/google` | Google Cloud Speech |
+| `/assemblyai` | AssemblyAI |
+| `/speechmatics` | Speechmatics |
+| `/azure-stt` | Microsoft Azure Speech |
+| `/aws` | AWS Transcribe |
+| `/watson/speech-to-text` | IBM Watson STT |
+| `/wit` | Wit.ai |
+| `/vosk` | Vosk-server WebSocket |
+| `/vosk-webrtc` | Vosk WebRTC variant |
+| `/whisper-cpp` | whisper.cpp HTTP server |
+| `/gladia` | Gladia |
+| `/groq` | Groq Whisper |
+| `/elevenlabs` | ElevenLabs Scribe |
+| `/speech-api` | Chromium/Google `speech-api` |
+| `/client` | Kaldi GStreamer Server |
 
 ---
 
@@ -46,18 +48,20 @@ Status: PRs [#53–#69](https://github.com/OpenVoiceOS/ovos-stt-http-server/pull
 
 `pip install ovos-tts-server`
 
-Status: PRs [#87–#94](https://github.com/OpenVoiceOS/ovos-tts-server/pulls) (open/draft).
+Status: merged to `dev`.
 
-| Prefix | Vendor | PR |
-|--------|--------|----|
-| `/elevenlabs` | ElevenLabs | #87 |
-| `/openai` | OpenAI TTS | #88 |
-| `/coqui` | Coqui TTS | #89 |
-| `/google-tts` | Google Cloud TTS | #90 |
-| `/amazon-polly` | Amazon Polly | #91 |
-| `/azure-tts` | Microsoft Azure TTS | #92 |
-| `/piper` | Piper TTS | #93 |
-| `/process` | MaryTTS (`/process`, `/voices`, `/locales`) | #94 |
+| Prefix | Vendor |
+|--------|--------|
+| `/elevenlabs` | ElevenLabs |
+| `/openai` | OpenAI TTS |
+| `/coqui` | Coqui TTS |
+| `/google-tts` | Google Cloud TTS |
+| `/amazon-polly` | Amazon Polly |
+| `/azure-tts` | Microsoft Azure TTS |
+| `/cartesia` | Cartesia |
+| `/deepgram` | Deepgram Aura |
+| `/playht` | PlayHT |
+| `/marytts` | MaryTTS (`/marytts/process`, `/voices`, `/locales`) |
 
 ---
 
@@ -65,16 +69,17 @@ Status: PRs [#87–#94](https://github.com/OpenVoiceOS/ovos-tts-server/pulls) (o
 
 `pip install ovos-translate-server`
 
-Status: PRs [#17–#22](https://github.com/OpenVoiceOS/ovos-translate-server/pulls) (draft).
+Status: merged to `dev` (the server is now FastAPI, replacing the former Flask app).
 
-| Prefix | Vendor | PR |
-|--------|--------|----|
-| Base | FastAPI migration (replaces Flask) | #17 |
-| `/libretranslate` | LibreTranslate | #18 |
-| `/deepl` | DeepL v2 | #19 |
-| `/google` | Google Translate v2 | #20 |
-| `/azure` | Azure Translator v3 | #21 |
-| `/amazon` | Amazon Translate | #22 |
+| Prefix | Vendor |
+|--------|--------|
+| `/libretranslate` | LibreTranslate |
+| `/deepl` | DeepL v2 |
+| `/deeplx` | DeepLX |
+| `/google` | Google Translate v2 |
+| `/azure` | Azure Translator v3 |
+| `/amazon` | Amazon Translate |
+| `/lingva` | Lingva Translate |
 
 ---
 
@@ -82,18 +87,18 @@ Status: PRs [#17–#22](https://github.com/OpenVoiceOS/ovos-translate-server/pul
 
 `pip install ovos-persona-server`
 
-Status: PRs [#29–#34](https://github.com/OpenVoiceOS/ovos-persona-server/pulls) (draft).
+Status: merged to `dev`.
 
-The persona server baseline is an OpenAI-compatible chat API (`/v1/chat/completions`). Additional vendor routers are layered on top:
+The persona server baseline is an OpenAI-compatible chat API (`/v1/chat/completions`, also mounted at `/openai/v1`). Additional vendor routers are layered on top:
 
-| Prefix | Vendor | PR |
-|--------|--------|----|
-| `/openai`, `/ollama` | OpenAI + Ollama (refactored) | #29 |
-| `/anthropic/v1` | Anthropic Claude | #30 |
-| `/gemini/v1beta` | Google Gemini | #31 |
-| `/cohere/v1` | Cohere | #32 |
-| `/tgi` | HuggingFace TGI | #33 |
-| `/bedrock/model` | AWS Bedrock | #34 |
+| Prefix | Vendor |
+|--------|--------|
+| `/openai/v1`, `/ollama/api` | OpenAI + Ollama |
+| `/anthropic/v1` | Anthropic Claude |
+| `/gemini/v1beta/models` | Google Gemini |
+| `/cohere/v1` | Cohere |
+| `/tgi` | HuggingFace TGI |
+| `/bedrock/model` | AWS Bedrock |
 
 ### OpenAI-compatible example (existing, stable)
 

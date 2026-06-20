@@ -1,39 +1,39 @@
 # Persona Memory Plugins
 
-Persona memory is managed through the `AgentContextManager` interface (OPM `opm.agents.memory`), introduced in [OpenVoiceOS/ovos-plugin-manager#363](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/363) (merged). Plugins build the conversation context — the list of messages sent to the LLM before each turn — and persist history between turns and sessions.
+**What this is:** a pluggable way to control what an OVOS persona "remembers". Instead of a fixed conversation buffer, a memory plugin decides which past messages (and any summaries or retrieved snippets) get prepended to the LLM call on each turn, and how that history is persisted across turns and sessions.
 
-Integration into `ovos-persona` is tracked in [OpenVoiceOS/ovos-persona#143](https://github.com/OpenVoiceOS/ovos-persona/pull/143) (open).
+Persona memory is managed through the `AgentContextManager` interface (OPM `opm.agents.memory`), introduced in [OpenVoiceOS/ovos-plugin-manager#363](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/363) (merged). Integration into `ovos-persona` landed in [OpenVoiceOS/ovos-persona#143](https://github.com/OpenVoiceOS/ovos-persona/pull/143) (merged).
 
 ---
 
 ## Interface
 
 ```python
-class AgentContextManager:
-    def build_conversation_context(
-        self,
-        utterance: str,
-        session_id: str = "default",
-    ) -> list[AgentMessage]:
-        """Return messages to prepend before the current utterance."""
+from ovos_plugin_manager.templates.agents import AgentContextManager, AgentMessage
+
+class MyMemory(AgentContextManager):  # all three methods are abstract
+    def build_conversation_context(self, utterance: str, session_id: str) -> List[AgentMessage]:
+        """Messages to prepend before the current utterance (system prompt,
+        summaries, retrieved history, tool definitions)."""
         ...
 
-    def update_history(
-        self,
-        exchange: tuple[AgentMessage, AgentMessage],
-        session_id: str = "default",
-    ) -> None:
-        """Called after each completed user/assistant exchange."""
+    def get_history(self, session_id: str) -> List[AgentMessage]:
+        """Return the stored history for a session (plugins may trim/summarize here)."""
+        ...
+
+    def update_history(self, new_messages: List[AgentMessage], session_id: str) -> None:
+        """Append new turns after each interaction. Takes a list of messages,
+        not a single exchange tuple."""
         ...
 ```
 
-The short-term memory that was previously hard-coded in `ovos-persona` is packaged as a plugin under the same interface, so all memory strategies are composable.
+`AgentMessage` (`role`, `content`, optional `tool_calls` / `tool_call_id` / `name`) is the canonical message type. The short-term memory previously hard-coded in `ovos-persona` is now a plugin under this interface, so all memory strategies are composable.
 
 ---
 
 ## Per-Session Persona Tracking
 
-[OpenVoiceOS/ovos-persona#140](https://github.com/OpenVoiceOS/ovos-persona/pull/140) (open, depends on ovos-bus-client#192) adds session isolation to persona management:
+[OpenVoiceOS/ovos-persona#140](https://github.com/OpenVoiceOS/ovos-persona/pull/140) (merged, built on ovos-bus-client#192) adds session isolation to persona management:
 
 - Each `Session` can activate a different persona.
 - Conversation history is tracked per session, not globally.
@@ -95,8 +95,14 @@ Stores every exchange as a vector-indexed document using an OpenAI-compatible fi
 | `api_url` | `http://192.168.1.200:8000/v1` | OpenAI-compatible endpoint (embeddings + vector stores) |
 | `top_k` | `3` | Number of retrieved documents to inject |
 | `collection` | `"ovos_memory"` | Vector store collection name |
+| `min_score` | `0.0` | Minimum similarity to inject a retrieved turn |
+| `request_timeout` | `30` | HTTP timeout in seconds |
+| `inject_as_system` | `false` | Inject retrieved turns into the system message instead of as prior turns |
 
 Fallback: if the vector store endpoint is unavailable, in-process cosine similarity is used.
+
+!!! warning "Upcoming — unreleased"
+    [OpenVoiceOS/ovos-memory-plugins#9](https://github.com/OpenVoiceOS/ovos-memory-plugins/pull/9) (`feat!`, open) makes this plugin **fully local**: it replaces the server-coupled `ovos-memory-plugin-rag` / `RAGMemory` with `ovos-memory-plugin-local-rag` / `LocalRAGMemory`, which embeds and stores exchanges in-process via OVOS embeddings plugins (`opm.embeddings.text` + `EmbeddingsDB`) — no network, no cloud key. `ovos-memory-plugins` is local-first only; any server- or OpenAI-coupled RAG lives in `ovos-openai-plugin` instead. After that PR lands, the entry point above and its `api_url`-based config no longer apply.
 
 ---
 

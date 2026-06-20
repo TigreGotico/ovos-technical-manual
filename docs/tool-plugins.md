@@ -38,7 +38,7 @@ The full authoring guide with `AgentTool`, `ToolArguments`, and `ToolOutput` exa
 pip install ovos-PHAL-plugin-tools
 ```
 
-Entry point: `ovos.plugin.phal` / `ovos-phal-plugin-tools`.
+Entry point group: `opm.phal`; plugin name `ovos-phal-plugin-tools`.
 
 ### MessageBus event table
 
@@ -75,12 +75,12 @@ result = bus.wait_for_response(Message("ovos.tools.invoke",
 
 ## ovos-agentic-loop Toolboxes
 
-[ovos-agentic-loop](agentic-loop.md) bundles five ready-to-use toolboxes:
+[ovos-agentic-loop](agentic-loop.md) bundles six ready-to-use toolboxes:
 
 | Entry point | Key tools |
 |---|---|
-| `ovos-math-tools` | `evaluate_expression`, `unit_convert`, `statistics_summary` |
-| `ovos-filesystem-tools` | `read_file`, `write_file`, `list_directory`, `find_files` |
+| `ovos-math-tools` | `evaluate_expression`, `unit_convert`, `statistics_summary`, `solve_equation` |
+| `ovos-filesystem-tools` | `read_file`, `write_file`, `list_directory`, `search_in_files`, `find_files` |
 | `ovos-shell-tools` | `run_command` (disabled by default) |
 | `ovos-web-search-tools` | `web_search` |
 | `ovos-clock-tools` | `get_current_datetime` |

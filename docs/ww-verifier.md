@@ -3,7 +3,7 @@
 The wake word verifier framework lets one or more secondary plugins inspect the audio captured during a wake-word detection event and veto false triggers. This is separate from the detection plugin itself and runs as a post-detection gate.
 
 OPM interface: [OpenVoiceOS/ovos-plugin-manager#341](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/341) (merged).  
-Listener integration: [OpenVoiceOS/ovos-dinkum-listener#191](https://github.com/OpenVoiceOS/ovos-dinkum-listener/pull/191) (open).
+Listener integration: [OpenVoiceOS/ovos-dinkum-listener#191](https://github.com/OpenVoiceOS/ovos-dinkum-listener/pull/191) (merged).
 
 ---
 
@@ -48,16 +48,16 @@ Multiple verifiers can be listed; a detection is accepted only if all verifiers 
 from ovos_plugin_manager.templates.hotwords import HotWordVerifier
 
 class MyVerifier(HotWordVerifier):
-    def verify(self, audio_data: bytes) -> bool:
+    def verify(self, chunk: bytes) -> bool:
         """Return True to accept the detection, False to veto it."""
         ...
 ```
 
-Plugin entry point group: `opm.ww.verifier`.
+Plugin entry point group: `opm.wake_word.verifier`.
 
 ```python
 # pyproject.toml
-[project.entry-points."opm.ww.verifier"]
+[project.entry-points."opm.wake_word.verifier"]
 my-verifier = "my_package:MyVerifier"
 ```
 
@@ -79,6 +79,9 @@ The reference verifier wraps the Silero VAD model to confirm that captured audio
 
 A lower `threshold` accepts quieter speech; raise it to require stronger speech confidence.
 
+!!! note
+    `ovos-ww-verifier-silero` is the reference verifier used throughout the listener's own examples and end-to-end tests. The package may not yet be published to PyPI — install from source if it is not available.
+
 ---
 
 ## Speaker Verification
@@ -91,12 +94,18 @@ Enrollment is a one-time CLI step per person:
 ovos-speaker-enroll Alice clip1.wav clip2.wav clip3.wav
 ```
 
-Profiles are stored as embedding vectors in `~/.local/share/ovos_speaker_verifier/profiles.json` — no audio is retained. Configuration:
+Profiles are stored as embedding vectors in `~/.local/share/ovos_speaker_verifier/profiles.json` — no audio is retained. The plugin registers under `opm.wake_word.verifier` as `ovos-ww-verifier-speaker`, so wire it like any other verifier:
 
 ```json
 {
-  "model": "wespeaker-resnet34",
-  "threshold": 0.45
+  "listener": {
+    "ww_verifiers": {
+      "ovos-ww-verifier-speaker": {
+        "model": "wespeaker-resnet34",
+        "threshold": 0.45
+      }
+    }
+  }
 }
 ```
 

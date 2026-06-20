@@ -18,7 +18,7 @@ OVOS exposes its speech, translation, and reasoning services as first-class agen
 
 ### STT Server
 
-> **Status:** [OpenVoiceOS/ovos-stt-http-server#75](https://github.com/OpenVoiceOS/ovos-stt-http-server/pull/75) — DRAFT
+> **Status:** Merged to `dev` — [OpenVoiceOS/ovos-stt-http-server#75](https://github.com/OpenVoiceOS/ovos-stt-http-server/pull/75)
 
 ```bash
 pip install "ovos-stt-http-server[mcp]"
@@ -47,7 +47,7 @@ Claude Desktop config:
 
 ### TTS Server
 
-> **Status:** [OpenVoiceOS/ovos-tts-server#100](https://github.com/OpenVoiceOS/ovos-tts-server/pull/100) — DRAFT
+> **Status:** Merged to `dev` — [OpenVoiceOS/ovos-tts-server#100](https://github.com/OpenVoiceOS/ovos-tts-server/pull/100)
 
 ```bash
 pip install "ovos-tts-server[mcp]"
@@ -73,7 +73,7 @@ curl -s 'http://localhost:9667/v2/synthesize?utterance=hello%20world' -o out.wav
 
 ### Translate Server
 
-> **Status:** [OpenVoiceOS/ovos-translate-server#16](https://github.com/OpenVoiceOS/ovos-translate-server/pull/16) — DRAFT
+> **Status:** Merged to `dev` — [OpenVoiceOS/ovos-translate-server#16](https://github.com/OpenVoiceOS/ovos-translate-server/pull/16)
 
 ```bash
 pip install "ovos-translate-server[mcp]"
@@ -91,7 +91,7 @@ MCP tools: `translate` (params: `text`, `target_lang`, optional `source_lang`), 
 
 ### Persona Server — Tool Plugins via MCP + UTCP
 
-> **Status:** [OpenVoiceOS/ovos-persona-server#37](https://github.com/OpenVoiceOS/ovos-persona-server/pull/37) — DRAFT
+> **Status:** Merged to `dev` — [OpenVoiceOS/ovos-persona-server#37](https://github.com/OpenVoiceOS/ovos-persona-server/pull/37)
 
 The persona server surfaces every installed OPM `ToolBox` plugin as both a UTCP tool and an MCP tool.
 
@@ -115,7 +115,7 @@ A2A is the [Google A2A open protocol](https://google.github.io/A2A/). An A2A ser
 
 ### Persona Server as A2A Server
 
-> **Status:** [OpenVoiceOS/ovos-persona-server#35](https://github.com/OpenVoiceOS/ovos-persona-server/pull/35) — DRAFT
+> **Status:** Merged to `dev` — [OpenVoiceOS/ovos-persona-server#35](https://github.com/OpenVoiceOS/ovos-persona-server/pull/35)
 
 ```bash
 pip install "ovos-persona-server[a2a]"
@@ -126,7 +126,7 @@ The `OVOSPersonaAgentExecutor` wraps the active persona and exposes it at `/a2a`
 
 ### ovos-a2a-solver-plugin — OVOS as A2A Consumer
 
-[TigreGotico/ovos-a2a-solver-plugin](https://github.com/TigreGotico/ovos-a2a-solver-plugin) is a `ChatEngine` (OPM `opm.chat.engine`) plugin that delegates persona reasoning to any external A2A server.
+[OpenVoiceOS/ovos-a2a-agent-plugin](https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin) (pip: `ovos-a2a-solver-plugin`) is an `A2AChatEngine` plugin (OPM group `opm.agents.chat`, entry point `ovos-a2a-solver`) that delegates persona reasoning to any external A2A server.
 
 ```yaml
 # persona YAML
@@ -184,16 +184,21 @@ Add to a persona JSON:
 ```json
 {
   "name": "researcher",
-  "chat_module": "ovos-react-loop",
-  "toolboxes": ["ovos-mcp-toolbox"],
-  "ovos-mcp-toolbox": {
-    "transport": "stdio",
-    "command": "uvx",
-    "args": ["mcp-server-fetch"],
-    "timeout": 30
+  "solvers": ["ovos-react-loop"],
+  "ovos-react-loop": {
+    "brain": "ovos-chat-openai-plugin",
+    "toolboxes": ["ovos-mcp-toolbox"],
+    "ovos-mcp-toolbox": {
+      "transport": "stdio",
+      "command": "uvx",
+      "args": ["mcp-server-fetch"],
+      "timeout": 30
+    }
   }
 }
 ```
+
+> `ovos-persona` selects its engine via `solvers` (or the legacy alias `handlers`); the agentic loop names its inner LLM with `brain` and loads adapters via `toolboxes`. The `chat_module` key seen in some READMEs is not consumed by either `ovos-persona` or `ovos-tool-adapters`.
 
 ### MCP transports (`ovos-mcp-toolbox`)
 
