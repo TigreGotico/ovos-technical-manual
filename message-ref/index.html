@@ -3406,6 +3406,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3645,6 +3729,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3692,6 +3797,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4051,6 +4177,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -4660,9 +4807,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#publishmsg_type-data-contextnone" class="md-nav__link">
+  <a href="#publishmsg_type-data-contextnone-deprecated" class="md-nav__link">
     <span class="md-ellipsis">
-      publish(msg_type, data, context=None)
+      publish(msg_type, data, context=None) — deprecated
     </span>
   </a>
   
@@ -5738,9 +5885,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#publishmsg_type-data-contextnone" class="md-nav__link">
+  <a href="#publishmsg_type-data-contextnone-deprecated" class="md-nav__link">
     <span class="md-ellipsis">
-      publish(msg_type, data, context=None)
+      publish(msg_type, data, context=None) — deprecated
     </span>
   </a>
   
@@ -5828,15 +5975,20 @@
 <div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;speak&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;utterance&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello&quot;</span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;skill_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-skill&quot;</span><span class="p">}}</span>
 </span></code></pre></div>
 <h2 id="constructing-messages">Constructing Messages<a class="headerlink" href="#constructing-messages" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">msg</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span><span class="s2">&quot;speak&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;utterance&quot;</span><span class="p">:</span> <span class="s2">&quot;Hi!&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;skill_id&quot;</span><span class="p">:</span> <span class="s2">&quot;my-skill&quot;</span><span class="p">})</span>
 </span></code></pre></div>
 <h2 id="serialization">Serialization<a class="headerlink" href="#serialization" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">json_str</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span>           <span class="c1"># → JSON string (encrypted if secret_key configured)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">json_str</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span>           <span class="c1"># → plain JSON string</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">msg2</span>     <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="n">deserialize</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>  <span class="c1"># → Message</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">d</span>        <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">as_dict</span>               <span class="c1"># → plain dict (calls serialize internally)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">d</span>        <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">as_dict</span>               <span class="c1"># → plain dict</span>
 </span></code></pre></div>
+<p>The <code>Message</code> envelope is re-exported unchanged from
+<a href="https://github.com/OpenVoiceOS/ovos-spec-tools"><code>ovos_spec_tools.message</code></a>
+(the OVOS-MSG-1 spec). <code>serialize</code> / <code>deserialize</code> produce and consume <strong>plain
+JSON</strong> with no transport concerns mixed in — encryption is <strong>not</strong> a <code>Message</code>
+responsibility (see <a href="#encryption">Encryption</a> below).</p>
 <h2 id="routing-methods">Routing Methods<a class="headerlink" href="#routing-methods" title="Permanent link">&para;</a></h2>
 <p>These are used to construct related messages while preserving context:</p>
 <h3 id="forwardmsg_type-datanone"><code>forward(msg_type, data=None)</code><a class="headerlink" href="#forwardmsg_type-datanone" title="Permanent link">&para;</a></h3>
@@ -5855,10 +6007,17 @@
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># ack.msg_type == &quot;my.event.response&quot;</span>
 </span></code></pre></div>
-<h3 id="publishmsg_type-data-contextnone"><code>publish(msg_type, data, context=None)</code><a class="headerlink" href="#publishmsg_type-data-contextnone" title="Permanent link">&para;</a></h3>
-<p>Copy context without a <code>target</code> key — used for broadcast messages.</p>
+<h3 id="publishmsg_type-data-contextnone-deprecated"><code>publish(msg_type, data, context=None)</code> — deprecated<a class="headerlink" href="#publishmsg_type-data-contextnone-deprecated" title="Permanent link">&para;</a></h3>
+<p>Copy context without a <code>target</code> key, used for broadcast messages. <strong>Deprecated</strong> —
+it emits a <code>DeprecationWarning</code> and is not part of OVOS-MSG-1. Use
+<a href="#forwardmsg_type-datanone"><code>forward</code></a> instead.</p>
 <h2 id="encryption">Encryption<a class="headerlink" href="#encryption" title="Permanent link">&para;</a></h2>
-<p>If <code>websocket.secret_key</code> is set in <code>mycroft.conf</code>, all messages are AES-encrypted on the wire using <code>encrypt_as_dict</code> / <code>decrypt_from_dict</code>. The <code>Message</code> class handles this transparently.</p>
+<p>Encryption is <strong>not</strong> a <code>Message</code> feature and is <strong>deprecated</strong>. The optional
+layer-2 AES-GCM scheme lives at the transport edge —
+<code>MessageBusClient.emit</code> / <code>on_message</code> call internal <code>_maybe_encrypt</code> /
+<code>_maybe_decrypt</code> helpers — and only engages when <code>websocket.secret_key</code> is set in
+<code>mycroft.conf</code>. Because its key-setup / key-exchange half was never implemented,
+the client emits a <code>DeprecationWarning</code> whenever it encrypts or decrypts.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;websocket&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">&quot;secret_key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-secret&quot;</span><span class="p">,</span>
@@ -5866,10 +6025,13 @@
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>If <code>allow_unencrypted</code> is <code>false</code>, the client will raise <code>RuntimeError</code> when it receives a plaintext message.</p>
+<p>If <code>allow_unencrypted</code> is <code>false</code>, the client raises a <code>RuntimeError</code> when it
+receives a plaintext message. The <code>encrypt_as_dict</code> / <code>decrypt_from_dict</code> helpers
+remain importable from <code>ovos_bus_client.message</code> for any consumer that used them
+directly, but new code should not rely on this scheme.</p>
 <hr />
 <h2 id="dig_for_message"><code>dig_for_message</code><a class="headerlink" href="#dig_for_message" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">dig_for_message</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">dig_for_message</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">msg</span> <span class="o">=</span> <span class="n">dig_for_message</span><span class="p">(</span><span class="n">max_records</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </span></code></pre></div>
@@ -5879,7 +6041,7 @@
 <p><strong>Module:</strong> <code>ovos_bus_client.message.CollectionMessage</code></p>
 <p>Extension of <code>Message</code> for use with <code>bus.collect_responses</code> / <code>bus.on_collect</code>. Provides helper methods for multi-handler collect patterns.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># In a collect handler (registered with bus.on_collect):</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">my_handler</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="n">CollectionMessage</span><span class="p">):</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">def</span> <span class="nf">my_handler</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="n">CollectionMessage</span><span class="p">):</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="c1"># ... do work ...</span>
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="k">if</span> <span class="n">success</span><span class="p">:</span>
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">success</span><span class="p">({</span><span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;data&quot;</span><span class="p">}))</span>

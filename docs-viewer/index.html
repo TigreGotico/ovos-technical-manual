@@ -3406,6 +3406,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3645,6 +3729,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3692,6 +3797,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4051,6 +4177,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5732,6 +5879,7 @@
 
 <h1 id="ovos-docs-viewer-documentation-index"><code>ovos-docs-viewer</code> — Documentation Index<a class="headerlink" href="#ovos-docs-viewer-documentation-index" title="Permanent link">&para;</a></h1>
 <p><code>ovos-docs-viewer</code> is a terminal-based documentation browser for OpenVoiceOS. It downloads Markdown documentation from GitHub, then renders it interactively inside the terminal using a <a href="https://textual.textualize.io/">Textual</a> TUI with a file-tree sidebar and a Markdown viewer panel.</p>
+<p><strong>Minimal use:</strong> <code>ovos-docs-viewer technical</code> opens the technical manual in your terminal. Pass one of the documentation keys below as the single argument; the first run downloads and caches the docs, later runs read from the cache. Use the arrow keys to walk the file tree, Enter to open a file, and <code>q</code> to quit. It is read-only and needs network access only on first use (and every time for <code>live-status</code>).</p>
 <h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
@@ -5747,7 +5895,7 @@
 <p>Press <code>q</code> to quit.</p>
 </li>
 </ol>
-<p>Downloaded sources are cached on disk. Subsequent launches skip re-downloading (except <code>live-status</code>, which is always refreshed). Pass <code>--force</code> (via the code path) to re-download all sources.</p>
+<p>Downloaded sources are cached on disk. Subsequent launches skip re-downloading (except <code>live-status</code>, which is always refreshed). There is <strong>no <code>--force</code> CLI flag</strong>: forcing a re-download is only possible from Python, by calling <code>download_docs(force=True)</code> (or deleting the cache directory before launching).</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-docs-viewer
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -5759,7 +5907,7 @@
 <h2 id="entry-point">Entry Point<a class="headerlink" href="#entry-point" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ovos-docs-viewer DOCS
 </span></code></pre></div>
-<p><code>DOCS</code> must be one of the following string keys:</p>
+<p>The console script <code>ovos-docs-viewer</code> maps to <code>ovos_docs_viewer.ovos_docs:launch</code>. <code>DOCS</code> is a single required argument and must be one of the following string keys (an unknown key fails with an <code>AssertionError</code> before the TUI opens):</p>
 <table>
 <thead>
 <tr>
@@ -5770,31 +5918,31 @@
 <tbody>
 <tr>
 <td><code>technical</code></td>
-<td><a href="https://github.com/OpenVoiceOS/ovos-technical-manual">ovos-technical-manual</a> (zip archive, full <code>docs/</code> tree)</td>
+<td><a href="https://github.com/OpenVoiceOS/ovos-technical-manual">ovos-technical-manual</a> (zip archive of the <code>master</code> branch, full <code>docs/</code> tree)</td>
 </tr>
 <tr>
 <td><code>messages</code></td>
-<td><a href="https://github.com/OpenVoiceOS/message_spec">message_spec</a> (zip archive)</td>
+<td><a href="https://github.com/OpenVoiceOS/message_spec">message_spec</a> (zip archive of <code>master</code>)</td>
 </tr>
 <tr>
 <td><code>hivemind</code></td>
-<td><a href="https://github.com/JarbasHiveMind/HiveMind-community-docs">HiveMind-community-docs</a> (zip archive)</td>
+<td><a href="https://github.com/JarbasHiveMind/HiveMind-community-docs">HiveMind-community-docs</a> (zip archive of <code>master</code>)</td>
 </tr>
 <tr>
 <td><code>live-status</code></td>
-<td>OVOS status page README (always re-downloaded)</td>
+<td>OVOS <a href="https://github.com/OpenVoiceOS/status">status</a> page README (always re-downloaded)</td>
 </tr>
 <tr>
 <td><code>raspOVOS</code></td>
-<td>raspOVOS README</td>
+<td><a href="https://github.com/TigreGotico/raspOVOS">TigreGotico/raspOVOS</a> README</td>
 </tr>
 <tr>
 <td><code>installer</code></td>
-<td>ovos-installer README</td>
+<td><a href="https://github.com/OpenVoiceOS/ovos-installer">ovos-installer</a> README (<code>main</code> branch)</td>
 </tr>
 <tr>
 <td><code>skills</code></td>
-<td>README files for ~50 official OVOS skills, one file per skill</td>
+<td><code>dev</code>-branch README files for ~49 official OVOS skills, one <code>.md</code> file per skill</td>
 </tr>
 </tbody>
 </table>
@@ -5817,15 +5965,15 @@
 <h2 id="cache-location">Cache Location<a class="headerlink" href="#cache-location" title="Permanent link">&para;</a></h2>
 <p>Documentation is stored under:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$XDG_DATA_HOME/ovos_docs/
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── technical/docs/        ← ovos-technical-manual markdown files
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── messages/docs/         ← message spec markdown files
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── hivemind/docs/         ← HiveMind documentation
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>├── live-status/docs/      ← always refreshed on launch
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>├── raspOVOS/docs/         ← single README
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>├── installer/docs/        ← single README
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>└── skills/docs/           ← one .md per skill (e.g. ovos-skill-alerts.md)
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── technical/docs/             ← ovos-technical-manual markdown tree (from zip)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── messages/docs/              ← message spec markdown tree (from zip)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── hivemind/docs/              ← HiveMind documentation tree (from zip)
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>├── live-status/docs/live-status.md  ← single README, always refreshed
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>├── raspOVOS/docs/raspOVOS.md        ← single README
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>├── installer/docs/installer.md      ← single README
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>└── skills/docs/                ← one .md per skill (e.g. ovos-skill-alerts.md)
 </span></code></pre></div>
-<p><code>$XDG_DATA_HOME</code> is resolved via <code>ovos_utils.xdg_utils.xdg_data_home</code> (typically <code>~/.local/share</code>).</p>
+<p>Zip-archive sources (<code>technical</code>, <code>messages</code>, <code>hivemind</code>) keep their full <code>docs/</code> tree. Single-README sources (<code>live-status</code>, <code>raspOVOS</code>, <code>installer</code>) are written as <code>&lt;key&gt;/docs/&lt;key&gt;.md</code>. <code>$XDG_DATA_HOME</code> is resolved via <code>ovos_utils.xdg_utils.xdg_data_home</code> (typically <code>~/.local/share</code>).</p>
 <h2 id="ui-keybindings">UI Keybindings<a class="headerlink" href="#ui-keybindings" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

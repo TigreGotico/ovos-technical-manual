@@ -3406,6 +3406,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3645,6 +3729,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3692,6 +3797,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4051,6 +4177,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5288,9 +5435,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#version-bump-rules-driven-by-pr-labels-from-conventional-commits" class="md-nav__link">
+  <a href="#version-bump-rules" class="md-nav__link">
     <span class="md-ellipsis">
-      Version bump rules (driven by PR labels from conventional commits)
+      Version bump rules
     </span>
   </a>
   
@@ -5347,6 +5494,15 @@
   <a href="#manual-reruns" class="md-nav__link">
     <span class="md-ellipsis">
       Manual Reruns
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upcoming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upcoming
     </span>
   </a>
   
@@ -5654,9 +5810,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#version-bump-rules-driven-by-pr-labels-from-conventional-commits" class="md-nav__link">
+  <a href="#version-bump-rules" class="md-nav__link">
     <span class="md-ellipsis">
-      Version bump rules (driven by PR labels from conventional commits)
+      Version bump rules
     </span>
   </a>
   
@@ -5713,6 +5869,15 @@
   <a href="#manual-reruns" class="md-nav__link">
     <span class="md-ellipsis">
       Manual Reruns
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upcoming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upcoming
     </span>
   </a>
   
@@ -5778,161 +5943,164 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">__version__</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">VERSION_MAJOR</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">VERSION_MINOR</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">VERSION_BUILD</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;a</span><span class="si">{</span><span class="n">VERSION_ALPHA</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">VERSION_ALPHA</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-<p><code>_version_utils.py:17</code> (<code>read_version</code>) parses this block. <code>update_version.py:22</code> (<code>update_version</code>) rewrites it via <code>write_version_block</code> at <code>_version_utils.py:72</code>. <code>remove_alpha.py:17</code> (<code>update_alpha</code>) sets <code>VERSION_ALPHA = 0</code> using <code>write_version_block</code>. <code>get_version.py:15</code> (<code>get_version</code>) reads and formats the string.</p>
-<h3 id="version-bump-rules-driven-by-pr-labels-from-conventional-commits">Version bump rules (driven by PR labels from conventional commits)<a class="headerlink" href="#version-bump-rules-driven-by-pr-labels-from-conventional-commits" title="Permanent link">&para;</a></h3>
-<p>Labels are assigned automatically by <code>conventional-label.yaml</code> using <code>bcoe/conventional-release-labels@v1</code>, which maps PR title prefixes to labels:</p>
+<p><code>read_version()</code> in <code>scripts/_version_utils.py</code> parses this block; <code>update_version()</code> in <code>scripts/update_version.py</code> rewrites it via <code>write_version_block()</code>. <code>update_alpha()</code> in <code>scripts/remove_alpha.py</code> sets <code>VERSION_ALPHA = 0</code> (declare stable). <code>get_version()</code> in <code>scripts/get_version.py</code> reads and formats the string.</p>
+<h3 id="version-bump-rules">Version bump rules<a class="headerlink" href="#version-bump-rules" title="Permanent link">&para;</a></h3>
+<p><code>publish-alpha.yml</code>'s <code>bump_version</code> job reads the <strong>PR labels</strong> of the merged PR (it does not parse the PR title). The label-to-bump mapping is:</p>
 <table>
 <thead>
 <tr>
-<th>PR title prefix</th>
-<th>Label assigned</th>
+<th>PR label</th>
 <th>Version bump</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>BREAKING CHANGE:</code></td>
 <td><code>breaking</code></td>
 <td><strong>Major</strong>: <code>1.2.3a4</code> → <code>2.0.0a1</code></td>
 </tr>
 <tr>
-<td><code>feat:</code></td>
-<td><code>feature</code></td>
+<td><code>feature</code> or <code>enhancement</code></td>
 <td><strong>Minor</strong>: <code>1.2.3a4</code> → <code>1.3.0a1</code></td>
 </tr>
 <tr>
-<td><code>fix:</code></td>
-<td><code>fix</code></td>
+<td><code>fix</code> or <code>bug</code></td>
 <td><strong>Build</strong>: <code>1.2.3a4</code> → <code>1.2.4a1</code></td>
 </tr>
 <tr>
-<td><code>chore:</code>, <code>docs:</code>, other</td>
-<td><em>(none)</em></td>
+<td><em>(none of the above)</em></td>
 <td><strong>Alpha only</strong>: <code>1.2.3a4</code> → <code>1.2.3a5</code></td>
 </tr>
 </tbody>
 </table>
-<p>If the current version is already stable (alpha = 0), an unlabelled bump first increments <code>BUILD</code>:
-<code>1.2.3</code> → <code>1.2.4a1</code> (implemented at <code>update_version.py:50-52</code>).</p>
+<p>Priority is major &gt; minor &gt; build &gt; alpha. If the current version is already stable (alpha = 0), an unlabelled bump first increments <code>BUILD</code>: <code>1.2.3</code> → <code>1.2.4a1</code>.</p>
+<blockquote>
+<p>Labels are typically applied automatically from conventional-commit PR titles by a <em>separate</em> labeller workflow in your repo (e.g. one using <code>bcoe/conventional-release-labels</code>). That labeller is <strong>not</strong> part of gh-automations — <code>publish-alpha.yml</code> only consumes whatever labels are present at merge time. The <a href="../gh-automations-workflows/#release-previewyml"><code>release-preview.yml</code></a> workflow, by contrast, falls back to parsing the PR title prefix when no label is set.</p>
+</blockquote>
 <hr />
 <h2 id="alpha-release-on-pr-merge-to-dev">Alpha Release (on PR merge to <code>dev</code>)<a class="headerlink" href="#alpha-release-on-pr-merge-to-dev" title="Permanent link">&para;</a></h2>
+<p>Your repo's workflow calls <code>publish-alpha.yml@dev</code>. <strong>All steps — version bump, changelog, pre-release tag, release PR, PyPI publish, and Matrix notify — are jobs inside <code>publish-alpha.yml</code> itself</strong>, each gated by an input. Your wrapper file is just the trigger plus the <code>uses:</code> call.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>PR merged → dev
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    │
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    ▼
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>release_workflow.yml  (per-repo)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>your-repo workflow  (e.g. release.yml)
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    │   trigger: pull_request types:[closed] branches:[dev]
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    │   also:    workflow_dispatch
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    │
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    ├─► publish_alpha job
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    │   if: merged == true || workflow_dispatch
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    │       └─► publish-alpha.yml@dev  (gh-automations)
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    │               │
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    │               ├─ [bump_version job]
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    │               │   Checkout repo + gh-automations scripts
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    │               │   Determine bump part from PR labels
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    │               │   update_version.py &lt;part&gt; --version-file ...
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    │               │   git-auto-commit-action → push to dev
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    │               │
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    │               ├─ [update_changelog job]  (optional: update_changelog: true)
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    │               │   Generate CHANGELOG.md since last stable release
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    │               │   Commit and push to dev
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    │               │
-</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    │               ├─ [tag_prerelease job]  (optional: publish_prerelease: true)
-</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    │               │   Create GitHub pre-release tag (e.g. 1.2.3a4)
-</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    │               │
-</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    │               └─ [propose_release job]  (optional: propose_release: true)
-</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    │                   git checkout -B release-X.Y.ZaN  (force-create, idempotent)
-</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    │                   git push origin release-X.Y.ZaN
-</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>    │                   curl → open PR to master
-</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>    │
-</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>    ├─► publish_pypi job  (per-repo, inline)
-</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>    │       python -m pip install build
-</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    │       python -m build
-</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    │       pypa/gh-action-pypi-publish → PyPI (alpha)
-</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>    │
-</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>    └─► notify job
-</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        if: merged == true
-</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>            └─► notify-matrix.yml@dev  (gh-automations)
-</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>                    fadenb/matrix-chat-message → OVOS Matrix channel
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    └─► publish_alpha job
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        if: merged == true || workflow_dispatch
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>            uses: publish-alpha.yml@dev   (gh-automations)
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>            secrets: inherit               (PYPI_TOKEN, MATRIX_TOKEN, GITHUB_TOKEN)
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>                │
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>                ├─ [bump_version job]   (the gate — all others need: bump_version)
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>                │   Checkout repo + gh-automations scripts (@dev)
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                │   if: PR merged (skipping allcontributors/pre-commit-ci bots
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>                │       when skip_bot_prs) OR workflow_dispatch
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>                │   Determine bump part from PR labels
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>                │   update_version.py &lt;part&gt; --version-file ...
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>                │   git-auto-commit-action@v7 → push to `branch` (default dev)
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>                │
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>                ├─ [update_changelog job]   if: update_changelog
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>                │   github-changelog-generator → commit &amp; push
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>                │
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>                ├─ [tag_prerelease job]   if: publish_prerelease
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>                │   ncipollo/release-action → GitHub pre-release tag (e.g. 1.2.3a4)
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>                │
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>                ├─ [propose_release job]   if: propose_release  (default true)
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>                │   git checkout -B release-X.Y.ZaN  (force-create, idempotent)
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>                │   git push; gh pr create → PR to `base_branch` (default master)
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>                │
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>                ├─ [publish_pypi job]   if: publish_pypi
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>                │   python -m build
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>                │   pypa/gh-action-pypi-publish@release/v1 → PyPI  (uses PYPI_TOKEN)
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>                │
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>                └─ [notify job]   if: notify_matrix &amp;&amp; PR merged
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>                    calls notify-matrix.yml@dev → OVOS Matrix channel (uses MATRIX_TOKEN)
 </span></code></pre></div>
+<blockquote>
+<p>Note: <code>publish_pypi</code> and <code>notify_matrix</code> both default to <strong><code>false</code></strong>, so a bare call only bumps the version and opens the release PR. Set them explicitly (and provide <code>PYPI_TOKEN</code>/<code>MATRIX_TOKEN</code> via <code>secrets: inherit</code>) to publish and notify.</p>
+</blockquote>
 <hr />
 <h2 id="stable-release-on-pr-merge-to-master">Stable Release (on PR merge to <code>master</code>)<a class="headerlink" href="#stable-release-on-pr-merge-to-master" title="Permanent link">&para;</a></h2>
 <p>The <code>release-X.Y.ZaN</code> PR opened by the alpha flow requires <strong>human review</strong> before merging. This is the only manual gate in the pipeline.</p>
+<p>Like the alpha flow, <strong>every step lives inside <code>publish-stable.yml</code></strong>. Your wrapper is the <code>push: master</code> trigger plus the <code>uses:</code> call.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>PR merged → master
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    │
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    ▼
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>publish_stable.yml  (per-repo)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>your-repo workflow  (e.g. publish_stable.yml)
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    │   trigger: push: branches:[master]
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    │   also:    workflow_dispatch
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    │
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    ├─► publish_stable job
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    │   if: github.actor != &#39;github-actions[bot]&#39;   ← CRITICAL bot loop guard
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    │       └─► publish-stable.yml@dev  (gh-automations)
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    │               │
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    │               ├─ [bump_version job]
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    │               │   remove_alpha.py → VERSION_ALPHA = 0
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    │               │   git-auto-commit-action → push to master
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    │               │
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    │               └─ [tag_release job]  (optional: publish_release: true)
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    │                   ncipollo/release-action → GitHub release tag
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    │
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    ├─► publish_pypi job  (per-repo, inline)
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    │       python -m build
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    │       pypa/gh-action-pypi-publish → PyPI (stable)
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    │
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    └─► sync_dev job  (optional: sync_dev: true)
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>            ad-m/github-push-action → pushes master → dev
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    └─► publish_stable job
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        if: github.actor != &#39;github-actions[bot]&#39;   ← bot loop guard
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>            uses: publish-stable.yml@dev   (gh-automations)
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>            secrets: inherit                (PYPI_TOKEN, MATRIX_TOKEN, GITHUB_TOKEN)
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>                │
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>                ├─ [bump_version job]   if: github.actor != &#39;github-actions[bot]&#39;
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>                │   Detects target branch (uses default branch if master is absent)
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>                │   remove_alpha.py → VERSION_ALPHA = 0
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>                │   git-auto-commit-action@v7 → push to the stable branch
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>                │
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>                ├─ [tag_release job]   if: publish_release  (default true)
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>                │   ncipollo/release-action → GitHub release tag
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>                │
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>                ├─ [publish_pypi job]   if: publish_pypi
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>                │   python -m build
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>                │   pypa/gh-action-pypi-publish@release/v1 → PyPI (uses PYPI_TOKEN)
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>                │
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>                ├─ [sync_dev job]   if: sync_dev
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>                │   ad-m/github-push-action → push master → dev
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>                │
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>                └─ [notify job]   if: notify_matrix
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>                    calls notify-matrix.yml@dev → OVOS Matrix channel
 </span></code></pre></div>
 <h3 id="why-the-bot-guard-is-critical">Why the bot guard is critical<a class="headerlink" href="#why-the-bot-guard-is-critical" title="Permanent link">&para;</a></h3>
-<p><code>git-auto-commit-action</code> pushes the version commit (removing alpha) directly to <code>master</code>. Without the <code>if: github.actor != 'github-actions[bot]'</code> guard on both the calling repo's <code>publish_stable</code> job <strong>and</strong> inside <code>publish-stable.yml</code>'s <code>bump_version</code> job, this push would trigger another <code>push: master</code> event → another run → another tag attempt → failure (tag already exists) or infinite loop.</p>
-<p>The guard is belt-and-suspenders: it exists at both layers (<code>publish_stable.yml:37</code> in gh-automations, and in each repo's <code>publish_stable.yml</code> calling job).</p>
+<p><code>git-auto-commit-action</code> pushes the version commit (removing alpha) directly to the stable branch. Without the <code>if: github.actor != 'github-actions[bot]'</code> guard, that push would re-trigger the <code>push: master</code> event → another run → another tag attempt → failure (tag already exists) or an infinite loop.</p>
+<p>The guard exists at both layers for belt-and-suspenders protection:</p>
+<ul>
+<li>Inside <code>publish-stable.yml</code>, on the <code>bump_version</code> job (<code>if: github.actor != 'github-actions[bot]'</code>).</li>
+<li>In your repo's wrapper job that calls <code>publish-stable.yml</code> (same condition).</li>
+</ul>
 <hr />
 <h2 id="release-channels-ovos-releases">Release Channels (ovos-releases)<a class="headerlink" href="#release-channels-ovos-releases" title="Permanent link">&para;</a></h2>
-<p>After a stable release is published to PyPI, the <a href="https://github.com/OpenVoiceOS/ovos-releases">ovos-releases</a> constraints files are updated:</p>
+<p>After a stable release is published to PyPI, the constraints files in <a href="https://github.com/OpenVoiceOS/ovos-releases">ovos-releases</a> are updated:</p>
 <table>
 <thead>
 <tr>
 <th>File</th>
 <th>Channel</th>
-<th>Trigger</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>constraints-alpha.txt</code></td>
-<td>Alpha</td>
-<td>Every 6 hours (cron) + manual</td>
+<td>Alpha — newest, includes pre-releases</td>
 </tr>
 <tr>
 <td><code>constraints-testing.txt</code></td>
 <td>Testing</td>
-<td>Manual</td>
 </tr>
 <tr>
 <td><code>constraints-stable.txt</code></td>
 <td>Stable</td>
-<td>Manual</td>
 </tr>
 </tbody>
 </table>
-<p>Constraints use <code>&gt;=</code> bounds (e.g. <code>ovos-utils&gt;=0.3.0</code>) so users always get the latest compatible version within their chosen channel.</p>
+<p>These files use <code>&gt;=</code> bounds (e.g. <code>ovos-utils&gt;=0.3.0</code>) so users get the latest compatible version within their chosen channel. <code>downstream-check.yml</code> reads <code>constraints-alpha.txt</code> (default branch <code>main</code>) to compute reverse dependencies; the channel-compatibility check in <code>build-tests.yml</code> / <code>release-preview.yml</code> reads all three.</p>
 <hr />
 <h2 id="manual-reruns">Manual Reruns<a class="headerlink" href="#manual-reruns" title="Permanent link">&para;</a></h2>
-<p>Both <code>release_workflow.yml</code> and <code>publish_stable.yml</code> support <code>workflow_dispatch</code> for manual triggering from the GitHub Actions UI. This is useful when:</p>
+<p>Both <code>publish-alpha.yml</code> and <code>publish-stable.yml</code> support <code>workflow_dispatch</code>, so the wrapper workflows in your repo can be triggered manually from the GitHub Actions UI. This is useful when:</p>
 <ul>
-<li>
-<p>A workflow failed due to a transient error (e.g. PyPI outage)</p>
-</li>
-<li>
-<p>A version bump was needed but the PR was merged without the right labels</p>
-</li>
-<li>
-<p>Testing the release pipeline on a new repo</p>
-</li>
+<li>A workflow failed due to a transient error (e.g. PyPI outage).</li>
+<li>A version bump was needed but the PR was merged without the right labels (dispatch forces an alpha bump).</li>
+<li>Testing the release pipeline on a new repo.</li>
 </ul>
-<p>The <code>publish_alpha</code> job in <code>release_workflow.yml</code> allows dispatch:</p>
+<p>For this to work your wrapper's job condition must allow dispatch — <code>bump_version</code> runs on either a merged PR or a manual dispatch:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github.event.pull_request.merged == true || github.event_name == &#39;workflow_dispatch&#39;</span>
 </span></code></pre></div>
+<h2 id="upcoming">Upcoming<a class="headerlink" href="#upcoming" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>NGI codename release schedule</strong> — <a href="https://github.com/OpenVoiceOS/gh-automations/pull/36">PR #36</a> (<code>feat/codenames</code>) proposes a codename release schedule. Not yet merged; the flow above reflects current <code>dev</code>.</li>
+</ul>
 
 
 

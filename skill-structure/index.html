@@ -3591,6 +3591,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3830,6 +3914,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3877,6 +3982,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4236,6 +4362,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5872,15 +6019,15 @@ folder</p>
 <h3 id="initpy"><strong>init</strong>.py<a class="headerlink" href="#initpy" title="Permanent link">&para;</a></h3>
 <p>The <code>__init__.py</code> file is where most of the Skill is defined using Python code. </p>
 <h4 id="importing-libraries">Importing libraries<a class="headerlink" href="#importing-libraries" title="Permanent link">&para;</a></h4>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_workshop.intents</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntentBuilder</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_workshop.decorators</span><span class="w"> </span><span class="kn">import</span> <span class="n">intent_handler</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_workshop.skills</span><span class="w"> </span><span class="kn">import</span> <span class="n">OVOSSkill</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.intents</span> <span class="kn">import</span> <span class="n">IntentBuilder</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">intent_handler</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
 </span></code></pre></div>
 <p>This section of code imports the required <em>libraries</em>. Some libraries will be required on every Skill, and your skill
 may need to import additional libraries.</p>
 <h4 id="class-definition">Class definition<a class="headerlink" href="#class-definition" title="Permanent link">&para;</a></h4>
 <p>The <code>class</code> definition extends the <code>OVOSSkill</code> class:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">HelloWorldSkill</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span> <span class="nc">HelloWorldSkill</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span>
 </span></code></pre></div>
 <p>The class should be named logically, for example "TimeSkill", "WeatherSkill", "NewsSkill", "IPaddressSkill". If you
 would like guidance on what to call your Skill, please join
@@ -5891,7 +6038,7 @@ the <a href="https://matrix.to/#/#openvoiceos-skills:matrix.org">skills Channel 
 variables or perform setup actions, however it cannot fully utilise OVOSSkill methods as the skill is not fully initialized yet at this point. </p>
 <p><strong>You usually don't have to include the constructor.</strong></p>
 <p>An example <code>__init__</code> method might be:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">already_said_hello</span> <span class="o">=</span> <span class="kc">False</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">be_friendly</span> <span class="o">=</span> <span class="kc">True</span>
@@ -5903,7 +6050,7 @@ variables or perform setup actions, however it cannot fully utilise OVOSSkill me
 <p>Perform any final setup needed for the skill here. This function is invoked after the skill is fully constructed and
 registered with the system. Intents will be registered and Skill settings will be available.</p>
 <p>If you need to access <code>self.skill_id</code>, <code>self.bus</code>, <code>self.settings</code> or <code>self.filesystem</code> you must do it here instead of <code>__init__</code></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">my_setting</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;my_setting&#39;</span><span class="p">)</span>
 </span></code></pre></div>
 <h4 id="intent_handler"><a class="magiclink magiclink-github magiclink-mention" href="https://github.com/intent_handler" title="GitHub User: intent_handler">@intent_handler</a><a class="headerlink" href="#intent_handler" title="Permanent link">&para;</a></h4>
@@ -5914,14 +6061,14 @@ cleaner way to achieve this. We will learn all about the different <a href="../i
 <li>An Adapt handler, triggered by a keyword defined in a <code>ThankYouKeyword.voc</code> file.</li>
 </ol>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>   <span class="nd">@intent_handler</span><span class="p">(</span><span class="n">IntentBuilder</span><span class="p">(</span><span class="s1">&#39;ThankYouIntent&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="s1">&#39;ThankYouKeyword&#39;</span><span class="p">))</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>   <span class="k">def</span><span class="w"> </span><span class="nf">handle_thank_you_intent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>   <span class="k">def</span> <span class="nf">handle_thank_you_intent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>       <span class="bp">self</span><span class="o">.</span><span class="n">speak_dialog</span><span class="p">(</span><span class="s2">&quot;welcome&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <ol>
 <li>A Padatious intent handler, triggered using a list of sample phrases.</li>
 </ol>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>   <span class="nd">@intent_handler</span><span class="p">(</span><span class="s1">&#39;HowAreYou.intent&#39;</span><span class="p">)</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>   <span class="k">def</span><span class="w"> </span><span class="nf">handle_how_are_you_intent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>   <span class="k">def</span> <span class="nf">handle_how_are_you_intent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>       <span class="bp">self</span><span class="o">.</span><span class="n">speak_dialog</span><span class="p">(</span><span class="s2">&quot;how.are.you&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>In both cases, the function receives two <em>parameters</em>:</p>
@@ -5940,7 +6087,7 @@ case <code>welcome.dialog</code> and <code>how.are.you.dialog</code>.</p>
 <p>The <code>stop</code> method is called anytime a User says "Stop" or a similar command. It is useful for stopping any output or process that a User might want to end without needing to issue a Skill specific utterance such as media playback or an expired alarm notification.</p>
 <p>In the following example, we call a method <code>stop_beeping</code> to end a notification that our Skill has created.</p>
 <p>If the skill "consumed" the stop signal it should return True, else return False. </p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">beeping</span><span class="p">:</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">stop_beeping</span><span class="p">()</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>            <span class="k">return</span> <span class="kc">True</span>
@@ -5953,7 +6100,7 @@ case <code>welcome.dialog</code> and <code>how.are.you.dialog</code>.</p>
 It is used to perform any final actions to ensure all processes and operations in execution are stopped safely. 
 This might be particularly useful for Skills that have scheduled future events, may be writing to a file or database, or that have initiated new processes.</p>
 <p>In the following example we cancel a scheduled event and call a method in our Skill to stop a subprocess we initiated.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_scheduled_event</span><span class="p">(</span><span class="s1">&#39;my_event&#39;</span><span class="p">)</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">stop_my_subprocess</span><span class="p">()</span>
 </span></code></pre></div>
@@ -5978,7 +6125,7 @@ This might be particularly useful for Skills that have scheduled future events, 
 </span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="s2">&quot;ovos-workshop&gt;=0.0.1&quot;</span>
 </span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="p">]</span>
 </span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;ovos.plugin.skill&quot;</span><span class="k">]</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.skill&quot;</span><span class="k">]</span>
 </span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="s2">&quot;ovos-skill-hello-world.yourname&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ovos_skill_hello_world:HelloWorldSkill&quot;</span>
 </span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>
 </span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="k">[tool.setuptools.package-data]</span>

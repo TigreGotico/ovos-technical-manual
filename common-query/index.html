@@ -2870,9 +2870,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commonqueryskill" class="md-nav__link">
+  <a href="#the-common_query-decorator" class="md-nav__link">
     <span class="md-ellipsis">
-      CommonQuerySkill
+      The @common_query decorator
     </span>
   </a>
   
@@ -2897,9 +2897,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cqs_action" class="md-nav__link">
+  <a href="#selection-callback" class="md-nav__link">
     <span class="md-ellipsis">
-      CQS_action()
+      Selection Callback
     </span>
   </a>
   
@@ -3481,6 +3481,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3720,6 +3804,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3767,6 +3872,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4126,6 +4252,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5571,9 +5718,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commonqueryskill" class="md-nav__link">
+  <a href="#the-common_query-decorator" class="md-nav__link">
     <span class="md-ellipsis">
-      CommonQuerySkill
+      The @common_query decorator
     </span>
   </a>
   
@@ -5598,9 +5745,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cqs_action" class="md-nav__link">
+  <a href="#selection-callback" class="md-nav__link">
     <span class="md-ellipsis">
-      CQS_action()
+      Selection Callback
     </span>
   </a>
   
@@ -5625,148 +5772,111 @@
 
 
 <h1 id="common-query-framework">Common Query Framework<a class="headerlink" href="#common-query-framework" title="Permanent link">&para;</a></h1>
-<p>The Common Query Framework handles the common use case of "general information" or question answering. Many Skills may implement handlers for "what is X" or "when did Y", the Common Query Framework allows all these Skills be queried and a single "best" answer to be selected. This is similar to the <a href="../ocp-pipeline/">Common Play</a> Framework that handles the common use of "playing" music or other media.</p>
-<p>The Common Query <a href="../skill-design-guidelines/">Skill</a> System is led by the Common Query Pipeline. The pipeline handles queries matching a question pattern such as "What is the height of the Eiffle Tower" and "When is lunch". </p>
-<p>A matched question will be sent to all Skills based upon the <code>CommonQuerySkill</code> base class. The Skills will return wether they can answer the query along with an answer when applicable. The "best" match will be selected and spoken to the user.</p>
-<h2 id="commonqueryskill">CommonQuerySkill<a class="headerlink" href="#commonqueryskill" title="Permanent link">&para;</a></h2>
-<p>A Skill interfacing with the Common Query Framework inherits from the the <code>CommonQuerySkill</code> and needs to define a method <code>CQS_match_query_phrase()</code> taking an utterance as argument.</p>
-<p>The general structure is:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_workshop.skills.common_query_skill</span><span class="w"> </span><span class="kn">import</span> <span class="n">CommonQuerySkill</span><span class="p">,</span> <span class="n">CQSMatchLevel</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyCommonQuerySkill</span><span class="p">(</span><span class="n">CommonQuerySkill</span><span class="p">):</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">CQS_match_query_phrase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utt</span><span class="p">):</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>       <span class="c1"># Parsing implementation</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>       <span class="c1"># [...]</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>       <span class="k">return</span> <span class="p">(</span><span class="n">utt</span><span class="p">,</span> <span class="n">CQSMatchLevel</span><span class="o">.</span><span class="n">LEVEL</span><span class="p">,</span> <span class="n">answer_string</span><span class="p">)</span>
+<blockquote>
+<p>Specification: <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-3.md">OVOS-INTENT-3</a> (Intent Definition)</p>
+</blockquote>
+<p>The Common Query Framework handles the common use case of "general information" or question answering. Many Skills may implement handlers for "what is X" or "when did Y"; the Common Query Framework queries all of them and selects a single "best" answer to speak. This is similar to the <a href="../ocp-skills/">OCP</a> framework that handles the common use of "playing" music or other media.</p>
+<p><strong>What / why (beginners):</strong> if your skill can answer free-form questions ("how old is X", "what is Y"), you do <em>not</em> register <code>.intent</code> files for every phrasing. Instead you mark one method with the <code>@common_query</code> decorator. The Common Query pipeline detects question-shaped utterances, asks every common-query skill in parallel, and only the winner gets to speak. You return an answer plus a confidence score and the framework does the arbitration.</p>
+<h2 id="the-common_query-decorator">The <code>@common_query</code> decorator<a class="headerlink" href="#the-common_query-decorator" title="Permanent link">&para;</a></h2>
+<p>A common-query handler is a regular method on an <code>OVOSSkill</code> decorated with <code>@common_query</code>. It receives the question phrase and the language, and returns a <code>(answer, confidence)</code> tuple — or <code>None</code> if it cannot answer.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">common_query</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">class</span> <span class="nc">MyQuestionSkill</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="nd">@common_query</span><span class="p">()</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">def</span> <span class="nf">handle_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phrase</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="c1"># return None if you can&#39;t answer</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="c1"># otherwise return (answer_string, confidence)  where 0.0 &lt;= confidence &lt;= 1.0</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="k">return</span> <span class="s2">&quot;the answer&quot;</span><span class="p">,</span> <span class="mf">0.8</span>
 </span></code></pre></div>
-<p>The <code>CQS_match_query_phrase()</code> method will parse the utterance and determine if it can handle the query. if it can't answer it will return <code>None</code> and if it <em>can</em> answer it will return a data tuple with the format</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">((</span><span class="nb">str</span><span class="p">)</span><span class="n">Input</span> <span class="n">Query</span><span class="p">,</span> <span class="n">CQSMatchLevel</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="n">Answer</span> <span class="n">Text</span><span class="p">)</span>
-</span></code></pre></div>
-<p>The input query is returned to map the query to the answer.</p>
-<p><code>CQSMatchLevel</code> is an Enum with the possible values</p>
+<p>The handler contract:</p>
 <ul>
-<li>
-<p><code>CQSMatchLevel.EXACT</code>: The Skill is very confident that it has the precise answer the user is looking for. There was a category match and a known entity is referenced.</p>
-</li>
-<li>
-<p><code>CQSMatchLevel.CATEGORY</code>: The Skill could determine that the type of question matches a category that the Skill is good at finding.</p>
-</li>
-<li>
-<p><code>CQSMatchLevel.GENERAL</code>: This Skill tries to answer all questions and found an answer.</p>
-</li>
+<li><strong>Input:</strong> <code>phrase</code> (the question string) and <code>lang</code> (a BCP-47 code).</li>
+<li><strong>Output:</strong> a <code>(answer: str, confidence: float)</code> tuple, or <code>None</code>.</li>
+<li><strong>Confidence</strong> is a float between <code>0.0</code> and <code>1.0</code>. The pipeline ignores answers with confidence below <code>0.5</code>. The highest-confidence answer across all skills is the one spoken to the user.</li>
 </ul>
-<p>To show visuals or take some other action in response to being selected, see the <a href="./#cqs_action"><code>CQS_action()</code> method</a> below.</p>
+<blockquote>
+<p>The classic <code>CommonQuerySkill</code> / <code>UniversalCommonQuerySkill</code> base classes and the <code>CQS_match_query_phrase()</code> / <code>CQSMatchLevel</code> API have been <strong>removed</strong>. Use the <code>@common_query</code> decorator on a plain <code>OVOSSkill</code> instead. The pipeline still selects a single best answer the same way; only the skill-side API changed.</p>
+</blockquote>
 <h2 id="an-example">An Example<a class="headerlink" href="#an-example" title="Permanent link">&para;</a></h2>
-<p>Let's make a simple Skill that tells us the age of the various Monty Python members. A quick draft looks like this. (You can find the complete code <a href="https://github.com/forslund/common-query-tutorial">here</a>)</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_workshop.skills.common_query_skill</span><span class="w"> </span><span class="kn">import</span> <span class="n">CommonQuerySkill</span><span class="p">,</span> <span class="n">CQSMatchLevel</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Dict mapping python members to their age and whether they&#39;re alive or dead     </span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">PYTHONS</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="s1">&#39;eric idle&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span><span class="s1">&#39;alive&#39;</span><span class="p">),</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="s1">&#39;michael palin&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="s1">&#39;alive&#39;</span><span class="p">),</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="s1">&#39;john cleese&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="s1">&#39;alive&#39;</span><span class="p">),</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="s1">&#39;graham chapman&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="s1">&#39;dead&#39;</span><span class="p">),</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="s1">&#39;terry gilliam&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">79</span><span class="p">,</span> <span class="s1">&#39;alive&#39;</span><span class="p">),</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="s1">&#39;terry jones&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="s1">&#39;dead&#39;</span><span class="p">)</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">def</span><span class="w"> </span><span class="nf">python_in_utt</span><span class="p">(</span><span class="n">utterance</span><span class="p">):</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find a monty python member in the utterance.</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="sd">    Arguments:</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="sd">        utterance (str): Sentence to check for Monty Python members</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="sd">    Returns:</span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="sd">        (str) name of Monty Python member or None</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">PYTHONS</span><span class="p">:</span>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">utterance</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>            <span class="c1"># Return the found python</span>
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>            <span class="k">return</span> <span class="n">key</span>
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
-</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    <span class="c1"># No python found</span>
-</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>    <span class="k">return</span> <span class="kc">None</span>
-</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>
-</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>
-</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="k">class</span><span class="w"> </span><span class="nc">PythonAgeSkill</span><span class="p">(</span><span class="n">CommonQuerySkill</span><span class="p">):</span>
-</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A Skill for checking the age of the python crew.&quot;&quot;&quot;</span>
-</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>
-</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">format_answer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">python</span><span class="p">):</span>
-</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create string with answer for the specified &quot;python&quot; person.&quot;&quot;&quot;</span>
-</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>        <span class="n">age</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">PYTHONS</span><span class="p">[</span><span class="n">python</span><span class="p">]</span>
-</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;alive&#39;</span><span class="p">:</span>
-</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialog_renderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;age_alive&#39;</span><span class="p">,</span>
-</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>                                               <span class="p">{</span><span class="s1">&#39;person&#39;</span><span class="p">:</span> <span class="n">python</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">age</span><span class="p">})</span>
-</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialog_renderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s1">&#39;age_dead&#39;</span><span class="p">,</span>
-</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>                                               <span class="p">{</span><span class="s1">&#39;person&#39;</span><span class="p">:</span> <span class="n">python</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">age</span><span class="p">})</span>
-</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>
-</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">CQS_match_query_phrase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utt</span><span class="p">):</span>
-</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check the utterance if it is a question we can answer.</span>
-</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>
-</span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a><span class="sd">        Arguments:</span>
-</span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="sd">            utt: The question</span>
-</span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>
-</span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a><span class="sd">        Returns: tuple (input utterance, match level, response sentence, extra)</span>
-</span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="__span-2-51"><a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>        <span class="c1"># Check if this is an age query</span>
-</span><span id="__span-2-52"><a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a>        <span class="n">age_query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">voc_match</span><span class="p">(</span><span class="n">utt</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">)</span>
-</span><span id="__span-2-53"><a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a>
-</span><span id="__span-2-54"><a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a>        <span class="c1"># Check if a monty python member is mentioned</span>
-</span><span id="__span-2-55"><a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a>        <span class="n">python</span> <span class="o">=</span> <span class="n">full_python_in_utt</span><span class="p">(</span><span class="n">utt</span><span class="p">)</span>
-</span><span id="__span-2-56"><a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a>
-</span><span id="__span-2-57"><a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a>        <span class="c1"># If this is an age query and a monty python member is mentioned the</span>
-</span><span id="__span-2-58"><a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a>        <span class="c1"># skill can answer this</span>
-</span><span id="__span-2-59"><a id="__codelineno-2-59" name="__codelineno-2-59" href="#__codelineno-2-59"></a>        <span class="k">if</span> <span class="n">age_query</span> <span class="ow">and</span> <span class="n">python</span><span class="p">:</span>
-</span><span id="__span-2-60"><a id="__codelineno-2-60" name="__codelineno-2-60" href="#__codelineno-2-60"></a>            <span class="c1"># return high confidence</span>
-</span><span id="__span-2-61"><a id="__codelineno-2-61" name="__codelineno-2-61" href="#__codelineno-2-61"></a>            <span class="k">return</span> <span class="p">(</span><span class="n">utt</span><span class="p">,</span> <span class="n">CQSMatchLevel</span><span class="o">.</span><span class="n">CATEGORY</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_answer</span><span class="p">(</span><span class="n">python</span><span class="p">))</span>
-</span><span id="__span-2-62"><a id="__codelineno-2-62" name="__codelineno-2-62" href="#__codelineno-2-62"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-2-63"><a id="__codelineno-2-63" name="__codelineno-2-63" href="#__codelineno-2-63"></a>            <span class="k">return</span> <span class="kc">None</span>
+<p>Let's make a simple Skill that tells us the age of the various Monty Python members.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">common_query</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Dict mapping python members to their age and whether they&#39;re alive or dead</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">PYTHONS</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="s1">&#39;eric idle&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="s1">&#39;alive&#39;</span><span class="p">),</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="s1">&#39;michael palin&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="s1">&#39;alive&#39;</span><span class="p">),</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="s1">&#39;john cleese&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="s1">&#39;alive&#39;</span><span class="p">),</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="s1">&#39;graham chapman&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="s1">&#39;dead&#39;</span><span class="p">),</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="s1">&#39;terry gilliam&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">79</span><span class="p">,</span> <span class="s1">&#39;alive&#39;</span><span class="p">),</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="s1">&#39;terry jones&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">77</span><span class="p">,</span> <span class="s1">&#39;dead&#39;</span><span class="p">)</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="k">def</span> <span class="nf">python_in_utt</span><span class="p">(</span><span class="n">utterance</span><span class="p">):</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Find a monty python member in the utterance, or return None.&quot;&quot;&quot;</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">PYTHONS</span><span class="p">:</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">utterance</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>            <span class="k">return</span> <span class="n">key</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="k">return</span> <span class="kc">None</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="k">class</span> <span class="nc">PythonAgeSkill</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A Skill for checking the age of the python crew.&quot;&quot;&quot;</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    <span class="k">def</span> <span class="nf">format_answer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">python</span><span class="p">):</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the answer string for the specified &quot;python&quot; person.&quot;&quot;&quot;</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>        <span class="n">age</span><span class="p">,</span> <span class="n">status</span> <span class="o">=</span> <span class="n">PYTHONS</span><span class="p">[</span><span class="n">python</span><span class="p">]</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;age_alive&#39;</span> <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;alive&#39;</span> <span class="k">else</span> <span class="s1">&#39;age_dead&#39;</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialog_renderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;person&#39;</span><span class="p">:</span> <span class="n">python</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">age</span><span class="p">})</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    <span class="nd">@common_query</span><span class="p">()</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    <span class="k">def</span> <span class="nf">match_age_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phrase</span><span class="p">,</span> <span class="n">lang</span><span class="p">):</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>        <span class="c1"># Check if this is an age query and a python is mentioned</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        <span class="n">age_query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">voc_match</span><span class="p">(</span><span class="n">phrase</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">)</span>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        <span class="n">python</span> <span class="o">=</span> <span class="n">python_in_utt</span><span class="p">(</span><span class="n">phrase</span><span class="p">)</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>        <span class="k">if</span> <span class="n">age_query</span> <span class="ow">and</span> <span class="n">python</span><span class="p">:</span>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>            <span class="n">confidence</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="s1">&#39;monty python&#39;</span> <span class="ow">in</span> <span class="n">phrase</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="mf">0.7</span>
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_answer</span><span class="p">(</span><span class="n">python</span><span class="p">),</span> <span class="n">confidence</span>
+</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>        <span class="c1"># can&#39;t answer -&gt; return None</span>
+</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>        <span class="k">return</span> <span class="kc">None</span>
 </span></code></pre></div>
-<p>As seen above the <code>CQS_match_query_phrase()</code> checks if this is an age related utterance and if the utterance contains the name of a Monty Python member. If both criteria are met it returns a match with a <code>CQSMatchLevel.CATEGORY</code> confidence together with a rendered dialog containing the answer.</p>
-<p>If both criteria are not fulfilled the method will return <code>None</code> indicating that it can't answer the query.</p>
-<p>This will be able to provide answers to queries such as</p>
+<p><code>match_age_query()</code> checks whether this is an age-related question that also names a Monty Python member. If both are true it returns the rendered answer plus a confidence; otherwise it returns <code>None</code>, signalling it cannot answer.</p>
+<p>This will provide answers to queries such as</p>
 <blockquote>
 <p>"how old is Graham Chapman"</p>
 <p>"what's Eric Idle's age"</p>
 </blockquote>
-<p>To make this more exact we can add support for checking for the words "monty python", and if present return the highest confidence.</p>
-<p>The method for parsing the example is quite simplistic but there are many different toolkits out there for doing the question parsing. <a href="https://pypi.org/project/adapt-parser/">Adapt</a>, <a href="https://pypi.org/project/little-questions/">little questions</a>, <a href="https://pypi.org/project/padaos/">padaos</a> and many more!</p>
+<p>There are many toolkits for parsing the question itself — <a href="https://pypi.org/project/adapt-parser/">Adapt</a>, <a href="https://pypi.org/project/little-questions/">little questions</a>, <a href="https://pypi.org/project/padaos/">padaos</a> and more — but <code>self.voc_match</code> against a <code>.voc</code> file is usually enough.</p>
 <h2 id="match-confidence">Match Confidence<a class="headerlink" href="#match-confidence" title="Permanent link">&para;</a></h2>
-<p>If we want to make sure this Skill is used when the user explicitly states it's the age of a Monty Python member, a slight modification to the Skill can be made:</p>
-<p>We'll change the end of the <code>CQS_match_query_phrase()</code> method to</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">CQS_match_query_phrase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utt</span><span class="p">):</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>        <span class="c1"># (...)</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        <span class="k">if</span> <span class="s1">&#39;monty python&#39;</span> <span class="ow">in</span> <span class="n">utt</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>            <span class="n">confidence</span> <span class="o">=</span> <span class="n">CQSMatchLevel</span><span class="o">.</span><span class="n">EXACT</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>            <span class="n">confidence</span> <span class="o">=</span> <span class="n">CQSMatchLevel</span><span class="o">.</span><span class="n">CATEGORY</span>            
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="c1"># return high confidence</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="k">return</span> <span class="p">(</span><span class="n">utt</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_answer</span><span class="p">(</span><span class="n">python</span><span class="p">))</span>
+<p>Confidence is a single float in <code>[0.0, 1.0]</code>. Use a higher value when you are more certain you have the <em>exact</em> answer the user wants, and a lower value when your skill is a more general fallback for a category of questions. In the example above, an explicit "monty python" mention bumps confidence to <code>1.0</code>, making this skill very likely to be chosen.</p>
+<p>Only answers with confidence <code>&gt;= 0.5</code> are considered. The pipeline collects all qualifying answers and speaks the single highest-confidence one.</p>
+<h2 id="selection-callback">Selection Callback<a class="headerlink" href="#selection-callback" title="Permanent link">&para;</a></h2>
+<p>In some cases the Skill should do additional work <em>only when its answer was the one selected and spoken</em> — for example, preparing for follow-up questions or showing an image. Pass a callback to the decorator; it runs after your answer is spoken.</p>
+<p>The callback signature is <code>(phrase, answer, lang)</code> for a plain function, or <code>(self, phrase, answer, lang)</code> for an instance method — the framework inspects the signature and passes <code>self</code> only when the first parameter is named <code>self</code>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">common_query</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">def</span> <span class="nf">on_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phrase</span><span class="p">,</span> <span class="n">answer</span><span class="p">,</span> <span class="n">lang</span><span class="p">):</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;I was selected to answer: </span><span class="si">{</span><span class="n">phrase</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">show_text</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">class</span> <span class="nc">PythonAgeSkill</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="nd">@common_query</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">on_selected</span><span class="p">)</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="k">def</span> <span class="nf">match_age_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phrase</span><span class="p">,</span> <span class="n">lang</span><span class="p">):</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="o">...</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        <span class="k">return</span> <span class="n">answer</span><span class="p">,</span> <span class="n">confidence</span>
 </span></code></pre></div>
-<p>So if the utterance contains the phrase "monty python" the confidence will be set to <code>CQSMatchLevel.EXACT</code> making the Skill very very likely to be chosen to answer the query.</p>
-<h2 id="cqs_action">CQS_action()<a class="headerlink" href="#cqs_action" title="Permanent link">&para;</a></h2>
-<p>In some cases the Skill should do additional operations when selected as the best match. It could be prepared for follow-up questions or show an image on the screen. The <code>CQS_action()</code> method allows for this, when a Skill is selected this method will be called.</p>
-<p>Let's make our Python Age Skill gloat that it was selected by adding a <code>CQS_action()</code> method like this:</p>
-<p>where <code>phrase</code> is the same phrase that were sent to <code>CQS_match_query_phrase()</code> and <code>data</code> is optional additional data from the query matching method.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">CQS_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utt</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;I got selected! What you say about that Wolfram Alpha Skill!?!?&#39;</span><span class="p">)</span>
-</span></code></pre></div>
-<p>Now each time the Skill is called the above message will be added to the log! Not very useful you say? Hmm, yes... let's add something useful, like show the age on the Mark-1 display.</p>
-<p>To accomplish this we need to get the age into the <code>CQS_action()</code> method in some way. we could store last age in as an internal variable but the more elegant way is to send data as part of the match tuple. 
-To do this we must extend the returned match tuple from <code>CQS_match_query_phrase()</code> with a data entry. So the return statement becomes</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">CQS_match_query_phrase</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utt</span><span class="p">):</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>        <span class="c1"># (...)</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">PYTHONS</span><span class="p">[</span><span class="n">python</span><span class="p">],</span> <span class="s1">&#39;python&#39;</span><span class="p">:</span> <span class="n">python</span><span class="p">}</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        <span class="k">return</span> <span class="p">(</span><span class="n">utt</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_answer</span><span class="p">(</span><span class="n">python</span><span class="p">),</span> <span class="n">data</span><span class="p">)</span>
-</span></code></pre></div>
-<p>The data structure declared here will be sent to <code>CQS_Action()</code> and we can update the method to</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">CQS_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utt</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;I got selected! What you say about that Wolfram Alpha Skill!?!?&#39;</span><span class="p">)</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        <span class="n">age</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        <span class="k">if</span> <span class="n">age</span><span class="p">:</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Showing the age </span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">enclosure</span><span class="o">.</span><span class="n">mouth_text</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">age</span><span class="p">))</span>
-</span></code></pre></div>
+<blockquote>
+<p>The selected answer is spoken automatically by the framework; you do <strong>not</strong> call <code>self.speak()</code> inside the common-query handler. The callback is purely for side effects (visuals, follow-up state, logging).</p>
+</blockquote>
 
 
 

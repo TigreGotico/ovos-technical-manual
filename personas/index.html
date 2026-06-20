@@ -14,7 +14,7 @@
         <link rel="prev" href="../mos-plugin/">
       
       
-        <link rel="next" href="../advanced-solvers/">
+        <link rel="next" href="../persona-memory/">
       
       
       <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
@@ -3458,6 +3458,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Persona with session memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-backends" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory backends
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3535,9 +3550,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ovos-core-as-a-solver" class="md-nav__link">
+  <a href="#ovos-core-as-a-chat-engine" class="md-nav__link">
     <span class="md-ellipsis">
-      OVOS Core as a Solver
+      OVOS Core as a Chat Engine
     </span>
   </a>
   
@@ -3556,6 +3571,90 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -3810,6 +3909,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3857,6 +3977,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4219,6 +4360,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5689,6 +5851,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Persona with session memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-backends" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory backends
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -5766,9 +5943,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ovos-core-as-a-solver" class="md-nav__link">
+  <a href="#ovos-core-as-a-chat-engine" class="md-nav__link">
     <span class="md-ellipsis">
-      OVOS Core as a Solver
+      OVOS Core as a Chat Engine
     </span>
   </a>
   
@@ -5828,7 +6005,12 @@ are discovered and loaded by <code>ovos-plugin-manager</code> at runtime using P
 <tr>
 <td><code>opm.agents.chat.multimodal</code></td>
 <td><code>MultimodalChatEngine</code></td>
-<td>Chat + vision (base64 images)</td>
+<td>Chat + vision/audio/files (base64)</td>
+</tr>
+<tr>
+<td><code>opm.agents.multimodal_adapter</code></td>
+<td><code>MultimodalAdapter</code></td>
+<td>Describe non-text content as text</td>
 </tr>
 <tr>
 <td><code>opm.agents.summarizer</code></td>
@@ -5837,13 +6019,18 @@ are discovered and loaded by <code>ovos-plugin-manager</code> at runtime using P
 </tr>
 <tr>
 <td><code>opm.agents.summarizer.chat</code></td>
-<td>—</td>
+<td><code>ChatSummarizerEngine</code></td>
 <td>Compress structured chat history</td>
 </tr>
 <tr>
 <td><code>opm.agents.reranker</code></td>
 <td><code>ReRankerEngine</code></td>
 <td>Score and rank candidate answers</td>
+</tr>
+<tr>
+<td><code>opm.agents.option_matcher</code></td>
+<td><code>OptionMatcherEngine</code></td>
+<td>Match an utterance to a fixed option set</td>
 </tr>
 <tr>
 <td><code>opm.agents.extractive_qa</code></td>
@@ -5857,12 +6044,12 @@ are discovered and loaded by <code>ovos-plugin-manager</code> at runtime using P
 </tr>
 <tr>
 <td><code>opm.agents.yesno</code></td>
-<td>—</td>
+<td><code>YesNoEngine</code></td>
 <td>Classify ambiguous responses as yes / no / unknown</td>
 </tr>
 <tr>
 <td><code>opm.agents.coref</code></td>
-<td>—</td>
+<td><code>CoreferenceEngine</code></td>
 <td>Pronoun / coreference resolution</td>
 </tr>
 <tr>
@@ -5875,15 +6062,31 @@ are discovered and loaded by <code>ovos-plugin-manager</code> at runtime using P
 <td><code>RetrievalEngine</code></td>
 <td>Retrieval-augmented generation</td>
 </tr>
+<tr>
+<td><code>opm.agents.retrieval.documents</code></td>
+<td><code>DocumentIndexerEngine</code></td>
+<td>Index + retrieve over a document corpus</td>
+</tr>
+<tr>
+<td><code>opm.agents.retrieval.qa</code></td>
+<td><code>QAIndexerEngine</code></td>
+<td>Index + retrieve over a Q/A corpus</td>
+</tr>
+<tr>
+<td><code>opm.agents.toolbox</code></td>
+<td>—</td>
+<td>Tool/function-calling registry</td>
+</tr>
 </tbody>
 </table>
-<p>All base classes live in <code>ovos_plugin_manager.templates.agents</code>. The <code>AgentMessage</code> dataclass
-carries messages between engines:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.templates.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">AgentMessage</span><span class="p">,</span> <span class="n">MessageRole</span>
+<p>Each group has a parallel <code>*.config</code> group for plugin config metadata. All base classes live in
+<code>ovos_plugin_manager.templates.agents</code>. The <code>AgentMessage</code> dataclass carries messages between
+engines:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.agents</span> <span class="kn">import</span> <span class="n">AgentMessage</span><span class="p">,</span> <span class="n">MessageRole</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">msg</span> <span class="o">=</span> <span class="n">AgentMessage</span><span class="p">(</span><span class="n">role</span><span class="o">=</span><span class="n">MessageRole</span><span class="o">.</span><span class="n">USER</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="s2">&quot;What is the speed of light?&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-<p><code>MessageRole</code> values: <code>SYSTEM</code>, <code>DEVELOPER</code>, <code>USER</code>, <code>ASSISTANT</code>.</p>
+<p><code>MessageRole</code> values: <code>SYSTEM</code>, <code>DEVELOPER</code>, <code>USER</code>, <code>ASSISTANT</code>, <code>TOOL</code>.</p>
 <p>See <a href="../agent-plugins/">Agent Plugins</a> for the full engine-type reference and configuration
 examples for Claude, OpenAI, and local GGUF models.</p>
 <hr />
@@ -5925,6 +6128,42 @@ history across turns:</p>
 </span></code></pre></div>
 <p>The <code>memory_module</code> key names an <code>opm.agents.memory</code> plugin. The default when omitted is
 <code>"ovos-agents-short-term-memory-plugin"</code> — <code>BasicShortTermMemory</code> from <code>ovos-persona</code>.</p>
+<h4 id="memory-backends">Memory backends<a class="headerlink" href="#memory-backends" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Plugin / entry point</th>
+<th>Package</th>
+<th>Backend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ovos-agents-short-term-memory-plugin</code> (<code>BasicShortTermMemory</code>)</td>
+<td><code>ovos-persona</code></td>
+<td>In-RAM short-term history, no API key</td>
+</tr>
+<tr>
+<td><code>ovos-memory-plugin-longterm</code> (<code>LongTermMemory</code>)</td>
+<td><code>ovos-memory-plugins</code></td>
+<td>Local JSON/SQLite store (uses an OpenAI-compatible endpoint only for LLM summarization)</td>
+</tr>
+<tr>
+<td><code>ovos-memory-claude-plugin</code> (<code>ClaudeContextManager</code>)</td>
+<td><code>ovos-claude-plugin</code></td>
+<td>LLM-compressed history via Claude</td>
+</tr>
+</tbody>
+</table>
+<p><code>ovos-memory-plugins</code> is <strong>local-first</strong>: server- / cloud-coupled RAG memory lives in
+<code>ovos-openai-plugin</code> as <code>PersonaServerRAGMemory</code> (<code>ovos-openai-rag-memory-plugin</code>), not here.</p>
+<blockquote>
+<p><strong>Upcoming:</strong> <a href="https://github.com/OpenVoiceOS/ovos-memory-plugins/pull/9">OpenVoiceOS/ovos-memory-plugins#9</a>
+(draft) makes the package purely local-first: it adds <code>LocalRAGMemory</code>
+(<code>ovos-memory-plugin-local-rag</code>), a fully in-process RAG backend using local OVOS embeddings +
+an <code>EmbeddingsDB</code> plugin (no HTTP, no cloud key), and removes the current server-coupled HTTP
+<code>RAGMemory</code> (<code>ovos-memory-plugin-rag</code>) in favour of <code>ovos-openai-plugin</code>'s server RAG.</p>
+</blockquote>
 <h3 id="non-llm-personas">Non-LLM personas<a class="headerlink" href="#non-llm-personas" title="Permanent link">&para;</a></h3>
 <p>Personas do not require LLMs. Any installed OPM solver plugin can serve as a handler, enabling
 fully local, privacy-preserving conversational agents:</p>
@@ -6095,23 +6334,29 @@ fully local, privacy-preserving conversational agents:</p>
 <p>User-defined personas take precedence: a plugin persona with the same name as a loaded file is
 silently skipped. Both sources respect <code>persona_blacklist</code>.</p>
 <hr />
-<h2 id="ovos-core-as-a-solver">OVOS Core as a <a href="../agent-plugins/">Solver</a><a class="headerlink" href="#ovos-core-as-a-solver" title="Permanent link">&para;</a></h2>
-<p><code>ovos-solver-bus-plugin</code> exposes a running <code>ovos-core</code> instance as a persona handler. This
+<h2 id="ovos-core-as-a-chat-engine">OVOS Core as a Chat Engine<a class="headerlink" href="#ovos-core-as-a-chat-engine" title="Permanent link">&para;</a></h2>
+<p><code>ovos-messagebus-chat-plugin</code> (entry point <code>ovos-messagebus</code>, class <code>OVOSMessagebusChatAgent</code>,
+group <code>opm.agents.chat</code>) exposes a running <code>ovos-core</code> instance as a persona handler. This
 enables OVOS to act as an agent inside another system — for example a Docker network or a
 <a href="../hivemind-agents/">HiveMind</a> satellite — without exposing the <a href="../bus-service/">MessageBus</a> directly.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Open Voice OS&quot;</span><span class="p">,</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;solvers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ovos-solver-bus-plugin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ovos-solver-failure-plugin&quot;</span><span class="p">],</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">&quot;ovos-solver-bus-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;handlers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ovos-messagebus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ovos-solver-failure-plugin&quot;</span><span class="p">],</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">&quot;ovos-messagebus&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nt">&quot;autoconnect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
 </span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8181</span>
 </span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">}</span>
 </span></code></pre></div>
-<p><strong>Note:</strong> <code>ovos-bus-solver-plugin</code> creates an infinite loop if used inside a persona that is
-<em>already</em> loaded by the same running <code>ovos-core</code>. It is intended for cross-instance bridging,
-not local routing. For secure remote access see <a href="../hivemind-agents/">HiveMind Agents</a>.</p>
+<p>This plugin replaces the removed <code>OVOSMessagebusSolver</code> / <code>ovos-solver-bus-plugin</code>, which lived
+under the deprecated <code>neon.plugin.solver</code> group; install
+<a href="https://github.com/OpenVoiceOS/ovos-messagebus-chat-plugin"><code>ovos-messagebus-chat-plugin</code></a> and
+migrate any persona that referenced the old solver to the <code>ovos-messagebus</code> chat engine.</p>
+<p><strong>Note:</strong> routing OVOS back through itself creates an infinite loop if this engine is used inside
+a persona that is <em>already</em> loaded by the same running <code>ovos-core</code>. It is intended for
+cross-instance bridging, not local routing. For secure remote access see
+<a href="../hivemind-agents/">HiveMind Agents</a>.</p>
 <hr />
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
 <table>

@@ -3601,6 +3601,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3840,6 +3924,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3887,6 +3992,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4246,6 +4372,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5883,7 +6030,10 @@
 <p><strong>Module:</strong> <code>ovos_core.intent_services.converse_service.ConverseService</code>
 <strong>Pipeline plugin ID:</strong> <code>ovos-converse-pipeline-plugin</code>
 <strong>Stage name:</strong> <code>converse</code></p>
-<p><code>ConverseService</code> is shipped inside <code>ovos-core</code> and registered via its own <code>pyproject.toml</code> entry point.</p>
+<p><code>ConverseService</code> ships inside <code>ovos-core</code> and is registered via the <code>opm.pipeline</code> entry point in its <code>pyproject.toml</code>:</p>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">[project.entry-points.&quot;opm.pipeline&quot;]</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="na">ovos-converse-pipeline-plugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ovos_core.intent_services.converse_service:ConverseService&quot;</span>
+</span></code></pre></div>
 <hr />
 <h2 id="active-skill-list">Active <a href="../skill-design-guidelines/">Skill</a> List<a class="headerlink" href="#active-skill-list" title="Permanent link">&para;</a></h2>
 <p>A skill is considered active if it has been called in the last 5 minutes (configurable via <code>timeout</code>).</p>
@@ -5920,7 +6070,7 @@
 <p>A skill can activate/deactivate itself at any time via <code>self.make_active()</code> / <code>self.deactivate()</code></p>
 </li>
 </ol>
-<p>Active skills are tracked in <code>Session.active_skills</code> — <code>ovos_bus_client.session.Session</code>. The converse service reads and updates this list via <code>sess.activate_skill()</code> / <code>sess.deactivate_skill()</code>.</p>
+<p>Active skills are tracked in <code>Session.active_skills</code> — <code>ovos_bus_client.session.Session</code>. The converse service reads and updates this list via <code>session.activate_skill()</code> / <code>session.deactivate_skill()</code>, which also forward <code>intent.service.skills.activated</code> / <code>intent.service.skills.deactivated</code> on the bus.</p>
 <hr />
 <h2 id="pipeline-stages">Pipeline Stages<a class="headerlink" href="#pipeline-stages" title="Permanent link">&para;</a></h2>
 <table>
@@ -5949,18 +6099,22 @@
 <p><code>ConverseService.match()</code> iterates active skills in priority order</p>
 </li>
 <li>
-<p>For each skill, emits <code>{skill_id}.converse.request</code> and waits for a response</p>
+<p>It first pings each active skill via <code>{skill_id}.converse.ping</code> and waits up to <code>0.5s</code> for <code>skill.converse.pong</code> acknowledgements (<code>can_handle</code>) to learn which skills are willing to converse</p>
 </li>
 <li>
-<p>If the skill returns <code>True</code>, the utterance is consumed</p>
+<p>The first willing skill (highest priority) is matched; the actual dispatch is sent as <code>{skill_id}.converse.request</code> (emitted by the <code>converse:skill</code> handler)</p>
 </li>
 <li>
-<p>If not, the next active skill is tried</p>
+<p>If the skill's <code>converse()</code> returns <code>True</code>, the utterance is consumed and the skill is reactivated</p>
+</li>
+<li>
+<p>If not, the next willing skill is tried</p>
 </li>
 <li>
 <p>If no active skill accepts the input, the pipeline falls back to normal intent matching</p>
 </li>
 </ol>
+<p><code>ConverseService</code> is a plain <code>PipelinePlugin</code> with a single <code>match()</code> method — it is <strong>not</strong> a <code>ConfidenceMatcherPipeline</code>, so there are no <code>converse_high/medium/low</code> stages. The one stage ID is <code>converse</code>.</p>
 <hr />
 <h2 id="skill-integration">Skill Integration<a class="headerlink" href="#skill-integration" title="Permanent link">&para;</a></h2>
 <p>Skills integrate with the converse pipeline by:</p>
@@ -5975,38 +6129,36 @@
 <p>Managing internal state to determine when to exit conversation mode.</p>
 </li>
 </ul>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_workshop.skills.converse</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConversationalSkill</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MySkill</span><span class="p">(</span><span class="n">ConversationalSkill</span><span class="p">):</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">converse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="n">utterance</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;utterances&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="k">if</span> <span class="s2">&quot;help&quot;</span> <span class="ow">in</span> <span class="n">utterance</span><span class="p">:</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;Here to help!&quot;</span><span class="p">)</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            <span class="k">return</span> <span class="kc">True</span>   <span class="c1"># consumed</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="k">return</span> <span class="kc">False</span>      <span class="c1"># pass to next handler</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills.converse</span> <span class="kn">import</span> <span class="n">ConversationalSkill</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">class</span> <span class="nc">MySkill</span><span class="p">(</span><span class="n">ConversationalSkill</span><span class="p">):</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="k">def</span> <span class="nf">converse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="n">utterance</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;utterances&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="k">if</span> <span class="s2">&quot;help&quot;</span> <span class="ow">in</span> <span class="n">utterance</span><span class="p">:</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;Here to help!&quot;</span><span class="p">)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>            <span class="k">return</span> <span class="kc">True</span>   <span class="c1"># consumed</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="k">return</span> <span class="kc">False</span>      <span class="c1"># pass to next handler</span>
 </span></code></pre></div>
 <p>This enables modular, stateful conversations without hardcoding turn-taking logic into the core assistant.</p>
 <hr />
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>Customize the pipeline via <code>mycroft.conf</code> under <code>skills.converse</code>:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;skills&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;converse&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">      </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="nt">&quot;skill_timeouts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="nt">&quot;converse_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accept_all&quot;</span><span class="p">,</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="nt">&quot;converse_whitelist&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="nt">&quot;converse_blacklist&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="nt">&quot;converse_activation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accept_all&quot;</span><span class="p">,</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span><span class="nt">&quot;max_activations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span><span class="nt">&quot;skill_activations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="nt">&quot;cross_activation&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">      </span><span class="nt">&quot;cross_deactivation&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">      </span><span class="nt">&quot;converse_priorities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">      </span><span class="nt">&quot;max_skill_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;skills&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;converse&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">&quot;skill_timeouts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">      </span><span class="nt">&quot;converse_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accept_all&quot;</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="nt">&quot;converse_whitelist&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="nt">&quot;converse_blacklist&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">      </span><span class="nt">&quot;converse_activation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accept_all&quot;</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="nt">&quot;max_activations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">      </span><span class="nt">&quot;skill_activations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">      </span><span class="nt">&quot;cross_activation&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">      </span><span class="nt">&quot;converse_priorities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="p">}</span>
 </span></code></pre></div>
 <p><strong>Key Options</strong></p>
 <table>
@@ -6051,15 +6203,11 @@
 </tr>
 <tr>
 <td><code>cross_activation</code></td>
-<td>If <code>true</code>, any skill can activate any other skill</td>
+<td>If <code>true</code>, any skill can activate <strong>or deactivate</strong> any other skill (the same key gates both)</td>
 </tr>
 <tr>
-<td><code>cross_deactivation</code></td>
-<td>If <code>true</code>, any skill can deactivate any other skill</td>
-</tr>
-<tr>
-<td><code>max_skill_runtime</code></td>
-<td>Maximum seconds to wait for a skill's <code>converse()</code> response</td>
+<td><code>converse_priorities</code></td>
+<td>Per-skill priority overrides used when <code>converse_activation</code> is <code>priority</code></td>
 </tr>
 </tbody>
 </table>
@@ -6154,13 +6302,13 @@
 </tbody>
 </table>
 <h3 id="get_response-support"><code>get_response</code> Support<a class="headerlink" href="#get_response-support" title="Permanent link">&para;</a></h3>
-<p>During <code>skill.get_response</code>, the skill temporarily holds the converse channel:</p>
+<p>During <code>skill.get_response</code>, the skill temporarily holds the converse channel. This is tracked per-session via the skill's <code>UtteranceState.RESPONSE</code>: while set, <code>match()</code> routes the next utterance straight to that skill (match type <code>{skill_id}.converse.get_response</code>), bypassing the normal ping/pong path.</p>
 <ul>
 <li>
-<p><code>skill.converse.get_response.enable</code> → lock converse to this skill</p>
+<p><code>skill.converse.get_response.enable</code> → <code>session.enable_response_mode(skill_id)</code> (lock converse to this skill)</p>
 </li>
 <li>
-<p><code>skill.converse.get_response.disable</code> → release lock</p>
+<p><code>skill.converse.get_response.disable</code> → <code>session.disable_response_mode(skill_id)</code> (release lock)</p>
 </li>
 </ul>
 <hr />

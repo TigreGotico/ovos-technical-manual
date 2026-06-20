@@ -3402,6 +3402,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3641,6 +3725,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3688,6 +3793,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4050,6 +4176,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5925,8 +6072,8 @@ to use OVOS engines without knowing anything about the OVOS plugin system.</p>
 <tr>
 <th>Bridge</th>
 <th>Package</th>
-<th>Default port</th>
-<th>OVOS plugin type</th>
+<th>Example port</th>
+<th>OPM plugin group loaded</th>
 </tr>
 </thead>
 <tbody>
@@ -5934,22 +6081,31 @@ to use OVOS engines without knowing anything about the OVOS plugin system.</p>
 <td><code>wyoming-ovos-stt</code></td>
 <td><code>wyoming-ovos-stt</code></td>
 <td>7891</td>
-<td><code>opm.plugin.stt</code></td>
+<td><code>opm.stt</code></td>
 </tr>
 <tr>
 <td><code>wyoming-ovos-tts</code></td>
 <td><code>wyoming-ovos-tts</code></td>
 <td>7892</td>
-<td><code>opm.plugin.tts</code></td>
+<td><code>opm.tts</code></td>
 </tr>
 <tr>
 <td><code>wyoming-ovos-wakeword</code></td>
 <td><code>wyoming-ovos-wakeword</code></td>
 <td>7893</td>
-<td><code>opm.plugin.wake_word</code></td>
+<td><code>opm.wake_word</code></td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>The port is not a built-in default — it is set by the <code>--uri</code> you pass. The
+values above are the conventional ports used in the upstream READMEs and the
+examples below. <code>wyoming-ovos-stt</code> requires <code>--uri</code>; <code>wyoming-ovos-tts</code> and
+<code>wyoming-ovos-wakeword</code> default to <code>stdio://</code>.</p>
+</blockquote>
+<p>These three are standalone Wyoming <strong>servers</strong> (console-script entry points), not
+OVOS plugins themselves — each loads an installed OVOS plugin from the matching OPM
+entry-point group and re-exposes it over the Wyoming protocol.</p>
 <p>All three bridges:</p>
 <ul>
 <li>
@@ -5959,7 +6115,7 @@ to use OVOS engines without knowing anything about the OVOS plugin system.</p>
 <p>Read plugin configuration from <code>mycroft.conf</code> (standard OVOS config file)</p>
 </li>
 <li>
-<p>Run as standalone async TCP servers using the <code>wyoming</code> library</p>
+<p>Run as standalone async Wyoming servers (TCP, Unix socket, or stdio) using the <code>wyoming</code> library</p>
 </li>
 </ul>
 <hr />
@@ -6364,19 +6520,19 @@ without manual IP configuration.</p>
 <tbody>
 <tr>
 <td>STT</td>
-<td><code>opm.plugin.stt</code></td>
+<td><code>opm.stt</code></td>
 <td><code>ovos_plugin_manager.templates.stt.STT</code></td>
 <td><code>OVOSSTTFactory</code></td>
 </tr>
 <tr>
 <td>TTS</td>
-<td><code>opm.plugin.tts</code></td>
+<td><code>opm.tts</code></td>
 <td><code>ovos_plugin_manager.templates.tts.TTS</code></td>
 <td><code>OVOSTTSFactory</code></td>
 </tr>
 <tr>
 <td>Wake word</td>
-<td><code>opm.plugin.wake_word</code></td>
+<td><code>opm.wake_word</code></td>
 <td><code>ovos_plugin_manager.templates.hotwords.HotWordEngine</code></td>
 <td><code>OVOSWakeWordFactory</code></td>
 </tr>

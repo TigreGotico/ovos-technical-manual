@@ -3544,6 +3544,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3783,6 +3867,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3830,6 +3935,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4189,6 +4315,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5806,8 +5953,8 @@ testing and should use hardware-in-the-loop integration tests instead:</p>
 </ul>
 <h2 id="miniphal-context-manager"><code>MiniPHAL</code> — Context Manager<a class="headerlink" href="#miniphal-context-manager" title="Permanent link">&para;</a></h2>
 <p><code>MiniPHAL</code> — <code>ovoscope/phal.py:43</code></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.messagebus</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope.phal</span><span class="w"> </span><span class="kn">import</span> <span class="n">MiniPHAL</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">ovoscope.phal</span> <span class="kn">import</span> <span class="n">MiniPHAL</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">with</span> <span class="n">MiniPHAL</span><span class="p">(</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">plugin_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ovos-PHAL-plugin-connectivity-events.openvoiceos&quot;</span><span class="p">],</span>
@@ -5822,27 +5969,56 @@ testing and should use hardware-in-the-loop integration tests instead:</p>
 <tr>
 <th>Argument</th>
 <th>Type</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>plugin_ids</code></td>
-<td><code>List[str]</code></td>
+<td><code>Optional[List[str]]</code></td>
+<td><code>None</code> (→ <code>[]</code>)</td>
 <td>OPM entry-point IDs to load.</td>
 </tr>
 <tr>
 <td><code>plugin_instances</code></td>
-<td><code>Dict[str, Any]</code></td>
-<td>Pre-built plugin instances (keyed by ID).</td>
+<td><code>Optional[Dict[str, Any]]</code></td>
+<td><code>None</code> (→ <code>{}</code>)</td>
+<td>Pre-built plugin instances keyed by <code>plugin_id</code>. The instance must already be wired to the harness <code>FakeBus</code>, so this only works when you can build the plugin against an externally-supplied bus.</td>
+</tr>
+<tr>
+<td><code>plugin_factories</code></td>
+<td><code>Optional[Dict[str, Callable[[FakeBus], Any]]]</code></td>
+<td><code>None</code> (→ <code>{}</code>)</td>
+<td>Callables <code>(bus) -&gt; plugin</code> keyed by <code>plugin_id</code>, invoked inside <code>__enter__</code> so the plugin is always constructed with the harness <code>FakeBus</code>. Takes precedence over <code>plugin_instances</code> for the same <code>plugin_id</code>.</td>
 </tr>
 <tr>
 <td><code>config</code></td>
-<td><code>Dict[str, Dict]</code></td>
-<td>Per-plugin config overrides.</td>
+<td><code>Optional[Dict[str, Dict[str, Any]]]</code></td>
+<td><code>None</code> (→ <code>{}</code>)</td>
+<td>Per-plugin config overrides keyed by <code>plugin_id</code>.</td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><strong><code>plugin_instances</code> vs <code>plugin_factories</code>.</strong> Pre-built <code>plugin_instances</code> are
+handy for injecting mocks, but they are constructed <em>before</em> the harness exists,
+so they hold a different bus than the one <code>MiniPHAL</code> captures on. Prefer
+<code>plugin_factories</code> whenever the plugin needs the harness bus:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_phal_plugin_tools</span> <span class="kn">import</span> <span class="n">OVOSToolsPHALPlugin</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span> <span class="nn">ovoscope.phal</span> <span class="kn">import</span> <span class="n">MiniPHAL</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">with</span> <span class="n">MiniPHAL</span><span class="p">(</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">plugin_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ovos-phal-plugin-tools&quot;</span><span class="p">],</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">plugin_factories</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="s2">&quot;ovos-phal-plugin-tools&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">bus</span><span class="p">:</span> <span class="n">OVOSToolsPHALPlugin</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">),</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="p">},</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">)</span> <span class="k">as</span> <span class="n">phal</span><span class="p">:</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">phal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;ovos.tools.list&quot;</span><span class="p">,</span> <span class="p">{}))</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="n">phal</span><span class="o">.</span><span class="n">assert_emitted</span><span class="p">(</span><span class="s2">&quot;ovos.tools.list.response&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+</blockquote>
 <h3 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h3>
 <p><code>MiniPHAL.emit</code> — <code>ovoscope/phal.py:146</code></p>
 <table>
@@ -5877,28 +6053,32 @@ after calling <code>bus.emit()</code>. PHAL plugin handlers may run on a backgro
 so a short settle time is necessary before asserting on results. Increase <code>wait</code>
 for plugins with higher latency; set <code>wait=0</code> to suppress the sleep entirely when
 the handler is known to be synchronous.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Default — 50 ms settle time</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">phal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;network.connected&quot;</span><span class="p">))</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Custom settle time (slower plugin)</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">phal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;system.reboot&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># No sleep (synchronous handler)</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">phal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;config.get&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Default — 50 ms settle time</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">phal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;network.connected&quot;</span><span class="p">))</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Custom settle time (slower plugin)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">phal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;system.reboot&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># No sleep (synchronous handler)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">phal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;config.get&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="phaltest-declarative-style"><code>PHALTest</code> — Declarative Style<a class="headerlink" href="#phaltest-declarative-style" title="Permanent link">&para;</a></h2>
 <p><code>PHALTest</code> — <code>phal.py:PHALTest</code></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.messagebus</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope.phal</span><span class="w"> </span><span class="kn">import</span> <span class="n">PHALTest</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">PHALTest</span><span class="p">(</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">plugin_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ovos-PHAL-plugin-system.openvoiceos&quot;</span><span class="p">],</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">trigger_message</span><span class="o">=</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;system.reboot&quot;</span><span class="p">),</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">expected_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;system.reboot.confirmed&quot;</span><span class="p">],</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">forbidden_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;system.shutdown.confirmed&quot;</span><span class="p">],</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">timeout</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">ovoscope.phal</span> <span class="kn">import</span> <span class="n">PHALTest</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">PHALTest</span><span class="p">(</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">plugin_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ovos-PHAL-plugin-system.openvoiceos&quot;</span><span class="p">],</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">trigger_message</span><span class="o">=</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;system.reboot&quot;</span><span class="p">),</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">expected_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;system.reboot.confirmed&quot;</span><span class="p">],</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">forbidden_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;system.shutdown.confirmed&quot;</span><span class="p">],</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">timeout</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
 </span></code></pre></div>
+<p><code>execute()</code> returns the full <code>List[Message]</code> captured during the run. Internally it
+emits <code>trigger_message</code>, then asserts each <code>expected_types</code> entry was emitted within
+<code>timeout</code> seconds and each <code>forbidden_types</code> entry was <em>not</em> emitted; any miss raises
+<code>AssertionError</code>.</p>
 <h3 id="fields">Fields<a class="headerlink" href="#fields" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5936,13 +6116,19 @@ the handler is known to be synchronous.</p>
 </tr>
 <tr>
 <td><code>plugin_instances</code></td>
-<td><code>Dict</code></td>
+<td><code>Dict[str, Any]</code></td>
 <td><code>{}</code></td>
-<td>Pre-built instances.</td>
+<td>Pre-built instances keyed by <code>plugin_id</code>.</td>
+</tr>
+<tr>
+<td><code>plugin_factories</code></td>
+<td><code>Dict[str, Callable[[FakeBus], Any]]</code></td>
+<td><code>{}</code></td>
+<td><code>(bus) -&gt; plugin</code> factories keyed by <code>plugin_id</code>; built against the harness bus. Use this when the plugin must be constructed with the harness bus.</td>
 </tr>
 <tr>
 <td><code>config</code></td>
-<td><code>Dict</code></td>
+<td><code>Dict[str, Dict]</code></td>
 <td><code>{}</code></td>
 <td>Per-plugin config.</td>
 </tr>
@@ -5950,7 +6136,7 @@ the handler is known to be synchronous.</p>
 <td><code>timeout</code></td>
 <td><code>float</code></td>
 <td><code>5.0</code></td>
-<td>Wait timeout in seconds.</td>
+<td>Per-expectation wait timeout in seconds.</td>
 </tr>
 </tbody>
 </table>

@@ -3655,6 +3655,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3894,6 +3978,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3941,6 +4046,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4300,6 +4426,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5971,6 +6118,15 @@
 
 <h1 id="ovos-color-parser">ovos-color-parser<a class="headerlink" href="#ovos-color-parser" title="Permanent link">&para;</a></h1>
 <p>OpenVoiceOS's multilingual color parsing and color-space conversion library. It turns natural-language color descriptions ("bright, slightly warm muted blue") into concrete RGB/HLS/HSV values, and provides color-space utilities needed for smart-light control and similar voice-driven color applications.</p>
+<p><strong>What you get in 30 seconds:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_color_parser</span> <span class="kn">import</span> <span class="n">color_from_description</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">color</span> <span class="o">=</span> <span class="n">color_from_description</span><span class="p">(</span><span class="s2">&quot;bright vibrant green&quot;</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">hex_str</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">g</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>   <span class="c1"># an sRGBAColor, or None if nothing matched</span>
+</span></code></pre></div>
+<blockquote>
+<p><strong>Import note:</strong> the top-level <code>ovos_color_parser</code> package only re-exports a subset of the API (see <a href="#api-reference">API reference</a>). Functions such as <code>palette_from_description</code>, <code>lookup_name</code>, <code>rgb_to_cmyk</code>, <code>cmyk_to_rgb</code>, and <code>is_hex_code_valid</code> must be imported from <code>ovos_color_parser.matching</code>; less common model/palette classes from <code>ovos_color_parser.models</code>.</p>
+</blockquote>
 <h2 id="why-it-exists">Why it exists<a class="headerlink" href="#why-it-exists" title="Permanent link">&para;</a></h2>
 <p>Voice assistants frequently need to interpret color commands: "change the lamp to moss green", "make it darker", "a bit more saturated". Standard CSS/X11 color name lookups only cover exact matches. <code>ovos-color-parser</code> layers on top of a multilingual color-name database (nearly 6 000 English name-to-hex mappings) and a language-keyed adjective/modifier system so that fuzzy descriptions and modifier words ("bright", "warm", "muted") are resolved to a real sRGB value.</p>
 <p>A secondary use-case is scientific: the library supports the full electromagnetic spectrum (including UV, IR, microwaves and radio waves) mapped through spectral color palettes, so physicists who say "set the lamp to 520 nanometres" are handled without special-casing in skills.</p>
@@ -5986,7 +6142,7 @@
 <tbody>
 <tr>
 <td><code>ovos_color_parser/__init__.py</code></td>
-<td>Public re-exports of every model class and every matching function</td>
+<td>Convenience re-exports of the most common model classes and matching functions (a subset — see the API reference for what each submodule exposes)</td>
 </tr>
 <tr>
 <td><code>ovos_color_parser/models.py</code></td>
@@ -6007,11 +6163,11 @@
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
 <h3 id="color-space-model-modelspy">Color space model (<code>models.py</code>)<a class="headerlink" href="#color-space-model-modelspy" title="Permanent link">&para;</a></h3>
 <p>All color representations are Python <code>@dataclass</code> objects. Internal operations are performed in HLS space; conversions between spaces are implemented as properties.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sRGBAColor  ──as_hls──►  HLSColor  ──as_hsv──►  HSVColor
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>     │                      │                       │
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>     │◄──────as_rgb─────────│◄──────as_rgb──────────│
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>     │                                               │
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>     └──as_spectral_color──► SpectralColor ◄─────────┘
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sRGBAColor  ──as_hls──►  HLSColor  ──as_hsv──►  HSVColor
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>     │                      │                       │
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>     │◄──────as_rgb─────────│◄──────as_rgb──────────│
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>     │                                               │
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>     └──as_spectral_color──► SpectralColor ◄─────────┘
 </span></code></pre></div>
 <p>The <code>HueRange</code> dataclass bridges the hue angle (0–360°) to the physical wavelength domain using <code>ISCCNBSSpectralColorTerms</code> as the default mapping table.</p>
 <h3 id="matching-pipeline-matchingpy">Matching pipeline (<code>matching.py</code>)<a class="headerlink" href="#matching-pipeline-matchingpy" title="Permanent link">&para;</a></h3>
@@ -6033,6 +6189,8 @@
 <p>Weighted circular-mean hue averaging (<code>average_colors()</code>) prevents wrap-around errors for hues near 0°/360°.</p>
 <hr />
 <h2 id="api-reference">API reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
+<p><strong>Importable from the top-level <code>ovos_color_parser</code>:</strong> <code>color_from_description</code>, <code>color_distance</code>, <code>closest_color</code>, <code>average_colors</code>, <code>convert_K_to_RGB</code>, <code>get_contrasting_black_or_white</code>, <code>ColorMatcher</code>, and the model classes <code>sRGBAColor</code>, <code>HLSColor</code>, <code>HSVColor</code>, <code>SpectralColor</code>, <code>HueRange</code>, <code>sRGBAColorPalette</code>, <code>HSVColorPalette</code>, <code>HLSColorPalette</code>, <code>SpectralColorPalette</code>, <code>NewtonSpectralColorTerms</code>, <code>ISCCNBSSpectralColorTerms</code>, <code>EnglishColorTerms</code>.</p>
+<p>Everything else listed below (e.g. <code>palette_from_description</code>, <code>lookup_name</code>, <code>rgb_to_cmyk</code>, <code>cmyk_to_rgb</code>, <code>is_hex_code_valid</code>, <code>ColorTerm</code>, <code>LanguageColorVocabulary</code>, <code>MalacaraSpectralColorTerms</code>, <code>CRCHandbookSpectralColorTerms</code>, <code>IRSpectralColors</code>, <code>UVSpectralColors</code>, <code>ElectroMagneticSpectrum</code>, <code>OtjihereroColorTerms</code>) is <strong>not</strong> re-exported and must be imported from its submodule (<code>ovos_color_parser.models</code> or <code>ovos_color_parser.matching</code>).</p>
 <h3 id="color-model-classes-ovos_color_parsermodelspy">Color model classes (<code>ovos_color_parser/models.py</code>)<a class="headerlink" href="#color-model-classes-ovos_color_parsermodelspy" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6286,73 +6444,76 @@
 <hr />
 <h2 id="usage-examples">Usage examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
 <h3 id="resolve-a-description-to-rgb">Resolve a description to RGB<a class="headerlink" href="#resolve-a-description-to-rgb" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_color_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">color_from_description</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">color</span> <span class="o">=</span> <span class="n">color_from_description</span><span class="p">(</span><span class="s2">&quot;bright vibrant green&quot;</span><span class="p">)</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>        <span class="c1"># e.g. &quot;#4CBF31&quot;</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">g</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_color_parser</span> <span class="kn">import</span> <span class="n">color_from_description</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">color</span> <span class="o">=</span> <span class="n">color_from_description</span><span class="p">(</span><span class="s2">&quot;bright vibrant green&quot;</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>        <span class="c1"># e.g. &quot;#4CBF31&quot;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">g</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="average-vs-snapped-result">Average vs. snapped result<a class="headerlink" href="#average-vs-snapped-result" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_color_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">color_from_description</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Averaged across all &quot;red&quot; entries in the database</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">averaged</span> <span class="o">=</span> <span class="n">color_from_description</span><span class="p">(</span><span class="s2">&quot;Red&quot;</span><span class="p">)</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">averaged</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>   <span class="c1"># &quot;#D21B1B&quot;</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Snapped to the nearest exact palette entry</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">snapped</span> <span class="o">=</span> <span class="n">color_from_description</span><span class="p">(</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="n">cast_to_palette</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">snapped</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>    <span class="c1"># &quot;#CE202B&quot;  (Fire engine red)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_color_parser</span> <span class="kn">import</span> <span class="n">color_from_description</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Averaged across all &quot;red&quot; entries in the database</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">averaged</span> <span class="o">=</span> <span class="n">color_from_description</span><span class="p">(</span><span class="s2">&quot;Red&quot;</span><span class="p">)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">averaged</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>   <span class="c1"># &quot;#D21B1B&quot;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Snapped to the nearest exact palette entry</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">snapped</span> <span class="o">=</span> <span class="n">color_from_description</span><span class="p">(</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="n">cast_to_palette</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">snapped</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>    <span class="c1"># &quot;#CE202B&quot;  (Fire engine red)</span>
 </span></code></pre></div>
 <h3 id="perceptual-distance">Perceptual distance<a class="headerlink" href="#perceptual-distance" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_color_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">color_distance</span><span class="p">,</span> <span class="n">color_from_description</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">a</span> <span class="o">=</span> <span class="n">color_from_description</span><span class="p">(</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">b</span> <span class="o">=</span> <span class="n">color_from_description</span><span class="p">(</span><span class="s2">&quot;purple&quot;</span><span class="p">)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">color_distance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>   <span class="c1"># ~64.97</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_color_parser</span> <span class="kn">import</span> <span class="n">color_distance</span><span class="p">,</span> <span class="n">color_from_description</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">a</span> <span class="o">=</span> <span class="n">color_from_description</span><span class="p">(</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">b</span> <span class="o">=</span> <span class="n">color_from_description</span><span class="p">(</span><span class="s2">&quot;purple&quot;</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">color_distance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>   <span class="c1"># ~64.97</span>
 </span></code></pre></div>
 <h3 id="closest-color-from-a-custom-palette">Closest color from a custom palette<a class="headerlink" href="#closest-color-from-a-custom-palette" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_color_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">sRGBAColor</span><span class="p">,</span> <span class="n">sRGBAColorPalette</span><span class="p">,</span> <span class="n">closest_color</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">palette</span> <span class="o">=</span> <span class="n">sRGBAColorPalette</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="p">[</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">sRGBAColor</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>   <span class="n">g</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Teal&quot;</span><span class="p">),</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">sRGBAColor</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>   <span class="n">g</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Cyan&quot;</span><span class="p">),</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">sRGBAColor</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>  <span class="n">g</span><span class="o">=</span><span class="mi">224</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">208</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Turquoise&quot;</span><span class="p">),</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">])</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">result</span> <span class="o">=</span> <span class="n">closest_color</span><span class="p">(</span><span class="n">sRGBAColor</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="n">palette</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>   <span class="c1"># &quot;Cyan&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">ovos_color_parser</span> <span class="kn">import</span> <span class="n">sRGBAColor</span><span class="p">,</span> <span class="n">sRGBAColorPalette</span><span class="p">,</span> <span class="n">closest_color</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">palette</span> <span class="o">=</span> <span class="n">sRGBAColorPalette</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">sRGBAColor</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>   <span class="n">g</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Teal&quot;</span><span class="p">),</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">sRGBAColor</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>   <span class="n">g</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Cyan&quot;</span><span class="p">),</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">sRGBAColor</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>  <span class="n">g</span><span class="o">=</span><span class="mi">224</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">208</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Turquoise&quot;</span><span class="p">),</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">])</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">result</span> <span class="o">=</span> <span class="n">closest_color</span><span class="p">(</span><span class="n">sRGBAColor</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">200</span><span class="p">),</span> <span class="n">palette</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>   <span class="c1"># &quot;Cyan&quot;</span>
 </span></code></pre></div>
 <h3 id="color-temperature-to-rgb">Color temperature to RGB<a class="headerlink" href="#color-temperature-to-rgb" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_color_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_K_to_RGB</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">warm_white</span> <span class="o">=</span> <span class="n">convert_K_to_RGB</span><span class="p">(</span><span class="mi">2700</span><span class="p">)</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">warm_white</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>   <span class="c1"># &quot;#FF9329&quot; (approximate warm incandescent)</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">daylight</span> <span class="o">=</span> <span class="n">convert_K_to_RGB</span><span class="p">(</span><span class="mi">6500</span><span class="p">)</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">daylight</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>     <span class="c1"># &quot;#FFE8D5&quot; (approximate daylight)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_color_parser</span> <span class="kn">import</span> <span class="n">convert_K_to_RGB</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">warm_white</span> <span class="o">=</span> <span class="n">convert_K_to_RGB</span><span class="p">(</span><span class="mi">2700</span><span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">warm_white</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>   <span class="c1"># &quot;#FF9329&quot; (approximate warm incandescent)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">daylight</span> <span class="o">=</span> <span class="n">convert_K_to_RGB</span><span class="p">(</span><span class="mi">6500</span><span class="p">)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">daylight</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>     <span class="c1"># &quot;#FFE8D5&quot; (approximate daylight)</span>
 </span></code></pre></div>
 <h3 id="contrasting-text-color">Contrasting text color<a class="headerlink" href="#contrasting-text-color" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_color_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_contrasting_black_or_white</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># For a dark background, returns white for readable text</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">contrast</span> <span class="o">=</span> <span class="n">get_contrasting_black_or_white</span><span class="p">(</span><span class="s2">&quot;#1A1A2E&quot;</span><span class="p">)</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">contrast</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>   <span class="c1"># &quot;#FFFFFF&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">ovos_color_parser</span> <span class="kn">import</span> <span class="n">get_contrasting_black_or_white</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># For a dark background, returns white for readable text</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">contrast</span> <span class="o">=</span> <span class="n">get_contrasting_black_or_white</span><span class="p">(</span><span class="s2">&quot;#1A1A2E&quot;</span><span class="p">)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">contrast</span><span class="o">.</span><span class="n">hex_str</span><span class="p">)</span>   <span class="c1"># &quot;#FFFFFF&quot;</span>
 </span></code></pre></div>
 <h3 id="color-space-conversions">Color space conversions<a class="headerlink" href="#color-space-conversions" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_color_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">sRGBAColor</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">rgb</span> <span class="o">=</span> <span class="n">sRGBAColor</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mi">165</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Orange&quot;</span><span class="p">)</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">hls</span> <span class="o">=</span> <span class="n">rgb</span><span class="o">.</span><span class="n">as_hls</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">hsv</span> <span class="o">=</span> <span class="n">rgb</span><span class="o">.</span><span class="n">as_hsv</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">spectral</span> <span class="o">=</span> <span class="n">rgb</span><span class="o">.</span><span class="n">as_spectral_color</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">hls</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="n">hls</span><span class="o">.</span><span class="n">l</span><span class="p">,</span> <span class="n">hls</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">hsv</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="n">hsv</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">hsv</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">spectral</span><span class="o">.</span><span class="n">wavelen</span><span class="p">)</span>        <span class="c1"># approximate wavelength in nm</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span> <span class="nn">ovos_color_parser</span> <span class="kn">import</span> <span class="n">sRGBAColor</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">rgb</span> <span class="o">=</span> <span class="n">sRGBAColor</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mi">165</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Orange&quot;</span><span class="p">)</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">hls</span> <span class="o">=</span> <span class="n">rgb</span><span class="o">.</span><span class="n">as_hls</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">hsv</span> <span class="o">=</span> <span class="n">rgb</span><span class="o">.</span><span class="n">as_hsv</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">spectral</span> <span class="o">=</span> <span class="n">rgb</span><span class="o">.</span><span class="n">as_spectral_color</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">hls</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="n">hls</span><span class="o">.</span><span class="n">l</span><span class="p">,</span> <span class="n">hls</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">hsv</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="n">hsv</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">hsv</span><span class="o">.</span><span class="n">v</span><span class="p">)</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">spectral</span><span class="o">.</span><span class="n">wavelen</span><span class="p">)</span>        <span class="c1"># approximate wavelength in nm</span>
 </span></code></pre></div>
 <hr />
 <h2 id="language-support">Language support<a class="headerlink" href="#language-support" title="Permanent link">&para;</a></h2>
-<p>Language-keyed resources live in <code>ovos_color_parser/res/&lt;lang&gt;/</code>. The language code is derived from the BCP-47 code by taking the primary subtag (e.g. <code>"en-US"</code> → <code>"en"</code>).</p>
+<p>Language-keyed resources live in <code>ovos_color_parser/res/&lt;lang&gt;/</code>. At lookup time the loader takes the primary subtag of the requested <code>lang</code> (e.g. <code>color_from_description(..., lang="en-US")</code> looks for <code>res/en</code>).</p>
+<blockquote>
+<p>⚠️ <strong>Known gotcha (verified against <code>dev</code>):</strong> most resource directories are currently named with full locale codes (<code>en-US</code>, <code>de-DE</code>, <code>es-ES</code>, <code>pt-BR</code>, ...), while the loader strips to the primary subtag and looks for <code>res/en</code>, <code>res/de</code>, etc. Because those bare-subtag directories do not exist, passing those languages raises <code>FileNotFoundError</code>. The directory whose name <em>is</em> a primary subtag (<code>res/it</code>) is the one that resolves cleanly. Pin to the exact resource layout of the version you install and test your target language before relying on it. Track fixes in the <a href="https://github.com/OpenVoiceOS/ovos-color-parser/issues">ovos-color-parser issues</a>.</p>
+</blockquote>
 <p>Each language directory may contain:</p>
 <table>
 <thead>
@@ -6433,22 +6594,13 @@
 <p>See also:</p>
 <ul>
 <li>
-<p><a href="../"><code>ovos-number-parser/docs/index.md</code></a></p>
+<p><a href="../number-parser/">Number Parser</a></p>
 </li>
 <li>
-<p><a href="../"><code>ovos-date-parser/docs/index.md</code></a></p>
+<p><a href="../date-parser/">Date Parser</a></p>
 </li>
 <li>
-<p><a href="../"><code>ovos-lang-parser/docs/index.md</code></a></p>
-</li>
-<li>
-<p><code>QUICK_FACTS.md</code></p>
-</li>
-<li>
-<p><code>FAQ.md</code></p>
-</li>
-<li>
-<p><code>AUDIT.md</code></p>
+<p><a href="../lang-parser/">Language Parser</a></p>
 </li>
 </ul>
 

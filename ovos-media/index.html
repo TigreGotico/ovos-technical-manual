@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/ovos-media/">
       
       
-        <link rel="prev" href="../g2p-plugins/">
+        <link rel="prev" href="../plugin-arena/">
       
       
         <link rel="next" href="../ocp-plugins/">
@@ -3408,6 +3408,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3650,6 +3734,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3697,6 +3802,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4369,6 +4495,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -6103,6 +6250,7 @@
 
 <h1 id="ovos-media">ovos-media<a class="headerlink" href="#ovos-media" title="Permanent link">&para;</a></h1>
 <p><code>ovos-media</code> is the standalone audio/video daemon for OpenVoiceOS. It replaces the legacy audio service with a more robust and modular media player based on the OpenVoiceOS <a href="../ocp-pipeline/">Common Play</a> (<a href="../ocp-pipeline/">OCP</a>) framework.</p>
+<p><strong>In plain terms:</strong> the old audio service could only play one kind of stream through a thin wrapper. <code>ovos-media</code> is a proper media daemon: it has separate audio/video/web players you pick per request, supports MPRIS (so your phone's media controls work), and keeps per-session state so multiple devices can each play their own thing.</p>
 <p>To use <code>ovos-media</code> you need to disable the old audio service and enable the OCP pipeline in <code>ovos-core</code>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;enable_old_audioservice&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
@@ -6117,7 +6265,7 @@
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="s2">&quot;common_qa&quot;</span><span class="p">,</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="s2">&quot;ocp_medium&quot;</span><span class="p">,</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span><span class="s2">&quot;ocp_fallback&quot;</span><span class="p">,</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span><span class="s2">&quot;ocp_low&quot;</span><span class="p">,</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span><span class="s2">&quot;fallback_low&quot;</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="p">]</span>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">  </span><span class="p">}</span>
@@ -6145,9 +6293,9 @@ exist in parallel:</p>
 </span></code></pre></div>
 <hr />
 <h2 id="ocp-pipeline-plugin">OCP Pipeline Plugin<a class="headerlink" href="#ocp-pipeline-plugin" title="Permanent link">&para;</a></h2>
-<p><strong>Package:</strong> <code>ocp-pipeline</code>
+<p><strong>Package:</strong> <code>ocp-pipeline</code> (<code>ovos_ocp_pipeline_plugin</code>)
 <strong>Entry point group:</strong> <code>opm.pipeline</code>
-<strong>Class:</strong> <code>OCPPipelinePlugin</code></p>
+<strong>Class:</strong> <code>OCPPipelineMatcher</code> (entry point <code>ovos-ocp-pipeline-plugin</code>); the legacy bridge is <code>MycroftCPSLegacyPipeline</code> (<code>ovos-ocp-pipeline-plugin-legacy</code>)</p>
 <p>The OCP pipeline plugin is the NLP brain of the media stack. It integrates with <code>ovos-core</code>'s
 intent pipeline, handles all media query classification, and dispatches search to OCP skills.
 It does NOT handle playback.</p>
@@ -6172,7 +6320,7 @@ It does NOT handle playback.</p>
 <p>The pipeline plugin tracks one <code>OCPPlayerProxy</code> per session — important for <a href="../hivemind-agents/">HiveMind</a> where each
 satellite has its own player:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nd">@dataclass</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">OCPPlayerProxy</span><span class="p">:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">class</span> <span class="nc">OCPPlayerProxy</span><span class="p">:</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">available_extractors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">ocp_available</span><span class="p">:</span> <span class="nb">bool</span>
@@ -6182,24 +6330,27 @@ satellite has its own player:</p>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">skill_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </span></code></pre></div>
 <h3 id="pipeline-configuration">Pipeline Configuration<a class="headerlink" href="#pipeline-configuration" title="Permanent link">&para;</a></h3>
+<p>The OCP matcher contributes several confidence-ranked pipeline stages — <code>ocp_high</code>, <code>ocp_medium</code>, <code>ocp_low</code>, plus <code>ocp_legacy</code> for old-style CommonPlay skills. Place them at the appropriate confidence tier in your pipeline:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">&quot;pipeline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">      </span><span class="s2">&quot;ocp_pipeline_plugin&quot;</span><span class="p">,</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="s2">&quot;...&quot;</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="p">]</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="p">}</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">      </span><span class="s2">&quot;ocp_high&quot;</span><span class="p">,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="s2">&quot;ocp_medium&quot;</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="s2">&quot;ocp_low&quot;</span><span class="p">,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">      </span><span class="s2">&quot;...&quot;</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="ocp-skills">OCP Skills<a class="headerlink" href="#ocp-skills" title="Permanent link">&para;</a></h3>
 <p>OCP skills inherit <code>OVOSCommonPlaybackSkill</code> and register by emitting <code>ovos.common_play.announce</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_workshop.skills.common_play</span><span class="w"> </span><span class="kn">import</span> <span class="n">OVOSCommonPlaybackSkill</span><span class="p">,</span> <span class="n">MediaType</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.ocp</span><span class="w"> </span><span class="kn">import</span> <span class="n">MediaEntry</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills.common_play</span> <span class="kn">import</span> <span class="n">OVOSCommonPlaybackSkill</span><span class="p">,</span> <span class="n">MediaType</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">ovos_utils.ocp</span> <span class="kn">import</span> <span class="n">MediaEntry</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyMusicSkill</span><span class="p">(</span><span class="n">OVOSCommonPlaybackSkill</span><span class="p">):</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">class</span> <span class="nc">MyMusicSkill</span><span class="p">(</span><span class="n">OVOSCommonPlaybackSkill</span><span class="p">):</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="nd">@ocp_search</span><span class="p">()</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">search_my_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phrase</span><span class="p">,</span> <span class="n">media_type</span><span class="p">):</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="k">def</span> <span class="nf">search_my_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phrase</span><span class="p">,</span> <span class="n">media_type</span><span class="p">):</span>
 </span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        <span class="c1"># Return MediaEntry or Playlist objects scored 0-100</span>
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        <span class="k">if</span> <span class="n">media_type</span> <span class="o">==</span> <span class="n">MediaType</span><span class="o">.</span><span class="n">MUSIC</span><span class="p">:</span>
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>            <span class="k">yield</span> <span class="n">MediaEntry</span><span class="p">(</span>
@@ -6210,7 +6361,7 @@ satellite has its own player:</p>
 </span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>            <span class="p">)</span>
 </span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
 </span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>    <span class="nd">@ocp_featured_media</span><span class="p">()</span>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">featured_media</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    <span class="k">def</span> <span class="nf">featured_media</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>        <span class="c1"># Optional: return a playlist for the OCP browse UI</span>
 </span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>        <span class="k">return</span> <span class="n">Playlist</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;My Playlist&quot;</span><span class="p">,</span> <span class="n">media</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">])</span>
 </span></code></pre></div>
@@ -6305,6 +6456,9 @@ satellite has its own player:</p>
 </li>
 </ul>
 <h3 id="available-media-backend-plugins">Available Media Backend Plugins<a class="headerlink" href="#available-media-backend-plugins" title="Permanent link">&para;</a></h3>
+<p>Media backends are typed: audio players register on the <code>opm.media.audio</code> entry-point group,
+video players on <code>opm.media.video</code>, and web players on <code>opm.media.web</code>. They are configured under
+<code>media.audio_players</code> / <code>media.video_players</code> / <code>media.web_players</code> (see the config example below).</p>
 <table>
 <thead>
 <tr>
@@ -6315,50 +6469,51 @@ satellite has its own player:</p>
 </thead>
 <tbody>
 <tr>
-<td><code>ovos-media-plugin-vlc</code></td>
-<td>audio + video</td>
-<td>Headless VLC instance</td>
+<td><code>ovos-media-audio-plugin-vlc</code> / <code>ovos-media-video-plugin-vlc</code></td>
+<td>audio / video</td>
+<td>VLC instance</td>
 </tr>
 <tr>
-<td><code>ovos-media-plugin-mplayer</code></td>
+<td><code>ovos-media-audio-plugin-mplayer</code></td>
 <td>audio</td>
 <td>mplayer</td>
 </tr>
 <tr>
-<td><code>ovos-media-plugin-mpv</code></td>
+<td><code>ovos-media-audio-plugin-mpv</code></td>
 <td>audio</td>
 <td>mpv</td>
 </tr>
 <tr>
-<td><code>ovos-media-plugin-ffplay</code></td>
-<td>audio + video</td>
-<td>ffplay</td>
-</tr>
-<tr>
-<td><code>ovos-media-plugin-simple</code></td>
+<td><code>ovos-media-audio-plugin-cli</code></td>
 <td>audio</td>
-<td>Simple fallback</td>
+<td>Command-line player (simple fallback)</td>
 </tr>
 <tr>
-<td><code>ovos-media-plugin-chromecast</code></td>
-<td>audio + video</td>
-<td>Chromecast via pychromecast</td>
-</tr>
-<tr>
-<td><code>ovos-media-plugin-spotify</code></td>
+<td><code>ovos-media-audio-plugin-spotify</code></td>
 <td>audio</td>
 <td>Spotify Connect</td>
 </tr>
 <tr>
-<td><code>ovos-media-plugin-mass</code></td>
+<td><code>ovos-media-audio-plugin-mass</code></td>
 <td>audio</td>
 <td>Music Assistant</td>
+</tr>
+<tr>
+<td><code>ovos-media-web-plugin-browser</code></td>
+<td>web</td>
+<td>Open in local browser</td>
+</tr>
+<tr>
+<td><code>ovos-media-audio-plugin-gui</code> / <code>ovos-media-video-plugin-gui</code> / <code>ovos-media-web-plugin-gui</code></td>
+<td>audio / video / web</td>
+<td>Hand off to the GUI player</td>
 </tr>
 </tbody>
 </table>
 <h3 id="stream-extractor-plugins">Stream Extractor Plugins<a class="headerlink" href="#stream-extractor-plugins" title="Permanent link">&para;</a></h3>
-<p>OCP supports stream extractor plugins (<code>opm.ocp.extractor</code> entry point group) that transform
-non-playable URIs into playable streams before handing them to the media backend:</p>
+<p>OCP supports stream extractor plugins (<code>opm.ocp.extractor</code> entry-point group; the older
+<code>ovos.ocp.extractor</code> group is a deprecated alias) that transform non-playable URIs into playable
+streams before handing them to the media backend:</p>
 <ul>
 <li>
 <p><code>ovos-ocp-youtube-plugin</code> — extracts audio stream from YouTube URLs</p>

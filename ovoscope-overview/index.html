@@ -3000,9 +3000,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-start-example" class="md-nav__link">
+  <a href="#your-first-test" class="md-nav__link">
     <span class="md-ellipsis">
-      Quick Start Example
+      Your First Test
     </span>
   </a>
   
@@ -3481,6 +3481,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3720,6 +3804,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3767,6 +3872,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4126,6 +4252,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5589,9 +5736,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-start-example" class="md-nav__link">
+  <a href="#your-first-test" class="md-nav__link">
     <span class="md-ellipsis">
-      Quick Start Example
+      Your First Test
     </span>
   </a>
   
@@ -5666,7 +5813,7 @@
 <td>A declarative test runner for single or multi-turn interactions.</td>
 </tr>
 <tr>
-<td><strong><a href="./">CaptureSession</a></strong></td>
+<td><strong><a href="../capture-session/">CaptureSession</a></strong></td>
 <td>Records a sequence of bus messages for later replay or assertion.</td>
 </tr>
 <tr>
@@ -5676,23 +5823,42 @@
 </tbody>
 </table>
 <hr />
-<h2 id="quick-start-example">Quick Start Example<a class="headerlink" href="#quick-start-example" title="Permanent link">&para;</a></h2>
-<p>A basic E2E test for a "Hello World" skill looks like this:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">End2EndTest</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_hello_world</span><span class="p">():</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="c1"># 1. Setup the test</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">test</span> <span class="o">=</span> <span class="n">End2EndTest</span><span class="p">(</span><span class="n">skill_id</span><span class="o">=</span><span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span><span class="p">)</span>
+<h2 id="your-first-test">Your First Test<a class="headerlink" href="#your-first-test" title="Permanent link">&para;</a></h2>
+<p><code>End2EndTest</code> is declarative: you give it the skill(s) to load, the utterance to
+send, and the messages you expect back on the bus. The simplest assertion is
+<code>assert_spoke()</code> — it runs the interaction and checks that the skill spoke a given
+line, without you having to spell out the full message sequence:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">Session</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">End2EndTest</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">SKILL_ID</span> <span class="o">=</span> <span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="c1"># 2. Define the interaction</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">test</span><span class="o">.</span><span class="n">say</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="c1"># 3. Assert the response</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">test</span><span class="o">.</span><span class="n">expect_speak</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="c1"># 4. Execute</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="n">test</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">def</span> <span class="nf">test_hello_world</span><span class="p">():</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="s2">&quot;test-1&quot;</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">session</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ovos-adapt-pipeline-plugin-high&quot;</span><span class="p">]</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">utterance</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="s2">&quot;recognizer_loop:utterance&quot;</span><span class="p">,</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;hello world&quot;</span><span class="p">],</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">},</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="p">{</span><span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="n">session</span><span class="o">.</span><span class="n">serialize</span><span class="p">(),</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;destination&quot;</span><span class="p">:</span> <span class="s2">&quot;B&quot;</span><span class="p">},</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="p">)</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">test</span> <span class="o">=</span> <span class="n">End2EndTest</span><span class="p">(</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="n">skill_ids</span><span class="o">=</span><span class="p">[</span><span class="n">SKILL_ID</span><span class="p">],</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="n">source_message</span><span class="o">=</span><span class="n">utterance</span><span class="p">,</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="n">expected_messages</span><span class="o">=</span><span class="p">[],</span>          <span class="c1"># we are not checking the full sequence</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        <span class="n">test_message_number</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>     <span class="c1"># so don&#39;t assert on the message count</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="p">)</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    <span class="n">test</span><span class="o">.</span><span class="n">assert_spoke</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>   <span class="c1"># runs execute() internally, then scans for speak</span>
 </span></code></pre></div>
+<p><code>assert_spoke(text, lang="en-US", timeout=30)</code> runs <code>execute()</code> and then raises
+<code>AssertionError</code> if no <code>speak</code> message with that exact utterance (and <code>lang</code>) was
+emitted. Because it still runs the full <code>execute()</code>, leave <code>expected_messages</code>
+empty <strong>and</strong> set <code>test_message_number=False</code> — otherwise <code>execute()</code> first asserts
+that the received-message count equals the (empty) expected list and fails before the
+speak is ever checked.</p>
+<p>For full sequence assertions — message types, ordering, routing, and session
+state — populate <code>expected_messages</code> and call <code>test.execute()</code> directly. See the
+<a href="../ovoscope-usage/">Usage Guide</a> for those patterns.</p>
 <hr />
 <h2 id="deep-dive-guides">Deep Dive Guides<a class="headerlink" href="#deep-dive-guides" title="Permanent link">&para;</a></h2>
 <ul>

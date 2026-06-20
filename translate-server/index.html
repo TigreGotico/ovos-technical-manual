@@ -14,7 +14,7 @@
         <link rel="prev" href="../persona-server/">
       
       
-        <link rel="next" href="../hivemind-agents/">
+        <link rel="next" href="../server-compat-layers/">
       
       
       <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
@@ -2082,7 +2082,7 @@
           <li class="md-nav__item">
   <a href="#get-detectutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /detect/&lt;utterance&gt;
+      GET /detect/{utterance}
     </span>
   </a>
   
@@ -2091,25 +2091,34 @@
           <li class="md-nav__item">
   <a href="#get-classifyutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /classify/&lt;utterance&gt;
+      GET /classify/{utterance}
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-translatelangutterance" class="md-nav__link">
+  <a href="#get-translatetgt_langutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /translate/&lt;lang&gt;/&lt;utterance&gt;
+      GET /translate/{tgt_lang}/{utterance}
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-translatesrclangutterance" class="md-nav__link">
+  <a href="#get-translatesrc_langtgt_langutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /translate/&lt;src&gt;/&lt;lang&gt;/&lt;utterance&gt;
+      GET /translate/{src_lang}/{tgt_lang}/{utterance}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-utcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /utcp
     </span>
   </a>
   
@@ -2117,6 +2126,24 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vendor-compatible-routers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vendor-Compatible Routers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCP Server
+    </span>
+  </a>
   
 </li>
       
@@ -2142,6 +2169,15 @@
   <a href="#docker" class="md-nav__link">
     <span class="md-ellipsis">
       Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gotchas
     </span>
   </a>
   
@@ -3589,6 +3625,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3828,6 +3948,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3875,6 +4016,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4350,7 +4512,7 @@
           <li class="md-nav__item">
   <a href="#get-detectutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /detect/&lt;utterance&gt;
+      GET /detect/{utterance}
     </span>
   </a>
   
@@ -4359,25 +4521,34 @@
           <li class="md-nav__item">
   <a href="#get-classifyutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /classify/&lt;utterance&gt;
+      GET /classify/{utterance}
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-translatelangutterance" class="md-nav__link">
+  <a href="#get-translatetgt_langutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /translate/&lt;lang&gt;/&lt;utterance&gt;
+      GET /translate/{tgt_lang}/{utterance}
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-translatesrclangutterance" class="md-nav__link">
+  <a href="#get-translatesrc_langtgt_langutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /translate/&lt;src&gt;/&lt;lang&gt;/&lt;utterance&gt;
+      GET /translate/{src_lang}/{tgt_lang}/{utterance}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-utcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /utcp
     </span>
   </a>
   
@@ -4385,6 +4556,24 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vendor-compatible-routers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vendor-Compatible Routers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCP Server
+    </span>
+  </a>
   
 </li>
       
@@ -4416,6 +4605,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gotchas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cross-references" class="md-nav__link">
     <span class="md-ellipsis">
       Cross-References
@@ -4428,6 +4626,27 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -5941,7 +6160,7 @@
           <li class="md-nav__item">
   <a href="#get-detectutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /detect/&lt;utterance&gt;
+      GET /detect/{utterance}
     </span>
   </a>
   
@@ -5950,25 +6169,34 @@
           <li class="md-nav__item">
   <a href="#get-classifyutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /classify/&lt;utterance&gt;
+      GET /classify/{utterance}
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-translatelangutterance" class="md-nav__link">
+  <a href="#get-translatetgt_langutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /translate/&lt;lang&gt;/&lt;utterance&gt;
+      GET /translate/{tgt_lang}/{utterance}
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-translatesrclangutterance" class="md-nav__link">
+  <a href="#get-translatesrc_langtgt_langutterance" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /translate/&lt;src&gt;/&lt;lang&gt;/&lt;utterance&gt;
+      GET /translate/{src_lang}/{tgt_lang}/{utterance}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-utcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET /utcp
     </span>
   </a>
   
@@ -5976,6 +6204,24 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vendor-compatible-routers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vendor-Compatible Routers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      MCP Server
+    </span>
+  </a>
   
 </li>
       
@@ -6001,6 +6247,15 @@
   <a href="#docker" class="md-nav__link">
     <span class="md-ellipsis">
       Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gotchas
     </span>
   </a>
   
@@ -6035,7 +6290,7 @@
 
 <h1 id="ovos-translate-server-http-translation-server"><code>ovos-translate-server</code> — HTTP Translation Server<a class="headerlink" href="#ovos-translate-server-http-translation-server" title="Permanent link">&para;</a></h1>
 <h2 id="what-it-does">What it Does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h2>
-<p><code>ovos-translate-server</code> wraps any OVOS translation plugin and language-detection plugin and exposes them as a simple Flask HTTP service. It is the standard way to make OVOS language plugins available to remote clients or to use them as a microservice in a Docker-based deployment.</p>
+<p><code>ovos-translate-server</code> wraps any OVOS translation plugin and language-detection plugin and exposes them as a FastAPI HTTP service (served by <code>uvicorn</code>). It is the standard way to make OVOS language plugins available to remote clients or to use them as a microservice in a Docker-based deployment.</p>
 <p>The companion client plugin <code>ovos-translate-server-plugin</code> can point an OVOS device at this server so that translation and language detection are offloaded from the device.</p>
 <hr />
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
@@ -6067,12 +6322,12 @@
 <tr>
 <td><code>--tx-engine</code></td>
 <td>required</td>
-<td>OPM translation plugin entry-point name</td>
+<td>OPM translation plugin (<code>opm.lang.translate</code>) entry-point name</td>
 </tr>
 <tr>
 <td><code>--detect-engine</code></td>
-<td><code>ovos-lang-detector-classics-plugin</code></td>
-<td>OPM language detection plugin entry-point name</td>
+<td><code>None</code></td>
+<td>OPM language detection plugin (<code>opm.lang.detect</code>) entry-point name (optional)</td>
 </tr>
 <tr>
 <td><code>--host</code></td>
@@ -6086,36 +6341,31 @@
 </tr>
 </tbody>
 </table>
-<p>If <code>--detect-engine</code> is omitted, the server falls back to <code>ovos-lang-detector-classics-plugin</code> (must be installed separately).</p>
+<p>If <code>--detect-engine</code> is omitted, no dedicated detection plugin is loaded; <code>/detect</code> and <code>/classify</code> fall back to the translation plugin's own <code>detect()</code> / <code>detect_probs()</code> methods.</p>
 <h3 id="python-api">Python API<a class="headerlink" href="#python-api" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_translate_server</span><span class="w"> </span><span class="kn">import</span> <span class="n">start_translate_server</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">start_translate_server</span><span class="p">(</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">tx_engine</span><span class="o">=</span><span class="s2">&quot;ovos-translate-plugin-nllb&quot;</span><span class="p">,</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">detect_engine</span><span class="o">=</span><span class="s2">&quot;ovos-lang-detector-classics-plugin&quot;</span><span class="p">,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">port</span><span class="o">=</span><span class="mi">9686</span><span class="p">,</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span> <span class="nn">uvicorn</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">ovos_translate_server</span> <span class="kn">import</span> <span class="n">start_translate_server</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">app</span><span class="p">,</span> <span class="n">engine</span> <span class="o">=</span> <span class="n">start_translate_server</span><span class="p">(</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">tx_engine</span><span class="o">=</span><span class="s2">&quot;ovos-translate-plugin-nllb&quot;</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">detect_engine</span><span class="o">=</span><span class="s2">&quot;ovos-lang-detector-classics-plugin&quot;</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">)</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">9686</span><span class="p">)</span>
 </span></code></pre></div>
-<p><code>start_translate_server()</code> loads plugins, creates the Flask app via <code>create_app()</code>, and calls <code>app.run()</code>. Plugin configs are read from <code>Configuration().get("language", {})</code> using the plugin name as key.</p>
+<p><code>start_translate_server()</code> loads the plugins and returns <code>(app, engine)</code> where <code>app</code> is a FastAPI application; you run it with <code>uvicorn</code> (the <code>ovos-translate-server</code> CLI does exactly this). Plugin configs are read from <code>Configuration().get("language", {})</code> using the plugin name as key.</p>
 <hr />
 <h2 id="http-api-endpoints">HTTP API Endpoints<a class="headerlink" href="#http-api-endpoints" title="Permanent link">&para;</a></h2>
 <p>All endpoints accept <code>GET</code> requests. There is no authentication.</p>
 <h3 id="get-status"><code>GET /status</code><a class="headerlink" href="#get-status" title="Permanent link">&para;</a></h3>
-<p>Health check. Returns plugin names and active configuration.</p>
+<p>Health check. Returns the translation plugin name and its supported languages.</p>
 <p>Response (JSON):
 <div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;translation_plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-translate-plugin-nllb&quot;</span><span class="p">,</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;detection_plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-lang-detector-classics-plugin&quot;</span><span class="p">,</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">&quot;translation_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="nt">&quot;detection_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="nt">&quot;gradio&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">}</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-translate-plugin-nllb&quot;</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;langs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;en&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;pt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;fr&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">]</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">}</span>
 </span></code></pre></div></p>
-<p><code>"gradio"</code> is always <code>false</code> (not yet implemented).</p>
 <hr />
-<h3 id="get-detectutterance"><code>GET /detect/&lt;utterance&gt;</code><a class="headerlink" href="#get-detectutterance" title="Permanent link">&para;</a></h3>
+<h3 id="get-detectutterance"><code>GET /detect/{utterance}</code><a class="headerlink" href="#get-detectutterance" title="Permanent link">&para;</a></h3>
 <p>Detect the language of the given text.</p>
 <table>
 <thead>
@@ -6137,7 +6387,7 @@
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>→ &quot;pt&quot;
 </span></code></pre></div></p>
 <hr />
-<h3 id="get-classifyutterance"><code>GET /classify/&lt;utterance&gt;</code><a class="headerlink" href="#get-classifyutterance" title="Permanent link">&para;</a></h3>
+<h3 id="get-classifyutterance"><code>GET /classify/{utterance}</code><a class="headerlink" href="#get-classifyutterance" title="Permanent link">&para;</a></h3>
 <p>Return per-language confidence scores for the given text.</p>
 <table>
 <thead>
@@ -6159,7 +6409,7 @@
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>→ {&quot;en&quot;: 0.95, &quot;de&quot;: 0.03, ...}
 </span></code></pre></div></p>
 <hr />
-<h3 id="get-translatelangutterance"><code>GET /translate/&lt;lang&gt;/&lt;utterance&gt;</code><a class="headerlink" href="#get-translatelangutterance" title="Permanent link">&para;</a></h3>
+<h3 id="get-translatetgt_langutterance"><code>GET /translate/{tgt_lang}/{utterance}</code><a class="headerlink" href="#get-translatetgt_langutterance" title="Permanent link">&para;</a></h3>
 <p>Translate text to the target language, auto-detecting the source language.</p>
 <table>
 <thead>
@@ -6170,7 +6420,7 @@
 </thead>
 <tbody>
 <tr>
-<td><code>lang</code></td>
+<td><code>tgt_lang</code></td>
 <td>Target language code (e.g. <code>"en"</code>, <code>"pt"</code>)</td>
 </tr>
 <tr>
@@ -6185,7 +6435,7 @@
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>→ &quot;my name is Casimiro&quot;
 </span></code></pre></div></p>
 <hr />
-<h3 id="get-translatesrclangutterance"><code>GET /translate/&lt;src&gt;/&lt;lang&gt;/&lt;utterance&gt;</code><a class="headerlink" href="#get-translatesrclangutterance" title="Permanent link">&para;</a></h3>
+<h3 id="get-translatesrc_langtgt_langutterance"><code>GET /translate/{src_lang}/{tgt_lang}/{utterance}</code><a class="headerlink" href="#get-translatesrc_langtgt_langutterance" title="Permanent link">&para;</a></h3>
 <p>Translate text with an explicit source language.</p>
 <table>
 <thead>
@@ -6196,11 +6446,11 @@
 </thead>
 <tbody>
 <tr>
-<td><code>src</code></td>
+<td><code>src_lang</code></td>
 <td>Source language code (e.g. <code>"pt"</code>)</td>
 </tr>
 <tr>
-<td><code>lang</code></td>
+<td><code>tgt_lang</code></td>
 <td>Target language code (e.g. <code>"en"</code>)</td>
 </tr>
 <tr>
@@ -6215,44 +6465,65 @@
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>→ &quot;my name is Casimiro&quot;
 </span></code></pre></div></p>
 <hr />
+<h3 id="get-utcp"><code>GET /utcp</code><a class="headerlink" href="#get-utcp" title="Permanent link">&para;</a></h3>
+<p>Returns the UTCP (Universal Tool Calling Protocol) manual describing every HTTP endpoint, so UTCP-compatible agents can discover and invoke the translation tools. No extra dependency required.</p>
+<hr />
+<h2 id="vendor-compatible-routers">Vendor-Compatible Routers<a class="headerlink" href="#vendor-compatible-routers" title="Permanent link">&para;</a></h2>
+<p>Beyond the native endpoints above, the app mounts drop-in compatible routers so clients written for hosted translation APIs can talk to this server unchanged: DeepL, DeepLX, LibreTranslate, Lingva, Amazon Translate, Google Translate and Azure Translator. See the server's <code>/docs</code> (OpenAPI) for their exact paths.</p>
+<hr />
+<h2 id="mcp-server">MCP Server<a class="headerlink" href="#mcp-server" title="Permanent link">&para;</a></h2>
+<p>A separate Model Context Protocol server exposes the translate/detect tools to MCP clients. It is a distinct process from the HTTP server and requires the <code>mcp</code> extra (<code>pip install 'ovos-translate-server[mcp]'</code>):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python<span class="w"> </span>-m<span class="w"> </span>ovos_translate_server.mcp_server<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span>--tx-engine<span class="w"> </span>ovos-translate-plugin-nllb<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span>--host<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span>--port<span class="w"> </span><span class="m">9687</span>
+</span></code></pre></div>
+<p>It defaults to host <code>127.0.0.1</code> and port <code>9687</code> (note: different default host/port from the HTTP server's <code>0.0.0.0:9686</code>). The <code>FastMCP</code> instance can also be embedded into an existing FastAPI app.</p>
+<hr />
 <h2 id="how-it-wraps-ovos-translation-plugins">How It Wraps OVOS Translation Plugins<a class="headerlink" href="#how-it-wraps-ovos-translation-plugins" title="Permanent link">&para;</a></h2>
 <p><code>start_translate_server()</code> uses two <code>ovos-plugin-manager</code> loader functions:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.language</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_lang_detect_plugin</span><span class="p">,</span> <span class="n">load_tx_plugin</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.language</span> <span class="kn">import</span> <span class="n">load_lang_detect_plugin</span><span class="p">,</span> <span class="n">load_tx_plugin</span>
 </span></code></pre></div>
 <ul>
 <li><code>load_tx_plugin(name)</code> — looks up the <code>opm.lang.translate</code> entry-point group for the named plugin</li>
 <li><code>load_lang_detect_plugin(name)</code> — looks up the <code>opm.lang.detect</code> entry-point group</li>
 </ul>
-<p>Both return the plugin class. The class is instantiated with:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">engine_instance</span> <span class="o">=</span> <span class="n">PluginClass</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">plugin_name</span><span class="p">,</span> <span class="p">{}))</span>
+<p>Both return the plugin class. Each class is instantiated with an empty config:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">tx_cls</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{})</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">detect</span> <span class="o">=</span> <span class="n">detect_cls</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{})</span>   <span class="c1"># only when --detect-engine is given</span>
 </span></code></pre></div>
-<p>where <code>cfg</code> is <code>Configuration().get("language", {})</code> from the OVOS configuration file.</p>
-<p>The global <code>TX</code> (<code>LanguageTranslator</code>) and <code>DETECT</code> (<code>LanguageDetector</code>) objects are then used by all Flask route handlers.</p>
+<p>The translator (<code>engine.tx</code>) and optional detector (<code>engine.detect</code>) are held on a <code>TranslateEngineWrapper</code> and used by all FastAPI route handlers. When no detection plugin is configured, <code>/detect</code> and <code>/classify</code> call the translator's own <code>detect()</code> / <code>detect_probs()</code>.</p>
 <hr />
 <h2 id="plugin-interface">Plugin Interface<a class="headerlink" href="#plugin-interface" title="Permanent link">&para;</a></h2>
 <p>Translation plugins must implement <code>LanguageTranslator</code> from <code>ovos_plugin_manager.templates.language</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LanguageTranslator</span><span class="p">:</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">class</span> <span class="nc">LanguageTranslator</span><span class="p">:</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
 </span></code></pre></div>
 <p>Detection plugins must implement <code>LanguageDetector</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LanguageDetector</span><span class="p">:</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>          <span class="c1"># returns language code</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect_probs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span> <span class="o">...</span>   <span class="c1"># returns {lang: confidence}</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">class</span> <span class="nc">LanguageDetector</span><span class="p">:</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="k">def</span> <span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>          <span class="c1"># returns language code</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="k">def</span> <span class="nf">detect_probs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span> <span class="o">...</span>   <span class="c1"># returns {lang: confidence}</span>
 </span></code></pre></div>
 <hr />
 <h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
 <p>A minimal Dockerfile for serving a single plugin:</p>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ovos-translate-server
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>&lt;plugin-package&gt;
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="k">ENTRYPOINT</span><span class="w"> </span>ovos-translate-server<span class="w"> </span>--tx-engine<span class="w"> </span>&lt;plugin-name&gt;
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ovos-translate-server
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>&lt;plugin-package&gt;
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="k">ENTRYPOINT</span><span class="w"> </span>ovos-translate-server<span class="w"> </span>--tx-engine<span class="w"> </span>&lt;plugin-name&gt;
 </span></code></pre></div>
 <p>Build and run:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>my-translate-server
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">9686</span>:9686<span class="w"> </span>my-translate-server
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>my-translate-server
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">9686</span>:9686<span class="w"> </span>my-translate-server
 </span></code></pre></div>
+<hr />
+<h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>All endpoints are <code>GET</code> with the text in the URL path.</strong> Long or special-character utterances must be URL-encoded by the client; there is no request body and no authentication. Don't expose this server directly to untrusted networks — front it with a reverse proxy.</li>
+<li>The HTTP server (<code>9686</code>) and the optional MCP server (<code>9687</code>) are <strong>separate processes</strong> with different default hosts; running one does not start the other.</li>
+</ul>
 <hr />
 <h2 id="cross-references">Cross-References<a class="headerlink" href="#cross-references" title="Permanent link">&para;</a></h2>
 <ul>

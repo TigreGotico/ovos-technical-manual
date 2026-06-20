@@ -3523,6 +3523,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3762,6 +3846,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3809,6 +3914,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4168,6 +4294,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5700,6 +5847,9 @@
 
 
 <h1 id="ovos-intent-pipeline">OVOS Intent Pipeline<a class="headerlink" href="#ovos-intent-pipeline" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Specification: the utterance lifecycle is defined by <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-pipeline-1.md">OVOS-PIPELINE-1: Utterance Lifecycle and Pipeline</a>.</p>
+</blockquote>
 <p>The OpenVoiceOS (OVOS) Intent Pipeline is a modular and extensible system designed to interpret user utterances and map them to appropriate actions or responses. It orchestrates various intent parsers and fallback mechanisms to ensure accurate and contextually relevant responses.</p>
 <hr />
 <h2 id="what-is-an-intent-pipeline">What is an Intent Pipeline?<a class="headerlink" href="#what-is-an-intent-pipeline" title="Permanent link">&para;</a></h2>
@@ -5707,7 +5857,7 @@
 <p>This layered approach ensures that OVOS can handle a wide range of user queries with varying degrees of specificity and complexity.</p>
 <hr />
 <h2 id="pipeline-structure">Pipeline Structure<a class="headerlink" href="#pipeline-structure" title="Permanent link">&para;</a></h2>
-<p>OVOS pipelines are structured to prioritize intent matching based on confidence levels:</p>
+<p>When an utterance arrives, OVOS walks the pipeline in order and hands the utterance to each stage until one claims it. Stages are tried from most to least confident:</p>
 <ul>
 <li>
 <p><strong>High Confidence</strong>: Primary intent parsers that provide precise matches.</p>
@@ -5719,7 +5869,8 @@
 <p><strong>Low Confidence</strong>: <a href="../fallback-pipeline/">Fallback</a> mechanisms for ambiguous or unrecognized inputs.</p>
 </li>
 </ul>
-<p>Each component in the pipeline is a plugin that can be enabled, disabled, or reordered according to user preferences.</p>
+<p>The first stage that matches wins, so order matters: a high-confidence Padatious match is tried before any medium-confidence stage, which is tried before any low-confidence stage. Each component is a plugin that can be enabled, disabled, or reordered in your config.</p>
+<p><strong>Pipeline IDs vs. plugins.</strong> The IDs you list in your <code>pipeline</code> config (like <code>adapt_high</code>) are not separate plugins. A confidence-aware plugin registers a single OPM entry point (e.g. <code>ovos-adapt-pipeline-plugin</code>), and OVOS derives the <code>_high</code>/<code>_medium</code>/<code>_low</code> matcher stages from it at runtime. Plugins that match at only one confidence level (such as <code>converse</code> or <code>common_qa</code>) expose a single bare ID. The legacy short IDs are mapped to plugin IDs by the <code>_PIPELINE_MIGRATION_MAP</code> in ovos-core.</p>
 <hr />
 <h2 id="available-pipeline-components">Available Pipeline Components<a class="headerlink" href="#available-pipeline-components" title="Permanent link">&para;</a></h2>
 <p>Below is a list of available pipeline components, categorized by their confidence levels and functionalities:</p>
@@ -5853,8 +6004,8 @@
 <td></td>
 </tr>
 <tr>
-<td><code>common_query</code></td>
-<td>Sends utterance to common_query skills</td>
+<td><code>common_qa</code></td>
+<td>Sends utterance to common-query skills</td>
 <td>Best match among skills</td>
 </tr>
 <tr>

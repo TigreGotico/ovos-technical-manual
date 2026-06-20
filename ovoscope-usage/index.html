@@ -3745,6 +3745,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3984,6 +4068,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -4031,6 +4136,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4390,6 +4516,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -6244,7 +6391,7 @@ Verify the skill is on the plugin path:</p>
 </tr>
 </tbody>
 </table>
-<h2 id="from-ovos_utilsfakebus-import-fakebus-ovos-utils"><div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.fakebus</span><span class="w"> </span><span class="kn">import</span> <span class="n">FakeBus</span>  <span class="c1"># ovos-utils</span>
+<h2 id="from-ovos_utilsfakebus-import-fakebus-ovos-utils"><div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.fakebus</span> <span class="kn">import</span> <span class="n">FakeBus</span>  <span class="c1"># ovos-utils</span>
 </span></code></pre></div><a class="headerlink" href="#from-ovos_utilsfakebus-import-fakebus-ovos-utils" title="Permanent link">&para;</a></h2>
 <h2 id="quick-start-hello-world">Quick Start — Hello World<a class="headerlink" href="#quick-start-hello-world" title="Permanent link">&para;</a></h2>
 <p>The canonical example skill is <code>ovos-skill-hello-world.openvoiceos</code>. It has two intents:</p>
@@ -6256,13 +6403,13 @@ Verify the skill is on the plugin path:</p>
 <p><strong>Greetings.intent</strong> (Padatious) — triggered by greetings like "good morning"</p>
 </li>
 </ul>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.session</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">End2EndTest</span><span class="p">,</span> <span class="n">get_minicroft</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span> <span class="nn">unittest</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">Session</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">End2EndTest</span><span class="p">,</span> <span class="n">get_minicroft</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">SKILL_ID</span> <span class="o">=</span> <span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">class</span><span class="w"> </span><span class="nc">TestHelloWorldQuickStart</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_hello_world</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">class</span> <span class="nc">TestHelloWorldQuickStart</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="k">def</span> <span class="nf">test_hello_world</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="s2">&quot;test-session-1&quot;</span><span class="p">)</span>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="n">session</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ovos-adapt-pipeline-plugin-high&quot;</span><span class="p">]</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="n">utterance</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span>
@@ -6301,9 +6448,9 @@ Verify the skill is on the plugin path:</p>
 <h2 id="pattern-1-manual-assertion-adapt-intent-match">Pattern 1 — Manual Assertion (Adapt Intent Match)<a class="headerlink" href="#pattern-1-manual-assertion-adapt-intent-match" title="Permanent link">&para;</a></h2>
 <p>Write each expected <code>Message</code> explicitly. This is the most readable pattern and the easiest to
 debug.</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.session</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">End2EndTest</span><span class="p">,</span> <span class="n">get_minicroft</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">Session</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">End2EndTest</span><span class="p">,</span> <span class="n">get_minicroft</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">SKILL_ID</span> <span class="o">=</span> <span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># Build a session that restricts the pipeline to Adapt only</span>
@@ -6383,9 +6530,9 @@ assert on <code>lang</code> and <code>meta</code>.</p>
 <hr />
 <h2 id="pattern-3-recording-mode-bootstrap-fixtures">Pattern 3 — Recording Mode (Bootstrap Fixtures)<a class="headerlink" href="#pattern-3-recording-mode-bootstrap-fixtures" title="Permanent link">&para;</a></h2>
 <p>Don't know the exact message sequence yet? Let ovoscope record it for you:</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">End2EndTest</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.session</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">End2EndTest</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">Session</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">SKILL_ID</span> <span class="o">=</span> <span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="s2">&quot;recorder-session&quot;</span><span class="p">)</span>
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">session</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ovos-adapt-pipeline-plugin-high&quot;</span><span class="p">]</span>
@@ -6414,13 +6561,13 @@ Then in your test suite:</p>
 <h2 id="pattern-4-replay-from-json-fixture">Pattern 4 — Replay from JSON Fixture<a class="headerlink" href="#pattern-4-replay-from-json-fixture" title="Permanent link">&para;</a></h2>
 <p>Committed JSON fixtures make tests fully self-contained: no network, no live skill discovery, no
 non-determinism in expected messages.</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">End2EndTest</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">TestFromFixture</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_adapt_from_fixture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span> <span class="nn">unittest</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">End2EndTest</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">class</span> <span class="nc">TestFromFixture</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="k">def</span> <span class="nf">test_adapt_from_fixture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>        <span class="n">test</span> <span class="o">=</span> <span class="n">End2EndTest</span><span class="o">.</span><span class="n">from_path</span><span class="p">(</span><span class="s2">&quot;tests/fixtures/hello_world_adapt.json&quot;</span><span class="p">)</span>
 </span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        <span class="n">test</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_padatious_from_fixture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="k">def</span> <span class="nf">test_padatious_from_fixture</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        <span class="n">test</span> <span class="o">=</span> <span class="n">End2EndTest</span><span class="o">.</span><span class="n">from_path</span><span class="p">(</span><span class="s2">&quot;tests/fixtures/hello_world_padatious.json&quot;</span><span class="p">)</span>
 </span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>        <span class="n">test</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </span></code></pre></div>
@@ -6431,21 +6578,21 @@ Note: skills still need to be installed (the JSON stores <code>skill_ids</code>,
 <h2 id="pattern-5-reusing-minicroft-across-multiple-tests">Pattern 5 — Reusing MiniCroft Across Multiple Tests<a class="headerlink" href="#pattern-5-reusing-minicroft-across-multiple-tests" title="Permanent link">&para;</a></h2>
 <p>Creating a <code>MiniCroft</code> is expensive (it trains intent models). Reuse it across tests in the same
 class with <code>setUp</code> / <code>tearDown</code>:</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.session</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.log</span><span class="w"> </span><span class="kn">import</span> <span class="n">LOG</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">End2EndTest</span><span class="p">,</span> <span class="n">get_minicroft</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span> <span class="nn">unittest</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">Session</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="kn">from</span> <span class="nn">ovos_utils.log</span> <span class="kn">import</span> <span class="n">LOG</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">End2EndTest</span><span class="p">,</span> <span class="n">get_minicroft</span>
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="n">SKILL_ID</span> <span class="o">=</span> <span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="k">class</span><span class="w"> </span><span class="nc">TestHelloWorldSharedRuntime</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="k">class</span> <span class="nc">TestHelloWorldSharedRuntime</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        <span class="n">LOG</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">)</span>
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">minicroft</span> <span class="o">=</span> <span class="n">get_minicroft</span><span class="p">([</span><span class="n">SKILL_ID</span><span class="p">])</span>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">minicroft</span><span class="p">:</span>
 </span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">minicroft</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>        <span class="n">LOG</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="s2">&quot;CRITICAL&quot;</span><span class="p">)</span>
-</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_make_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utterance_text</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">expected_messages</span><span class="p">):</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    <span class="k">def</span> <span class="nf">_make_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utterance_text</span><span class="p">,</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">expected_messages</span><span class="p">):</span>
 </span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>        <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="s2">&quot;shared-session&quot;</span><span class="p">)</span>
 </span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>        <span class="n">session</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">pipeline</span>
 </span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span>
@@ -6459,7 +6606,7 @@ class with <code>setUp</code> / <code>tearDown</code>:</p>
 </span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>            <span class="n">source_message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span>
 </span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>            <span class="n">expected_messages</span><span class="o">=</span><span class="n">expected_messages</span><span class="p">,</span>
 </span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>        <span class="p">)</span>
-</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_adapt_match</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>    <span class="k">def</span> <span class="nf">test_adapt_match</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>        <span class="n">test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_test</span><span class="p">(</span>
 </span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>            <span class="s2">&quot;hello world&quot;</span><span class="p">,</span>
 </span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>            <span class="p">[</span><span class="s2">&quot;ovos-adapt-pipeline-plugin-high&quot;</span><span class="p">],</span>
@@ -6468,7 +6615,7 @@ class with <code>setUp</code> / <code>tearDown</code>:</p>
 </span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>            <span class="p">],</span>
 </span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>        <span class="p">)</span>
 </span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>        <span class="n">test</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_padatious_no_match</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>    <span class="k">def</span> <span class="nf">test_padatious_no_match</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>        <span class="c1"># &quot;hello world&quot; does not match Padatious Greetings.intent → failure path</span>
 </span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>        <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="s2">&quot;no-match-session&quot;</span><span class="p">)</span>
 </span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>        <span class="n">session</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ovos-padatious-pipeline-plugin-high&quot;</span><span class="p">]</span>
@@ -6562,8 +6709,8 @@ fallback ping routing is always validated against the original source message co
 <hr />
 <h2 id="pattern-8-session-state-validation">Pattern 8 — Session State Validation<a class="headerlink" href="#pattern-8-session-state-validation" title="Permanent link">&para;</a></h2>
 <p>Use <code>final_session</code> and <code>inject_active</code> to assert on session state at the end of a test:</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.session</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">End2EndTest</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">Session</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">End2EndTest</span>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">SKILL_ID</span> <span class="o">=</span> <span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
 </span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Pre-activate another skill before the test</span>
@@ -6748,7 +6895,7 @@ watch for tracebacks.</p>
 <hr />
 <h2 id="constants-reference">Constants Reference<a class="headerlink" href="#constants-reference" title="Permanent link">&para;</a></h2>
 <h3 id="test-lifecycle-constants">Test lifecycle constants<a class="headerlink" href="#test-lifecycle-constants" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="p">(</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="n">DEFAULT_EOF</span><span class="p">,</span>          <span class="c1"># [&quot;ovos.utterance.handled&quot;] — end-of-test trigger</span>
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="n">DEFAULT_IGNORED</span><span class="p">,</span>      <span class="c1"># [&quot;ovos.skills.settings_changed&quot;] — filtered out</span>
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="n">GUI_IGNORED</span><span class="p">,</span>          <span class="c1"># GUI namespace messages ignored when ignore_gui=True</span>
@@ -6762,7 +6909,7 @@ watch for tracebacks.</p>
 <h3 id="pipeline-constants">Pipeline constants<a class="headerlink" href="#pipeline-constants" title="Permanent link">&para;</a></h3>
 <p>ovoscope exposes composable pipeline stage lists so you can precisely control which pipeline
 stages are active during a test:</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="p">(</span>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="n">STOP_PIPELINE</span><span class="p">,</span>         <span class="c1"># [&quot;ovos-stop-pipeline-plugin-high&quot;, ...medium, ...low]</span>
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="n">CONVERSE_PIPELINE</span><span class="p">,</span>     <span class="c1"># [&quot;ovos-converse-pipeline-plugin&quot;]</span>
 </span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="n">ADAPT_PIPELINE</span><span class="p">,</span>        <span class="c1"># [&quot;ovos-adapt-pipeline-plugin-high&quot;, ...medium, ...low]</span>
@@ -6823,27 +6970,27 @@ non-deterministic — they are intentionally excluded from <code>DEFAULT_TEST_PI
 <p>When testing skill interactions where one skill hands off to another, load all
 involved skills and emit a single utterance.  <code>CaptureSession</code> records messages
 from all loaded skills simultaneously.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_minicroft</span><span class="p">,</span> <span class="n">CaptureSession</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.messagebus</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">get_minicroft</span><span class="p">,</span> <span class="n">CaptureSession</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
 </span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="n">mc</span> <span class="o">=</span> <span class="n">get_minicroft</span><span class="p">([</span>
 </span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>    <span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span><span class="p">,</span>
 </span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>    <span class="s2">&quot;ovos-skill-fallback-unknown.openvoiceos&quot;</span><span class="p">,</span>
 </span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="p">])</span>
-</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="n">session</span> <span class="o">=</span> <span class="n">CaptureSession</span><span class="p">(</span><span class="n">mc</span><span class="p">)</span>
-</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="n">session</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="n">capture</span> <span class="o">=</span> <span class="n">CaptureSession</span><span class="p">(</span><span class="n">mc</span><span class="p">)</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="n">capture</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span>
 </span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>    <span class="s2">&quot;recognizer_loop:utterance&quot;</span><span class="p">,</span>
-</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>    <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;something unknown&quot;</span><span class="p">],</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">},</span>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>    <span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;something unknown&quot;</span><span class="p">],</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">},</span>
 </span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="p">))</span>
-</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="n">responses</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="n">responses</span> <span class="o">=</span> <span class="n">capture</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
 </span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="n">mc</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </span></code></pre></div>
 <hr />
 <h2 id="pattern-10-phal-plugin-testing">Pattern 10: PHAL Plugin Testing<a class="headerlink" href="#pattern-10-phal-plugin-testing" title="Permanent link">&para;</a></h2>
 <p>PHAL plugins communicate via the MessageBus and accept <code>bus</code> directly, so
 <code>FakeBus</code> injection works without hardware.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.messagebus</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope.phal</span><span class="w"> </span><span class="kn">import</span> <span class="n">MiniPHAL</span><span class="p">,</span> <span class="n">PHALTest</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="kn">from</span> <span class="nn">ovoscope.phal</span> <span class="kn">import</span> <span class="n">MiniPHAL</span><span class="p">,</span> <span class="n">PHALTest</span>
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
 </span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># Context-manager style</span>
 </span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="k">with</span> <span class="n">MiniPHAL</span><span class="p">(</span><span class="n">plugin_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ovos-PHAL-plugin-connectivity-events.openvoiceos&quot;</span><span class="p">])</span> <span class="k">as</span> <span class="n">phal</span><span class="p">:</span>
@@ -6862,7 +7009,7 @@ from all loaded skills simultaneously.</p>
 <h2 id="pattern-11-ocp-common-play-testing">Pattern 11: OCP / Common Play Testing<a class="headerlink" href="#pattern-11-ocp-common-play-testing" title="Permanent link">&para;</a></h2>
 <p>OCP skills respond to <code>ovos.common_play.query</code> with a media list.  <code>OCPTest</code>
 drives the full flow with optional HTTP mocking.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope.ocp</span><span class="w"> </span><span class="kn">import</span> <span class="n">OCPTest</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">from</span> <span class="nn">ovoscope.ocp</span> <span class="kn">import</span> <span class="n">OCPTest</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="n">OCPTest</span><span class="p">(</span>
 </span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="n">skill_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ovos-skill-youtube.openvoiceos&quot;</span><span class="p">],</span>
@@ -6875,22 +7022,64 @@ drives the full flow with optional HTTP mocking.</p>
 <hr />
 <h2 id="pattern-12-gui-message-assertion">Pattern 12: GUI Message Assertion<a class="headerlink" href="#pattern-12-gui-message-assertion" title="Permanent link">&para;</a></h2>
 <p><code>GUICaptureSession</code> captures <code>gui.*</code> messages so tests can assert page
-navigation and namespace values without polluting the main message capture.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_minicroft</span><span class="p">,</span> <span class="n">GUICaptureSession</span>
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.messagebus</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+navigation and namespace values without polluting the main message capture.
+It is a context manager that wraps the bus (<code>GUICaptureSession(mc.bus)</code>) and
+captures only <code>gui.</code>/<code>mycroft.gui.</code>-prefixed messages.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">get_minicroft</span><span class="p">,</span> <span class="n">GUICaptureSession</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="kn">import</span> <span class="nn">time</span>
 </span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
 </span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="n">mc</span> <span class="o">=</span> <span class="n">get_minicroft</span><span class="p">([</span><span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span><span class="p">])</span>
 </span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="k">with</span> <span class="n">GUICaptureSession</span><span class="p">(</span><span class="n">mc</span><span class="o">.</span><span class="n">bus</span><span class="p">)</span> <span class="k">as</span> <span class="n">gui</span><span class="p">:</span>
 </span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>    <span class="n">mc</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span>
 </span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>        <span class="s2">&quot;recognizer_loop:utterance&quot;</span><span class="p">,</span>
-</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">],</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">},</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>        <span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">],</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">},</span>
 </span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>    <span class="p">))</span>
 </span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>    <span class="n">gui</span><span class="o">.</span><span class="n">assert_page_shown</span><span class="p">(</span><span class="s2">&quot;helloworldskill&quot;</span><span class="p">,</span> <span class="s2">&quot;hello.qml&quot;</span><span class="p">)</span>
 </span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="n">mc</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </span></code></pre></div>
-<p>See <a href="https://github.com/OpenVoiceOS/ovoscope/blob/dev/ovoscope/__init__.py">ovoscope/<strong>init</strong>.py</a> for <code>GUICaptureSession</code> API.</p>
+<p>Available assertions on <code>GUICaptureSession</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Signature</th>
+<th>Checks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>assert_page_shown</code></td>
+<td><code>(namespace, page, timeout=2.0)</code></td>
+<td>a <code>gui.page.show</code> for that namespace/page</td>
+</tr>
+<tr>
+<td><code>assert_namespace_value</code></td>
+<td><code>(namespace, key, value)</code></td>
+<td>a key was set to an exact value</td>
+</tr>
+<tr>
+<td><code>assert_namespace_has_key</code></td>
+<td><code>(namespace, key)</code></td>
+<td>a key was set (any value)</td>
+</tr>
+<tr>
+<td><code>assert_namespace_cleared</code></td>
+<td><code>(namespace)</code></td>
+<td>the namespace was cleared</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Upcoming — SYSTEM_* template assertions</p>
+<p><code>assert_template_shown(namespace, template, values=None)</code> for asserting
+that a shared <code>SYSTEM_*</code> template (rather than a skill-local QML page) was
+shown does <strong>not</strong> exist on <code>dev</code> yet. It is added by the open draft PR
+<a href="https://github.com/OpenVoiceOS/ovoscope/pull/83">ovoscope#83</a>. Until that
+merges, assert page navigation with <code>assert_page_shown</code>.</p>
+</div>
+<p>See <a href="https://github.com/OpenVoiceOS/ovoscope/blob/dev/ovoscope/__init__.py">ovoscope/<strong>init</strong>.py</a> for the full <code>GUICaptureSession</code> API.</p>
 
 
 

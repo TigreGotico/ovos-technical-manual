@@ -3402,6 +3402,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3641,6 +3725,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3688,6 +3793,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4162,6 +4288,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5718,7 +5865,7 @@ glue code required.</p>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">}</span>
 </span></code></pre></div>
 <p><strong>Launch the server</strong>  </p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ovos-stt-server<span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ovos-tts-server<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w"> </span>--engine<span class="w"> </span>ovos-tts-plugin-xxx<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w"> </span>--port<span class="w"> </span><span class="m">9666</span>
@@ -5730,22 +5877,16 @@ glue code required.</p>
 <hr />
 <h2 id="commandline-options">Command‑Line Options<a class="headerlink" href="#commandline-options" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$<span class="w"> </span>ovos-tts-server<span class="w"> </span>--help
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>usage:<span class="w"> </span>ovos-tts-server<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>--engine<span class="w"> </span>ENGINE<span class="o">]</span><span class="w"> </span><span class="o">[</span>--port<span class="w"> </span>PORT<span class="o">]</span><span class="w"> </span><span class="o">[</span>--host<span class="w"> </span>HOST<span class="o">]</span><span class="w"> </span><span class="o">[</span>--cache<span class="o">]</span><span class="w"> </span><span class="o">[</span>--lang<span class="w"> </span>LANG<span class="o">]</span><span class="w"> </span><span class="o">[</span>--gradio<span class="o">]</span><span class="w"> </span><span class="o">[</span>--title<span class="w"> </span>TITLE<span class="o">]</span><span class="w"> </span><span class="o">[</span>--description<span class="w"> </span>DESCRIPTION<span class="o">]</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">                       </span><span class="o">[</span>--info<span class="w"> </span>INFO<span class="o">]</span><span class="w"> </span><span class="o">[</span>--badge<span class="w"> </span>BADGE<span class="o">]</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>options:
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span>--engine<span class="w"> </span>ENGINE<span class="w">       </span>tts<span class="w"> </span>plugin<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>used
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span>--port<span class="w"> </span>PORT<span class="w">           </span>port<span class="w"> </span>number
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span>--host<span class="w"> </span>HOST<span class="w">           </span>host
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span>--cache<span class="w">               </span>save<span class="w"> </span>every<span class="w"> </span>synth<span class="w"> </span>to<span class="w"> </span>disk
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">  </span>--lang<span class="w"> </span>LANG<span class="w">           </span>default<span class="w"> </span>language<span class="w"> </span>supported<span class="w"> </span>by<span class="w"> </span>plugin
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span>--gradio<span class="w">              </span>Enable<span class="w"> </span>Gradio<span class="w"> </span>Web<span class="w"> </span>UI
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">  </span>--title<span class="w"> </span>TITLE<span class="w">         </span>Title<span class="w"> </span><span class="k">for</span><span class="w"> </span>webUI
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">  </span>--description<span class="w"> </span>DESCRIPTION
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">                        </span>Text<span class="w"> </span>description<span class="w"> </span>to<span class="w"> </span>print<span class="w"> </span><span class="k">in</span><span class="w"> </span>UI
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">  </span>--info<span class="w"> </span>INFO<span class="w">           </span>Text<span class="w"> </span>to<span class="w"> </span>display<span class="w"> </span>at<span class="w"> </span>end<span class="w"> </span>of<span class="w"> </span>UI
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">  </span>--badge<span class="w"> </span>BADGE<span class="w">         </span>URL<span class="w"> </span>of<span class="w"> </span>visitor<span class="w"> </span>badge
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>usage:<span class="w"> </span>ovos-tts-server<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>--engine<span class="w"> </span>ENGINE<span class="o">]</span><span class="w"> </span><span class="o">[</span>--port<span class="w"> </span>PORT<span class="o">]</span><span class="w"> </span><span class="o">[</span>--host<span class="w"> </span>HOST<span class="o">]</span><span class="w"> </span><span class="o">[</span>--cache<span class="o">]</span><span class="w"> </span><span class="o">[</span>--lang<span class="w"> </span>LANG<span class="o">]</span><span class="w"> </span><span class="o">[</span>--mcp<span class="o">]</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>options:
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span>--engine<span class="w"> </span>ENGINE<span class="w">       </span>tts<span class="w"> </span>plugin<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>used
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span>--port<span class="w"> </span>PORT<span class="w">           </span>port<span class="w"> </span>number<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">9666</span><span class="o">)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span>--host<span class="w"> </span>HOST<span class="w">           </span>host<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">0</span>.0.0.0<span class="o">)</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span>--cache<span class="w">               </span>save<span class="w"> </span>every<span class="w"> </span>synth<span class="w"> </span>to<span class="w"> </span>disk
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span>--lang<span class="w"> </span>LANG<span class="w">           </span>default<span class="w"> </span>language<span class="w"> </span>supported<span class="w"> </span>by<span class="w"> </span>plugin<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span>en-us<span class="o">)</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">  </span>--mcp<span class="w">                 </span>mount<span class="w"> </span>MCP<span class="w"> </span>server<span class="w"> </span>at<span class="w"> </span>/mcp<span class="w"> </span><span class="o">(</span>requires<span class="w"> </span>ovos-tts-server<span class="o">[</span>mcp<span class="o">])</span>
 </span></code></pre></div>
 <hr />
 <h2 id="technical-explanation">Technical Explanation<a class="headerlink" href="#technical-explanation" title="Permanent link">&para;</a></h2>
@@ -5756,11 +5897,15 @@ glue code required.</p>
 </li>
 <li>
 <p><strong>Plugin Loading</strong><br />
-  Dynamically loads any OVOS TTS plugin via Python entry points—no code changes needed when adding new voices.</p>
+<code>--engine</code> names any <code>opm.tts</code> plugin entry point; it is loaded dynamically via the OVOS Plugin Manager—no code changes needed when adding new voices. Plugin config is read from the <code>tts</code> section of your <code>mycroft.conf</code>.</p>
 </li>
 <li>
 <p><strong>Caching</strong><br />
-  When <code>--cache</code> is enabled, every synthesis request is stored as a WAV file for debugging or reuse.</p>
+  When <code>--cache</code> is enabled, every synthesis request is stored on disk for debugging or reuse.</p>
+</li>
+<li>
+<p><strong>Compatibility routers</strong><br />
+  The app also mounts drop-in compatible routers so existing cloud-TTS clients work unchanged: ElevenLabs, OpenAI, Coqui, Google, Amazon Polly, Azure, MaryTTS, Cartesia, Deepgram Aura, and PlayHT. A <code>GET /utcp</code> manual advertises the endpoints to UTCP agents, and <code>--mcp</code> mounts an MCP server at <code>/mcp</code> (requires the <code>mcp</code> extra).</p>
 </li>
 <li>
 <p><strong>Scalability</strong><br />
@@ -5782,17 +5927,22 @@ glue code required.</p>
 <tr>
 <td><code>/status</code></td>
 <td>GET</td>
-<td>Returns loaded plugin names and versions.</td>
+<td>Returns loaded plugin name, supported langs/voices, default model/voice.</td>
 </tr>
 <tr>
 <td><code>/synthesize/{utterance}</code></td>
 <td>GET</td>
-<td>URL‑encoded text → WAV audio bytes.</td>
+<td>Legacy: URL‑encoded text in the path → synthesized audio file.</td>
 </tr>
 <tr>
 <td><code>/v2/synthesize</code></td>
 <td>GET</td>
-<td>JSON <code>{utterance: string, voice?: string}</code> → WAV.</td>
+<td><code>utterance</code> (required) plus optional query params → synthesized audio file.</td>
+</tr>
+<tr>
+<td><code>/utcp</code></td>
+<td>GET</td>
+<td>UTCP tool-discovery manual (JSON).</td>
 </tr>
 <tr>
 <td><code>/docs</code></td>
@@ -5802,38 +5952,79 @@ glue code required.</p>
 </tbody>
 </table>
 <blockquote>
-<p>any query parameters passed to <code>/v2/synthesize</code> will be forwarded to the individual plugins <code>get_tts</code> method if they are defined as kwargs there. 
-💡 This allows <code>"voice"</code> and <code>"lang"</code> to be defined at runtime and not by plugin config at load time (for plugins that support it)</p>
+<p>Both synthesis endpoints respond with a <code>FileResponse</code> (the audio file written by the plugin, WAV by default).
+Any extra query parameters on <code>/v2/synthesize</code> (besides <code>utterance</code>) are forwarded to the plugin's <code>get_tts</code> method as kwargs.
+💡 This allows <code>"voice"</code> and <code>"lang"</code> to be set per-request at runtime rather than only by plugin config at load time (for plugins that support it). A missing <code>utterance</code> returns HTTP 400.</p>
 </blockquote>
 <hr />
 <h2 id="companion-plugin">Companion Plugin<a class="headerlink" href="#companion-plugin" title="Permanent link">&para;</a></h2>
-<p>Point your OVOS instance at this TTS server:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-tts-server-plugin
+<p>Point your OVOS instance at this TTS server with the companion client plugin
+(repo <code>ovos-tts-server-plugin</code>, class <code>OVOSServerTTS</code>, entry point and PyPI package
+<code>ovos-tts-plugin-server</code>):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-tts-plugin-server
 </span></code></pre></div>
 <p><strong>Configuration</strong> <code>mycroft.conf</code>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;tts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-tts-plugin-server&quot;</span><span class="p">,</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">&quot;ovos-tts-plugin-server&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost:9667&quot;</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost:9666&quot;</span><span class="p">,</span>
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="nt">&quot;voice&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxx&quot;</span><span class="p">,</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">        </span><span class="nt">&quot;verify_ssl&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="nt">&quot;tts_timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">     </span><span class="p">}</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w"> </span><span class="p">}</span><span class="w"> </span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="p">}</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">        </span><span class="nt">&quot;v2&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="nt">&quot;verify_ssl&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="nt">&quot;tts_timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">     </span><span class="p">}</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w"> </span><span class="p">}</span><span class="w"> </span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="p">}</span>
 </span></code></pre></div>
+<p>Config keys:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>host</code></td>
+<td>public servers</td>
+<td>Server base URL, or a list of URLs to try in order. If unset, a built-in list of public OVOS TTS servers is shuffled and used.</td>
+</tr>
+<tr>
+<td><code>v2</code></td>
+<td><code>true</code></td>
+<td>Use <code>/v2/synthesize</code> (utterance as a query param); set <code>false</code> to use the legacy <code>/synthesize/{utterance}</code> path.</td>
+</tr>
+<tr>
+<td><code>voice</code></td>
+<td>plugin default</td>
+<td>Voice name forwarded as a query param (omitted when unset or <code>"default"</code>).</td>
+</tr>
+<tr>
+<td><code>verify_ssl</code></td>
+<td><code>true</code></td>
+<td>Verify the server's TLS certificate.</td>
+</tr>
+<tr>
+<td><code>tts_timeout</code></td>
+<td><code>5</code></td>
+<td>Per-request timeout in seconds.</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="docker-deployment">Docker Deployment<a class="headerlink" href="#docker-deployment" title="Permanent link">&para;</a></h2>
 <p><strong>Create a Dockerfile</strong></p>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.7-slim</span>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ovos-tts-server
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="o">{</span>YOUR_TTS_PLUGIN<span class="o">}</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ovos-tts-server&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--engine&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;{YOUR_TTS_PLUGIN}&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 <p><strong>Build &amp; Run</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my-ovos-tts<span class="w"> </span>.
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:9666<span class="w"> </span>my-ovos-tts
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">9666</span>:9666<span class="w"> </span>my-ovos-tts
 </span></code></pre></div>
 <p>Pre-built containers are also available via the <a href="https://github.com/OpenVoiceOS/ovos-docker-tts">ovos-docker-tts</a>
 repository.</p>
@@ -5841,11 +6032,14 @@ repository.</p>
 <h2 id="tips-caveats">Tips &amp; Caveats<a class="headerlink" href="#tips-caveats" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
+<p><strong>Default port is 9666, not 8080.</strong> The companion plugin defaults to <code>/v2/synthesize</code>; if you point an old client at the legacy <code>/synthesize/{utterance}</code> path, set <code>"v2": false</code> in its config.</p>
+</li>
+<li>
 <p><strong>Audio Formats</strong>: By default, outputs WAV (PCM). If you need MP3 or OGG, wrap with an external converter or check
   plugin support.</p>
 </li>
 <li>
-<p><strong>Disk Usage</strong>: Caching every file can grow large; monitor <code>./cache/</code> or disable with <code>--no-cache</code>.</p>
+<p><strong>Disk Usage</strong>: <code>--cache</code> saves every synthesis to disk; that directory grows unbounded. Omit the flag to disable caching (there is no <code>--no-cache</code> flag — caching is simply off by default).</p>
 </li>
 <li>
 <p><strong>Security</strong>: Consider adding API keys or putting a reverse proxy (NGINX, Traefik) in front for SSL termination and

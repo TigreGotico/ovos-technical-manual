@@ -3255,6 +3255,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#your-first-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Your first test
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-is-ovoscope" class="md-nav__link">
     <span class="md-ellipsis">
       What is ovoscope?
@@ -3327,6 +3336,15 @@
   <a href="#what-ovoscope-does-not-cover" class="md-nav__link">
     <span class="md-ellipsis">
       What ovoscope Does NOT Cover
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-gui-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing GUI messages
     </span>
   </a>
   
@@ -3552,6 +3570,90 @@
   
   <span class="md-ellipsis">
     Personas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
   </span>
   
 
@@ -3807,6 +3909,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3854,6 +3977,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4213,6 +4357,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5658,6 +5823,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#your-first-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Your first test
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-is-ovoscope" class="md-nav__link">
     <span class="md-ellipsis">
       What is ovoscope?
@@ -5736,6 +5910,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#testing-gui-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing GUI messages
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       Installation
@@ -5799,10 +5982,39 @@
 
 
 <h1 id="skill-testing-with-ovoscope">Skill Testing with <a href="../ovoscope-overview/">ovoscope</a><a class="headerlink" href="#skill-testing-with-ovoscope" title="Permanent link">&para;</a></h1>
-<p>This section covers end-to-end testing of OVOS skills using <strong>ovoscope</strong> — the official
-framework for verifying that skills behave correctly at the bus message level.</p>
+<p>This section is the entry point for end-to-end testing of OVOS skills using
+<strong>ovoscope</strong> — the framework for verifying that skills behave correctly at the
+bus message level.</p>
 <p>See also: <a href="../skill-design-guidelines/">Skill Design Guidelines</a> and
 <a href="../skill-dev-faq/">Developer FAQ</a>.</p>
+<hr />
+<h2 id="your-first-test">Your first test<a class="headerlink" href="#your-first-test" title="Permanent link">&para;</a></h2>
+<p>If you only care that an utterance makes the skill <em>say</em> the right thing, the
+whole test is one call. <code>End2EndTest.assert_spoke()</code> spins up a MiniCroft, fires
+the utterance, and asserts a matching <code>speak</code> was emitted:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">Session</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">End2EndTest</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">SKILL_ID</span> <span class="o">=</span> <span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="s2">&quot;first-test&quot;</span><span class="p">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">utterance</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="s2">&quot;recognizer_loop:utterance&quot;</span><span class="p">,</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;hello world&quot;</span><span class="p">],</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">},</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="p">{</span><span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="n">session</span><span class="o">.</span><span class="n">serialize</span><span class="p">(),</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;destination&quot;</span><span class="p">:</span> <span class="s2">&quot;B&quot;</span><span class="p">},</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">End2EndTest</span><span class="p">(</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">skill_ids</span><span class="o">=</span><span class="p">[</span><span class="n">SKILL_ID</span><span class="p">],</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">source_message</span><span class="o">=</span><span class="n">utterance</span><span class="p">,</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">expected_messages</span><span class="o">=</span><span class="p">[],</span>            <span class="c1"># not used by assert_spoke</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">)</span><span class="o">.</span><span class="n">assert_spoke</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Note the skill_id format: <code>&lt;entry-point-name&gt;.&lt;author-namespace&gt;</code>, e.g.
+<code>ovos-skill-hello-world.openvoiceos</code>. This is the plugin entry point, not the PyPI
+package name. When you need to assert the <em>full</em> message sequence (ordering,
+routing, session state), use <code>.execute()</code> instead — covered below.</p>
 <hr />
 <h2 id="what-is-ovoscope">What is ovoscope?<a class="headerlink" href="#what-is-ovoscope" title="Permanent link">&para;</a></h2>
 <p>ovoscope is an end-to-end testing framework for OVOS skills. It runs a lightweight
@@ -5813,14 +6025,14 @@ in-process OVOS Core using a <code>FakeBus</code>, loads real skill plugins, fir
 Intent matching, converse, fallback, speak, and session changes all produce bus messages.
 ovoscope intercepts every message on the in-process <code>FakeBus</code>, making the entire
 skill interaction verifiable.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Test                         FakeBus
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>────                         ───────
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>source_message ──emit──►  [MiniCroft + loaded skills]
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                                  │
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                    ◄──capture────┤ all emitted messages
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                                  │ until EOF message
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                                  ▼
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            assert against expected_messages[]
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Test                         FakeBus
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>────                         ───────
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>source_message ──emit──►  [MiniCroft + loaded skills]
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>                                  │
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                    ◄──capture────┤ all emitted messages
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                                  │ until EOF message
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>                                  ▼
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>            assert against expected_messages[]
 </span></code></pre></div>
 <hr />
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
@@ -5832,11 +6044,11 @@ not needed for testing (file watcher, event scheduler, runtime installer), and l
 the skill plugin IDs you specify.</p>
 <p>It is created via the <code>get_minicroft()</code> factory function, which starts the instance and
 waits for it to reach <code>READY</code> state before returning:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_minicroft</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">croft</span> <span class="o">=</span> <span class="n">get_minicroft</span><span class="p">([</span><span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span><span class="p">])</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># croft.status.state == ProcessState.READY</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">get_minicroft</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">croft</span> <span class="o">=</span> <span class="n">get_minicroft</span><span class="p">([</span><span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span><span class="p">])</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># croft.status.state == ProcessState.READY</span>
 </span></code></pre></div>
 <p><code>MiniCroft</code> sets <code>isolate_config=True</code> by default, which clears user XDG configuration
 so tests are reproducible regardless of the developer's local <code>mycroft.conf</code>. It also
@@ -5868,29 +6080,34 @@ for a single interaction. It sorts incoming messages into:</p>
 <p><code>End2EndTest</code> (<code>ovoscope.End2EndTest</code>) is the primary API. It is a <code>dataclass</code> that wires
 together <code>MiniCroft</code>, <code>CaptureSession</code>, and all assertion logic. You configure it once
 and call <code>.execute()</code> to run the test:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">End2EndTest</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.session</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="s2">&quot;test-123&quot;</span><span class="p">)</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">utterance</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="s2">&quot;recognizer_loop:utterance&quot;</span><span class="p">,</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;hello world&quot;</span><span class="p">],</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-us&quot;</span><span class="p">},</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="p">{</span><span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="n">session</span><span class="o">.</span><span class="n">serialize</span><span class="p">(),</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;destination&quot;</span><span class="p">:</span> <span class="s2">&quot;B&quot;</span><span class="p">},</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">)</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">test</span> <span class="o">=</span> <span class="n">End2EndTest</span><span class="p">(</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">skill_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;skill-hello-world.openvoiceos&quot;</span><span class="p">],</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="n">source_message</span><span class="o">=</span><span class="n">utterance</span><span class="p">,</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="n">expected_messages</span><span class="o">=</span><span class="p">[</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>        <span class="n">utterance</span><span class="p">,</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="n">Message</span><span class="p">(</span><span class="s2">&quot;speak&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;utterance&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello!&quot;</span><span class="p">}),</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>        <span class="n">Message</span><span class="p">(</span><span class="s2">&quot;ovos.utterance.handled&quot;</span><span class="p">,</span> <span class="p">{}),</span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="p">],</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="p">)</span>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="n">test</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">End2EndTest</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">Session</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">SKILL_ID</span> <span class="o">=</span> <span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="s2">&quot;test-123&quot;</span><span class="p">)</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">session</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ovos-adapt-pipeline-plugin-high&quot;</span><span class="p">]</span>   <span class="c1"># restrict to Adapt</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">utterance</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="s2">&quot;recognizer_loop:utterance&quot;</span><span class="p">,</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;hello world&quot;</span><span class="p">],</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">},</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="p">{</span><span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="n">session</span><span class="o">.</span><span class="n">serialize</span><span class="p">(),</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;destination&quot;</span><span class="p">:</span> <span class="s2">&quot;B&quot;</span><span class="p">},</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="p">)</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">test</span> <span class="o">=</span> <span class="n">End2EndTest</span><span class="p">(</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="n">skill_ids</span><span class="o">=</span><span class="p">[</span><span class="n">SKILL_ID</span><span class="p">],</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="n">source_message</span><span class="o">=</span><span class="n">utterance</span><span class="p">,</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="n">expected_messages</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>        <span class="n">utterance</span><span class="p">,</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        <span class="n">Message</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">SKILL_ID</span><span class="si">}</span><span class="s2">:HelloWorldIntent&quot;</span><span class="p">,</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>                <span class="p">{</span><span class="s2">&quot;utterance&quot;</span><span class="p">:</span> <span class="s2">&quot;hello world&quot;</span><span class="p">,</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">}),</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>        <span class="n">Message</span><span class="p">(</span><span class="s2">&quot;speak&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;utterance&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello world&quot;</span><span class="p">,</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">}),</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>        <span class="n">Message</span><span class="p">(</span><span class="s2">&quot;ovos.utterance.handled&quot;</span><span class="p">,</span> <span class="p">{}),</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    <span class="p">],</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="p">)</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="n">test</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </span></code></pre></div>
-<p><code>execute()</code> raises <code>AssertionError</code> on any mismatch. The assertion model is a
+<p><code>execute(timeout=30)</code> raises <code>AssertionError</code> on any mismatch. The assertion model is a
 <strong>subset match</strong>: only keys present in <code>expected.data</code> and <code>expected.context</code> are
 checked — extra keys in the received message are ignored. This lets you assert
 precisely on the fields you care about.</p>
@@ -5961,59 +6178,125 @@ of a handler in isolation, use FakeBus unit tests.</p>
 <p><strong><a href="../stt-plugins/">STT</a> and audio transformer plugins</strong> — use <code>MiniListener</code> / <code>ListenerTest</code> (see <a href="../ovoscope-usage/">453-ovoscope-advanced.md</a>)</p>
 </li>
 <li>
-<p><strong>GUI rendering</strong> — GUI namespace messages are discarded by default (<code>ignore_gui=True</code>)</p>
+<p><strong>GUI rendering</strong> — <code>End2EndTest</code> discards GUI namespace messages by default
+  (<code>ignore_gui=True</code>). To assert on <code>gui.*</code> traffic, use <code>GUICaptureSession</code>
+  (see <a href="#testing-gui-messages">Testing GUI messages</a> below) instead of widening
+  the main capture.</p>
 </li>
 <li>
 <p><strong>Wake-word and <a href="../vad-plugins/">VAD</a></strong> — use <code>FakeBus</code> unit tests directly</p>
 </li>
 </ul>
 <hr />
+<h2 id="testing-gui-messages">Testing GUI messages<a class="headerlink" href="#testing-gui-messages" title="Permanent link">&para;</a></h2>
+<p><code>GUICaptureSession</code> (<code>ovoscope.GUICaptureSession</code>) captures only <code>gui.*</code> /
+<code>mycroft.gui.*</code> messages, so you can assert page navigation and namespace state
+without polluting the main <code>End2EndTest</code> capture. It is a context manager taking
+the bus:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span> <span class="nn">time</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">get_minicroft</span><span class="p">,</span> <span class="n">GUICaptureSession</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">mc</span> <span class="o">=</span> <span class="n">get_minicroft</span><span class="p">([</span><span class="s2">&quot;ovos-skill-hello-world.openvoiceos&quot;</span><span class="p">])</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">with</span> <span class="n">GUICaptureSession</span><span class="p">(</span><span class="n">mc</span><span class="o">.</span><span class="n">bus</span><span class="p">)</span> <span class="k">as</span> <span class="n">gui</span><span class="p">:</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">mc</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="s2">&quot;recognizer_loop:utterance&quot;</span><span class="p">,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">],</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-US&quot;</span><span class="p">},</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="p">))</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="n">gui</span><span class="o">.</span><span class="n">assert_page_shown</span><span class="p">(</span><span class="s2">&quot;helloworldskill&quot;</span><span class="p">,</span> <span class="s2">&quot;hello.qml&quot;</span><span class="p">)</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="n">mc</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</span></code></pre></div>
+<p>Available assertions on <code>GUICaptureSession</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Assertion</th>
+<th>Checks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>assert_page_shown(namespace, page, timeout=2.0)</code></td>
+<td>a page was shown in the namespace</td>
+</tr>
+<tr>
+<td><code>assert_namespace_value(namespace, key, value)</code></td>
+<td>a namespace data value equals <code>value</code></td>
+</tr>
+<tr>
+<td><code>assert_namespace_has_key(namespace, key)</code></td>
+<td>a namespace data key was set</td>
+</tr>
+<tr>
+<td><code>assert_namespace_cleared(namespace)</code></td>
+<td>the namespace was cleared</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Upcoming.</strong> Higher-level template assertions for <code>SYSTEM_*</code> GUI templates —
+<code>assert_template_shown(namespace, template, values=None)</code> — are <strong>not yet on
+the released API</strong>. They are proposed in DRAFT PR
+<a href="https://github.com/OpenVoiceOS/ovoscope/pull/83">ovoscope#83</a>; until it
+merges, assert on <code>assert_page_shown</code> / <code>assert_namespace_value</code> instead.</p>
+</blockquote>
+<hr />
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovoscope
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ovoscope
 </span></code></pre></div>
 <p>ovoscope requires Python 3.10+ and <code>ovos-core &gt;= 2.0.4a2</code> (pulled automatically as a
 dependency). The skill plugin under test must also be installed and discoverable via its
 entry point.</p>
-<p>Verify discovery:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="s2">from ovos_plugin_manager.skills import find_skill_plugins</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="s2">print(list(find_skill_plugins()))</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="s2">&quot;</span>
+<p>Optional extras gate the harnesses on other pages:</p>
+<ul>
+<li><code>ovoscope[audio]</code> → <code>ovos-audio</code> for the audio service harnesses (see
+  <a href="../audio-testing/">Audio Testing</a>).</li>
+<li><code>ovoscope[tts]</code> → <code>jiwer</code> + a reference STT plugin for TTS intelligibility scoring.</li>
+<li><code>ovoscope[pydantic]</code> → <code>ovos-pydantic-models</code> for typed fixtures.</li>
+</ul>
+<p>Verify the skill under test is discoverable:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from ovos_plugin_manager.skills import find_skill_plugins; print(list(find_skill_plugins()))&quot;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># should include: ovos-skill-hello-world.openvoiceos</span>
 </span></code></pre></div>
 <hr />
 <h2 id="directory-convention">Directory Convention<a class="headerlink" href="#directory-convention" title="Permanent link">&para;</a></h2>
 <p>End-to-end tests live in a separate directory from unit tests to allow independent
 execution:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>my-skill-repo/
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>├── test/
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>│   ├── unittests/
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│   │   └── test_handlers.py
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>│   └── end2end/
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>│       ├── test_intent_match.py
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>│       ├── test_session_state.py
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│       └── fixtures/
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>│           ├── hello_world_adapt.json
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│           └── hello_world_padatious.json
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>my-skill-repo/
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>├── test/
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>│   ├── unittests/
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>│   │   └── test_handlers.py
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│   └── end2end/
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│       ├── test_intent_match.py
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>│       ├── test_session_state.py
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>│       └── fixtures/
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>│           ├── hello_world_adapt.json
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>│           └── hello_world_padatious.json
 </span></code></pre></div>
 <p>Run them separately:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Fast unit tests</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>test/unittests/<span class="w"> </span>-v
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># End-to-end tests (slower — spins up MiniCroft)</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>test/end2end/<span class="w"> </span>-v<span class="w"> </span>--timeout<span class="o">=</span><span class="m">60</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Fast unit tests</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>test/unittests/<span class="w"> </span>-v
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># End-to-end tests (slower — spins up MiniCroft)</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>test/end2end/<span class="w"> </span>-v<span class="w"> </span>--timeout<span class="o">=</span><span class="m">60</span>
 </span></code></pre></div>
 <hr />
 <h2 id="public-api-summary">Public API Summary<a class="headerlink" href="#public-api-summary" title="Permanent link">&para;</a></h2>
-<p>All primary classes are importable from <code>ovoscope</code> directly:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">MiniCroft</span><span class="p">,</span>          <span class="c1"># in-process skill runtime</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">get_minicroft</span><span class="p">,</span>      <span class="c1"># factory: create + wait for READY</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">CaptureSession</span><span class="p">,</span>     <span class="c1"># message recorder for a single interaction</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">End2EndTest</span><span class="p">,</span>        <span class="c1"># declarative test runner</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">MiniListener</span><span class="p">,</span>       <span class="c1"># in-process audio transformer pipeline</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">get_mini_listener</span><span class="p">,</span>  <span class="c1"># factory: create MiniListener with plugins</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="n">ListenerTest</span><span class="p">,</span>       <span class="c1"># declarative listener test runner</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="p">)</span>
+<p>The core skill-testing classes are always importable from <code>ovoscope</code> directly:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="p">(</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="n">MiniCroft</span><span class="p">,</span>          <span class="c1"># in-process skill runtime (subclass of ovos_core SkillManager)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">get_minicroft</span><span class="p">,</span>      <span class="c1"># factory: create + wait for READY</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">CaptureSession</span><span class="p">,</span>     <span class="c1"># message recorder for a single interaction</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">End2EndTest</span><span class="p">,</span>        <span class="c1"># declarative test runner</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">GUICaptureSession</span><span class="p">,</span>  <span class="c1"># capture gui.* messages for GUI assertions</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="p">)</span>
+</span></code></pre></div>
+<p>The listener/audio harnesses are re-exported at the top level too, but only when
+their optional dependency is installed — import them from their submodule to be
+explicit:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span> <span class="nn">ovoscope.listener</span> <span class="kn">import</span> <span class="n">MiniListener</span><span class="p">,</span> <span class="n">get_mini_listener</span><span class="p">,</span> <span class="n">ListenerTest</span>  <span class="c1"># needs ovos-dinkum-listener</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">from</span> <span class="nn">ovoscope.audio</span> <span class="kn">import</span> <span class="n">PlaybackServiceHarness</span><span class="p">,</span> <span class="n">AudioServiceHarness</span>        <span class="c1"># needs ovos-audio</span>
 </span></code></pre></div>
 <hr />
 <h2 id="canonical-examples">Canonical Examples<a class="headerlink" href="#canonical-examples" title="Permanent link">&para;</a></h2>

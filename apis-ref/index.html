@@ -3406,6 +3406,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3645,6 +3729,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3692,6 +3797,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4051,6 +4177,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5861,8 +6008,16 @@
 <hr />
 <h2 id="guiinterface">GUIInterface<a class="headerlink" href="#guiinterface" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_bus_client.apis.gui.GUIInterface</code></p>
+<div class="admonition note">
+<p class="admonition-title">Upcoming: GUIInterface is being relocated</p>
+<p><code>GUIInterface</code> is slated to move out of <code>ovos-bus-client</code> into the dedicated
+<code>ovos-gui-api-client</code> package via
+<a href="https://github.com/OpenVoiceOS/ovos-workshop/pull/420">OpenVoiceOS/ovos-workshop#420</a>.
+Import it through your skill base class (<code>self.gui</code>) rather than from
+<code>ovos_bus_client.apis.gui</code> directly so your code survives the move.</p>
+</div>
 <p>Interface to the <code>ovos-gui</code> display service. Values set on the interface are synced to QML via the <code>sessionData</code> mechanism. Used as <code>self.gui</code> inside skills.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.apis.gui</span><span class="w"> </span><span class="kn">import</span> <span class="n">GUIInterface</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.apis.gui</span> <span class="kn">import</span> <span class="n">GUIInterface</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">gui</span> <span class="o">=</span> <span class="n">GUIInterface</span><span class="p">(</span><span class="n">skill_id</span><span class="o">=</span><span class="s2">&quot;my-skill&quot;</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">)</span>
 </span></code></pre></div>
@@ -5879,81 +6034,37 @@
 </span></code></pre></div>
 <p>Values become available in QML as <code>sessionData.temperature</code>.</p>
 <h3 id="showing-pages">Showing Pages<a class="headerlink" href="#showing-pages" title="Permanent link">&para;</a></h3>
-<p>Pages are <code>PageTemplates</code> enum values corresponding to pre-built OVOS system QML pages:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.apis.gui</span><span class="w"> </span><span class="kn">import</span> <span class="n">PageTemplates</span>
+<p><code>show_page</code> takes the QML page name (a string) and an optional idle override:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">gui</span><span class="o">.</span><span class="n">show_page</span><span class="p">(</span><span class="s2">&quot;my_page.qml&quot;</span><span class="p">,</span> <span class="n">override_idle</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">gui</span><span class="o">.</span><span class="n">show_page</span><span class="p">(</span><span class="n">PageTemplates</span><span class="o">.</span><span class="n">TEXT</span><span class="p">)</span>        <span class="c1"># SYSTEM_text</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">gui</span><span class="o">.</span><span class="n">show_page</span><span class="p">(</span><span class="n">PageTemplates</span><span class="o">.</span><span class="n">IMAGE</span><span class="p">)</span>       <span class="c1"># SYSTEM_image</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">gui</span><span class="o">.</span><span class="n">show_page</span><span class="p">(</span><span class="n">PageTemplates</span><span class="o">.</span><span class="n">URL</span><span class="p">)</span>         <span class="c1"># SYSTEM_url</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">gui</span><span class="o">.</span><span class="n">show_page</span><span class="p">(</span><span class="n">PageTemplates</span><span class="o">.</span><span class="n">LOADING</span><span class="p">)</span>     <span class="c1"># SYSTEM_loading</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Show several pages at once</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">gui</span><span class="o">.</span><span class="n">show_pages</span><span class="p">([</span><span class="s2">&quot;page1.qml&quot;</span><span class="p">,</span> <span class="s2">&quot;page2.qml&quot;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </span></code></pre></div>
-<p>Available templates:</p>
-<table>
-<thead>
-<tr>
-<th>Template</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>IDLE</code></td>
-<td>Default idle/homescreen state</td>
-</tr>
-<tr>
-<td><code>LOADING</code></td>
-<td>Loading spinner</td>
-</tr>
-<tr>
-<td><code>STATUS</code></td>
-<td>Status message</td>
-</tr>
-<tr>
-<td><code>TEXT</code></td>
-<td>Plain text display</td>
-</tr>
-<tr>
-<td><code>ERROR</code></td>
-<td>Error message</td>
-</tr>
-<tr>
-<td><code>IMAGE</code></td>
-<td>Static image</td>
-</tr>
-<tr>
-<td><code>ANIMATED_IMAGE</code></td>
-<td>Animated/GIF image</td>
-</tr>
-<tr>
-<td><code>HTML</code></td>
-<td>Inline HTML</td>
-</tr>
-<tr>
-<td><code>URL</code></td>
-<td>Web URL in a browser frame</td>
-</tr>
-<tr>
-<td><code>WEATHER</code></td>
-<td>Weather widget</td>
-</tr>
-<tr>
-<td><code>CLOCK</code></td>
-<td>Clock widget</td>
-</tr>
-<tr>
-<td><code>FACE</code></td>
-<td>Avatar face</td>
-</tr>
-</tbody>
-</table>
+<div class="admonition note">
+<p class="admonition-title">Upcoming: <code>PageTemplates</code> enum for system pages</p>
+<p>Draft PR
+<a href="https://github.com/OpenVoiceOS/ovos-bus-client/pull/197">OpenVoiceOS/ovos-bus-client#197</a>
+adds a <code>PageTemplates</code> enum so skills can show the pre-built OVOS system pages
+by symbolic name instead of a raw string:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.apis.gui</span> <span class="kn">import</span> <span class="n">PageTemplates</span>   <span class="c1"># available after #197</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">gui</span><span class="o">.</span><span class="n">show_page</span><span class="p">(</span><span class="n">PageTemplates</span><span class="o">.</span><span class="n">TEXT</span><span class="p">)</span>        <span class="c1"># &quot;SYSTEM_text&quot;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">gui</span><span class="o">.</span><span class="n">show_page</span><span class="p">(</span><span class="n">PageTemplates</span><span class="o">.</span><span class="n">IMAGE</span><span class="p">)</span>       <span class="c1"># &quot;SYSTEM_image&quot;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">gui</span><span class="o">.</span><span class="n">show_page</span><span class="p">(</span><span class="n">PageTemplates</span><span class="o">.</span><span class="n">URL</span><span class="p">)</span>         <span class="c1"># &quot;SYSTEM_url&quot;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">gui</span><span class="o">.</span><span class="n">show_page</span><span class="p">(</span><span class="n">PageTemplates</span><span class="o">.</span><span class="n">LOADING</span><span class="p">)</span>     <span class="c1"># &quot;SYSTEM_loading&quot;</span>
+</span></code></pre></div>
+<p>Planned templates: <code>LOADING</code>, <code>STATUS</code>, <code>TEXT</code>, <code>ERROR</code>, <code>IMAGE</code>,
+<code>ANIMATED_IMAGE</code>, <code>HTML</code>, <code>URL</code>, <code>WEATHER</code>, <code>CLOCK</code>, <code>FACE</code>. The same PR
+deprecates <a href="#enclosureapi"><code>EnclosureAPI</code></a>.</p>
+</div>
 <h3 id="gui-events-from-qml-skill">GUI Events (from QML → skill)<a class="headerlink" href="#gui-events-from-qml-skill" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Register a handler for events triggered by QML via triggerEvent()</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">gui</span><span class="o">.</span><span class="n">register_handler</span><span class="p">(</span><span class="s2">&quot;button.pressed&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_button_pressed</span><span class="p">)</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># listens for &quot;{skill_id}.button.pressed&quot;</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># Callback when any GUI value is changed from the QML side</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">gui</span><span class="o">.</span><span class="n">set_on_gui_changed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_gui_changed</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Register a handler for events triggered by QML via triggerEvent()</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">gui</span><span class="o">.</span><span class="n">register_handler</span><span class="p">(</span><span class="s2">&quot;button.pressed&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_button_pressed</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># listens for &quot;{skill_id}.button.pressed&quot;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># Callback when any GUI value is changed from the QML side</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">gui</span><span class="o">.</span><span class="n">set_on_gui_changed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_gui_changed</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h3>
 <table>
@@ -5977,12 +6088,12 @@
 </tr>
 <tr>
 <td><code>page</code></td>
-<td><code>PageTemplates</code></td>
-<td>Currently active page</td>
+<td><code>str \| None</code></td>
+<td>Currently active page name (<code>None</code> if no page is shown)</td>
 </tr>
 <tr>
 <td><code>pages</code></td>
-<td><code>list</code></td>
+<td><code>list[str]</code></td>
 <td>All active pages for this skill</td>
 </tr>
 <tr>
@@ -5996,37 +6107,37 @@
 <h2 id="eventschedulerinterface">EventSchedulerInterface<a class="headerlink" href="#eventschedulerinterface" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_bus_client.apis.events.EventSchedulerInterface</code></p>
 <p>Schedule future and repeating bus events. Used as <code>self.event_scheduler</code> inside skills.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.apis.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">EventSchedulerInterface</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">scheduler</span> <span class="o">=</span> <span class="n">EventSchedulerInterface</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">,</span> <span class="n">skill_id</span><span class="o">=</span><span class="s2">&quot;my-skill&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.apis.events</span> <span class="kn">import</span> <span class="n">EventSchedulerInterface</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">scheduler</span> <span class="o">=</span> <span class="n">EventSchedulerInterface</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">,</span> <span class="n">skill_id</span><span class="o">=</span><span class="s2">&quot;my-skill&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="scheduling">Scheduling<a class="headerlink" href="#scheduling" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Single-shot — call handler in 10 seconds</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">schedule_event</span><span class="p">(</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">handler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">on_timer</span><span class="p">,</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">when</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>                  <span class="c1"># seconds from now (or datetime)</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;hi&quot;</span><span class="p">},</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_timer&quot;</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">)</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1"># Repeating — call every 60 seconds starting in 5 seconds</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">schedule_repeating_event</span><span class="p">(</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="n">handler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">on_tick</span><span class="p">,</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="n">when</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="n">interval</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_tick&quot;</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="p">)</span>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="c1"># Update data on a scheduled event</span>
-</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">update_scheduled_event</span><span class="p">(</span><span class="s2">&quot;my_timer&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;updated&quot;</span><span class="p">})</span>
-</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>
-</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="c1"># Cancel</span>
-</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">cancel_scheduled_event</span><span class="p">(</span><span class="s2">&quot;my_timer&quot;</span><span class="p">)</span>
-</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">cancel_all_repeating_events</span><span class="p">()</span>
-</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
-</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="c1"># Check next scheduled time</span>
-</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="n">when</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">get_scheduled_event_status</span><span class="p">(</span><span class="s2">&quot;my_timer&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Single-shot — call handler in 10 seconds</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">schedule_event</span><span class="p">(</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">handler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">on_timer</span><span class="p">,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">when</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>                  <span class="c1"># seconds from now (or datetime)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;hi&quot;</span><span class="p">},</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_timer&quot;</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">)</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># Repeating — call every 60 seconds starting in 5 seconds</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">schedule_repeating_event</span><span class="p">(</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">handler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">on_tick</span><span class="p">,</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="n">when</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="n">interval</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_tick&quot;</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="p">)</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="c1"># Update data on a scheduled event</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">update_scheduled_event</span><span class="p">(</span><span class="s2">&quot;my_timer&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;updated&quot;</span><span class="p">})</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="c1"># Cancel</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">cancel_scheduled_event</span><span class="p">(</span><span class="s2">&quot;my_timer&quot;</span><span class="p">)</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">cancel_all_repeating_events</span><span class="p">()</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="c1"># Check next scheduled time</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="n">when</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">get_scheduled_event_status</span><span class="p">(</span><span class="s2">&quot;my_timer&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
 <ul>
@@ -6062,9 +6173,9 @@
 <td>Add an event</td>
 </tr>
 <tr>
-<td><code>mycroft.schedule.update_event</code></td>
+<td><code>mycroft.schedule.update_event</code> ⚠</td>
 <td>→ scheduler</td>
-<td>Update event data</td>
+<td>Update event data — see note below</td>
 </tr>
 <tr>
 <td><code>mycroft.scheduler.remove_event</code></td>
@@ -6083,23 +6194,32 @@
 </tr>
 </tbody>
 </table>
+<div class="admonition warning">
+<p class="admonition-title">Known mismatch: <code>update_scheduled_event</code> is a no-op</p>
+<p><code>EventSchedulerInterface.update_scheduled_event</code> emits
+<code>mycroft.schedule.update_event</code> (<code>apis/events.py</code>), but the server-side
+<code>EventScheduler</code> daemon only listens on <code>mycroft.scheduler.update_event</code>
+(<code>util/scheduler.py</code>) — note <code>scheduler</code> vs <code>schedule</code>. The two spellings
+never meet, so scheduled-event updates are silently dropped. To change a
+scheduled event's data today, cancel it and re-schedule.</p>
+</div>
 <hr />
 <h2 id="ocpinterface">OCPInterface<a class="headerlink" href="#ocpinterface" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_bus_client.apis.ocp.OCPInterface</code></p>
 <p>Interface to OCP (OpenVoiceOS Common Play) — the media playback service. Used as <code>self.audio_service</code> inside skills.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.apis.ocp</span><span class="w"> </span><span class="kn">import</span> <span class="n">OCPInterface</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">ocp</span> <span class="o">=</span> <span class="n">OCPInterface</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.apis.ocp</span> <span class="kn">import</span> <span class="n">OCPInterface</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">ocp</span> <span class="o">=</span> <span class="n">OCPInterface</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="playback-control">Playback Control<a class="headerlink" href="#playback-control" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">ocp</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">tracks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;https://example.com/song.mp3&quot;</span><span class="p">])</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">ocp</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">tracks</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;https://example.com/song.mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;audio/mpeg&quot;</span><span class="p">)])</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">ocp</span><span class="o">.</span><span class="n">queue</span><span class="p">(</span><span class="n">tracks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;https://example.com/song2.mp3&quot;</span><span class="p">])</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">ocp</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">ocp</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">ocp</span><span class="o">.</span><span class="n">prev</span><span class="p">()</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">ocp</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">ocp</span><span class="o">.</span><span class="n">resume</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">ocp</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">tracks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;https://example.com/song.mp3&quot;</span><span class="p">])</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">ocp</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">tracks</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;https://example.com/song.mp3&quot;</span><span class="p">,</span> <span class="s2">&quot;audio/mpeg&quot;</span><span class="p">)])</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">ocp</span><span class="o">.</span><span class="n">queue</span><span class="p">(</span><span class="n">tracks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;https://example.com/song2.mp3&quot;</span><span class="p">])</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">ocp</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">ocp</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">ocp</span><span class="o">.</span><span class="n">prev</span><span class="p">()</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">ocp</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">ocp</span><span class="o">.</span><span class="n">resume</span><span class="p">()</span>
 </span></code></pre></div>
 <p>Tracks can be:</p>
 <ul>
@@ -6120,21 +6240,21 @@
 <h2 id="enclosureapi">EnclosureAPI<a class="headerlink" href="#enclosureapi" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_bus_client.apis.enclosure.EnclosureAPI</code></p>
 <p>Legacy interface for controlling Mycroft Mark 1 hardware (eyes, mouth, system). This class is being deprecated and will eventually move to a PHAL plugin. New skills should not use it.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Available via self.enclosure in OVOSSkill</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">enclosure</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="bp">self</span><span class="o">.</span><span class="n">enclosure</span><span class="o">.</span><span class="n">system_mute</span><span class="p">()</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="bp">self</span><span class="o">.</span><span class="n">enclosure</span><span class="o">.</span><span class="n">system_unmute</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Available via self.enclosure in OVOSSkill</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">enclosure</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="bp">self</span><span class="o">.</span><span class="n">enclosure</span><span class="o">.</span><span class="n">system_mute</span><span class="p">()</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="bp">self</span><span class="o">.</span><span class="n">enclosure</span><span class="o">.</span><span class="n">system_unmute</span><span class="p">()</span>
 </span></code></pre></div>
 <hr />
 <h2 id="eventscheduler-server-side-daemon">EventScheduler (Server-Side Daemon)<a class="headerlink" href="#eventscheduler-server-side-daemon" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_bus_client.util.scheduler.EventScheduler</code></p>
 <p>This is the server-side daemon that actually stores and fires scheduled events. It is started by <code>ovos-core</code> (when <code>enable_event_scheduler=True</code>) and is not used directly by skills.</p>
 <p>It persists pending events to disk (XDG data directory) so scheduled events survive restarts.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.util.scheduler</span><span class="w"> </span><span class="kn">import</span> <span class="n">EventScheduler</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">scheduler</span> <span class="o">=</span> <span class="n">EventScheduler</span><span class="p">(</span><span class="n">bus</span><span class="p">,</span> <span class="n">schedule_file</span><span class="o">=</span><span class="s2">&quot;schedule.json&quot;</span><span class="p">)</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.util.scheduler</span> <span class="kn">import</span> <span class="n">EventScheduler</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">scheduler</span> <span class="o">=</span> <span class="n">EventScheduler</span><span class="p">(</span><span class="n">bus</span><span class="p">,</span> <span class="n">schedule_file</span><span class="o">=</span><span class="s2">&quot;schedule.json&quot;</span><span class="p">)</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">scheduler</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </span></code></pre></div>
 <p>Bus events handled:</p>
 <table>

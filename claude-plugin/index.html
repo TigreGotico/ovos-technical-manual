@@ -3408,6 +3408,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3691,9 +3775,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#utterance-transformer-opmtransformerutterance" class="md-nav__link">
+  <a href="#utterance-transformer-opmtransformertext" class="md-nav__link">
     <span class="md-ellipsis">
-      Utterance Transformer (opm.transformer.utterance)
+      Utterance Transformer (opm.transformer.text)
     </span>
   </a>
   
@@ -3960,6 +4044,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -4007,6 +4112,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4369,6 +4495,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -6009,9 +6156,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#utterance-transformer-opmtransformerutterance" class="md-nav__link">
+  <a href="#utterance-transformer-opmtransformertext" class="md-nav__link">
     <span class="md-ellipsis">
-      Utterance Transformer (opm.transformer.utterance)
+      Utterance Transformer (opm.transformer.text)
     </span>
   </a>
   
@@ -6102,12 +6249,16 @@
 
 
 <h1 id="claude-agent-plugin-ovos-claude-plugin">Claude Agent Plugin (<code>ovos-claude-plugin</code>)<a class="headerlink" href="#claude-agent-plugin-ovos-claude-plugin" title="Permanent link">&para;</a></h1>
-<p><code>ovos-claude-plugin</code> connects OVOS to the <a href="https://anthropic.com">Anthropic Claude</a> API. It
-provides ten OPM agent engine implementations — covering every <code>opm.agents.*</code> type — plus two
-transformer plugins. All engines share a single <code>AnthropicClient</code> wrapper and the same base
-configuration keys.</p>
+<p><code>ovos-claude-plugin</code> connects OVOS to the <a href="https://anthropic.com">Anthropic Claude</a> API via the
+official <code>anthropic</code> Python SDK. It provides a full set of OPM agent engines — chat, multimodal
+chat, summarisation, coreference, reranking, extractive QA, NLI, yes/no, and memory — plus two
+transformer plugins. Every engine reads the same base keys from <code>AnthropicClient</code>; pass any
+Claude model id through (the plugin only defaults the model, it does not restrict it).</p>
+<p>A second chat engine, <code>ClaudeCodeChatEngine</code>, drives the locally-installed <code>claude</code> CLI (Claude
+Code) instead of the API SDK — useful when no API key is set but Claude Code is authenticated.</p>
 <p>Install: <code>pip install ovos-claude-plugin</code></p>
-<p>For the pre-built Claude persona: <code>pip install ovos-claude-persona</code></p>
+<p>The plugin ships a pre-built <code>Claude</code> persona via the <code>opm.plugin.persona</code> entry point —
+no separate package is required.</p>
 <p>Repository: <code>OpenVoiceOS Workspace/Agent Plugins/ovos-claude-plugin</code></p>
 <hr />
 <h2 id="plugins-overview">Plugins Overview<a class="headerlink" href="#plugins-overview" title="Permanent link">&para;</a></h2>
@@ -6115,6 +6266,7 @@ configuration keys.</p>
 <thead>
 <tr>
 <th>Entry point</th>
+<th>Plugin name</th>
 <th>Class</th>
 <th>Purpose</th>
 </tr>
@@ -6122,61 +6274,85 @@ configuration keys.</p>
 <tbody>
 <tr>
 <td><code>opm.agents.chat</code></td>
+<td><code>ovos-chat-claude-plugin</code></td>
 <td><code>ClaudeChatEngine</code></td>
 <td>Multi-turn chat for <a href="../personas/">personas</a></td>
 </tr>
 <tr>
+<td><code>opm.agents.chat</code></td>
+<td><code>ovos-chat-claude-code-plugin</code></td>
+<td><code>ClaudeCodeChatEngine</code></td>
+<td>Same, via the local <code>claude</code> CLI (no API key)</td>
+</tr>
+<tr>
 <td><code>opm.agents.chat.multimodal</code></td>
+<td><code>ovos-chat-multimodal-claude-plugin</code></td>
 <td><code>ClaudeMultimodalChatEngine</code></td>
 <td>Vision (base64 images) + multi-turn chat</td>
 </tr>
 <tr>
 <td><code>opm.agents.summarizer</code></td>
+<td><code>ovos-summarizer-claude-plugin</code></td>
 <td><code>ClaudeSummarizerEngine</code></td>
 <td>Condense documents into plain-text summaries</td>
 </tr>
 <tr>
 <td><code>opm.agents.summarizer.chat</code></td>
+<td><code>ovos-chat-summarizer-claude-plugin</code></td>
 <td><code>ClaudeChatSummarizerEngine</code></td>
 <td>Compress chat history for long sessions</td>
 </tr>
 <tr>
 <td><code>opm.agents.coref</code></td>
+<td><code>ovos-coref-claude-plugin</code></td>
 <td><code>ClaudeCoreferenceEngine</code></td>
 <td>Resolve pronouns and ambiguous references</td>
 </tr>
 <tr>
 <td><code>opm.agents.reranker</code></td>
+<td><code>ovos-reranker-claude-plugin</code></td>
 <td><code>ClaudeReRankerEngine</code></td>
 <td>Semantically rank candidate answers</td>
 </tr>
 <tr>
 <td><code>opm.agents.extractive_qa</code></td>
+<td><code>ovos-extractive-qa-claude-plugin</code></td>
 <td><code>ClaudeExtractiveQAEngine</code></td>
 <td>Extract the exact passage answering a question</td>
 </tr>
 <tr>
 <td><code>opm.agents.nli</code></td>
+<td><code>ovos-nli-claude-plugin</code></td>
 <td><code>ClaudeNLIEngine</code></td>
 <td>Predict whether a premise entails a hypothesis</td>
 </tr>
 <tr>
 <td><code>opm.agents.yesno</code></td>
+<td><code>ovos-yesno-claude-plugin</code></td>
 <td><code>ClaudeYesNoEngine</code></td>
 <td>Classify ambiguous responses as yes / no / unknown</td>
 </tr>
 <tr>
 <td><code>opm.agents.memory</code></td>
+<td><code>ovos-memory-claude-plugin</code></td>
 <td><code>ClaudeContextManager</code></td>
 <td>Per-session memory with automatic history compression</td>
 </tr>
 <tr>
-<td><code>opm.transformer.utterance</code></td>
+<td><code>opm.plugin.persona</code></td>
+<td><code>Claude</code></td>
+<td>(pre-built persona)</td>
+<td>Ready-to-use Claude persona definition</td>
+</tr>
+<tr>
+<td><code>opm.transformer.text</code></td>
+<td><code>ovos-utterance-transformer-claude-plugin</code></td>
 <td><code>ClaudeUtteranceTransformer</code></td>
 <td>Normalise noisy ASR output before intent matching</td>
 </tr>
 <tr>
 <td><code>opm.transformer.dialog</code></td>
+<td><code>ovos-dialog-transformer-claude-plugin</code></td>
 <td><code>ClaudeDialogTransformer</code></td>
 <td>Rewrite skill responses before <a href="../tts-plugins/">TTS</a> synthesis</td>
 </tr>
@@ -6198,14 +6374,14 @@ configuration keys.</p>
 <tr>
 <td><code>api_key</code></td>
 <td><code>str</code></td>
-<td><code>""</code></td>
-<td>Anthropic API key. Falls back to <code>ANTHROPIC_API_KEY</code> env var if omitted.</td>
+<td><code>null</code></td>
+<td>Anthropic API key. Falls back to <code>ANTHROPIC_API_KEY</code> env var when unset.</td>
 </tr>
 <tr>
 <td><code>model</code></td>
 <td><code>str</code></td>
 <td><code>claude-haiku-4-5-20251001</code></td>
-<td>Claude model ID (see table below).</td>
+<td>Claude model id. Any model string accepted by the Anthropic SDK is passed through unchanged.</td>
 </tr>
 <tr>
 <td><code>max_tokens</code></td>
@@ -6225,39 +6401,22 @@ configuration keys.</p>
 <td><code>1.0</code></td>
 <td>Nucleus sampling probability mass.</td>
 </tr>
+<tr>
+<td><code>system_prompt</code></td>
+<td><code>str</code></td>
+<td><code>null</code></td>
+<td>Default system prompt injected before every call.</td>
+</tr>
 </tbody>
 </table>
 <h3 id="model-selection">Model Selection<a class="headerlink" href="#model-selection" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Model ID</th>
-<th>Speed</th>
-<th>Cost</th>
-<th>Best for</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>claude-haiku-4-5-20251001</code></td>
-<td>Fastest</td>
-<td>Cheapest</td>
-<td>Real-time voice (<strong>default</strong>)</td>
-</tr>
-<tr>
-<td><code>claude-sonnet-4-6</code></td>
-<td>Medium</td>
-<td>Medium</td>
-<td>General purpose</td>
-</tr>
-<tr>
-<td><code>claude-opus-4-6</code></td>
-<td>Slowest</td>
-<td>Most expensive</td>
-<td>Complex reasoning, long documents</td>
-</tr>
-</tbody>
-</table>
+<p>The plugin hardcodes only the <strong>default</strong> model id, <code>claude-haiku-4-5-20251001</code> (fast and cheap,
+suited to real-time voice). It does not maintain its own model list — set <code>model</code> to any
+current Anthropic model id (for example a Sonnet- or Opus-tier model for harder reasoning or
+long documents) and it is forwarded to the SDK as-is.</p>
+<p><code>ClaudeCodeChatEngine</code> (<code>ovos-chat-claude-code-plugin</code>) instead passes <code>model</code> to the <code>claude</code>
+CLI via <code>--model</code>, defaulting to the alias <code>"sonnet"</code>. It also accepts <code>claude_binary</code>,
+<code>timeout</code> (default <code>120</code>), and <code>tools</code> (default <code>""</code>, chat-only).</p>
 <hr />
 <h2 id="chat-engine-opmagentschat">Chat Engine (<code>opm.agents.chat</code>)<a class="headerlink" href="#chat-engine-opmagentschat" title="Permanent link">&para;</a></h2>
 <p><strong>Class:</strong> <code>ClaudeChatEngine</code> — <code>ovos_claude/chat.py:ClaudeChatEngine</code></p>
@@ -6376,9 +6535,9 @@ Supports synchronous responses, raw token streaming, and sentence-level streamin
 <p>Extends <code>ClaudeChatEngine</code> with vision support. Images are passed as base64-encoded strings in
 <code>MultimodalAgentMessage.image_content</code>. Data-URI headers (<code>data:image/png;base64,...</code>) are
 stripped automatically.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_claude.multimodal</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeMultimodalChatEngine</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.templates.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultimodalAgentMessage</span><span class="p">,</span> <span class="n">MessageRole</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_claude.multimodal</span> <span class="kn">import</span> <span class="n">ClaudeMultimodalChatEngine</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.agents</span> <span class="kn">import</span> <span class="n">MultimodalAgentMessage</span><span class="p">,</span> <span class="n">MessageRole</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">import</span> <span class="nn">base64</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">engine</span> <span class="o">=</span> <span class="n">ClaudeMultimodalChatEngine</span><span class="p">({</span><span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="s2">&quot;sk-ant-...&quot;</span><span class="p">})</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
@@ -6485,7 +6644,7 @@ fall back to English. <code>solve_corefs()</code> calls Claude which handles man
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">}</span>
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_claude.coref</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeCoreferenceEngine</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_claude.coref</span> <span class="kn">import</span> <span class="n">ClaudeCoreferenceEngine</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">engine</span> <span class="o">=</span> <span class="n">ClaudeCoreferenceEngine</span><span class="p">({</span><span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="s2">&quot;sk-ant-...&quot;</span><span class="p">})</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
@@ -6532,7 +6691,7 @@ sentence(s). Returns an empty string on API error.</p>
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">}</span>
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_claude.qa</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeExtractiveQAEngine</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span> <span class="nn">ovos_claude.qa</span> <span class="kn">import</span> <span class="n">ClaudeExtractiveQAEngine</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">engine</span> <span class="o">=</span> <span class="n">ClaudeExtractiveQAEngine</span><span class="p">({</span><span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="s2">&quot;sk-ant-...&quot;</span><span class="p">})</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">evidence</span> <span class="o">=</span> <span class="s2">&quot;The Eiffel Tower stands 330 metres tall. It was built from 1887 to 1889.&quot;</span>
@@ -6550,7 +6709,7 @@ sentence(s). Returns an empty string on API error.</p>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">}</span>
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_claude.nli</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeNLIEngine</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span> <span class="nn">ovos_claude.nli</span> <span class="kn">import</span> <span class="n">ClaudeNLIEngine</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">engine</span> <span class="o">=</span> <span class="n">ClaudeNLIEngine</span><span class="p">({</span><span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="s2">&quot;sk-ant-...&quot;</span><span class="p">})</span>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">predict_entailment</span><span class="p">(</span><span class="s2">&quot;It is raining heavily.&quot;</span><span class="p">,</span> <span class="s2">&quot;The weather is wet.&quot;</span><span class="p">))</span>  <span class="c1"># True</span>
@@ -6569,7 +6728,7 @@ Returns <code>None</code> on API error. Use in skills when <code>ask_yesno()</co
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">}</span>
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_claude.nli</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClaudeYesNoEngine</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span> <span class="nn">ovos_claude.nli</span> <span class="kn">import</span> <span class="n">ClaudeYesNoEngine</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">engine</span> <span class="o">=</span> <span class="n">ClaudeYesNoEngine</span><span class="p">({</span><span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="s2">&quot;sk-ant-...&quot;</span><span class="p">})</span>
 </span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">yes_or_no</span><span class="p">(</span><span class="s2">&quot;Do you want me to set a timer?&quot;</span><span class="p">,</span> <span class="s2">&quot;sure, go ahead&quot;</span><span class="p">))</span>  <span class="c1"># True</span>
@@ -6640,7 +6799,7 @@ oldest half is summarised by Claude and stored as a single SYSTEM message —
 </span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="p">}</span>
 </span></code></pre></div>
 <hr />
-<h2 id="utterance-transformer-opmtransformerutterance">Utterance <a href="../transformer-plugins/">Transformer</a> (<code>opm.transformer.utterance</code>)<a class="headerlink" href="#utterance-transformer-opmtransformerutterance" title="Permanent link">&para;</a></h2>
+<h2 id="utterance-transformer-opmtransformertext">Utterance <a href="../transformer-plugins/">Transformer</a> (<code>opm.transformer.text</code>)<a class="headerlink" href="#utterance-transformer-opmtransformertext" title="Permanent link">&para;</a></h2>
 <p><strong>Class:</strong> <code>ClaudeUtteranceTransformer</code> — <code>ovos_claude/transformers.py:ClaudeUtteranceTransformer</code></p>
 <p><strong>OPM plugin name:</strong> <code>ovos-utterance-transformer-claude-plugin</code></p>
 <p>Runs after ASR, before intent matching. Normalises informal or noisy speech to standard form.

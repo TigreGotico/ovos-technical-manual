@@ -3563,6 +3563,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3802,6 +3886,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3849,6 +3954,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4208,6 +4334,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5974,8 +6121,13 @@
 <tbody>
 <tr>
 <td><code>lang</code></td>
-<td><code>"en-us"</code></td>
+<td><code>"en-US"</code></td>
 <td>Primary BCP-47 language code for STT and TTS.</td>
+</tr>
+<tr>
+<td><code>secondary_langs</code></td>
+<td><code>[]</code></td>
+<td>Extra languages whose resource files are loaded; intents are only matched when the utterance is tagged with that lang at STT.</td>
 </tr>
 <tr>
 <td><code>system_unit</code></td>
@@ -6052,11 +6204,6 @@
 <td>Audio sampling rate in Hz.</td>
 </tr>
 <tr>
-<td><code>sample_width</code></td>
-<td><code>2</code></td>
-<td>Bytes per sample (2 = 16-bit).</td>
-</tr>
-<tr>
 <td><code>fake_barge_in</code></td>
 <td><code>true</code></td>
 <td>Mute output during recording.</td>
@@ -6065,6 +6212,16 @@
 <td><code>recording_timeout</code></td>
 <td><code>10.0</code></td>
 <td>Max seconds for a single recording.</td>
+</tr>
+<tr>
+<td><code>remove_silence</code></td>
+<td><code>true</code></td>
+<td>Strip leading/trailing silence before sending audio to STT.</td>
+</tr>
+<tr>
+<td><code>wake_word</code></td>
+<td><code>"hey_mycroft"</code></td>
+<td>Default hotword (matches an entry under <code>hotwords</code>).</td>
 </tr>
 </tbody>
 </table>

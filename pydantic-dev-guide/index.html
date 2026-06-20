@@ -3406,6 +3406,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3645,6 +3729,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3692,6 +3797,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4051,6 +4177,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -6292,7 +6439,7 @@
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">msg</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span><span class="s2">&quot;speak&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;utterence&quot;</span><span class="p">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">})</span>  <span class="c1"># typo in key, no error</span>
 </span></code></pre></div>
 <p>With pydantic models:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpeakMessage</span><span class="p">,</span> <span class="n">SpeakData</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">SpeakMessage</span><span class="p">,</span> <span class="n">SpeakData</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Validated at construction — typo raises ValidationError immediately</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">msg</span> <span class="o">=</span> <span class="n">SpeakMessage</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">SpeakData</span><span class="p">(</span><span class="n">utterance</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="p">))</span>
@@ -6323,7 +6470,7 @@
 <hr />
 <h2 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <h3 id="building-a-message">Building a message<a class="headerlink" href="#building-a-message" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpeakMessage</span><span class="p">,</span> <span class="n">SpeakData</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">SpeakMessage</span><span class="p">,</span> <span class="n">SpeakData</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">msg</span> <span class="o">=</span> <span class="n">SpeakMessage</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">SpeakData</span><span class="p">(</span><span class="n">utterance</span><span class="o">=</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">,</span> <span class="n">expect_response</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">message_type</span><span class="p">)</span>  <span class="c1"># &quot;speak&quot;</span>
@@ -6338,8 +6485,8 @@
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">assert</span> <span class="n">restored</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">utterance</span> <span class="o">==</span> <span class="s2">&quot;Hello, world!&quot;</span>
 </span></code></pre></div>
 <h3 id="validation-at-construction">Validation at construction<a class="headerlink" href="#validation-at-construction" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">ValidationError</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">,</span> <span class="n">RecognizerLoopUtteranceData</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">ValidationError</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">,</span> <span class="n">RecognizerLoopUtteranceData</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">try</span><span class="p">:</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="c1"># Missing required `utterances` field</span>
@@ -6350,16 +6497,16 @@
 <hr />
 <h2 id="bridge-to-ovos-bus-client">Bridge to <a href="../bus-client-overview/">ovos-bus-client</a><a class="headerlink" href="#bridge-to-ovos-bus-client" title="Permanent link">&para;</a></h2>
 <p><code>ovos_bus_client.message.Message</code> and <code>OpenVoiceOSMessage</code> share the same three-field structure. Convert between them with two functions:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenVoiceOSMessage</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models.message</span> <span class="kn">import</span> <span class="n">OpenVoiceOSMessage</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_bus_message</span><span class="p">(</span><span class="n">pydantic_msg</span><span class="p">:</span> <span class="n">OpenVoiceOSMessage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">def</span> <span class="nf">to_bus_message</span><span class="p">(</span><span class="n">pydantic_msg</span><span class="p">:</span> <span class="n">OpenVoiceOSMessage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span>
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">d</span> <span class="o">=</span> <span class="n">pydantic_msg</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
 </span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="k">return</span> <span class="n">Message</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;message_type&quot;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">])</span>
 </span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
 </span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">from_bus_message</span><span class="p">(</span><span class="n">bus_msg</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">OpenVoiceOSMessage</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">OpenVoiceOSMessage</span><span class="p">:</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="k">def</span> <span class="nf">from_bus_message</span><span class="p">(</span><span class="n">bus_msg</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">OpenVoiceOSMessage</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">OpenVoiceOSMessage</span><span class="p">:</span>
 </span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">model_validate</span><span class="p">({</span>
 </span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        <span class="s2">&quot;message_type&quot;</span><span class="p">:</span> <span class="n">bus_msg</span><span class="o">.</span><span class="n">msg_type</span><span class="p">,</span>
 </span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">bus_msg</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
@@ -6370,11 +6517,11 @@
 <h2 id="use-in-skills">Use in Skills<a class="headerlink" href="#use-in-skills" title="Permanent link">&para;</a></h2>
 <h3 id="emitting-typed-messages">Emitting typed messages<a class="headerlink" href="#emitting-typed-messages" title="Permanent link">&para;</a></h3>
 <p>Use pydantic models to construct outgoing messages. Convert to bus format before emitting:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_workshop.skills</span><span class="w"> </span><span class="kn">import</span> <span class="n">OVOSSkill</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpeakMessage</span><span class="p">,</span> <span class="n">SpeakData</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">SpeakMessage</span><span class="p">,</span> <span class="n">SpeakData</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">MySkill</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">handle_hello</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">class</span> <span class="nc">MySkill</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="k">def</span> <span class="nf">handle_hello</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 </span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        <span class="n">typed</span> <span class="o">=</span> <span class="n">SpeakMessage</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">SpeakData</span><span class="p">(</span><span class="n">utterance</span><span class="o">=</span><span class="s2">&quot;Hello!&quot;</span><span class="p">))</span>
 </span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">to_bus_message</span><span class="p">(</span><span class="n">typed</span><span class="p">))</span>
 </span></code></pre></div>
@@ -6385,16 +6532,16 @@
 </span></code></pre></div>
 <h3 id="parsing-received-messages">Parsing received messages<a class="headerlink" href="#parsing-received-messages" title="Permanent link">&para;</a></h3>
 <p>When handling a bus event, parse into a typed model for safe field access:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecognizerLoopUtteranceMessage</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">RecognizerLoopUtteranceMessage</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle_utterance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">def</span> <span class="nf">handle_utterance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">typed</span> <span class="o">=</span> <span class="n">from_bus_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">)</span>
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">utterances</span> <span class="o">=</span> <span class="n">typed</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">utterances</span>  <span class="c1"># list[str], validated</span>
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">lang</span> <span class="o">=</span> <span class="n">typed</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lang</span>              <span class="c1"># str, validated</span>
 </span></code></pre></div>
 <h3 id="scheduling-typed-events">Scheduling typed events<a class="headerlink" href="#scheduling-typed-events" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models.core.scheduler</span><span class="w"> </span><span class="kn">import</span> <span class="n">SchedulerScheduleEventData</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models.core.scheduler</span> <span class="kn">import</span> <span class="n">SchedulerScheduleEventData</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">import</span> <span class="nn">time</span>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Validate the schedule payload before sending</span>
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">payload</span> <span class="o">=</span> <span class="n">SchedulerScheduleEventData</span><span class="p">(</span>
@@ -6407,22 +6554,22 @@
 <hr />
 <h2 id="use-in-phal-plugins">Use in <a href="../ovoscope-phal/">PHAL</a> Plugins<a class="headerlink" href="#use-in-phal-plugins" title="Permanent link">&para;</a></h2>
 <p>PHAL plugins send and receive bus messages for hardware control. Models document the contract:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models.phal.brightness</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models.phal.brightness</span> <span class="kn">import</span> <span class="p">(</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">PhalBrightnessControlSetData</span><span class="p">,</span>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">PhalBrightnessControlSetMessage</span><span class="p">,</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="n">PhalBrightnessControlGetMessage</span><span class="p">,</span>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="n">PhalBrightnessControlGetResponseData</span><span class="p">,</span>
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">)</span>
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="k">class</span><span class="w"> </span><span class="nc">BrightnessPlugin</span><span class="p">(</span><span class="n">PHALPlugin</span><span class="p">):</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="k">class</span> <span class="nc">BrightnessPlugin</span><span class="p">(</span><span class="n">PHALPlugin</span><span class="p">):</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">&quot;phal.brightness.control.set&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_set</span><span class="p">)</span>
 </span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">handle_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>    <span class="k">def</span> <span class="nf">handle_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 </span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>        <span class="n">typed</span> <span class="o">=</span> <span class="n">from_bus_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">PhalBrightnessControlSetMessage</span><span class="p">)</span>
 </span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">set_brightness</span><span class="p">(</span><span class="n">typed</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">brightness</span><span class="p">)</span>
 </span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
-</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">report_brightness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>    <span class="k">def</span> <span class="nf">report_brightness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 </span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">PhalBrightnessControlGetResponseData</span><span class="p">(</span><span class="n">brightness</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
 </span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span>
 </span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>            <span class="s2">&quot;phal.brightness.control.get.response&quot;</span><span class="p">,</span>
@@ -6432,51 +6579,52 @@
 <hr />
 <h2 id="use-in-audiovideo-plugins">Use in Audio/Video Plugins<a class="headerlink" href="#use-in-audiovideo-plugins" title="Permanent link">&para;</a></h2>
 <p>Audio service plugins handle <code>mycroft.audio.service.*</code> and <code>ovos.audio.service.*</code> messages:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">AudioServicePlayMessage</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">AudioServicePlayMessage</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle_play</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">def</span> <span class="nf">handle_play</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">typed</span> <span class="o">=</span> <span class="n">from_bus_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">AudioServicePlayMessage</span><span class="p">)</span>
 </span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="n">tracks</span> <span class="o">=</span> <span class="n">typed</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">tracks</span>      <span class="c1"># List[str | tuple]</span>
 </span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="n">repeat</span> <span class="o">=</span> <span class="n">typed</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">repeat</span>      <span class="c1"># bool</span>
 </span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    <span class="n">utterance</span> <span class="o">=</span> <span class="n">typed</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">utterance</span>  <span class="c1"># Optional[str]</span>
 </span></code></pre></div>
 <p>The <code>ovos.audio.service.*</code> namespace uses identical data structures:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">OvosAudioServicePlayMessage</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">OvosAudioServicePlayMessage</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># Same data schema as AudioServicePlayMessage, different message_type</span>
 </span></code></pre></div>
 <hr />
 <h2 id="use-in-stttts-plugins">Use in <a href="../stt-plugins/">STT</a>/<a href="../tts-plugins/">TTS</a> Plugins<a class="headerlink" href="#use-in-stttts-plugins" title="Permanent link">&para;</a></h2>
 <p>OPM query messages document the plugin query protocol:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="p">(</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="n">OpmTtsQueryMessage</span><span class="p">,</span> <span class="n">OpmTtsQueryReplyData</span><span class="p">,</span> <span class="n">OpmTtsQueryResponseMessage</span><span class="p">,</span>
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">OpmSttQueryMessage</span><span class="p">,</span> <span class="n">OpmSttQueryReplyData</span><span class="p">,</span> <span class="n">OpmSttQueryResponseMessage</span><span class="p">,</span>
 </span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">)</span>
 </span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle_tts_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="k">def</span> <span class="nf">handle_tts_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 </span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="n">typed</span> <span class="o">=</span> <span class="n">from_bus_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">OpmTtsQueryMessage</span><span class="p">)</span>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    <span class="c1"># respond with capabilities</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    <span class="c1"># respond with the plugin inventory</span>
 </span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    <span class="n">reply_data</span> <span class="o">=</span> <span class="n">OpmTtsQueryReplyData</span><span class="p">(</span>
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>        <span class="n">plugin_name</span><span class="o">=</span><span class="s2">&quot;my-tts-plugin&quot;</span><span class="p">,</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>        <span class="n">plugins</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;en-us&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;my-tts-plugin&quot;</span><span class="p">],</span> <span class="s2">&quot;de-de&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;my-tts-plugin&quot;</span><span class="p">]},</span>
 </span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>        <span class="n">langs</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;en-us&quot;</span><span class="p">,</span> <span class="s2">&quot;de-de&quot;</span><span class="p">],</span>
-</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>        <span class="n">voices</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;alice&quot;</span><span class="p">,</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-us&quot;</span><span class="p">}],</span>
-</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>    <span class="p">)</span>
-</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span>
-</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>        <span class="s2">&quot;ovos.plugin.tts.query.response&quot;</span><span class="p">,</span>
-</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>        <span class="n">reply_data</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
-</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>        <span class="n">message</span><span class="o">.</span><span class="n">context</span><span class="p">,</span>
-</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>    <span class="p">))</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>        <span class="n">configs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;my-tts-plugin&quot;</span><span class="p">:</span> <span class="p">{}},</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>        <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;en-us&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;voice&quot;</span><span class="p">:</span> <span class="s2">&quot;alice&quot;</span><span class="p">}]},</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>    <span class="p">)</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>        <span class="s2">&quot;opm.tts.query.response&quot;</span><span class="p">,</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>        <span class="n">reply_data</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>        <span class="n">message</span><span class="o">.</span><span class="n">context</span><span class="p">,</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>    <span class="p">))</span>
 </span></code></pre></div>
 <hr />
 <h2 id="use-in-ocp-skills">Use in <a href="../ocp-pipeline/">OCP</a> Skills<a class="headerlink" href="#use-in-ocp-skills" title="Permanent link">&para;</a></h2>
 <p>OCP skills receive query messages and emit results:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="p">(</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="n">OvosCommonPlayQueryMessage</span><span class="p">,</span>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="n">OvosCommonPlayQueryResponseData</span><span class="p">,</span> <span class="n">OvosCommonPlayQueryResponseMessage</span><span class="p">,</span>
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="n">MediaEntry</span><span class="p">,</span> <span class="n">PlaybackType</span><span class="p">,</span>
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="p">)</span>
 </span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle_ocp_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="k">def</span> <span class="nf">handle_ocp_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 </span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    <span class="n">typed</span> <span class="o">=</span> <span class="n">from_bus_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">OvosCommonPlayQueryMessage</span><span class="p">)</span>
 </span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    <span class="n">phrase</span> <span class="o">=</span> <span class="n">typed</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">phrase</span>
 </span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
@@ -6501,8 +6649,8 @@
 <hr />
 <h2 id="use-in-tests-ovoscope-pytest">Use in Tests (<a href="../ovoscope-overview/">ovoscope</a> / pytest)<a class="headerlink" href="#use-in-tests-ovoscope-pytest" title="Permanent link">&para;</a></h2>
 <h3 id="typed-source-messages">Typed source messages<a class="headerlink" href="#typed-source-messages" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.session</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">,</span> <span class="n">RecognizerLoopUtteranceData</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">Session</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">,</span> <span class="n">RecognizerLoopUtteranceData</span>
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
 </span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="n">utterance</span> <span class="o">=</span> <span class="n">to_bus_message</span><span class="p">(</span>
 </span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">(</span>
@@ -6515,7 +6663,7 @@
 </span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="n">utterance</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;destination&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;B&quot;</span>
 </span></code></pre></div>
 <h3 id="typed-expected-messages">Typed expected messages<a class="headerlink" href="#typed-expected-messages" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpeakMessage</span><span class="p">,</span> <span class="n">SpeakData</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">SpeakMessage</span><span class="p">,</span> <span class="n">SpeakData</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="n">expected_speak</span> <span class="o">=</span> <span class="n">to_bus_message</span><span class="p">(</span>
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="n">SpeakMessage</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">SpeakData</span><span class="p">(</span><span class="n">utterance</span><span class="o">=</span><span class="s2">&quot;It is 3pm.&quot;</span><span class="p">))</span>
@@ -6528,13 +6676,13 @@
 </span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="k">assert</span> <span class="n">typed_speak</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">expect_response</span> <span class="ow">is</span> <span class="kc">False</span>
 </span></code></pre></div>
 <h3 id="reusable-helpers">Reusable helpers<a class="headerlink" href="#reusable-helpers" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">assert_speak</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">expected_text</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">def</span> <span class="nf">assert_speak</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">expected_text</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="n">typed</span> <span class="o">=</span> <span class="n">from_bus_message</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">SpeakMessage</span><span class="p">)</span>  <span class="c1"># raises if not a valid speak</span>
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="k">if</span> <span class="n">expected_text</span><span class="p">:</span>
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>        <span class="k">assert</span> <span class="n">typed</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">utterance</span> <span class="o">==</span> <span class="n">expected_text</span>
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="k">return</span> <span class="n">typed</span>
 </span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
-</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_utterance</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en-us&quot;</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="k">def</span> <span class="nf">make_utterance</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en-us&quot;</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 </span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>    <span class="n">msg</span> <span class="o">=</span> <span class="n">to_bus_message</span><span class="p">(</span><span class="n">RecognizerLoopUtteranceMessage</span><span class="p">(</span>
 </span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>        <span class="n">data</span><span class="o">=</span><span class="n">RecognizerLoopUtteranceData</span><span class="p">(</span><span class="n">utterances</span><span class="o">=</span><span class="p">[</span><span class="n">text</span><span class="p">],</span> <span class="n">lang</span><span class="o">=</span><span class="n">lang</span><span class="p">)</span>
 </span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>    <span class="p">))</span>
@@ -6545,7 +6693,7 @@
 <hr />
 <h2 id="configuration-messages">Configuration Messages<a class="headerlink" href="#configuration-messages" title="Permanent link">&para;</a></h2>
 <p>Use configuration models when writing PHAL plugins or components that patch config:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models.core.configuration</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigurationPatchData</span><span class="p">,</span> <span class="n">ConfigurationPatchMessage</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models.core.configuration</span> <span class="kn">import</span> <span class="n">ConfigurationPatchData</span><span class="p">,</span> <span class="n">ConfigurationPatchMessage</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="n">patch</span> <span class="o">=</span> <span class="n">ConfigurationPatchMessage</span><span class="p">(</span>
 </span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="n">data</span><span class="o">=</span><span class="n">ConfigurationPatchData</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;de-de&quot;</span><span class="p">})</span>

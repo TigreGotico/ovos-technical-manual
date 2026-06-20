@@ -3213,13 +3213,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#class-capturesession-ovoscope__init__py488" class="md-nav__link">
+  <a href="#class-capturesession" class="md-nav__link">
     <span class="md-ellipsis">
-      Class: CaptureSession — ovoscope/__init__.py:488
+      Class: CaptureSession
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Class: CaptureSession — ovoscope/__init__.py:488">
+    <nav class="md-nav" aria-label="Class: CaptureSession">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3571,6 +3571,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3810,6 +3894,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3857,6 +3962,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4216,6 +4342,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5661,13 +5808,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#class-capturesession-ovoscope__init__py488" class="md-nav__link">
+  <a href="#class-capturesession" class="md-nav__link">
     <span class="md-ellipsis">
-      Class: CaptureSession — ovoscope/__init__.py:488
+      Class: CaptureSession
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Class: CaptureSession — ovoscope/__init__.py:488">
+    <nav class="md-nav" aria-label="Class: CaptureSession">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -5806,15 +5953,20 @@
 
 <h1 id="capturesession">CaptureSession<a class="headerlink" href="#capturesession" title="Permanent link">&para;</a></h1>
 <p><code>CaptureSession</code> subscribes to all messages on the <code>FakeBus</code> and records them during a single test interaction. It handles synchronous responses (ordered, from the intent pipeline) and asynchronous responses (from external threads, unordered).</p>
-<h2 id="class-capturesession-ovoscope__init__py488">Class: <code>CaptureSession</code> — <code>ovoscope/__init__.py:488</code><a class="headerlink" href="#class-capturesession-ovoscope__init__py488" title="Permanent link">&para;</a></h2>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">CaptureSession</span>
+<div class="admonition tip">
+<p class="admonition-title">When would I use this directly?</p>
+<p><code>End2EndTest</code> already drives a <code>CaptureSession</code> for you. Use it by hand only
+when you want raw access to the captured messages — for exploratory tests,
+multi-skill hand-offs, or building your own assertions. The pattern is always
+the same: <code>capture(source_message)</code> to send and wait, then <code>finish()</code> to get
+the list back.</p>
+</div>
+<h2 id="class-capturesession">Class: <code>CaptureSession</code><a class="headerlink" href="#class-capturesession" title="Permanent link">&para;</a></h2>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">CaptureSession</span>
 </span></code></pre></div>
-A <code>dataclass</code> that wraps a <code>MiniCroft</code> and manages message collection for one test interaction.
-<code>CaptureSession.finish</code> — <code>ovoscope/__init__.py:521</code></p>
-<blockquote>
-<p><strong>Idempotency:</strong> <code>finish()</code> may be called multiple times safely — subsequent calls
-return the same message list without re-subscribing or clearing state.</p>
-</blockquote>
+A <code>dataclass</code> that wraps a <code>MiniCroft</code> and manages message collection for one test
+interaction. It subscribes to the bus on construction (<code>__post_init__</code>); call
+<code>finish()</code> exactly once to unsubscribe and return the collected messages.</p>
 <h3 id="fields">Fields<a class="headerlink" href="#fields" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5865,8 +6017,8 @@ return the same message list without re-subscribing or clearing state.</p>
 <tr>
 <td><code>done</code></td>
 <td><code>threading.Event</code></td>
-<td>—</td>
-<td>Set when an EOF message is received</td>
+<td><code>threading.Event()</code></td>
+<td>Set when an EOF message is received; <code>capture()</code> waits on it</td>
 </tr>
 </tbody>
 </table>
@@ -5902,9 +6054,9 @@ These are excluded by default because GUI namespace updates are frequent and rar
 <hr />
 <h2 id="direct-usage">Direct Usage<a class="headerlink" href="#direct-usage" title="Permanent link">&para;</a></h2>
 <p><code>CaptureSession</code> can be used without <code>End2EndTest</code> for lower-level scenarios:</p>
-<h2 id="from-ovoscope-import-get_minicroft-capturesession-from-ovos_bus_clientmessage-import-message-from-ovos_bus_clientsession-import-session-croft-get_minicroftskill-weatheropenvoiceos-session-sessiontest-123-utterance-message-recognizer_looputterance-utterances-what-is-the-weather-lang-en-us-session-sessionserialize-source-a-destination-b-capture-capturesessioncroft-capturecaptureutterance-timeout15-messages-capturefinish-for-msg-in-messages-printmsgmsg_type-msgdata-croftstop"><div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_minicroft</span><span class="p">,</span> <span class="n">CaptureSession</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.session</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
+<h2 id="from-ovoscope-import-get_minicroft-capturesession-from-ovos_bus_clientmessage-import-message-from-ovos_bus_clientsession-import-session-croft-get_minicroftskill-weatheropenvoiceos-session-sessiontest-123-utterance-message-recognizer_looputterance-utterances-what-is-the-weather-lang-en-us-session-sessionserialize-source-a-destination-b-capture-capturesessioncroft-capturecaptureutterance-timeout15-messages-capturefinish-for-msg-in-messages-printmsgmsg_type-msgdata-croftstop"><div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">get_minicroft</span><span class="p">,</span> <span class="n">CaptureSession</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">Session</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">croft</span> <span class="o">=</span> <span class="n">get_minicroft</span><span class="p">([</span><span class="s2">&quot;skill-weather.openvoiceos&quot;</span><span class="p">])</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="s2">&quot;test-123&quot;</span><span class="p">)</span>
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">utterance</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span>

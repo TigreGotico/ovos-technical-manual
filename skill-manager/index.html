@@ -3514,6 +3514,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3753,6 +3837,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3800,6 +3905,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4159,6 +4285,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5687,24 +5834,25 @@
 <h1 id="skill-manager">Skill Manager<a class="headerlink" href="#skill-manager" title="Permanent link">&para;</a></h1>
 <p><strong>Module:</strong> <code>ovos_core.skill_manager.SkillManager</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py"><code>ovos_core/skill_manager.py</code></a></p>
 <p>The <code>SkillManager</code> is a core component of <code>ovos-core</code>. It is a daemon <code>Thread</code> that owns the full lifecycle of skill plugins: discovery, loading, connectivity-gating, and graceful shutdown.</p>
+<p><strong>In plain terms:</strong> when OVOS starts, the SkillManager finds every installed skill, decides which ones are allowed to load right now (some need the network or a screen first), starts them, and re-scans periodically so newly installed skills show up without a restart.</p>
 <hr />
 <details class="abstract">
 <summary>Technical Reference</summary>
 <ul>
 <li>
-<p><code>SkillManager.run()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py"><code>ovos_core/skill_manager.py:204</code></a> — Main loop handling skill loading and periodic scans.</p>
+<p><code>SkillManager.run()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py"><code>ovos_core/skill_manager.py:476</code></a> — Main loop; re-scans for new skills every 30 s via <code>self._stop_event.wait(30)</code>.</p>
 </li>
 <li>
-<p><code>SkillManager.load_plugin()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py"><code>ovos_core/skill_manager.py:301</code></a> — logic for loading a specific skill via <code>PluginSkillLoader</code>.</p>
+<p><code>SkillManager.load_plugin_skills()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py"><code>ovos_core/skill_manager.py:347</code></a> — loads discovered skills via <code>PluginSkillLoader</code> (from <code>ovos_workshop.skill_launcher</code>).</p>
 </li>
 <li>
-<p><code>SkillManager._check_connectivity()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py"><code>ovos_core/skill_manager.py:450</code></a> — connectivity gating based on <code>RuntimeRequirements</code>.</p>
+<p><code>SkillManager._sync_skill_loading_state()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py"><code>ovos_core/skill_manager.py:181</code></a> — connectivity gating based on <code>RuntimeRequirements</code>.</p>
 </li>
 </ul>
 </details>
 <h2 id="skill-discovery">Skill Discovery<a class="headerlink" href="#skill-discovery" title="Permanent link">&para;</a></h2>
-<p>Skills are Python packages that register themselves via the <code>opm.skills</code> entry point group. <code>ovos-plugin-manager</code> discovers them with <code>find_skill_plugins()</code>, which returns a <code>{skill_id: SkillClass}</code> dict.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.skills</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_skill_plugins</span>
+<p>Skills are Python packages that register themselves via the <code>opm.skill</code> entry point group (the older <code>ovos.plugin.skill</code> group is still accepted as a deprecated alias). <code>ovos-plugin-manager</code> discovers them with <code>find_skill_plugins()</code>, which returns a <code>{skill_id: SkillClass}</code> dict.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.skills</span> <span class="kn">import</span> <span class="n">find_skill_plugins</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">plugins</span> <span class="o">=</span> <span class="n">find_skill_plugins</span><span class="p">()</span>
 </span></code></pre></div>
 <h2 id="connectivity-gating">Connectivity Gating<a class="headerlink" href="#connectivity-gating" title="Permanent link">&para;</a></h2>
@@ -5738,12 +5886,12 @@
 <p>Network/internet state is queried from <a href="../ovoscope-phal/">PHAL</a> at startup via <code>ovos.PHAL.internet_check</code>; falls back to a direct HTTP check if PHAL is unavailable.</p>
 <h2 id="loading-a-skill">Loading a Skill<a class="headerlink" href="#loading-a-skill" title="Permanent link">&para;</a></h2>
 <p>The loading process follows this flow:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>find_skill_plugins()
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  → _get_plugin_skill_loader(skill_id, skill_class)
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    → PluginSkillLoader.load(skill_class)
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>      → mycroft.skill.loaded (bus event)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>load_plugin_skills()
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  → find_skill_plugins()                              # {skill_id: SkillClass}
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    → _get_plugin_skill_loader(skill_id, skill_class) # build a PluginSkillLoader
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>      → _load_plugin_skill(skill_id, skill_class)     # instantiate &amp; start the skill
 </span></code></pre></div>
-<p>Each skill gets its own bus connection when <code>websocket.shared_connection</code> is <code>false</code> in config (providing isolation from "BusBricker" style attacks).</p>
+<p>Each skill gets its own bus connection when <code>websocket.shared_connection</code> is <code>false</code> in config (see <code>_get_internal_skill_bus()</code>), providing isolation from "BusBricker" style attacks.</p>
 <h2 id="blacklisting">Blacklisting<a class="headerlink" href="#blacklisting" title="Permanent link">&para;</a></h2>
 <p>Skills listed in <code>skills.blacklisted_skills</code> in <code>mycroft.conf</code> are skipped at load time. The recommended approach is to uninstall unwanted skills rather than blacklist them.</p>
 <h2 id="intent-training">Intent Training<a class="headerlink" href="#intent-training" title="Permanent link">&para;</a></h2>

@@ -1636,6 +1636,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Pages
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3631,6 +3640,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3870,6 +3963,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3917,6 +4031,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4276,6 +4411,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5897,6 +6053,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Pages
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5919,55 +6084,68 @@
 <p>The <strong><code>ovos-persona-pipeline-plugin</code></strong> provides a dynamic way to integrate persona-based conversational behavior into the OVOS pipeline system. It allows you to route user utterances to AI personas instead of skill matchers, depending on context and configuration.</p>
 <hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The <code>persona-pipeline</code> is a plugin for the OVOS pipeline architecture. It dynamically delegates user utterances to a configured <strong>Persona</strong>, which attempts to resolve the intent using a sequence of <strong><a href="../agent-plugins/">Solver</a> Plugins</strong> (e.g., LLMs, search tools, knowledge bases).</p>
+<p>The <code>persona-pipeline</code> is a plugin for the OVOS pipeline architecture, shipped in the separate <strong><code>ovos-persona</code></strong> package (not part of <code>ovos-core</code>). It dynamically delegates user utterances to a configured <strong>Persona</strong>, which attempts to resolve the intent using a sequence of <strong><a href="../agent-plugins/">Solver</a> Plugins</strong> (e.g., LLMs, search tools, knowledge bases).</p>
 <p>You can configure it to:</p>
 <ul>
 <li>
-<p>🔀 Intercept all utterances and give full control to the persona.</p>
+<p>Intercept all utterances and give full control to the persona.</p>
 </li>
 <li>
-<p>🧠 Fall back to the persona only if skills don't match.</p>
+<p>Fall back to the persona only if skills don't match.</p>
 </li>
 <li>
-<p>⚙️ Operate based on confidence tiers (high/medium/low).</p>
+<p>Operate based on confidence tiers (high/medium/low).</p>
 </li>
 </ul>
 <hr />
 <h2 id="plugin-structure">Plugin Structure<a class="headerlink" href="#plugin-structure" title="Permanent link">&para;</a></h2>
-<p>The plugin is composed of two components:</p>
+<p>Persona ships as the external <code>ovos-persona</code> package, which registers a single <code>opm.pipeline</code> entry point:</p>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">[project.entry-points.&quot;opm.pipeline&quot;]</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="na">ovos-persona-pipeline-plugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ovos_persona:PersonaService&quot;</span>
+</span></code></pre></div>
+<p><code>PersonaService</code> is a <code>ConfidenceMatcherPipeline</code> (and an <code>OVOSAbstractApplication</code>), so the single base ID auto-expands into three confidence-tier matchers you can place in the pipeline:</p>
 <table>
 <thead>
 <tr>
-<th>Plugin Name</th>
+<th>Pipeline ID</th>
+<th>Tier</th>
 <th>Usage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>ovos-persona-pipeline-plugin-high</code></td>
-<td>For active persona interactions</td>
+<td>high</td>
+<td>Active persona interactions and persona-control intents</td>
+</tr>
+<tr>
+<td><code>ovos-persona-pipeline-plugin-medium</code></td>
+<td>medium</td>
+<td>Keyword-gated persona queries</td>
 </tr>
 <tr>
 <td><code>ovos-persona-pipeline-plugin-low</code></td>
+<td>low</td>
 <td><a href="../fallback-pipeline/">Fallback</a> persona handling</td>
 </tr>
 </tbody>
 </table>
-<p>You must <strong>insert these plugin IDs</strong> in your <code>mycroft.conf</code> under the <code>intents.pipeline</code> key to activate persona handling at the appropriate tier.</p>
+<p>Insert the tier IDs you need into your <code>mycroft.conf</code> under the <code>intents.pipeline</code> key to activate persona handling at the appropriate stage.</p>
 <hr />
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;persona&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">      </span><span class="nt">&quot;handle_fallback&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">      </span><span class="nt">&quot;default_persona&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Remote Llama&quot;</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">      </span><span class="nt">&quot;short-term-memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="p">},</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">&quot;pipeline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">      </span><span class="c1">// Depending on strategy, insert plugin here</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="p">]</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;persona&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">      </span><span class="nt">&quot;handle_fallback&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="nt">&quot;default_persona&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Remote Llama&quot;</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="nt">&quot;min_intent_confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="nt">&quot;personas_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~/.config/mycroft/ovos_persona&quot;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">&quot;pipeline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">      </span><span class="c1">// Depending on strategy, insert plugin here</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="persona-section-options"><code>persona</code> section options:<a class="headerlink" href="#persona-section-options" title="Permanent link">&para;</a></h3>
 <table>
@@ -5980,76 +6158,91 @@
 <tbody>
 <tr>
 <td><code>handle_fallback</code></td>
-<td>Enables fallback routing when no persona is active</td>
+<td>When <code>true</code>, the low tier routes unmatched utterances to the default persona</td>
 </tr>
 <tr>
 <td><code>default_persona</code></td>
-<td>Sets a persona to use by default (e.g., after boot or reset)</td>
+<td>Persona used by default (e.g., after boot or reset)</td>
 </tr>
 <tr>
-<td><code>short-term-memory</code></td>
-<td>Maintains conversation state within a session (boolean)</td>
+<td><code>min_intent_confidence</code></td>
+<td>Confidence floor for the medium-tier keyword intents (default <code>0.6</code>)</td>
+</tr>
+<tr>
+<td><code>personas_path</code></td>
+<td>Directory to load persona JSON files from (defaults to the XDG persona dir)</td>
+</tr>
+<tr>
+<td><code>persona_blacklist</code></td>
+<td>Persona names to exclude</td>
+</tr>
+<tr>
+<td><code>ignore_plugin_personas</code></td>
+<td>When <code>true</code>, skip personas provided by installed plugins</td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>Conversation memory is configured <strong>per persona</strong> (the <code>memory_module</code> / <code>max_history</code> keys inside each persona's JSON), not in this pipeline section.</p>
+</blockquote>
 <hr />
 <h2 id="pipeline-strategies">Pipeline Strategies<a class="headerlink" href="#pipeline-strategies" title="Permanent link">&para;</a></h2>
 <h3 id="1-full-control-persona-first">1. <strong>Full Control (Persona-First)</strong><a class="headerlink" href="#1-full-control-persona-first" title="Permanent link">&para;</a></h3>
 <p>In this mode, <strong>personas override</strong> all skills. The persona handles every utterance unless explicitly deactivated.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;pipeline&quot;: [
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  &quot;ovos-persona-pipeline-plugin-high&quot;,
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  &quot;stop_high&quot;,
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  &quot;converse&quot;,
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  &quot;padatious_high&quot;,
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  &quot;adapt_high&quot;,
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  ...
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>]
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&quot;pipeline&quot;: [
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  &quot;ovos-persona-pipeline-plugin-high&quot;,
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  &quot;stop_high&quot;,
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  &quot;converse&quot;,
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  &quot;padatious_high&quot;,
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  &quot;adapt_high&quot;,
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  ...
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>]
 </span></code></pre></div>
 <ul>
 <li>
-<p>✅ Best for immersive chatbot experiences</p>
+<p>Best for immersive chatbot experiences</p>
 </li>
 <li>
-<p>⚠️ Skills like music, alarms, and weather will not trigger unless persona is disabled</p>
+<p>Skills like music, alarms, and weather will not trigger unless persona is disabled</p>
 </li>
 </ul>
 <hr />
 <h3 id="2-hybrid-mode-skills-first">2. <strong>Hybrid Mode (Skills First)</strong><a class="headerlink" href="#2-hybrid-mode-skills-first" title="Permanent link">&para;</a></h3>
 <p>Only unmatched or low-confidence utterances are routed to the persona.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&quot;pipeline&quot;: [
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  &quot;stop_high&quot;,
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  &quot;converse&quot;,
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  &quot;padatious_high&quot;,
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  &quot;adapt_high&quot;,
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  &quot;ovos-persona-pipeline-plugin-high&quot;,
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  &quot;fallback_medium&quot;,
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  ...
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>]
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&quot;pipeline&quot;: [
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  &quot;stop_high&quot;,
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  &quot;converse&quot;,
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  &quot;padatious_high&quot;,
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  &quot;adapt_high&quot;,
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  &quot;ovos-persona-pipeline-plugin-high&quot;,
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  &quot;fallback_medium&quot;,
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  ...
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>]
 </span></code></pre></div>
 <ul>
 <li>
-<p>✅ Preserves traditional voice assistant behavior</p>
+<p>Preserves traditional voice assistant behavior</p>
 </li>
 <li>
-<p>💬 Persona fills in where skills fall short</p>
+<p>Persona fills in where skills fall short</p>
 </li>
 </ul>
 <hr />
 <h3 id="3-fallback-mode-only">3. <strong>Fallback Mode Only</strong><a class="headerlink" href="#3-fallback-mode-only" title="Permanent link">&para;</a></h3>
 <p>Even when no persona is active, this mode allows the pipeline to fall back to a <strong>default persona</strong> for unmatched utterances.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&quot;pipeline&quot;: [
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  ...
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  &quot;fallback_medium&quot;,
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  &quot;ovos-persona-pipeline-plugin-low&quot;,
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  &quot;fallback_low&quot;
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>]
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;pipeline&quot;: [
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  ...
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  &quot;fallback_medium&quot;,
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  &quot;ovos-persona-pipeline-plugin-low&quot;,
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  &quot;fallback_low&quot;
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>]
 </span></code></pre></div>
 <ul>
 <li>
-<p>✅ Replaces <code>skill-ovos-fallback-chatgpt</code></p>
+<p>Replaces <code>skill-ovos-fallback-chatgpt</code></p>
 </li>
 <li>
-<p>🔄 Fallbacks to a default persona response for a consistent assistant feel</p>
+<p>Fallbacks to a default persona response for a consistent assistant feel</p>
 </li>
 </ul>
 <hr />
@@ -6073,7 +6266,7 @@
 </ul>
 </li>
 <li>
-<p>The persona delegates to its configured <strong>solvers</strong> until one returns a response.</p>
+<p>The persona delegates to its configured <strong>handlers</strong> (solver plugins) until one returns a response.</p>
 </li>
 <li>
 <p>The pipeline returns the matched response back to the user.</p>
@@ -6081,13 +6274,11 @@
 </ol>
 <hr />
 <h2 id="persona-configuration">Persona Configuration<a class="headerlink" href="#persona-configuration" title="Permanent link">&para;</a></h2>
-<p>Personas are defined in:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>~/.config/ovos_persona/*.json
-</span></code></pre></div>
+<p>Personas are loaded from the XDG persona config directory (typically <code>~/.config/mycroft/ovos_persona/</code>, overridable via the <code>personas_path</code> config key). Each <code>*.json</code> file in that directory defines one persona (its name is the <code>"name"</code> field, or the filename without <code>.json</code>). Plugin-provided personas are also discovered unless <code>ignore_plugin_personas</code> is set.</p>
 <h3 id="example">Example:<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Remote Llama&quot;</span><span class="p">,</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">&quot;solvers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">&quot;handlers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="s2">&quot;ovos-solver-openai-plugin&quot;</span><span class="p">,</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="s2">&quot;ovos-solver-failure-plugin&quot;</span>
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="p">],</span>
@@ -6098,13 +6289,13 @@
 </span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>Each persona defines a <code>solvers</code> list.</p>
+<p>Each persona defines a <code>handlers</code> list (the older key <code>solvers</code> is still accepted as a fallback).</p>
 <ul>
 <li>
-<p>Solvers are attempted <strong>in order</strong>.</p>
+<p>Handlers are attempted <strong>in order</strong>.</p>
 </li>
 <li>
-<p>The first solver to return a valid result ends the search.</p>
+<p>The first handler to return a valid result ends the search.</p>
 </li>
 <li>
 <p>Include a <code>"ovos-solver-failure-plugin"</code> as a final fallback for graceful error handling.</p>
@@ -6113,7 +6304,7 @@
 <hr />
 <h2 id="persona-intents">Persona Intents<a class="headerlink" href="#persona-intents" title="Permanent link">&para;</a></h2>
 <p><code>"ovos-persona-pipeline-plugin-high"</code> supports a set of core voice intents to manage persona interactions seamlessly. </p>
-<p>These intents provide <strong>out-of-the-box functionality</strong> for controlling the Persona Service, ensuring smooth integration with the conversational pipeline and enhancing user experience.</p>
+<p>These intents provide <strong>out-of-the-box functionality</strong> for controlling the Persona Service, ensuring smooth integration with the conversational pipeline and enhancing user experience. The backing intent/vocab files are <code>list_personas.intent</code>, <code>active_persona.intent</code>, <code>summon.intent</code> (activate), <code>ask.intent</code> (single-shot), and <code>Release.voc</code> (stop).</p>
 <h3 id="list-personas"><strong>List Personas</strong><a class="headerlink" href="#list-personas" title="Permanent link">&para;</a></h3>
 <p><strong>Example Utterances</strong>:</p>
 <ul>
@@ -6196,6 +6387,20 @@
 </li>
 <li>
 <p>"Shut up"</p>
+</li>
+</ul>
+<p>Releasing a persona (via the <code>Release.voc</code> keyword match) ends the active session: the service marks the session inactive so any in-flight streaming response stops and subsequent utterances flow back through the normal pipeline. Persona uses <code>skill_id</code> <code>persona.openvoiceos</code>.</p>
+<hr />
+<h2 id="related-pages">Related Pages<a class="headerlink" href="#related-pages" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><a href="../agent-plugins/">Agent / Solver Plugins</a> — the handler plugins a persona delegates to</p>
+</li>
+<li>
+<p><a href="../fallback-pipeline/">Fallback Pipeline</a> — the low-tier fallback persona routing complements</p>
+</li>
+<li>
+<p><a href="../life-of-an-utterance/">Life of an Utterance</a> — where the persona stages sit in the pipeline</p>
 </li>
 </ul>
 <hr />

@@ -3547,6 +3547,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3786,6 +3870,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3833,6 +3938,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4192,6 +4318,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5764,14 +5911,16 @@
 <p>Contextual enrichment</p>
 </li>
 </ul>
-<p>Transformers operate on <code>IntentHandlerMatch</code> or <code>PipelineMatch</code> objects and are executed <strong>in order of priority</strong>. They enable complex processing pipelines without requiring every skill to reimplement entity logic.</p>
+<p>Each transformer subclasses <code>IntentTransformer</code> (<code>ovos_plugin_manager.templates.transformers</code>), registers under the <code>opm.transformer.intent</code> entry-point group, and operates on the <code>IntentHandlerMatch</code> object returned by the matching pipeline. They are loaded and chained by <code>IntentTransformersService</code> in <code>ovos-core</code> (<code>ovos_core/transformers.py</code>).</p>
+<p>Transformers run sorted by <code>priority</code>, <strong>highest first</strong> — so a transformer with <code>priority</code> 1 runs <em>last</em> and gets the final say over <code>match_data</code>. This lets you reimplement entity logic once instead of in every skill.</p>
 <hr />
 <h2 id="default-transformers">Default Transformers<a class="headerlink" href="#default-transformers" title="Permanent link">&para;</a></h2>
-<p>In a standard OVOS installation, the following plugins are <strong>installed and enabled by default</strong>:</p>
+<p><code>ovos-core</code> declares these two plugins as dependencies, so a standard install ships with them present. Each one only <em>runs</em> when its plugin name is listed under <code>intent_transformers</code> in your config:</p>
 <table>
 <thead>
 <tr>
-<th>Plugin</th>
+<th>Plugin name (config key)</th>
+<th>PyPI package</th>
 <th>Description</th>
 <th>Priority</th>
 </tr>
@@ -5779,17 +5928,19 @@
 <tbody>
 <tr>
 <td><code>ovos-keyword-template-matcher</code></td>
+<td><code>keyword-template-matcher</code></td>
 <td>Extracts values from <code>{placeholder}</code>-style intent templates</td>
 <td>1</td>
 </tr>
 <tr>
 <td><code>ovos-ahocorasick-ner-plugin</code></td>
+<td><code>ahocorasick-ner</code></td>
 <td>Performs NER using Aho-Corasick keyword matching based on registered entities from skill templates</td>
 <td>5</td>
 </tr>
 </tbody>
 </table>
-<p>These are <strong>not built into core</strong>, but are bundled in standard OVOS setups and configured via <code>intent_transformers</code> in your configuration file.</p>
+<p>A transformer is loaded only if its plugin name appears under <code>intent_transformers</code>; set <code>"active": false</code> to skip it. (Note: <code>ahocorasick-ner</code> runs before <code>keyword-template-matcher</code>, since 5 &gt; 1.)</p>
 <hr />
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>To enable or disable specific transformers, modify your <code>mycroft.conf</code>:</p>
@@ -5807,16 +5958,16 @@
 <h3 id="example-workflow">Example Workflow<a class="headerlink" href="#example-workflow" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p>An utterance matches an intent via Padatious, Adapt, or another engine.</p>
+<p>An utterance matches an intent via Padatious, Adapt, or another engine, producing an <code>IntentHandlerMatch</code>.</p>
 </li>
 <li>
-<p>The matched intent is passed to the <code>IntentTransformersService</code>.</p>
+<p>The <code>IntentService</code> passes that match to <code>IntentTransformersService.transform(match)</code>.</p>
 </li>
 <li>
-<p>Each registered transformer plugin runs its <code>transform()</code> method.</p>
+<p>Each registered transformer plugin runs its <code>transform()</code> method in priority order (highest first), each receiving the match returned by the previous one.</p>
 </li>
 <li>
-<p>Extracted entities are injected into the intent’s <code>match_data</code>.</p>
+<p>Extracted entities are injected into the intent's <code>match_data</code>.</p>
 </li>
 <li>
 <p>The updated <code>match_data</code> is passed to the skill via the <code>Message</code> object.</p>
@@ -5848,17 +5999,23 @@
 </span></code></pre></div>
 <hr />
 <h2 id="writing-your-own-intent-transformer">Writing Your Own Intent <a href="../transformer-plugins/">Transformer</a><a class="headerlink" href="#writing-your-own-intent-transformer" title="Permanent link">&para;</a></h2>
-<p>To create a custom transformer:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.templates.transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntentTransformer</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyCustomTransformer</span><span class="p">(</span><span class="n">IntentTransformer</span><span class="p">):</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;my-transformer&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intent</span><span class="p">):</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="c1"># Modify intent.match_data here</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="k">return</span> <span class="n">intent</span>
+<p>Subclass <code>IntentTransformer</code> and implement <code>transform()</code> (the base declares it abstract). The method receives and must return an <code>IntentHandlerMatch</code>; mutate its <code>match_data</code> in place and return it. Register under the <code>opm.transformer.intent</code> entry-point group.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.transformers</span> <span class="kn">import</span> <span class="n">IntentTransformer</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.pipeline</span> <span class="kn">import</span> <span class="n">IntentHandlerMatch</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">class</span> <span class="nc">MyCustomTransformer</span><span class="p">(</span><span class="n">IntentTransformer</span><span class="p">):</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;my-transformer&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intent</span><span class="p">:</span> <span class="n">IntentHandlerMatch</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IntentHandlerMatch</span><span class="p">:</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="c1"># enrich the matched intent, e.g. inject extracted entities</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="n">intent</span><span class="o">.</span><span class="n">match_data</span><span class="p">[</span><span class="s2">&quot;my_entity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;value&quot;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="k">return</span> <span class="n">intent</span>
 </span></code></pre></div>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.transformer.intent&quot;</span><span class="k">]</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">my-transformer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_module:MyCustomTransformer&quot;</span>
+</span></code></pre></div>
+<p>Unlike utterance transformers, intent transformers get the message bus attached (<code>bind(bus)</code>) when loaded, so <code>self.bus</code> is available inside <code>transform()</code>.</p>
 
 
 

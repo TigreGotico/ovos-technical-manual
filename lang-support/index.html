@@ -1981,6 +1981,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flags
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#supported-languages-and-optimizations" class="md-nav__link">
     <span class="md-ellipsis">
       Supported Languages and Optimizations
@@ -3625,6 +3634,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3864,6 +3957,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3911,6 +4025,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4270,6 +4405,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5809,6 +5965,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Flags
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#supported-languages-and-optimizations" class="md-nav__link">
     <span class="md-ellipsis">
       Supported Languages and Optimizations
@@ -5911,6 +6076,8 @@
 
 <h1 id="language-support-in-openvoiceos">Language Support in OpenVoiceOS<a class="headerlink" href="#language-support-in-openvoiceos" title="Permanent link">&para;</a></h1>
 <p>OpenVoiceOS (OVOS) aims to support multiple languages across its components, including intent recognition, speech-to-text (<a href="../stt-plugins/">STT</a>), text-to-speech (<a href="../tts-plugins/">TTS</a>), and skill dialogs. However, full language support requires more than translation of interface text. This document outlines the current state of language support, known limitations, and how contributors can help improve multilingual performance in OVOS.</p>
+<p><strong>Want it working now?</strong> Jump to <a href="#auto-configuration">Auto-Configuration</a> — <code>ovos-config autoconfigure -l &lt;lang&gt; ...</code> sets up recommended STT/TTS plugins in one command. <strong>Want to make your language work better?</strong> See <a href="#how-to-improve-language-support">How to Improve Language Support</a>.</p>
+<p>Related pages: <a href="../lang-selection/">Language Selection</a> (how OVOS picks a language per utterance), <a href="../lang-customization/">Customizing Language Resources</a> (override/translate skill text), and <a href="../bidirectional-translation/">Bidirectional Translation</a> (use a single-language skill in any language).</p>
 <hr />
 <p>While the OVOS installer allows users to select a preferred language, <strong>selecting a language does not guarantee full support across all subsystems</strong>. True multilingual support requires dedicated:</p>
 <ul>
@@ -6023,13 +6190,56 @@
 </ul>
 <hr />
 <h2 id="auto-configuration">Auto-Configuration<a class="headerlink" href="#auto-configuration" title="Permanent link">&para;</a></h2>
-<p>Use the <code>ovos-config autoconfigure</code> command to automatically configure STT and TTS for your language:</p>
+<p>The fastest way to get a working setup for your language is <code>ovos-config autoconfigure</code>. It writes recommended STT and TTS plugin settings (and, with <code>--platform</code>, an intent-pipeline preset) into your user config:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>en-us<span class="w"> </span>--offline<span class="w"> </span>--female
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>de-de<span class="w"> </span>--online<span class="w"> </span>--male<span class="w"> </span>-p<span class="w"> </span>rpi4
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>fr-fr<span class="w"> </span>--gpu<span class="w"> </span>--female
 </span></code></pre></div>
-<p>The command uses language-specific STT and TTS models optimized for each language. See <a href="../config/"><code>ovos-config</code></a> for full options.</p>
+<p>The recommendations are data-driven: they come from per-language <code>*.conf</code> files bundled in <code>ovos-config</code> (<code>recommends/</code>), so the exact models depend on your installed version. See <a href="../config/"><code>ovos-config</code></a> for full options.</p>
+<h3 id="flags">Flags<a class="headerlink" href="#flags" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-l</code>, <code>--lang</code></td>
+<td><strong>Required.</strong> Language code (e.g. <code>en-us</code>). Standardized internally (e.g. <code>en-US</code>).</td>
+</tr>
+<tr>
+<td><code>--offline</code> / <code>-off</code></td>
+<td>Offline STT + TTS.</td>
+</tr>
+<tr>
+<td><code>--online</code> / <code>-on</code></td>
+<td>Online (public-server) STT + TTS.</td>
+</tr>
+<tr>
+<td><em>(neither)</em></td>
+<td><strong>Defaults to hybrid</strong> — offline TTS with online STT. A warning is printed.</td>
+</tr>
+<tr>
+<td><code>--gpu</code> / <code>-g</code></td>
+<td>GPU STT. Implies <code>--offline</code>; cannot be combined with <code>--online</code>, hybrid, or an <code>rpi*</code> platform.</td>
+</tr>
+<tr>
+<td><code>--male</code> / <code>-m</code>, <code>--female</code> / <code>-f</code></td>
+<td>Pick a voice. Pass exactly one. If you pass <strong>neither</strong>, TTS configuration is skipped.</td>
+</tr>
+<tr>
+<td><code>-p</code>, <code>--platform</code></td>
+<td>Apply a platform preset (see below).</td>
+</tr>
+</tbody>
+</table>
+<p>After writing the config it lists the installed STT/TTS plugins and warns about any recommended plugin you still need to <code>pip install</code>.</p>
 <h3 id="supported-languages-and-optimizations">Supported Languages and Optimizations<a class="headerlink" href="#supported-languages-and-optimizations" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>The table below is a snapshot of the bundled recommendations. The authoritative list is whatever <code>recommends/base/*.conf</code> files ship in your installed <code>ovos-config</code> (currently also includes <strong>en-AU</strong>).</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -6157,7 +6367,7 @@
 </tbody>
 </table>
 <h3 id="platform-specific-optimizations">Platform-Specific Optimizations<a class="headerlink" href="#platform-specific-optimizations" title="Permanent link">&para;</a></h3>
-<p>The <code>--platform</code> option applies intent pipeline optimizations:</p>
+<p>The <code>--platform</code> option merges a preset that tunes the intent pipeline for the target hardware. The available presets are <code>rpi3</code>, <code>rpi4</code>, <code>rpi5</code>, <code>linux</code>, <code>mac</code>, and <code>termux</code>:</p>
 <table>
 <thead>
 <tr>
@@ -6171,19 +6381,22 @@
 <td>Simplified pipeline, GUI disabled</td>
 </tr>
 <tr>
-<td><strong>rpi4</strong></td>
-<td>Full pipeline with m2v-intents-LaBSE</td>
+<td><strong>rpi4</strong> / <strong>rpi5</strong></td>
+<td>Full pipeline with the model2vec intent matcher (<code>Jarbas/ovos-model2vec-intents-LaBSE</code>)</td>
 </tr>
 <tr>
-<td><strong>rpi5</strong></td>
-<td>Full pipeline with m2v-intents-LaBSE</td>
+<td><strong>linux</strong> / <strong>mac</strong></td>
+<td>Full desktop pipeline with the model2vec intent matcher</td>
 </tr>
 <tr>
-<td><strong>linux</strong></td>
-<td>Full pipeline with m2v-intents-LaBSE</td>
+<td><strong>termux</strong></td>
+<td>Android/Termux preset</td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><code>--gpu</code> is rejected for <code>rpi*</code> platforms.</p>
+</blockquote>
 <hr />
 <h2 id="how-to-improve-language-support">How to Improve Language Support<a class="headerlink" href="#how-to-improve-language-support" title="Permanent link">&para;</a></h2>
 <h3 id="1-contribute-translations">1. <strong>Contribute Translations</strong><a class="headerlink" href="#1-contribute-translations" title="Permanent link">&para;</a></h3>

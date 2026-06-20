@@ -1187,6 +1187,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#listening-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Listening State Machine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bus-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bus Events
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration" class="md-nav__link">
     <span class="md-ellipsis">
       Configuration
@@ -3493,6 +3511,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3732,6 +3834,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3779,6 +3902,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4138,6 +4282,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5616,6 +5781,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#listening-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Listening State Machine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bus-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bus Events
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configuration" class="md-nav__link">
     <span class="md-ellipsis">
       Configuration
@@ -5643,19 +5826,22 @@
 
 
 <h1 id="speech-service">Speech Service<a class="headerlink" href="#speech-service" title="Permanent link">&para;</a></h1>
-<p><code>ovos-dinkum-listener</code> is the service responsible for audio capture, <a href="../wake-word-plugins/">Wake Word</a> detection, and <a href="../stt-plugins/">Speech-to-Text</a> (<a href="../stt-plugins/">STT</a>).</p>
+<blockquote>
+<p>Specification: the audio-input service contract is defined by <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-audio-in-1.md">OVOS-AUDIO-IN-1: Audio Input Service</a>.</p>
+</blockquote>
+<p><code>ovos-dinkum-listener</code> is the service responsible for audio capture, <a href="../wake-word-plugins/">Wake Word</a> detection, and <a href="../stt-plugins/">Speech-to-Text</a> (<a href="../stt-plugins/">STT</a>). It is the default, full-featured listener; <code>ovos-simple-listener</code> is a lighter alternative that emits the same <code>recognizer_loop:*</code> bus events but without the full state machine.</p>
 <hr />
 <details class="abstract">
 <summary>Technical Reference</summary>
 <ul>
 <li>
-<p><code>OVOSDinkumVoiceService.run()</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py"><code>ovos_dinkum_listener/service.py:185</code></a> — Main service thread managing the voice loop.</p>
+<p><code>OVOSDinkumVoiceService</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py"><code>ovos_dinkum_listener/service.py:98</code></a> — the service <code>Thread</code>; <code>run()</code> (<code>:381</code>) connects to the bus and drives the voice loop.</p>
 </li>
 <li>
-<p><code>DinkumVoiceLoop.step()</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/voice_loop/__init__.py"><code>ovos_dinkum_listener/voice_loop/__init__.py</code></a> — The core loop that processes audio chunks for <a href="../vad-plugins/">VAD</a> and <a href="../wake-word-plugins/">Wake Word</a>.</p>
+<p><code>DinkumVoiceLoop.run()</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/voice_loop/voice_loop.py"><code>ovos_dinkum_listener/voice_loop/voice_loop.py:275</code></a> — the per-chunk state machine that drives <a href="../vad-plugins/">VAD</a>, <a href="../wake-word-plugins/">Wake Word</a> and <a href="../stt-plugins/">STT</a> via per-state handlers (<code>_detect_ww</code>, <code>_wait_cmd</code>, <code>_in_cmd</code>, …).</p>
 </li>
 <li>
-<p><code>OVOSDinkumVoiceService.handle_utterance()</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py"><code>ovos_dinkum_listener/service.py:410</code></a> — logic for sending audio to <a href="../stt-plugins/">STT</a> and emitting the <code>recognizer_loop:utterance</code> message.</p>
+<p><code>OVOSDinkumVoiceService._stt_text()</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py"><code>ovos_dinkum_listener/service.py:765</code></a> — emits the utterance message after <a href="../stt-plugins/">STT</a> returns text: <code>recognizer_loop:utterance</code> by default, or <code>ovos.utterance.handle</code> when the top-level <code>legacy_namespace</code> config is <code>false</code>.</p>
 </li>
 </ul>
 <hr />
@@ -5682,6 +5868,77 @@
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                                                            |
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                                                            +--(audio)--&gt; [STT Plugin] --(text)--&gt; [MessageBus]
 </span></code></pre></div>
+<h2 id="listening-state-machine">Listening State Machine<a class="headerlink" href="#listening-state-machine" title="Permanent link">&para;</a></h2>
+<p><code>DinkumVoiceLoop</code> is a per-chunk state machine, not a single "listen" call. It has a
+global <strong>mode</strong> (set in <code>listener.mode</code> / over the bus) and an internal <strong>state</strong> that
+advances chunk by chunk:</p>
+<ul>
+<li>
+<p><strong>Modes</strong> (<code>ListeningMode</code>): <code>wakeword</code> (default — wait for the wake word),
+  <code>continuous</code> (always transcribe), <code>hybrid</code> (continuous but only act after the wake
+  word), <code>sleeping</code>.</p>
+</li>
+<li>
+<p><strong>States</strong> (<code>ListeningState</code>): <code>wakeword</code> → <code>recording</code> → <code>in_cmd</code> → <code>after_cmd</code>,
+  plus <code>sleeping</code> / <code>wake_up</code>, <code>confirmation</code>, <code>before_cmd</code>, <code>pre_wake_vad</code>.</p>
+</li>
+</ul>
+<p>Source: <code>ovos_dinkum_listener/voice_loop/voice_loop.py:36</code> (<code>ListeningState</code>) and <code>:53</code>
+(<code>ListeningMode</code>).</p>
+<h2 id="bus-events">Bus Events<a class="headerlink" href="#bus-events" title="Permanent link">&para;</a></h2>
+<p>The listener publishes its activity on the OVOS <a href="../bus-service/">MessageBus</a>. The most
+useful events for downstream services:</p>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Payload</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>recognizer_loop:record_begin</code></td>
+<td>none</td>
+<td>Command recording started</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:record_end</code></td>
+<td>none</td>
+<td>Command recording ended</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:wakeword</code></td>
+<td><code>{"utterance", "lang"}</code></td>
+<td>Wake word fired</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:utterance</code></td>
+<td><code>{"utterances": [str], "lang"}</code></td>
+<td>Transcribed command (the main result)</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:speech.recognition.unknown</code></td>
+<td>none</td>
+<td>STT returned nothing (silence / failure)</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:awoken</code></td>
+<td>none</td>
+<td>Listener woke from sleep</td>
+</tr>
+</tbody>
+</table>
+<p>It also reacts to inbound commands such as <code>recognizer_loop:sleep</code>,
+<code>recognizer_loop:wake_up</code>, <code>recognizer_loop:record_stop</code> and <code>recognizer_loop:state.get</code>.
+The full table lives in the bus-message spec (<code>message_spec/dinkum.md</code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Gotcha — utterance namespace</p>
+<p>By default the transcribed command is published as <code>recognizer_loop:utterance</code>.
+Setting the top-level <code>legacy_namespace: false</code> config switches <strong>all</strong> utterance
+entry points to the spec topic <code>ovos.utterance.handle</code> instead — make sure your
+pipeline subscribes to the matching topic.</p>
+</div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>The speech service is configured in the <code>listener</code>, <code>hotwords</code>, and <code>stt</code> sections of <code>mycroft.conf</code>.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>

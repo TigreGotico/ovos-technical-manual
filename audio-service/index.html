@@ -3493,6 +3493,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3732,6 +3816,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3779,6 +3884,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4138,6 +4264,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5644,18 +5791,19 @@
 
 <h1 id="audio-service">Audio Service<a class="headerlink" href="#audio-service" title="Permanent link">&para;</a></h1>
 <p><code>ovos-audio</code> is the component responsible for <a href="../tts-plugins/">TTS</a> synthesis and audio playback. It ensures that only one thing is speaking at a time and manages audio focus between different media sources.</p>
+<p><strong>In plain terms:</strong> when a skill says "tell the user X", that <code>speak</code> message lands here. <code>ovos-audio</code> turns the text into sound with a TTS plugin and plays it, ducking any background music while it talks.</p>
 <hr />
 <details class="abstract">
 <summary>Technical Reference</summary>
 <ul>
 <li>
-<p><code>PlaybackService.run()</code> — <a href="https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/service.py"><code>ovos_audio/service.py:180</code></a> — Main service thread handling the <a href="../tts-plugins/">TTS</a> queue.</p>
+<p><code>PlaybackService.run()</code> — <a href="https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/service.py"><code>ovos_audio/service.py</code></a> — Main service thread; registers the <code>speak</code> handler and drives the <a href="../tts-plugins/">TTS</a> queue.</p>
 </li>
 <li>
-<p><code>PlaybackThread.run()</code> — <a href="https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/playback.py"><code>ovos_audio/playback.py:45</code></a> — logic for playing back the synthesized audio chunks.</p>
+<p><code>PlaybackThread.run()</code> — <a href="https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/playback.py"><code>ovos_audio/playback.py:163</code></a> — logic for playing back the synthesized audio chunks.</p>
 </li>
 <li>
-<p><code>AudioService.play()</code> — <a href="https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/audio.py"><code>ovos_audio/audio.py:150</code></a> — logic for routing media playback to the correct backend (MPV, VLC, etc.).</p>
+<p><code>AudioService.play()</code> — <a href="https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/audio.py"><code>ovos_audio/audio.py:395</code></a> — routes media playback to the correct backend by URI scheme (MPV, VLC, etc.).</p>
 </li>
 </ul>
 <hr />

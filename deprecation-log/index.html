@@ -3402,6 +3402,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3641,6 +3725,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3688,6 +3793,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4066,6 +4192,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../hivemind-agents/" class="md-nav__link">
         
   
@@ -4225,33 +4372,6 @@
   
     <nav class="md-nav" aria-label="2026">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ovos-workshop-ovosskillgui-property" class="md-nav__link">
-    <span class="md-ellipsis">
-      [ovos-workshop] OVOSSkill.gui Property
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ovos-bus-client-gui-apis" class="md-nav__link">
-    <span class="md-ellipsis">
-      [ovos-bus-client] GUI APIs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ovos-gui-legacy-qmlpage-system" class="md-nav__link">
-    <span class="md-ellipsis">
-      [ovos-gui] Legacy QML/Page System
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#ovos-media-ovosabstractapplication" class="md-nav__link">
@@ -5671,33 +5791,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ovos-workshop-ovosskillgui-property" class="md-nav__link">
-    <span class="md-ellipsis">
-      [ovos-workshop] OVOSSkill.gui Property
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ovos-bus-client-gui-apis" class="md-nav__link">
-    <span class="md-ellipsis">
-      [ovos-bus-client] GUI APIs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ovos-gui-legacy-qmlpage-system" class="md-nav__link">
-    <span class="md-ellipsis">
-      [ovos-gui] Legacy QML/Page System
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#ovos-media-ovosabstractapplication" class="md-nav__link">
     <span class="md-ellipsis">
       [ovos-media] OVOSAbstractApplication
@@ -5821,56 +5914,25 @@
 <p>Following the <a href="../architecture-overview/">OVOS Deprecation Policy</a>, deprecated features remain functional for at least one major version before removal to ensure a smooth migration path.</p>
 <hr />
 <h2 id="2026">2026<a class="headerlink" href="#2026" title="Permanent link">&para;</a></h2>
-<h3 id="ovos-workshop-ovosskillgui-property">[ovos-workshop] OVOSSkill.gui Property<a class="headerlink" href="#ovos-workshop-ovosskillgui-property" title="Permanent link">&para;</a></h3>
-<p><strong>Date:</strong> March 2026<br />
-<strong>Status:</strong> <strong>DEPRECATED</strong> (Scheduled for removal in <code>ovos-workshop</code> 9.0.0)</p>
-<p>Direct access to <code>self.gui</code> within <code>OVOSSkill</code> is being phased out as a default property to allow for more flexible GUI initialization and to reduce overhead for headless skills.</p>
-<ul>
-<li>
-<p><strong>Impact:</strong> Skills requiring a GUI should now explicitly initialize their GUI interface or use specific GUI mixins.</p>
-</li>
-<li>
-<p><strong>Replacement:</strong> The internal <code>SkillGUI</code> class is being replaced by the more generic <code>GUIInterface</code>.</p>
-</li>
-<li>
-<p><strong>Migration Path:</strong> Most skills will continue to work via the deprecated property for now, but developers are encouraged to move towards explicit initialization in <code>initialize()</code>.</p>
-</li>
-</ul>
-<h3 id="ovos-bus-client-gui-apis">[ovos-bus-client] GUI APIs<a class="headerlink" href="#ovos-bus-client-gui-apis" title="Permanent link">&para;</a></h3>
-<p><strong>Date:</strong> March 2026<br />
-<strong>Status:</strong> Deprecated (Scheduled for removal in <code>ovos-bus-client</code> 2.0.0)</p>
-<p>The legacy GUI interface helpers in <code>ovos-bus-client.apis.gui</code> have been deprecated in favor of a standalone, more robust client library.</p>
-<ul>
-<li>
-<p><strong>Deprecated Module:</strong> <code>ovos_bus_client.apis.gui</code></p>
-</li>
-<li>
-<p><strong>Replacement:</strong> <a href="https://github.com/OpenVoiceOS/ovos-gui-api-client">ovos-gui-api-client</a></p>
-</li>
-<li>
-<p><strong>Impact:</strong> Skill developers should migrate from <code>self.gui</code> (when used directly) to the dedicated API client. For <code>OVOSSkill</code> users, the internal <code>self.gui</code> is being updated to use the new client transparently.</p>
-</li>
-</ul>
-<h3 id="ovos-gui-legacy-qmlpage-system">[ovos-gui] Legacy QML/Page System<a class="headerlink" href="#ovos-gui-legacy-qmlpage-system" title="Permanent link">&para;</a></h3>
-<p><strong>Date:</strong> March 2026<br />
-<strong>Status:</strong> <strong>REMOVED</strong> (Major Release <code>ovos-gui</code> 1.0.0)</p>
-<p>The legacy QML page-based system, which relied on skills providing <code>.qml</code> files to be rendered by a heavy Qt-based GUI service, has been removed.</p>
-<ul>
-<li>
-<p><strong>Impact:</strong> The <code>ovos-gui</code> service now implements a <strong>template-only architecture</strong> (HTMX based).</p>
-</li>
-<li>
-<p><strong>Migration Path:</strong></p>
-<ul>
-<li>
-<p><strong>GUIs:</strong> Clients should implement the <a href="../gui-adapters/">formal adapter interface contract (TECH-005)</a>.</p>
-</li>
-<li>
-<p><strong>Skills:</strong> Use standardized GUI templates provided by <code>ovos-workshop</code> rather than custom QML files. Custom UI logic should be handled via HTMX templates or dedicated Voice Apps.</p>
-</li>
-</ul>
-</li>
-</ul>
+<div class="admonition note">
+<p class="admonition-title">GUI status</p>
+<p>In <code>ovos-workshop</code> v8 <code>self.gui</code> (a <code>SkillGUI</code>, subclass of
+<code>GUIInterface</code> from <code>ovos_bus_client.apis.gui</code>) is a live, supported default
+property on every <code>OVOSSkill</code>. It is <strong>not</strong> deprecated and is not scheduled
+for removal. Skills may use the built-in <code>SYSTEM_*</code> page templates or ship
+their own <code>.qml</code>/custom pages via <code>show_page</code> — see
+<a href="../skill-gui/">GUI Skills</a>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Upcoming — unreleased</p>
+<p>The <a href="../gui-service/">GUI rework</a> rebinds the skill-side GUI API. Unreleased PR
+<a href="https://github.com/OpenVoiceOS/ovos-workshop/pull/420">OpenVoiceOS/ovos-workshop#420</a>
+moves <code>GUIInterface</code> out of <code>ovos_bus_client.apis.gui</code> into the standalone
+<strong><code>ovos-gui-api-client</code></strong> package and drops the <code>ui_directories</code> argument from
+<code>SkillGUI</code>. This is a real future direction, not a released change — no published
+<code>ovos-workshop</code> ships it yet. The <code>ovos_bus_client.apis.gui</code> import remains current on
+stable installs.</p>
+</div>
 <h3 id="ovos-media-ovosabstractapplication">[ovos-media] OVOSAbstractApplication<a class="headerlink" href="#ovos-media-ovosabstractapplication" title="Permanent link">&para;</a></h3>
 <p><strong>Date:</strong> March 2026<br />
 <strong>Status:</strong> <strong>REMOVED</strong> (Stabilization Refactor)</p>
@@ -5903,10 +5965,10 @@
 <p>Older skill base classes imported from <code>mycroft.skills</code> or early <code>ovos-workshop</code> versions are being consolidated.</p>
 <ul>
 <li>
-<p><strong>Deprecated:</strong> <code>MycroftSkill</code>, <code>OVOSSkill</code> (legacy imports)</p>
+<p><strong>Deprecated:</strong> <code>MycroftSkill</code> and skill classes imported from <code>mycroft.skills</code></p>
 </li>
 <li>
-<p><strong>Replacement:</strong> <code>OVOSSkill</code> from <code>ovos_workshop.skills.ovos</code></p>
+<p><strong>Replacement:</strong> <code>OVOSSkill</code> from <code>ovos_workshop.skills.ovos</code> (also re-exported from <code>ovos_workshop.skills</code>)</p>
 </li>
 <li>
 <p><strong>Note:</strong> Version 8.0.0 finalized the internal refactor to separate GUI, intent, and resource management into mixins.</p>

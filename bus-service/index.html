@@ -1041,44 +1041,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#alternative-backends" class="md-nav__link">
+  <a href="#alternative-implementations" class="md-nav__link">
     <span class="md-ellipsis">
-      Alternative Backends
+      Alternative Implementations
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Alternative Backends">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#benchmark-summary-localhost-cpython-311" class="md-nav__link">
-    <span class="md-ellipsis">
-      Benchmark Summary (localhost, CPython 3.11)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#webrockets-known-limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      webrockets Known Limitations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rust-configuration-via-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rust Configuration (via environment variables)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -3685,6 +3652,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3924,6 +3975,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3971,6 +4043,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4330,6 +4423,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5949,44 +6063,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#alternative-backends" class="md-nav__link">
+  <a href="#alternative-implementations" class="md-nav__link">
     <span class="md-ellipsis">
-      Alternative Backends
+      Alternative Implementations
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Alternative Backends">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#benchmark-summary-localhost-cpython-311" class="md-nav__link">
-    <span class="md-ellipsis">
-      Benchmark Summary (localhost, CPython 3.11)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#webrockets-known-limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      webrockets Known Limitations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rust-configuration-via-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rust Configuration (via environment variables)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -6027,7 +6108,11 @@
 
 
 <h1 id="bus-service">Bus Service<a class="headerlink" href="#bus-service" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>Specification: the wire format is defined by <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-msg-1.md">OVOS-MSG-1: Bus Message</a>. This page describes the reference implementation.</p>
+</blockquote>
 <p>The <strong>Message Bus</strong> is the central nervous system of the OVOS platform. All services communicate by publishing and subscribing to typed <code>Message</code> objects through this central WebSocket broker.</p>
+<p><strong>In plain terms:</strong> every OVOS service (core, audio, listener, GUI) connects to one shared WebSocket. Whatever any service sends, every other service receives — there is no central router deciding who gets what. Services just listen for the message types they care about and ignore the rest.</p>
 <hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p><code>ovos-messagebus</code> is a pure fan-out WebSocket broker. Every message received from one client is broadcast verbatim to every connected client. The bus performs no filtering, routing, or transformation.</p>
@@ -6065,7 +6150,7 @@
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8181</span><span class="p">,</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">&quot;route&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/core&quot;</span><span class="p">,</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">&quot;ssl&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;max_msg_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;max_msg_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nt">&quot;filter_logs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;gui.status.request&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;gui.page.upload&quot;</span><span class="p">]</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="p">}</span>
@@ -6082,8 +6167,8 @@
 <tbody>
 <tr>
 <td><code>host</code></td>
-<td><code>"127.0.0.1"</code></td>
-<td>Bind address. Use <code>"0.0.0.0"</code> only if remote clients (e.g. <a href="../hivemind-agents/">HiveMind</a>) need to connect.</td>
+<td><code>"0.0.0.0"</code></td>
+<td>Bind address. The shipped default binds all interfaces; set <code>"127.0.0.1"</code> to restrict to localhost.</td>
 </tr>
 <tr>
 <td><code>port</code></td>
@@ -6098,11 +6183,11 @@
 <tr>
 <td><code>ssl</code></td>
 <td><code>false</code></td>
-<td>Enable WSS/TLS. Requires <code>ssl_cert</code> and <code>ssl_key</code> paths.</td>
+<td>Enable WSS/TLS.</td>
 </tr>
 <tr>
 <td><code>max_msg_size</code></td>
-<td><code>25</code></td>
+<td><code>10</code></td>
 <td>Max WebSocket frame size in megabytes.</td>
 </tr>
 <tr>
@@ -6112,7 +6197,7 @@
 </tr>
 <tr>
 <td><code>filter_logs</code></td>
-<td><code>["gui.status.request", ...]</code></td>
+<td><code>["gui.status.request", "gui.page.upload"]</code></td>
 <td>Message types excluded from filter logging.</td>
 </tr>
 </tbody>
@@ -6152,9 +6237,9 @@
 <h3 id="check_originorigin-bool"><code>check_origin(origin) → bool</code><a class="headerlink" href="#check_originorigin-bool" title="Permanent link">&para;</a></h3>
 <p>Always returns <code>True</code>. OVOS does not enforce CORS/origin checks.</p>
 <h3 id="max_message_size"><code>max_message_size</code><a class="headerlink" href="#max_message_size" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;websocket&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_msg_size&quot;</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;websocket&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_msg_size&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
 </span></code></pre></div>
-<p>Default: 25 MB. Messages larger than this cause Tornado to close the connection.</p>
+<p>Default: 10 MB. Messages larger than this cause Tornado to close the connection.</p>
 <hr />
 </details>
 <h2 id="message-structure">Message Structure<a class="headerlink" href="#message-structure" title="Permanent link">&para;</a></h2>
@@ -6351,110 +6436,69 @@
 </table>
 <p>GUI clients connect to <code>ovos-gui</code>'s own WebSocket (<code>ws://localhost:18181/gui</code>), not directly to the messagebus.</p>
 <hr />
-<h2 id="alternative-backends">Alternative Backends<a class="headerlink" href="#alternative-backends" title="Permanent link">&para;</a></h2>
-<p><code>ovos-messagebus</code> ships the Tornado backend by default. Two additional backends are available for deployments needing higher throughput:</p>
+<h2 id="alternative-implementations">Alternative Implementations<a class="headerlink" href="#alternative-implementations" title="Permanent link">&para;</a></h2>
+<p><code>ovos-messagebus</code> is the reference <strong>Tornado</strong>-based server and is all you need for a normal install (<code>pip install ovos-messagebus</code>). Tornado is the current default and the only backend on <code>dev</code>. Because the wire protocol is just JSON frames over a WebSocket, the server is interchangeable — any process that fans messages out to all connected clients on the same route will work.</p>
+<p>A separate, drop-in Rust implementation exists as its own project for deployments that want lower overhead:</p>
+<ul>
+<li><a href="https://github.com/OscillateLabsLLC/ovos-rust-messagebus">OscillateLabsLLC/ovos-rust-messagebus</a> — speaks the same OVOS wire protocol; build and run it in place of the Python server. See that project's README for build and configuration details.</li>
+</ul>
+<p><strong>In plain terms:</strong> on a stable install, run the default Python (Tornado) server; only reach for the Rust build if profiling shows the bus is a bottleneck.</p>
+<div class="admonition warning">
+<p class="admonition-title">Upcoming — unreleased</p>
+<p>Pluggable high-performance backends are in flight via
+<a href="https://github.com/OpenVoiceOS/ovos-messagebus/pull/51">OpenVoiceOS/ovos-messagebus#51</a>
+(branch <code>webrockets</code>). It keeps <strong>Tornado</strong> as the default reference server and adds two
+optional alternatives, benchmarked side by side with <code>benchmark/run_benchmark.py</code> at four
+load levels (5 / 20 / 50 / 100 concurrent clients):</p>
+<ul>
+<li><strong>webrockets</strong> — a high-performance websocket backend, written in Python.</li>
+<li><strong>Rust</strong> — the <a href="https://github.com/OscillateLabsLLC/ovos-rust-messagebus"><code>ovos-rust-messagebus</code></a>
+  v1.1.2 server, run in place of the Python process.</li>
+</ul>
+<p>Throughput vs the Tornado baseline from the PR's measurements:</p>
 <table>
 <thead>
 <tr>
-<th>Backend</th>
-<th>Install</th>
-<th>Notes</th>
+<th>Load</th>
+<th>webrockets</th>
+<th>Rust</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Tornado</strong> (default)</td>
-<td><code>pip install ovos-messagebus</code></td>
-<td>Pure Python, most compatible</td>
+<td>5 clients × 200 msgs</td>
+<td>+11%</td>
+<td>+18%</td>
 </tr>
 <tr>
-<td><strong>webrockets</strong></td>
-<td><code>pip install "ovos-messagebus[webrockets]"</code></td>
-<td>Rust-powered; +24% throughput at 50+ clients</td>
+<td>20 clients × 1000 msgs</td>
+<td>+9%</td>
+<td>+20%</td>
 </tr>
 <tr>
-<td><strong>ovos-rust-messagebus</strong></td>
-<td>Build from <a href="https://github.com/OscillateLabsLLC/ovos-rust-messagebus">source</a></td>
-<td>+18-20% throughput at 5-20 clients</td>
+<td>50 clients × 2000 msgs</td>
+<td>+24%</td>
+<td>+20%</td>
+</tr>
+<tr>
+<td>100 clients × 500 msgs</td>
+<td>+4%</td>
+<td>connection errors (saturation)</td>
 </tr>
 </tbody>
 </table>
-<p>All backends expose the same OVOS wire protocol.</p>
-<p>Run the webrockets backend:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>-m<span class="w"> </span>ovos_messagebus.backends.webrockets_backend
-</span></code></pre></div>
-<p>Run the Rust binary:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OscillateLabsLLC/ovos-rust-messagebus
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">cd</span><span class="w"> </span>ovos-rust-messagebus<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>cargo<span class="w"> </span>build<span class="w"> </span>--release
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>./target/release/ovos-rust-messagebus
-</span></code></pre></div>
-<h3 id="benchmark-summary-localhost-cpython-311">Benchmark Summary (localhost, CPython 3.11)<a class="headerlink" href="#benchmark-summary-localhost-cpython-311" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Scenario          Tornado       webrockets    Rust
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>─────────────────────────────────────────────────
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>5c × 200m       48,820/s      54,103/s      57,770/s  ← Rust best
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>20c × 1,000m    65,937/s      71,841/s      78,849/s  ← Rust best
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>50c × 2,000m    63,858/s      78,891/s      76,585/s  ← webrockets best
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>100c × 500m     74,154/s      76,799/s      ⚠ errors  ← webrockets best
-</span></code></pre></div>
-<p><strong>Summary:</strong></p>
-<ul>
-<li>
-<p>Rust wins at low-to-medium concurrency (5–20 clients): +18–20% over Tornado</p>
-</li>
-<li>
-<p>webrockets wins at high concurrency (50+ clients): +24% over Tornado and more stable than Rust</p>
-</li>
-<li>
-<p>Tornado has the lowest minimum latency at low concurrency and zero setup friction</p>
-</li>
-<li>
-<p>For typical OVOS deployments (1–20 services), the Rust binary is fastest; for HiveMind hubs with 50+ nodes, webrockets is more stable</p>
-</li>
-</ul>
-<h3 id="webrockets-known-limitations">webrockets Known Limitations<a class="headerlink" href="#webrockets-known-limitations" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p><code>max_msg_size</code> config key is silently ignored — use a reverse proxy</p>
-</li>
-<li>
-<p>No TLS support — terminate TLS at a reverse proxy and forward plain WebSocket traffic</p>
-</li>
-</ul>
-<h3 id="rust-configuration-via-environment-variables">Rust Configuration (via environment variables)<a class="headerlink" href="#rust-configuration-via-environment-variables" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>OVOS_BUS_HOST</code></td>
-<td><code>0.0.0.0</code></td>
-<td>Bind address</td>
-</tr>
-<tr>
-<td><code>OVOS_BUS_PORT</code></td>
-<td><code>8181</code></td>
-<td>TCP port</td>
-</tr>
-<tr>
-<td><code>OVOS_BUS_MAX_MSG_SIZE</code></td>
-<td><code>25</code> MB</td>
-<td>Maximum message payload size</td>
-</tr>
-</tbody>
-</table>
+<p>webrockets leads at higher concurrency; the Rust backend showed connection
+saturation (28 connection errors) at the 100-client level. None of this is on a
+published release — do not rely on it on a stable install.</p>
+</div>
 <hr />
 <h2 id="filter-debug-mode">Filter / Debug Mode<a class="headerlink" href="#filter-debug-mode" title="Permanent link">&para;</a></h2>
 <p>Set <code>websocket.filter: true</code> in <code>mycroft.conf</code> to log all message types before broadcasting. This does not affect message delivery.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>DEBUG: &lt;msg_type&gt; source: [...] destination: [...]
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>       SESSION: {...}
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>DEBUG: &lt;msg_type&gt; source: [...] destination: [...]
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>       SESSION: {...}
 </span></code></pre></div>
 <p>Messages listed in <code>filter_logs</code> are excluded from the log to reduce noise (default: <code>["gui.status.request", "gui.page.upload"]</code>).</p>
-<p>Deserialization failures are logged at DEBUG level and the raw payload is forwarded unchanged.</p>
+<p>When <code>filter</code> is off (the default), the bus never deserializes messages — it emits and re-broadcasts the raw frame as-is. Deserialization only happens in <code>filter</code> mode for the log line; if a frame fails to deserialize there, it is dropped (not logged, not re-broadcast).</p>
 <hr />
 <h2 id="related-pages">Related Pages<a class="headerlink" href="#related-pages" title="Permanent link">&para;</a></h2>
 <ul>

@@ -2568,6 +2568,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#packaging-the-opmskill-entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packaging: the opm.skill Entry Point
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tips-caveats" class="md-nav__link">
     <span class="md-ellipsis">
       Tips &amp; Caveats
@@ -3523,6 +3532,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3762,6 +3855,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3809,6 +3923,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4168,6 +4303,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5667,6 +5823,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#packaging-the-opmskill-entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packaging: the opm.skill Entry Point
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tips-caveats" class="md-nav__link">
     <span class="md-ellipsis">
       Tips &amp; Caveats
@@ -5870,6 +6035,13 @@
 </li>
 </ol>
 <p>At least <strong>one valid installation path is required</strong>.</p>
+<hr />
+<h2 id="packaging-the-opmskill-entry-point">Packaging: the <code>opm.skill</code> Entry Point<a class="headerlink" href="#packaging-the-opmskill-entry-point" title="Permanent link">&para;</a></h2>
+<p><code>skill.json</code> describes a skill for discovery and display, but it is not how OVOS <em>loads</em> an installed skill. A pip-installed skill is found through the <code>opm.skill</code> entry-point group (singular) declared in its <code>pyproject.toml</code> / <code>setup.py</code>:</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.skill&quot;</span><span class="k">]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="s2">&quot;skill-xxx.exampleauthor&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;skill_xxx:MySkill&quot;</span>
+</span></code></pre></div>
+<p>The entry-point name is the <code>skill_id</code> and the value points at the skill class. <code>find_skill_plugins()</code> in <code>ovos-plugin-manager</code> enumerates this group to load skills.</p>
 <hr />
 <h2 id="tips-caveats">Tips &amp; Caveats<a class="headerlink" href="#tips-caveats" title="Permanent link">&para;</a></h2>
 <ul>

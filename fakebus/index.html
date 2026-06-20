@@ -3277,6 +3277,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#asyncfakebus" class="md-nav__link">
+    <span class="md-ellipsis">
+      AsyncFakeBus
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#fakemessage" class="md-nav__link">
     <span class="md-ellipsis">
       FakeMessage
@@ -3539,6 +3548,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3778,6 +3871,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3825,6 +3939,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4184,6 +4319,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5052,6 +5208,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#asyncfakebus" class="md-nav__link">
+    <span class="md-ellipsis">
+      AsyncFakeBus
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#fakemessage" class="md-nav__link">
     <span class="md-ellipsis">
       FakeMessage
@@ -5819,6 +5984,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#asyncfakebus" class="md-nav__link">
+    <span class="md-ellipsis">
+      AsyncFakeBus
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#fakemessage" class="md-nav__link">
     <span class="md-ellipsis">
       FakeMessage
@@ -5892,11 +6066,11 @@
 <p>In-process message bus and message implementation for testing, standalone usage, or environments where <code>ovos-bus-client</code> is not available. Behaves like the real <code>MessageBusClient</code> API without any WebSocket connection.</p>
 <hr />
 <h2 id="fakebus_1"><code>FakeBus</code><a class="headerlink" href="#fakebus_1" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.fakebus</span><span class="w"> </span><span class="kn">import</span> <span class="n">FakeBus</span><span class="p">,</span> <span class="n">FakeMessage</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.fakebus</span> <span class="kn">import</span> <span class="n">FakeBus</span><span class="p">,</span> <span class="n">FakeMessage</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">bus</span> <span class="o">=</span> <span class="n">FakeBus</span><span class="p">()</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">on_utterance</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">def</span> <span class="nf">on_utterance</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;utterances&quot;</span><span class="p">])</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">bus</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">&quot;recognizer_loop:utterance&quot;</span><span class="p">,</span> <span class="n">on_utterance</span><span class="p">)</span>
@@ -5987,12 +6161,23 @@
 </tbody>
 </table>
 <hr />
-<h2 id="fakemessage"><code>FakeMessage</code><a class="headerlink" href="#fakemessage" title="Permanent link">&para;</a></h2>
-<p>Drop-in replacement for <code>ovos_bus_client.Message</code>. Transparently proxies to the real <code>Message</code> class if <code>ovos-bus-client</code> is installed:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.fakebus</span><span class="w"> </span><span class="kn">import</span> <span class="n">FakeMessage</span>
+<h2 id="asyncfakebus"><code>AsyncFakeBus</code><a class="headerlink" href="#asyncfakebus" title="Permanent link">&para;</a></h2>
+<p>In-process stand-in for <code>AsyncMessageBusClient</code>, for asyncio-native code. It mirrors the same surface as <code>FakeBus</code>, but <code>connect()</code> / <code>close()</code> / <code>emit()</code> / <code>wait_for_message()</code> / <code>wait_for_response()</code> are <strong>coroutines</strong> (must be <code>await</code>ed), while <code>on()</code> / <code>once()</code> / <code>remove()</code> stay synchronous. The same session-injection side effects apply, so multi-turn flows behave identically.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.fakebus</span> <span class="kn">import</span> <span class="n">AsyncFakeBus</span><span class="p">,</span> <span class="n">FakeMessage</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">msg</span> <span class="o">=</span> <span class="n">FakeMessage</span><span class="p">(</span><span class="s2">&quot;skill:action&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;session_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abc&quot;</span><span class="p">})</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">bus</span> <span class="o">=</span> <span class="n">AsyncFakeBus</span><span class="p">()</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">await</span> <span class="n">bus</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">await</span> <span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">FakeMessage</span><span class="p">(</span><span class="s2">&quot;recognizer_loop:utterance&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]}))</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">reply</span> <span class="o">=</span> <span class="k">await</span> <span class="n">bus</span><span class="o">.</span><span class="n">wait_for_response</span><span class="p">(</span><span class="n">FakeMessage</span><span class="p">(</span><span class="s2">&quot;my.query&quot;</span><span class="p">))</span>
 </span></code></pre></div>
+<hr />
+<h2 id="fakemessage"><code>FakeMessage</code><a class="headerlink" href="#fakemessage" title="Permanent link">&para;</a></h2>
+<p><code>FakeMessage</code> is a re-export of the canonical OVOS message envelope, <code>ovos_spec_tools.message.Message</code> (the reference implementation of the <strong>OVOS-MSG-1</strong> spec). It is <strong>the same class</strong> that <code>ovos_bus_client.Message</code> subclasses, so messages are interoperable across all three import paths — there is no proxying or runtime class-swapping involved.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.fakebus</span> <span class="kn">import</span> <span class="n">FakeMessage</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">msg</span> <span class="o">=</span> <span class="n">FakeMessage</span><span class="p">(</span><span class="s2">&quot;skill:action&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;session_id&quot;</span><span class="p">:</span> <span class="s2">&quot;abc&quot;</span><span class="p">})</span>
+</span></code></pre></div>
+<p><code>ovos-spec-tools</code> is a hard dependency of <code>ovos-utils</code>, so <code>FakeMessage</code> is always the real envelope class — installing <code>ovos-bus-client</code> is not required.</p>
 <table>
 <thead>
 <tr>
@@ -6016,6 +6201,7 @@
 </tbody>
 </table>
 <h3 id="key-methods_1">Key Methods<a class="headerlink" href="#key-methods_1" title="Permanent link">&para;</a></h3>
+<p>OVOS-MSG-1 defines <code>forward</code> / <code>reply</code> / <code>response</code> as the three normative message derivations (§5).</p>
 <table>
 <thead>
 <tr>
@@ -6030,31 +6216,38 @@
 </tr>
 <tr>
 <td><code>FakeMessage.deserialize(value) → FakeMessage</code></td>
-<td>Construct from JSON string</td>
+<td>Construct from a JSON string</td>
 </tr>
 <tr>
-<td><code>forward(msg_type, data)</code></td>
-<td>Create a message with the same context</td>
+<td><code>as_dict() → dict</code></td>
+<td>Return the message as a plain dict</td>
 </tr>
 <tr>
-<td><code>reply(msg_type, data, context)</code></td>
-<td>Create a reply (swaps source ↔ destination)</td>
+<td><code>forward(msg_type, data=None, context=None)</code></td>
+<td>Relay under a new topic, preserving context (no routing-key swap)</td>
 </tr>
 <tr>
-<td><code>response(data, context)</code></td>
-<td>Shorthand for <code>reply(msg_type + ".response", ...)</code></td>
+<td><code>reply(msg_type, data=None, context=None)</code></td>
+<td>§5.2 — reply addressed back to the source (swaps <code>source</code> ↔ <code>destination</code>)</td>
 </tr>
 <tr>
-<td><code>publish(msg_type, data, context)</code></td>
-<td>Forward without a target</td>
+<td><code>response(data=None, context=None)</code></td>
+<td>§5.3 — sugar for <code>reply(msg_type + ".response", ...)</code></td>
+</tr>
+<tr>
+<td><code>publish(msg_type, data, context=None)</code></td>
+<td><strong>Deprecated</strong> (see below) — relay under a new topic and drop <code>target</code></td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><strong><code>publish</code> is deprecated.</strong> It is not part of OVOS-MSG-1 and is slated for removal in the next major (<code>1.0.0</code>). It is attached to the <code>Message</code> class at import time for backwards compatibility (<code>ovos-utils</code> and <code>ovos-bus-client</code> both attach it idempotently). Use <code>forward()</code> when you want to relay without the routing-key swap, or <code>reply()</code> when you want the swap.</p>
+</blockquote>
 <h3 id="isinstance-compatibility"><code>isinstance</code> Compatibility<a class="headerlink" href="#isinstance-compatibility" title="Permanent link">&para;</a></h3>
-<p><code>FakeMessage</code> uses a metaclass (<code>_MutableMessage</code>) that makes <code>isinstance(msg, FakeMessage)</code> return <code>True</code> for real <code>ovos_bus_client.Message</code> objects as well, so code that checks <code>isinstance(msg, FakeMessage)</code> works in both environments.</p>
+<p><code>isinstance(msg, FakeMessage)</code> works across packages because <code>FakeMessage</code>, <code>ovos_spec_tools.Message</code>, and <code>ovos_bus_client.Message</code> form a single class hierarchy — <code>FakeMessage</code> <em>is</em> <code>ovos_spec_tools.Message</code>, and <code>ovos_bus_client.Message</code> is a subclass of it. (The historical <code>_MutableMessage</code> metaclass and dynamic <code>__new__</code> indirection have been removed; they are no longer needed now that spec-tools is a hard dependency.)</p>
 <hr />
 <h2 id="message-deprecated"><code>Message</code> (Deprecated)<a class="headerlink" href="#message-deprecated" title="Permanent link">&para;</a></h2>
-<p><code>ovos_utils.fakebus.Message</code> is a deprecated alias for <code>FakeMessage</code>. Import from <code>ovos_bus_client</code> directly.</p>
+<p><code>ovos_utils.fakebus.Message</code> is a deprecated alias for the OVOS-MSG-1 envelope; importing and instantiating it emits a <code>DeprecationWarning</code>. New code should import <code>ovos_spec_tools.Message</code> (or <code>ovos_bus_client.Message</code>) directly.</p>
 <hr />
 <h2 id="dig_for_message"><code>dig_for_message()</code><a class="headerlink" href="#dig_for_message" title="Permanent link">&para;</a></h2>
 <p>Tries to import and call <code>ovos_bus_client.message.dig_for_message</code>. Returns <code>None</code> if <code>ovos-bus-client</code> is not installed.</p>

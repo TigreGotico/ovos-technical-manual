@@ -3532,6 +3532,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3771,6 +3855,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3818,6 +3923,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4177,6 +4303,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5724,87 +5871,120 @@
 
 
 <h1 id="language-detection-and-translation-plugins">Language Detection and Translation Plugins<a class="headerlink" href="#language-detection-and-translation-plugins" title="Permanent link">&para;</a></h1>
-<p>Language detection and translation plugins in Open Voice OS (OVOS) enable the system to identify the language of text and translate it between different languages.</p>
+<p>Language detection and translation plugins let OVOS identify the language of a piece of text and translate it between languages. They are the building blocks used by features like <a href="../bidirectional-translation/">Bidirectional Translation</a>, and they can also be called directly from your own code.</p>
+<p><strong>New here?</strong> Two separate jobs are involved:</p>
+<ul>
+<li><strong>Detection</strong> decides <em>what language</em> a string is in (e.g. <code>"Hola"</code> → <code>es</code>).</li>
+<li><strong>Translation</strong> rewrites a string <em>into another language</em> (e.g. <code>"Hola"</code> → <code>"Hello"</code>).</li>
+</ul>
+<p>A single package may ship one or both. In <code>mycroft.conf</code> you select them under the <code>"language"</code> section with <code>"detection_module"</code> (a detect plugin) and <code>"translation_module"</code> (a translate plugin).</p>
 <h2 id="available-language-plugins">Available Language Plugins<a class="headerlink" href="#available-language-plugins" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Plugin</th>
+<th>Plugin (entry-point name)</th>
 <th>Detect</th>
 <th>Translate</th>
 <th>Type</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/OpenVoiceOS/ovos-translate-server-plugin">ovos-translate-plugin-server</a></td>
+<td><code>ovos-translate-plugin-server</code> (<a href="https://github.com/OpenVoiceOS/ovos-translate-server-plugin">repo</a>)</td>
 <td>✔️</td>
 <td>✔️</td>
-<td>API (self hosted)</td>
+<td>API (self/community hosted)</td>
+<td>Client for <a href="https://github.com/OpenVoiceOS/ovos-translate-server">ovos-translate-server</a>; ships a built-in public-server list with failover. Detection is a separate entry-point, <code>ovos-lang-detector-plugin-server</code>.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb">ovos-translate-plugin-nllb</a></td>
+<td><code>ovos-translate-plugin-nllb</code> (<a href="https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb">repo</a>)</td>
 <td>❌</td>
 <td>✔️</td>
 <td>FOSS (Offline)</td>
+<td>NLLB-200 via CTranslate2; downloads a model the first time.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenVoiceOS/ovos-lang-detector-fasttext-plugin">ovos-lang-detector-fasttext-plugin</a></td>
+<td><code>ovos-lang-detector-fasttext-plugin</code> (<a href="https://github.com/OpenVoiceOS/ovos-lang-detector-fasttext-plugin">repo</a>)</td>
 <td>✔️</td>
 <td>❌</td>
 <td>FOSS (Offline)</td>
+<td>fastText language identification.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenVoiceOS/ovos-google-translate-plugin">ovos-google-translate-plugin</a></td>
+<td><code>ovos-lang-detector-classics-plugin</code> (<a href="https://github.com/OpenVoiceOS/ovos-lang-detector-classics-plugin">repo</a>)</td>
+<td>✔️</td>
+<td>❌</td>
+<td>FOSS (Offline)</td>
+<td>A <em>voter</em> (<code>ovos-lang-detector-plugin-voter</code>) that averages several classic detectors (cld2, cld3, langdetect, fastlang).</td>
+</tr>
+<tr>
+<td><code>ovos-google-translate-plugin</code> (<a href="https://github.com/OpenVoiceOS/ovos-google-translate-plugin">repo</a>)</td>
 <td>✔️</td>
 <td>✔️</td>
 <td>API (free)</td>
+<td>Translate (<code>ovos-google-translate-plugin</code>) and detect (<code>ovos-google-lang-detector-plugin</code>) are separate entry-points.</td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><strong>Heads up:</strong> the package repo name, the pip name, and the <strong>entry-point name you put in config</strong> are not always the same. Configure plugins by their <em>entry-point name</em> (e.g. <code>ovos-translate-plugin-server</code>, not the repo <code>ovos-translate-server-plugin</code>). The names in the table above are the entry-point names.</p>
+</blockquote>
 <hr />
 <h2 id="technical-explanation">Technical Explanation<a class="headerlink" href="#technical-explanation" title="Permanent link">&para;</a></h2>
-<p>OVOS provides two base classes for language processing: <code>LanguageDetector</code> and <code>LanguageTranslator</code>.</p>
+<p>OVOS provides two base classes for language processing, both in <code>ovos_plugin_manager.templates.language</code>: <code>LanguageDetector</code> and <code>LanguageTranslator</code>. Each is constructed with a <code>config</code> dict (the plugin's section from <code>mycroft.conf</code>), exposed as <code>self.config</code>.</p>
 <h3 id="language-detector-interface">Language Detector Interface<a class="headerlink" href="#language-detector-interface" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LanguageDetector</span><span class="p">:</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the detected language code (e.g., &#39;en&#39;).&quot;&quot;&quot;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="k">pass</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">detect_probs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a dictionary of languages and their probabilities.&quot;&quot;&quot;</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="k">pass</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.language</span> <span class="kn">import</span> <span class="n">LanguageDetector</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">class</span> <span class="nc">LanguageDetector</span><span class="p">:</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">def</span> <span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the single best language code (e.g. &#39;en&#39;).&quot;&quot;&quot;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="k">def</span> <span class="nf">detect_probs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a {language_code: probability} dict.&quot;&quot;&quot;</span>
 </span></code></pre></div>
 <h3 id="language-translator-interface">Language Translator Interface<a class="headerlink" href="#language-translator-interface" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LanguageTranslator</span><span class="p">:</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Translate text to the target language.&quot;&quot;&quot;</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="k">pass</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.language</span> <span class="kn">import</span> <span class="n">LanguageTranslator</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">class</span> <span class="nc">LanguageTranslator</span><span class="p">:</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Translate text to `target`. If `source` is empty the plugin</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="sd">        detects it. If `target` is empty it falls back to self.internal_language.&quot;&quot;&quot;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="nd">@classproperty</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="k">def</span> <span class="nf">available_languages</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Languages this backend supports (may be empty if unknown/dynamic).&quot;&quot;&quot;</span>
 </span></code></pre></div>
+<blockquote>
+<p><strong>Gotcha (advanced):</strong> <code>available_languages</code> is a <code>classproperty</code> and several real plugins return an empty set when the backend's language list is dynamic or unknown (e.g. the server and Google plugins). Don't assume it is populated.</p>
+</blockquote>
 <h2 id="creating-your-own-plugin">Creating Your Own Plugin<a class="headerlink" href="#creating-your-own-plugin" title="Permanent link">&para;</a></h2>
 <h3 id="1-implementation-template-translator">1. Implementation Template (Translator)<a class="headerlink" href="#1-implementation-template-translator" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.templates.language</span><span class="w"> </span><span class="kn">import</span> <span class="n">LanguageTranslator</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.language</span> <span class="kn">import</span> <span class="n">LanguageTranslator</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyTranslator</span><span class="p">(</span><span class="n">LanguageTranslator</span><span class="p">):</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">class</span> <span class="nc">MyTranslator</span><span class="p">(</span><span class="n">LanguageTranslator</span><span class="p">):</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="n">target</span> <span class="o">=</span> <span class="n">target</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lang&quot;</span><span class="p">)</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="c1"># Implement your translation logic here</span>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">source</span><span class="p">)</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="nd">@property</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">available_languages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="k">def</span> <span class="nf">available_languages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="s2">&quot;es&quot;</span><span class="p">,</span> <span class="s2">&quot;fr&quot;</span><span class="p">,</span> <span class="s2">&quot;de&quot;</span><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="2-registration">2. Registration<a class="headerlink" href="#2-registration" title="Permanent link">&para;</a></h3>
-<p>Register your plugin in <code>pyproject.toml</code>:</p>
-<div class="language-toml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.plugin.translate&quot;</span><span class="k">]</span>
+<p>Register your plugin in <code>pyproject.toml</code> under the correct entry-point groups. Translators use <code>opm.lang.translate</code>; detectors use <code>opm.lang.detect</code>:</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.lang.translate&quot;</span><span class="k">]</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">my-translator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_package.module:MyTranslator&quot;</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.plugin.detect&quot;</span><span class="k">]</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.lang.detect&quot;</span><span class="k">]</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">my-detector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_package.module:MyDetector&quot;</span>
 </span></code></pre></div>
+<blockquote>
+<p>The legacy Neon groups <code>neon.plugin.lang.translate</code> / <code>neon.plugin.lang.detect</code> are still honoured as aliases by <code>ovos-plugin-manager</code> (this is why a plugin like <code>ovos-lang-detector-fasttext-plugin</code> keeps working), but new plugins <strong>should</strong> register under the <code>opm.lang.*</code> groups.</p>
+</blockquote>
 <h2 id="standalone-usage">Standalone Usage<a class="headerlink" href="#standalone-usage" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.language</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_tx_plugins</span><span class="p">,</span> <span class="n">find_lang_detect_plugins</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.language</span> <span class="kn">import</span> <span class="n">find_tx_plugins</span><span class="p">,</span> <span class="n">find_lang_detect_plugins</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Translation</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">tx_plugins</span> <span class="o">=</span> <span class="n">find_tx_plugins</span><span class="p">()</span>

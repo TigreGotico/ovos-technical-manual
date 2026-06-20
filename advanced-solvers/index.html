@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/advanced-solvers/">
       
       
-        <link rel="prev" href="../personas/">
+        <link rel="prev" href="../agent-interop/">
       
       
         <link rel="next" href="../ovos-judge/">
@@ -3405,6 +3405,90 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -3804,6 +3888,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3851,6 +3956,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4213,6 +4339,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5801,7 +5948,7 @@ independently discoverable, configurable, and composable.</p>
 <p>Scores a list of candidate answers by relevance to a query and returns them ranked highest-first.
 Used internally by the <a href="https://openvoiceos.github.io/ovos-technical-manual/360-solver_plugins/">Common Query pipeline</a>,
 <a href="../ocp-pipeline/">OCP</a> media search, and by <a href="../mos-plugin/">Mixture of Solvers</a> strategies as the judge/king/referee.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.templates.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReRankerEngine</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.agents</span> <span class="kn">import</span> <span class="n">ReRankerEngine</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Returns: List[Tuple[float, str]] sorted descending</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">ranked</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">rerank</span><span class="p">(</span><span class="s2">&quot;play bohemian rhapsody&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Bohemian Rhapsody by Queen&quot;</span><span class="p">,</span> <span class="s2">&quot;Bohemian Groove Mix&quot;</span><span class="p">])</span>
@@ -5854,7 +6001,7 @@ text to <a href="../tts-plugins/">TTS</a> to avoid overwhelming the user with lo
 <p>Converts a structured <code>List[AgentMessage]</code> chat history into a concise narrative summary. Used
 internally by memory plugins (<code>ClaudeContextManager</code>, <code>GGUFContextManager</code>) to compress history
 when it exceeds <code>max_history</code> turns, keeping the context window manageable.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.templates.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">AgentMessage</span><span class="p">,</span> <span class="n">MessageRole</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.agents</span> <span class="kn">import</span> <span class="n">AgentMessage</span><span class="p">,</span> <span class="n">MessageRole</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">AgentMessage</span><span class="p">(</span><span class="n">MessageRole</span><span class="o">.</span><span class="n">USER</span><span class="p">,</span> <span class="s2">&quot;What&#39;s the weather?&quot;</span><span class="p">),</span>
@@ -5884,16 +6031,31 @@ Returns <code>None</code> on API error.</p>
 <p>Implementations: <code>ClaudeYesNoEngine</code>, <code>GGUFYesNoEngine</code>.</p>
 <hr />
 <h2 id="coreference-resolution-opmagentscoref">Coreference Resolution — <code>opm.agents.coref</code><a class="headerlink" href="#coreference-resolution-opmagentscoref" title="Permanent link">&para;</a></h2>
+<p><strong>Base class:</strong> <code>CoreferenceEngine</code></p>
 <p>Resolves pronouns and ambiguous references in voice commands against recent conversation context.
-Avoids redundant API calls by first checking a per-language pronoun wordlist.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># After &quot;Play Bohemian Rhapsody&quot;:</span>
+The base class owns the <em>state</em> (a per-language context vault); the plugin subclass provides the
+<em>intelligence</em> (the NLP that rewrites the text). <code>resolve()</code> first calls <code>contains_corefs()</code> to
+skip expensive work when no pronouns are present.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Stateless one-shot resolution:</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="s2">&quot;Turn it off&quot;</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># &quot;Turn Bohemian Rhapsody off&quot;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># With memory: register context, then resolve future turns against it</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">engine</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;it&quot;</span><span class="p">,</span> <span class="s2">&quot;Bohemian Rhapsody&quot;</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">result</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="s2">&quot;Turn it off&quot;</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="n">use_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="c1"># &quot;Turn Bohemian Rhapsody off&quot;</span>
 </span></code></pre></div>
-<p><code>context_ttl</code> (default 120 s) controls how long a tracked context entry remains valid —
-<code>ovos_claude.coref:ClaudeCoreferenceEngine.__init__</code>.</p>
+<p><code>use_memory</code> (default <code>False</code>) gates the learn/apply-context steps — pass <code>use_memory=True</code> to
+have <code>resolve()</code> apply previously registered context and learn new mappings from each turn.
+<code>context_ttl</code> (config key, default <code>120</code> s) controls how long a tracked context entry remains
+valid before it is pruned.</p>
 <p>Implementations: <code>ClaudeCoreferenceEngine</code>, <code>GGUFCoreferenceEngine</code>.</p>
+<blockquote>
+<p><strong>Upcoming:</strong> <a href="https://github.com/TigreGotico/pronomial">pronomial</a> is gaining a new-style
+<code>PronomialCoreferenceEngine</code> registered under <code>opm.agents.coref</code> (as <code>pronomial</code>) — a local,
+no-API coreference backend with per-language pronoun wordlists. See
+<a href="https://github.com/TigreGotico/pronomial/pull/6">TigreGotico/pronomial#6</a> (draft).</p>
+</blockquote>
 <hr />
 <h2 id="memory-context-manager-opmagentsmemory">Memory / Context Manager — <code>opm.agents.memory</code><a class="headerlink" href="#memory-context-manager-opmagentsmemory" title="Permanent link">&para;</a></h2>
 <p><strong>Base class:</strong> <code>AgentContextManager</code></p>
@@ -5901,7 +6063,7 @@ Avoids redundant API calls by first checking a per-language pronoun wordlist.</p
 from <code>ovos-persona</code>) stores history in RAM with <code>max_history</code> truncation. LLM-powered
 implementations (<code>ClaudeContextManager</code>, <code>GGUFContextManager</code>) also compress old history into
 a SYSTEM summary message when the history exceeds a configurable threshold.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.templates.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">AgentContextManager</span><span class="p">,</span> <span class="n">AgentMessage</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.agents</span> <span class="kn">import</span> <span class="n">AgentContextManager</span><span class="p">,</span> <span class="n">AgentMessage</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># Abstract interface</span>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">ctx</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">build_conversation_context</span><span class="p">(</span><span class="n">utterance</span><span class="p">,</span> <span class="n">session_id</span><span class="p">)</span>  <span class="c1"># List[AgentMessage]</span>
@@ -5923,7 +6085,7 @@ needs no API key and is always available when <code>ovos-persona</code> is insta
 <h2 id="multimodal-chat-opmagentschatmultimodal">Multimodal Chat — <code>opm.agents.chat.multimodal</code><a class="headerlink" href="#multimodal-chat-opmagentschatmultimodal" title="Permanent link">&para;</a></h2>
 <p>Extends <code>ChatEngine</code> with image input. Images are passed as base64-encoded strings in
 <code>MultimodalAgentMessage.image_content</code>. Data-URI headers are stripped automatically.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.templates.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultimodalAgentMessage</span><span class="p">,</span> <span class="n">MessageRole</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.agents</span> <span class="kn">import</span> <span class="n">MultimodalAgentMessage</span><span class="p">,</span> <span class="n">MessageRole</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="n">MultimodalAgentMessage</span><span class="p">(</span>

@@ -3457,6 +3457,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3696,6 +3780,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3743,6 +3848,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4102,6 +4228,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5575,46 +5722,46 @@
 
 <h1 id="padacioso">Padacioso<a class="headerlink" href="#padacioso" title="Permanent link">&para;</a></h1>
 <p><em>A lightweight, dead-simple intent parser</em></p>
-<p>Built on top of <a href="https://github.com/tfeldmann/simplematch">simplematch</a>, inspired by <a href="https://github.com/MycroftAI/padaos">Padaos</a></p>
+<p>Built on top of <a href="https://github.com/tfeldmann/simplematch">simplematch</a>, inspired by <a href="https://github.com/MycroftAI/padaos">Padaos</a>.</p>
+<p>Padacioso matches an utterance against example sentences using plain string templates — no training, no model files. It is the pure-Python sibling of Padatious: where Padatious learns from examples, Padacioso matches them literally (with a few placeholder syntaxes). Each call to <code>calc_intent</code> returns the best match as <code>{"name", "entities", "conf"}</code>, or <code>name: None</code> when nothing matches.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">padacioso</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntentContainer</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">padacioso</span> <span class="kn">import</span> <span class="n">IntentContainer</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">container</span> <span class="o">=</span> <span class="n">IntentContainer</span><span class="p">()</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">## samples</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># plain samples</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;how are you&#39;</span><span class="p">,</span> <span class="s2">&quot;what&#39;s up&quot;</span><span class="p">])</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1">## &quot;optionally&quot; syntax</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># &quot;optionally&quot; syntax — [word] is optional</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;hello world&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;hello [world]&quot;</span><span class="p">])</span>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1">## &quot;one_of&quot; syntax</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># &quot;one_of&quot; syntax — any of the alternatives</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;greeting&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;(hi|hey|hello)&quot;</span><span class="p">])</span>
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1">## entity extraction</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;buy&#39;</span><span class="p">,</span> <span class="p">[</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="s1">&#39;buy </span><span class="si">{item}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;purchase </span><span class="si">{item}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;get </span><span class="si">{item}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;get </span><span class="si">{item}</span><span class="s1"> for me&#39;</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">])</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;search&#39;</span><span class="p">,</span> <span class="p">[</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="s1">&#39;search for </span><span class="si">{query}</span><span class="s1"> on </span><span class="si">{engine}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;using </span><span class="si">{engine}</span><span class="s1"> (search|look) for </span><span class="si">{query}</span><span class="s1">&#39;</span><span class="p">,</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="s1">&#39;find </span><span class="si">{query}</span><span class="s1"> (with|using) </span><span class="si">{engine}</span><span class="s1">&#39;</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="p">])</span>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="n">container</span><span class="o">.</span><span class="n">add_entity</span><span class="p">(</span><span class="s1">&#39;engine&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span> <span class="s1">&#39;xyz&#39;</span><span class="p">])</span>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="n">container</span><span class="o">.</span><span class="n">calc_intent</span><span class="p">(</span><span class="s1">&#39;find cats using xyz&#39;</span><span class="p">)</span>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
-</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="c1"># {&#39;conf&#39;: 1.0, &#39;name&#39;: &#39;search&#39;, &#39;entities&#39;: {&#39;query&#39;: &#39;cats&#39;, &#39;engine&#39;: &#39;xyz&#39;}}</span>
-</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
-</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="c1">## wildcards syntax</span>
-</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;say&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say *&quot;</span><span class="p">])</span>
-</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="n">container</span><span class="o">.</span><span class="n">calc_intent</span><span class="p">(</span><span class="s1">&#39;say something, whatever&#39;</span><span class="p">)</span>
-</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>
-</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="c1"># {&#39;conf&#39;: 0.85, &#39;entities&#39;: {}, &#39;name&#39;: &#39;test&#39;}</span>
-</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
-</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="c1">## typed entities syntax</span>
-</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;pick_number&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;* number {number:int}&#39;</span><span class="p">])</span>
-</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="n">container</span><span class="o">.</span><span class="n">calc_intent</span><span class="p">(</span><span class="s1">&#39;i want number 3&#39;</span><span class="p">)</span>
-</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
-</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="c1"># {&#39;conf&#39;: 0.85, &#39;entities&#39;: {&#39;number&#39;: 3}, &#39;name&#39;: &#39;pick_number&#39;})</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1"># entity extraction with {placeholders}</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;search&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="s1">&#39;search for </span><span class="si">{query}</span><span class="s1"> on </span><span class="si">{engine}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;using </span><span class="si">{engine}</span><span class="s1"> (search|look) for </span><span class="si">{query}</span><span class="s1">&#39;</span><span class="p">,</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="s1">&#39;find </span><span class="si">{query}</span><span class="s1"> (with|using) </span><span class="si">{engine}</span><span class="s1">&#39;</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">])</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">container</span><span class="o">.</span><span class="n">add_entity</span><span class="p">(</span><span class="s1">&#39;engine&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span> <span class="s1">&#39;xyz&#39;</span><span class="p">])</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="n">container</span><span class="o">.</span><span class="n">calc_intent</span><span class="p">(</span><span class="s1">&#39;find cats using xyz&#39;</span><span class="p">)</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1"># {&#39;name&#39;: &#39;search&#39;, &#39;entities&#39;: {&#39;query&#39;: &#39;cats&#39;, &#39;engine&#39;: &#39;xyz&#39;}, &#39;conf&#39;: 1.0}</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="c1"># wildcards — * matches anything; the name is the registered intent name</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;say&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say *&quot;</span><span class="p">])</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="n">container</span><span class="o">.</span><span class="n">calc_intent</span><span class="p">(</span><span class="s1">&#39;say something, whatever&#39;</span><span class="p">)</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="c1"># {&#39;name&#39;: &#39;say&#39;, &#39;entities&#39;: {}, &#39;conf&#39;: 0.85}</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="c1"># typed entities — simplematch types like :int parse and cast the value</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="n">container</span><span class="o">.</span><span class="n">add_intent</span><span class="p">(</span><span class="s1">&#39;pick_number&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pick number {number:int}&#39;</span><span class="p">])</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="n">container</span><span class="o">.</span><span class="n">calc_intent</span><span class="p">(</span><span class="s1">&#39;pick number 3&#39;</span><span class="p">)</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="c1"># {&#39;name&#39;: &#39;pick_number&#39;, &#39;entities&#39;: {&#39;number&#39;: 3}, &#39;conf&#39;: 1.0}</span>
 </span></code></pre></div>
+<p>A wildcard (<code>*</code>) carries a confidence penalty proportional to how much of the
+template it covers — <code>"say *"</code> is one wildcard out of two tokens, so the score
+drops from <code>1.0</code> to <code>0.85</code>. Entity placeholders like <code>{number}</code> are not
+wildcards and carry no penalty. An entity value that was never registered with
+<code>add_entity</code> still matches but at a reduced confidence (around <code>0.9</code>).</p>
 
 
 

@@ -3406,6 +3406,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3645,6 +3729,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3692,6 +3797,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4051,6 +4177,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -4770,9 +4917,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#async-alternative" class="md-nav__link">
+  <a href="#async-alternative-upcoming" class="md-nav__link">
     <span class="md-ellipsis">
-      Async alternative
+      Async alternative (upcoming)
     </span>
   </a>
   
@@ -5866,9 +6013,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#async-alternative" class="md-nav__link">
+  <a href="#async-alternative-upcoming" class="md-nav__link">
     <span class="md-ellipsis">
-      Async alternative
+      Async alternative (upcoming)
     </span>
   </a>
   
@@ -5896,7 +6043,7 @@
 <p><strong>Module:</strong> <code>ovos_bus_client.client.client.MessageBusClient</code></p>
 <p><code>MessageBusClient</code> is a WebSocket client that connects to the OVOS <code>ovos-messagebus</code> service and provides an event-emitter interface over it.</p>
 <h2 id="connection">Connection<a class="headerlink" href="#connection" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">MessageBusClient</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client</span> <span class="kn">import</span> <span class="n">MessageBusClient</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Default config from mycroft.conf (websocket section)</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">bus</span> <span class="o">=</span> <span class="n">MessageBusClient</span><span class="p">()</span>
@@ -5925,7 +6072,7 @@
 <p>Each <code>MessageBusClient</code> instance is associated with a <code>Session</code>. On construction a default session is assigned. The client listens for <code>ovos.session.update_default</code> to keep the local session in sync with core.</p>
 <hr />
 <h2 id="emitting-messages">Emitting Messages<a class="headerlink" href="#emitting-messages" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;speak&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;utterance&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello&quot;</span><span class="p">}))</span>
 </span></code></pre></div>
@@ -5976,7 +6123,7 @@
 <p>Returns a list of all <code>Message</code> responses received within the timeout window. <code>direct_return_func</code> enables early return when a sufficiently good result arrives.</p>
 <p>The framework adds <code>__collect_id__</code> to <code>message.context</code> to correlate responses.</p>
 <h3 id="handler-side-on_collect">Handler side: <code>on_collect</code><a class="headerlink" href="#handler-side-on_collect" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">my_handler</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="n">CollectionMessage</span><span class="p">):</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span> <span class="nf">my_handler</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="n">CollectionMessage</span><span class="p">):</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="c1"># Acknowledge immediately</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="c1"># (the ack is sent automatically by the wrapper)</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">answer</span> <span class="o">=</span> <span class="n">compute_answer</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;phrase&quot;</span><span class="p">])</span>
@@ -6027,7 +6174,7 @@
 <hr />
 <h2 id="guiwebsocketclient"><code>GUIWebsocketClient</code><a class="headerlink" href="#guiwebsocketclient" title="Permanent link">&para;</a></h2>
 <p>A subclass of <code>MessageBusClient</code> for the separate GUI WebSocket endpoint:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">GUIWebsocketClient</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.client</span> <span class="kn">import</span> <span class="n">GUIWebsocketClient</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">gui_bus</span> <span class="o">=</span> <span class="n">GUIWebsocketClient</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">18181</span><span class="p">,</span> <span class="n">route</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
 </span></code></pre></div>
@@ -6053,16 +6200,14 @@
 </span></code></pre></div>
 <p>See <a href="../configuration-ref/">configuration.md</a> for details.</p>
 <hr />
-<h2 id="async-alternative">Async alternative<a class="headerlink" href="#async-alternative" title="Permanent link">&para;</a></h2>
-<p>If your application already uses <code>asyncio</code>, use <code>AsyncMessageBusClient</code> instead.
-It provides the same <code>emit</code>, <code>wait_for_response</code>, <code>wait_for_message</code>, and <code>collect_responses</code> interface as coroutines, with no threads required.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncMessageBusClient</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">bus</span> <span class="o">=</span> <span class="n">AsyncMessageBusClient</span><span class="p">()</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">await</span> <span class="n">bus</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="k">await</span> <span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;speak&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;utterance&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello&quot;</span><span class="p">}))</span>
-</span></code></pre></div>
-<p>See <a href="../async-client/">async_client.md</a> for the full reference and benchmarks.</p>
+<h2 id="async-alternative-upcoming">Async alternative (upcoming)<a class="headerlink" href="#async-alternative-upcoming" title="Permanent link">&para;</a></h2>
+<p>An asyncio-native <code>AsyncMessageBusClient</code> is proposed in draft PR
+<a href="https://github.com/OpenVoiceOS/ovos-bus-client/pull/200">OpenVoiceOS/ovos-bus-client#200</a>.
+It would provide the same <code>emit</code>, <code>wait_for_response</code>, <code>wait_for_message</code>, and
+<code>collect_responses</code> interface as coroutines, with no threads required. It is <strong>not
+yet released</strong> — until <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-technical-manual/issues/200" title="GitHub Issue: TigreGotico/ovos-technical-manual #200">#200</a> merges, the synchronous <code>MessageBusClient</code> on this page
+is the only client. See <a href="../async-client/">async_client.md</a> for the proposed
+reference and benchmarks.</p>
 
 
 

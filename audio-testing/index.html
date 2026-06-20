@@ -3129,6 +3129,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#your-first-audio-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Your first audio test
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#when-to-use-which-harness" class="md-nav__link">
     <span class="md-ellipsis">
       When to Use Which Harness
@@ -3574,6 +3583,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3813,6 +3906,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3860,6 +3974,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4219,6 +4354,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5664,6 +5820,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#your-first-audio-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Your first audio test
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#when-to-use-which-harness" class="md-nav__link">
     <span class="md-ellipsis">
       When to Use Which Harness
@@ -5811,11 +5976,36 @@
 
 
 <h1 id="audio-testing-with-ovoscope">Audio Testing with ovoscope<a class="headerlink" href="#audio-testing-with-ovoscope" title="Permanent link">&para;</a></h1>
-<p>This document describes how to test <code>ovos-audio</code> services using the harness
-classes provided in <code>ovoscope.audio</code>.</p>
+<p>This page tests the <strong><code>ovos-audio</code> services</strong> — the <code>AudioService</code> (media
+playback / ducking) and the <code>PlaybackService</code> (TTS speak lifecycle) — using the
+mock backends and context-manager harnesses in <code>ovoscope.audio</code>. It is the
+counterpart to <a href="../skill-testing/">Skill Testing</a>, which stops at the
+<code>recognizer_loop:utterance</code> level and never touches TTS or audio output.</p>
+<h2 id="your-first-audio-test">Your first audio test<a class="headerlink" href="#your-first-audio-test" title="Permanent link">&para;</a></h2>
+<p>If you just want to assert that something gets <em>spoken</em>, you do not need the
+audio service at all — the skill-level <code>End2EndTest.assert_spoke()</code> is simpler.
+Reach for the harnesses on this page when you need to verify the <strong>audio
+service plumbing itself</strong>: backend selection, volume ducking, the speak
+lifecycle events, or mic re-listen after a prompt.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovoscope.audio</span> <span class="kn">import</span> <span class="n">PlaybackServiceHarness</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">with</span> <span class="n">PlaybackServiceHarness</span><span class="p">()</span> <span class="k">as</span> <span class="n">h</span><span class="p">:</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">h</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">h</span><span class="o">.</span><span class="n">assert_spoke</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
+</span></code></pre></div>
 <blockquote>
-<p><strong>Prerequisite:</strong> Audio testing harnesses require the <code>audio</code> extra.
-Install it with: <code>pip install ovoscope[audio]</code> (or <code>ovos-audio</code> which includes it).</p>
+<p><strong>Prerequisite — the <code>audio</code> extra.</strong> The harnesses import <code>ovos_audio</code> lazily
+on <code>__enter__</code>, so <code>from ovoscope.audio import ...</code> succeeds without it, but
+using a harness raises <code>ImportError</code> unless <code>ovos-audio</code> is installed. Install
+the extra:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovoscope[audio]&quot;</span>
+</span></code></pre></div>
+<p>The <code>audio</code> extra pulls <code>ovos-audio&gt;=1.2.0</code>. (A separate <code>tts</code> extra adds
+<code>jiwer</code> + a reference STT plugin for TTS <em>intelligibility</em> scoring — that is a
+different harness, not needed here.) These classes are also re-exported at the
+top level (<code>from ovoscope import PlaybackServiceHarness</code>), but only when
+<code>ovos_audio</code> is importable; they are silently absent otherwise, so importing
+straight from <code>ovoscope.audio</code> is the reliable form.</p>
 </blockquote>
 <h2 id="when-to-use-which-harness">When to Use Which Harness<a class="headerlink" href="#when-to-use-which-harness" title="Permanent link">&para;</a></h2>
 <table>
@@ -5846,15 +6036,15 @@ Install it with: <code>pip install ovoscope[audio]</code> (or <code>ovos-audio</
 <code>FakeBus</code>. Use it when your test exercises the audio routing layer — backend
 selection by URI scheme, volume ducking on speech events, the 1-second stop
 guard, or session-source validation.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope.audio</span><span class="w"> </span><span class="kn">import</span> <span class="n">AudioServiceHarness</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">with</span> <span class="n">AudioServiceHarness</span><span class="p">()</span> <span class="k">as</span> <span class="n">h</span><span class="p">:</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">h</span><span class="o">.</span><span class="n">play</span><span class="p">([</span><span class="s2">&quot;http://example.com/track.mp3&quot;</span><span class="p">])</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">h</span><span class="o">.</span><span class="n">assert_playing</span><span class="p">()</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="c1"># Duck the volume as OVOS starts speaking</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">h</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;recognizer_loop:audio_output_start&quot;</span><span class="p">))</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">h</span><span class="o">.</span><span class="n">assert_volume_lowered</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovoscope.audio</span> <span class="kn">import</span> <span class="n">AudioServiceHarness</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">with</span> <span class="n">AudioServiceHarness</span><span class="p">()</span> <span class="k">as</span> <span class="n">h</span><span class="p">:</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">h</span><span class="o">.</span><span class="n">play</span><span class="p">([</span><span class="s2">&quot;http://example.com/track.mp3&quot;</span><span class="p">])</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">h</span><span class="o">.</span><span class="n">assert_playing</span><span class="p">()</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="c1"># Duck the volume as OVOS starts speaking</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">h</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;recognizer_loop:audio_output_start&quot;</span><span class="p">))</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">h</span><span class="o">.</span><span class="n">assert_volume_lowered</span><span class="p">()</span>
 </span></code></pre></div>
 <h3 id="playbackserviceharness">PlaybackServiceHarness<a class="headerlink" href="#playbackserviceharness" title="Permanent link">&para;</a></h3>
 <p><code>PlaybackServiceHarness</code> — <code>ovoscope/audio.py</code></p>
@@ -5862,26 +6052,28 @@ guard, or session-source validation.</p>
 <code>FakeBus</code>. Use it when testing TTS execution flow: <code>speak</code> messages, the
 <code>recognizer_loop:audio_output_start/end</code> lifecycle, and optional mic-listen
 triggers after speech.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope.audio</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlaybackServiceHarness</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">with</span> <span class="n">PlaybackServiceHarness</span><span class="p">()</span> <span class="k">as</span> <span class="n">h</span><span class="p">:</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">h</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">h</span><span class="o">.</span><span class="n">assert_spoke</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">h</span><span class="o">.</span><span class="n">assert_audio_output_ended</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovoscope.audio</span> <span class="kn">import</span> <span class="n">PlaybackServiceHarness</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">with</span> <span class="n">PlaybackServiceHarness</span><span class="p">()</span> <span class="k">as</span> <span class="n">h</span><span class="p">:</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">h</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">h</span><span class="o">.</span><span class="n">assert_spoke</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">h</span><span class="o">.</span><span class="n">assert_audio_output_ended</span><span class="p">()</span>
 </span></code></pre></div>
 <h2 id="stop-guard-pitfall">Stop Guard Pitfall<a class="headerlink" href="#stop-guard-pitfall" title="Permanent link">&para;</a></h2>
-<p><code>AudioService._stop()</code> — <code>ovos-audio/ovos_audio/audio.py</code> — checks
-<code>time.monotonic() - self.play_start_time &gt; 1</code>. If stop is called within 1
-second of <code>play()</code>, the stop command is silently ignored.</p>
-<p><strong>Tests that call <code>stop()</code> must sleep at least 1.1 seconds after <code>play()</code>:</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope.audio</span><span class="w"> </span><span class="kn">import</span> <span class="n">AudioServiceHarness</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">with</span> <span class="n">AudioServiceHarness</span><span class="p">()</span> <span class="k">as</span> <span class="n">h</span><span class="p">:</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">h</span><span class="o">.</span><span class="n">play</span><span class="p">([</span><span class="s2">&quot;http://example.com/song.mp3&quot;</span><span class="p">])</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.1</span><span class="p">)</span>   <span class="c1"># bypass stop guard</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">h</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">h</span><span class="o">.</span><span class="n">assert_stopped</span><span class="p">()</span>
+<p><code>AudioService._stop()</code> — <code>ovos-audio/ovos_audio/audio.py</code> — ignores a stop that
+arrives within ~1 second of <code>play()</code> (it compares <code>time.monotonic()</code> against
+<code>self.play_start_time</code>). If your test calls <code>stop()</code> immediately after <code>play()</code>,
+the stop is silently dropped and <code>assert_stopped()</code> fails.</p>
+<p>Sleeping 1.1 s works but is slow. The canonical, instant bypass is to backdate
+the service's <code>play_start_time</code> so the guard sees an old playback:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span> <span class="nn">time</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">ovoscope.audio</span> <span class="kn">import</span> <span class="n">AudioServiceHarness</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">with</span> <span class="n">AudioServiceHarness</span><span class="p">()</span> <span class="k">as</span> <span class="n">h</span><span class="p">:</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">h</span><span class="o">.</span><span class="n">play</span><span class="p">([</span><span class="s2">&quot;http://example.com/song.mp3&quot;</span><span class="p">])</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">h</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">play_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">-</span> <span class="mf">2.0</span>   <span class="c1"># bypass the stop guard</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">h</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">h</span><span class="o">.</span><span class="n">assert_stopped</span><span class="p">()</span>
 </span></code></pre></div>
 <h2 id="play_audio-patch-rationale">play_audio Patch Rationale<a class="headerlink" href="#play_audio-patch-rationale" title="Permanent link">&para;</a></h2>
 <p><code>PlaybackThread._play()</code> — <code>ovos-audio/ovos_audio/playback.py</code> — calls
@@ -5896,22 +6088,22 @@ that does not work for synchronous in-process handlers. When a service handler
 emits a reply synchronously (before <code>wait_for_response</code> sets up its internal
 listener), the reply is lost.</p>
 <p>Use the subscribe-emit-wait pattern instead:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope.audio</span><span class="w"> </span><span class="kn">import</span> <span class="n">AudioServiceHarness</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">reply_data</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">done</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">_on_reply</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">reply_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">done</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">with</span> <span class="n">AudioServiceHarness</span><span class="p">()</span> <span class="k">as</span> <span class="n">h</span><span class="p">:</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">h</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">&quot;mycroft.audio.service.track_info_reply&quot;</span><span class="p">,</span> <span class="n">_on_reply</span><span class="p">)</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="n">h</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;mycroft.audio.service.track_info&quot;</span><span class="p">))</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="n">done</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="n">h</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;mycroft.audio.service.track_info_reply&quot;</span><span class="p">,</span> <span class="n">_on_reply</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span> <span class="nn">threading</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">ovoscope.audio</span> <span class="kn">import</span> <span class="n">AudioServiceHarness</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">reply_data</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">done</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="k">def</span> <span class="nf">_on_reply</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">reply_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="n">done</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="k">with</span> <span class="n">AudioServiceHarness</span><span class="p">()</span> <span class="k">as</span> <span class="n">h</span><span class="p">:</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="n">h</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">&quot;mycroft.audio.service.track_info_reply&quot;</span><span class="p">,</span> <span class="n">_on_reply</span><span class="p">)</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    <span class="n">h</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;mycroft.audio.service.track_info&quot;</span><span class="p">))</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    <span class="n">done</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>    <span class="n">h</span><span class="o">.</span><span class="n">bus</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;mycroft.audio.service.track_info_reply&quot;</span><span class="p">,</span> <span class="n">_on_reply</span><span class="p">)</span>
 </span></code></pre></div>
 <p><code>AudioServiceHarness.get_track_info()</code> and <code>list_backends()</code> already implement
 this pattern internally — <code>ovoscope/audio.py</code>.</p>
@@ -6000,12 +6192,12 @@ this pattern internally — <code>ovoscope/audio.py</code>.</p>
 <td>Emit queue message</td>
 </tr>
 <tr>
-<td><code>get_track_info()</code></td>
-<td>Subscribe, emit, wait, return reply data dict</td>
+<td><code>get_track_info(timeout=2.0)</code></td>
+<td>Subscribe, emit, wait; return reply data dict or <code>None</code> on timeout</td>
 </tr>
 <tr>
-<td><code>list_backends()</code></td>
-<td>Subscribe, emit, wait, return reply data dict</td>
+<td><code>list_backends(timeout=2.0)</code></td>
+<td>Subscribe, emit, wait; return reply data dict or <code>None</code> on timeout</td>
 </tr>
 <tr>
 <td><code>assert_playing()</code></td>
@@ -6029,6 +6221,11 @@ this pattern internally — <code>ovoscope/audio.py</code>.</p>
 </tr>
 </tbody>
 </table>
+<p>Constructor: <code>AudioServiceHarness(backend_name="mock", validate_source=False,
+disable_ocp=True)</code>. Set <code>validate_source=True</code> to exercise session-source
+validation; leave <code>disable_ocp=True</code> so no real OCP plugin is discovered. The
+injected <code>MockAudioBackend</code> is reachable as <code>h.backend</code> and the live
+<code>AudioService</code> as <code>h.service</code>.</p>
 <h3 id="mocktts">MockTTS<a class="headerlink" href="#mocktts" title="Permanent link">&para;</a></h3>
 <p><code>MockTTS</code> — <code>ovoscope/audio.py</code></p>
 <table>
@@ -6068,31 +6265,36 @@ this pattern internally — <code>ovoscope/audio.py</code>.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>speak(utterance, expect_response=False, timeout=5.0)</code></td>
-<td>Emit speak, wait for audio_output_end</td>
+<td><code>speak(utterance, expect_response=False, timeout=10.0)</code></td>
+<td>Emit <code>speak</code>, wait for <code>recognizer_loop:audio_output_end</code>; raises <code>TimeoutError</code> if playback never finishes</td>
 </tr>
 <tr>
 <td><code>stop()</code></td>
-<td>Emit mycroft.stop</td>
+<td>Emit <code>mycroft.stop</code></td>
 </tr>
 <tr>
 <td><code>assert_spoke(text)</code></td>
-<td>Raise if text not in mock_tts.spoken_utterances</td>
+<td>Raise if <code>text</code> not in <code>mock_tts.spoken_utterances</code></td>
 </tr>
 <tr>
 <td><code>assert_audio_output_started(timeout=3.0)</code></td>
-<td>Raise if event not fired</td>
+<td>Raise if <code>recognizer_loop:audio_output_start</code> not fired</td>
 </tr>
 <tr>
 <td><code>assert_audio_output_ended(timeout=3.0)</code></td>
-<td>Raise if event not fired</td>
+<td>Raise if <code>recognizer_loop:audio_output_end</code> not fired</td>
 </tr>
 <tr>
 <td><code>assert_mic_listen(timeout=3.0)</code></td>
-<td>Raise if mycroft.mic.listen not fired</td>
+<td>Raise if <code>mycroft.mic.listen</code> not fired</td>
 </tr>
 </tbody>
 </table>
+<p>The constructor is <code>PlaybackServiceHarness(validate_source=False,
+disable_ocp=True, tts=None)</code>. Pass a real <code>TTS</code> plugin as <code>tts=</code> to synthesise
+actual audio — the rendered WAV path of each utterance is then captured in
+<code>h.captured_wavs</code>; with the default <code>MockTTS</code> a silent 44-byte WAV is written
+and only the sentence text is recorded.</p>
 <h3 id="audiocapturesession">AudioCaptureSession<a class="headerlink" href="#audiocapturesession" title="Permanent link">&para;</a></h3>
 <p><code>AudioCaptureSession</code> — <code>ovoscope/audio.py</code></p>
 <table>

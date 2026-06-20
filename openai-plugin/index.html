@@ -3408,6 +3408,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3601,29 +3685,14 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Persona Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#standard-persona-ovos-persona-100" class="md-nav__link">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rag-memory-opmagentsmemory" class="md-nav__link">
     <span class="md-ellipsis">
-      Standard persona (ovos-persona &gt;= 1.0.0)
+      RAG Memory (opm.agents.memory)
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#legacy-persona-ovos-persona-100" class="md-nav__link">
-    <span class="md-ellipsis">
-      Legacy persona (ovos-persona &lt; 1.0.0)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -3870,6 +3939,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3917,6 +4007,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4279,6 +4390,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5808,29 +5940,14 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Persona Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#standard-persona-ovos-persona-100" class="md-nav__link">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rag-memory-opmagentsmemory" class="md-nav__link">
     <span class="md-ellipsis">
-      Standard persona (ovos-persona &gt;= 1.0.0)
+      RAG Memory (opm.agents.memory)
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#legacy-persona-ovos-persona-100" class="md-nav__link">
-    <span class="md-ellipsis">
-      Legacy persona (ovos-persona &lt; 1.0.0)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -5928,10 +6045,11 @@ proxies, and <a href="../persona-server/"><code>ovos-persona-server</code></a>.<
 <p>Install: <code>pip install ovos-openai-plugin</code></p>
 <p>Repository: <code>OpenVoiceOS Workspace/Agent Plugins/ovos-openai-plugin</code></p>
 <div class="admonition note">
-<p class="admonition-title">Version compatibility</p>
-<p><code>ovos-persona &gt;= 1.0.0</code> is required for <code>ovos-chat-openai-plugin</code>. If you cannot upgrade
-<code>ovos-persona</code>, pin <code>ovos-openai-plugin &lt;= 2.0.6</code> which ships the legacy
-<code>ovos-solver-openai-plugin</code> entry point instead.</p>
+<p class="admonition-title">Removed legacy solver</p>
+<p>The old <code>ovos-solver-openai-plugin</code> entry point and the <code>OpenAIChatCompletionsSolver</code> /
+<code>OpenAICompletionsSolver</code> classes no longer exist. Personas that referenced them must
+switch to the <code>ovos-chat-openai-plugin</code> agent engine (still listed under a persona's
+<code>solvers</code> / <code>handlers</code> key, which <code>ovos-persona</code> accepts).</p>
 </div>
 <hr />
 <h2 id="plugins-overview">Plugins Overview<a class="headerlink" href="#plugins-overview" title="Permanent link">&para;</a></h2>
@@ -5939,6 +6057,7 @@ proxies, and <a href="../persona-server/"><code>ovos-persona-server</code></a>.<
 <thead>
 <tr>
 <th>Entry point</th>
+<th>Plugin name</th>
 <th>Class</th>
 <th>Purpose</th>
 </tr>
@@ -5946,31 +6065,51 @@ proxies, and <a href="../persona-server/"><code>ovos-persona-server</code></a>.<
 <tbody>
 <tr>
 <td><code>opm.agents.chat</code></td>
+<td><code>ovos-chat-openai-plugin</code></td>
 <td><code>OpenAIChatEngine</code></td>
 <td>Multi-turn chat for <a href="../personas/">personas</a></td>
 </tr>
 <tr>
-<td><code>opm.transformer.dialog</code></td>
-<td><code>OpenAIDialogTransformer</code></td>
-<td>Rewrite <a href="../tts-plugins/">TTS</a> dialog in a different voice or style</td>
+<td><code>opm.agents.memory</code></td>
+<td><code>ovos-openai-rag-memory-plugin</code></td>
+<td><code>PersonaServerRAGMemory</code></td>
+<td>RAG memory backed by an <code>ovos-persona-server</code> vector store</td>
 </tr>
 <tr>
 <td><code>opm.agents.summarizer</code></td>
+<td><code>ovos-summarizer-openai-plugin</code></td>
 <td><code>OpenAISummarizer</code></td>
 <td>Summarize arbitrary text</td>
 </tr>
 <tr>
+<td><code>opm.transformer.dialog</code></td>
+<td><code>ovos-dialog-transformer-openai-plugin</code></td>
+<td><code>OpenAIDialogTransformer</code></td>
+<td>Rewrite <a href="../tts-plugins/">TTS</a> dialog in a different voice or style</td>
+</tr>
+<tr>
 <td><code>opm.lang.translate</code></td>
+<td><code>ovos-translate-openai-plugin</code></td>
 <td><code>OpenAITextTranslator</code></td>
 <td>Translate text between languages</td>
 </tr>
 <tr>
 <td><code>opm.lang.detect</code></td>
+<td><code>ovos-lang-detect-openai-plugin</code></td>
 <td><code>OpenAITextLangDetector</code></td>
 <td>Detect the language of text</td>
 </tr>
+<tr>
+<td><code>opm.plugin.persona</code></td>
+<td><code>Remote Llama</code></td>
+<td>(pre-built persona)</td>
+<td>Demo persona pointing at a public ollama/LLama server</td>
+</tr>
 </tbody>
 </table>
+<p>All engines wrap the same <code>OpenAIChatCompletions</code> API client, so any OpenAI-compatible Chat
+Completions server (OpenAI, ollama, llama.cpp, vLLM, LocalAI, <code>ovos-persona-server</code>, …) works
+by pointing <code>api_url</code> at its <code>/v1</code> base.</p>
 <hr />
 <h2 id="common-configuration-keys">Common Configuration Keys<a class="headerlink" href="#common-configuration-keys" title="Permanent link">&para;</a></h2>
 <p>All plugins wrap <code>OpenAIChatCompletions</code> internally.</p>
@@ -5988,24 +6127,24 @@ proxies, and <a href="../persona-server/"><code>ovos-persona-server</code></a>.<
 <td><code>api_url</code></td>
 <td><code>str</code></td>
 <td><code>https://api.openai.com/v1</code></td>
-<td>Base URL of the Chat Completions endpoint. Change this for local or self-hosted models.</td>
+<td>Base URL (the <code>/v1</code> root). <code>/chat/completions</code> is appended automatically. Change for local/self-hosted servers.</td>
 </tr>
 <tr>
 <td><code>key</code></td>
 <td><code>str</code></td>
 <td><code>""</code></td>
-<td>API key sent as a Bearer token. Use <code>"sk-nokey"</code> for servers that don't require auth.</td>
+<td>API key sent as a Bearer token. Omit (or use <code>"sk-nokey"</code>) for servers that don't require auth.</td>
 </tr>
 <tr>
 <td><code>model</code></td>
 <td><code>str</code></td>
-<td><code>""</code></td>
-<td>Model identifier (e.g. <code>gpt-4o</code>, <code>llama3.1:8b</code>). Required by most backends.</td>
+<td><code>gpt-4o-mini</code></td>
+<td>Model identifier (e.g. <code>gpt-4o</code>, <code>llama3.1:8b</code>).</td>
 </tr>
 <tr>
 <td><code>max_tokens</code></td>
 <td><code>int</code></td>
-<td><code>100</code></td>
+<td><code>300</code></td>
 <td>Maximum number of tokens in the completion.</td>
 </tr>
 <tr>
@@ -6138,32 +6277,101 @@ This lets you keep API keys on a single server and offload LLM computation:</p>
 </span></code></pre></div>
 <hr />
 <h2 id="persona-configuration">Persona Configuration<a class="headerlink" href="#persona-configuration" title="Permanent link">&para;</a></h2>
-<h3 id="standard-persona-ovos-persona-100">Standard persona (ovos-persona &gt;= 1.0.0)<a class="headerlink" href="#standard-persona-ovos-persona-100" title="Permanent link">&para;</a></h3>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My Local LLM&quot;</span><span class="p">,</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;memory_module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-agents-short-term-memory-plugin&quot;</span><span class="p">,</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">&quot;handlers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ovos-chat-openai-plugin&quot;</span><span class="p">],</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">&quot;ovos-chat-openai-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nt">&quot;api_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost:11434/v1&quot;</span><span class="p">,</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sk-nokey&quot;</span><span class="p">,</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;llama3.1:8b&quot;</span><span class="p">,</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="nt">&quot;system_prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;You are a helpful assistant who gives short and factual answers in twenty words or fewer.&quot;</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="p">}</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;handlers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ovos-chat-openai-plugin&quot;</span><span class="p">],</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">&quot;ovos-chat-openai-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">&quot;api_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost:11434/v1&quot;</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sk-nokey&quot;</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;llama3.1:8b&quot;</span><span class="p">,</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="nt">&quot;system_prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;You are a helpful assistant who gives short and factual answers in twenty words or fewer.&quot;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
 </span></code></pre></div>
-<h3 id="legacy-persona-ovos-persona-100">Legacy persona (ovos-persona &lt; 1.0.0)<a class="headerlink" href="#legacy-persona-ovos-persona-100" title="Permanent link">&para;</a></h3>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My Local LLM&quot;</span><span class="p">,</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;solvers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ovos-solver-openai-plugin&quot;</span><span class="p">],</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;ovos-solver-openai-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">&quot;api_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost:11434/v1&quot;</span><span class="p">,</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sk-nokey&quot;</span><span class="p">,</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;llama3.1:8b&quot;</span><span class="p">,</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nt">&quot;system_prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;You are a helpful assistant.&quot;</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">}</span>
-</span></code></pre></div>
+<p>A persona's chat engine can equally be listed under the <code>solvers</code> key — <code>ovos-persona</code>
+accepts either <code>handlers</code> or <code>solvers</code> and dispatches the same way.</p>
 <p>Activate by voice: <code>"Chat with My Local LLM"</code>.</p>
+<hr />
+<h2 id="rag-memory-opmagentsmemory">RAG Memory (<code>opm.agents.memory</code>)<a class="headerlink" href="#rag-memory-opmagentsmemory" title="Permanent link">&para;</a></h2>
+<p><strong>Class:</strong> <code>PersonaServerRAGMemory</code> — <code>ovos_openai_plugin/rag_memory.py:PersonaServerRAGMemory</code></p>
+<p><strong>OPM plugin name:</strong> <code>ovos-openai-rag-memory-plugin</code></p>
+<p>A persona <code>memory_module</code> (an <code>AgentContextManager</code>). Before each turn it queries a vector store
+hosted by an <a href="../persona-server/"><code>ovos-persona-server</code></a> and injects the retrieved chunks into the
+conversation context; the persona's normal chat engine still generates the answer, so RAG
+composes with any chat backend. This is the server/OpenAI-coupled memory backend — local-only
+memory plugins live in <code>ovos-memory-plugins</code> instead.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>api_url</code></td>
+<td><code>str</code></td>
+<td><code>null</code></td>
+<td>Base URL of the persona-server's OpenAI-compatible API (e.g. <code>http://localhost:8337/openai/v1</code>).</td>
+</tr>
+<tr>
+<td><code>vector_store_id</code></td>
+<td><code>str</code></td>
+<td>—</td>
+<td>Vector store to search.</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td><code>str</code></td>
+<td><code>null</code></td>
+<td>Optional bearer token.</td>
+</tr>
+<tr>
+<td><code>inject_mode</code></td>
+<td><code>str</code></td>
+<td><code>system</code></td>
+<td>How retrieved context is added: <code>system</code> / <code>system_prompt</code> / <code>developer</code> / <code>user</code> / <code>tool</code>.</td>
+</tr>
+<tr>
+<td><code>retrieval</code></td>
+<td><code>dict</code></td>
+<td>—</td>
+<td>Sub-block: <code>max_num_results</code>, <code>min_score</code>, <code>query_mode</code> (<code>utterance</code>/<code>history</code>), <code>query_history_turns</code>.</td>
+</tr>
+<tr>
+<td><code>context</code></td>
+<td><code>dict</code></td>
+<td>—</td>
+<td>Sub-block: <code>header</code>, <code>chunk_prefix</code>, <code>chunk_separator</code>, <code>include_sources</code>, <code>tool_name</code>.</td>
+</tr>
+<tr>
+<td><code>system_prompt</code></td>
+<td><code>str</code></td>
+<td><code>null</code></td>
+<td>Base system prompt (kept stable for caching when <code>inject_mode="system"</code>).</td>
+</tr>
+<tr>
+<td><code>max_history</code></td>
+<td><code>int</code></td>
+<td><code>10</code></td>
+<td>Conversation turns retained.</td>
+</tr>
+</tbody>
+</table>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kb-assistant&quot;</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;solvers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ovos-chat-openai-plugin&quot;</span><span class="p">],</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;memory_module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-openai-rag-memory-plugin&quot;</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">&quot;ovos-openai-rag-memory-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">&quot;api_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://localhost:8337/openai/v1&quot;</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">&quot;vector_store_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vs_...&quot;</span><span class="p">,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="nt">&quot;inject_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;system&quot;</span><span class="p">,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nt">&quot;retrieval&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;max_num_results&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;utterance&quot;</span><span class="p">}</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">}</span>
+</span></code></pre></div>
 <hr />
 <h2 id="dialog-transformer-opmtransformerdialog">Dialog <a href="../transformer-plugins/">Transformer</a> (<code>opm.transformer.dialog</code>)<a class="headerlink" href="#dialog-transformer-opmtransformerdialog" title="Permanent link">&para;</a></h2>
 <p><strong>Class:</strong> <code>OpenAIDialogTransformer</code> — <code>ovos_openai_plugin/dialog_transformers.py:OpenAIDialogTransformer</code></p>
@@ -6298,7 +6506,7 @@ for consumption by skills before TTS, not directly by end-users.</p>
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="p">}</span>
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_openai_plugin.translate</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAITextTranslator</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span> <span class="nn">ovos_openai_plugin.translate</span> <span class="kn">import</span> <span class="n">OpenAITextTranslator</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">translator</span> <span class="o">=</span> <span class="n">OpenAITextTranslator</span><span class="p">({</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;sk-...&quot;</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">})</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">result</span> <span class="o">=</span> <span class="n">translator</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;pt-pt&quot;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;en-us&quot;</span><span class="p">)</span>
@@ -6320,7 +6528,7 @@ for consumption by skills before TTS, not directly by end-users.</p>
 </span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="p">}</span>
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_openai_plugin.translate</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAITextLangDetector</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span> <span class="nn">ovos_openai_plugin.translate</span> <span class="kn">import</span> <span class="n">OpenAITextLangDetector</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">detector</span> <span class="o">=</span> <span class="n">OpenAITextLangDetector</span><span class="p">({</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;sk-...&quot;</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">})</span>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">lang</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="s2">&quot;The quick brown fox jumps over the lazy dog&quot;</span><span class="p">)</span>

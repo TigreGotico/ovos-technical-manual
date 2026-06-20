@@ -3408,6 +3408,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3650,6 +3734,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3697,6 +3802,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -3936,9 +4062,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#21-template-handlers" class="md-nav__link">
+  <a href="#template-handlers" class="md-nav__link">
     <span class="md-ellipsis">
-      21 template handlers
+      Template handlers
     </span>
   </a>
   
@@ -3948,6 +4074,15 @@
   <a href="#lifecycle-hooks" class="md-nav__link">
     <span class="md-ellipsis">
       Lifecycle hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dispatch
     </span>
   </a>
   
@@ -4186,6 +4321,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5650,9 +5806,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#21-template-handlers" class="md-nav__link">
+  <a href="#template-handlers" class="md-nav__link">
     <span class="md-ellipsis">
-      21 template handlers
+      Template handlers
     </span>
   </a>
   
@@ -5662,6 +5818,15 @@
   <a href="#lifecycle-hooks" class="md-nav__link">
     <span class="md-ellipsis">
       Lifecycle hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dispatch
     </span>
   </a>
   
@@ -5736,28 +5901,47 @@
 
 
 <h1 id="gui-adapter-plugins">GUI Adapter Plugins<a class="headerlink" href="#gui-adapter-plugins" title="Permanent link">&para;</a></h1>
-<p>GUI adapter plugins are the rendering backends for <code>ovos-gui</code>.  Each adapter
-receives template events from <code>NamespaceManager</code> and translates them into
-whatever protocol or framework it needs (Qt WebSocket, HTTP+SSE, curses, etc.).</p>
-<p>Multiple adapters can be installed simultaneously — every template event is
-dispatched to <strong>all</strong> loaded adapters concurrently, enabling multi-modal rendering.</p>
+<div class="admonition warning">
+<p class="admonition-title">Upcoming — unreleased</p>
+<p>This whole page describes the <strong>GUI-rendering rework</strong>, which is <strong>not yet released</strong>.
+Nothing here is available on a stable install. It is specified by the <strong>OVOS-GUI-1</strong>
+spec (<a href="https://github.com/OpenVoiceOS/architecture/pull/63">OpenVoiceOS/architecture#63</a>)
+and implemented across these PRs/branches:</p>
+<ul>
+<li><code>ovos-plugin-manager</code> @ <code>gui</code> — <code>AbstractGUIPlugin</code>, <code>opm.gui_adapter</code> plugin type,
+  <code>OVOSGUIAdapterFactory</code></li>
+<li><a href="https://github.com/OpenVoiceOS/ovos-gui/pull/112">ovos-gui#112</a> @ <code>feat/gui-rework-landing</code> — the router that dispatches to adapters</li>
+<li><code>ovos-gui-api-client</code> — the template-based <code>GUIInterface</code></li>
+<li><a href="https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3">ovos-legacy-mycroft-gui-plugin#3</a> @ <code>feat/session-id-contract</code> — the Qt adapter</li>
+<li><a href="https://github.com/OpenVoiceOS/pyhtmx-gui-client/pull/1">pyhtmx-gui-client#1</a> @ <code>feat/gui-adapter</code> — the browser/HTMX adapter</li>
+</ul>
+<p>The per-call routing argument is <strong><code>session_id</code></strong>. Per OVOS-GUI-1, this is the sole
+routing key — there is no separate site/room/location dimension; a shared/multi-room
+screen is expressed by its clients sharing one <code>session_id</code>. The landing PRs rename the
+earlier <code>site_id</code> parameter to <code>session_id</code> throughout the adapter contract.</p>
+</div>
+<p>In the rework, <code>ovos-gui</code> no longer renders or talks to Qt clients directly. It becomes a
+router that dispatches each display event to every installed <strong>GUI adapter plugin</strong>. Each
+adapter translates template events into whatever protocol it needs (Qt WebSocket,
+HTTP+SSE, curses, …). Multiple adapters can run at once, enabling multi-modal output.</p>
 <h2 id="entry-point">Entry point<a class="headerlink" href="#entry-point" title="Permanent link">&para;</a></h2>
-<p>Adapters are discovered via the <code>opm.gui_adapter</code> entry point group:</p>
+<p>Adapters are discovered via the <code>opm.gui_adapter</code> entry-point group:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.gui_adapter&quot;</span><span class="k">]</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="s2">&quot;my-adapter&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_package:MyGUIPlugin&quot;</span>
 </span></code></pre></div>
-<p>The class must extend <code>AbstractGUIPlugin</code> from <code>ovos-plugin-manager</code>.</p>
+<p>The class extends <code>AbstractGUIPlugin</code> from <code>ovos_plugin_manager.templates.gui</code>.</p>
 <h2 id="abstractguiplugin"><code>AbstractGUIPlugin</code><a class="headerlink" href="#abstractguiplugin" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.templates.gui</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractGUIPlugin</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.gui</span> <span class="kn">import</span> <span class="n">AbstractGUIPlugin</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyGUIPlugin</span><span class="p">(</span><span class="n">AbstractGUIPlugin</span><span class="p">):</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">class</span> <span class="nc">MyGUIPlugin</span><span class="p">(</span><span class="n">AbstractGUIPlugin</span><span class="p">):</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">bus</span><span class="p">)</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="c1"># start your server / rendering pipeline here</span>
 </span></code></pre></div>
-<h3 id="21-template-handlers">21 template handlers<a class="headerlink" href="#21-template-handlers" title="Permanent link">&para;</a></h3>
-<p>Override any of the following methods to render a template.
-Each receives <code>skill_id: str</code> (the namespace) and <code>data: dict</code> (current session data).</p>
+<h3 id="template-handlers">Template handlers<a class="headerlink" href="#template-handlers" title="Permanent link">&para;</a></h3>
+<p>Override any of the following methods to render a template. Each receives <code>skill_id: str</code>
+(the namespace), <code>data: dict</code> (current session data), and <code>session_id: str</code> (the routing
+id, default <code>"default"</code>). All default to no-ops, so partial implementations are valid.</p>
 <table>
 <thead>
 <tr>
@@ -5803,16 +5987,6 @@ Each receives <code>skill_id: str</code> (the namespace) and <code>data: dict</c
 <td>same as image</td>
 </tr>
 <tr>
-<td><code>handle_show_html</code></td>
-<td><code>SYSTEM_html</code></td>
-<td><code>html</code></td>
-</tr>
-<tr>
-<td><code>handle_show_url</code></td>
-<td><code>SYSTEM_url</code></td>
-<td><code>url</code></td>
-</tr>
-<tr>
 <td><code>handle_show_list</code></td>
 <td><code>SYSTEM_list</code></td>
 <td><code>title</code>, <code>items</code></td>
@@ -5828,6 +6002,16 @@ Each receives <code>skill_id: str</code> (the namespace) and <code>data: dict</c
 <td><code>title</code>, <code>columns</code>, <code>rows</code></td>
 </tr>
 <tr>
+<td><code>handle_show_html</code></td>
+<td><code>SYSTEM_html</code></td>
+<td><code>html</code></td>
+</tr>
+<tr>
+<td><code>handle_show_url</code></td>
+<td><code>SYSTEM_url</code></td>
+<td><code>url</code></td>
+</tr>
+<tr>
 <td><code>handle_show_audio_player</code></td>
 <td><code>SYSTEM_audio_player</code></td>
 <td><code>title</code>, <code>artist</code>, <code>album</code>, <code>image</code>, <code>playing</code>, <code>position</code>, <code>duration</code></td>
@@ -5836,6 +6020,11 @@ Each receives <code>skill_id: str</code> (the namespace) and <code>data: dict</c
 <td><code>handle_show_video_player</code></td>
 <td><code>SYSTEM_video_player</code></td>
 <td><code>uri</code>, <code>title</code>, <code>playing</code></td>
+</tr>
+<tr>
+<td><code>handle_show_media_player</code></td>
+<td><code>SYSTEM_media_player</code></td>
+<td>media fields</td>
 </tr>
 <tr>
 <td><code>handle_show_clock</code></td>
@@ -5875,22 +6064,29 @@ Each receives <code>skill_id: str</code> (the namespace) and <code>data: dict</c
 </tbody>
 </table>
 <h3 id="lifecycle-hooks">Lifecycle hooks<a class="headerlink" href="#lifecycle-hooks" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">on_namespace_activated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skill_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span> <span class="nf">on_namespace_activated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skill_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Called when a namespace moves to the top of the display stack.&quot;&quot;&quot;</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">on_namespace_deactivated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skill_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">def</span> <span class="nf">on_namespace_deactivated</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skill_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Called when a namespace is removed from the display stack.&quot;&quot;&quot;</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">on_session_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skill_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Called whenever skill session data changes (e.g. gui[&#39;key&#39;] = value).&quot;&quot;&quot;</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">def</span> <span class="nf">on_idle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Called when the display returns to the idle/resting state.&quot;&quot;&quot;</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">on_status_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Called for system status events (wakeword, utterance handled, etc.).&quot;&quot;&quot;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">def</span> <span class="nf">on_session_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skill_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Called whenever skill session data changes (e.g. gui[&#39;key&#39;] = value).&quot;&quot;&quot;</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="k">def</span> <span class="nf">on_status_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Called for system status events (wakeword, utterance handled, etc.).&quot;&quot;&quot;</span>
 </span></code></pre></div>
+<h3 id="dispatch">Dispatch<a class="headerlink" href="#dispatch" title="Permanent link">&para;</a></h3>
+<p>The router calls <code>adapter.dispatch_template(template, skill_id, data, ...)</code>, which maps the
+<code>SYSTEM_*</code> template to the matching <code>handle_show_*</code> method. Adapters normally override the
+individual <code>handle_show_*</code> methods rather than <code>dispatch_template</code> itself.</p>
 <h3 id="connection-status">Connection status<a class="headerlink" href="#connection-status" title="Permanent link">&para;</a></h3>
-<p>Implement <code>any_client_connected() -&gt; bool</code> to participate in
-<code>gui.status.request</code> responses:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">any_client_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<p>Implement <code>any_client_connected() -&gt; bool</code> to participate in <code>gui.status.request</code>
+responses:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span> <span class="nf">any_client_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_my_connected_clients</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
 </span></code></pre></div>
 <h2 id="built-in-adapters">Built-in adapters<a class="headerlink" href="#built-in-adapters" title="Permanent link">&para;</a></h2>
@@ -5898,7 +6094,8 @@ Each receives <code>skill_id: str</code> (the namespace) and <code>data: dict</c
 <thead>
 <tr>
 <th>Package</th>
-<th>Entry point name</th>
+<th>Entry-point name</th>
+<th>Class</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -5906,43 +6103,41 @@ Each receives <code>skill_id: str</code> (the namespace) and <code>data: dict</c
 <tr>
 <td><code>ovos-legacy-mycroft-gui-plugin</code></td>
 <td><code>ovos-legacy-mycroft-gui</code></td>
-<td>Tornado WebSocket → Qt / mycroft-gui clients</td>
+<td><code>LegacyMycoftGuiPlugin</code></td>
+<td>Tornado WebSocket → Qt / mycroft-gui clients; also runs <code>HomescreenManager</code></td>
 </tr>
 <tr>
+<td><code>pyhtmx-gui-client</code></td>
 <td><code>ovos-gui-plugin-pyhtmx</code></td>
-<td><code>ovos-gui-plugin-pyhtmx</code></td>
+<td>HTMX adapter</td>
 <td>FastAPI / SSE → browser (HTMX)</td>
 </tr>
 </tbody>
 </table>
 <h2 id="writing-a-custom-adapter">Writing a custom adapter<a class="headerlink" href="#writing-a-custom-adapter" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_plugin_manager.templates.gui</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractGUIPlugin</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.gui</span> <span class="kn">import</span> <span class="n">AbstractGUIPlugin</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">TerminalGUIPlugin</span><span class="p">(</span><span class="n">AbstractGUIPlugin</span><span class="p">):</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Render OVOS GUI templates in the terminal using curses.&quot;&quot;&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">class</span> <span class="nc">TerminalGUIPlugin</span><span class="p">(</span><span class="n">AbstractGUIPlugin</span><span class="p">):</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Render OVOS GUI templates in the terminal.&quot;&quot;&quot;</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">bus</span><span class="p">)</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_start_curses</span><span class="p">()</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">handle_show_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skill_id</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="k">def</span> <span class="nf">handle_show_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skill_id</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">session_id</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">):</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">handle_show_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skill_id</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">(</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>            <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;location&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;current_temp&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">° — </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;condition&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>        <span class="p">)</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    <span class="c1"># ... implement other templates as needed ...</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="k">def</span> <span class="nf">handle_show_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skill_id</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">session_id</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">):</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;location&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;current_temp&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">° — </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;condition&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Register in <code>pyproject.toml</code>:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.gui_adapter&quot;</span><span class="k">]</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="s2">&quot;my-terminal-gui&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_package:TerminalGUIPlugin&quot;</span>
 </span></code></pre></div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<p>Adapter configuration lives under <code>gui.adapters.&lt;entry-point-name&gt;</code> in
-<code>mycroft.conf</code>:</p>
+<p>Adapter configuration lives under <code>gui.adapters.&lt;entry-point-name&gt;</code> in <code>mycroft.conf</code> and
+is passed as the <code>config</code> dict to the adapter's <code>__init__</code>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;gui&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&quot;adapters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -5955,13 +6150,13 @@ Each receives <code>skill_id: str</code> (the namespace) and <code>data: dict</c
 </span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="p">}</span>
 </span></code></pre></div>
 <h2 id="multi-modal-rendering">Multi-modal rendering<a class="headerlink" href="#multi-modal-rendering" title="Permanent link">&para;</a></h2>
-<p>When two adapters are installed (e.g. legacy Qt and PyHTMX), every template
-event is dispatched to both:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Skill.show_weather(…)
+<p>With two adapters installed (e.g. legacy Qt and pyhtmx), every display event is dispatched
+to both:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>self.gui.show_weather(…)
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>       ↓
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>NamespaceManager._dispatch_template_to_adapters(&quot;SYSTEM_weather&quot;, skill_id, data)
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>NamespaceManager._dispatch_template_to_adapters(&quot;SYSTEM_weather&quot;, skill_id, data, session_id)
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>       ├──→ LegacyMycoftGuiPlugin.handle_show_weather(…)   → Qt client
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>       └──→ PyHTMXGUIPlugin.handle_show_weather(…)          → browser
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>       └──→ pyhtmx adapter.handle_show_weather(…)           → browser
 </span></code></pre></div>
 <p>Both displays update simultaneously and independently.</p>
 

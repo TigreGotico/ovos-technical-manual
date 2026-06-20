@@ -3391,6 +3391,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#plugin-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugin catalog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ovos-judge" class="md-nav__link">
     <span class="md-ellipsis">
       ovos-judge
@@ -3661,6 +3670,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3903,6 +3996,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3950,6 +4064,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4312,6 +4447,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5757,6 +5913,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#plugin-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugin catalog
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ovos-judge" class="md-nav__link">
     <span class="md-ellipsis">
       ovos-judge
@@ -5988,6 +6153,117 @@
 
 
 <h1 id="agent-plugins">Agent Plugins<a class="headerlink" href="#agent-plugins" title="Permanent link">&para;</a></h1>
+<p><strong>For beginners:</strong> agent plugins are the installable building blocks that let a persona think,
+answer, rank, summarize, remember, or resolve pronouns. You don't call them directly — you list
+them in a <a href="../personas/">persona</a> and the <a href="../personas/#personaservice--pipeline-plugin">PersonaService</a>
+loads them. Each plugin advertises itself to OVOS through an OPM entry-point group.</p>
+<p><strong>For advanced users:</strong> every agent engine subclasses an abstract base in
+<code>ovos_plugin_manager.templates.agents</code> and registers under one <code>opm.agents.*</code> group (each with a
+parallel <code>*.config</code> group for config metadata). The discovery helpers live in
+<code>ovos_plugin_manager.agents</code>. The authoritative group/base-class mapping:</p>
+<table>
+<thead>
+<tr>
+<th>Entry-point group</th>
+<th>Base class</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opm.agents.chat</code></td>
+<td><code>ChatEngine</code></td>
+<td>Multi-turn conversational LLM</td>
+</tr>
+<tr>
+<td><code>opm.agents.chat.multimodal</code></td>
+<td><code>MultimodalChatEngine</code></td>
+<td>Chat with image/audio/file input</td>
+</tr>
+<tr>
+<td><code>opm.agents.multimodal_adapter</code></td>
+<td><code>MultimodalAdapter</code></td>
+<td>Render non-text content as text</td>
+</tr>
+<tr>
+<td><code>opm.agents.summarizer</code></td>
+<td><code>SummarizerEngine</code></td>
+<td>Condense a document</td>
+</tr>
+<tr>
+<td><code>opm.agents.summarizer.chat</code></td>
+<td><code>ChatSummarizerEngine</code></td>
+<td>Compress a chat history</td>
+</tr>
+<tr>
+<td><code>opm.agents.reranker</code></td>
+<td><code>ReRankerEngine</code></td>
+<td>Score/rank candidate answers</td>
+</tr>
+<tr>
+<td><code>opm.agents.option_matcher</code></td>
+<td><code>OptionMatcherEngine</code></td>
+<td>Match an utterance to a fixed option set</td>
+</tr>
+<tr>
+<td><code>opm.agents.extractive_qa</code></td>
+<td><code>ExtractiveQAEngine</code></td>
+<td>Extract the answering passage from evidence</td>
+</tr>
+<tr>
+<td><code>opm.agents.nli</code></td>
+<td><code>NaturalLanguageInferenceEngine</code></td>
+<td>Premise → hypothesis entailment</td>
+</tr>
+<tr>
+<td><code>opm.agents.yesno</code></td>
+<td><code>YesNoEngine</code></td>
+<td>Classify a response as yes / no / unknown</td>
+</tr>
+<tr>
+<td><code>opm.agents.coref</code></td>
+<td><code>CoreferenceEngine</code></td>
+<td>Pronoun / coreference resolution</td>
+</tr>
+<tr>
+<td><code>opm.agents.memory</code></td>
+<td><code>AgentContextManager</code></td>
+<td>Per-session conversation history</td>
+</tr>
+<tr>
+<td><code>opm.agents.retrieval</code></td>
+<td><code>RetrievalEngine</code></td>
+<td>Retrieval-augmented generation</td>
+</tr>
+<tr>
+<td><code>opm.agents.retrieval.documents</code></td>
+<td><code>DocumentIndexerEngine</code></td>
+<td>Index + retrieve over a document corpus</td>
+</tr>
+<tr>
+<td><code>opm.agents.retrieval.qa</code></td>
+<td><code>QAIndexerEngine</code></td>
+<td>Index + retrieve over a Q/A corpus</td>
+</tr>
+<tr>
+<td><code>opm.agents.toolbox</code></td>
+<td>—</td>
+<td>Tool / function-calling registry</td>
+</tr>
+</tbody>
+</table>
+<p>The legacy <code>opm.solver.*</code> groups (and the <code>QuestionSolver</code> family in
+<code>ovos_plugin_manager.templates.solvers</code>) are deprecated — see <a href="../advanced-solvers/">Specialized Agent Engine
+Types</a> for the migration map. For per-engine method contracts and config
+examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../advanced-solvers/">Advanced Solvers</a>.</p>
+<blockquote>
+<p><strong>Upcoming — local coreference:</strong> a new-style <code>PronomialCoreferenceEngine</code>
+(<code>opm.agents.coref</code>, registered as <code>pronomial</code>, subclassing <code>CoreferenceEngine</code>) is in progress
+in <a href="https://github.com/TigreGotico/pronomial/pull/6">TigreGotico/pronomial#6</a> (draft) — a fully
+local, no-API coreference backend with per-language pronoun wordlists.</p>
+</blockquote>
+<hr />
+<h2 id="plugin-catalog">Plugin catalog<a class="headerlink" href="#plugin-catalog" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -5998,7 +6274,7 @@
 <tbody>
 <tr>
 <td><a href="#ovos-judge">ovos-judge</a></td>
-<td>&gt; <strong>⚠️ 100% VIBE CODED WARNING</strong></td>
+<td>LLM-as-judge reranker / scorer</td>
 </tr>
 <tr>
 <td><a href="#ovos-persona-a2a">ovos-persona-a2a</a></td>
@@ -6309,337 +6585,6 @@
 </ul>
 <hr />
 <h2 id="ovos-solver-plugin-rivescript">ovos-solver-plugin-rivescript<a class="headerlink" href="#ovos-solver-plugin-rivescript" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-solver-plugin-rivescript">https://github.com/OpenVoiceOS/ovos-solver-plugin-rivescript</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: Give Mycroft some sass with Rivescript!</p>
-</li>
-</ul>
-<hr />
-<h1 id="agent-plugins-reference">Agent Plugins Reference<a class="headerlink" href="#agent-plugins-reference" title="Permanent link">&para;</a></h1>
-<table>
-<thead>
-<tr>
-<th>Plugin</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="#ovos-judge">ovos-judge</a></td>
-<td>&gt; <strong>⚠️ 100% VIBE CODED WARNING</strong></td>
-</tr>
-<tr>
-<td><a href="#ovos-persona-a2a">ovos-persona-a2a</a></td>
-<td>Hello World example agent that only returns Message events</td>
-</tr>
-<tr>
-<td><a href="#ovos-flashrank-reranker-plugin">ovos-flashrank-reranker-plugin</a></td>
-<td>The <code>FlashRankMultipleChoiceSolver</code> plugin is designed for the Open Voice OS (OVOS) platform to help select the best</td>
-</tr>
-<tr>
-<td><a href="#ovos-solver-gguf-plugin">ovos-solver-gguf-plugin</a></td>
-<td><code>GGUFSolver</code> is a question-answering module that utilizes GGUF models to provide responses to user queries. This solver</td>
-</tr>
-<tr>
-<td><a href="#ovos-qdrant-embeddings-plugin">ovos-qdrant-embeddings-plugin</a></td>
-<td>The <code>QdrantEmbeddingsDB</code> plugin integrates with the <a href="https://www.tryQdrant.com/">qdrant</a> database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract <code>EmbeddingsDB</code> class, allowing you to store, retrieve, and query embeddings efficiently using qdrant’s capabilities.</td>
-</tr>
-<tr>
-<td><a href="#ovos-gguf-embeddings-plugin">ovos-gguf-embeddings-plugin</a></td>
-<td>The <code>GGUFTextEmbeddingsPlugin</code> is a plugin for recognizing and managing text embeddings.</td>
-</tr>
-<tr>
-<td><a href="#ovos-solver-bm25-plugin">ovos-solver-BM25-plugin</a></td>
-<td>An OVOS (OpenVoiceOS) plugin designed to retrieve answers from a corpus of documents using the <a href="https://en.wikipedia.org/wiki/Okapi_BM25">BM25</a> algorithm.</td>
-</tr>
-<tr>
-<td><a href="#ovos-coreferee-plugin">ovos-coreferee-plugin</a></td>
-<td>test output</td>
-</tr>
-<tr>
-<td><a href="#ovos-solver-plugin-aiml">ovos-solver-plugin-aiml</a></td>
-<td>Give Mycroft some sass with AIML!</td>
-</tr>
-<tr>
-<td><a href="#ovos-persona">ovos-persona</a></td>
-<td>The <strong><code>PersonaPipeline</code></strong> brings multi-persona management to OpenVoiceOS (OVOS), enabling interactive conversations with virtual assistants. 🎙️ With personas, you can customize how queries are handled by assigning specific solvers to each persona.</td>
-</tr>
-<tr>
-<td><a href="#ovos-openai-plugin">ovos-openai-plugin</a></td>
-<td>Leverages <a href="https://platform.openai.com/docs/api-reference/completions/create">OpenAI Completions API</a> to provide the following ovos plugins:</td>
-</tr>
-<tr>
-<td><a href="#ovos-wikipedia-solver">ovos-wikipedia-solver</a></td>
-<td>```python</td>
-</tr>
-<tr>
-<td><a href="#ovos-mos">ovos-MoS</a></td>
-<td>Using <a href="https://openvoiceos.github.io/ovos-technical-manual/solvers">OpenVoiceOS agent plugins</a>, we implement three</td>
-</tr>
-<tr>
-<td><a href="#ovos-chromadb-embeddings-plugin">ovos-chromadb-embeddings-plugin</a></td>
-<td>The <code>ChromaEmbeddingsDB</code> plugin integrates with the <a href="https://www.trychroma.com/">ChromaDB</a> database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract <code>EmbeddingsDB</code> class, allowing you to store, retrieve, and query embeddings efficiently using ChromaDB’s capabilities.</td>
-</tr>
-<tr>
-<td><a href="#ovos-wolfram-alpha-solver">ovos-wolfram-alpha-solver</a></td>
-<td>```python</td>
-</tr>
-<tr>
-<td><a href="#ovos-claude-plugin">ovos-claude-plugin</a></td>
-<td>Anthropic Claude integration for <a href="https://openvoiceos.org">OpenVoiceOS</a> — the open-source voice assistant platform.</td>
-</tr>
-<tr>
-<td><a href="#ovos-ddg-solver-plugin">ovos-ddg-solver-plugin</a></td>
-<td>```python</td>
-</tr>
-<tr>
-<td><a href="#ovos-solver-yesno-plugin">ovos-solver-YesNo-plugin</a></td>
-<td>A simple tool to indicate whether a user answered "yes" or "no" to a yes/no prompt.</td>
-</tr>
-<tr>
-<td><a href="#ovos-solver-failure-plugin">ovos-solver-failure-plugin</a></td>
-<td>Extreme fallback, just complains it does not have a brain</td>
-</tr>
-<tr>
-<td><a href="#ovos-gguf-plugin">ovos-gguf-plugin</a></td>
-<td><code>GGUFSolver</code> is a question-answering module that utilizes GGUF models to provide responses to user queries. This solver</td>
-</tr>
-<tr>
-<td><a href="#ovos-persona-server">ovos-persona-server</a></td>
-<td><code>$ ovos-persona-server --persona rivescript_bot.json</code></td>
-</tr>
-<tr>
-<td><a href="#ovos-solver-plugin-rivescript">ovos-solver-plugin-rivescript</a></td>
-<td>Give Mycroft some sass with Rivescript!</td>
-</tr>
-</tbody>
-</table>
-<h2 id="ovos-judge_1">ovos-judge<a class="headerlink" href="#ovos-judge_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-judge">https://github.com/OpenVoiceOS/ovos-judge</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: &gt; <strong>⚠️ 100% VIBE CODED WARNING</strong></p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-persona-a2a_1">ovos-persona-a2a<a class="headerlink" href="#ovos-persona-a2a_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-persona-a2a">https://github.com/OpenVoiceOS/ovos-persona-a2a</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: Hello World example agent that only returns Message events</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-flashrank-reranker-plugin_1">ovos-flashrank-reranker-plugin<a class="headerlink" href="#ovos-flashrank-reranker-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin">https://github.com/OpenVoiceOS/ovos-flashrank-reranker-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: The <code>FlashRankMultipleChoiceSolver</code> plugin is designed for the Open Voice OS (OVOS) platform to help select the best</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-solver-gguf-plugin_1">ovos-solver-gguf-plugin<a class="headerlink" href="#ovos-solver-gguf-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-solver-gguf-plugin">https://github.com/OpenVoiceOS/ovos-solver-gguf-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: <code>GGUFSolver</code> is a question-answering module that utilizes GGUF models to provide responses to user queries. This solver</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-qdrant-embeddings-plugin_1">ovos-qdrant-embeddings-plugin<a class="headerlink" href="#ovos-qdrant-embeddings-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-qdrant-embeddings-plugin">https://github.com/OpenVoiceOS/ovos-qdrant-embeddings-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: The <code>QdrantEmbeddingsDB</code> plugin integrates with the <a href="https://www.tryQdrant.com/">qdrant</a> database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract <code>EmbeddingsDB</code> class, allowing you to store, retrieve, and query embeddings efficiently using qdrant’s capabilities.</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-gguf-embeddings-plugin_1">ovos-gguf-embeddings-plugin<a class="headerlink" href="#ovos-gguf-embeddings-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-gguf-embeddings-plugin">https://github.com/OpenVoiceOS/ovos-gguf-embeddings-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: The <code>GGUFTextEmbeddingsPlugin</code> is a plugin for recognizing and managing text embeddings.</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-solver-bm25-plugin_1">ovos-solver-BM25-plugin<a class="headerlink" href="#ovos-solver-bm25-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-solver-BM25-plugin">https://github.com/OpenVoiceOS/ovos-solver-BM25-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: An OVOS (OpenVoiceOS) plugin designed to retrieve answers from a corpus of documents using the <a href="https://en.wikipedia.org/wiki/Okapi_BM25">BM25</a> algorithm.</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-coreferee-plugin_1">ovos-coreferee-plugin<a class="headerlink" href="#ovos-coreferee-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-coreferee-plugin">https://github.com/OpenVoiceOS/ovos-coreferee-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: test output</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-solver-plugin-aiml_1">ovos-solver-plugin-aiml<a class="headerlink" href="#ovos-solver-plugin-aiml_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-solver-plugin-aiml">https://github.com/OpenVoiceOS/ovos-solver-plugin-aiml</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: Give Mycroft some sass with AIML!</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-persona_1">ovos-persona<a class="headerlink" href="#ovos-persona_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-persona">https://github.com/OpenVoiceOS/ovos-persona</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: The <strong><code>PersonaPipeline</code></strong> brings multi-persona management to OpenVoiceOS (OVOS), enabling interactive conversations with virtual assistants. 🎙️ With personas, you can customize how queries are handled by assigning specific solvers to each persona.</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-openai-plugin_1">ovos-openai-plugin<a class="headerlink" href="#ovos-openai-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-openai-plugin">https://github.com/OpenVoiceOS/ovos-openai-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: Leverages <a href="https://platform.openai.com/docs/api-reference/completions/create">OpenAI Completions API</a> to provide the following ovos plugins:</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-wikipedia-solver_1">ovos-wikipedia-solver<a class="headerlink" href="#ovos-wikipedia-solver_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-wikipedia-solver">https://github.com/OpenVoiceOS/ovos-wikipedia-solver</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: ```python</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-mos_1">ovos-MoS<a class="headerlink" href="#ovos-mos_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-MoS">https://github.com/OpenVoiceOS/ovos-MoS</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: Using <a href="https://openvoiceos.github.io/ovos-technical-manual/solvers">OpenVoiceOS agent plugins</a>, we implement three</p>
-</li>
-</ul>
-<h3 id="default-configuration">Default Configuration<a class="headerlink" href="#default-configuration" title="Permanent link">&para;</a></h3>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-mos-king-reranker&quot;</span><span class="p">,</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;king&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-reranker-bm25-plugin&quot;</span><span class="p">},</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&quot;workers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="p">{</span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-solver-plugin-ddg&quot;</span><span class="p">},</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="p">{</span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-solver-plugin-wikipedia&quot;</span><span class="p">}</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="p">],</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">&quot;max_workers&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">&quot;worker_timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">}</span>
-</span></code></pre></div>
-<hr />
-<h2 id="ovos-chromadb-embeddings-plugin_1">ovos-chromadb-embeddings-plugin<a class="headerlink" href="#ovos-chromadb-embeddings-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-chromadb-embeddings-plugin">https://github.com/OpenVoiceOS/ovos-chromadb-embeddings-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: The <code>ChromaEmbeddingsDB</code> plugin integrates with the <a href="https://www.trychroma.com/">ChromaDB</a> database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract <code>EmbeddingsDB</code> class, allowing you to store, retrieve, and query embeddings efficiently using ChromaDB’s capabilities.</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-wolfram-alpha-solver_1">ovos-wolfram-alpha-solver<a class="headerlink" href="#ovos-wolfram-alpha-solver_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-wolfram-alpha-solver">https://github.com/OpenVoiceOS/ovos-wolfram-alpha-solver</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: ```python</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-claude-plugin_1">ovos-claude-plugin<a class="headerlink" href="#ovos-claude-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-claude-plugin">https://github.com/OpenVoiceOS/ovos-claude-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: Anthropic Claude integration for <a href="https://openvoiceos.org">OpenVoiceOS</a> — the open-source voice assistant platform.</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-ddg-solver-plugin_1">ovos-ddg-solver-plugin<a class="headerlink" href="#ovos-ddg-solver-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-ddg-solver-plugin">https://github.com/OpenVoiceOS/ovos-ddg-solver-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: ```python</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-solver-yesno-plugin_1">ovos-solver-YesNo-plugin<a class="headerlink" href="#ovos-solver-yesno-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-solver-YesNo-plugin">https://github.com/OpenVoiceOS/ovos-solver-YesNo-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: A simple tool to indicate whether a user answered "yes" or "no" to a yes/no prompt.</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-solver-failure-plugin_1">ovos-solver-failure-plugin<a class="headerlink" href="#ovos-solver-failure-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-solver-failure-plugin">https://github.com/OpenVoiceOS/ovos-solver-failure-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: Extreme fallback, just complains it does not have a brain</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-gguf-plugin_1">ovos-gguf-plugin<a class="headerlink" href="#ovos-gguf-plugin_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-gguf-plugin">https://github.com/OpenVoiceOS/ovos-gguf-plugin</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: <code>GGUFSolver</code> is a question-answering module that utilizes GGUF models to provide responses to user queries. This solver</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-persona-server_1">ovos-persona-server<a class="headerlink" href="#ovos-persona-server_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-persona-server">https://github.com/OpenVoiceOS/ovos-persona-server</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: <code>$ ovos-persona-server --persona rivescript_bot.json</code></p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-solver-plugin-rivescript_1">ovos-solver-plugin-rivescript<a class="headerlink" href="#ovos-solver-plugin-rivescript_1" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-solver-plugin-rivescript">https://github.com/OpenVoiceOS/ovos-solver-plugin-rivescript</a></p>

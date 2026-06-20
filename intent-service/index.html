@@ -3514,6 +3514,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3753,6 +3837,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3800,6 +3905,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4159,6 +4285,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5686,19 +5833,23 @@
 
 <h1 id="intent-service">Intent Service<a class="headerlink" href="#intent-service" title="Permanent link">&para;</a></h1>
 <p><strong>Module:</strong> <code>ovos_core.intent_services.service.IntentService</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py"><code>ovos_core/intent_services/service.py</code></a></p>
+<blockquote>
+<p>Specification: intent/entity registration follows <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-4.md">OVOS-INTENT-4: Intent and Entity Registration Bus Contract</a>; pipeline ordering follows <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-pipeline-1.md">OVOS-PIPELINE-1</a>.</p>
+</blockquote>
 <p><code>IntentService</code> is the component of <code>ovos-core</code> responsible for routing user utterances through the configured <strong>Intent Pipeline</strong> until a match is found.</p>
+<p><strong>In plain terms:</strong> this is the part that takes the words you said and figures out <em>which</em> skill should answer. It runs each matcher in your pipeline in order (converse, adapt, padatious, …) and stops at the first one confident enough to handle the request.</p>
 <hr />
 <details class="abstract">
 <summary>Technical Reference</summary>
 <ul>
 <li>
-<p><code>IntentService.handle_utterance()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py"><code>ovos_core/intent_services/service.py:384</code></a> — Main entry point for processing utterances.</p>
+<p><code>IntentService.handle_utterance()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py"><code>ovos_core/intent_services/service.py:415</code></a> — Main entry point for processing utterances.</p>
 </li>
 <li>
-<p><code>IntentService._handle_intent_match()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py"><code>ovos_core/intent_services/service.py:420</code></a> — logic for emitting match messages and activating skills.</p>
+<p><code>IntentService._emit_match_message()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py"><code>ovos_core/intent_services/service.py:275</code></a> — logic for emitting match messages and activating skills.</p>
 </li>
 <li>
-<p><code>OVOSPipelineFactory.create_pipeline()</code> — <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager/blob/dev/ovos_plugin_manager/pipeline.py"><code>ovos_plugin_manager/pipeline.py</code></a> — factory for building the matcher pipeline from config.</p>
+<p><code>OVOSPipelineFactory.load_plugin()</code> — <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager/blob/dev/ovos_plugin_manager/pipeline.py"><code>ovos_plugin_manager/pipeline.py</code></a> — factory that builds matcher pipeline plugins from config (<code>get_installed_pipeline_ids()</code> lists them).</p>
 </li>
 </ul>
 </details>
@@ -5733,7 +5884,7 @@
 <p>Config default / <code>message.data["lang"]</code>.</p>
 </li>
 </ol>
-<p>The chosen language is validated against <code>valid_langs</code> from config using <code>langcodes.closest_match</code>.</p>
+<p>The chosen language is validated against <code>valid_langs</code> from config using <code>closest_lang()</code> (from <code>ovos_spec_tools</code>), which tolerates near-matches such as <code>en</code> vs <code>en-us</code>.</p>
 <h2 id="multilingual-matching">Multilingual Matching<a class="headerlink" href="#multilingual-matching" title="Permanent link">&para;</a></h2>
 <p>When <code>intents.multilingual_matching</code> is enabled, if the primary language produces no match, OVOS will try all other configured languages in order.</p>
 <h2 id="session-management">Session Management<a class="headerlink" href="#session-management" title="Permanent link">&para;</a></h2>

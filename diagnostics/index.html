@@ -3406,6 +3406,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3645,6 +3729,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3692,6 +3797,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4051,6 +4177,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5834,7 +5981,8 @@
 
 <h1 id="ovos-diagnostics-documentation-index"><code>ovos-diagnostics</code> — Documentation Index<a class="headerlink" href="#ovos-diagnostics-documentation-index" title="Permanent link">&para;</a></h1>
 <p><code>ovos-diagnostics</code> is a command-line tool for auditing an OVOS installation. It scans installed plugins, checks configuration, inspects skill settings, detects hardware capabilities, and produces actionable recommendations for <a href="../stt-plugins/">STT</a>, <a href="../tts-plugins/">TTS</a>, wake word, audio, pipeline, and platform plugins.</p>
-<p>The tool is built with <a href="https://click.palletsprojects.com/">Click</a> and reads live configuration via <a href="https://github.com/OpenVoiceOS/ovos-config">ovos-config</a>. Plugin discovery is performed via <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager">ovos-plugin-manager</a>. <a href="../skill-design-guidelines/">Skill</a> inspection requires <a href="https://github.com/OpenVoiceOS/ovos-workshop">ovos-workshop</a> and <a href="https://github.com/OpenVoiceOS/ovos-core">ovos-core</a>.</p>
+<p><strong>New to it?</strong> Run a <code>scan-*</code> subcommand to list what is installed, or a <code>recommend-*</code> subcommand to have the tool suggest plugins for your hardware and language. For example, <code>ovos-diagnostics listener recommend-stt</code> tells you which <a href="../stt-plugins/">STT</a> plugin to use based on detected GPU, platform, and configured language; <code>ovos-diagnostics core recommend-skills</code> audits your installed skills for missing API keys, OAuth tokens, and companion plugins. Everything prints plain text to stdout — no daemon, no config changes are made.</p>
+<p>The tool is built with <a href="https://click.palletsprojects.com/">Click</a> and reads live configuration via <a href="https://github.com/OpenVoiceOS/ovos-config">ovos-config</a>. Plugin discovery is performed via <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager">ovos-plugin-manager</a>. <a href="../skill-design-guidelines/">Skill</a> inspection imports skill base classes from <a href="https://github.com/OpenVoiceOS/ovos-workshop">ovos-workshop</a> and <a href="https://github.com/OpenVoiceOS/ovos-core">ovos-core</a> (the <code>mycroft</code> namespace), so those must be installed for <code>core</code> subcommands to import cleanly.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-diagnostics
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -5846,7 +5994,7 @@
 <h2 id="entry-point">Entry Point<a class="headerlink" href="#entry-point" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ovos-diagnostics [OPTIONS] COMMAND [ARGS]...
 </span></code></pre></div>
-<p>There is one top-level command group that branches into six subgroups.</p>
+<p>There is one top-level command group (<code>cli</code>, exposed as the <code>ovos-diagnostics</code> console script) that branches into six subgroups: <code>core</code>, <code>audio</code>, <code>listener</code>, <code>language</code>, <code>phal</code>, and <code>gui</code>. Click converts the underscores in command function names to hyphens, so <code>scan_stt</code> is invoked as <code>scan-stt</code>. Run any group or subcommand with <code>--help</code> for its usage.</p>
 <h2 id="command-groups">Command Groups<a class="headerlink" href="#command-groups" title="Permanent link">&para;</a></h2>
 <h3 id="ovos-diagnostics-core-skill-pipeline-diagnostics"><code>ovos-diagnostics core</code> — Skill pipeline diagnostics<a class="headerlink" href="#ovos-diagnostics-core-skill-pipeline-diagnostics" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ovos-diagnostics core [OPTIONS] COMMAND [ARGS]...
@@ -6084,7 +6232,7 @@
 <p><strong>Homescreen</strong> — <code>gui.idle_display_skill</code> from config</p>
 </li>
 <li>
-<p><strong>OVOS Shell</strong> — whether <code>ovos-shell</code> is installed (detected via <code>ovos_utils.gui.is_installed</code>)</p>
+<p><strong>OVOS Shell / GUI</strong> — whether <code>ovos-shell</code> is installed (detected via <code>ovos_utils.gui.is_installed</code>); GUI presence also accepts <code>ovos-gui-app</code> or <code>mycroft-gui-app</code></p>
 </li>
 <li>
 <p><strong>Raspberry Pi</strong> — presence of <code>/sys/firmware/devicetree/base/model</code> containing <code>"Raspberry Pi"</code></p>
@@ -6109,22 +6257,31 @@
 </span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>STT RECOMMENDATION: ovos-stt-plugin-fasterwhisper - recommended offline plugin
 </span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>FALLBACK STT RECOMMENDATION: None - already offline, no need to reach out to the internet!
 </span></code></pre></div>
-<p><code>recommend-skills</code> inspects each installed skill for:</p>
+<p><code>recommend-skills</code> matches each installed skill plugin against built-in tables of known skill requirements and reports:</p>
 <ul>
 <li>
-<p><strong>Missing API key</strong> — checks <code>settings.json</code> for required keys</p>
+<p><strong>Blacklisted skill</strong> — <code>UNINSTALL</code> warning if an installed skill is listed under <code>skills.blacklisted_skills</code> in config</p>
 </li>
 <li>
-<p><strong>Missing OAuth token</strong> — checks <code>ovos_oauth.json</code> (via <code>ovos-backend-client</code>)</p>
+<p><strong>Missing setting</strong> — checks <code>&lt;config&gt;/skills/&lt;skill_id&gt;/settings.json</code> for required keys (e.g. an <code>api_key</code>)</p>
 </li>
 <li>
-<p><strong>Missing OCP extractor</strong> — checks if required OCP plugins are installed</p>
+<p><strong>Missing config key</strong> — checks <code>mycroft.conf</code> for required keys some skills need</p>
 </li>
 <li>
-<p><strong>Missing PHAL plugin</strong> — checks companion PHAL requirements</p>
+<p><strong>Missing OAuth token</strong> — checks the <code>OAuthTokenDatabase</code> (via <code>ovos-backend-client</code>); reports the database path and an OAuth helper command when one is known</p>
 </li>
 <li>
-<p><strong>Skill type</strong> — detects <code>FallbackSkill</code>, <code>CommonQuerySkill</code>, <code>OVOSCommonPlaybackSkill</code>, <code>CommonPlaySkill</code></p>
+<p><strong>Missing OCP / audio extractor</strong> — checks whether required <a href="../ocp-pipeline/">OCP</a> stream-extractor or audio-player plugins are installed</p>
+</li>
+<li>
+<p><strong>Missing or recommended PHAL plugin</strong> — checks companion <a href="../ovoscope-phal/">PHAL</a> requirements; Linux-only PHAL plugins on non-Linux trigger an <code>UNINSTALL</code> hint</p>
+</li>
+<li>
+<p><strong>Platform mismatch</strong> — <code>UNINSTALL</code> warnings for Linux-only, GPU-only, or Raspberry-Pi-only skills running on unsupported hardware</p>
+</li>
+<li>
+<p><strong>Recommended companion skills</strong> — suggests companion skills for installed solver / audio / PHAL plugins, and recommends the fallback-unknown skill if absent</p>
 </li>
 </ul>
 <p>Example <code>recommend-skills</code> output:</p>
@@ -6133,14 +6290,14 @@
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a> 1 - skill-ovos-wolfie.openvoiceos
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>...
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>Skill checks ...
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>ERROR: &#39;skill-ovos-wolfie.openvoiceos&#39; is installed but &#39;api_key&#39; not set
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>ERROR: &#39;ovos-skill-spotify.openvoiceos&#39; OAuth token is missing
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>   INFO: OAuth can be performed with &#39;ovos-spotify-oauth&#39;
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>ERROR: OCP stream extractor plugin missing &#39;ovos-ocp-youtube-plugin&#39;
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>ERROR: &#39;skill-ovos-wolfie.openvoiceos&#39; is installed but &#39;api_key&#39; not set in &#39;.../skills/skill-ovos-wolfie.openvoiceos/settings.json&#39;
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>ERROR: &#39;ovos-skill-spotify.openvoiceos&#39; is installed but OAuth token is missing from &#39;.../ovos_oauth.json&#39;
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>   INFO: &#39;ovos-skill-spotify.openvoiceos&#39; OAuth can be performed with the command &#39;ovos-spotify-oauth&#39;
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>ERROR: OCP stream extractor plugin missing &#39;ovos-ocp-youtube-plugin&#39;, required by &#39;ovos-skill-youtube.openvoiceos&#39;
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>RECOMMENDED PHAL PLUGIN: &#39;ovos-PHAL-plugin-oauth&#39; is recommended by &#39;ovos-skill-spotify.openvoiceos&#39;
 </span></code></pre></div>
 <h2 id="output-format">Output Format<a class="headerlink" href="#output-format" title="Permanent link">&para;</a></h2>
-<p>All output is plain text to stdout. Errors are prefixed with <code>ERROR:</code>, informational lines with <code>INFO:</code>, and recommendations with <code>RECOMMENDATION:</code> or <code>RECOMMENDED PLUGIN:</code>. The tool suppresses all OVOS log output below <code>ERROR</code> level during execution to reduce noise.</p>
+<p>All output is plain text to stdout. Errors are prefixed with <code>ERROR:</code>, informational lines with <code>INFO:</code>, recommendations with <code>RECOMMENDATION:</code> / <code>RECOMMENDED ...:</code>, and removal hints with <code>UNINSTALL:</code>. At import time the tool calls <code>LOG.set_level("ERROR")</code>, so OVOS log output below <code>ERROR</code> is suppressed to keep results readable. There is no <code>--json</code> or machine-readable output mode; parse the text or import the functions directly if you need structured results.</p>
 <h2 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

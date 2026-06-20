@@ -3406,6 +3406,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3645,6 +3729,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3692,6 +3797,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4051,6 +4177,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -6013,7 +6160,7 @@
 <h3 id="path-and-directory-helpers">Path and Directory Helpers<a class="headerlink" href="#path-and-directory-helpers" title="Permanent link">&para;</a></h3>
 <h4 id="get_temp_pathargs-str"><code>get_temp_path(*args) → str</code><a class="headerlink" href="#get_temp_pathargs-str" title="Permanent link">&para;</a></h4>
 <p>Return a path inside the system temp directory without creating it:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.file_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_temp_path</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.file_utils</span> <span class="kn">import</span> <span class="n">get_temp_path</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">path</span> <span class="o">=</span> <span class="n">get_temp_path</span><span class="p">(</span><span class="s2">&quot;mycroft&quot;</span><span class="p">,</span> <span class="s2">&quot;audio&quot;</span><span class="p">,</span> <span class="s2">&quot;example.wav&quot;</span><span class="p">)</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
@@ -6101,7 +6248,7 @@
 </table>
 <h3 id="filewatcher"><code>FileWatcher</code><a class="headerlink" href="#filewatcher" title="Permanent link">&para;</a></h3>
 <p>Watch files or directories for changes using <code>watchdog</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.file_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileWatcher</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.file_utils</span> <span class="kn">import</span> <span class="n">FileWatcher</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">watcher</span> <span class="o">=</span> <span class="n">FileWatcher</span><span class="p">(</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">files</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;~/.config/mycroft/mycroft.conf&quot;</span><span class="p">],</span>
@@ -6116,7 +6263,7 @@
 <p>Fires the callback with the modified file path when a file is created or modified (closed after write). Optional <code>ignore_creation=True</code> skips creation events.</p>
 <hr />
 <h2 id="network-utilities-ovos_utilsnetwork_utils">Network Utilities (<code>ovos_utils.network_utils</code>)<a class="headerlink" href="#network-utilities-ovos_utilsnetwork_utils" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.network_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_ip</span><span class="p">,</span> <span class="n">is_connected_dns</span><span class="p">,</span> <span class="n">is_connected_http</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.network_utils</span> <span class="kn">import</span> <span class="n">get_ip</span><span class="p">,</span> <span class="n">is_connected_dns</span><span class="p">,</span> <span class="n">is_connected_http</span>
 </span></code></pre></div>
 <table>
 <thead>
@@ -6168,7 +6315,7 @@
 </blockquote>
 <hr />
 <h2 id="sound-ovos_utilssound">Sound (<code>ovos_utils.sound</code>)<a class="headerlink" href="#sound-ovos_utilssound" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.sound</span><span class="w"> </span><span class="kn">import</span> <span class="n">play_audio</span><span class="p">,</span> <span class="n">get_sound_duration</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.sound</span> <span class="kn">import</span> <span class="n">play_audio</span><span class="p">,</span> <span class="n">get_sound_duration</span>
 </span></code></pre></div>
 <h3 id="play_audiouri-play_cmdnone-environmentnone-optionalsubprocesspopen"><code>play_audio(uri, play_cmd=None, environment=None) → Optional[subprocess.Popen]</code><a class="headerlink" href="#play_audiouri-play_cmdnone-environmentnone-optionalsubprocesspopen" title="Permanent link">&para;</a></h3>
 <p>Play an audio file in a background subprocess. Returns the <code>Popen</code> object on success, <code>None</code> on failure.</p>
@@ -6186,7 +6333,7 @@
 <p>Return sound duration in seconds. Supports WAV natively (via <code>wave</code> stdlib). For other formats, requires <code>ffprobe</code> or <code>mediainfo</code> on <code>PATH</code>.</p>
 <hr />
 <h2 id="thread-utilities-ovos_utilsthread_utils">Thread Utilities (<code>ovos_utils.thread_utils</code>)<a class="headerlink" href="#thread-utilities-ovos_utilsthread_utils" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.thread_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_daemon</span><span class="p">,</span> <span class="n">wait_for_exit_signal</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.thread_utils</span> <span class="kn">import</span> <span class="n">create_daemon</span><span class="p">,</span> <span class="n">wait_for_exit_signal</span>
 </span></code></pre></div>
 <h3 id="create_daemontarget-args-kwargs-autostart-thread"><code>create_daemon(target, args, kwargs, autostart) → Thread</code><a class="headerlink" href="#create_daemontarget-args-kwargs-autostart-thread" title="Permanent link">&para;</a></h3>
 <p>Create and optionally start a daemon <code>threading.Thread</code>.</p>
@@ -6194,23 +6341,23 @@
 <p>Create and optionally start a killable daemon thread (<code>kthread.KThread</code>). Supports forceful termination.</p>
 <h3 id="wait_for_exit_signal"><code>wait_for_exit_signal()</code><a class="headerlink" href="#wait_for_exit_signal" title="Permanent link">&para;</a></h3>
 <p>Block the calling thread until <code>SIGTERM</code> or <code>SIGINT</code> is received. Used by OVOS service entry points to keep the main thread alive:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.thread_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">wait_for_exit_signal</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.thread_utils</span> <span class="kn">import</span> <span class="n">wait_for_exit_signal</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Start services in daemon threads, then block:</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">wait_for_exit_signal</span><span class="p">()</span>
 </span></code></pre></div>
 <h3 id="threaded_timeouttimeout"><code>@threaded_timeout(timeout)</code><a class="headerlink" href="#threaded_timeouttimeout" title="Permanent link">&para;</a></h3>
 <p>Decorator that runs the decorated function in a background thread with a timeout. Raises <code>Exception</code> if the timeout is exceeded:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.thread_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">threaded_timeout</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.thread_utils</span> <span class="kn">import</span> <span class="n">threaded_timeout</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nd">@threaded_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">slow_operation</span><span class="p">():</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">def</span> <span class="nf">slow_operation</span><span class="p">():</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="o">...</span>
 </span></code></pre></div>
 <hr />
 <h2 id="xdg-utilities-ovos_utilsxdg_utils">XDG Utilities (<code>ovos_utils.xdg_utils</code>)<a class="headerlink" href="#xdg-utilities-ovos_utilsxdg_utils" title="Permanent link">&para;</a></h2>
 <p>XDG Base Directory Specification helpers. All functions return <code>Path</code> objects (or <code>None</code> for <code>xdg_runtime_dir()</code>).</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_utils.xdg_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">xdg_config_home</span><span class="p">,</span> <span class="n">xdg_data_home</span><span class="p">,</span> <span class="n">xdg_cache_home</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.xdg_utils</span> <span class="kn">import</span> <span class="n">xdg_config_home</span><span class="p">,</span> <span class="n">xdg_data_home</span><span class="p">,</span> <span class="n">xdg_cache_home</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">config_dir</span> <span class="o">=</span> <span class="n">xdg_config_home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;mycroft&quot;</span>   <span class="c1"># ~/.config/mycroft</span>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">data_dir</span> <span class="o">=</span> <span class="n">xdg_data_home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;mycroft&quot;</span>       <span class="c1"># ~/.local/share/mycroft</span>

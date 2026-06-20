@@ -3210,9 +3210,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bridge-converting-between-message-and-pydantic" class="md-nav__link">
+  <a href="#bridge-ovoscopepydantic_helpers" class="md-nav__link">
     <span class="md-ellipsis">
-      Bridge: Converting Between Message and Pydantic
+      Bridge: ovoscope.pydantic_helpers
     </span>
   </a>
   
@@ -3255,9 +3255,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#def-assert_speakreceived_msg-message-expected_utterance-str-none-none-assert-a-received-message-is-a-valid-speak-message-typed-from_bus_messagereceived_msg-speakmessage-raises-if-invalid-if-expected_utterance-is-not-none-assert-typeddatautterance-expected_utterance-return-typed-return-for-further-inspection-def-make_utterancetext-str-lang-str-en-us-session-session-none-none-message-build-a-typed-recognizer_looputterance-message-model-recognizerlooputterancemessage-datarecognizerlooputterancedatautterancestext-langlang-msg-to_bus_messagemodel-if-session-msgcontextsession-sessionserialize-return-msg" class="md-nav__link">
+  <a href="#from-ovoscopepydantic_helpers-import-to_bus_message-from_bus_message-def-assert_speakreceived_msg-message-expected_utterance-str-none-none-assert-a-received-message-is-a-valid-speak-message-typed-from_bus_messagereceived_msg-speakmessage-raises-if-invalid-if-expected_utterance-is-not-none-assert-typeddatautterance-expected_utterance-return-typed-return-for-further-inspection-def-make_utterancetext-str-lang-str-en-us-session-session-none-none-message-build-a-typed-recognizer_looputterance-message-model-recognizerlooputterancemessage-datarecognizerlooputterancedatautterancestext-langlang-msg-to_bus_messagemodel-if-session-msgcontextsession-sessionserialize-return-msg" class="md-nav__link">
     <span class="md-ellipsis">
-      def assert_speak(received_msg: Message, expected_utterance: str | None = None): &quot;&quot;&quot;Assert a received message is a valid speak message.&quot;&quot;&quot; typed = from_bus_message(received_msg, SpeakMessage) # raises if invalid if expected_utterance is not None: assert typed.data.utterance == expected_utterance return typed # return for further inspection def make_utterance(text: str, lang: str = &quot;en-us&quot;, session: Session | None = None) -&gt; Message: &quot;&quot;&quot;Build a typed recognizer_loop:utterance message.&quot;&quot;&quot; model = RecognizerLoopUtteranceMessage( data=RecognizerLoopUtteranceData(utterances=[text], lang=lang) ) msg = to_bus_message(model) if session: msg.context[&quot;session&quot;] = session.serialize() return msg
+      from ovoscope.pydantic_helpers import to_bus_message, from_bus_message def assert_speak(received_msg: Message, expected_utterance: str | None = None): &quot;&quot;&quot;Assert a received message is a valid speak message.&quot;&quot;&quot; typed = from_bus_message(received_msg, SpeakMessage) # raises if invalid if expected_utterance is not None: assert typed.data.utterance == expected_utterance return typed # return for further inspection def make_utterance(text: str, lang: str = &quot;en-us&quot;, session: Session | None = None) -&gt; Message: &quot;&quot;&quot;Build a typed recognizer_loop:utterance message.&quot;&quot;&quot; model = RecognizerLoopUtteranceMessage( data=RecognizerLoopUtteranceData(utterances=[text], lang=lang) ) msg = to_bus_message(model) if session: msg.context[&quot;session&quot;] = session.serialize() return msg
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-pattern-5-validating-saved-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Pattern 5: Validating Saved Fixtures
     </span>
   </a>
   
@@ -3595,6 +3604,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../persona-memory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Persona Memory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agentic-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agentic Loop Architectures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tool-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Tool Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-interop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agent Interoperability (MCP/UTCP/A2A)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../advanced-solvers/" class="md-nav__link">
         
   
@@ -3834,6 +3927,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../ww-verifier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake Word Verifiers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../stt-plugins/" class="md-nav__link">
         
   
@@ -3881,6 +3995,27 @@
   
   <span class="md-ellipsis">
     G2P
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena
   </span>
   
 
@@ -4240,6 +4375,27 @@
   
   <span class="md-ellipsis">
     Translation Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-compat-layers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Server Compatibility Layers
   </span>
   
 
@@ -5703,9 +5859,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bridge-converting-between-message-and-pydantic" class="md-nav__link">
+  <a href="#bridge-ovoscopepydantic_helpers" class="md-nav__link">
     <span class="md-ellipsis">
-      Bridge: Converting Between Message and Pydantic
+      Bridge: ovoscope.pydantic_helpers
     </span>
   </a>
   
@@ -5748,9 +5904,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#def-assert_speakreceived_msg-message-expected_utterance-str-none-none-assert-a-received-message-is-a-valid-speak-message-typed-from_bus_messagereceived_msg-speakmessage-raises-if-invalid-if-expected_utterance-is-not-none-assert-typeddatautterance-expected_utterance-return-typed-return-for-further-inspection-def-make_utterancetext-str-lang-str-en-us-session-session-none-none-message-build-a-typed-recognizer_looputterance-message-model-recognizerlooputterancemessage-datarecognizerlooputterancedatautterancestext-langlang-msg-to_bus_messagemodel-if-session-msgcontextsession-sessionserialize-return-msg" class="md-nav__link">
+  <a href="#from-ovoscopepydantic_helpers-import-to_bus_message-from_bus_message-def-assert_speakreceived_msg-message-expected_utterance-str-none-none-assert-a-received-message-is-a-valid-speak-message-typed-from_bus_messagereceived_msg-speakmessage-raises-if-invalid-if-expected_utterance-is-not-none-assert-typeddatautterance-expected_utterance-return-typed-return-for-further-inspection-def-make_utterancetext-str-lang-str-en-us-session-session-none-none-message-build-a-typed-recognizer_looputterance-message-model-recognizerlooputterancemessage-datarecognizerlooputterancedatautterancestext-langlang-msg-to_bus_messagemodel-if-session-msgcontextsession-sessionserialize-return-msg" class="md-nav__link">
     <span class="md-ellipsis">
-      def assert_speak(received_msg: Message, expected_utterance: str | None = None): &quot;&quot;&quot;Assert a received message is a valid speak message.&quot;&quot;&quot; typed = from_bus_message(received_msg, SpeakMessage) # raises if invalid if expected_utterance is not None: assert typed.data.utterance == expected_utterance return typed # return for further inspection def make_utterance(text: str, lang: str = &quot;en-us&quot;, session: Session | None = None) -&gt; Message: &quot;&quot;&quot;Build a typed recognizer_loop:utterance message.&quot;&quot;&quot; model = RecognizerLoopUtteranceMessage( data=RecognizerLoopUtteranceData(utterances=[text], lang=lang) ) msg = to_bus_message(model) if session: msg.context[&quot;session&quot;] = session.serialize() return msg
+      from ovoscope.pydantic_helpers import to_bus_message, from_bus_message def assert_speak(received_msg: Message, expected_utterance: str | None = None): &quot;&quot;&quot;Assert a received message is a valid speak message.&quot;&quot;&quot; typed = from_bus_message(received_msg, SpeakMessage) # raises if invalid if expected_utterance is not None: assert typed.data.utterance == expected_utterance return typed # return for further inspection def make_utterance(text: str, lang: str = &quot;en-us&quot;, session: Session | None = None) -&gt; Message: &quot;&quot;&quot;Build a typed recognizer_loop:utterance message.&quot;&quot;&quot; model = RecognizerLoopUtteranceMessage( data=RecognizerLoopUtteranceData(utterances=[text], lang=lang) ) msg = to_bus_message(model) if session: msg.context[&quot;session&quot;] = session.serialize() return msg
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-pattern-5-validating-saved-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Pattern 5: Validating Saved Fixtures
     </span>
   </a>
   
@@ -5861,154 +6026,187 @@
 </span></code></pre></div>
 <code>Message</code> is a raw dict wrapper. There is no validation of field names, no type checking, and no autocomplete. A typo in a field name (<code>"utterance"</code> instead of <code>"utterances"</code>) silently produces a wrong test.</p>
 <hr />
-<h2 id="bridge-converting-between-message-and-pydantic">Bridge: Converting Between Message and Pydantic<a class="headerlink" href="#bridge-converting-between-message-and-pydantic" title="Permanent link">&para;</a></h2>
-<p><code>ovos_bus_client.message.Message</code> and <code>OpenVoiceOSMessage</code> share the same three-field structure (<code>type</code>/<code>message_type</code>, <code>data</code>, <code>context</code>). A bridge needs only two functions:</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenVoiceOSMessage</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_bus_message</span><span class="p">(</span><span class="n">pydantic_msg</span><span class="p">:</span> <span class="n">OpenVoiceOSMessage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a pydantic model to an ovos-bus-client Message.&quot;&quot;&quot;</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">d</span> <span class="o">=</span> <span class="n">pydantic_msg</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="k">return</span> <span class="n">Message</span><span class="p">(</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;message_type&quot;</span><span class="p">],</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">],</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="p">)</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">from_bus_message</span><span class="p">(</span><span class="n">bus_msg</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">OpenVoiceOSMessage</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">OpenVoiceOSMessage</span><span class="p">:</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a received bus Message into a typed pydantic model.&quot;&quot;&quot;</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">model_validate</span><span class="p">({</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="s2">&quot;message_type&quot;</span><span class="p">:</span> <span class="n">bus_msg</span><span class="o">.</span><span class="n">msg_type</span><span class="p">,</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">bus_msg</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="n">bus_msg</span><span class="o">.</span><span class="n">context</span><span class="p">,</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="p">})</span>
+<h2 id="bridge-ovoscopepydantic_helpers">Bridge: <code>ovoscope.pydantic_helpers</code><a class="headerlink" href="#bridge-ovoscopepydantic_helpers" title="Permanent link">&para;</a></h2>
+<p><code>ovos_bus_client.message.Message</code> and <code>OpenVoiceOSMessage</code> share the same three-field structure (<code>type</code>/<code>message_type</code>, <code>data</code>, <code>context</code>). The bridge already ships in OvoScope as <code>ovoscope.pydantic_helpers</code> — you do not write it yourself. Import from there:</p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovoscope.pydantic_helpers</span> <span class="kn">import</span> <span class="n">to_bus_message</span><span class="p">,</span> <span class="n">from_bus_message</span><span class="p">,</span> <span class="n">validate_fixture</span>
 </span></code></pre></div>
-These two functions are all that's needed to use typed models with OvoScope today, without any changes to OvoScope itself.</p>
+The module imports safely even without the <code>pydantic</code> extras installed; each function raises a clear <code>ImportError</code> (pointing at <code>pip install ovoscope[pydantic]</code>) only when actually called.</p>
+<p>The two conversion functions are, in effect:</p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span> <span class="nf">to_bus_message</span><span class="p">(</span><span class="n">pydantic_msg</span><span class="p">:</span> <span class="s2">&quot;OpenVoiceOSMessage&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a pydantic model to an ovos-bus-client Message.&quot;&quot;&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">d</span> <span class="o">=</span> <span class="n">pydantic_msg</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="k">return</span> <span class="n">Message</span><span class="p">(</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;message_type&quot;</span><span class="p">],</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{},</span>      <span class="c1"># None/absent → {}</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;context&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{},</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="p">)</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">def</span> <span class="nf">from_bus_message</span><span class="p">(</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">bus_msg</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;Type[OpenVoiceOSMessage]&quot;</span><span class="p">,</span>   <span class="c1"># the target model is REQUIRED</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;OpenVoiceOSMessage&quot;</span><span class="p">:</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a received bus Message into a typed pydantic model.</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="sd">    Raises pydantic.ValidationError if bus_msg does not match model&#39;s schema.</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">model_validate</span><span class="p">({</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>        <span class="s2">&quot;message_type&quot;</span><span class="p">:</span> <span class="n">bus_msg</span><span class="o">.</span><span class="n">msg_type</span><span class="p">,</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>        <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">bus_msg</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>        <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="n">bus_msg</span><span class="o">.</span><span class="n">context</span><span class="p">,</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    <span class="p">})</span>
+</span></code></pre></div>
+Note <code>from_bus_message</code> requires the target <code>model</code> as its second argument — it parses into that specific message subclass and raises <code>pydantic.ValidationError</code> on a schema mismatch. These two functions are all that's needed to use typed models with OvoScope today.</p>
 <hr />
 <h2 id="usage-pattern-1-typed-source-messages">Usage Pattern 1: Typed Source Messages<a class="headerlink" href="#usage-pattern-1-typed-source-messages" title="Permanent link">&para;</a></h2>
 <p>Use pydantic models to construct source messages, then convert:</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">End2EndTest</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">Message</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_bus_client.session</span><span class="w"> </span><span class="kn">import</span> <span class="n">Session</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">,</span> <span class="n">RecognizerLoopUtteranceData</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># typed construction — validated at instantiation</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">utterance_model</span> <span class="o">=</span> <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">(</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">data</span><span class="o">=</span><span class="n">RecognizerLoopUtteranceData</span><span class="p">(</span><span class="n">utterances</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;what is the weather?&quot;</span><span class="p">],</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en-us&quot;</span><span class="p">),</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">)</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="s2">&quot;test-123&quot;</span><span class="p">)</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">bus_msg</span> <span class="o">=</span> <span class="n">to_bus_message</span><span class="p">(</span><span class="n">utterance_model</span><span class="p">)</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">bus_msg</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;session&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="n">bus_msg</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="n">bus_msg</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;destination&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;B&quot;</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="n">End2EndTest</span><span class="p">(</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="n">skill_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;skill-weather.openvoiceos&quot;</span><span class="p">],</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="n">source_message</span><span class="o">=</span><span class="n">bus_msg</span><span class="p">,</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="n">expected_messages</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">],</span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">End2EndTest</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">ovoscope.pydantic_helpers</span> <span class="kn">import</span> <span class="n">to_bus_message</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.message</span> <span class="kn">import</span> <span class="n">Message</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">Session</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">,</span> <span class="n">RecognizerLoopUtteranceData</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># typed construction — validated at instantiation</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">utterance_model</span> <span class="o">=</span> <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">(</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">data</span><span class="o">=</span><span class="n">RecognizerLoopUtteranceData</span><span class="p">(</span><span class="n">utterances</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;what is the weather?&quot;</span><span class="p">],</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en-us&quot;</span><span class="p">),</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">)</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="s2">&quot;test-123&quot;</span><span class="p">)</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="n">bus_msg</span> <span class="o">=</span> <span class="n">to_bus_message</span><span class="p">(</span><span class="n">utterance_model</span><span class="p">)</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="n">bus_msg</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;session&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="n">bus_msg</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;A&quot;</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">bus_msg</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;destination&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;B&quot;</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="n">End2EndTest</span><span class="p">(</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="n">skill_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;skill-weather.openvoiceos&quot;</span><span class="p">],</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="n">source_message</span><span class="o">=</span><span class="n">bus_msg</span><span class="p">,</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    <span class="n">expected_messages</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">],</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
 </span></code></pre></div>
 Benefit: <code>RecognizerLoopUtteranceData</code> validates that <code>utterances</code> is a <code>list[str]</code> and <code>lang</code> is a string. A missing <code>utterances</code> field raises <code>ValidationError</code> at construction time, not a silent wrong test.</p>
 <hr />
 <h2 id="usage-pattern-2-typed-expected-messages">Usage Pattern 2: Typed Expected Messages<a class="headerlink" href="#usage-pattern-2-typed-expected-messages" title="Permanent link">&para;</a></h2>
 <p>Use pydantic models to build expected messages. This documents intent and catches field-name mistakes:</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpeakMessage</span><span class="p">,</span> <span class="n">SpeakData</span><span class="p">,</span> <span class="n">CompleteIntentFailureMessage</span><span class="p">,</span> <span class="n">CompleteIntentFailureData</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">to_bus_message</span><span class="p">(</span><span class="n">RecognizerLoopUtteranceMessage</span><span class="p">(</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        <span class="n">data</span><span class="o">=</span><span class="n">RecognizerLoopUtteranceData</span><span class="p">(</span><span class="n">utterances</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;what is the weather?&quot;</span><span class="p">],</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en-us&quot;</span><span class="p">)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="p">)),</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">to_bus_message</span><span class="p">(</span><span class="n">SpeakMessage</span><span class="p">(</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="n">data</span><span class="o">=</span><span class="n">SpeakData</span><span class="p">(</span><span class="n">utterance</span><span class="o">=</span><span class="s2">&quot;It is 22 degrees in London.&quot;</span><span class="p">)</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="p">)),</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">to_bus_message</span><span class="p">(</span><span class="n">OvosUtteranceHandledMessage</span><span class="p">()),</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">]</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">End2EndTest</span><span class="p">(</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">skill_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;skill-weather.openvoiceos&quot;</span><span class="p">],</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">source_message</span><span class="o">=</span><span class="n">bus_msg</span><span class="p">,</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="n">expected_messages</span><span class="o">=</span><span class="n">expected</span><span class="p">,</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovoscope.pydantic_helpers</span> <span class="kn">import</span> <span class="n">to_bus_message</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">SpeakMessage</span><span class="p">,</span> <span class="n">SpeakData</span><span class="p">,</span> <span class="n">CompleteIntentFailureMessage</span><span class="p">,</span> <span class="n">CompleteIntentFailureData</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">to_bus_message</span><span class="p">(</span><span class="n">RecognizerLoopUtteranceMessage</span><span class="p">(</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="n">data</span><span class="o">=</span><span class="n">RecognizerLoopUtteranceData</span><span class="p">(</span><span class="n">utterances</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;what is the weather?&quot;</span><span class="p">],</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en-us&quot;</span><span class="p">)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="p">)),</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">to_bus_message</span><span class="p">(</span><span class="n">SpeakMessage</span><span class="p">(</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="n">data</span><span class="o">=</span><span class="n">SpeakData</span><span class="p">(</span><span class="n">utterance</span><span class="o">=</span><span class="s2">&quot;It is 22 degrees in London.&quot;</span><span class="p">)</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="p">)),</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">to_bus_message</span><span class="p">(</span><span class="n">OvosUtteranceHandledMessage</span><span class="p">()),</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">]</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">End2EndTest</span><span class="p">(</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="n">skill_ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;skill-weather.openvoiceos&quot;</span><span class="p">],</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="n">source_message</span><span class="o">=</span><span class="n">bus_msg</span><span class="p">,</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="n">expected_messages</span><span class="o">=</span><span class="n">expected</span><span class="p">,</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
 </span></code></pre></div>
 Because <code>End2EndTest</code> checks only the data keys you specify (subset match), you can omit optional fields in expected messages — this works the same as before, but field names are now validated at Python parse time.</p>
 <hr />
 <h2 id="usage-pattern-3-typed-assertions-on-received-messages">Usage Pattern 3: Typed Assertions on Received Messages<a class="headerlink" href="#usage-pattern-3-typed-assertions-on-received-messages" title="Permanent link">&para;</a></h2>
 <p>After a test captures messages, convert received <code>Message</code> objects to their typed counterparts for richer assertions:</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_minicroft</span><span class="p">,</span> <span class="n">CaptureSession</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovos_pydantic_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpeakMessage</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">croft</span> <span class="o">=</span> <span class="n">get_minicroft</span><span class="p">([</span><span class="s2">&quot;skill-weather.openvoiceos&quot;</span><span class="p">])</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">capture</span> <span class="o">=</span> <span class="n">CaptureSession</span><span class="p">(</span><span class="n">croft</span><span class="p">)</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">capture</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span><span class="n">bus_msg</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">messages</span> <span class="o">=</span> <span class="n">capture</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">croft</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># find the speak message and parse it</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">speak_msgs</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">msg_type</span> <span class="o">==</span> <span class="s2">&quot;speak&quot;</span><span class="p">]</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">speak_msgs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">typed_speak</span> <span class="o">=</span> <span class="n">from_bus_message</span><span class="p">(</span><span class="n">speak_msgs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">SpeakMessage</span><span class="p">)</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="k">assert</span> <span class="s2">&quot;london&quot;</span> <span class="ow">in</span> <span class="n">typed_speak</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">utterance</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="k">assert</span> <span class="n">typed_speak</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">expect_response</span> <span class="ow">is</span> <span class="kc">False</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">get_minicroft</span><span class="p">,</span> <span class="n">CaptureSession</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">ovoscope.pydantic_helpers</span> <span class="kn">import</span> <span class="n">from_bus_message</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kn">from</span> <span class="nn">ovos_pydantic_models</span> <span class="kn">import</span> <span class="n">SpeakMessage</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">croft</span> <span class="o">=</span> <span class="n">get_minicroft</span><span class="p">([</span><span class="s2">&quot;skill-weather.openvoiceos&quot;</span><span class="p">])</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">capture</span> <span class="o">=</span> <span class="n">CaptureSession</span><span class="p">(</span><span class="n">croft</span><span class="p">)</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">capture</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span><span class="n">bus_msg</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">messages</span> <span class="o">=</span> <span class="n">capture</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="n">croft</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># find the speak message and parse it</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="n">speak_msgs</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">messages</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">msg_type</span> <span class="o">==</span> <span class="s2">&quot;speak&quot;</span><span class="p">]</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">speak_msgs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="n">typed_speak</span> <span class="o">=</span> <span class="n">from_bus_message</span><span class="p">(</span><span class="n">speak_msgs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">SpeakMessage</span><span class="p">)</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="k">assert</span> <span class="s2">&quot;london&quot;</span> <span class="ow">in</span> <span class="n">typed_speak</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">utterance</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="k">assert</span> <span class="n">typed_speak</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">expect_response</span> <span class="ow">is</span> <span class="kc">False</span>
 </span></code></pre></div>
 This is cleaner than <code>msg.data["utterance"]</code> — you get IDE autocomplete and the field contract is explicit.</p>
 <hr />
 <h2 id="usage-pattern-4-type-safe-test-helpers">Usage Pattern 4: Type-safe Test Helpers<a class="headerlink" href="#usage-pattern-4-type-safe-test-helpers" title="Permanent link">&para;</a></h2>
 <p>Build helpers that combine the two:</p>
-<h2 id="def-assert_speakreceived_msg-message-expected_utterance-str-none-none-assert-a-received-message-is-a-valid-speak-message-typed-from_bus_messagereceived_msg-speakmessage-raises-if-invalid-if-expected_utterance-is-not-none-assert-typeddatautterance-expected_utterance-return-typed-return-for-further-inspection-def-make_utterancetext-str-lang-str-en-us-session-session-none-none-message-build-a-typed-recognizer_looputterance-message-model-recognizerlooputterancemessage-datarecognizerlooputterancedatautterancestext-langlang-msg-to_bus_messagemodel-if-session-msgcontextsession-sessionserialize-return-msg"><div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">assert_speak</span><span class="p">(</span><span class="n">received_msg</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">expected_utterance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Assert a received message is a valid speak message.&quot;&quot;&quot;</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">typed</span> <span class="o">=</span> <span class="n">from_bus_message</span><span class="p">(</span><span class="n">received_msg</span><span class="p">,</span> <span class="n">SpeakMessage</span><span class="p">)</span>  <span class="c1"># raises if invalid</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">if</span> <span class="n">expected_utterance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        <span class="k">assert</span> <span class="n">typed</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">utterance</span> <span class="o">==</span> <span class="n">expected_utterance</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="k">return</span> <span class="n">typed</span>  <span class="c1"># return for further inspection</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_utterance</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;en-us&quot;</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">Session</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a typed recognizer_loop:utterance message.&quot;&quot;&quot;</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">(</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="n">data</span><span class="o">=</span><span class="n">RecognizerLoopUtteranceData</span><span class="p">(</span><span class="n">utterances</span><span class="o">=</span><span class="p">[</span><span class="n">text</span><span class="p">],</span> <span class="n">lang</span><span class="o">=</span><span class="n">lang</span><span class="p">)</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="p">)</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="n">msg</span> <span class="o">=</span> <span class="n">to_bus_message</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="k">if</span> <span class="n">session</span><span class="p">:</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>        <span class="n">msg</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;session&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    <span class="k">return</span> <span class="n">msg</span>
-</span></code></pre></div><a class="headerlink" href="#def-assert_speakreceived_msg-message-expected_utterance-str-none-none-assert-a-received-message-is-a-valid-speak-message-typed-from_bus_messagereceived_msg-speakmessage-raises-if-invalid-if-expected_utterance-is-not-none-assert-typeddatautterance-expected_utterance-return-typed-return-for-further-inspection-def-make_utterancetext-str-lang-str-en-us-session-session-none-none-message-build-a-typed-recognizer_looputterance-message-model-recognizerlooputterancemessage-datarecognizerlooputterancedatautterancestext-langlang-msg-to_bus_messagemodel-if-session-msgcontextsession-sessionserialize-return-msg" title="Permanent link">&para;</a></h2>
+<h2 id="from-ovoscopepydantic_helpers-import-to_bus_message-from_bus_message-def-assert_speakreceived_msg-message-expected_utterance-str-none-none-assert-a-received-message-is-a-valid-speak-message-typed-from_bus_messagereceived_msg-speakmessage-raises-if-invalid-if-expected_utterance-is-not-none-assert-typeddatautterance-expected_utterance-return-typed-return-for-further-inspection-def-make_utterancetext-str-lang-str-en-us-session-session-none-none-message-build-a-typed-recognizer_looputterance-message-model-recognizerlooputterancemessage-datarecognizerlooputterancedatautterancestext-langlang-msg-to_bus_messagemodel-if-session-msgcontextsession-sessionserialize-return-msg"><div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovoscope.pydantic_helpers</span> <span class="kn">import</span> <span class="n">to_bus_message</span><span class="p">,</span> <span class="n">from_bus_message</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">def</span> <span class="nf">assert_speak</span><span class="p">(</span><span class="n">received_msg</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">expected_utterance</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Assert a received message is a valid speak message.&quot;&quot;&quot;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">typed</span> <span class="o">=</span> <span class="n">from_bus_message</span><span class="p">(</span><span class="n">received_msg</span><span class="p">,</span> <span class="n">SpeakMessage</span><span class="p">)</span>  <span class="c1"># raises if invalid</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="k">if</span> <span class="n">expected_utterance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="k">assert</span> <span class="n">typed</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">utterance</span> <span class="o">==</span> <span class="n">expected_utterance</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="k">return</span> <span class="n">typed</span>  <span class="c1"># return for further inspection</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="k">def</span> <span class="nf">make_utterance</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;en-us&quot;</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">Session</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Message</span><span class="p">:</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a typed recognizer_loop:utterance message.&quot;&quot;&quot;</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">RecognizerLoopUtteranceMessage</span><span class="p">(</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        <span class="n">data</span><span class="o">=</span><span class="n">RecognizerLoopUtteranceData</span><span class="p">(</span><span class="n">utterances</span><span class="o">=</span><span class="p">[</span><span class="n">text</span><span class="p">],</span> <span class="n">lang</span><span class="o">=</span><span class="n">lang</span><span class="p">)</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="p">)</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="n">msg</span> <span class="o">=</span> <span class="n">to_bus_message</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    <span class="k">if</span> <span class="n">session</span><span class="p">:</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="n">msg</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;session&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="k">return</span> <span class="n">msg</span>
+</span></code></pre></div><a class="headerlink" href="#from-ovoscopepydantic_helpers-import-to_bus_message-from_bus_message-def-assert_speakreceived_msg-message-expected_utterance-str-none-none-assert-a-received-message-is-a-valid-speak-message-typed-from_bus_messagereceived_msg-speakmessage-raises-if-invalid-if-expected_utterance-is-not-none-assert-typeddatautterance-expected_utterance-return-typed-return-for-further-inspection-def-make_utterancetext-str-lang-str-en-us-session-session-none-none-message-build-a-typed-recognizer_looputterance-message-model-recognizerlooputterancemessage-datarecognizerlooputterancedatautterancestext-langlang-msg-to_bus_messagemodel-if-session-msgcontextsession-sessionserialize-return-msg" title="Permanent link">&para;</a></h2>
+<h2 id="usage-pattern-5-validating-saved-fixtures">Usage Pattern 5: Validating Saved Fixtures<a class="headerlink" href="#usage-pattern-5-validating-saved-fixtures" title="Permanent link">&para;</a></h2>
+<p><code>End2EndTest.save()</code> writes a JSON fixture; <code>End2EndTest.deserialize()</code> loads one back.
+<code>validate_fixture()</code> sits between them and checks every entry in the <code>source_message</code>
+and <code>expected_messages</code> arrays against <code>OpenVoiceOSMessage</code> before you build the test,
+turning a malformed fixture into a clear <code>ValueError</code> (with the offending
+<code>section[index]</code> and message type) instead of a cryptic <code>KeyError</code>/<code>TypeError</code> raised
+deep inside <code>deserialize()</code>:</p>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">ovoscope</span> <span class="kn">import</span> <span class="n">End2EndTest</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span> <span class="nn">ovoscope.pydantic_helpers</span> <span class="kn">import</span> <span class="n">validate_fixture</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># validate_fixture returns the raw fixture dict, ready for deserialize()</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">fixture</span> <span class="o">=</span> <span class="n">validate_fixture</span><span class="p">(</span><span class="s2">&quot;test/fixtures/weather_london.json&quot;</span><span class="p">)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">test</span> <span class="o">=</span> <span class="n">End2EndTest</span><span class="o">.</span><span class="n">deserialize</span><span class="p">(</span><span class="n">fixture</span><span class="p">)</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">test</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</span></code></pre></div>
+<code>validate_fixture</code> accepts fixtures written with either the <code>Message.serialize()</code>
+<code>"type"</code> key or the pydantic <code>"message_type"</code> key — it normalises both. It does <strong>not</strong>
+mutate or re-emit the fixture; it returns the original dict unchanged, so it is a safe
+drop-in guard in front of any existing <code>deserialize()</code> call.</p>
+<hr />
 <h2 id="deeper-integration-what-ovoscope-could-gain">Deeper Integration: What OvoScope Could Gain<a class="headerlink" href="#deeper-integration-what-ovoscope-could-gain" title="Permanent link">&para;</a></h2>
 <p>The patterns above work today with no changes to OvoScope. A deeper integration would add native support for pydantic models as a first-class alternative to <code>Message</code>:</p>
 <h3 id="idea-1-accept-pydantic-models-directly-in-end2endtest">Idea 1: Accept pydantic models directly in <code>End2EndTest</code><a class="headerlink" href="#idea-1-accept-pydantic-models-directly-in-end2endtest" title="Permanent link">&para;</a></h3>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># instead of requiring to_bus_message() manually:</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">End2EndTest</span><span class="p">(</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">skill_ids</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">],</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">source_message</span><span class="o">=</span><span class="n">RecognizerLoopUtteranceMessage</span><span class="p">(</span><span class="o">...</span><span class="p">),</span>   <span class="c1"># pydantic directly</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">expected_messages</span><span class="o">=</span><span class="p">[</span><span class="n">SpeakMessage</span><span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="n">OvosUtteranceHandledMessage</span><span class="p">()],</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">)</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># instead of requiring to_bus_message() manually:</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">End2EndTest</span><span class="p">(</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">skill_ids</span><span class="o">=</span><span class="p">[</span><span class="o">...</span><span class="p">],</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">source_message</span><span class="o">=</span><span class="n">RecognizerLoopUtteranceMessage</span><span class="p">(</span><span class="o">...</span><span class="p">),</span>   <span class="c1"># pydantic directly</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">expected_messages</span><span class="o">=</span><span class="p">[</span><span class="n">SpeakMessage</span><span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="n">OvosUtteranceHandledMessage</span><span class="p">()],</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">)</span>
 </span></code></pre></div>
 Implementation: <code>__post_init__</code> could detect <code>OpenVoiceOSMessage</code> instances and call <code>to_bus_message()</code> automatically.</p>
 <h3 id="idea-2-assert_message_type-helper-on-end2endtest">Idea 2: <code>assert_message_type()</code> helper on <code>End2EndTest</code><a class="headerlink" href="#idea-2-assert_message_type-helper-on-end2endtest" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">test</span><span class="o">.</span><span class="n">assert_message_type</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">SpeakMessage</span><span class="p">)</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># verifies received[1] can be deserialized as SpeakMessage</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">test</span><span class="o">.</span><span class="n">assert_message_type</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">SpeakMessage</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># verifies received[1] can be deserialized as SpeakMessage</span>
 </span></code></pre></div>
 <h3 id="idea-3-typed-capture-result">Idea 3: Typed capture result<a class="headerlink" href="#idea-3-typed-capture-result" title="Permanent link">&para;</a></h3>
 <p>After <code>execute()</code>, expose captured messages as typed models where possible:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">test</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">speak</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">received_as</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">SpeakMessage</span><span class="p">)</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">assert</span> <span class="n">speak</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">expect_response</span> <span class="ow">is</span> <span class="kc">False</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">test</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">speak</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">received_as</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">SpeakMessage</span><span class="p">)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">assert</span> <span class="n">speak</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">expect_response</span> <span class="ow">is</span> <span class="kc">False</span>
 </span></code></pre></div>
 <h3 id="idea-4-json-schema-validation-in-assertions">Idea 4: JSON schema validation in assertions<a class="headerlink" href="#idea-4-json-schema-validation-in-assertions" title="Permanent link">&para;</a></h3>
 <p>Instead of only checking key/value subsets, optionally validate each received message against the pydantic schema for its type:</p>
-<p><div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">End2EndTest</span><span class="p">(</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="o">...</span><span class="p">,</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">validate_schemas</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># each received message must parse as its pydantic model</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">)</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">End2EndTest</span><span class="p">(</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="o">...</span><span class="p">,</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">validate_schemas</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># each received message must parse as its pydantic model</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="p">)</span>
 </span></code></pre></div>
 This would catch malformed messages from skills (e.g. a skill emitting <code>speak</code> with missing <code>utterance</code>).</p>
 <hr />
 <h2 id="dependency-consideration">Dependency Consideration<a class="headerlink" href="#dependency-consideration" title="Permanent link">&para;</a></h2>
 <p><code>ovos-pydantic-models</code> is a pure Pydantic v2 package with no OVOS runtime dependencies. OvoScope depends on <code>ovos-core&gt;=2.0.4a2</code>. The optional dependency is declared in <code>pyproject.toml</code>:</p>
-<p><div class="language-toml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">[project.optional-dependencies]</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">pydantic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ovos-pydantic-models&gt;=0.1.0&quot;</span><span class="p">]</span>
+<p><div class="language-toml highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">[project.optional-dependencies]</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">pydantic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ovos-pydantic-models&gt;=0.1.0&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 Install with:</p>
-<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovoscope<span class="o">[</span>pydantic<span class="o">]</span>
+<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovoscope<span class="o">[</span>pydantic<span class="o">]</span>
 </span></code></pre></div>
 The bridge functions (<code>to_bus_message</code>, <code>from_bus_message</code>, <code>validate_fixture</code>) live in
 <code>ovoscope.pydantic_helpers</code> and guard their imports conditionally — the module can be imported
 without <code>ovos-pydantic-models</code> installed, but calling any function raises a clear <code>ImportError</code>
 pointing to the extras install command:</p>
-<h2 id="safe-to-import-regardless-of-whether-pydantic-extras-are-installed-from-ovoscopepydantic_helpers-import-to_bus_message-importerror-only-on-call-not-import"><div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># safe to import regardless of whether pydantic extras are installed</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ovoscope.pydantic_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_bus_message</span>  <span class="c1"># ImportError only on call, not import</span>
+<h2 id="safe-to-import-regardless-of-whether-pydantic-extras-are-installed-from-ovoscopepydantic_helpers-import-to_bus_message-importerror-only-on-call-not-import"><div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># safe to import regardless of whether pydantic extras are installed</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kn">from</span> <span class="nn">ovoscope.pydantic_helpers</span> <span class="kn">import</span> <span class="n">to_bus_message</span>  <span class="c1"># ImportError only on call, not import</span>
 </span></code></pre></div><a class="headerlink" href="#safe-to-import-regardless-of-whether-pydantic-extras-are-installed-from-ovoscopepydantic_helpers-import-to_bus_message-importerror-only-on-call-not-import" title="Permanent link">&para;</a></h2>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
 <table>
