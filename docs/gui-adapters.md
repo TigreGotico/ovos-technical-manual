@@ -88,10 +88,10 @@ def on_namespace_deactivated(self, skill_id: str, session_id: str = "default") -
 def on_idle(self) -> None:
     """Called when the display returns to the idle/resting state."""
 
-def on_session_update(self, skill_id: str, data: dict, ...) -> None:
+def on_session_update(self, skill_id: str, data: dict, session_id: str = "default") -> None:
     """Called whenever skill session data changes (e.g. gui['key'] = value)."""
 
-def on_status_event(self, event_name: str, data: dict) -> None:
+def on_status_event(self, event_name: str, data: dict, session_id: str = "default") -> None:
     """Called for system status events (wakeword, utterance handled, etc.)."""
 ```
 

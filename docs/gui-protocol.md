@@ -257,7 +257,7 @@ All messages are JSON objects sent over the WebSocket connection at `ws://localh
 
 The Qt client then opens a WebSocket connection to `ws://localhost:18181`.
 
-When a client connects, `plugin.synchronize(client)` replays the full current state:
+When a client connects, `GUIWebsocketHandler.synchronize()` replays the full current state:
 
 1. Re-sends `mycroft.session.list.insert` for every namespace in the active stack (in order).
 
@@ -518,14 +518,15 @@ User swipes / taps on Qt:
     ([OpenVoiceOS/architecture#63](https://github.com/OpenVoiceOS/architecture/pull/63);
     see [GUI Service](gui-service.md)) the bus contract changes:
 
-    - `gui.page.show` accepts **only** `SYSTEM_*` template names; `page_names[0]` must
-      start with `SYSTEM_` or `handle_show_page()` raises.
+    - `gui.page.show` accepts **only** `SYSTEM_*` template names; if `page_names[0]` does
+      not start with `SYSTEM_`, `handle_show_page()` logs an error and drops the request
+      (custom QML is no longer supported).
     - Instead of mirroring to Qt clients directly, `NamespaceManager` calls
       `adapter.dispatch_template(template, skill_id, data, session_id)` on every loaded
       `opm.gui_adapter` plugin; the Qt WebSocket protocol moves into the
       `ovos-legacy-mycroft-gui-plugin` adapter.
     - Forwarded status events go to adapters via
-      `adapter.on_status_event(event_name, data)` rather than straight to Qt clients.
+      `adapter.on_status_event(event_name, data, session_id)` rather than straight to Qt clients.
     - `gui.namespace.removed` / `gui.namespace.displayed` are still emitted; the
       `gui.page.delete` / `gui.page.delete.all` handlers are removed.
 

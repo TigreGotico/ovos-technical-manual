@@ -80,7 +80,7 @@ def __init__(self, *args, **kwargs):
 
 `__init__` method must accept at least `skill_id` and `bus` kwargs and pass them to `super()`, we recommend passing `*args, **kwargs` like in example above instead
 
-**NOTE**: `self.skill_id`, `self.filesystem`, `self.settings`, `self.bus` are only available after the call to `super()`, if you need them consider using `initialize` instead
+**NOTE**: `self.skill_id`, `self.file_system`, `self.settings`, `self.bus` are only available after the call to `super()`, if you need them consider using `initialize` instead
 
 
 #### initialize()
@@ -90,7 +90,7 @@ This method is called during `__init__`, if you implemented `__init__` in your s
 Perform any final setup needed for the skill here. This function is invoked after the skill is fully constructed and
 registered with the system. Intents will be registered and Skill settings will be available.
 
-If you need to access `self.skill_id`, `self.bus`, `self.settings` or `self.filesystem` you must do it here instead of `__init__`
+If you need to access `self.skill_id`, `self.bus`, `self.settings` or `self.file_system` you must do it here instead of `__init__`
 
 ```python
 def initialize(self):

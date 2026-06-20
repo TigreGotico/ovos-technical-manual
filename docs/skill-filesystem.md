@@ -8,14 +8,14 @@
 
 ## Storage Path
 
-Files are stored under:
+Files for a skill are stored under:
 
 ```
-~/.local/share/ovos/filesystem/<skill_id>/
+~/.local/share/ovos/filesystem/skills/<skill_id>/
 
 ```
 
-The exact base is determined by `get_xdg_data_save_path()` from `ovos-config`. The directory is created automatically if it does not exist.
+The exact base is determined by `get_xdg_data_save_path()` from `ovos-config`. The directory is created automatically if it does not exist. (`self.file_system` is constructed as `FileSystemAccess("skills/" + skill_id)`; a `FileSystemAccess` built directly with a bare name maps to `filesystem/<name>/` without the `skills/` segment.)
 
 ---
 

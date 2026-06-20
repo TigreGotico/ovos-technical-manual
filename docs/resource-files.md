@@ -73,7 +73,7 @@ good morning
 
 ```
 
-Loaded automatically as `HelloKeyword` (file name without extension, CamelCase from `alphanumeric_skill_id`).
+The Adapt entity name is the file name without its extension (`hello` for `hello.voc`); reference it in an `IntentBuilder` with `.require("hello")` / `.optionally("hello")`. Internally the keyword is namespaced as `alphanumeric_skill_id + "hello"` so skills never collide.
 
 ## Intent Files (Padatious)
 

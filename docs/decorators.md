@@ -181,7 +181,7 @@ def handle_cancel(self, message):
 
 `AbortEvent` — `ovos_workshop/decorators/killable.py:12`
 `AbortIntent` — `ovos_workshop/decorators/killable.py:16`
-`AbortQuestion` — `ovos_workshop/decorators/killable.py:19`
+`AbortQuestion` — `ovos_workshop/decorators/killable.py:20`
 
 ```python
 class AbortEvent(StopIteration):

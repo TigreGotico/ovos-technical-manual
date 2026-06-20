@@ -171,7 +171,7 @@ Before we dive deeper into the Design Guidelines, lets look at some concepts tha
 ### Units & Theming
 
 #### Units: 
-Mycroft.Units.GridUnit is the fundamental unit of space that should be used for all sizing inside the QML UI, expressed in pixels. Each GridUnit is predefined as 16 pixels
+`Mycroft.Units.gridUnit` is the fundamental unit of space that should be used for all sizing inside the QML UI, expressed in pixels. Each `gridUnit` is predefined as 16 pixels
 
 ```
 // Usage in QML Components example
