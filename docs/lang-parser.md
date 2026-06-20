@@ -1,11 +1,20 @@
 
 # ovos-lang-parser
 
-OpenVoiceOS's multilingual language-name parsing and pronouncing library. It converts spoken language names ("Spanish", "Espagnol") to BCP-47 codes (`"es"`) and vice versa, enabling skills and components to handle language-selection commands in natural speech.
+OpenVoiceOS's multilingual language-name parsing and pronouncing library. It converts spoken language names ("Spanish", "Espagnol") to BCP-47 codes (`"es"`) and vice versa, so skills and components can handle language-selection commands in natural speech.
 
-## Why it exists
+**What you get in 30 seconds:**
 
-OVOS supports runtime language switching and multi-language awareness. When a user says "switch to French" or "reply in German", the platform needs to map a spoken word to a BCP-47 code. Conversely, when displaying or speaking the name of a language back to the user, the platform needs the localized spoken name. `ovos-lang-parser` provides both directions for any supported OVOS UI language.
+```python
+from ovos_lang_parser import extract_langcode, pronounce_lang
+
+extract_langcode("switch to Spanish please", "en")   # ("es", 0.95)  -> (code, confidence)
+pronounce_lang("fr", "en")                            # "French"
+```
+
+When a user says "switch to French", you need the BCP-47 code `"fr"`; when speaking a language back to the user you need its localized name. This library covers both directions.
+
+The first argument that names a language is the *target* language being talked about; the `lang` argument is the *UI language the user is speaking in* (which decides the vocabulary of recognized names). The UI languages that ship with name vocabularies are: `ca`, `da`, `de`, `en`, `es`, `eu`, `fr`, `gl`, `it`, `nl`, `pt`. A UI `lang` outside this set is matched to the closest one (and raises `ValueError` if nothing is close).
 
 ---
 

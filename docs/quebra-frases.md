@@ -1,8 +1,18 @@
 # Quebra Frases
 
-The `quebra_frases` package provides essential text processing tools for tokenization, chunking, and token analysis. 
+`quebra_frases` is a lightweight text-processing toolkit for tokenization (words / sentences / paragraphs), chunking around delimiters, and comparing several utterances to find their common / uncommon / exclusive parts. OVOS uses it for utterance normalization and intent-sample analysis.
 
-**No External Dependencies**: quebra_frases is designed to be lightweight and does not rely on external libraries other than regex for efficient text processing.
+**What you get in 30 seconds:**
+
+```python
+import quebra_frases
+
+quebra_frases.word_tokenize("mycroft is FOSS!")   # ['mycroft', 'is', 'FOSS', '!']
+quebra_frases.sentence_tokenize("Hi there. How are you?")
+# ['Hi there.', 'How are you?']
+```
+
+**Dependencies:** lightweight — only the `regex` library is required.
 
 ## Installation
 
@@ -65,6 +75,23 @@ Token analysis functions are available for text sample comparison:
 
 
 - `get_exclusive_tokens(samples)`: Extracts tokens that are exclusive to each individual text sample.
+
+### Span / index variants and helpers
+
+For every tokenizer there are `span_indexed_*` and `char_indexed_*` variants that return offsets alongside the text:
+
+- `span_indexed_word_tokenize`, `char_indexed_word_tokenize`
+- `span_indexed_sentence_tokenize`, `char_indexed_sentence_tokenize`
+- `span_indexed_paragraph_tokenize`, `char_indexed_paragraph_tokenize`
+- `empty_space_tokenize`, `span_indexed_empty_space_tokenize`, `char_indexed_empty_space_tokenize`, `get_empty_spans` — work with whitespace runs
+
+Other utilities:
+
+- `chunk_list(some_list, delimiters)`: like `chunk`, but splits a list of tokens instead of a string.
+- `find_spans(text, samples)`: locate the character spans of `samples` within `text`.
+- `flatten(some_list)`: flatten a nested list.
+
+The chunk/token-analysis functions accept a `squash` keyword (default `True`): when `False`, results are kept grouped per sample instead of merged into a single set (see the `get_exclusive_chunks(..., squash=False)` example below). `chunk()` also accepts `strip=True` (default) to trim whitespace from each chunk.
 
 ## Example Usage
 

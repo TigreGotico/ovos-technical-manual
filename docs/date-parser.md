@@ -1,7 +1,20 @@
 # ovos-date-parser
 
-`ovos-date-parser` is a comprehensive library for multilingual date and time parsing, extraction, and formatting,
-designed to handle a range of human-readable date, time, and duration expressions.
+`ovos-date-parser` is a multilingual library for turning human date/time phrases into Python objects (`extract_datetime`, `extract_duration`) and for turning `datetime`/`timedelta` objects back into natural spoken or written text (`nice_time`, `nice_date`, `nice_duration`, ...).
+
+**What you get in 30 seconds:**
+
+```python
+from ovos_date_parser import extract_datetime, nice_time
+from datetime import datetime
+
+extract_datetime("remind me next friday at 3pm", lang="en")
+# (datetime(...), "remind me")    -> parsed datetime + leftover text
+
+nice_time(datetime(2024, 1, 1, 15, 0), lang="en")   # "three o'clock"
+```
+
+Every function takes an explicit `lang` (BCP-47 code). For `extract_datetime`, languages without a dedicated implementation fall back to the [dateparser](https://dateparser.readthedocs.io/en/latest/) library. The `nice_*` formatters fall back to a language-agnostic English-style generic implementation when a language-specific one is missing.
 
 ## Features
 
@@ -162,16 +175,18 @@ from ovos_date_parser import nice_relative_time
 from datetime import datetime, timedelta
 
 relative_time = nice_relative_time(datetime.now() + timedelta(days=1), datetime.now(), lang="en")
-print(relative_time)  # "tomorrow"
+print(relative_time)  # "1 day"
 
 ```
+
+> The generic implementation returns counts like `"25 seconds"`, `"2 hours"`, or `"1 day"` (it does not produce words like "tomorrow"). Basque (`eu`) is the only language with a dedicated `nice_relative_time` implementation; everything else uses the generic one.
 
 ## Related Projects
 
 - [ovos-number-parser](https://github.com/OpenVoiceOS/ovos-number-parser) - for handling numbers
 
 
-- [ovos-lang-parser](https://github.com/OVOSHatchery/ovos-lang-parser) - for handling languages
+- [ovos-lang-parser](https://github.com/OpenVoiceOS/ovos-lang-parser) - for handling language names
 
 
-- [ovos-color-parser](https://github.com/OVOSHatchery/ovos-color-parser) - for handling colors
+- [ovos-color-parser](https://github.com/OpenVoiceOS/ovos-color-parser) - for handling colors

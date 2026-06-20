@@ -88,7 +88,7 @@ from ovos_config.models import OvosDistributionConfig
 - Distribution-level override, e.g. `/etc/xdg/mycroft/ovos.conf`
 
 
-- Path controlled by `OVOS_CONFIG_BASE_FOLDER` and `OVOS_CONFIG_FILENAME` (see [meta.md](config.md))
+- Path controlled by `OVOS_CONFIG_BASE_FOLDER` and `OVOS_CONFIG_FILENAME` (see [Configuration Management](config.md))
 
 
 - Loaded second in the stack; intended for OS/image-level defaults

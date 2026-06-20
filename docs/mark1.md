@@ -9,9 +9,9 @@ The **Mycroft Mark 1** was the first official hardware for Mycroft AI. It featur
 The `EnclosureAPI` is an abstraction over the "body" of the device. It provides a standard way for skills to interact with hardware features like displays and LEDs without needing to know the low-level details of the hardware transport.
 
 ```python
-from ovos_bus_client.apis.enclosure import EnclosureApi
+from ovos_bus_client.apis.enclosure import EnclosureAPI
 
-api = EnclosureApi(bus)
+api = EnclosureAPI(bus)
 
 ```
 
@@ -40,7 +40,7 @@ self.enclosure.mouth_display(img_code="HIAAAAAAAAAAAAAA", refresh=False)
 You can also display 32x8 PNG images.
 
 ```python
-self.mouth_display_png('/path/to/image.png', threshold=70, invert=False, x=0, y=0, refresh=True)
+self.enclosure.mouth_display_png('/path/to/image.png', threshold=70, invert=False, x=0, y=0, refresh=True)
 
 ```
 

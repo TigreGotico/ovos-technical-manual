@@ -39,67 +39,70 @@ __version__ = f"{VERSION_MAJOR}.{VERSION_MINOR}.{VERSION_BUILD}" + (f"a{VERSION_
 
 ```
 
-`_version_utils.py:17` (`read_version`) parses this block. `update_version.py:22` (`update_version`) rewrites it via `write_version_block` at `_version_utils.py:72`. `remove_alpha.py:17` (`update_alpha`) sets `VERSION_ALPHA = 0` using `write_version_block`. `get_version.py:15` (`get_version`) reads and formats the string.
+`read_version()` in `scripts/_version_utils.py` parses this block; `update_version()` in `scripts/update_version.py` rewrites it via `write_version_block()`. `update_alpha()` in `scripts/remove_alpha.py` sets `VERSION_ALPHA = 0` (declare stable). `get_version()` in `scripts/get_version.py` reads and formats the string.
 
-### Version bump rules (driven by PR labels from conventional commits)
+### Version bump rules
 
-Labels are assigned automatically by `conventional-label.yaml` using `bcoe/conventional-release-labels@v1`, which maps PR title prefixes to labels:
+`publish-alpha.yml`'s `bump_version` job reads the **PR labels** of the merged PR (it does not parse the PR title). The label-to-bump mapping is:
 
-| PR title prefix | Label assigned | Version bump |
-|---|---|---|
-| `BREAKING CHANGE:` | `breaking` | **Major**: `1.2.3a4` → `2.0.0a1` |
-| `feat:` | `feature` | **Minor**: `1.2.3a4` → `1.3.0a1` |
-| `fix:` | `fix` | **Build**: `1.2.3a4` → `1.2.4a1` |
-| `chore:`, `docs:`, other | _(none)_ | **Alpha only**: `1.2.3a4` → `1.2.3a5` |
+| PR label | Version bump |
+|---|---|
+| `breaking` | **Major**: `1.2.3a4` → `2.0.0a1` |
+| `feature` or `enhancement` | **Minor**: `1.2.3a4` → `1.3.0a1` |
+| `fix` or `bug` | **Build**: `1.2.3a4` → `1.2.4a1` |
+| _(none of the above)_ | **Alpha only**: `1.2.3a4` → `1.2.3a5` |
 
-If the current version is already stable (alpha = 0), an unlabelled bump first increments `BUILD`:
-`1.2.3` → `1.2.4a1` (implemented at `update_version.py:50-52`).
+Priority is major > minor > build > alpha. If the current version is already stable (alpha = 0), an unlabelled bump first increments `BUILD`: `1.2.3` → `1.2.4a1`.
+
+> Labels are typically applied automatically from conventional-commit PR titles by a *separate* labeller workflow in your repo (e.g. one using `bcoe/conventional-release-labels`). That labeller is **not** part of gh-automations — `publish-alpha.yml` only consumes whatever labels are present at merge time. The [`release-preview.yml`](gh-automations-workflows.md#release-previewyml) workflow, by contrast, falls back to parsing the PR title prefix when no label is set.
 
 ---
 
 ## Alpha Release (on PR merge to `dev`)
 
+Your repo's workflow calls `publish-alpha.yml@dev`. **All steps — version bump, changelog, pre-release tag, release PR, PyPI publish, and Matrix notify — are jobs inside `publish-alpha.yml` itself**, each gated by an input. Your wrapper file is just the trigger plus the `uses:` call.
+
 ```
 PR merged → dev
     │
     ▼
-release_workflow.yml  (per-repo)
+your-repo workflow  (e.g. release.yml)
     │   trigger: pull_request types:[closed] branches:[dev]
     │   also:    workflow_dispatch
     │
-    ├─► publish_alpha job
-    │   if: merged == true || workflow_dispatch
-    │       └─► publish-alpha.yml@dev  (gh-automations)
-    │               │
-    │               ├─ [bump_version job]
-    │               │   Checkout repo + gh-automations scripts
-    │               │   Determine bump part from PR labels
-    │               │   update_version.py <part> --version-file ...
-    │               │   git-auto-commit-action → push to dev
-    │               │
-    │               ├─ [update_changelog job]  (optional: update_changelog: true)
-    │               │   Generate CHANGELOG.md since last stable release
-    │               │   Commit and push to dev
-    │               │
-    │               ├─ [tag_prerelease job]  (optional: publish_prerelease: true)
-    │               │   Create GitHub pre-release tag (e.g. 1.2.3a4)
-    │               │
-    │               └─ [propose_release job]  (optional: propose_release: true)
-    │                   git checkout -B release-X.Y.ZaN  (force-create, idempotent)
-    │                   git push origin release-X.Y.ZaN
-    │                   curl → open PR to master
-    │
-    ├─► publish_pypi job  (per-repo, inline)
-    │       python -m pip install build
-    │       python -m build
-    │       pypa/gh-action-pypi-publish → PyPI (alpha)
-    │
-    └─► notify job
-        if: merged == true
-            └─► notify-matrix.yml@dev  (gh-automations)
-                    fadenb/matrix-chat-message → OVOS Matrix channel
+    └─► publish_alpha job
+        if: merged == true || workflow_dispatch
+            uses: publish-alpha.yml@dev   (gh-automations)
+            secrets: inherit               (PYPI_TOKEN, MATRIX_TOKEN, GITHUB_TOKEN)
+                │
+                ├─ [bump_version job]   (the gate — all others need: bump_version)
+                │   Checkout repo + gh-automations scripts (@dev)
+                │   if: PR merged (skipping allcontributors/pre-commit-ci bots
+                │       when skip_bot_prs) OR workflow_dispatch
+                │   Determine bump part from PR labels
+                │   update_version.py <part> --version-file ...
+                │   git-auto-commit-action@v7 → push to `branch` (default dev)
+                │
+                ├─ [update_changelog job]   if: update_changelog
+                │   github-changelog-generator → commit & push
+                │
+                ├─ [tag_prerelease job]   if: publish_prerelease
+                │   ncipollo/release-action → GitHub pre-release tag (e.g. 1.2.3a4)
+                │
+                ├─ [propose_release job]   if: propose_release  (default true)
+                │   git checkout -B release-X.Y.ZaN  (force-create, idempotent)
+                │   git push; gh pr create → PR to `base_branch` (default master)
+                │
+                ├─ [publish_pypi job]   if: publish_pypi
+                │   python -m build
+                │   pypa/gh-action-pypi-publish@release/v1 → PyPI  (uses PYPI_TOKEN)
+                │
+                └─ [notify job]   if: notify_matrix && PR merged
+                    calls notify-matrix.yml@dev → OVOS Matrix channel (uses MATRIX_TOKEN)
 
 ```
+
+> Note: `publish_pypi` and `notify_matrix` both default to **`false`**, so a bare call only bumps the version and opens the release PR. Set them explicitly (and provide `PYPI_TOKEN`/`MATRIX_TOKEN` via `secrets: inherit`) to publish and notify.
 
 ---
 
@@ -107,71 +110,81 @@ release_workflow.yml  (per-repo)
 
 The `release-X.Y.ZaN` PR opened by the alpha flow requires **human review** before merging. This is the only manual gate in the pipeline.
 
+Like the alpha flow, **every step lives inside `publish-stable.yml`**. Your wrapper is the `push: master` trigger plus the `uses:` call.
+
 ```
 PR merged → master
     │
     ▼
-publish_stable.yml  (per-repo)
+your-repo workflow  (e.g. publish_stable.yml)
     │   trigger: push: branches:[master]
     │   also:    workflow_dispatch
     │
-    ├─► publish_stable job
-    │   if: github.actor != 'github-actions[bot]'   ← CRITICAL bot loop guard
-    │       └─► publish-stable.yml@dev  (gh-automations)
-    │               │
-    │               ├─ [bump_version job]
-    │               │   remove_alpha.py → VERSION_ALPHA = 0
-    │               │   git-auto-commit-action → push to master
-    │               │
-    │               └─ [tag_release job]  (optional: publish_release: true)
-    │                   ncipollo/release-action → GitHub release tag
-    │
-    ├─► publish_pypi job  (per-repo, inline)
-    │       python -m build
-    │       pypa/gh-action-pypi-publish → PyPI (stable)
-    │
-    └─► sync_dev job  (optional: sync_dev: true)
-            ad-m/github-push-action → pushes master → dev
+    └─► publish_stable job
+        if: github.actor != 'github-actions[bot]'   ← bot loop guard
+            uses: publish-stable.yml@dev   (gh-automations)
+            secrets: inherit                (PYPI_TOKEN, MATRIX_TOKEN, GITHUB_TOKEN)
+                │
+                ├─ [bump_version job]   if: github.actor != 'github-actions[bot]'
+                │   Detects target branch (uses default branch if master is absent)
+                │   remove_alpha.py → VERSION_ALPHA = 0
+                │   git-auto-commit-action@v7 → push to the stable branch
+                │
+                ├─ [tag_release job]   if: publish_release  (default true)
+                │   ncipollo/release-action → GitHub release tag
+                │
+                ├─ [publish_pypi job]   if: publish_pypi
+                │   python -m build
+                │   pypa/gh-action-pypi-publish@release/v1 → PyPI (uses PYPI_TOKEN)
+                │
+                ├─ [sync_dev job]   if: sync_dev
+                │   ad-m/github-push-action → push master → dev
+                │
+                └─ [notify job]   if: notify_matrix
+                    calls notify-matrix.yml@dev → OVOS Matrix channel
 
 ```
 
 ### Why the bot guard is critical
 
-`git-auto-commit-action` pushes the version commit (removing alpha) directly to `master`. Without the `if: github.actor != 'github-actions[bot]'` guard on both the calling repo's `publish_stable` job **and** inside `publish-stable.yml`'s `bump_version` job, this push would trigger another `push: master` event → another run → another tag attempt → failure (tag already exists) or infinite loop.
+`git-auto-commit-action` pushes the version commit (removing alpha) directly to the stable branch. Without the `if: github.actor != 'github-actions[bot]'` guard, that push would re-trigger the `push: master` event → another run → another tag attempt → failure (tag already exists) or an infinite loop.
 
-The guard is belt-and-suspenders: it exists at both layers (`publish_stable.yml:37` in gh-automations, and in each repo's `publish_stable.yml` calling job).
+The guard exists at both layers for belt-and-suspenders protection:
+
+- Inside `publish-stable.yml`, on the `bump_version` job (`if: github.actor != 'github-actions[bot]'`).
+- In your repo's wrapper job that calls `publish-stable.yml` (same condition).
 
 ---
 
 ## Release Channels (ovos-releases)
 
-After a stable release is published to PyPI, the [ovos-releases](https://github.com/OpenVoiceOS/ovos-releases) constraints files are updated:
+After a stable release is published to PyPI, the constraints files in [ovos-releases](https://github.com/OpenVoiceOS/ovos-releases) are updated:
 
-| File | Channel | Trigger |
-|------|---------|---------|
-| `constraints-alpha.txt` | Alpha | Every 6 hours (cron) + manual |
-| `constraints-testing.txt` | Testing | Manual |
-| `constraints-stable.txt` | Stable | Manual |
+| File | Channel |
+|------|---------|
+| `constraints-alpha.txt` | Alpha — newest, includes pre-releases |
+| `constraints-testing.txt` | Testing |
+| `constraints-stable.txt` | Stable |
 
-Constraints use `>=` bounds (e.g. `ovos-utils>=0.3.0`) so users always get the latest compatible version within their chosen channel.
+These files use `>=` bounds (e.g. `ovos-utils>=0.3.0`) so users get the latest compatible version within their chosen channel. `downstream-check.yml` reads `constraints-alpha.txt` (default branch `main`) to compute reverse dependencies; the channel-compatibility check in `build-tests.yml` / `release-preview.yml` reads all three.
 
 ---
 
 ## Manual Reruns
 
-Both `release_workflow.yml` and `publish_stable.yml` support `workflow_dispatch` for manual triggering from the GitHub Actions UI. This is useful when:
+Both `publish-alpha.yml` and `publish-stable.yml` support `workflow_dispatch`, so the wrapper workflows in your repo can be triggered manually from the GitHub Actions UI. This is useful when:
 
-- A workflow failed due to a transient error (e.g. PyPI outage)
+- A workflow failed due to a transient error (e.g. PyPI outage).
+- A version bump was needed but the PR was merged without the right labels (dispatch forces an alpha bump).
+- Testing the release pipeline on a new repo.
 
-
-- A version bump was needed but the PR was merged without the right labels
-
-
-- Testing the release pipeline on a new repo
-
-The `publish_alpha` job in `release_workflow.yml` allows dispatch:
+For this to work your wrapper's job condition must allow dispatch — `bump_version` runs on either a merged PR or a manual dispatch:
 
 ```yaml
 if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
 
 ```
+
+## Upcoming
+
+- **NGI codename release schedule** — [PR #36](https://github.com/OpenVoiceOS/gh-automations/pull/36) (`feat/codenames`) proposes a codename release schedule. Not yet merged; the flow above reflects current `dev`.

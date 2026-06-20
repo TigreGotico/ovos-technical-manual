@@ -1,43 +1,61 @@
 # Language Detection and Translation Plugins
 
-Language detection and translation plugins in Open Voice OS (OVOS) enable the system to identify the language of text and translate it between different languages.
+Language detection and translation plugins let OVOS identify the language of a piece of text and translate it between languages. They are the building blocks used by features like [Bidirectional Translation](bidirectional-translation.md), and they can also be called directly from your own code.
+
+**New here?** Two separate jobs are involved:
+
+- **Detection** decides *what language* a string is in (e.g. `"Hola"` → `es`).
+- **Translation** rewrites a string *into another language* (e.g. `"Hola"` → `"Hello"`).
+
+A single package may ship one or both. In `mycroft.conf` you select them under the `"language"` section with `"detection_module"` (a detect plugin) and `"translation_module"` (a translate plugin).
 
 ## Available Language Plugins
 
-| Plugin | Detect | Translate | Type |
-|--------|--------|-----------|------|
-| [ovos-translate-plugin-server](https://github.com/OpenVoiceOS/ovos-translate-server-plugin) | ✔️ | ✔️ | API (self hosted) |
-| [ovos-translate-plugin-nllb](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb) | ❌ | ✔️ | FOSS (Offline) |
-| [ovos-lang-detector-fasttext-plugin](https://github.com/OpenVoiceOS/ovos-lang-detector-fasttext-plugin) | ✔️ | ❌ | FOSS (Offline) |
-| [ovos-google-translate-plugin](https://github.com/OpenVoiceOS/ovos-google-translate-plugin) | ✔️ | ✔️ | API (free) |
+| Plugin (entry-point name) | Detect | Translate | Type | Notes |
+|--------|--------|-----------|------|-------|
+| `ovos-translate-plugin-server` ([repo](https://github.com/OpenVoiceOS/ovos-translate-server-plugin)) | ✔️ | ✔️ | API (self/community hosted) | Client for [ovos-translate-server](https://github.com/OpenVoiceOS/ovos-translate-server); ships a built-in public-server list with failover. Detection is a separate entry-point, `ovos-lang-detector-plugin-server`. |
+| `ovos-translate-plugin-nllb` ([repo](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb)) | ❌ | ✔️ | FOSS (Offline) | NLLB-200 via CTranslate2; downloads a model the first time. |
+| `ovos-lang-detector-fasttext-plugin` ([repo](https://github.com/OpenVoiceOS/ovos-lang-detector-fasttext-plugin)) | ✔️ | ❌ | FOSS (Offline) | fastText language identification. |
+| `ovos-lang-detector-classics-plugin` ([repo](https://github.com/OpenVoiceOS/ovos-lang-detector-classics-plugin)) | ✔️ | ❌ | FOSS (Offline) | A *voter* (`ovos-lang-detector-plugin-voter`) that averages several classic detectors (cld2, cld3, langdetect, fastlang). |
+| `ovos-google-translate-plugin` ([repo](https://github.com/OpenVoiceOS/ovos-google-translate-plugin)) | ✔️ | ✔️ | API (free) | Translate (`ovos-google-translate-plugin`) and detect (`ovos-google-lang-detector-plugin`) are separate entry-points. |
+
+> **Heads up:** the package repo name, the pip name, and the **entry-point name you put in config** are not always the same. Configure plugins by their *entry-point name* (e.g. `ovos-translate-plugin-server`, not the repo `ovos-translate-server-plugin`). The names in the table above are the entry-point names.
 
 ---
 
 ## Technical Explanation
 
-OVOS provides two base classes for language processing: `LanguageDetector` and `LanguageTranslator`.
+OVOS provides two base classes for language processing, both in `ovos_plugin_manager.templates.language`: `LanguageDetector` and `LanguageTranslator`. Each is constructed with a `config` dict (the plugin's section from `mycroft.conf`), exposed as `self.config`.
 
 ### Language Detector Interface
 
 ```python
+from ovos_plugin_manager.templates.language import LanguageDetector
+
 class LanguageDetector:
     def detect(self, text: str) -> str:
-        """Return the detected language code (e.g., 'en')."""
-        pass
+        """Return the single best language code (e.g. 'en')."""
 
     def detect_probs(self, text: str) -> Dict[str, float]:
-        """Return a dictionary of languages and their probabilities."""
-        pass
+        """Return a {language_code: probability} dict."""
 ```
 
 ### Language Translator Interface
 
 ```python
+from ovos_plugin_manager.templates.language import LanguageTranslator
+
 class LanguageTranslator:
-    def translate(self, text: str, target: str = None, source: str = None) -> str:
-        """Translate text to the target language."""
-        pass
+    def translate(self, text: str, target: str = "", source: str = "") -> str:
+        """Translate text to `target`. If `source` is empty the plugin
+        detects it. If `target` is empty it falls back to self.internal_language."""
+
+    @classproperty
+    def available_languages(cls) -> Set[str]:
+        """Languages this backend supports (may be empty if unknown/dynamic)."""
 ```
+
+> **Gotcha (advanced):** `available_languages` is a `classproperty` and several real plugins return an empty set when the backend's language list is dynamic or unknown (e.g. the server and Google plugins). Don't assume it is populated.
 
 ## Creating Your Own Plugin
 
@@ -59,15 +77,17 @@ class MyTranslator(LanguageTranslator):
 
 ### 2. Registration
 
-Register your plugin in `pyproject.toml`:
+Register your plugin in `pyproject.toml` under the correct entry-point groups. Translators use `opm.lang.translate`; detectors use `opm.lang.detect`:
 
 ```toml
-[project.entry-points."opm.plugin.translate"]
+[project.entry-points."opm.lang.translate"]
 my-translator = "my_package.module:MyTranslator"
 
-[project.entry-points."opm.plugin.detect"]
+[project.entry-points."opm.lang.detect"]
 my-detector = "my_package.module:MyDetector"
 ```
+
+> The legacy Neon groups `neon.plugin.lang.translate` / `neon.plugin.lang.detect` are still honoured as aliases by `ovos-plugin-manager` (this is why a plugin like `ovos-lang-detector-fasttext-plugin` keeps working), but new plugins **should** register under the `opm.lang.*` groups.
 
 ## Standalone Usage
 

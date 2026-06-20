@@ -124,7 +124,7 @@ You have two choices:
 
 ### 🌱 Choose Channel
 
-Select the **“development”** channel. Once OVOS is production-ready, a “stable” channel will also be available.
+Select the **`testing`** channel, which is recommended for most users. An **`alpha`** (bleeding edge) channel is also available for the latest, potentially unstable features.
 
 ![image](https://gist.github.com/user-attachments/assets/f782cebe-c86b-4474-93d7-894b712e8fe7)
 

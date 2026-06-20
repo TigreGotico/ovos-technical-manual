@@ -3,6 +3,8 @@
 
 `ovos-docs-viewer` is a terminal-based documentation browser for OpenVoiceOS. It downloads Markdown documentation from GitHub, then renders it interactively inside the terminal using a [Textual](https://textual.textualize.io/) TUI with a file-tree sidebar and a Markdown viewer panel.
 
+**Minimal use:** `ovos-docs-viewer technical` opens the technical manual in your terminal. Pass one of the documentation keys below as the single argument; the first run downloads and caches the docs, later runs read from the cache. Use the arrow keys to walk the file tree, Enter to open a file, and `q` to quit. It is read-only and needs network access only on first use (and every time for `live-status`).
+
 ## How It Works
 
 1. On first launch, the tool fetches documentation from a hard-coded set of GitHub sources and caches them under `$XDG_DATA_HOME/ovos_docs/`.
@@ -16,7 +18,7 @@
 
 4. Press `q` to quit.
 
-Downloaded sources are cached on disk. Subsequent launches skip re-downloading (except `live-status`, which is always refreshed). Pass `--force` (via the code path) to re-download all sources.
+Downloaded sources are cached on disk. Subsequent launches skip re-downloading (except `live-status`, which is always refreshed). There is **no `--force` CLI flag**: forcing a re-download is only possible from Python, by calling `download_docs(force=True)` (or deleting the cache directory before launching).
 
 ## Installation
 
@@ -37,17 +39,17 @@ ovos-docs-viewer DOCS
 
 ```
 
-`DOCS` must be one of the following string keys:
+The console script `ovos-docs-viewer` maps to `ovos_docs_viewer.ovos_docs:launch`. `DOCS` is a single required argument and must be one of the following string keys (an unknown key fails with an `AssertionError` before the TUI opens):
 
 | Key | Source |
 |---|---|
-| `technical` | [ovos-technical-manual](https://github.com/OpenVoiceOS/ovos-technical-manual) (zip archive, full `docs/` tree) |
-| `messages` | [message_spec](https://github.com/OpenVoiceOS/message_spec) (zip archive) |
-| `hivemind` | [HiveMind-community-docs](https://github.com/JarbasHiveMind/HiveMind-community-docs) (zip archive) |
-| `live-status` | OVOS status page README (always re-downloaded) |
-| `raspOVOS` | raspOVOS README |
-| `installer` | ovos-installer README |
-| `skills` | README files for ~50 official OVOS skills, one file per skill |
+| `technical` | [ovos-technical-manual](https://github.com/OpenVoiceOS/ovos-technical-manual) (zip archive of the `master` branch, full `docs/` tree) |
+| `messages` | [message_spec](https://github.com/OpenVoiceOS/message_spec) (zip archive of `master`) |
+| `hivemind` | [HiveMind-community-docs](https://github.com/JarbasHiveMind/HiveMind-community-docs) (zip archive of `master`) |
+| `live-status` | OVOS [status](https://github.com/OpenVoiceOS/status) page README (always re-downloaded) |
+| `raspOVOS` | [TigreGotico/raspOVOS](https://github.com/TigreGotico/raspOVOS) README |
+| `installer` | [ovos-installer](https://github.com/OpenVoiceOS/ovos-installer) README (`main` branch) |
+| `skills` | `dev`-branch README files for ~49 official OVOS skills, one `.md` file per skill |
 
 ## Usage Examples
 
@@ -76,17 +78,17 @@ Documentation is stored under:
 
 ```
 $XDG_DATA_HOME/ovos_docs/
-├── technical/docs/        ← ovos-technical-manual markdown files
-├── messages/docs/         ← message spec markdown files
-├── hivemind/docs/         ← HiveMind documentation
-├── live-status/docs/      ← always refreshed on launch
-├── raspOVOS/docs/         ← single README
-├── installer/docs/        ← single README
-└── skills/docs/           ← one .md per skill (e.g. ovos-skill-alerts.md)
+├── technical/docs/             ← ovos-technical-manual markdown tree (from zip)
+├── messages/docs/              ← message spec markdown tree (from zip)
+├── hivemind/docs/              ← HiveMind documentation tree (from zip)
+├── live-status/docs/live-status.md  ← single README, always refreshed
+├── raspOVOS/docs/raspOVOS.md        ← single README
+├── installer/docs/installer.md      ← single README
+└── skills/docs/                ← one .md per skill (e.g. ovos-skill-alerts.md)
 
 ```
 
-`$XDG_DATA_HOME` is resolved via `ovos_utils.xdg_utils.xdg_data_home` (typically `~/.local/share`).
+Zip-archive sources (`technical`, `messages`, `hivemind`) keep their full `docs/` tree. Single-README sources (`live-status`, `raspOVOS`, `installer`) are written as `<key>/docs/<key>.md`. `$XDG_DATA_HOME` is resolved via `ovos_utils.xdg_utils.xdg_data_home` (typically `~/.local/share`).
 
 ## UI Keybindings
 

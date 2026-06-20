@@ -882,7 +882,7 @@
 - Oct 2024 - **Pipeline Stability Milestone**: Core pipeline plugins (`adapt`, `padatious`, `ocp`) reached version **1.0.0**, marking the stability of the modular intent pipeline architecture.
 
 
-- Mar 2025 - `ovos-core` version **1.0.0** released, a landmark stable release representing full architectural maturity.
+- Mar 2025 - `ovos-core` reaches the **1.x** line (`1.1.0`), with the modular pipeline architecture stabilized.
 
 
 - Jun 2025 - Introduction of [ovoscope](https://github.com/OpenVoiceOS/ovoscope), the formal end-to-end testing framework for OVOS skills and core components.
@@ -891,28 +891,22 @@
 - Jun 2025 - `ovos-utils` version **0.8.0** released, standardizing cross-platform utilities.
 
 
-- Oct 2025 - `ovos-core` version **2.0.0** released, a **major breaking release** formalizing the multi-intent-pipeline architecture.
-
-
-- Oct 2025 - Introduction of [ovos-pydantic-models](https://github.com/OpenVoiceOS/ovos-pydantic-models) to standardize ecosystem-wide data structures.
+- Oct 2025 - `ovos-core` reaches the **2.x** line (`2.1.0`), a major release formalizing the multi-intent-pipeline architecture.
 
 
 - Nov 2025 - `ovos-workshop` version **8.0.0** released, a **major breaking release** that decoupled GUI and resource management into mixins.
 
 
-- Jan 2026 - `ovos-plugin-manager` version **2.2.0** released, adding strict entry point validation.
+- Jan 2026 - `ovos-plugin-manager` version **2.2.0** released.
 
 
-- Mar 2026 - `ovos-bus-client` version **1.5.0** released, introducing **AsyncMessageBusClient** for native async/await support.
+- Mar 2026 - [ovos-pydantic-models](https://github.com/OpenVoiceOS/ovos-pydantic-models) introduced to standardize ecosystem-wide data structures.
 
 
-- Mar 2026 - `ovos-audio` version **1.2.0** released, achieving **98% test coverage**.
+- Mar 2026 - `ovos-bus-client` version **1.5.0** released.
 
 
 - Mar 2026 - Introduction of [ovos-claude-plugin](https://github.com/OpenVoiceOS/ovos-claude-plugin), integrating Anthropic's Claude into the OVOS persona system.
 
 
-- Mar 2026 - **The Great GUI Refactor**: `ovos-gui` version **1.0.0** released as a **major breaking change**, removing the legacy QML/page system in favor of a **template-only architecture** (HTMX based).
-
-
-- Mar 2026 - **ovos-media Stabilization**: Major refactor removing `OVOSAbstractApplication` from `OCPMediaPlayer`, preparing the media service for its upcoming 1.0 release.
+- Mar 2026 - **GUI refactor**: `ovos-gui` moves to a template-based `GUIInterface` and the `opm.gui_adapter` plugin system, decoupling the GUI layer from the legacy QML/page model.

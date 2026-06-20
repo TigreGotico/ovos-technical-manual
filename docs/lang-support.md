@@ -2,6 +2,10 @@
 
 OpenVoiceOS (OVOS) aims to support multiple languages across its components, including intent recognition, speech-to-text ([STT](stt-plugins.md)), text-to-speech ([TTS](tts-plugins.md)), and skill dialogs. However, full language support requires more than translation of interface text. This document outlines the current state of language support, known limitations, and how contributors can help improve multilingual performance in OVOS.
 
+**Want it working now?** Jump to [Auto-Configuration](#auto-configuration) — `ovos-config autoconfigure -l <lang> ...` sets up recommended STT/TTS plugins in one command. **Want to make your language work better?** See [How to Improve Language Support](#how-to-improve-language-support).
+
+Related pages: [Language Selection](lang-selection.md) (how OVOS picks a language per utterance), [Customizing Language Resources](lang-customization.md) (override/translate skill text), and [Bidirectional Translation](bidirectional-translation.md) (use a single-language skill in any language).
+
 ---
 
 While the OVOS installer allows users to select a preferred language, **selecting a language does not guarantee full support across all subsystems**. True multilingual support requires dedicated:
@@ -117,7 +121,7 @@ The tracker provides daily updates and displays all languages that have reached 
 
 ## Auto-Configuration
 
-Use the `ovos-config autoconfigure` command to automatically configure STT and TTS for your language:
+The fastest way to get a working setup for your language is `ovos-config autoconfigure`. It writes recommended STT and TTS plugin settings (and, with `--platform`, an intent-pipeline preset) into your user config:
 
 ```bash
 ovos-config autoconfigure -l en-us --offline --female
@@ -125,9 +129,25 @@ ovos-config autoconfigure -l de-de --online --male -p rpi4
 ovos-config autoconfigure -l fr-fr --gpu --female
 ```
 
-The command uses language-specific STT and TTS models optimized for each language. See [`ovos-config`](config.md) for full options.
+The recommendations are data-driven: they come from per-language `*.conf` files bundled in `ovos-config` (`recommends/`), so the exact models depend on your installed version. See [`ovos-config`](config.md) for full options.
+
+### Flags
+
+| Flag | Meaning |
+|------|---------|
+| `-l`, `--lang` | **Required.** Language code (e.g. `en-us`). Standardized internally (e.g. `en-US`). |
+| `--offline` / `-off` | Offline STT + TTS. |
+| `--online` / `-on` | Online (public-server) STT + TTS. |
+| *(neither)* | **Defaults to hybrid** — offline TTS with online STT. A warning is printed. |
+| `--gpu` / `-g` | GPU STT. Implies `--offline`; cannot be combined with `--online`, hybrid, or an `rpi*` platform. |
+| `--male` / `-m`, `--female` / `-f` | Pick a voice. Pass exactly one. If you pass **neither**, TTS configuration is skipped. |
+| `-p`, `--platform` | Apply a platform preset (see below). |
+
+After writing the config it lists the installed STT/TTS plugins and warns about any recommended plugin you still need to `pip install`.
 
 ### Supported Languages and Optimizations
+
+> The table below is a snapshot of the bundled recommendations. The authoritative list is whatever `recommends/base/*.conf` files ship in your installed `ovos-config` (currently also includes **en-AU**).
 
 | Language | Offline STT | Offline STT (Fallback) | Offline TTS (Male) | Offline TTS (Female) | GPU STT |
 |----------|-------------|------------------------|---------------------|---------------------|---------|
@@ -148,14 +168,16 @@ The command uses language-specific STT and TTS models optimized for each languag
 
 ### Platform-Specific Optimizations
 
-The `--platform` option applies intent pipeline optimizations:
+The `--platform` option merges a preset that tunes the intent pipeline for the target hardware. The available presets are `rpi3`, `rpi4`, `rpi5`, `linux`, `mac`, and `termux`:
 
 | Platform | Pipeline Features |
 |----------|-------------------|
 | **rpi3** | Simplified pipeline, GUI disabled |
-| **rpi4** | Full pipeline with m2v-intents-LaBSE |
-| **rpi5** | Full pipeline with m2v-intents-LaBSE |
-| **linux** | Full pipeline with m2v-intents-LaBSE |
+| **rpi4** / **rpi5** | Full pipeline with the model2vec intent matcher (`Jarbas/ovos-model2vec-intents-LaBSE`) |
+| **linux** / **mac** | Full desktop pipeline with the model2vec intent matcher |
+| **termux** | Android/Termux preset |
+
+> `--gpu` is rejected for `rpi*` platforms.
 
 ---
 

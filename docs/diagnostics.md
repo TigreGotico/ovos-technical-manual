@@ -3,7 +3,9 @@
 
 `ovos-diagnostics` is a command-line tool for auditing an OVOS installation. It scans installed plugins, checks configuration, inspects skill settings, detects hardware capabilities, and produces actionable recommendations for [STT](stt-plugins.md), [TTS](tts-plugins.md), wake word, audio, pipeline, and platform plugins.
 
-The tool is built with [Click](https://click.palletsprojects.com/) and reads live configuration via [ovos-config](https://github.com/OpenVoiceOS/ovos-config). Plugin discovery is performed via [ovos-plugin-manager](https://github.com/OpenVoiceOS/ovos-plugin-manager). [Skill](skill-design-guidelines.md) inspection requires [ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop) and [ovos-core](https://github.com/OpenVoiceOS/ovos-core).
+**New to it?** Run a `scan-*` subcommand to list what is installed, or a `recommend-*` subcommand to have the tool suggest plugins for your hardware and language. For example, `ovos-diagnostics listener recommend-stt` tells you which [STT](stt-plugins.md) plugin to use based on detected GPU, platform, and configured language; `ovos-diagnostics core recommend-skills` audits your installed skills for missing API keys, OAuth tokens, and companion plugins. Everything prints plain text to stdout — no daemon, no config changes are made.
+
+The tool is built with [Click](https://click.palletsprojects.com/) and reads live configuration via [ovos-config](https://github.com/OpenVoiceOS/ovos-config). Plugin discovery is performed via [ovos-plugin-manager](https://github.com/OpenVoiceOS/ovos-plugin-manager). [Skill](skill-design-guidelines.md) inspection imports skill base classes from [ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop) and [ovos-core](https://github.com/OpenVoiceOS/ovos-core) (the `mycroft` namespace), so those must be installed for `core` subcommands to import cleanly.
 
 ## Installation
 
@@ -24,7 +26,7 @@ ovos-diagnostics [OPTIONS] COMMAND [ARGS]...
 
 ```
 
-There is one top-level command group that branches into six subgroups.
+There is one top-level command group (`cli`, exposed as the `ovos-diagnostics` console script) that branches into six subgroups: `core`, `audio`, `listener`, `language`, `phal`, and `gui`. Click converts the underscores in command function names to hyphens, so `scan_stt` is invoked as `scan-stt`. Run any group or subcommand with `--help` for its usage.
 
 ## Command Groups
 
@@ -135,7 +137,7 @@ The tool auto-detects the following at startup before generating recommendations
 - **Homescreen** — `gui.idle_display_skill` from config
 
 
-- **OVOS Shell** — whether `ovos-shell` is installed (detected via `ovos_utils.gui.is_installed`)
+- **OVOS Shell / GUI** — whether `ovos-shell` is installed (detected via `ovos_utils.gui.is_installed`); GUI presence also accepts `ovos-gui-app` or `mycroft-gui-app`
 
 
 - **Raspberry Pi** — presence of `/sys/firmware/devicetree/base/model` containing `"Raspberry Pi"`
@@ -164,21 +166,30 @@ FALLBACK STT RECOMMENDATION: None - already offline, no need to reach out to the
 
 ```
 
-`recommend-skills` inspects each installed skill for:
+`recommend-skills` matches each installed skill plugin against built-in tables of known skill requirements and reports:
 
-- **Missing API key** — checks `settings.json` for required keys
-
-
-- **Missing OAuth token** — checks `ovos_oauth.json` (via `ovos-backend-client`)
+- **Blacklisted skill** — `UNINSTALL` warning if an installed skill is listed under `skills.blacklisted_skills` in config
 
 
-- **Missing OCP extractor** — checks if required OCP plugins are installed
+- **Missing setting** — checks `<config>/skills/<skill_id>/settings.json` for required keys (e.g. an `api_key`)
 
 
-- **Missing PHAL plugin** — checks companion PHAL requirements
+- **Missing config key** — checks `mycroft.conf` for required keys some skills need
 
 
-- **Skill type** — detects `FallbackSkill`, `CommonQuerySkill`, `OVOSCommonPlaybackSkill`, `CommonPlaySkill`
+- **Missing OAuth token** — checks the `OAuthTokenDatabase` (via `ovos-backend-client`); reports the database path and an OAuth helper command when one is known
+
+
+- **Missing OCP / audio extractor** — checks whether required [OCP](ocp-pipeline.md) stream-extractor or audio-player plugins are installed
+
+
+- **Missing or recommended PHAL plugin** — checks companion [PHAL](ovoscope-phal.md) requirements; Linux-only PHAL plugins on non-Linux trigger an `UNINSTALL` hint
+
+
+- **Platform mismatch** — `UNINSTALL` warnings for Linux-only, GPU-only, or Raspberry-Pi-only skills running on unsupported hardware
+
+
+- **Recommended companion skills** — suggests companion skills for installed solver / audio / PHAL plugins, and recommends the fallback-unknown skill if absent
 
 Example `recommend-skills` output:
 
@@ -188,17 +199,17 @@ Listing installed skills...
  1 - skill-ovos-wolfie.openvoiceos
 ...
 Skill checks ...
-ERROR: 'skill-ovos-wolfie.openvoiceos' is installed but 'api_key' not set
-ERROR: 'ovos-skill-spotify.openvoiceos' OAuth token is missing
-   INFO: OAuth can be performed with 'ovos-spotify-oauth'
-ERROR: OCP stream extractor plugin missing 'ovos-ocp-youtube-plugin'
+ERROR: 'skill-ovos-wolfie.openvoiceos' is installed but 'api_key' not set in '.../skills/skill-ovos-wolfie.openvoiceos/settings.json'
+ERROR: 'ovos-skill-spotify.openvoiceos' is installed but OAuth token is missing from '.../ovos_oauth.json'
+   INFO: 'ovos-skill-spotify.openvoiceos' OAuth can be performed with the command 'ovos-spotify-oauth'
+ERROR: OCP stream extractor plugin missing 'ovos-ocp-youtube-plugin', required by 'ovos-skill-youtube.openvoiceos'
 RECOMMENDED PHAL PLUGIN: 'ovos-PHAL-plugin-oauth' is recommended by 'ovos-skill-spotify.openvoiceos'
 
 ```
 
 ## Output Format
 
-All output is plain text to stdout. Errors are prefixed with `ERROR:`, informational lines with `INFO:`, and recommendations with `RECOMMENDATION:` or `RECOMMENDED PLUGIN:`. The tool suppresses all OVOS log output below `ERROR` level during execution to reduce noise.
+All output is plain text to stdout. Errors are prefixed with `ERROR:`, informational lines with `INFO:`, recommendations with `RECOMMENDATION:` / `RECOMMENDED ...:`, and removal hints with `UNINSTALL:`. At import time the tool calls `LOG.set_level("ERROR")`, so OVOS log output below `ERROR` is suppressed to keep results readable. There is no `--json` or machine-readable output mode; parse the text or import the functions directly if you need structured results.
 
 ## Quick Links
 

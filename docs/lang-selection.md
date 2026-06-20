@@ -2,59 +2,70 @@
 
 OpenVoiceOS is designed to be multi-language from the ground up. This page explains the technical logic used by `ovos-core` to determine which language should be used for a given user utterance.
 
+**In one sentence:** every utterance carries a language tag (on the message `context`), and `ovos-core` resolves it from the most trustworthy source available — falling back to your configured default — before it tries to match an intent. If you only ever use one language, the default `lang` in `mycroft.conf` is all that matters and you can skip the details below.
+
 ---
 
 ## The Disambiguation Logic
 
 When a `recognizer_loop:utterance` message arrives on the [MessageBus](bus-service.md), `ovos-core` (specifically the `IntentService`) runs a disambiguation routine to decide which language to use for intent matching.
 
-The service checks the following message context keys in order of priority:
+The service inspects the message's `context` dict and picks the **first** of these keys that is present *and* resolves to a valid language:
 
 | Priority | Context Key | Source |
 |---|---|---|
 | **1** | `stt_lang` | Set by the STT engine that transcribed the speech. |
 | **2** | `request_lang` | Volunteered by the source (e.g., a specific wake word or remote client). |
 | **3** | `detected_lang` | Set by a [Transformer](transformer-plugins.md) plugin (e.g., a language classifier). |
-| **4** | *Default* | The system default `lang` from `mycroft.conf` or the message's `data["lang"]`. |
+
+If **none** of these keys is present or valid, the service keeps the message's existing language (`message.context["lang"]`), which defaults to the system `lang` from `mycroft.conf`. There is no `data["lang"]` step.
 
 ### Validation against `valid_langs`
 
-The identified language is validated against the list of enabled languages (`valid_langs` in config). OVOS uses the `langcodes` library to find the closest match:
+Each candidate above is validated against the enabled-language list before it is accepted. That list is taken from `message.context["valid_langs"]` if the source provided one, otherwise from `get_valid_languages()` (i.e. `lang` + `secondary_langs` in `mycroft.conf`). OVOS uses the `langcodes` library (via the `closest_lang` helper) to find the closest match:
 
-*   If a match is found within a "distance" of 10 (standard regional difference), that language is used.
-*   If no valid match is found, the system logs a warning and falls back to the system default language.
+*   If a candidate matches an enabled language within a "distance" of `10` (standard regional difference, e.g. `en-au` ↔ `en-us`), that enabled language is used.
+*   If a candidate does not match, it is **skipped** (a warning is logged) and the next priority key is tried.
 
 ---
 
 ## Language Helper Utilities
 
-Developers can use standard helpers from `ovos-utils` to handle BCP-47 tags correctly.
+Developers can use standard helpers from `ovos_utils.lang` to handle BCP-47 tags correctly.
 
-### `standardize_lang_tag(lang_code)`
-Normalizes a language tag to a canonical form (e.g., `"en-us"` -> `"en-US"`). It is used internally to ensure comparisons are reliable.
+### `standardize_lang_tag(lang_code, macro=True)`
+Normalizes a language tag to a canonical form (e.g., `"en-us"` -> `"en-US"`). It is used internally to ensure comparisons are reliable. With `macro=True` it can also collapse a tag to its macro-language.
 
-### `get_language_dir(base_path, lang)`
+### `get_language_dir(base_path, lang="en-US")`
 A crucial helper for [Skills](skill-design-guidelines.md). It scans a directory (like `locale/`) and returns the best matching subdirectory for the requested language, tolerating regional variations.
 
 ---
 
 ## Configuration Helpers
 
-The `ovos-config` library provides several helpers to retrieve language settings from `mycroft.conf`.
+The `ovos-config` library (`ovos_config.locale`) provides helpers to retrieve language settings from `mycroft.conf`.
 
-### `get_default_lang()`
-Returns the primary language tag for the system.
+### `get_default_lang(config=None)`
+Returns the primary language tag for the system (the `lang` key).
+
+### `get_primary_lang_code(config=None)`
+Returns just the two-letter primary code (e.g. `en`) rather than the full BCP-47 tag.
 
 ### `get_valid_languages()`
-Returns a list of all enabled language tags. This is used by the Intent Service to know which languages are allowed for matching.
-
-### `get_config_langs()`
-Returns a prioritized list of languages to try, often starting with the current session language and falling back to the system default.
+Returns the list of all enabled language tags (`lang` plus `secondary_langs`). This is what the Intent Service validates candidate languages against.
 
 ---
 
 ## Multilingual Intent Matching
 
-If `intents.multilingual_matching` is enabled in `mycroft.conf`, the intent pipeline will attempt to match the utterance in **all** configured languages if the primary disambiguated language fails to produce a match.
+If `multilingual_matching` is enabled under the `"intents"` section of `mycroft.conf`, the intent pipeline will retry matching the utterance against **all** configured languages when the primary disambiguated language fails to produce a match.
 
-This allows for seamless switching between languages without manual reconfiguration.
+```json
+{
+  "intents": {
+    "multilingual_matching": true
+  }
+}
+```
+
+This allows seamless switching between languages without manual reconfiguration, at the cost of extra matching work per failed utterance.

@@ -3,6 +3,17 @@
 
 OpenVoiceOS's multilingual color parsing and color-space conversion library. It turns natural-language color descriptions ("bright, slightly warm muted blue") into concrete RGB/HLS/HSV values, and provides color-space utilities needed for smart-light control and similar voice-driven color applications.
 
+**What you get in 30 seconds:**
+
+```python
+from ovos_color_parser import color_from_description
+
+color = color_from_description("bright vibrant green")
+print(color.hex_str, color.r, color.g, color.b)   # an sRGBAColor, or None if nothing matched
+```
+
+> **Import note:** the top-level `ovos_color_parser` package only re-exports a subset of the API (see [API reference](#api-reference)). Functions such as `palette_from_description`, `lookup_name`, `rgb_to_cmyk`, `cmyk_to_rgb`, and `is_hex_code_valid` must be imported from `ovos_color_parser.matching`; less common model/palette classes from `ovos_color_parser.models`.
+
 ## Why it exists
 
 Voice assistants frequently need to interpret color commands: "change the lamp to moss green", "make it darker", "a bit more saturated". Standard CSS/X11 color name lookups only cover exact matches. `ovos-color-parser` layers on top of a multilingual color-name database (nearly 6 000 English name-to-hex mappings) and a language-keyed adjective/modifier system so that fuzzy descriptions and modifier words ("bright", "warm", "muted") are resolved to a real sRGB value.
@@ -15,7 +26,7 @@ A secondary use-case is scientific: the library supports the full electromagneti
 
 | Module | Responsibility |
 |--------|---------------|
-| `ovos_color_parser/__init__.py` | Public re-exports of every model class and every matching function |
+| `ovos_color_parser/__init__.py` | Convenience re-exports of the most common model classes and matching functions (a subset — see the API reference for what each submodule exposes) |
 | `ovos_color_parser/models.py` | Dataclasses for all color spaces plus pre-built spectral palettes and language vocabulary objects |
 | `ovos_color_parser/matching.py` | Aho-Corasick automaton-based color name lookup, adjective adjustment, `ColorMatcher` class, utility functions |
 | `ovos_color_parser/res/<lang>/` | Per-language JSON word-lists (`*.json`) and object-color mappings (`object_colors.json`) and adjective descriptors (`color_descriptors.json`) |
@@ -61,6 +72,10 @@ Weighted circular-mean hue averaging (`average_colors()`) prevents wrap-around e
 ---
 
 ## API reference
+
+**Importable from the top-level `ovos_color_parser`:** `color_from_description`, `color_distance`, `closest_color`, `average_colors`, `convert_K_to_RGB`, `get_contrasting_black_or_white`, `ColorMatcher`, and the model classes `sRGBAColor`, `HLSColor`, `HSVColor`, `SpectralColor`, `HueRange`, `sRGBAColorPalette`, `HSVColorPalette`, `HLSColorPalette`, `SpectralColorPalette`, `NewtonSpectralColorTerms`, `ISCCNBSSpectralColorTerms`, `EnglishColorTerms`.
+
+Everything else listed below (e.g. `palette_from_description`, `lookup_name`, `rgb_to_cmyk`, `cmyk_to_rgb`, `is_hex_code_valid`, `ColorTerm`, `LanguageColorVocabulary`, `MalacaraSpectralColorTerms`, `CRCHandbookSpectralColorTerms`, `IRSpectralColors`, `UVSpectralColors`, `ElectroMagneticSpectrum`, `OtjihereroColorTerms`) is **not** re-exported and must be imported from its submodule (`ovos_color_parser.models` or `ovos_color_parser.matching`).
 
 ### Color model classes (`ovos_color_parser/models.py`)
 
@@ -228,7 +243,9 @@ print(spectral.wavelen)        # approximate wavelength in nm
 
 ## Language support
 
-Language-keyed resources live in `ovos_color_parser/res/<lang>/`. The language code is derived from the BCP-47 code by taking the primary subtag (e.g. `"en-US"` → `"en"`).
+Language-keyed resources live in `ovos_color_parser/res/<lang>/`. At lookup time the loader takes the primary subtag of the requested `lang` (e.g. `color_from_description(..., lang="en-US")` looks for `res/en`).
+
+> ⚠️ **Known gotcha (verified against `dev`):** most resource directories are currently named with full locale codes (`en-US`, `de-DE`, `es-ES`, `pt-BR`, ...), while the loader strips to the primary subtag and looks for `res/en`, `res/de`, etc. Because those bare-subtag directories do not exist, passing those languages raises `FileNotFoundError`. The directory whose name *is* a primary subtag (`res/it`) is the one that resolves cleanly. Pin to the exact resource layout of the version you install and test your target language before relying on it. Track fixes in the [ovos-color-parser issues](https://github.com/OpenVoiceOS/ovos-color-parser/issues).
 
 Each language directory may contain:
 
@@ -265,19 +282,10 @@ No runtime configuration object is used. Language selection is passed explicitly
 
 See also:
 
-- [`ovos-number-parser/docs/index.md`](index.md)
+- [Number Parser](number-parser.md)
 
 
-- [`ovos-date-parser/docs/index.md`](index.md)
+- [Date Parser](date-parser.md)
 
 
-- [`ovos-lang-parser/docs/index.md`](index.md)
-
-
-- `QUICK_FACTS.md`
-
-
-- `FAQ.md`
-
-
-- `AUDIT.md`
+- [Language Parser](lang-parser.md)
