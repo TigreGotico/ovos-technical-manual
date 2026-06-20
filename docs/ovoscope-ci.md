@@ -108,6 +108,50 @@ test/end2end/fixtures/recorded_*.json
 ```
 ---
 
+## The `ovoscope` CLI in CI
+Besides running fixtures through `pytest`, the `ovoscope` command (installed with
+the package) gives you CI-friendly primitives that exit non-zero on failure:
+
+| Subcommand | Invocation | CI use |
+| :--- | :--- | :--- |
+| `run` | `ovoscope run FIXTURE [--verbose] [--timeout 30.0]` | Replay one fixture; exits 1 on assertion failure. Skill IDs come from the fixture. |
+| `validate` | `ovoscope validate FILE [FILE ...]` | Schema-check fixtures (required keys, `expected_messages` is a list). Cheap lint step, no MiniCroft. |
+| `diff` | `ovoscope diff EXPECTED ACTUAL [--no-color] [--include-context]` | Compare a freshly recorded fixture against the committed one. Context is ignored unless `--include-context`. |
+| `coverage` | `ovoscope coverage WORKSPACE --format table\|json` | Scan a workspace root and report which plugin repos have E2E tests. |
+| `bus-coverage` | `ovoscope bus-coverage TEST_DIR [--skill-id ID] [--format table\|json] [--verbose]` | Run every `*.json` fixture under `TEST_DIR` with coverage tracking and report handler/emitter coverage. |
+
+Example "lint then replay" step:
+
+```bash
+ovoscope validate test/end2end/fixtures/*.json
+for f in test/end2end/fixtures/*.json; do
+    ovoscope run "$f" --verbose || exit 1
+done
+```
+
+> Note: `run` and `bus-coverage` are positional-argument subcommands
+> (`ovoscope run fixture.json`, not `--fixture`). `record` takes `--utterance`
+> and `--output` (both required), plus `--skill-id`, `--lang`, `--pipeline`,
+> `--timeout` (default 20.0), and `--live`/`--bus-url` for live recording.
+
+## Bus coverage in CI
+Bus coverage measures *which of a skill's message handlers your tests actually
+triggered* and *which emitted messages you asserted*. Two CI-friendly entry points:
+
+```bash
+# pytest plugin: enable for all End2EndTests in the session, save JSON for CI
+pytest test/end2end/ --ovoscope-bus-cov --ovoscope-bus-cov-file=bus-cov.json
+pytest test/end2end/ --ovoscope-bus-cov --ovoscope-bus-cov-verbose
+pytest test/end2end/ --ovoscope-bus-cov --ovoscope-bus-cov-include="my-skill"
+
+# CLI: run a directory of committed fixtures
+ovoscope bus-coverage test/end2end/fixtures/ --verbose
+```
+
+A single `End2EndTest` can also be tracked inline with
+`track_bus_coverage=True`; read `test.bus_coverage_report` afterwards (see
+[End2EndTest](ovoscope-end2end-test.md#bus-coverage)).
+
 ## GitHub Actions — End2End Job
 Add an end2end job to your `release_workflow.yml` or a dedicated workflow. This example follows
 the `gh-automations` conventions used across all 203+ OVOS repos:
@@ -228,6 +272,15 @@ session = Session(str(uuid.uuid4()))
 By default `ignore_gui=True` strips GUI namespace messages from the captured sequence. If you see
 unexpected messages related to `gui.*`, check whether a skill emits GUI messages unconditionally
 and whether your `expected_messages` list accounts for them.
+
+### Pipeline differs between dev box and CI (swig/C engines)
+`MiniCroft` auto-selects `DEFAULT_TEST_PIPELINE` when `ovos-adapt-pipeline-plugin`
+**and** `ovos-padatious-pipeline-plugin` are installed, otherwise it falls back to
+`LIGHT_TEST_PIPELINE` (pure-Python Padacioso, no swig/C). A skill that matches
+locally via Padatious can silently match differently — or not at all — on a CI
+runner that lacks swig. Either install the C-extension engines explicitly in CI,
+or guard the test with `is_pipeline_available(...)` and pin the pipeline you
+actually intend to exercise. See [Pipeline Plugin Testing](ovoscope-pipeline.md#advanced).
 ---
 
 ## ovoscope's Own CI Workflows

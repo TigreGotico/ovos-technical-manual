@@ -37,7 +37,7 @@ testing and should use hardware-in-the-loop integration tests instead:
 `MiniPHAL` — `ovoscope/phal.py:43`
 
 ```python
-from ovos_utils.messagebus import Message
+from ovos_bus_client.message import Message
 from ovoscope.phal import MiniPHAL
 
 with MiniPHAL(
@@ -51,11 +51,32 @@ with MiniPHAL(
 
 ### Constructor Arguments
 
-| Argument | Type | Description |
-|----------|------|-------------|
-| `plugin_ids` | `List[str]` | OPM entry-point IDs to load. |
-| `plugin_instances` | `Dict[str, Any]` | Pre-built plugin instances (keyed by ID). |
-| `config` | `Dict[str, Dict]` | Per-plugin config overrides. |
+| Argument | Type | Default | Description |
+|----------|------|---------|-------------|
+| `plugin_ids` | `Optional[List[str]]` | `None` (→ `[]`) | OPM entry-point IDs to load. |
+| `plugin_instances` | `Optional[Dict[str, Any]]` | `None` (→ `{}`) | Pre-built plugin instances keyed by `plugin_id`. The instance must already be wired to the harness `FakeBus`, so this only works when you can build the plugin against an externally-supplied bus. |
+| `plugin_factories` | `Optional[Dict[str, Callable[[FakeBus], Any]]]` | `None` (→ `{}`) | Callables `(bus) -> plugin` keyed by `plugin_id`, invoked inside `__enter__` so the plugin is always constructed with the harness `FakeBus`. Takes precedence over `plugin_instances` for the same `plugin_id`. |
+| `config` | `Optional[Dict[str, Dict[str, Any]]]` | `None` (→ `{}`) | Per-plugin config overrides keyed by `plugin_id`. |
+
+> **`plugin_instances` vs `plugin_factories`.** Pre-built `plugin_instances` are
+> handy for injecting mocks, but they are constructed *before* the harness exists,
+> so they hold a different bus than the one `MiniPHAL` captures on. Prefer
+> `plugin_factories` whenever the plugin needs the harness bus:
+>
+> ```python
+> from ovos_phal_plugin_tools import OVOSToolsPHALPlugin
+> from ovoscope.phal import MiniPHAL
+> from ovos_bus_client.message import Message
+>
+> with MiniPHAL(
+>     plugin_ids=["ovos-phal-plugin-tools"],
+>     plugin_factories={
+>         "ovos-phal-plugin-tools": lambda bus: OVOSToolsPHALPlugin(bus=bus),
+>     },
+> ) as phal:
+>     phal.emit(Message("ovos.tools.list", {}))
+>     phal.assert_emitted("ovos.tools.list.response")
+> ```
 
 ### Methods
 
@@ -94,7 +115,7 @@ phal.emit(Message("config.get"), wait=0)
 `PHALTest` — `phal.py:PHALTest`
 
 ```python
-from ovos_utils.messagebus import Message
+from ovos_bus_client.message import Message
 from ovoscope.phal import PHALTest
 
 PHALTest(
@@ -107,6 +128,11 @@ PHALTest(
 
 ```
 
+`execute()` returns the full `List[Message]` captured during the run. Internally it
+emits `trigger_message`, then asserts each `expected_types` entry was emitted within
+`timeout` seconds and each `forbidden_types` entry was *not* emitted; any miss raises
+`AssertionError`.
+
 ### Fields
 
 | Field | Type | Default | Description |
@@ -115,6 +141,7 @@ PHALTest(
 | `trigger_message` | `Message` | **required** | Message to emit as stimulus. |
 | `expected_types` | `List[str]` | `[]` | Types that MUST appear. |
 | `forbidden_types` | `List[str]` | `[]` | Types that MUST NOT appear. |
-| `plugin_instances` | `Dict` | `{}` | Pre-built instances. |
-| `config` | `Dict` | `{}` | Per-plugin config. |
-| `timeout` | `float` | `5.0` | Wait timeout in seconds. |
+| `plugin_instances` | `Dict[str, Any]` | `{}` | Pre-built instances keyed by `plugin_id`. |
+| `plugin_factories` | `Dict[str, Callable[[FakeBus], Any]]` | `{}` | `(bus) -> plugin` factories keyed by `plugin_id`; built against the harness bus. Use this when the plugin must be constructed with the harness bus. |
+| `config` | `Dict[str, Dict]` | `{}` | Per-plugin config. |
+| `timeout` | `float` | `5.0` | Per-expectation wait timeout in seconds. |

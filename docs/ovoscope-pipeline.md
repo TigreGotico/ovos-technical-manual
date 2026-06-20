@@ -3,6 +3,16 @@
 `ovoscope.pipeline` provides `PipelineHarness` for testing intent / pipeline
 plugins in isolation — no skill is needed.
 
+## New here? When to use this vs `End2EndTest`
+
+Use `PipelineHarness` when you are writing or debugging a **pipeline plugin**
+(Adapt, Padatious, Padacioso, OCP, …) and want to ask one question: *does this
+utterance match, and to which intent?* It loads only the matching stages — no
+real skill handlers run — so it is fast and focused.
+
+Use [`End2EndTest`](ovoscope-end2end-test.md) instead when you are testing a
+**skill** end to end (utterance in, `speak`/side-effects out).
+
 ## What Is Tested
 
 Pipeline plugins (Adapt, Padatious, Padacioso, OCP, etc.) match utterances to
@@ -129,6 +139,60 @@ msg = harness.assert_matches("turn on the lights", intent_type="LightsOffIntent"
 
 # → AssertionError: Expected intent type to contain 'LightsOffIntent', got '...'
 
+```
+
+## Advanced
+
+### Two names for a pipeline: OPM ID vs priority-suffixed stage ID
+There are two distinct identifier forms and they are easy to confuse:
+
+- **OPM entry-point ID** — e.g. `ovos-adapt-pipeline-plugin.openvoiceos`. This is
+  the `opm.pipeline` plugin name. It is what `PipelineHarness(pipeline=[...])`
+  expects, and what you pass to `MiniCroft(default_pipeline=...)`.
+- **Priority-suffixed stage ID** — e.g. `ovos-adapt-pipeline-plugin-high`,
+  `-medium`, `-low`. Each plugin exposes three confidence tiers; the
+  stage-group constants below list these suffixed IDs. `is_pipeline_available`
+  strips the suffix before checking installation.
+
+### Stage-group constants
+Exported from the package top level for assembling realistic pipelines:
+
+```python
+from ovoscope import (
+    DEFAULT_TEST_PIPELINE, LIGHT_TEST_PIPELINE,
+    STOP_PIPELINE, CONVERSE_PIPELINE, ADAPT_PIPELINE,
+    PADATIOUS_PIPELINE, PADACIOSO_PIPELINE, FALLBACK_PIPELINE,
+    COMMON_QUERY_PIPELINE, PERSONA_PIPELINE, M2V_PIPELINE,
+    NEBULENTO_PIPELINE, PALAVREADO_PIPELINE,
+)
+```
+
+| Constant | Contents | Notes |
+|----------|----------|-------|
+| `DEFAULT_TEST_PIPELINE` | stop / converse / adapt / padatious / padacioso / common-query / fallback, interleaved high→medium→low | Needs `ovos-adapt-pipeline-plugin` **and** `ovos-padatious-pipeline-plugin` installed (Padatious pulls in swig/C). |
+| `LIGHT_TEST_PIPELINE` | stop / converse / padacioso / fallback only | **No C extensions.** Padacioso is the pure-Python, swig-free Padatious-compatible engine bundled with `ovos-workshop`, so this runs in any skill-test env. |
+| `STOP_PIPELINE`, `ADAPT_PIPELINE`, `PADATIOUS_PIPELINE`, `PADACIOSO_PIPELINE`, `FALLBACK_PIPELINE`, `M2V_PIPELINE` | the three `-high`/`-medium`/`-low` stage IDs | Confidence-tiered plugins. |
+| `CONVERSE_PIPELINE`, `COMMON_QUERY_PIPELINE`, `NEBULENTO_PIPELINE`, `PALAVREADO_PIPELINE` | a single stage ID | Single-tier plugins (manager handles routing). |
+| `PERSONA_PIPELINE` | `-high` and `-low` only | No medium tier. |
+
+`MiniCroft` auto-selects: it defaults to `DEFAULT_TEST_PIPELINE` when its
+plugins are installed, otherwise falls back to `LIGHT_TEST_PIPELINE`.
+
+### Guarding tests on plugin availability — `is_pipeline_available`
+`is_pipeline_available(pipeline: list[str]) -> bool` checks the `opm.pipeline`
+entry points (via `importlib.metadata`, no MiniCroft spun up) and returns
+`True` only if every stage's base plugin is installed. Use it to skip cleanly
+when a C-extension engine is absent in CI:
+
+```python
+import unittest
+from ovoscope import is_pipeline_available, M2V_PIPELINE
+
+class TestM2V(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        if not is_pipeline_available(M2V_PIPELINE):
+            raise unittest.SkipTest("ovos-m2v-pipeline not installed")
 ```
 
 ## Implementation Notes

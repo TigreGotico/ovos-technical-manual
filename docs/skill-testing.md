@@ -1,10 +1,45 @@
 # Skill Testing with [ovoscope](ovoscope-overview.md)
 
-This section covers end-to-end testing of OVOS skills using **ovoscope** — the official
-framework for verifying that skills behave correctly at the bus message level.
+This section is the entry point for end-to-end testing of OVOS skills using
+**ovoscope** — the framework for verifying that skills behave correctly at the
+bus message level.
 
 See also: [Skill Design Guidelines](skill-design-guidelines.md) and
 [Developer FAQ](skill-dev-faq.md).
+
+---
+
+## Your first test
+
+If you only care that an utterance makes the skill *say* the right thing, the
+whole test is one call. `End2EndTest.assert_spoke()` spins up a MiniCroft, fires
+the utterance, and asserts a matching `speak` was emitted:
+
+```python
+from ovos_bus_client.message import Message
+from ovos_bus_client.session import Session
+from ovoscope import End2EndTest
+
+SKILL_ID = "ovos-skill-hello-world.openvoiceos"
+
+session = Session("first-test")
+utterance = Message(
+    "recognizer_loop:utterance",
+    {"utterances": ["hello world"], "lang": "en-US"},
+    {"session": session.serialize(), "source": "A", "destination": "B"},
+)
+
+End2EndTest(
+    skill_ids=[SKILL_ID],
+    source_message=utterance,
+    expected_messages=[],            # not used by assert_spoke
+).assert_spoke("Hello world")
+```
+
+Note the skill_id format: `<entry-point-name>.<author-namespace>`, e.g.
+`ovos-skill-hello-world.openvoiceos`. This is the plugin entry point, not the PyPI
+package name. When you need to assert the *full* message sequence (ordering,
+routing, session state), use `.execute()` instead — covered below.
 
 ---
 
@@ -98,27 +133,32 @@ from ovoscope import End2EndTest
 from ovos_bus_client.message import Message
 from ovos_bus_client.session import Session
 
+SKILL_ID = "ovos-skill-hello-world.openvoiceos"
+
 session = Session("test-123")
+session.pipeline = ["ovos-adapt-pipeline-plugin-high"]   # restrict to Adapt
 utterance = Message(
     "recognizer_loop:utterance",
-    {"utterances": ["hello world"], "lang": "en-us"},
+    {"utterances": ["hello world"], "lang": "en-US"},
     {"session": session.serialize(), "source": "A", "destination": "B"},
 )
 
 test = End2EndTest(
-    skill_ids=["skill-hello-world.openvoiceos"],
+    skill_ids=[SKILL_ID],
     source_message=utterance,
     expected_messages=[
         utterance,
-        Message("speak", {"utterance": "Hello!"}),
+        Message(f"{SKILL_ID}:HelloWorldIntent",
+                {"utterance": "hello world", "lang": "en-US"}),
+        Message("speak", {"utterance": "Hello world", "lang": "en-US"}),
         Message("ovos.utterance.handled", {}),
     ],
 )
-test.execute()
+test.execute(timeout=10)
 
 ```
 
-`execute()` raises `AssertionError` on any mismatch. The assertion model is a
+`execute(timeout=30)` raises `AssertionError` on any mismatch. The assertion model is a
 **subset match**: only keys present in `expected.data` and `expected.context` are
 checked — extra keys in the received message are ignored. This lets you assert
 precisely on the fields you care about.
@@ -161,32 +201,78 @@ ovoscope focuses on the skill pipeline. The following are out of scope:
 - **[STT](stt-plugins.md) and audio transformer plugins** — use `MiniListener` / `ListenerTest` (see [453-ovoscope-advanced.md](ovoscope-usage.md))
 
 
-- **GUI rendering** — GUI namespace messages are discarded by default (`ignore_gui=True`)
+- **GUI rendering** — `End2EndTest` discards GUI namespace messages by default
+  (`ignore_gui=True`). To assert on `gui.*` traffic, use `GUICaptureSession`
+  (see [Testing GUI messages](#testing-gui-messages) below) instead of widening
+  the main capture.
 
 
 - **Wake-word and [VAD](vad-plugins.md)** — use `FakeBus` unit tests directly
 
 ---
 
+## Testing GUI messages
+
+`GUICaptureSession` (`ovoscope.GUICaptureSession`) captures only `gui.*` /
+`mycroft.gui.*` messages, so you can assert page navigation and namespace state
+without polluting the main `End2EndTest` capture. It is a context manager taking
+the bus:
+
+```python
+import time
+from ovos_bus_client.message import Message
+from ovoscope import get_minicroft, GUICaptureSession
+
+mc = get_minicroft(["ovos-skill-hello-world.openvoiceos"])
+with GUICaptureSession(mc.bus) as gui:
+    mc.bus.emit(Message(
+        "recognizer_loop:utterance",
+        {"utterances": ["hello"], "lang": "en-US"},
+    ))
+    time.sleep(2)
+    gui.assert_page_shown("helloworldskill", "hello.qml")
+mc.stop()
+```
+
+Available assertions on `GUICaptureSession`:
+
+| Assertion | Checks |
+|---|---|
+| `assert_page_shown(namespace, page, timeout=2.0)` | a page was shown in the namespace |
+| `assert_namespace_value(namespace, key, value)` | a namespace data value equals `value` |
+| `assert_namespace_has_key(namespace, key)` | a namespace data key was set |
+| `assert_namespace_cleared(namespace)` | the namespace was cleared |
+
+> **Upcoming.** Higher-level template assertions for `SYSTEM_*` GUI templates —
+> `assert_template_shown(namespace, template, values=None)` — are **not yet on
+> the released API**. They are proposed in DRAFT PR
+> [ovoscope#83](https://github.com/OpenVoiceOS/ovoscope/pull/83); until it
+> merges, assert on `assert_page_shown` / `assert_namespace_value` instead.
+
+---
+
 ## Installation
 
 ```bash
-pip install ovoscope
-
+uv pip install ovoscope
 ```
 
 ovoscope requires Python 3.10+ and `ovos-core >= 2.0.4a2` (pulled automatically as a
 dependency). The skill plugin under test must also be installed and discoverable via its
 entry point.
 
-Verify discovery:
+Optional extras gate the harnesses on other pages:
+
+- `ovoscope[audio]` → `ovos-audio` for the audio service harnesses (see
+  [Audio Testing](audio-testing.md)).
+- `ovoscope[tts]` → `jiwer` + a reference STT plugin for TTS intelligibility scoring.
+- `ovoscope[pydantic]` → `ovos-pydantic-models` for typed fixtures.
+
+Verify the skill under test is discoverable:
 
 ```bash
-python -c "
-from ovos_plugin_manager.skills import find_skill_plugins
-print(list(find_skill_plugins()))
-"
-
+python -c "from ovos_plugin_manager.skills import find_skill_plugins; print(list(find_skill_plugins()))"
+# should include: ovos-skill-hello-world.openvoiceos
 ```
 
 ---
@@ -226,19 +312,25 @@ uv run pytest test/end2end/ -v --timeout=60
 
 ## Public API Summary
 
-All primary classes are importable from `ovoscope` directly:
+The core skill-testing classes are always importable from `ovoscope` directly:
 
 ```python
 from ovoscope import (
-    MiniCroft,          # in-process skill runtime
+    MiniCroft,          # in-process skill runtime (subclass of ovos_core SkillManager)
     get_minicroft,      # factory: create + wait for READY
     CaptureSession,     # message recorder for a single interaction
     End2EndTest,        # declarative test runner
-    MiniListener,       # in-process audio transformer pipeline
-    get_mini_listener,  # factory: create MiniListener with plugins
-    ListenerTest,       # declarative listener test runner
+    GUICaptureSession,  # capture gui.* messages for GUI assertions
 )
+```
 
+The listener/audio harnesses are re-exported at the top level too, but only when
+their optional dependency is installed — import them from their submodule to be
+explicit:
+
+```python
+from ovoscope.listener import MiniListener, get_mini_listener, ListenerTest  # needs ovos-dinkum-listener
+from ovoscope.audio import PlaybackServiceHarness, AudioServiceHarness        # needs ovos-audio
 ```
 
 ---

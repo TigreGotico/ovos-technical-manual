@@ -1,14 +1,22 @@
 # End2EndTest
-`End2EndTest` is the primary API. It wires together `MiniCroft`, `CaptureSession`, and all assertion logic into a single declarative test object.
 
-## Class: `End2EndTest` — `ovoscope/__init__.py:533`
+`End2EndTest` is ovoscope's primary API. It wires together `MiniCroft` (a stripped-down OVOS core), `CaptureSession`, and all assertion logic into a single declarative test object.
+
+## New here? The one-minute mental model
+
+1. You build a `Message` ("the user said X").
+2. You list the `expected_messages` ovoscope should see on the bus in response.
+3. You call `.execute()`. ovoscope boots a `MiniCroft`, injects your message, captures everything on the bus until an end-of-test marker (`ovos.utterance.handled`) arrives, then compares captured vs expected.
+
+The simplest possible test (no skills — the utterance falls through to a complete intent failure) is at the bottom of this page under [Examples](#examples). Read that first if you prefer code to tables.
+
+## Class: `End2EndTest`
 
 ```python
-from ovoscope import End2EndTest
-
+from ovoscope import End2EndTest, get_minicroft
 ```
-A `dataclass`. Configure once, call `.execute()` to run.
-`End2EndTest.execute` — `ovoscope/__init__.py:602`
+
+A `dataclass` defined in `ovoscope/__init__.py`. Configure once, call `.execute()` to run.
 ---
 
 ## Fields
@@ -69,14 +77,18 @@ All default to `True`. Set to `False` to skip individual assertion categories:
 
 | Field | Default | Description |
 |---|---|---|
-| `verbose` | `True` | Print pass/fail for each assertion |
+| `track_bus_coverage` | `False` | Collect bus listener/emitter coverage during `execute()`; result lands in `test.bus_coverage_report` |
+| `print_bus_coverage` | `False` | Print a one-line bus-coverage summary at the end of `execute()` |
+| `verbose` | `True` | Print pass/fail (✅/❌) for each assertion |
 | `minicroft` | `None` | Provide an existing `MiniCroft` to reuse across tests |
 | `managed` | `False` | Set automatically; if `True`, `execute()` stops the minicroft after running |
 ---
 
-## `execute(timeout=30)`
-Runs the test. Raises `AssertionError` on the first failing assertion.
-If `minicroft` is `None`, creates one automatically (managed mode — stops it after the test). To run multiple tests against the same loaded skills, pass your own `MiniCroft`:
+## Methods
+
+### `execute(timeout: int = 30) -> list[Message]`
+Runs the test and returns the captured message list. Raises `AssertionError` on the first failing assertion. The `timeout` (default **30**) is per source message — how long to wait for the end-of-test marker before giving up.
+If `minicroft` is `None`, `execute()` creates one automatically (managed mode — it is stopped after the test). To run multiple tests against the same loaded skills, pass your own `MiniCroft`:
 
 ```python
 from ovoscope import get_minicroft, End2EndTest
@@ -87,6 +99,17 @@ test1.execute()
 test2.execute()
 croft.stop()
 
+```
+
+### `assert_spoke(text: str, lang: str = "en-US", timeout: int = 30) -> None`
+Convenience wrapper: runs `execute()` and asserts that a `speak` message whose `utterance` **exactly equals** `text` (and whose data `lang` equals `lang`) was emitted. Use it when you only care that the skill said a particular line and don't want to spell out the full `expected_messages` sequence.
+
+```python
+End2EndTest(
+    skill_ids=["skill-hello-world.openvoiceos"],
+    source_message=utterance,
+    expected_messages=[],   # not used by assert_spoke
+).assert_spoke("Hello world", lang="en-US")
 ```
 ---
 
@@ -141,6 +164,38 @@ Session is read from each received message's context. For messages after an `act
 ### Final session check
 Compares `active_skills`, `lang`, `pipeline`, `system_unit`, `date_format`, `time_format`, `site_id`, `session_id`, `blacklisted_skills`, `blacklisted_intents` from the session in the last received message against `final_session`.
 ---
+
+## Advanced
+
+### Routing model: `entry_points`, `flip_points`, `keep_original_src`
+ovoscope tracks the **expected** `context.source` / `context.destination` as a rolling pair, seeded from `source_message[0]`. Three field lists steer it:
+
+- `entry_points` (default `["recognizer_loop:utterance"]`) — when a message of this type is seen, ovoscope re-derives the rolling source/destination from that message's own context (reversed), i.e. "the reply now flows back the other way". This is why a normal request→response round-trips correctly out of the box.
+- `flip_points` (default `[]`) — like entry points, but updates from the received message and then swaps source↔destination. Use for protocols with extra hand-offs.
+- `keep_original_src` (default `["ovos.skills.fallback.ping"]`) — message types that must always be compared against the **original** `source_message[0]` routing, ignoring the rolling state. Fallback pings fan out from the original requester, so they keep the original src.
+
+Set `test_routing=False` to skip routing assertions entirely (useful when you only care about message types/data).
+
+### Asynchronous messages
+Some messages arrive from background threads (schedulers, network callbacks) and have **no stable ordering** relative to the main response sequence. List their types in `async_messages`; ovoscope collects them in a separate bucket and asserts presence/count without ordering. The relevant toggles are `test_async_messages` and `test_async_message_number`.
+
+```python
+End2EndTest(
+    skill_ids=["skill-timer.openvoiceos"],
+    source_message=utterance,
+    expected_messages=[...],          # ordered, synchronous
+    async_messages=["ovos.gui.show.active.timers"],  # unordered, presence-only
+).execute()
+```
+
+### Active-skill tracking
+`activation_points` / `deactivation_points` drive an expected active-skill set. After a message whose type is in `activation_points`, the message's `context.skill_id` must be **active** in the session; after a `deactivation_points` message (default `["intent.service.skills.deactivate"]`) it must **not** be. With `disallow_extra_active_skills=True`, any skill active beyond the expected set fails the test. Pre-seed converse state with `inject_active=["skill-x.openvoiceos"]`.
+
+### Bus coverage
+Set `track_bus_coverage=True` to record which of the skill's bus handlers fired and which emitted message types you actually asserted; read `test.bus_coverage_report` after `execute()`. For multi-test or CI aggregation prefer the pytest plugin (`--ovoscope-bus-cov`) or the `ovoscope bus-coverage` CLI — see [CI Integration](ovoscope-ci.md).
+
+### Final-session assertions
+With `final_session` set, ovoscope compares the session from the **last** received message field-by-field: `active_skills`, `lang`, `pipeline`, `system_unit`, `date_format`, `time_format`, `site_id`, `session_id`, `blacklisted_skills`, `blacklisted_intents`. Toggle with `test_final_session`.
 
 ## Recording Mode: `from_message()`
 Runs a live capture against real skills and returns a ready-to-use `End2EndTest` with the captured messages as `expected_messages`.

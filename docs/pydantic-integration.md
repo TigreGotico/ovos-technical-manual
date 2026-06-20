@@ -14,22 +14,35 @@ expected = Message("recognizer_loop:utterance", {"utterances": ["hello"], "lang"
 `Message` is a raw dict wrapper. There is no validation of field names, no type checking, and no autocomplete. A typo in a field name (`"utterance"` instead of `"utterances"`) silently produces a wrong test.
 ---
 
-## Bridge: Converting Between Message and Pydantic
-`ovos_bus_client.message.Message` and `OpenVoiceOSMessage` share the same three-field structure (`type`/`message_type`, `data`, `context`). A bridge needs only two functions:
+## Bridge: `ovoscope.pydantic_helpers`
+`ovos_bus_client.message.Message` and `OpenVoiceOSMessage` share the same three-field structure (`type`/`message_type`, `data`, `context`). The bridge already ships in OvoScope as `ovoscope.pydantic_helpers` — you do not write it yourself. Import from there:
 
 ```python
-from ovos_bus_client.message import Message
-from ovos_pydantic_models.message import OpenVoiceOSMessage
-def to_bus_message(pydantic_msg: OpenVoiceOSMessage) -> Message:
+from ovoscope.pydantic_helpers import to_bus_message, from_bus_message, validate_fixture
+
+```
+The module imports safely even without the `pydantic` extras installed; each function raises a clear `ImportError` (pointing at `pip install ovoscope[pydantic]`) only when actually called.
+
+The two conversion functions are, in effect:
+
+```python
+def to_bus_message(pydantic_msg: "OpenVoiceOSMessage") -> Message:
     """Convert a pydantic model to an ovos-bus-client Message."""
     d = pydantic_msg.model_dump()
     return Message(
         d["message_type"],
-        d["data"],
-        d["context"],
+        d.get("data") or {},      # None/absent → {}
+        d.get("context") or {},
     )
-def from_bus_message(bus_msg: Message, model: type[OpenVoiceOSMessage]) -> OpenVoiceOSMessage:
-    """Parse a received bus Message into a typed pydantic model."""
+
+def from_bus_message(
+    bus_msg: Message,
+    model: "Type[OpenVoiceOSMessage]",   # the target model is REQUIRED
+) -> "OpenVoiceOSMessage":
+    """Parse a received bus Message into a typed pydantic model.
+
+    Raises pydantic.ValidationError if bus_msg does not match model's schema.
+    """
     return model.model_validate({
         "message_type": bus_msg.msg_type,
         "data": bus_msg.data,
@@ -37,7 +50,7 @@ def from_bus_message(bus_msg: Message, model: type[OpenVoiceOSMessage]) -> OpenV
     })
 
 ```
-These two functions are all that's needed to use typed models with OvoScope today, without any changes to OvoScope itself.
+Note `from_bus_message` requires the target `model` as its second argument — it parses into that specific message subclass and raises `pydantic.ValidationError` on a schema mismatch. These two functions are all that's needed to use typed models with OvoScope today.
 ---
 
 ## Usage Pattern 1: Typed Source Messages
@@ -45,6 +58,7 @@ Use pydantic models to construct source messages, then convert:
 
 ```python
 from ovoscope import End2EndTest
+from ovoscope.pydantic_helpers import to_bus_message
 from ovos_bus_client.message import Message
 from ovos_bus_client.session import Session
 from ovos_pydantic_models import RecognizerLoopUtteranceMessage, RecognizerLoopUtteranceData
@@ -72,6 +86,7 @@ Benefit: `RecognizerLoopUtteranceData` validates that `utterances` is a `list[st
 Use pydantic models to build expected messages. This documents intent and catches field-name mistakes:
 
 ```python
+from ovoscope.pydantic_helpers import to_bus_message
 from ovos_pydantic_models import SpeakMessage, SpeakData, CompleteIntentFailureMessage, CompleteIntentFailureData
 expected = [
     to_bus_message(RecognizerLoopUtteranceMessage(
@@ -97,6 +112,7 @@ After a test captures messages, convert received `Message` objects to their type
 
 ```python
 from ovoscope import get_minicroft, CaptureSession
+from ovoscope.pydantic_helpers import from_bus_message
 from ovos_pydantic_models import SpeakMessage
 croft = get_minicroft(["skill-weather.openvoiceos"])
 capture = CaptureSession(croft)
@@ -119,6 +135,7 @@ This is cleaner than `msg.data["utterance"]` — you get IDE autocomplete and th
 Build helpers that combine the two:
 
 ```python
+from ovoscope.pydantic_helpers import to_bus_message, from_bus_message
 def assert_speak(received_msg: Message, expected_utterance: str | None = None):
     """Assert a received message is a valid speak message."""
     typed = from_bus_message(received_msg, SpeakMessage)  # raises if invalid
@@ -136,6 +153,30 @@ def make_utterance(text: str, lang: str = "en-us", session: Session | None = Non
     return msg
 
 ```
+---
+
+## Usage Pattern 5: Validating Saved Fixtures
+`End2EndTest.save()` writes a JSON fixture; `End2EndTest.deserialize()` loads one back.
+`validate_fixture()` sits between them and checks every entry in the `source_message`
+and `expected_messages` arrays against `OpenVoiceOSMessage` before you build the test,
+turning a malformed fixture into a clear `ValueError` (with the offending
+`section[index]` and message type) instead of a cryptic `KeyError`/`TypeError` raised
+deep inside `deserialize()`:
+
+```python
+from ovoscope import End2EndTest
+from ovoscope.pydantic_helpers import validate_fixture
+
+# validate_fixture returns the raw fixture dict, ready for deserialize()
+fixture = validate_fixture("test/fixtures/weather_london.json")
+test = End2EndTest.deserialize(fixture)
+test.execute()
+
+```
+`validate_fixture` accepts fixtures written with either the `Message.serialize()`
+`"type"` key or the pydantic `"message_type"` key — it normalises both. It does **not**
+mutate or re-emit the fixture; it returns the original dict unchanged, so it is a safe
+drop-in guard in front of any existing `deserialize()` call.
 ---
 
 ## Deeper Integration: What OvoScope Could Gain

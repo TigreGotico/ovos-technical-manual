@@ -651,18 +651,18 @@ from all loaded skills simultaneously.
 
 ```python
 from ovoscope import get_minicroft, CaptureSession
-from ovos_utils.messagebus import Message
+from ovos_bus_client.message import Message
 
 mc = get_minicroft([
     "ovos-skill-hello-world.openvoiceos",
     "ovos-skill-fallback-unknown.openvoiceos",
 ])
-session = CaptureSession(mc)
-session.capture(Message(
+capture = CaptureSession(mc)
+capture.capture(Message(
     "recognizer_loop:utterance",
-    data={"utterances": ["something unknown"], "lang": "en-US"},
+    {"utterances": ["something unknown"], "lang": "en-US"},
 ))
-responses = session.finish()
+responses = capture.finish()
 mc.stop()
 
 ```
@@ -675,7 +675,7 @@ PHAL plugins communicate via the MessageBus and accept `bus` directly, so
 `FakeBus` injection works without hardware.
 
 ```python
-from ovos_utils.messagebus import Message
+from ovos_bus_client.message import Message
 from ovoscope.phal import MiniPHAL, PHALTest
 
 # Context-manager style
@@ -721,17 +721,19 @@ See [ocp.md](ocp.md) for the full reference.
 
 `GUICaptureSession` captures `gui.*` messages so tests can assert page
 navigation and namespace values without polluting the main message capture.
+It is a context manager that wraps the bus (`GUICaptureSession(mc.bus)`) and
+captures only `gui.`/`mycroft.gui.`-prefixed messages.
 
 ```python
 from ovoscope import get_minicroft, GUICaptureSession
-from ovos_utils.messagebus import Message
+from ovos_bus_client.message import Message
 import time
 
 mc = get_minicroft(["ovos-skill-hello-world.openvoiceos"])
 with GUICaptureSession(mc.bus) as gui:
     mc.bus.emit(Message(
         "recognizer_loop:utterance",
-        data={"utterances": ["hello"], "lang": "en-US"},
+        {"utterances": ["hello"], "lang": "en-US"},
     ))
     time.sleep(2)
     gui.assert_page_shown("helloworldskill", "hello.qml")
@@ -739,4 +741,20 @@ mc.stop()
 
 ```
 
-See [ovoscope/__init__.py](https://github.com/OpenVoiceOS/ovoscope/blob/dev/ovoscope/__init__.py) for `GUICaptureSession` API.
+Available assertions on `GUICaptureSession`:
+
+| Method | Signature | Checks |
+|---|---|---|
+| `assert_page_shown` | `(namespace, page, timeout=2.0)` | a `gui.page.show` for that namespace/page |
+| `assert_namespace_value` | `(namespace, key, value)` | a key was set to an exact value |
+| `assert_namespace_has_key` | `(namespace, key)` | a key was set (any value) |
+| `assert_namespace_cleared` | `(namespace)` | the namespace was cleared |
+
+!!! info "Upcoming — SYSTEM_* template assertions"
+    `assert_template_shown(namespace, template, values=None)` for asserting
+    that a shared `SYSTEM_*` template (rather than a skill-local QML page) was
+    shown does **not** exist on `dev` yet. It is added by the open draft PR
+    [ovoscope#83](https://github.com/OpenVoiceOS/ovoscope/pull/83). Until that
+    merges, assert page navigation with `assert_page_shown`.
+
+See [ovoscope/__init__.py](https://github.com/OpenVoiceOS/ovoscope/blob/dev/ovoscope/__init__.py) for the full `GUICaptureSession` API.

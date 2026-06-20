@@ -14,6 +14,13 @@ recognizer_loop:utterance
 
 ```
 
+## Quick Start
+
+`OCPTest` is the one-liner path: give it skill IDs and an utterance, stub any HTTP
+the skill makes, and state what media you expect back. It spins up a `MiniCroft`,
+fires `recognizer_loop:utterance`, waits for the asynchronous OCP responses, and
+asserts on them — no bus wiring by hand.
+
 ## `OCPTest` — Declarative Style
 
 `OCPTest` — `ocp.py:OCPTest`
@@ -47,19 +54,37 @@ result = OCPTest(
 | `timeout` | `float` | `20.0` | Max wait in seconds. |
 | `patch_targets` | `List[str]` | `[]` | Additional `requests`-like module paths to patch (dotted Python path to the callable to replace). |
 
-### `execute()` — `ovoscope/ocp.py:90`
+### `execute()`
 
 Returns `List[Message]` — all bus messages captured during the interaction
-(same format as `CaptureSession.responses`).
+(same format as `CaptureSession.responses`). Before returning, `execute()` calls
+`assert_ocp_query_response(captured, expected_media=..., expected_stream_url=...)`,
+so the `expected_media` and `expected_stream_url` fields are enforced automatically.
+The other checks (`min_results`, `media_type`, `stream_url_contains`) are **not**
+applied by `execute()`; run `assert_ocp_query_response` yourself on the returned list
+when you need them:
 
-## HTTP Mocking — `ovoscope/ocp.py:139`
+```python
+from ovoscope.ocp import OCPTest, assert_ocp_query_response
 
-HTTP calls are intercepted via `unittest.mock.patch` on `requests.Session.get`
-and `requests.get` by default.
+messages = OCPTest(
+    skill_ids=["ovos-skill-somafm.openvoiceos"],
+    utterance="play groove salad",
+).execute()
+
+assert_ocp_query_response(messages, min_results=1, media_type="audio")
+```
+
+## HTTP Mocking
+
+When `mock_responses` is non-empty, HTTP calls are intercepted via
+`unittest.mock.patch` on `requests.Session.get` **and** `requests.get` by default
+(both are patched automatically — `requests.Session.get` is the primary target).
 
 The `mock_responses` dict maps **URL substrings** to JSON response bodies.
-When the patched `get()` is called, the mock checks if any key is a substring
-of the request URL and returns the corresponding body.
+The patched `get()` returns a `MagicMock` Response whose `.json()` checks each key
+against the request URL and returns the first body whose key is a substring of the
+URL (falling back to `{}`). The mock also sets `status_code = 200` and `ok = True`.
 
 For skills using non-standard HTTP clients (e.g. `aiohttp`, `httpx`), pass
 additional dotted Python module paths in `patch_targets`. The path must point
@@ -90,7 +115,7 @@ for details.
 
 ## `assert_ocp_query_response`
 
-`assert_ocp_query_response` — `ocp.py:assert_ocp_query_response`
+The standalone assertion. All arguments after `messages` are **keyword-only**:
 
 ```python
 from ovoscope.ocp import assert_ocp_query_response
@@ -105,10 +130,27 @@ assert_ocp_query_response(
 
 ```
 
-| Argument | Description |
-|----------|-------------|
-| `messages` | Captured message list. |
-| `min_results` | Minimum `media_list` length. |
-| `media_type` | All items must have this `media_type`. |
-| `expected_media` | Partial-dict subset matching. |
-| `stream_url_contains` | Substring in `ovos.common_play.start` URI. |
+```python
+def assert_ocp_query_response(
+    messages,
+    *,
+    min_results=0,
+    media_type=None,
+    expected_media=None,
+    stream_url_contains=None,
+    expected_stream_url=None,
+) -> None: ...
+```
+
+| Argument | Default | Description |
+|----------|---------|-------------|
+| `messages` | **required** | Captured message list. |
+| `min_results` | `0` | Minimum number of items across all `ovos.common_play.query.response` `media_list` (falls back to `results`). `0` skips the check. |
+| `media_type` | `None` | If set, every result item must have this `media_type`. |
+| `expected_media` | `None` | List of partial dicts; each must subset-match at least one result item (only the keys you provide are compared). |
+| `stream_url_contains` | `None` | Substring required in the `ovos.common_play.start` `uri` (falls back to `url`). |
+| `expected_stream_url` | `None` | Alias for `stream_url_contains`; pass either. |
+
+The `min_results`/`expected_media`/`media_type` block only runs when `min_results > 0`
+or `expected_media` is given, so calling with no media arguments is a no-op for those
+checks.

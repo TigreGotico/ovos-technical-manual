@@ -1,14 +1,21 @@
 # MiniCroft
 `MiniCroft` is a minimal, in-process OVOS Core that loads real skill plugins and runs the full intent pipeline on a `FakeBus`. It is the execution engine behind every OvoScope test.
 
-## Class: `MiniCroft` — `ovoscope/__init__.py:158`
+!!! tip "New here? You rarely build `MiniCroft` directly"
+    For most tests you never touch this class — `End2EndTest` creates and tears
+    down a `MiniCroft` for you. Reach for `get_minicroft()` only when you want to
+    drive the bus by hand (see [CaptureSession](capture-session.md)) or reuse one
+    runtime across several tests to avoid re-training intent models each time.
+
+## Class: `MiniCroft`
 
 ```python
 from ovoscope import MiniCroft
 
 ```
-Subclass of `ovos_core.skill_manager.SkillManager`.
-`get_minicroft` factory — `ovoscope/__init__.py:456` Replaces the real WebSocket bus with `FakeBus`, disables components not needed for testing, and only loads the skills you specify.
+Subclass of `ovos_core.skill_manager.SkillManager`. The `get_minicroft()` factory
+replaces the real WebSocket bus with `FakeBus`, disables components not needed for
+testing, and only loads the skills you specify.
 
 ### Constructor
 
@@ -22,7 +29,7 @@ MiniCroft(
     enable_skill_api: bool = True,
     extra_skills: dict[str, OVOSSkill] | None = None,
     isolate_config: bool = True,
-    default_pipeline: list[str] | None = DEFAULT_TEST_PIPELINE,
+    default_pipeline: list[str] | None = ...,  # sentinel: auto-selected (see below)
     lang: str | None = None,
     secondary_langs: list[str] | None = None,
     pipeline_config: dict[str, dict] | None = None,
@@ -41,7 +48,7 @@ MiniCroft(
 | `enable_skill_api` | `True` | Enable skill API exposure |
 | `extra_skills` | `None` | Inject skill instances directly (useful for testing a skill class before packaging) |
 | `isolate_config` | `True` | Clear user XDG configs so tests are reproducible |
-| `default_pipeline` | `DEFAULT_TEST_PIPELINE` | Override the session pipeline for deterministic intent matching |
+| `default_pipeline` | *auto* | Override the session pipeline for deterministic intent matching. When left unset it auto-selects `DEFAULT_TEST_PIPELINE` if those stages are installed, otherwise `LIGHT_TEST_PIPELINE` (which avoids C-extension engines like Padatious). Pass an explicit list to pin it, or `None` to use the system config. |
 | `lang` | `None` | Override the system default language (`Configuration()["lang"]`). Patched before [Adapt](adapt-pipeline.md)/[Padatious](padatious-pipeline.md) init so vocab is registered for this language. |
 | `secondary_langs` | `None` | Set `Configuration()["secondary_langs"]`. Adapt and Padatious create per-language engines for each language in this list, enabling multilingual intent matching. |
 | `pipeline_config` | `None` | Per-pipeline plugin config overrides. A `dict` keyed by the plugin's config key under `Configuration()["intents"]` (e.g. `"ovos_m2v_pipeline"`). Patched before `super().__init__()` so pipeline plugins read overridden values during their `__init__`. Restored in `stop()`. |
@@ -52,13 +59,20 @@ MiniCroft(
 |---|---|---|
 | `bus` | `FakeBus` | The in-process message bus |
 | `boot_messages` | `list[Message]` | All messages captured during startup |
-| `status` | `ProcessState` | Current lifecycle state |
+| `pipeline` | property → `list[str]` | The active pipeline stage IDs |
+| `skill_ids` | `list[str]` | The skill IDs this runtime loaded |
+| `status` | process-status object | Lifecycle tracker; `status.state` is a `ProcessState` (e.g. `ProcessState.READY`) |
 
 ### `MiniCroft.run()`
 Loads plugins and marks the runtime as ready. Called internally by `start()`. Does not block — returns after all skills are loaded.
 
+### `MiniCroft.inject_message(msg)`
+Emit a `Message` onto the in-process `FakeBus` as if it came from a client. Useful
+for driving an interaction by hand instead of through `End2EndTest`.
+
 ### `MiniCroft.stop()`
-Shuts down skills and closes the bus.
+Shuts down skills, restores any patched config/pipeline (when `isolate_config=True`),
+and closes the bus.
 ---
 
 ## Factory: `get_minicroft()`
@@ -67,11 +81,15 @@ Shuts down skills and closes the bus.
 from ovoscope import get_minicroft
 croft = get_minicroft(
     skill_ids: list[str] | str,
-    **kwargs  # forwarded to MiniCroft constructor
+    *args,
+    max_wait: float = 60,   # seconds to wait for READY before TimeoutError
+    **kwargs,               # forwarded to the MiniCroft constructor
 )
 
 ```
-Creates, starts, and waits for a `MiniCroft` to reach `READY` state. Returns the ready instance.
+Builds, starts, and blocks until the `MiniCroft` reaches `ProcessState.READY`, then
+returns the ready instance. If it does not become ready within `max_wait` seconds it
+raises `TimeoutError` (and stops the croft on any exception during startup).
 
 ```python
 croft = get_minicroft(["skill-weather.openvoiceos", "skill-timer.openvoiceos"])
