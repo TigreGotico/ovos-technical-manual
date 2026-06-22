@@ -1502,6 +1502,12 @@
 answer, rank, summarize, remember, or resolve pronouns. You don't call them directly — you list
 them in a <a href="../personas/">persona</a> and the <a href="../personas/#personaservice-pipeline-plugin">PersonaService</a>
 loads them. Each plugin advertises itself to OVOS through an OPM entry-point group.</p>
+<div class="admonition note">
+<p class="admonition-title">Version requirement</p>
+<p>The agent plugin system (<code>opm.agents.*</code> entry-point groups) requires
+<strong><code>ovos-plugin-manager &gt;= 2.3.0a1</code></strong> (cap below <code>&lt;3.0.0</code>). Older OPM releases don't
+know these groups.</p>
+</div>
 <p><strong>For advanced users:</strong> every agent engine subclasses an abstract base in
 <code>ovos_plugin_manager.templates.agents</code> and registers under one <code>opm.agents.*</code> group (each with a
 parallel <code>*.config</code> group for config metadata). The discovery helpers live in
