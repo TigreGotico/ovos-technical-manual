@@ -83,7 +83,7 @@ makes the rest of the manual click into place:
 | **ovos-core** | The "brain" — decides which skill should answer | [ovos-core](core.md) |
 | **Skills** | The abilities (weather, timers, music…) | [Skill development](skill-design-guidelines.md) |
 | **TTS** | Turns the reply text back into speech | [TTS plugins](tts-plugins.md) |
-| **GUI** | Optional screen / visuals | [GUI Service](gui-service.md) |
+| **GUI** | Optional screen / visuals — ⚠️ *legacy GUI deprecated; no usable GUI right now, replacement in progress* | [GUI Service](gui-service.md) |
 | **MessageBus** | The shared channel they all talk over | [MessageBus Service](bus-service.md) |
 
 !!! info "Plugins vs. Skills — the two ways to extend OVOS"

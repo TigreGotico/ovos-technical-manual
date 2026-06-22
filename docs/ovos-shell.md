@@ -1,6 +1,14 @@
 # OVOS Shell
 
-[ovos-shell](https://github.com/OpenVoiceOS/ovos-shell) is the **production Qt5/[Kirigami](qt5-gui.md)
+!!! danger "The OVOS GUI is deprecated — assume it is not usable today"
+    `ovos-shell` is part of the **legacy** OVOS GUI stack, which is **deprecated** and should
+    be treated as **broken**: **there is no generally usable OVOS GUI right now**. A ground-up
+    replacement (the [GUI rework](gui-adapters.md), spec **OVOS-GUI-1**) is actively being
+    built but is **not yet ready**. On **Mark 2** devices the
+    [`ovos-installer`](ovos-installer.md) still installs `ovos-shell` so those devices keep a
+    screen until the replacement lands. Kept for reference and Mark 2 maintenance.
+
+[ovos-shell](https://github.com/OpenVoiceOS/ovos-shell) is the **legacy Qt5/[Kirigami](qt5-gui.md)
 shell application** for OVOS on embedded and desktop devices (Mark 2, Raspberry Pi with
 touchscreen, laptop). It wraps the `mycroft-gui-qt5` library (`Mycroft 1.0` [QML](qt5-gui.md) module)
 inside a full-screen, frameless Kirigami application window.

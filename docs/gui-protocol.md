@@ -1,5 +1,13 @@
 # GUI Protocol
 
+!!! danger "The OVOS GUI is deprecated — assume it is not usable today"
+    This describes the **legacy** GUI protocol, which is **deprecated** and should be treated
+    as **broken**: **there is no generally usable OVOS GUI right now**. A ground-up
+    replacement (the [GUI rework](gui-adapters.md), spec **OVOS-GUI-1**) is actively being
+    built but is **not yet ready**. On **Mark 2** devices the
+    [`ovos-installer`](ovos-installer.md) still sets up this legacy stack until the
+    replacement lands. Kept for reference and Mark 2 maintenance.
+
 The `ovos-gui` service exposes two communication channels:
 
 1. **OVOS [MessageBus](bus-service.md)** — used by skills and core components to set GUI state.

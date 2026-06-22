@@ -94,7 +94,7 @@ Rather than using a full distro, you can manually pick which components to insta
 - [`ovos-dinkum-listener`](https://github.com/OpenVoiceOS/ovos-dinkum-listener) – wake word, voice activation
 
 
-- [`ovos-gui`](https://github.com/OpenVoiceOS/ovos-gui) – GUI integration
+- [`ovos-gui`](https://github.com/OpenVoiceOS/ovos-gui) – GUI integration (⚠️ the legacy [GUI](gui-service.md) is deprecated and not usable right now; a replacement is in progress — you can omit this on most setups)
 
 
 - [`ovos-PHAL`](https://github.com/OpenVoiceOS/ovos-PHAL) – hardware abstraction layer

@@ -18,7 +18,7 @@ This glossary defines common terms, acronyms, and concepts used throughout the O
 | **Extras** | Optional install bundles in brackets, e.g. `ovos-core[mycroft]`, that pull in predefined groups of components. See [Installation](release-channels.md). |
 | **[Fallback](fallback-pipeline.md)** | A stage in the intent pipeline where skills can attempt to handle utterances that weren't matched by high-priority parsers. |
 | **G2P (Grapheme-to-Phoneme)** | The process of converting written text into phonetic representations for pronunciation. |
-| **GUI Service** | The component (`ovos-gui`) that manages visual displays and [QML](qt5-gui.md)/HTML interfaces. |
+| **GUI Service** | The component (`ovos-gui`) that manages visual displays and [QML](qt5-gui.md)/HTML interfaces. ⚠️ The current ("legacy") GUI is [deprecated](gui-service.md) — there is no usable OVOS GUI right now; a replacement is in progress. |
 | **[HiveMind](hivemind-agents.md)** | A protocol and ecosystem for connecting "satellites" (limited hardware) to a central OVOS "hub". |
 | **Hub** | In [HiveMind](hivemind-agents.md), the central device running OVOS that satellites connect to for the heavy work. |
 | **Intent** | The identified goal or request of a user's utterance (e.g., "WeatherIntent"). |

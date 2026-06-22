@@ -1,5 +1,16 @@
 # GUI Service (ovos-gui)
 
+!!! danger "The OVOS GUI is deprecated — assume it is not usable today"
+    The current **"legacy" OVOS GUI** stack is **deprecated** and should be treated as
+    **broken**: **there is no generally usable OVOS GUI right now**. A ground-up replacement
+    (the [GUI rework](gui-adapters.md), spec **OVOS-GUI-1**) is actively being built but is
+    **not yet ready**.
+
+    On **Mark 2** devices the [`ovos-installer`](ovos-installer.md) still sets up this legacy
+    GUI, so those devices keep a screen until the replacement lands. Everything below
+    documents the legacy stack — kept for Mark 2 maintenance and reference, **not recommended
+    for new work**.
+
 !!! abstract "In a nutshell"
     `ovos-gui` is the part of OpenVoiceOS that decides what shows up on a screen — text, images, a music player, or an idle home screen. Skills never draw to the display themselves; they send a request to this service, which keeps track of what each skill wants shown and passes it on to whatever screen is connected. Think of it as a stage manager that decides which scene is in front of the audience at any moment. To learn more, see the [Home Screen](homescreen.md) and the [Glossary](glossary.md).
 

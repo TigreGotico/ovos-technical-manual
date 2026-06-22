@@ -108,7 +108,7 @@ nav:
           - Skill Installer: skill-installer.md
           - Speech Service: speech-service.md
           - Audio Service: audio-service.md
-          - GUI Service: gui-service.md
+          - GUI Service (legacy): gui-service.md
           - PHAL (Hardware): phal.md
   - Intent Pipeline:
       - Overview & Reference: pipelines-overview.md
@@ -170,7 +170,7 @@ nav:
           - Meta Settings: skill-settings-meta.md
           - Filesystem: skill-filesystem.md
           - Resource Files: resource-files.md
-          - GUI Support: skill-gui.md
+          - GUI Support (legacy): skill-gui.md
           - Runtime Requirements: skill-runtime-requirements.md
   - Advanced Skill Types:
       - Fallback Skills: fallbacks.md
@@ -221,11 +221,11 @@ nav:
           - ovos-media: ovos-media.md
           - OCP Extractors: ocp-plugins.md
           - Media Playback: media-plugins.md
-          - GUI Protocol: gui-protocol.md
-          - OVOS Shell: ovos-shell.md
-          - GUI Adapters: gui-adapters.md
-          - Qt5 GUI: qt5-gui.md
-          - Homescreen: homescreen.md
+          - GUI Protocol (legacy): gui-protocol.md
+          - OVOS Shell (legacy): ovos-shell.md
+          - GUI Adapters (rework — upcoming): gui-adapters.md
+          - Qt5 GUI (legacy): qt5-gui.md
+          - Home Screen (legacy): homescreen.md
   - Advanced & Self Hosting:
       - STT Server: stt-server.md
       - TTS Server: tts-server.md

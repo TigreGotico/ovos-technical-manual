@@ -1,5 +1,14 @@
 # GUI Skills (GUIInterface)
 
+!!! danger "The OVOS GUI is deprecated — assume it is not usable today"
+    The current **"legacy" OVOS GUI** stack is **deprecated** and should be treated as
+    **broken**: **there is no generally usable OVOS GUI right now**. A ground-up replacement
+    (the [GUI rework](gui-adapters.md), spec **OVOS-GUI-1**) is actively being built but is
+    **not yet ready**. Adding screen support to a skill today only benefits **Mark 2**
+    devices, where the [`ovos-installer`](ovos-installer.md) keeps the legacy GUI running
+    until the replacement lands. This page documents the legacy API for reference and Mark 2
+    maintenance — voice should remain the primary interface.
+
 Many OVOS devices have a screen. A skill can drive that screen the same way it
 speaks: through a small Python API. You set some values, ask for a page to be
 shown, and any connected GUI client (Qt shell, web, terminal, ...) renders it.

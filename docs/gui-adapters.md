@@ -1,5 +1,11 @@
 # GUI Adapter Plugins
 
+!!! info "This is the GUI replacement, still in progress"
+    This page documents the **in-progress replacement** for the deprecated
+    [legacy GUI](gui-service.md). It is **not yet usable**. Until it ships, there is no
+    generally usable OVOS GUI; **Mark 2** devices keep a screen via the legacy stack that the
+    [`ovos-installer`](ovos-installer.md) sets up.
+
 !!! warning "Upcoming — unreleased"
     This whole page describes the **GUI-rendering rework**, which is **not yet released**.
     Nothing here is available on a stable install. It is specified by the **OVOS-GUI-1**

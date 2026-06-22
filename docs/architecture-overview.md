@@ -73,7 +73,7 @@ Handles audio capture, wake word detection, and STT. It is responsible for turni
 The output layer. It manages TTS generation and audio playback, ensuring that only one thing is speaking at a time and handling audio focus.
 
 ### GUI Service
-Provides a visual interface for skills. It uses a specialized protocol to push [QML](qt5-gui.md)-based or HTML-based views to a screen.
+Provides a visual interface for skills. It uses a specialized protocol to push [QML](qt5-gui.md)-based or HTML-based views to a screen. ⚠️ The current ("legacy") [GUI Service](gui-service.md) is **deprecated** — there is no generally usable OVOS GUI right now and a replacement is in progress; on Mark 2 the [`ovos-installer`](ovos-installer.md) keeps the legacy GUI running in the meantime.
 
 ### PHAL (Platform & Hardware Abstraction Layer)
 Handles hardware-specific tasks like volume control, battery monitoring, and connectivity management.

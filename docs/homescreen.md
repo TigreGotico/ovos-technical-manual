@@ -1,5 +1,13 @@
 # OpenVoiceOS Home Screen
 
+!!! danger "The OVOS GUI is deprecated — assume it is not usable today"
+    The home screen is part of the **legacy** OVOS GUI stack, which is **deprecated** and
+    should be treated as **broken**: **there is no generally usable OVOS GUI right now**. A
+    ground-up replacement (the [GUI rework](gui-adapters.md), spec **OVOS-GUI-1**) is actively
+    being built but is **not yet ready**. On **Mark 2** devices the
+    [`ovos-installer`](ovos-installer.md) still sets up the legacy home screen until the
+    replacement lands. Kept for reference and Mark 2 maintenance.
+
 The home screen is what a device with a display shows when it is idle — clock, date,
 weather, widgets, and so on. It is an ordinary **skill** that registers a *resting screen*;
 when the [GUI](gui-service.md) namespace stack is empty, the configured homescreen skill is

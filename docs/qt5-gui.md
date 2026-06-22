@@ -1,10 +1,12 @@
 # Mycroft-GUI QT5
 
-!!! info "When to use this page"
-    For most skills the built-in `SYSTEM_*` page templates (see
-    [GUI Skills](skill-gui.md)) are enough and require no UI code. Read on when
-    you want a fully custom screen rendered by the Qt/QML client — `show_page`
-    accepts your own `.qml` files, this is a supported path, not a legacy one.
+!!! danger "The OVOS GUI is deprecated — assume it is not usable today"
+    The Qt5/QML client described here is part of the **legacy** OVOS GUI stack, which is
+    **deprecated** and should be treated as **broken**: **there is no generally usable OVOS
+    GUI right now**. A ground-up replacement (the [GUI rework](gui-adapters.md), spec
+    **OVOS-GUI-1**) is actively being built but is **not yet ready**. On **Mark 2** devices
+    the [`ovos-installer`](ovos-installer.md) still installs this legacy Qt client until the
+    replacement lands. Kept for reference and Mark 2 maintenance.
 
 !!! info
     Currently only a [QT5 gui-client](https://github.com/OpenVoiceOS/mycroft-gui-qt5) is available, help wanted to [migrate to QT6](https://github.com/OpenVoiceOS/mycroft-gui-qt6)!
