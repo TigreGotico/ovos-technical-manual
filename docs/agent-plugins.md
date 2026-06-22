@@ -44,10 +44,10 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 | [ovos-solver-plugin-aiml](#ovos-solver-plugin-aiml) | Give Mycroft some sass with AIML! |
 | [ovos-persona](#ovos-persona) | The **`PersonaPipeline`** brings multi-persona management to OpenVoiceOS (OVOS), enabling interactive conversations with virtual assistants. 🎙️ With personas, you can customize how queries are handled by assigning specific solvers to each persona. |
 | [ovos-openai-plugin](#ovos-openai-plugin) | Leverages [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to provide the following ovos plugins: |
-| [ovos-wikipedia-solver](#ovos-wikipedia-solver) | ```python |
+| [ovos-wikipedia-solver](#ovos-wikipedia-solver) | Answers factual questions by querying Wikipedia. |
 | [ovos-chromadb-embeddings-plugin](#ovos-chromadb-embeddings-plugin) | The `ChromaEmbeddingsDB` plugin integrates with the [ChromaDB](https://www.trychroma.com/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using ChromaDB’s capabilities. |
-| [ovos-wolfram-alpha-solver](#ovos-wolfram-alpha-solver) | ```python |
-| [ovos-ddg-solver-plugin](#ovos-ddg-solver-plugin) | ```python |
+| [ovos-wolfram-alpha-solver](#ovos-wolfram-alpha-solver) | Answers computational and factual questions via the Wolfram Alpha API. |
+| [ovos-ddg-solver-plugin](#ovos-ddg-solver-plugin) | Answers questions using DuckDuckGo instant-answer results. |
 | [ovos-solver-YesNo-plugin](#ovos-solver-yesno-plugin) | A simple tool to indicate whether a user answered "yes" or "no" to a yes/no prompt. |
 | [ovos-solver-failure-plugin](#ovos-solver-failure-plugin) | Extreme fallback, just complains it does not have a brain |
 | [ovos-gguf-plugin](#ovos-gguf-plugin) | `GGUFSolver` is a question-answering module that utilizes GGUF models to provide responses to user queries. This solver |
@@ -95,7 +95,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-wikipedia-solver](https://github.com/OpenVoiceOS/ovos-wikipedia-solver)
 
 
-- **Description**: ```python
+- **Description**: Answers factual questions by querying Wikipedia.
 
 ---
 
@@ -113,7 +113,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-wolfram-alpha-solver](https://github.com/OpenVoiceOS/ovos-wolfram-alpha-solver)
 
 
-- **Description**: ```python
+- **Description**: Answers computational and factual questions via the Wolfram Alpha API.
 
 ---
 
@@ -122,7 +122,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-ddg-solver-plugin](https://github.com/OpenVoiceOS/ovos-ddg-solver-plugin)
 
 
-- **Description**: ```python
+- **Description**: Answers questions using DuckDuckGo instant-answer results.
 
 ---
 
