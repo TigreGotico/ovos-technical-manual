@@ -149,6 +149,7 @@ nav:
           - Padacioso: padacioso.md
   - Skill Development:
       - Guides:
+          - Your First Skill: first-skill.md
           - Design Guidelines: skill-design-guidelines.md
           - Best Practices: skill-best-practices.md
           - Anatomy of a Skill: skill-structure.md

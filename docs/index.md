@@ -43,9 +43,9 @@ how it hears, thinks, and speaks, or teach it brand-new abilities.
 
     Teach OVOS to do something new — your first voice skill, step by step.
 
-    [:octicons-arrow-right-24: Start with skill design](skill-design-guidelines.md) ·
-    [Anatomy of a skill](skill-structure.md) ·
-    [Skill FAQ](skill-dev-faq.md)
+    [:octicons-arrow-right-24: Your first skill (10-min tutorial)](first-skill.md) ·
+    [Design guidelines](skill-design-guidelines.md) ·
+    [Anatomy of a skill](skill-structure.md)
 
 -   :material-cog: __I want to understand how it works__
 

@@ -1,8 +1,16 @@
 # OVOS Release Channels & Installation Options
 
+!!! tip "Just want it working? Use the installer."
+    Most people should install OVOS with the **[`ovos-installer`](ovos-installer.md)** — a guided
+    wizard that handles everything. The manual `pip` commands and version-pinning below are for
+    people who want fine-grained control (custom/headless setups). A few terms used on this page:
+    **extras** = optional add-on bundles you list in brackets, e.g. `ovos-core[mycroft]`;
+    **constraints file** = a version "filter" that pins which package versions get installed;
+    **headless** = a device with no monitor/keyboard (e.g. a Raspberry Pi you SSH into).
+
 Open Voice OS (OVOS) is a **modular voice assistant platform** that lets you install only the components you need. Whether you're building a lightweight voice interface or a full-featured smart assistant, OVOS gives you flexibility through modular packages and optional feature sets called **extras**.
 
-To manage updates and ensure system stability, OVOS uses **release channels** and **constraints files**, allowing users to pin versions based on their desired stability level.
+To manage updates and ensure system stability, OVOS uses **release channels** and **constraints files** (explained above), allowing users to pin versions based on their desired stability level.
 
 ---
 
