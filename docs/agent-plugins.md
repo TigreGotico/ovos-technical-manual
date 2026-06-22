@@ -51,7 +51,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 | [ovos-solver-YesNo-plugin](#ovos-solver-yesno-plugin) | A simple tool to indicate whether a user answered "yes" or "no" to a yes/no prompt. |
 | [ovos-solver-failure-plugin](#ovos-solver-failure-plugin) | Extreme fallback, just complains it does not have a brain |
 | [ovos-gguf-plugin](#ovos-gguf-plugin) | `GGUFSolver` is a question-answering module that utilizes GGUF models to provide responses to user queries. This solver |
-| [ovos-persona-server](#ovos-persona-server) | `$ ovos-persona-server --persona rivescript_bot.json` |
+| [ovos-persona-server](#ovos-persona-server) | Standalone server that exposes an OVOS persona over an HTTP API. |
 | [ovos-solver-plugin-rivescript](#ovos-solver-plugin-rivescript) | Give Mycroft some sass with Rivescript! |
 
 ## ovos-qdrant-embeddings-plugin
@@ -158,7 +158,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-persona-server](https://github.com/OpenVoiceOS/ovos-persona-server)
 
 
-- **Description**: `$ ovos-persona-server --persona rivescript_bot.json`
+- **Description**: Standalone server that exposes an OVOS persona over an HTTP API (e.g. `ovos-persona-server --persona rivescript_bot.json`).
 
 ---
 

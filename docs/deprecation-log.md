@@ -1,6 +1,6 @@
 # Deprecation Log & Migration Guide
 
-This document tracks deprecated modules, classes, and architectural patterns within the OpenVoiceOS ecosystem. 
+This document tracks deprecated modules, classes, and architectural patterns within the OpenVoiceOS ecosystem. For whole **repositories** that have been archived (and their replacements), see **[Deprecated & Archived Repositories](deprecated-repos.md)**.
 
 Starting with `ovos-core` **0.0.8**, the project strictly follows **Semantic Versioning**:
 
