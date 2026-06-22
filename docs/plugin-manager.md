@@ -474,9 +474,11 @@ Invalid/empty config lists are removed.
 
 ## Configuration Priority
 
-Within a config list, entries are sorted by their `"priority"` key. Higher values are
-more preferred; factory methods iterate from the end (highest priority last). The default
-priority is `60`. A dialect match boosts priority by `+15`.
+Within a config list, entries are sorted **ascending** by their `"priority"` key (default
+`60`) — `sort_plugin_configs()` puts the highest-numbered priority at the end of the list.
+A dialect (non-exact-language) match has `+15` added to its priority. See
+`sort_plugin_configs` / `get_valid_plugin_configs` in `ovos_plugin_manager.utils.config`
+for the exact ordering used when selecting a config.
 
 ---
 

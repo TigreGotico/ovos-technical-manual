@@ -62,9 +62,8 @@ All settings live under the `websocket` key in `mycroft.conf`:
     "port": 8181,
     "route": "/core",
     "ssl": false,
-    "max_msg_size": 25,
-    "filter": false,
-    "filter_logs": ["gui.status.request", "gui.page.upload"]
+    "shared_connection": true,
+    "max_msg_size": 25
   }
 }
 
@@ -76,9 +75,12 @@ All settings live under the `websocket` key in `mycroft.conf`:
 | `port` | `8181` | TCP port. The GUI service uses a separate port (`18181`). |
 | `route` | `"/core"` | WebSocket URL path. Full URL: `ws://host:port/core`. |
 | `ssl` | `false` | Enable WSS/TLS. |
+| `shared_connection` | `true` | When `true`, each skill gets its own bus connection (so one skill can't manipulate another's). |
 | `max_msg_size` | `25` | Max WebSocket frame size in megabytes. |
-| `filter` | `false` | Enable debug logging of message types before broadcast. |
-| `filter_logs` | `["gui.status.request", "gui.page.upload"]` | Message types excluded from filter logging. |
+
+`filter` / `filter_logs` are also recognized (code-level defaults in the message-bus event
+handler — `filter` off, `filter_logs` `["gui.status.request", "gui.page.upload"]`) but are not
+part of the shipped `mycroft.conf` `websocket` section.
 
 !!! danger "Security: the bus has no authentication — keep it local"
     The messagebus has **no authentication and no encryption**, and **any** client that can
