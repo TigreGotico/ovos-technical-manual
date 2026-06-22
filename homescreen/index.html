@@ -1525,6 +1525,16 @@ current. The Qt shell (<a href="../ovos-shell/">ovos-shell</a>) consumes these m
 </tbody>
 </table>
 <h2 id="resting-faces">Resting Faces<a class="headerlink" href="#resting-faces" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Upcoming — the skill-side resting-screen API is being removed</p>
+<p>Per OVOS-GUI-1 §6.9, the home/resting screen is a <strong>render-backend concern, not a skill
+concern</strong> — applications must not register a home or resting screen. The skill-side API
+below (<code>@resting_screen_handler</code>, <code>homescreen_app</code>, and the <code>IdleDisplaySkill</code> base class)
+is therefore being <strong>removed</strong> from <code>ovos-workshop</code> (breaking change, in flight in
+<a href="https://github.com/OpenVoiceOS/ovos-workshop/pull/421">ovos-workshop#421</a>). The resting
+display moves into the <a href="../gui-adapters/">GUI plugin / render backend</a>. This still works on
+current releases; it is documented here for existing skills.</p>
+</div>
 <p>The resting face API provides skill authors the ability to extend their skills to supply their own customized IDLE screens that will be displayed when there is no activity on the screen.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>import requests
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>from ovos_workshop.skills import OVOSSkill
