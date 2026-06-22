@@ -1,5 +1,12 @@
 # RaspOVOS: A Beginner's Guide to Setting Up Your Raspberry Pi with OVOS
 
+!!! warning "Not currently recommended"
+    The pre-built **RaspOVOS** images are **outdated** and **not recommended** for new
+    installs right now. For a Raspberry Pi (or any Linux device), use the
+    **[`ovos-installer`](ovos-installer.md)** instead — it runs on Raspberry Pi OS and
+    is the supported way to get a current OVOS stack. This page is kept for existing
+    RaspOVOS users and for reference.
+
 This tutorial is designed for users new to Raspberry Pi and RaspOVOS. Follow these steps to set up and optimize your device for the best experience.
 
 ---

@@ -1,5 +1,10 @@
 # RaspOVOS Troubleshooting
 
+!!! warning "Not currently recommended"
+    The pre-built **RaspOVOS** images are **outdated** and **not recommended** for new
+    installs. New devices should use the **[`ovos-installer`](ovos-installer.md)**. This
+    page remains for users running existing RaspOVOS images.
+
 > ⚠️ This guide applies to raspOVOS and may assume some raspOVOS exclusive utilities are available, if you are not using raspOVOS [some command line utilities](https://github.com/OpenVoiceOS/raspOVOS/tree/dev/overlays/base_ovos/usr/local/bin) will not be available
 
 ---

@@ -83,7 +83,7 @@ A list of early TTS and STT plugins test with per-language accuracy benchmarks i
 
 ## Translation Coverage
 
-OVOS uses [GitLocalize](https://gitlocalize.com/users/OpenVoiceOS) for managing translation files across its repositories. This includes:
+OVOS uses [**OVOS Localize**](https://openvoiceos.github.io/ovos-localize/) — a GitHub-native, in-browser translation tool purpose-built for OVOS — to manage translation files across its repositories. (It replaces the retired third-party *GitLocalize* service.) This includes:
 
 - [Skill](skill-design-guidelines.md) dialog files
 
@@ -100,7 +100,9 @@ Translation progress is tracked at:
 
 The tracker provides daily updates and displays all languages that have reached at least 25% translation coverage.
 
-> ❗ If your language is missing from GitLocalize, [open an issue](https://github.com/OpenVoiceOS/lang-support-tracker/issues) to request it. Currently, languages must be added manually.
+> ❗ If your language is missing from [OVOS Localize](https://openvoiceos.github.io/ovos-localize/), [open an issue](https://github.com/OpenVoiceOS/lang-support-tracker/issues) to request it. Currently, languages must be added manually.
+
+See **[Contribute Translations with OVOS Localize](ovos-localize-tutorial.md)** for the step-by-step translator guide.
 
 ---
 
@@ -185,12 +187,12 @@ The `--platform` option merges a preset that tunes the intent pipeline for the t
 
 ### 1. **Contribute Translations**
 
-Use GitLocalize to translate dialog and intent files:
+Use [OVOS Localize](https://openvoiceos.github.io/ovos-localize/) to translate dialog and intent files right in your browser:
 
-- [GitLocalize for OVOS](https://gitlocalize.com/users/OpenVoiceOS)
+- [OVOS Localize translation app](https://openvoiceos.github.io/ovos-localize/)
 
 
-- [Translation Tutorial](https://www.openvoiceos.org/translation)
+- [Translator Tutorial](ovos-localize-tutorial.md)
 
 Translation stats for each language are also available in:
 
@@ -242,7 +244,7 @@ Explore public benchmark tools for evaluating model performance:
 
 | Project                                                         | Description |
 |-----------------------------------------------------------------|-------------|
-| [GitLocalize Bench](https://gitlocalize-bench.tigregotico.pt)   | Evaluate intent translation coverage and performance |
+| [OVOS Localize](https://openvoiceos.github.io/ovos-localize/)   | Browse intent translation coverage per language and skill |
 | [STT Bench](https://stt-bench.tigregotico.pt)                   | Test STT plugin accuracy across datasets and languages |
 | [TTS Bench](https://tts-bench.tigregotico.pt)                   | Compare TTS output quality across plugins |
 | [Meteocat](https://meteocat.bench.tigregotico.pt)               | Catalan weather query benchmark |
@@ -252,7 +254,7 @@ Explore public benchmark tools for evaluating model performance:
 
 ##  Tips for Contributors
 
-- Translators: Use GitLocalize’s side-by-side editor to keep intent logic intact.
+- Translators: Use [OVOS Localize](https://openvoiceos.github.io/ovos-localize/)’s side-by-side editor — it shows the skill code behind each phrase — to keep intent logic intact.
 
 
 - Developers: Review user-submitted errors on the dashboard to improve skill performance.
