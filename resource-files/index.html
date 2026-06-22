@@ -1506,6 +1506,10 @@
 
 
 <h1 id="resource-files">Resource Files<a class="headerlink" href="#resource-files" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Skills keep their words in separate text files rather than buried in the program code. These "resource files" hold things like the phrases the assistant can say, the example sentences it listens for, and the keywords it recognizes — each language gets its own folder. This separation makes a skill easy to translate and tweak without touching the code. This page explains the folder layout and the kinds of files. See also <a href="../statements/">Statements</a> for spoken replies and the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p>Skills load localized resources from a structured directory layout. Resources are loaded automatically at startup for every language in <code>native_langs</code> (<code>core_lang</code> + <code>secondary_langs</code>).</p>
 <h2 id="directory-layout">Directory Layout<a class="headerlink" href="#directory-layout" title="Permanent link">&para;</a></h2>
 <p>The recommended layout uses a single <code>locale/</code> directory:</p>

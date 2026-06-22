@@ -1641,6 +1641,10 @@
 
 
 <h1 id="configuration-management">Configuration Management<a class="headerlink" href="#configuration-management" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This page is about how you change OVOS's settings — your language, voice, microphone, and so on. OVOS ships with a complete set of sensible defaults you never touch; instead you write a tiny personal file listing only the things you want different, and OVOS stacks your file on top of the defaults so the rest stays as-is (like adding a sticky note over a printed form). The <code>ovos-config</code> command-line tool helps you view and edit those settings. For the full menu of every setting, see the <a href="../config-reference/">Configuration Reference</a>; for term definitions see the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><code>ovos-config</code> is the configuration layer for the entire OVOS ecosystem. It provides a layered, merged <code>Configuration</code> singleton that all OVOS components read from, plus XDG-aware path helpers, a CLI tool, and meta-config support for custom distributions.</p>
 <p>For a detailed list of every available configuration option, see the <strong><a href="../config-reference/">Configuration Reference</a></strong>.</p>
 <hr />

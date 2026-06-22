@@ -1384,6 +1384,10 @@
 
 
 <h1 id="intent-transformers">Intent Transformers<a class="headerlink" href="#intent-transformers" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Once the assistant has figured out <em>what you want</em> (your "intent" — for example, "set a timer"), these plugins can add extra detail or tidy up that request before the matching feature actually runs. It's a chance to fill in or pull out the specifics — like spotting names, places, or numbers in what you said — in one shared place instead of repeating that work everywhere. See <a href="../transformer-plugins/">Transformer Plugins</a> and the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
+</div>
 <p><strong>Intent Transformers</strong> are a pluggable mechanism in OVOS that allow you to enrich or transform intent data <strong>after</strong> an intent is matched by an engine (<a href="../padatious-pipeline/">Padatious</a>, <a href="../adapt-pipeline/">Adapt</a>, etc.), but <strong>before</strong> it is passed to the skill handler.</p>
 <p>This is useful for:</p>
 <ul>

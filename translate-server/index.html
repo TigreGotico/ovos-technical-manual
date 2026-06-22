@@ -1428,6 +1428,10 @@
 
 
 <h1 id="ovos-translate-server-http-translation-server"><code>ovos-translate-server</code> — HTTP Translation Server<a class="headerlink" href="#ovos-translate-server-http-translation-server" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This is a small standalone program that puts OVOS's language tools — translating text between languages and guessing what language a piece of text is in — online as a web service. Other devices send it text over a simple web request and get back the translation (or the detected language), so one machine can do this work for many. It can also imitate popular translation services (like DeepL, Google Translate, or LibreTranslate), so software written for those works against your own server unchanged. See <a href="../translation-plugins/">Translation Plugins</a> and the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <h2 id="what-it-does">What it Does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h2>
 <p><code>ovos-translate-server</code> wraps any OVOS translation plugin and language-detection plugin and exposes them as a FastAPI HTTP service (served by <code>uvicorn</code>). It is the standard way to make OVOS language plugins available to remote clients or to use them as a microservice in a Docker-based deployment.</p>
 <p>The companion client plugin <code>ovos-translate-server-plugin</code> can point an OVOS device at this server so that translation and language detection are offloaded from the device.</p>

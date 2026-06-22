@@ -1206,6 +1206,10 @@
 
 
 <h1 id="openvoiceos-tts-server">OpenVoiceOS <a href="../tts-plugins/">TTS</a> Server<a class="headerlink" href="#openvoiceos-tts-server" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This is a small standalone program that turns any OVOS text-to-speech voice — the part that reads written text aloud — into a web service. You send it some text over a simple web request and it sends back the spoken audio, so one capable machine can do the talking for many lightweight devices. It can also imitate popular cloud voice services (like ElevenLabs or OpenAI), letting software built for those use your own server instead. See <a href="../tts-plugins/">TTS plugins</a> and the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><strong>Lightweight HTTP microservice for any OVOS text‑to‑speech plugin, with optional caching.</strong></p>
 <p>Wrap your favorite OVOS TTS engine in a FastAPI service—ready to deploy locally, in Docker, or behind a load balancer.</p>
 <p>The OpenVoiceOS TTS HTTP Server exposes any OVOS TTS plugin over a simple HTTP API. Send text, receive audio—no extra

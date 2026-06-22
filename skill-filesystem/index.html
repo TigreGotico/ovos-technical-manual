@@ -1608,6 +1608,10 @@
 
 
 <h1 id="filesystem-access">Filesystem Access<a class="headerlink" href="#filesystem-access" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Sometimes a skill needs to save a file and read it back later — a high-score list, a downloaded image, a cache. OVOS gives every skill its own private folder for this, so skills can't accidentally trample each other's files or scatter data across your computer. It's like each skill getting its own labelled drawer. This page shows how to open, read, and write files in that drawer. For saving small preference values instead, see <a href="../skill-settings/">Skill Settings</a>; for term definitions see the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><code>FileSystemAccess</code> provides each skill with an isolated, XDG-compliant directory for persistent file storage. It prevents skills from accidentally writing to arbitrary locations and handles migration from legacy Mycroft paths.</p>
 <p><strong>Source:</strong> <code>ovos_workshop/filesystem.py</code></p>
 <hr />

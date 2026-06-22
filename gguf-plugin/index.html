@@ -1522,6 +1522,10 @@
 
 
 <h1 id="gguf-local-llm-agent-plugin-ovos-gguf-plugin">GGUF / Local LLM Agent Plugin (<code>ovos-gguf-plugin</code>)<a class="headerlink" href="#gguf-local-llm-agent-plugin-ovos-gguf-plugin" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This plugin runs an AI language model <em>entirely on your own device</em> — no internet, no accounts, and nothing sent to a company's servers — which is ideal when privacy or offline use matters. ("GGUF" is just the file format these downloadable models come in.) It can chat, summarize, translate, detect languages, and more. See <a href="../personas/">AI Agents &amp; Personas</a> for the bigger picture and the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
+</div>
 <p><code>ovos-gguf-plugin</code> runs local GGUF models through
 <a href="https://github.com/abetlen/llama-cpp-python"><code>llama-cpp-python</code></a> — no API keys, no network,
 suitable for offline, air-gapped, or privacy-sensitive deployments. It provides a chat engine,

@@ -1420,6 +1420,10 @@
 
 
 <h1 id="generative-ai-transformer-plugins">Generative AI <a href="../transformer-plugins/">Transformer</a> Plugins<a class="headerlink" href="#generative-ai-transformer-plugins" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>These plugins let an AI language model quietly tweak things as the assistant works — like a helpful editor sitting in the middle of the conversation. They can step in twice: once to clean up or rephrase what you just said before the assistant tries to understand it, and once to polish the assistant's reply before it's spoken aloud. You can stack several of them and set the order they run in. To learn more, see <a href="../transformer-plugins/">Transformer Plugins</a> and the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><strong>Transformer plugins</strong> intercept the OVOS processing pipeline at two points — before intent
 matching (utterance transformers) and before <a href="../tts-plugins/">TTS</a> synthesis (dialog transformers). They operate
 independently of the persona system but can use the same LLM backends.</p>

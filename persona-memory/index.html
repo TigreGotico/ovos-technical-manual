@@ -1442,6 +1442,10 @@
 <p class="admonition-title">Upcoming — unreleased</p>
 <p>The <code>ovos-memory-plugins</code> repository is not public yet. This documents planned/upcoming functionality.</p>
 </div>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This controls what your assistant's persona <em>remembers</em> from earlier in a conversation. Rather than always carrying the whole chat along, a memory plugin decides which past messages — or short summaries of them — to bring back into the next reply, like a notepad that keeps the bits worth keeping. It also decides whether those notes survive between separate conversations. See <a href="../personas/">AI Agents &amp; Personas</a> for the bigger picture and the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
+</div>
 <p><strong>What this is:</strong> a pluggable way to control what an OVOS persona "remembers". Instead of a fixed conversation buffer, a memory plugin decides which past messages (and any summaries or retrieved snippets) get prepended to the LLM call on each turn, and how that history is persisted across turns and sessions.</p>
 <p>Persona memory is managed through the <code>AgentContextManager</code> interface (OPM <code>opm.agents.memory</code>), introduced in <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/363">OpenVoiceOS/ovos-plugin-manager#363</a> (merged). Integration into <code>ovos-persona</code> landed in <a href="https://github.com/OpenVoiceOS/ovos-persona/pull/143">OpenVoiceOS/ovos-persona#143</a> (merged).</p>
 <hr />
