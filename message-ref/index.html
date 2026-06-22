@@ -1654,6 +1654,14 @@
 
 
 <h1 id="message">Message<a class="headerlink" href="#message" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Every time one part of the assistant tells another part something, it sends a
+"Message" — the basic note they pass back and forth. This is a developer
+reference for what those notes look like and how to work with them. If you are
+not building on the system internals, you can skip this. See the
+<a href="../glossary/">Glossary</a> and <a href="../bus-client-overview/">ovos-bus-client overview</a>.</p>
+</div>
 <p><strong>Module:</strong> <code>ovos_bus_client.message</code></p>
 <p><code>Message</code> is the fundamental unit of communication across the OVOS MessageBus. Every event sent or received is a <code>Message</code>.</p>
 <h2 id="structure">Structure<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h2>
@@ -1681,6 +1689,11 @@
 (the OVOS-MSG-1 spec). <code>serialize</code> / <code>deserialize</code> produce and consume <strong>plain
 JSON</strong> with no transport concerns mixed in — encryption is <strong>not</strong> a <code>Message</code>
 responsibility (see <a href="#encryption">Encryption</a> below).</p>
+<p>The same module also defines <code>MalformedMessage</code> (a <code>ValueError</code>/<code>AssertionError</code>
+raised by the constructor and <code>deserialize</code> on an invalid message) and the
+constant <code>DEFAULT_SESSION_ID = "default"</code> — the reserved session id used when a
+message carries no session (the interaction is treated as originating from the
+local device).</p>
 <h2 id="routing-methods">Routing Methods<a class="headerlink" href="#routing-methods" title="Permanent link">&para;</a></h2>
 <p>These are used to construct related messages while preserving context:</p>
 <h3 id="forwardmsg_type-datanone"><code>forward(msg_type, data=None)</code><a class="headerlink" href="#forwardmsg_type-datanone" title="Permanent link">&para;</a></h3>

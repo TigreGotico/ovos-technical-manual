@@ -1461,6 +1461,10 @@
 
 
 <h1 id="padatious-pipeline">Padatious Pipeline<a class="headerlink" href="#padatious-pipeline" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Padatious is one of the tools that helps the assistant work out what you want. Instead of matching fixed keywords, a skill gives it a handful of example sentences (like "what is the weather" and "what's the weather like"), and Padatious learns the pattern so it can recognize new phrasings of the same request. It is the "learns from examples" companion to the keyword-based <a href="../adapt-pipeline/">Adapt</a> tool. See the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
+</div>
 <p>The <strong>Padatious Pipeline Plugin</strong> brings example-based intent recognition to the <strong>OpenVoiceOS (OVOS)</strong> pipeline. You define each intent by listing a few example sentences in a plain-text <code>.intent</code> file; Padatious trains a small neural network (backed by <a href="https://github.com/FutureLinkCorporation/fann2">fann2</a>) on those examples and scores incoming utterances against them.</p>
 <p><strong>When it runs:</strong> Padatious sits early in the pipeline. Its high-confidence stage runs before Adapt, so a strong example match wins over a keyword rule. The medium and low stages run later, as the pipeline relaxes its confidence requirements.</p>
 <p><strong>Minimal example</strong> — drop a <code>weather.intent</code> file in your skill's <code>locale/en-us/</code> folder:</p>

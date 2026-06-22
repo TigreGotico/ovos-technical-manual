@@ -2258,6 +2258,15 @@
 
 
 <h1 id="end2endtest">End2EndTest<a class="headerlink" href="#end2endtest" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This is the main tool for checking that a skill works from start to finish:
+you write down what the user "says", list what the assistant should do in
+response, and the tool runs a tiny stand-in version of the whole assistant to
+confirm it behaves as expected. Think of it as a rehearsal with a script,
+where the tool plays both the user and the judge. It is for developers. See
+the <a href="../glossary/">Glossary</a> and <a href="../skill-testing/">Skill Testing</a>.</p>
+</div>
 <p><code>End2EndTest</code> is ovoscope's primary API. It wires together <code>MiniCroft</code> (a stripped-down OVOS core), <code>CaptureSession</code>, and all assertion logic into a single declarative test object.</p>
 <h2 id="new-here-the-one-minute-mental-model">New here? The one-minute mental model<a class="headerlink" href="#new-here-the-one-minute-mental-model" title="Permanent link">&para;</a></h2>
 <ol>

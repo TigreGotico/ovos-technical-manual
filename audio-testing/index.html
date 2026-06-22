@@ -1778,6 +1778,16 @@
 
 
 <h1 id="audio-testing-with-ovoscope">Audio Testing with ovoscope<a class="headerlink" href="#audio-testing-with-ovoscope" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This page is about automatically checking that the voice assistant actually
+<em>plays sound</em> the way it should — both speaking out loud and playing media
+like music. Instead of a person listening every time, a test program pretends
+to be the speaker and confirms the right things happen (the assistant talks,
+the music pauses while it talks, and so on). It is meant for developers writing
+these automated checks. See the <a href="../glossary/">Glossary</a> and
+<a href="../skill-testing/">Skill Testing</a>.</p>
+</div>
 <p>This page tests the <strong><code>ovos-audio</code> services</strong> — the <code>AudioService</code> (media
 playback / ducking) and the <code>PlaybackService</code> (TTS speak lifecycle) — using the
 mock backends and context-manager harnesses in <code>ovoscope.audio</code>. It is the

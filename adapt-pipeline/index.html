@@ -1425,6 +1425,10 @@
 
 
 <h1 id="adapt-pipeline-plugin">Adapt Pipeline Plugin<a class="headerlink" href="#adapt-pipeline-plugin" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Adapt is one of the tools that helps the assistant figure out what you want when you speak to it. It works like a checklist: a skill says "if you hear these keywords together, this is the command for me." When you say "switch on the lamp", Adapt spots the keywords "switch on" and "lamp" and routes your request to the right skill. There is no guessing or learning involved — it simply matches the words it was told to look for. See the <a href="../glossary/">Glossary</a> for terms, or <a href="../padatious-pipeline/">Padatious</a> for a sister tool that learns from example sentences instead.</p>
+</div>
 <p>The <strong>Adapt Pipeline Plugin</strong> brings rule-based, keyword-driven intent parsing to the <strong>OVOS intent pipeline</strong> using the Adapt parser. A skill registers keywords (vocabulary) and a rule describing which keywords must appear; Adapt scores an utterance by how many of those keywords it finds. There is no training step and no neural network — matching is deterministic.</p>
 <p><strong>When it runs:</strong> Adapt's high-confidence stage runs just after Padatious's, so an exact example match wins over a keyword rule, but a strong keyword match still beats most fallbacks. Its medium and low stages run later in the pipeline.</p>
 <p><strong>Minimal example</strong> — a skill registers vocabulary and a rule:</p>

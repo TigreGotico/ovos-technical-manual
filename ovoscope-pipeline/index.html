@@ -1826,6 +1826,15 @@
 
 
 <h1 id="pipeline-plugin-testing">Pipeline Plugin Testing<a class="headerlink" href="#pipeline-plugin-testing" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>When the assistant hears a sentence, it tries to figure out which task you
+meant, handing the sentence to a series of matchers until one recognizes it.
+This page is a developer tool for testing those matchers on their own, to
+answer one focused question: does this sentence get matched, and to which
+task? It skips the rest of the assistant so the test runs quickly. See the
+<a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><code>ovoscope.pipeline</code> provides <code>PipelineHarness</code> for testing intent / pipeline
 plugins in isolation — no skill is needed.</p>
 <h2 id="new-here-when-to-use-this-vs-end2endtest">New here? When to use this vs <code>End2EndTest</code><a class="headerlink" href="#new-here-when-to-use-this-vs-end2endtest" title="Permanent link">&para;</a></h2>

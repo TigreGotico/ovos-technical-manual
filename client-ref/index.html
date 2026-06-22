@@ -1732,6 +1732,10 @@
 
 
 <h1 id="messagebusclient">MessageBusClient<a class="headerlink" href="#messagebusclient" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>OVOS is built from many small programs that all need to talk to each other. The "message bus" is the shared loudspeaker they use: one part announces something, and any other part that cares can listen and react. This page is a developer reference for <code>MessageBusClient</code>, the piece of code that lets a program connect to that loudspeaker to send and receive announcements. If you are not writing OVOS code, you can safely skip it. See the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><strong>Module:</strong> <code>ovos_bus_client.client.client.MessageBusClient</code></p>
 <p><code>MessageBusClient</code> is a WebSocket client that connects to the OVOS <code>ovos-messagebus</code> service and provides an event-emitter interface over it.</p>
 <h2 id="connection">Connection<a class="headerlink" href="#connection" title="Permanent link">&para;</a></h2>

@@ -1820,6 +1820,15 @@
 
 
 <h1 id="ovoscope-ovos-pydantic-models-integration">OvoScope + ovos-pydantic-models Integration<a class="headerlink" href="#ovoscope-ovos-pydantic-models-integration" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Inside the assistant, parts communicate by sending messages, but today those
+messages are loose forms where a simple typo can go unnoticed. This page
+explores pairing the testing tool with a library that gives every message a
+strict template, so mistakes get caught early, like a form that refuses to
+submit if a field is filled in wrong. It is a forward-looking design note for
+developers. See the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <h2 id="ovoscope-currently-operates-on-untyped-ovos_bus_clientmessagemessage-objects-dicts-with-string-keys-ovos-pydantic-models-provides-typed-pydantic-v2-models-for-every-ovos-message-type-this-document-describes-how-they-can-be-used-together-and-what-a-deeper-integration-could-look-like">OvoScope currently operates on untyped <code>ovos_bus_client.message.Message</code> objects — dicts with string keys. <code>ovos-pydantic-models</code> provides typed Pydantic v2 models for every OVOS message type. This document describes how they can be used together and what a deeper integration could look like.<a class="headerlink" href="#ovoscope-currently-operates-on-untyped-ovos_bus_clientmessagemessage-objects-dicts-with-string-keys-ovos-pydantic-models-provides-typed-pydantic-v2-models-for-every-ovos-message-type-this-document-describes-how-they-can-be-used-together-and-what-a-deeper-integration-could-look-like" title="Permanent link">&para;</a></h2>
 <h2 id="the-problem-today">The Problem Today<a class="headerlink" href="#the-problem-today" title="Permanent link">&para;</a></h2>
 <p>Writing test fixtures by hand is verbose and error-prone:</p>

@@ -1477,6 +1477,10 @@
 
 
 <h1 id="ovos-lang-parser">ovos-lang-parser<a class="headerlink" href="#ovos-lang-parser" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This is a small helper that connects the <em>name</em> of a language to the short code computers use for it. When you say "switch to Spanish", it figures out you mean the language tagged <code>es</code>; and when the assistant needs to mention a language out loud, it turns that code back into the spoken name "Spanish". That two-way translation is what lets you change languages just by asking. See the <a href="../glossary/">Glossary</a> for terms, or <a href="../lang-selection/">Language Selection</a> for how OVOS decides which language to use.</p>
+</div>
 <p>OpenVoiceOS's multilingual language-name parsing and pronouncing library. It converts spoken language names ("Spanish", "Espagnol") to BCP-47 codes (<code>"es"</code>) and vice versa, so skills and components can handle language-selection commands in natural speech.</p>
 <p><strong>What you get in 30 seconds:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_lang_parser</span> <span class="kn">import</span> <span class="n">extract_langcode</span><span class="p">,</span> <span class="n">pronounce_lang</span>

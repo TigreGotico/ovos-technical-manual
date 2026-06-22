@@ -1585,6 +1585,10 @@
 
 
 <h1 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>OVOS components react to "events" — little announcements like "the user said something" or "a timer went off" that travel between the parts of the system. This developer reference covers the helper tools that let a skill listen for those announcements, tidy them all up when it shuts down, and schedule things to happen later. It is for people writing skills or plugins. See the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><strong>Module:</strong> <code>ovos_utils.events</code></p>
 <p><code>ovos_utils.events</code> provides the bookkeeping that skills use around message bus handlers: <code>EventContainer</code> tracks every handler a skill registers so they can all be cleanly removed on shutdown, and the handler wrappers add the standard start/stop/error reporting and skill-ID unmunging that intent handlers rely on. <code>EventSchedulerInterface</code> (now moved to <code>ovos-bus-client</code>) schedules timed and repeating events over the bus.</p>
 <hr />

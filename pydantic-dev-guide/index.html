@@ -1837,6 +1837,14 @@
 
 
 <h1 id="developer-guide-using-ovos-pydantic-models">Developer Guide — Using ovos-pydantic-models<a class="headerlink" href="#developer-guide-using-ovos-pydantic-models" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>The parts of the assistant exchange messages, but by default those messages
+are loose and a typo can slip through unnoticed. This library gives each kind
+of message a strict template that catches such mistakes early, like a form
+that won't accept a misspelled field. This guide is for developers and
+explains when and how to use it. See the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><code>ovos-pydantic-models</code> provides typed Pydantic v2 models for every message that flows over the OVOS <a href="../bus-service/">MessageBus</a>. This guide explains when and how to use it in skills, plugins, and core components.</p>
 <hr />
 <h2 id="why-use-this-library">Why use this library?<a class="headerlink" href="#why-use-this-library" title="Permanent link">&para;</a></h2>

@@ -1038,6 +1038,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#option-matcher-opmagentsoption_matcher" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option Matcher — opm.agents.option_matcher
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#coreference-resolution-opmagentscoref" class="md-nav__link">
     <span class="md-ellipsis">
       Coreference Resolution — opm.agents.coref
@@ -1393,6 +1402,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#option-matcher-opmagentsoption_matcher" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option Matcher — opm.agents.option_matcher
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#coreference-resolution-opmagentscoref" class="md-nav__link">
     <span class="md-ellipsis">
       Coreference Resolution — opm.agents.coref
@@ -1547,6 +1565,19 @@ Returns <code>None</code> on API error.</p>
 </span></code></pre></div>
 <p>Use this in skills when <code>ask_yesno()</code> receives uncertain phrasing like "I guess" or "maybe".</p>
 <p>Implementations: <code>GGUFYesNoEngine</code>.</p>
+<hr />
+<h2 id="option-matcher-opmagentsoption_matcher">Option Matcher — <code>opm.agents.option_matcher</code><a class="headerlink" href="#option-matcher-opmagentsoption_matcher" title="Permanent link">&para;</a></h2>
+<p><strong>Base class:</strong> <code>OptionMatcherEngine</code></p>
+<p>Resolves a free-form user reply to one entry in a fixed list of options — the engine behind a
+skill's <code>ask_selection()</code>. The reference implementation,
+<a href="https://github.com/OpenVoiceOS/ovos-option-matcher-fuzzy-plugin"><code>ovos-option-matcher-fuzzy-plugin</code></a>
+(<code>FuzzyOptionMatcherPlugin</code>), resolves in order: fuzzy match (rapidfuzz <code>WRatio</code>) when the score
+reaches <code>min_conf</code> (config key, default <code>0.65</code>), then locale-aware "last option" vocab, then
+ordinal/cardinal vocab (longest match wins), then a numeric fallback via <code>ovos-number-parser</code>,
+returning <code>None</code> if nothing matches.</p>
+<p><code>OVOSSkill.ask_selection()</code> loads the engine via <code>skills.ask_selection_plugin</code> (checked in the
+skill's <code>settings.json</code> first, then <code>mycroft.conf</code>), defaulting to
+<code>ovos-option-matcher-fuzzy-plugin</code> when neither is set.</p>
 <hr />
 <h2 id="coreference-resolution-opmagentscoref">Coreference Resolution — <code>opm.agents.coref</code><a class="headerlink" href="#coreference-resolution-opmagentscoref" title="Permanent link">&para;</a></h2>
 <p><strong>Base class:</strong> <code>CoreferenceEngine</code></p>

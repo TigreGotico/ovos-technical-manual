@@ -1443,6 +1443,10 @@
 
 
 <h1 id="model2vec-intent-pipeline">Model2Vec Intent Pipeline<a class="headerlink" href="#model2vec-intent-pipeline" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This is another tool that figures out which skill should handle what you said. Instead of matching exact keywords or memorized examples, it compares the <em>meaning</em> of your words to the commands it knows — so it can still understand you when you phrase things differently than expected. Think of it as recognizing that "turn the music down" and "lower the volume" are asking for the same thing. It is meant to work alongside the keyword-based <a href="../adapt-pipeline/">Adapt</a> and example-based <a href="../padatious-pipeline/">Padatious</a> tools, not replace them. See the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
+</div>
 <p>The <strong>Model2Vec Intent Pipeline</strong> matches utterances to skill intents using
 <a href="https://github.com/MinishLab/model2vec">Model2Vec</a> static embeddings instead of
 deterministic parsers. Where Adapt looks for keywords and Padatious learns from

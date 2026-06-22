@@ -1502,6 +1502,15 @@ routing to <code>session_id</code>. This is unreleased and the two layers may st
 router that dispatches each display event to every installed <strong>GUI adapter plugin</strong>. Each
 adapter translates template events into whatever protocol it needs (Qt WebSocket,
 HTTP+SSE, curses, …). Multiple adapters can run at once, enabling multi-modal output.</p>
+<div class="admonition info">
+<p class="admonition-title">Adapters can add their own extra functionality (optional)</p>
+<p>Beyond rendering the standard display templates, a GUI adapter plugin <strong>may define its own
+extra bus event listeners</strong>, exposing additional, <strong>optional</strong> capabilities that skills can
+choose to use. Examples include <strong>Mark 1 events / faceplate control</strong> (the
+<a href="../mark1/">Mark 1</a> faceplate becomes such an adapter), <strong>home screens</strong>, and <strong>custom QML</strong>.
+These are opt-in: a skill works without them, but can adopt the extra functionality offered
+by whichever adapter(s) are installed.</p>
+</div>
 <h2 id="entry-point">Entry point<a class="headerlink" href="#entry-point" title="Permanent link">&para;</a></h2>
 <p>Adapters are discovered via the <code>opm.gui_adapter</code> entry-point group:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.gui_adapter&quot;</span><span class="k">]</span>

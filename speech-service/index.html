@@ -1462,6 +1462,7 @@
 <p>Specification: the audio-input service contract is defined by <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-audio-in-1.md">OVOS-AUDIO-IN-1: Audio Input Service</a>.</p>
 </blockquote>
 <p><code>ovos-dinkum-listener</code> is the service responsible for audio capture, <a href="../wake-word-plugins/">Wake Word</a> detection, and <a href="../stt-plugins/">Speech-to-Text</a> (<a href="../stt-plugins/">STT</a>). It is the default, full-featured listener; <code>ovos-simple-listener</code> is a lighter alternative that emits the same <code>recognizer_loop:*</code> bus events but without the full state machine.</p>
+<p>A third, even more minimal option is <code>mycroft-classic-listener</code> — the original mycroft-core listener ported to the OVOS plugin ecosystem. It implements the same <code>recognizer_loop:*</code> contract but does <strong>not</strong> support <code>instant_listen</code>, multiple hotwords, VAD, listening modes, or fallback STT (fallback hotwords via OPM are supported).</p>
 <hr />
 <details class="abstract">
 <summary>Technical Reference</summary>

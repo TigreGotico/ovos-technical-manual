@@ -993,6 +993,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ovos-messagebus-chat-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-messagebus-chat-plugin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ovos-wikipedia-solver" class="md-nav__link">
     <span class="md-ellipsis">
       ovos-wikipedia-solver
@@ -1381,6 +1390,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ovos-messagebus-chat-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-messagebus-chat-plugin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ovos-wikipedia-solver" class="md-nav__link">
     <span class="md-ellipsis">
       ovos-wikipedia-solver
@@ -1610,6 +1628,10 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 <td>Leverages <a href="https://platform.openai.com/docs/api-reference/completions/create">OpenAI Completions API</a> to provide the following ovos plugins:</td>
 </tr>
 <tr>
+<td><a href="#ovos-messagebus-chat-plugin">ovos-messagebus-chat-plugin</a></td>
+<td><code>OVOSMessagebusChatAgent</code> — a <code>ChatEngine</code> (<code>opm.agents.chat</code>, entry point <code>ovos-messagebus</code>) that proxies each turn through a connected OVOS messagebus pipeline.</td>
+</tr>
+<tr>
 <td><a href="#ovos-wikipedia-solver">ovos-wikipedia-solver</a></td>
 <td>Answers factual questions by querying Wikipedia.</td>
 </tr>
@@ -1655,7 +1677,49 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 <li>
 <p><strong>Description</strong>: The <code>QdrantEmbeddingsDB</code> plugin integrates with the <a href="https://qdrant.tech/">qdrant</a> database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract <code>EmbeddingsDB</code> class, allowing you to store, retrieve, and query embeddings efficiently using qdrant’s capabilities.</p>
 </li>
+<li>
+<p><strong>Entry point group</strong>: <code>opm.embeddings</code> (the <code>EmbeddingsDB</code> backends register here, not under <code>opm.agents.*</code>).</p>
+</li>
+<li>
+<p><strong>Config keys</strong>:</p>
+</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vector_size</code></td>
+<td>—</td>
+<td><strong>Required.</strong> Dimension of the stored embedding vectors.</td>
+</tr>
+<tr>
+<td><code>distance_metric</code></td>
+<td><code>cosine</code></td>
+<td>One of <code>cosine</code>, <code>euclidean</code>, <code>dot</code>.</td>
+</tr>
+<tr>
+<td><code>host</code></td>
+<td>—</td>
+<td>When set, connects to a remote Qdrant server (otherwise a persistent local client is used).</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td><code>6333</code></td>
+<td>HTTP port for the remote client.</td>
+</tr>
+<tr>
+<td><code>grpc_port</code></td>
+<td><code>6334</code></td>
+<td>gRPC port for the remote client.</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="ovos-solver-plugin-aiml">ovos-solver-plugin-aiml<a class="headerlink" href="#ovos-solver-plugin-aiml" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1687,6 +1751,19 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 </li>
 </ul>
 <hr />
+<h2 id="ovos-messagebus-chat-plugin">ovos-messagebus-chat-plugin<a class="headerlink" href="#ovos-messagebus-chat-plugin" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-messagebus-chat-plugin">https://github.com/OpenVoiceOS/ovos-messagebus-chat-plugin</a></p>
+</li>
+<li>
+<p><strong>Entry point</strong>: <code>ovos-messagebus</code> → <code>OVOSMessagebusChatAgent</code> (group <code>opm.agents.chat</code>).</p>
+</li>
+<li>
+<p><strong>Description</strong>: A <code>ChatEngine</code> that proxies each turn through a connected OVOS messagebus pipeline, letting a persona answer via the full skills/intent stack rather than an LLM.</p>
+</li>
+</ul>
+<hr />
 <h2 id="ovos-wikipedia-solver">ovos-wikipedia-solver<a class="headerlink" href="#ovos-wikipedia-solver" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -1705,7 +1782,40 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 <li>
 <p><strong>Description</strong>: The <code>ChromaEmbeddingsDB</code> plugin integrates with the <a href="https://www.trychroma.com/">ChromaDB</a> database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract <code>EmbeddingsDB</code> class, allowing you to store, retrieve, and query embeddings efficiently using ChromaDB’s capabilities.</p>
 </li>
+<li>
+<p><strong>Entry point group</strong>: <code>opm.embeddings</code> (the <code>EmbeddingsDB</code> backends register here, not under <code>opm.agents.*</code>).</p>
+</li>
+<li>
+<p><strong>Config keys</strong>:</p>
+</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>path</code></td>
+<td><code>./chromadb_storage</code></td>
+<td>Storage path for the persistent local client.</td>
+</tr>
+<tr>
+<td><code>host</code></td>
+<td>—</td>
+<td>When set, connects to a remote ChromaDB HTTP server instead of the local persistent client.</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td><code>8000</code></td>
+<td>Port for the remote HTTP client.</td>
+</tr>
+</tbody>
+</table>
+<p>Per-collection metadata defaults <code>hnsw:space</code> to <code>cosine</code> when not specified.</p>
 <hr />
 <h2 id="ovos-wolfram-alpha-solver">ovos-wolfram-alpha-solver<a class="headerlink" href="#ovos-wolfram-alpha-solver" title="Permanent link">&para;</a></h2>
 <ul>

@@ -1706,6 +1706,14 @@
 
 
 <h1 id="fakebus">FakeBus<a class="headerlink" href="#fakebus" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Inside the assistant, the different parts talk to each other by passing
+messages, like coworkers sending notes over a shared channel. FakeBus is a
+pretend version of that channel that runs entirely on one machine, used for
+testing or for simple setups where the real one is not available. It is a
+developer tool. See the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><strong>Module:</strong> <code>ovos_utils.fakebus</code></p>
 <p>In-process message bus and message implementation for testing, standalone usage, or environments where <code>ovos-bus-client</code> is not available. Behaves like the real <code>MessageBusClient</code> API without any WebSocket connection.</p>
 <hr />

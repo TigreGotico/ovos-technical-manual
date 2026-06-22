@@ -1081,6 +1081,48 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#homescreen-bus-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Homescreen bus messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Homescreen bus messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#homescreendata" class="md-nav__link">
+    <span class="md-ellipsis">
+      homescreen.data.*
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homescreenwidget" class="md-nav__link">
+    <span class="md-ellipsis">
+      homescreen.widget.*
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consumed-registration-lifecycle-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consumed registration / lifecycle events
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#resting-faces" class="md-nav__link">
     <span class="md-ellipsis">
       Resting Faces
@@ -1280,6 +1322,48 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#homescreen-bus-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Homescreen bus messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Homescreen bus messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#homescreendata" class="md-nav__link">
+    <span class="md-ellipsis">
+      homescreen.data.*
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homescreenwidget" class="md-nav__link">
+    <span class="md-ellipsis">
+      homescreen.widget.*
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consumed-registration-lifecycle-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consumed registration / lifecycle events
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#resting-faces" class="md-nav__link">
     <span class="md-ellipsis">
       Resting Faces
@@ -1337,6 +1421,109 @@ over the homescreen data/widget coordination. The bus contract is the same eithe
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
 </span></code></pre></div>
+<h2 id="homescreen-bus-messages">Homescreen bus messages<a class="headerlink" href="#homescreen-bus-messages" title="Permanent link">&para;</a></h2>
+<p>So a display can render a live idle screen without depending on any skill, the
+<code>HomescreenManager</code> coordinates homescreen data and widget state over the bus. It emits
+<code>homescreen.data.*</code> and <code>homescreen.widget.*</code> messages at fixed intervals (or in
+response to other events), and consumes registration/lifecycle events to keep that data
+current. The Qt shell (<a href="../ovos-shell/">ovos-shell</a>) consumes these messages.</p>
+<h3 id="homescreendata"><code>homescreen.data.*</code><a class="headerlink" href="#homescreendata" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Emitted</th>
+<th>Payload</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>homescreen.data.time</code></td>
+<td>every <strong>10 s</strong> (via <code>ovos_date_parser.get_date_strings()</code>)</td>
+<td><code>time_string</code>, <code>date_string</code>, <code>weekday_string</code>, <code>day_string</code>, <code>month_string</code>, <code>year_string</code></td>
+</tr>
+<tr>
+<td><code>homescreen.data.weather</code></td>
+<td>every <strong>900 s</strong> (requested from the weather skill)</td>
+<td><code>weather_api_enabled</code>, <code>weather_code</code>, <code>weather_temp</code></td>
+</tr>
+<tr>
+<td><code>homescreen.data.wallpaper</code></td>
+<td>on <code>homescreen.wallpaper.set</code> (PHAL wallpaper manager)</td>
+<td><code>wallpaper_path</code>, <code>selected_wallpaper</code></td>
+</tr>
+<tr>
+<td><code>homescreen.data.notifications</code></td>
+<td>on <code>ovos.notification.update_counter</code> / <code>ovos.notification.update_storage_model</code></td>
+<td><code>notification_counter</code>, <code>notification_model</code></td>
+</tr>
+<tr>
+<td><code>homescreen.data.apps</code></td>
+<td>when a skill registers/unregisters an app</td>
+<td><code>applications_model</code> (list of <code>{name, thumbnail, action}</code>)</td>
+</tr>
+<tr>
+<td><code>homescreen.data.examples</code></td>
+<td>on example registration, on <code>detach_skill</code>, and every <strong>900 s</strong> to rotate the list</td>
+<td><code>skill_examples</code>, <code>skill_info_enabled</code>, <code>skill_info_prefix</code></td>
+</tr>
+<tr>
+<td><code>homescreen.data.connectivity</code></td>
+<td>on connectivity changes</td>
+<td><code>system_connectivity</code> (<code>"online"</code>, <code>"network"</code>, <code>"offline"</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="homescreenwidget"><code>homescreen.widget.*</code><a class="headerlink" href="#homescreenwidget" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Emitted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>homescreen.widget.timer</code></td>
+<td>on <code>ovos.widgets.timer.update</code> / <code>.display</code> / <code>.remove</code></td>
+</tr>
+<tr>
+<td><code>homescreen.widget.alarm</code></td>
+<td>on <code>ovos.widgets.alarm.update</code> / <code>.display</code> / <code>.remove</code></td>
+</tr>
+<tr>
+<td><code>homescreen.widget.media</code></td>
+<td>on OCP player state changes (<code>gui.player.media.service.sync.status</code>) and track info responses</td>
+</tr>
+</tbody>
+</table>
+<h3 id="consumed-registration-lifecycle-events">Consumed registration / lifecycle events<a class="headerlink" href="#consumed-registration-lifecycle-events" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>homescreen.register.app</code></td>
+<td>Store the app entry, re-emit <code>homescreen.data.apps</code></td>
+</tr>
+<tr>
+<td><code>homescreen.register.examples</code></td>
+<td>Store examples per skill/lang, re-emit <code>homescreen.data.examples</code></td>
+</tr>
+<tr>
+<td><code>detach_skill</code></td>
+<td>Remove the skill from apps + examples, re-emit the affected messages</td>
+</tr>
+<tr>
+<td><code>mycroft.ready</code></td>
+<td>Re-push all cached state (apps, connectivity, wallpaper, notifications)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="resting-faces">Resting Faces<a class="headerlink" href="#resting-faces" title="Permanent link">&para;</a></h2>
 <p>The resting face API provides skill authors the ability to extend their skills to supply their own customized IDLE screens that will be displayed when there is no activity on the screen.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>import requests

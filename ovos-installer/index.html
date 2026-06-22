@@ -808,6 +808,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#non-interactive-scenario-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-interactive (scenario) install
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       Troubleshooting
@@ -1451,6 +1460,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#non-interactive-scenario-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-interactive (scenario) install
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       Troubleshooting
@@ -1712,6 +1730,67 @@ run the <code>ovos-installer</code> on Raspberry Pi OS instead.</p>
 <p>Depending on your language you probably want to change the default plugins, the ovos-installer is not perfect and might not always select the best defaults</p>
 <p>It is recommend that you run <code>ovos-config autoconfigure --help</code> after the initial install</p>
 <p><a href="https://asciinema.org/a/710295"><img alt="asciicast" src="https://asciinema.org/a/710295.svg" /></a></p>
+<hr />
+<h2 id="non-interactive-scenario-install">Non-interactive (scenario) install<a class="headerlink" href="#non-interactive-scenario-install" title="Permanent link">&para;</a></h2>
+<p>For scripting or fleet deployment, the installer can run without the TUI by reading a
+scenario file from <code>~/.config/ovos-installer/scenario.yaml</code>. Example (Docker
+containers on a Raspberry Pi with default skills):</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nn">---</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">uninstall</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containers</span><span class="w">       </span><span class="c1"># or &quot;virtualenv&quot;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nt">channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">testing</span><span class="w">         </span><span class="c1"># or &quot;alpha&quot;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ovos</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nt">features</span><span class="p">:</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="nt">skills</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nt">extra_skills</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nt">raspberry_pi_tuning</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nt">share_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span></code></pre></div>
+<p>Key options:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>method</code></td>
+<td><code>containers</code> (Docker) or <code>virtualenv</code> (Python virtual environment)</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td>Release channel: <code>testing</code> or <code>alpha</code></td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td>Installation profile (e.g. <code>ovos</code>)</td>
+</tr>
+<tr>
+<td><code>features.*</code></td>
+<td>Per-feature toggles (e.g. <code>skills</code>, <code>extra_skills</code>, <code>llm</code>)</td>
+</tr>
+<tr>
+<td><code>raspberry_pi_tuning</code></td>
+<td>Enable Raspberry Pi performance tuning (includes an overclock prompt)</td>
+</tr>
+<tr>
+<td><code>share_telemetry</code></td>
+<td>Allow sharing anonymous usage statistics</td>
+</tr>
+</tbody>
+</table>
+<p>Ready-made example scenarios live in the
+<a href="https://github.com/OpenVoiceOS/ovos-installer/tree/main/scenarios"><code>scenarios/</code></a>
+directory of the repository.</p>
+<blockquote>
+<p>💡 <strong>LLM and Home Assistant features.</strong> Setting <code>features.llm: true</code> enables the OVOS
+Persona LLM fallback and requires the <code>llm.api_url</code>, <code>llm.key</code>, <code>llm.model</code>, and
+<code>llm.persona</code> keys (an OpenAI-compatible endpoint). A Home Assistant feature is also
+available. <strong>macOS</strong> is supported with <code>launchd</code> service management, but only with the
+<code>virtualenv</code> method and the <code>alpha</code> channel.</p>
+</blockquote>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <blockquote>

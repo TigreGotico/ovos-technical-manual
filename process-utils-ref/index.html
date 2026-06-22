@@ -1579,6 +1579,10 @@
 
 
 <h1 id="process-utilities">Process Utilities<a class="headerlink" href="#process-utilities" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>OVOS runs as several long-lived background programs (called "processes"). This developer reference covers the helpers those programs use to manage their own life: announcing whether they are starting up, ready, or in trouble, declaring what they need in order to run, and making sure only one copy runs at a time. It is mainly for people writing OVOS services; skill authors only touch a small part of it. See the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><strong>Module:</strong> <code>ovos_utils.process_utils</code></p>
 <p><code>ovos_utils.process_utils</code> provides the building blocks OVOS services use to manage their own lifecycle: declaring what they need to run (<code>RuntimeRequirements</code>), tracking and broadcasting their state over the message bus (<code>ProcessStatus</code> / <code>ProcessState</code>), single-instance locking (<code>PIDLock</code>), and clock-safe waiting (<code>MonotonicEvent</code>). Skill and plugin authors mostly interact with <code>RuntimeRequirements</code>; the rest is used by service entry points.</p>
 <hr />

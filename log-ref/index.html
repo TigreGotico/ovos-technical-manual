@@ -1633,6 +1633,10 @@
 
 
 <h1 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>A "log" is the running diary a program writes about what it is doing — invaluable when something goes wrong and you want to know why. This developer reference describes <code>LOG</code>, the ready-made tool OVOS code uses to write those diary entries. It is for people writing or debugging OVOS code. See the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><strong>Module:</strong> <code>ovos_utils.log</code></p>
 <p><code>ovos_utils.log</code> gives you <code>LOG</code> — a ready-to-use, OVOS-wide logger you import and call with no setup. It writes self-identifying log lines (module, function, and line of the caller) and can optionally rotate log files. Most code just needs <code>from ovos_utils.log import LOG</code>, then <code>LOG.info(...)</code>.</p>
 <hr />

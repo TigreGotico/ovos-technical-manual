@@ -973,6 +973,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#per-loop-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Per-loop limits
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1008,6 +1023,21 @@
       Security Notes
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Security Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toolbox-security-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Toolbox security keys
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1266,6 +1296,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#per-loop-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Per-loop limits
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1301,6 +1346,21 @@
       Security Notes
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Security Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toolbox-security-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Toolbox security keys
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1444,6 +1504,69 @@
 </tr>
 </tbody>
 </table>
+<h3 id="per-loop-limits">Per-loop limits<a class="headerlink" href="#per-loop-limits" title="Permanent link">&para;</a></h3>
+<p>Beyond the shared <code>max_iterations</code>, several loops read their own budget keys from
+the engine config (each defaults if unset):</p>
+<table>
+<thead>
+<tr>
+<th>Loop</th>
+<th>Key</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ovos-reflexion-loop</code></td>
+<td><code>max_reflections</code></td>
+<td><code>3</code></td>
+<td>Reflection episodes before returning the last answer</td>
+</tr>
+<tr>
+<td><code>ovos-plan-execute-loop</code></td>
+<td><code>max_step_iterations</code></td>
+<td><code>5</code></td>
+<td>Tool-call cycles per plan step</td>
+</tr>
+<tr>
+<td><code>ovos-plan-execute-loop</code></td>
+<td><code>max_steps</code></td>
+<td><code>10</code></td>
+<td>Plan steps executed</td>
+</tr>
+<tr>
+<td><code>ovos-critic-loop</code></td>
+<td><code>max_critique_rounds</code></td>
+<td><code>2</code></td>
+<td>Critique → verify → revise rounds</td>
+</tr>
+<tr>
+<td><code>ovos-self-ask-loop</code></td>
+<td><code>max_follow_ups</code></td>
+<td><code>8</code></td>
+<td>Sub-questions before forcing a final answer</td>
+</tr>
+<tr>
+<td><code>ovos-tree-of-thoughts-loop</code></td>
+<td><code>n_branches</code></td>
+<td><code>3</code></td>
+<td>Candidate thoughts generated per step</td>
+</tr>
+<tr>
+<td><code>ovos-tree-of-thoughts-loop</code></td>
+<td><code>beam_width</code></td>
+<td><code>2</code></td>
+<td>Branches kept after evaluation</td>
+</tr>
+<tr>
+<td><code>ovos-tree-of-thoughts-loop</code></td>
+<td><code>max_depth</code></td>
+<td><code>4</code></td>
+<td>Reasoning depth before forcing an answer</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="built-in-toolboxes">Built-in Toolboxes<a class="headerlink" href="#built-in-toolboxes" title="Permanent link">&para;</a></h2>
 <table>
@@ -1514,6 +1637,50 @@
 <li><code>FileSystemToolBox</code> — set <code>root_path</code> to restrict file access to a subtree.</li>
 <li><code>MathToolBox</code> — uses <code>ast.parse</code> with an allowlist; <code>eval()</code> is never called.</li>
 </ul>
+<h3 id="toolbox-security-keys">Toolbox security keys<a class="headerlink" href="#toolbox-security-keys" title="Permanent link">&para;</a></h3>
+<p>These keys go in the per-toolbox config block:</p>
+<table>
+<thead>
+<tr>
+<th>Toolbox</th>
+<th>Key</th>
+<th>Default</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FileSystemToolBox</code></td>
+<td><code>root_path</code></td>
+<td><code>"."</code></td>
+<td>Sandbox root; every path is resolved relative to it and must stay inside</td>
+</tr>
+<tr>
+<td><code>FileSystemToolBox</code></td>
+<td><code>allow_write</code></td>
+<td><code>true</code></td>
+<td>When <code>false</code>, <code>write_file</code> is disabled (read-only agent)</td>
+</tr>
+<tr>
+<td><code>ShellToolBox</code></td>
+<td><code>allow_shell</code></td>
+<td><code>false</code></td>
+<td>Must be <code>true</code> for <code>run_command</code> to execute at all</td>
+</tr>
+<tr>
+<td><code>ShellToolBox</code></td>
+<td><code>allowed_commands</code></td>
+<td><code>[]</code></td>
+<td>When non-empty, only these first-words are permitted</td>
+</tr>
+<tr>
+<td><code>ShellToolBox</code></td>
+<td><code>max_timeout</code></td>
+<td><code>120</code></td>
+<td>Upper bound (seconds) the per-call <code>timeout</code> is capped to</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="external-tool-servers">External Tool Servers<a class="headerlink" href="#external-tool-servers" title="Permanent link">&para;</a></h2>
 <p>Use <a href="../agent-interop/">ovos-tool-adapters</a> to wire any MCP or UTCP server into the loop as a <code>ToolBox</code>.</p>

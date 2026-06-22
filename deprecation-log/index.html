@@ -1454,6 +1454,10 @@
 
 
 <h1 id="deprecation-log-migration-guide">Deprecation Log &amp; Migration Guide<a class="headerlink" href="#deprecation-log-migration-guide" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>As OVOS improves, some older pieces get retired and replaced — much like a phone dropping support for a very old app. "Deprecated" means a piece still works for now but is on its way out. This page is a running list of what is being retired and what to use instead, so developers can update their code in time. If you are not writing OVOS code, you can skip it. See the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p>This document tracks deprecated modules, classes, and architectural patterns within the OpenVoiceOS ecosystem. For whole <strong>repositories</strong> that have been archived (and their replacements), see <strong><a href="../deprecated-repos/">Deprecated &amp; Archived Repositories</a></strong>.</p>
 <p>Starting with <code>ovos-core</code> <strong>0.0.8</strong>, the project strictly follows <strong>Semantic Versioning</strong>:</p>
 <ul>
@@ -1488,6 +1492,14 @@ moves <code>GUIInterface</code> out of <code>ovos_bus_client.apis.gui</code> int
 <code>SkillGUI</code>. This is a real future direction, not a released change — no published
 <code>ovos-workshop</code> ships it yet. The <code>ovos_bus_client.apis.gui</code> import remains current on
 stable installs.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Upcoming — <code>self.enclosure</code> leaves the skill base class</p>
+<p><code>self.enclosure</code> (<a href="../apis-ref/#enclosureapi"><code>EnclosureAPI</code></a>) is being <strong>removed as a built-in
+<code>OVOSSkill</code> property</strong> (the same direction as <code>self.gui</code>). The API is <strong>not deleted</strong> — it
+moves into the <strong><code>ovos-mark1-utils</code></strong> library. In the <a href="../gui-adapters/">GUI rework</a> the Mark 1
+<strong>faceplate</strong> becomes one of the new <strong>GUI plugins</strong> (its bus event listeners move there); other
+Mark 1 hardware may go to a dedicated <strong>mk1 PHAL plugin</strong> (to be decided). See <a href="../mark1/">Mark 1</a>.</p>
 </div>
 <h3 id="ovos-media-ovosabstractapplication">[ovos-media] OVOSAbstractApplication<a class="headerlink" href="#ovos-media-ovosabstractapplication" title="Permanent link">&para;</a></h3>
 <p><strong>Date:</strong> March 2026<br />

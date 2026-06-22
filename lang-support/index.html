@@ -799,6 +799,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#open-data-ml-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open-data ML datasets
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1386,6 +1395,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#open-data-ml-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open-data ML datasets
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1601,6 +1619,16 @@
 <p>❗ If your language is missing from <a href="https://openvoiceos.github.io/ovos-localize/">OVOS Localize</a>, <a href="https://github.com/OpenVoiceOS/lang-support-tracker/issues">open an issue</a> to request it. Currently, languages must be added manually.</p>
 </blockquote>
 <p>See <strong><a href="../ovos-localize-tutorial/">Contribute Translations with OVOS Localize</a></strong> for the step-by-step translator guide.</p>
+<h3 id="open-data-ml-datasets">Open-data ML datasets<a class="headerlink" href="#open-data-ml-datasets" title="Permanent link">&para;</a></h3>
+<p>OVOS Localize also auto-generates <strong>machine-learning-ready JSONL datasets</strong> from the scanned
+skill data (hosted statically, refreshed daily), under <code>data/datasets/</code>:</p>
+<ul>
+<li><strong>Intent classification</strong> (<code>classification/{lang}.jsonl</code>) — <code>.intent</code>/<code>.voc</code> phrases mapped
+  to their skill domain and intent name (for training NLU / small language models).</li>
+<li><strong>Parallel corpora</strong> (<code>translation/{lang_pair}.jsonl</code>) — English keys paired with their
+  translations from <code>.dialog</code>/<code>.intent</code> files (for machine translation).</li>
+</ul>
+<p>These load directly via HuggingFace <code>datasets.load_dataset(...)</code>.</p>
 <hr />
 <h2 id="known-limitations">Known Limitations<a class="headerlink" href="#known-limitations" title="Permanent link">&para;</a></h2>
 <ul>

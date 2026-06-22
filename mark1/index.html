@@ -1410,13 +1410,16 @@
 <hr />
 <h2 id="enclosure-api">Enclosure API<a class="headerlink" href="#enclosure-api" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
-<p class="admonition-title"><code>self.enclosure</code> / <code>EnclosureAPI</code> is being deprecated</p>
-<p>The skill-facing <code>self.enclosure</code> (<a href="../apis-ref/#enclosureapi"><code>EnclosureAPI</code></a>) is on its
-way out. In the <a href="../gui-adapters/">GUI rework</a> the Mark 1 faceplate (LED "mouth" + "eyes")
-is being remodelled as <strong>one of the new GUI plugins</strong> — i.e. a <a href="../gui-adapters/">GUI adapter</a>
-that renders the standard display events onto the faceplate — rather than a special
-enclosure bus API. Prefer the normal GUI/<a href="../skill-gui/"><code>self.gui</code></a> path for new skills;
-this page documents the legacy API for existing Mark 1 skills.</p>
+<p class="admonition-title"><code>self.enclosure</code> is leaving the skill base class</p>
+<p><code>self.enclosure</code> will <strong>no longer be a built-in <code>OVOSSkill</code> property</strong> — the same direction
+<a href="../skill-gui/"><code>self.gui</code></a> is going. The <a href="../apis-ref/#enclosureapi"><code>EnclosureAPI</code></a> itself is
+<strong>not going away</strong>: it moves into the <strong><a href="https://github.com/OpenVoiceOS/ovos-mark1-utils"><code>ovos-mark1-utils</code></a></strong>
+library, so code that needs it imports it from there rather than reaching for <code>self.enclosure</code>.</p>
+<p>In the <a href="../gui-adapters/">GUI rework</a>, the Mark 1 <strong>faceplate</strong> (LED "mouth" + "eyes") is
+remodelled as <strong>one of the new GUI plugins</strong>: the faceplate's bus <strong>event listeners</strong> move
+into that GUI plugin, which renders the standard display events onto the faceplate. Other
+Mark 1 hardware may be handled by a dedicated <strong>mk1 PHAL plugin</strong> (still being decided). This
+page documents the current API for existing Mark 1 skills.</p>
 </div>
 <p>The <code>EnclosureAPI</code> is an abstraction over the "body" of the device. It provides a standard way for skills to interact with hardware features like displays and LEDs without needing to know the low-level details of the hardware transport.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.apis.enclosure</span> <span class="kn">import</span> <span class="n">EnclosureAPI</span>

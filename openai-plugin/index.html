@@ -1083,6 +1083,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#tool-function-calling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tool / function calling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#plugin-specific-keys" class="md-nav__link">
     <span class="md-ellipsis">
       Plugin-specific keys
@@ -1424,6 +1433,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#tool-function-calling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tool / function calling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#plugin-specific-keys" class="md-nav__link">
     <span class="md-ellipsis">
       Plugin-specific keys
@@ -1729,6 +1747,21 @@ by pointing <code>api_url</code> at its <code>/v1</code> base.</p>
 <p><strong>OPM plugin name:</strong> <code>ovos-chat-openai-plugin</code></p>
 <p>Multi-turn conversational LLM. The primary engine type used inside <a href="../personas/">personas</a>.
 Works with any OpenAI-compatible endpoint.</p>
+<h3 id="tool-function-calling">Tool / function calling<a class="headerlink" href="#tool-function-calling" title="Permanent link">&para;</a></h3>
+<p><code>OpenAIChatEngine</code> sets <code>supports_tools = True</code>, so it advertises native
+function-calling to callers. <code>continue_chat(messages, …, tools=…)</code> accepts
+<code>ToolBox</code> objects and/or raw OpenAI tool dicts; when the model decides to call a
+tool, the returned <code>AgentMessage</code> carries <code>tool_calls</code> (assistant <code>tool_calls</code>
+turns and <code>MessageRole.TOOL</code> results are serialized back to the API on the next
+round-trip), letting the caller run a tool loop. This is the same hook the
+<a href="../agentic-loop/">agentic loop</a> engines drive.</p>
+<div class="admonition note">
+<p class="admonition-title">Memory lives in <code>ovos-persona</code>, not this plugin</p>
+<p>The chat engine is stateless — it only sees the <code>messages</code> it is handed each
+turn. Short-term conversational memory is supplied by <code>ovos-persona</code> (which
+accumulates the history), not by <code>ovos-openai-plugin</code>. The only memory backend
+this package ships is the server-coupled RAG memory described below.</p>
+</div>
 <h3 id="plugin-specific-keys">Plugin-specific keys<a class="headerlink" href="#plugin-specific-keys" title="Permanent link">&para;</a></h3>
 <table>
 <thead>

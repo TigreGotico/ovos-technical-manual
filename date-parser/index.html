@@ -1477,6 +1477,10 @@
 
 
 <h1 id="ovos-date-parser">ovos-date-parser<a class="headerlink" href="#ovos-date-parser" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This is a helper that translates between everyday date and time phrases and the precise dates a computer understands. It works both ways: it can read "next Friday at 3pm" and pin down the exact moment, and it can turn an exact time back into natural words like "three o'clock". It handles many languages, which is what lets the assistant understand and speak dates the way you do. See the <a href="../number-parser/">Number parser</a> for the same idea applied to numbers, or the <a href="../glossary/">Glossary</a> for terms.</p>
+</div>
 <p><code>ovos-date-parser</code> is a multilingual library for turning human date/time phrases into Python objects (<code>extract_datetime</code>, <code>extract_duration</code>) and for turning <code>datetime</code>/<code>timedelta</code> objects back into natural spoken or written text (<code>nice_time</code>, <code>nice_date</code>, <code>nice_duration</code>, ...).</p>
 <p><strong>What you get in 30 seconds:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_date_parser</span> <span class="kn">import</span> <span class="n">extract_datetime</span><span class="p">,</span> <span class="n">nice_time</span>

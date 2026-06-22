@@ -1645,6 +1645,14 @@
 
 
 <h1 id="config-models">Config Models<a class="headerlink" href="#config-models" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>The assistant's settings come from several files stacked on top of each other,
+so a user's personal choices can override the system defaults. This is a
+developer reference for the building blocks that load and represent each of
+those settings files. If you are not building on the system internals, you can
+skip this. See the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><strong>Module:</strong> <code>ovos_config.models</code></p>
 <p>Each layer of the configuration stack is a <code>LocalConf</code> instance — a file-backed <code>dict</code> subclass. Specialised subclasses represent each layer.</p>
 <hr />
