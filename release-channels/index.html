@@ -319,7 +319,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -1008,7 +1008,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -1400,8 +1400,17 @@
 
 
 <h1 id="ovos-release-channels-installation-options">OVOS Release Channels &amp; Installation Options<a class="headerlink" href="#ovos-release-channels-installation-options" title="Permanent link">&para;</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Just want it working? Use the installer.</p>
+<p>Most people should install OVOS with the <strong><a href="../ovos-installer/"><code>ovos-installer</code></a></strong> — a guided
+wizard that handles everything. The manual <code>pip</code> commands and version-pinning below are for
+people who want fine-grained control (custom/headless setups). A few terms used on this page:
+<strong>extras</strong> = optional add-on bundles you list in brackets, e.g. <code>ovos-core[mycroft]</code>;
+<strong>constraints file</strong> = a version "filter" that pins which package versions get installed;
+<strong>headless</strong> = a device with no monitor/keyboard (e.g. a Raspberry Pi you SSH into).</p>
+</div>
 <p>Open Voice OS (OVOS) is a <strong>modular voice assistant platform</strong> that lets you install only the components you need. Whether you're building a lightweight voice interface or a full-featured smart assistant, OVOS gives you flexibility through modular packages and optional feature sets called <strong>extras</strong>.</p>
-<p>To manage updates and ensure system stability, OVOS uses <strong>release channels</strong> and <strong>constraints files</strong>, allowing users to pin versions based on their desired stability level.</p>
+<p>To manage updates and ensure system stability, OVOS uses <strong>release channels</strong> and <strong>constraints files</strong> (explained above), allowing users to pin versions based on their desired stability level.</p>
 <hr />
 <h2 id="installation-methods">Installation Methods<a class="headerlink" href="#installation-methods" title="Permanent link">&para;</a></h2>
 <p>Depending on your experience level and goals, you can choose one of the following methods:</p>

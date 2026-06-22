@@ -317,7 +317,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -702,7 +702,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -1522,6 +1522,19 @@
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
 <p>A "persona" is a chosen personality and brain for your assistant — think of it as deciding <em>who</em> answers you and how they sound, much like picking a character. Behind each persona are interchangeable "engines" (the actual AI pieces that do the thinking), and a routing layer decides which persona should handle each thing you say. This lets you swap or combine brains without rebuilding the whole assistant. To dig deeper see <a href="../tool-plugins/">Tool Plugins</a> and <a href="../persona-memory/">Persona Memory</a>, or the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Just want an LLM (ChatGPT-style) answering your questions? — 3 steps</p>
+<ol>
+<li><strong>Install a chat backend</strong> — a cloud <a href="../openai-plugin/">OpenAI-compatible</a> model, or a
+   fully-local <a href="../gguf-plugin/">GGUF</a> model (no account, no internet).</li>
+<li><strong>Create a persona</strong> that points at it — a small JSON file in <code>~/.config/ovos_persona/</code>
+   (see <a href="#personas-named-agent-identities">Defining a persona</a> below).</li>
+<li><strong>Send unanswered questions to it</strong> — enable the <a href="../persona-pipeline/">persona pipeline</a>
+   with <code>handle_fallback: true</code>.</li>
+</ol>
+<p>Now anything no skill handles is answered by the LLM. The rest of this page is the full
+architecture — you don't need it to get started.</p>
 </div>
 <p>OpenVoiceOS (OVOS) provides a flexible, modular system for integrating AI agents into voice-first
 environments. The architecture is built in layers: low-level <strong>agent engine plugins</strong> registered
