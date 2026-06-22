@@ -2,6 +2,12 @@
 
 A non-exhaustive list of skills available for OpenVoiceOS, these might be available out of the box or not depending on how you installed OVOS
 
+!!! tip "How to get a skill"
+    Many of these ship with the [`ovos-installer`](ovos-installer.md)'s skill selection. To add
+    one yourself, `pip install` its package (the package name is on each skill's GitHub repo) and
+    restart `ovos-core` — it scans for installed skills automatically. To build your own, follow
+    [Your First Skill](first-skill.md).
+
 ---
 
 ## Alerts

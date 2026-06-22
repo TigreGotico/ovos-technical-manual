@@ -1,6 +1,9 @@
 # Developer FAQ
 
-> This list is a work in progress, [Suggestions and Pull Requests welcome](https://github.com/OpenVoiceOS/ovos-technical-manual)!
+!!! abstract "In a nutshell"
+    Short answers to specific "how do I…?" questions that come up while writing a skill. Skim
+    it when you hit one of these; it assumes you've already built a basic skill (start with
+    [Your First Skill](first-skill.md) if not). If you don't write skills, you can skip this page.
 
 ## How do I know if a screen / GUI client is available?
 
