@@ -1829,8 +1829,16 @@ search framework (pipeline + skills + extractors):</p>
 </tr>
 </tbody>
 </table>
-<p>The OCP <strong>pipeline</strong>, <strong>skills</strong> and <strong>stream extractors</strong> are unaffected by which backend
-you use — only the <em>playback</em> layer differs.</p>
+<p>The OCP <strong>pipeline</strong> and <strong>stream extractors</strong> are unaffected by which backend you use —
+only the <em>playback</em> layer differs. (OCP <strong>skills</strong> are a separate, longer-term change —
+see the next note.)</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Planned — MediaProvider plugins replace OCP skills</p>
+<p>Longer term, media catalogs will move <strong>out of skills and into plugins</strong>: a new
+<strong>MediaProvider</strong> plugin type is planned, which <code>ovos-media</code> will consume directly in place
+of today's <a href="../ocp-skills/">OCP skills</a>. This is <strong>not implemented yet</strong> (no such plugin type
+exists in <code>ovos-plugin-manager</code> today); OCP skills remain the way to provide media for now.</p>
 </div>
 <p><code>ovos-media</code> is the standalone audio/video daemon for OpenVoiceOS. It is the <strong>upcoming
 replacement</strong> for the legacy audio service, providing a more robust and modular media player

@@ -1380,6 +1380,16 @@
 
 
 <h1 id="ocp-skills">OCP Skills<a class="headerlink" href="#ocp-skills" title="Permanent link">&para;</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Getting deprecated — OCP skills are being phased out</p>
+<p>OCP <strong>skills</strong> (media-provider skills built on <code>OVOSCommonPlaybackSkill</code> /
+<a href="#search-results"><code>@ocp_search</code></a>) are how media search works <strong>today</strong> and still work,
+but they are <strong>slated for deprecation</strong>. The planned replacement is a dedicated
+<strong>MediaProvider plugin</strong> type that <a href="../ovos-media/"><code>ovos-media</code></a> will consume directly —
+moving media catalogs out of skills and into plugins. MediaProvider plugins are <strong>not
+implemented yet</strong>, so keep using OCP skills for now; this page will track the migration as
+it lands.</p>
+</div>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
 <p>OCP (OVOS Common Playback) is the part of OVOS that handles playing media, like music, podcasts, or radio. An OCP skill doesn't listen for "play X" itself; instead it acts as a source of media. When someone asks to play something, OVOS asks every OCP skill "can you find this?", each one answers with whatever it can offer and how good a match it thinks it is, and OVOS plays the best result. It's like asking several record shops for an album and going with whoever has the closest match. New terms are explained in the <a href="../glossary/">Glossary</a>.</p>
