@@ -195,17 +195,6 @@ nav:
           - Skill Testing Architecture: skill-testing.md
   - Plugin Ecosystem:
       - Index & Overview: plugins-index.md
-      - AI & Agents:
-          - Agent Engines: agent-plugins.md
-          - Personas: personas.md
-          - Persona Memory: persona-memory.md
-          - Agentic Loop Architectures: agentic-loop.md
-          - Agent Tool Plugins: tool-plugins.md
-          - Agent Interoperability (MCP/UTCP/A2A): agent-interop.md
-          - Specialized Solvers: advanced-solvers.md
-          - OpenAI-compatible: openai-plugin.md
-          - GGUF / Local LLM: gguf-plugin.md
-          - LLM Transformers: llm-transformers.md
       - Speech & Audio:
           - Microphone: mic-plugins.md
           - VAD: vad-plugins.md
@@ -224,10 +213,25 @@ nav:
           - GUI Adapters (rework — upcoming): gui-adapters.md
           - Qt5 GUI (legacy): qt5-gui.md
           - Home Screen (legacy): homescreen.md
+  - AI Agents & Personas:
+      - Personas:
+          - Personas & PersonaService: personas.md
+          - Persona Memory: persona-memory.md
+          - Persona Server: persona-server.md
+      - Agent Engines:
+          - Agent Engine Types: agent-plugins.md
+          - Specialized Solvers: advanced-solvers.md
+      - Agentic Loops: agentic-loop.md
+      - Tools & Interoperability:
+          - Agent Tool Plugins: tool-plugins.md
+          - Interoperability (MCP/UTCP/A2A): agent-interop.md
+      - LLM Backends:
+          - OpenAI-compatible: openai-plugin.md
+          - GGUF / Local LLM: gguf-plugin.md
+          - LLM Transformers: llm-transformers.md
   - Advanced & Self Hosting:
       - STT Server: stt-server.md
       - TTS Server: tts-server.md
-      - Persona Server: persona-server.md
       - Translate Server: translate-server.md
       - Server Compatibility Layers: server-compat-layers.md
       - HiveMind: hivemind-agents.md
