@@ -6,6 +6,14 @@ The **Mycroft Mark 1** was the first official hardware for Mycroft AI. It featur
 
 ## Enclosure API
 
+!!! warning "`self.enclosure` / `EnclosureAPI` is being deprecated"
+    The skill-facing `self.enclosure` ([`EnclosureAPI`](apis-ref.md#enclosureapi)) is on its
+    way out. In the [GUI rework](gui-adapters.md) the Mark 1 faceplate (LED "mouth" + "eyes")
+    is being remodelled as **one of the new GUI plugins** — i.e. a [GUI adapter](gui-adapters.md)
+    that renders the standard display events onto the faceplate — rather than a special
+    enclosure bus API. Prefer the normal GUI/[`self.gui`](skill-gui.md) path for new skills;
+    this page documents the legacy API for existing Mark 1 skills.
+
 The `EnclosureAPI` is an abstraction over the "body" of the device. It provides a standard way for skills to interact with hardware features like displays and LEDs without needing to know the low-level details of the hardware transport.
 
 ```python

@@ -120,7 +120,7 @@ Override these in your skill class:
 | `settings` | `JsonStorage` | Persistent skill settings |
 | `bus` | `MessageBusClient` | [MessageBus](bus-service.md) connection |
 | `gui` | `SkillGUI` | GUI interface |
-| `enclosure` | `EnclosureAPI` | Hardware interface |
+| `enclosure` | `EnclosureAPI` | Mark 1 faceplate interface (⚠️ being [deprecated](mark1.md) — faceplate moves to a GUI plugin) |
 | `file_system` | `FileSystemAccess` | Managed local file access |
 | `resources` | `SkillResources` | Resource files for `self.lang` |
 | `dialog_renderer` | `MustacheDialogRenderer` | Render dialog templates |
