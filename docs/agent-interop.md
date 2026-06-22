@@ -150,12 +150,12 @@ Config keys:
 
 ### HiveMind A2A Bridge
 
-[TigreGotico/hivemind-a2a-agent-plugin](https://github.com/TigreGotico/hivemind-a2a-agent-plugin) bridges the HiveMind mesh to any external A2A agent. Natural-language queries arriving from satellites are forwarded to the A2A server via JSON-RPC 2.0 and the response is streamed back.
+[OpenVoiceOS/ovos-a2a-agent-plugin](https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin) bridges the HiveMind mesh to any external A2A agent. Natural-language queries arriving from satellites are forwarded to the A2A server via JSON-RPC 2.0 and the response is streamed back.
 
 ```json
 {
   "hivemind": {
-    "agent_protocol": "hivemind-a2a-agent-plugin",
+    "agent_protocol": "ovos-a2a-agent-plugin",
     "a2a_agent": {
       "agent_url": "http://localhost:9999",
       "auth_header": "Bearer secret",
@@ -172,7 +172,7 @@ The plugin registers under the `hivemind.agent.protocol` entry-point group; Hive
 
 ## ovos-tool-adapters — Consuming MCP/UTCP from the Agentic Loop
 
-[TigreGotico/ovos-tool-adapters](https://github.com/TigreGotico/ovos-tool-adapters) bridges external MCP and UTCP servers into the OVOS agentic loop as standard `ToolBox` plugins.
+[OpenVoiceOS/ovos-tool-adapters](https://github.com/OpenVoiceOS/ovos-tool-adapters) bridges external MCP and UTCP servers into the OVOS agentic loop as standard `ToolBox` plugins.
 
 ```bash
 pip install ovos-tool-adapters[mcp]     # MCP support

@@ -400,7 +400,6 @@ skill as a voice frontend.
 | [ovos-PHAL-plugin-oauth](#ovos-phal-plugin-oauth) | Stable |
 | [ovos-PHAL-plugin-system](#ovos-phal-plugin-system) | Provides system specific commands to OVOS. |
 | [ovos-PHAL-plugin-hotkeys](#ovos-phal-plugin-hotkeys) | plugin for Keyboard hotkeys, define key combos to trigger bus events |
-| [ovos-PHAL-plugin-termux](#ovos-phal-plugin-termux) | controls system volume with termux |
 
 ## ovos-PHAL-plugin-network-manager
 
@@ -534,15 +533,6 @@ skill as a voice frontend.
 
 
 - **Description**: plugin for Keyboard hotkeys, define key combos to trigger bus events
-
----
-
-## ovos-PHAL-plugin-termux
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-PHAL-plugin-termux](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-termux)
-
-
-- **Description**: controls system volume with termux
 
 ---
 

@@ -9,8 +9,8 @@ independently of the persona system but can use the same LLM backends.
 
 - **Dialog transformers** (`opm.transformer.dialog`) — run after skill response generation, before TTS.
 
-LLM-backed implementations are provided by `ovos-claude-plugin` (utterance + dialog) and
-`ovos-openai-plugin` / `ovos-gguf-plugin` (dialog only).
+LLM-backed implementations are provided by `ovos-openai-plugin` / `ovos-gguf-plugin`
+(dialog transformers).
 
 Multiple transformers of each type can be stacked. The `priority` config key controls
 execution order (lower number = runs earlier).
@@ -23,60 +23,10 @@ Utterance transformers normalise or validate ASR output before it reaches the in
 They receive a list of candidate utterances and return a (possibly modified) list plus a context
 dict.
 
-### Claude Utterance Transformer
-
-`ClaudeUtteranceTransformer` — `ovos_claude/transformers.py:ClaudeUtteranceTransformer`
-
-Entry point: `opm.transformer.text` (`ovos-utterance-transformer-claude-plugin`)
-
-Normalises informal or noisy speech to standard form. Falls back to the original utterance on
-API error.
-
-```json
-{
-  "utterance_transformers": {
-    "ovos-utterance-transformer-claude-plugin": {
-      "api_key": "sk-ant-...",
-      "model": "claude-haiku-4-5-20251001",
-      "priority": 10
-    }
-  }
-}
-
-```
-
-```python
-t = ClaudeUtteranceTransformer(config={"api_key": "sk-ant-..."})
-result, ctx = t.transform(["whats 2 plus 2 ya know"])
-print(result)  # ["What is 2 plus 2?"]
-
-```
-
-Default priority is `10` — runs early in the transformer chain before other plugins.
-`ovos-claude-plugin` is the only LLM agent plugin that ships an utterance transformer;
-`ovos-gguf-plugin` and `ovos-openai-plugin` provide dialog transformers only.
-
-### OVOS Transcription Validator
-
-`ovos-transcription-validator-plugin` calls an OpenAI-compatible chat endpoint (any local or
-remote server exposing `/chat/completions`, e.g. Ollama, llama.cpp, vLLM) to classify ASR output
-as valid or invalid *before* it reaches intent matching. Invalid transcriptions are discarded,
-preventing skills from firing on garbled speech like `"Potato stop green light now yes."`. The
-default `api_url` is the public `https://llama.smartgic.io/v1` demo endpoint.
-
-```json
-{
-  "utterance_transformers": {
-    "ovos-transcription-validator-plugin": {
-      "model": "qwen2.5:7b",
-      "api_url": "https://llama.smartgic.io/v1",
-      "api_key": "sk-xxxx",
-      "mode": "reprompt"
-    }
-  }
-}
-
-```
+A typical utterance transformer normalises informal or noisy speech to standard form, or
+classifies ASR output as valid or invalid *before* it reaches intent matching so that garbled
+speech like `"Potato stop green light now yes."` is discarded. The `priority` config key
+controls where each runs in the chain (lower number = earlier).
 
 ---
 
@@ -85,41 +35,6 @@ default `api_url` is the public `https://llama.smartgic.io/v1` demo endpoint.
 Dialog transformers receive the final response string from the skill and return a rewritten
 version. Only invoked when a `rewrite_prompt` is configured (via config or per-call context).
 Falls back to the original dialog on API error.
-
-### Claude Dialog Transformer
-
-`ClaudeDialogTransformer` — `ovos_claude/transformers.py:ClaudeDialogTransformer`
-
-Entry point: `opm.transformer.dialog` (`ovos-dialog-transformer-claude-plugin`)
-
-```json
-{
-  "dialog_transformers": {
-    "ovos-dialog-transformer-claude-plugin": {
-      "api_key": "sk-ant-...",
-      "model": "claude-haiku-4-5-20251001",
-      "rewrite_prompt": "Rewrite the text so it sounds natural when spoken aloud. Remove any markdown.",
-      "priority": 50
-    }
-  }
-}
-
-```
-
-The `rewrite_prompt` can also be passed per-call via `context["prompt"]`.
-
-```python
-from ovos_claude.transformers import ClaudeDialogTransformer
-
-t = ClaudeDialogTransformer(config={
-    "api_key": "sk-ant-...",
-    "rewrite_prompt": "Rewrite in a cheerful, enthusiastic tone.",
-})
-result, ctx = t.transform("The forecast shows rain tomorrow.")
-
-# "Oh wow, rain is coming tomorrow — how exciting for the plants!"
-
-```
 
 ### OpenAI Dialog Transformer
 
@@ -187,10 +102,6 @@ Multiple transformers can be active simultaneously. Priority controls order:
 
 ```json
 {
-  "utterance_transformers": {
-    "ovos-transcription-validator-plugin": {"priority": 5},
-    "ovos-utterance-transformer-claude-plugin": {"api_key": "sk-ant-...", "priority": 10}
-  },
   "dialog_transformers": {
     "ovos-dialog-transformer-openai-plugin": {
       "key": "sk-...", "model": "gpt-4o-mini",
@@ -202,9 +113,8 @@ Multiple transformers can be active simultaneously. Priority controls order:
 
 ```
 
-The validator runs first (priority 5), discarding invalid ASR. The normaliser runs next
-(priority 10), cleaning valid utterances before intent matching. The dialog transformer
-rewrites skill responses (priority 50) before TTS.
+Utterance transformers run first (lowest priority first), cleaning or validating ASR output
+before intent matching. The dialog transformer rewrites skill responses (priority 50) before TTS.
 
 ---
 
@@ -214,9 +124,6 @@ rewrites skill responses (priority 50) before TTS.
 
 
 - [Dialog Transformers — audio service](audio-service.md)
-
-
-- [Claude Plugin](claude-plugin.md) — full Claude transformer configuration reference
 
 
 - [OpenAI Plugin](openai-plugin.md) — OpenAI transformer configuration reference

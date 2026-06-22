@@ -72,13 +72,6 @@ For a language to function correctly in a voice assistant environment, it must h
 
 - Quality varies significantly by model and backend.
 
-A list of early TTS and STT plugins test with per-language accuracy benchmarks is available at:
-
-- 🔍 [STT Bench](https://stt-bench.tigregotico.pt)
-
-
-- 🔊 [TTS Bench](https://tts-bench.tigregotico.pt)
-
 ---
 
 ## Translation Coverage
@@ -153,20 +146,20 @@ After writing the config it lists the installed STT/TTS plugins and warns about 
 
 | Language | Offline STT | Offline STT (Fallback) | Offline TTS (Male) | Offline TTS (Female) | GPU STT |
 |----------|-------------|------------------------|---------------------|---------------------|---------|
-| **en-US** | `ovos-stt-plugin-citrinet` (en) | `faster-whisper-base.en` | `phoonnx` (miro) | `phoonnx` (dii) | `whisper-large-v3-turbo` |
-| **en-GB** | — | `faster-whisper-base` | `phoonnx` (miro) | `phoonnx` (dii) | — |
-| **de-DE** | `ovos-stt-plugin-citrinet` (de) | `faster-whisper-base` | `phoonnx` (miro) | `phoonnx` (dii) | `whisper-large-v3-turbo` |
-| **fr-FR** | `ovos-stt-plugin-citrinet` (fr) | `faster-whisper-base` | `phoonnx` (miro) | `phoonnx` (dii) | `whisper-large-v3-turbo` |
-| **es-ES** | `ovos-stt-plugin-citrinet` (es) | `Jarbas/faster-whisper-base-es-cv13` | `phoonnx` (miro) | `phoonnx` (dii) | `Jarbas/faster-whisper-base-es-cv13` |
-| **it-IT** | `ovos-stt-plugin-citrinet` (it) | `faster-whisper-base` | `phoonnx` (miro) | `phoonnx` (dii) | `whisper-large-v3-turbo` |
-| **nl-NL** | `ovos-stt-plugin-citrinet` (nl) | `faster-whisper-base` | `phoonnx` (miro) | `phoonnx` (dii) | `whisper-large-v3-turbo` |
-| **pt-PT** | `ovos-stt-plugin-citrinet` (pt) | `Jarbas/faster-whisper-small-pt-MyNorthAI` | `phoonnx` (miro) | `phoonnx` (dii) | `Jarbas/faster-whisper-large-pt-MyNorthAI` |
-| **pt-BR** | — | — | `phoonnx` (miro) | `phoonnx` (dii) | `Jarbas/faster-whisper-large-pt-MyNorthAI` |
+| **en-US** | `ovos-stt-plugin-citrinet` (en) | `faster-whisper-base.en` | — | — | `whisper-large-v3-turbo` |
+| **en-GB** | — | `faster-whisper-base` | — | — | — |
+| **de-DE** | `ovos-stt-plugin-citrinet` (de) | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
+| **fr-FR** | `ovos-stt-plugin-citrinet` (fr) | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
+| **es-ES** | `ovos-stt-plugin-citrinet` (es) | `Jarbas/faster-whisper-base-es-cv13` | — | — | `Jarbas/faster-whisper-base-es-cv13` |
+| **it-IT** | `ovos-stt-plugin-citrinet` (it) | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
+| **nl-NL** | `ovos-stt-plugin-citrinet` (nl) | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
+| **pt-PT** | `ovos-stt-plugin-citrinet` (pt) | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
+| **pt-BR** | — | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
 | **ca-ES** | `ovos-stt-plugin-citrinet` (ca) | `Jarbas/faster-whisper-base-ca-cv13` | `matxa` (grau) | `matxa` (elia) | `projecte-aina/faster-whisper-large-v3-ca-3catparla` |
 | **gl-ES** | — | `Jarbas/faster-whisper-base-gl-cv13` | `cotovia` (iago) | `nos` (celtia) | `Jarbas/faster-whisper-large-v2-gl-cv13` |
-| **eu-ES** | `ovos-stt-plugin-HiTZ` | `Jarbas/faster-whisper-base-eu-cv16` | `phoonnx` (miro) | `phoonnx` (dii) | `ovos-stt-plugin-HiTZ` |
-| **da-DK** | — | `faster-whisper-base` | `phoonnx` (miro) | — | `whisper-large-v3-turbo` |
-| **ar-SA** | — | — | `phoonnx` (miro) | `phoonnx` (dii) | — |
+| **eu-ES** | `ovos-stt-plugin-HiTZ` | `Jarbas/faster-whisper-base-eu-cv16` | — | — | `ovos-stt-plugin-HiTZ` |
+| **da-DK** | — | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
+| **ar-SA** | — | — | — | — | — |
 
 ### Platform-Specific Optimizations
 
@@ -215,26 +208,18 @@ Translation coverage alone does not ensure accuracy. Native speakers are encoura
 
 - Incorrect or unnatural translations
 
-You can help by **enabling open data collection** in your OVOS instance:
+You can help by **enabling open data collection** in your OVOS instance by pointing `intent_urls` at a reporting server:
 
 ```json
 "open_data": {
   "intent_urls": [
-    "https://metrics.tigregotico.pt/intents"
+    "https://your-opendata-server.example.com/intents"
   ]
 }
 
 ```
 
-> 💡 Alternatively, you may self-host the reporting server: [ovos-opendata-server on GitHub](https://github.com/OpenVoiceOS/ovos-opendata-server)
-
-### Monitoring Tools
-
-- 📈 Live Data Dashboard: [https://opendata.tigregotico.pt](https://opendata.tigregotico.pt)
-
-
-- ✅ Server Status: [https://metrics.tigregotico.pt/status](https://metrics.tigregotico.pt/status)
-
+> 💡 You can self-host the reporting server: [ovos-opendata-server on GitHub](https://github.com/OpenVoiceOS/ovos-opendata-server)
 
 ---
 
@@ -245,9 +230,6 @@ Explore public benchmark tools for evaluating model performance:
 | Project                                                         | Description |
 |-----------------------------------------------------------------|-------------|
 | [OVOS Localize](https://openvoiceos.github.io/ovos-localize/)   | Browse intent translation coverage per language and skill |
-| [STT Bench](https://stt-bench.tigregotico.pt)                   | Test STT plugin accuracy across datasets and languages |
-| [TTS Bench](https://tts-bench.tigregotico.pt)                   | Compare TTS output quality across plugins |
-| [Meteocat](https://meteocat.bench.tigregotico.pt)               | Catalan weather query benchmark |
 
 
 ---

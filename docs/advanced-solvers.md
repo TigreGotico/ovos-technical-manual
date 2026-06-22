@@ -14,8 +14,8 @@ All base classes live in `ovos_plugin_manager.templates.agents`. The deprecated 
 **Base class:** `ReRankerEngine`
 
 Scores a list of candidate answers by relevance to a query and returns them ranked highest-first.
-Used internally by the [Common Query pipeline](cq-pipeline.md),
-[OCP](ocp-pipeline.md) media search, and by [Mixture of Solvers](mos-plugin.md) strategies as the judge/king/referee.
+Used internally by the [Common Query pipeline](cq-pipeline.md) and
+[OCP](ocp-pipeline.md) media search.
 
 ```python
 from ovos_plugin_manager.templates.agents import ReRankerEngine
@@ -34,22 +34,16 @@ best = engine.select_answer("play bohemian rhapsody", candidates)
     "common_query": {
       "min_self_confidence": 0.5,
       "min_reranker_score": 0.5,
-      "reranker": "ovos-reranker-claude-plugin",
-      "ovos-reranker-claude-plugin": {
-        "api_key": "sk-ant-...",
-        "model": "claude-haiku-4-5-20251001"
-      }
+      "reranker": "<your-reranker-plugin>",
+      "<your-reranker-plugin>": {}
     }
   }
 }
 
 ```
 
-Available implementations: `ClaudeReRankerEngine` ([Claude plugin](claude-plugin.md),
-entry point `ovos-reranker-claude-plugin`). The local `ovos-flashrank-reranker-plugin`
-(transformer-based, no API key required) is not a new-style `ReRankerEngine`: it ships
-`FlashRankMultipleChoiceSolver` under the deprecated `opm.solver.multiple_choice` group,
-so it is consumed as a `MultipleChoiceSolver` rather than via `opm.agents.reranker`.
+The `reranker` key names any installed `opm.agents.reranker` plugin — see
+[Agent Plugins](agent-plugins.md) for the engine-type reference.
 
 ---
 
@@ -72,8 +66,7 @@ answer = engine.get_best_passage(evidence, "How tall is the Eiffel Tower?")
 
 ```
 
-Available implementations: `ClaudeExtractiveQAEngine` ([Claude plugin](claude-plugin.md)),
-`GGUFExtractiveQAEngine` ([GGUF plugin](gguf-plugin.md)).
+Available implementations: `GGUFExtractiveQAEngine` ([GGUF plugin](gguf-plugin.md)).
 
 ---
 
@@ -89,14 +82,14 @@ summary = engine.summarize(long_article_text)
 
 ```
 
-Implementations: `ClaudeSummarizerEngine`, `OpenAISummarizer`, `GGUFSummarizerEngine`.
+Implementations: `OpenAISummarizer`, `GGUFSummarizerEngine`.
 
 ---
 
 ## Chat Summarizer — `opm.agents.summarizer.chat`
 
 Converts a structured `List[AgentMessage]` chat history into a concise narrative summary. Used
-internally by memory plugins (`ClaudeContextManager`, `GGUFContextManager`) to compress history
+internally by memory plugins (`GGUFContextManager`) to compress history
 when it exceeds `max_history` turns, keeping the context window manageable.
 
 ```python
@@ -110,7 +103,7 @@ summary_text = engine.summarize(messages)
 
 ```
 
-Implementations: `ClaudeChatSummarizerEngine`, `GGUFChatSummarizerEngine`.
+Implementations: `GGUFChatSummarizerEngine`.
 
 ---
 
@@ -127,7 +120,7 @@ print(engine.predict_entailment("It is sunny.", "You need an umbrella."))       
 
 ```
 
-Implementations: `ClaudeNLIEngine`, `GGUFNLIEngine`.
+Implementations: `GGUFNLIEngine`.
 
 ---
 
@@ -145,7 +138,7 @@ print(engine.yes_or_no("Ready?", "what do you mean?"))                        # 
 
 Use this in skills when `ask_yesno()` receives uncertain phrasing like "I guess" or "maybe".
 
-Implementations: `ClaudeYesNoEngine`, `GGUFYesNoEngine`.
+Implementations: `GGUFYesNoEngine`.
 
 ---
 
@@ -176,12 +169,7 @@ have `resolve()` apply previously registered context and learn new mappings from
 `context_ttl` (config key, default `120` s) controls how long a tracked context entry remains
 valid before it is pruned.
 
-Implementations: `ClaudeCoreferenceEngine`, `GGUFCoreferenceEngine`.
-
-> **Upcoming:** [pronomial](https://github.com/TigreGotico/pronomial) is gaining a new-style
-> `PronomialCoreferenceEngine` registered under `opm.agents.coref` (as `pronomial`) — a local,
-> no-API coreference backend with per-language pronoun wordlists. See
-> [TigreGotico/pronomial#6](https://github.com/TigreGotico/pronomial/pull/6) (draft).
+Implementations: `GGUFCoreferenceEngine`.
 
 ---
 
@@ -191,8 +179,8 @@ Implementations: `ClaudeCoreferenceEngine`, `GGUFCoreferenceEngine`.
 
 Manages per-session conversation history. The default implementation (`BasicShortTermMemory`
 from `ovos-persona`) stores history in RAM with `max_history` truncation. LLM-powered
-implementations (`ClaudeContextManager`, `GGUFContextManager`) also compress old history into
-a SYSTEM summary message when the history exceeds a configurable threshold.
+implementations (`GGUFContextManager`) also compress old history into a SYSTEM summary message
+when the history exceeds a configurable threshold.
 
 ```python
 from ovos_plugin_manager.templates.agents import AgentContextManager, AgentMessage
@@ -203,12 +191,11 @@ manager.update_history([user_msg, assistant_msg], session_id)
 
 ```
 
-Compression config (`ClaudeContextManager`):
+Compression config (`GGUFContextManager`):
 
 ```json
 {
-  "ovos-memory-claude-plugin": {
-    "api_key": "sk-ant-...",
+  "<your-memory-plugin>": {
     "system_prompt": "You are a helpful assistant.",
     "max_history": 20,
     "compress": true
@@ -241,7 +228,7 @@ reply = engine.continue_chat(messages)
 
 ```
 
-Implementation: `ClaudeMultimodalChatEngine`.
+Provided by any installed `opm.agents.chat.multimodal` plugin.
 
 ---
 
@@ -269,12 +256,6 @@ plugins should use them.
 ## Cross-References
 
 - [Agent Plugins](agent-plugins.md) — complete engine configuration reference
-
-
-- [Mixture of Solvers](mos-plugin.md) — compose multiple engines for higher accuracy
-
-
-- [Claude Plugin](claude-plugin.md) — all ten Claude-backed engine implementations
 
 
 - [OpenAI Plugin](openai-plugin.md) — OpenAI-compatible engine implementations

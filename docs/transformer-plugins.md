@@ -145,18 +145,13 @@ my-transformer = "my_package.module:MyTransformer"
 | Plugin | Description |
 |--------|-------------|
 | [ovos-dialog-normalizer-plugin](#ovos-dialog-normalizer-plugin) | a dialog transformer plugins for OVOS |
-| [ovos_tts_transformer_FlashSR](#ovos_tts_transformer_flashsr) | No description available |
-| [ovos-transcription-validator-plugin](#ovos-transcription-validator-plugin) | A plugin for [OVOS](https://openvoiceos.com) that uses an OpenAI-compatible Large Language Model (LLM) to validate |
 | [ovos-bidirectional-translation-plugin](#ovos-bidirectional-translation-plugin) | This package includes a UtteranceTransformer plugin and a DialogTransformer plugin, they work together to allow OVOS to speak in ANY language |
 | [ovos-audio-transformer-plugin-speechbrain-langdetect](#ovos-audio-transformer-plugin-speechbrain-langdetect) | spoken language detector for ovos |
 | [ovos-utterance-corrections-plugin](#ovos-utterance-corrections-plugin) | This plugin provides tools to correct or adjust speech-to-text (STT) outputs for better intent matching or improved user experience. |
 | [ovos-utterance-normalizer](#ovos-utterance-normalizer) | normalizes utterances before intent parsing |
-| [ovos-tts-transformer-NovaSR](#ovos-tts-transformer-novasr) | No description available |
 | [ovos-utterance-plugin-cancel](#ovos-utterance-plugin-cancel) | plugin to look at the tail end of the transcribed phrase, ignoring the utterance if it ends with "nevermind that" or "cancel it" or "ignore that". |
-| [ovos-tts-transformer-FlashSR](#ovos-tts-transformer-flashsr) | No description available |
 | [ovos-audio-transformer-plugin-ggwave](#ovos-audio-transformer-plugin-ggwave) | plugin for https://github.com/ggerganov/ggwave |
 | [ovos-tts-transformer-sox-plugin](#ovos-tts-transformer-sox-plugin) | This repository contains a Python package for a Text-to-Speech (TTS) transformer that utilizes SoX (Sound eXchange) for audio processing. The transformer applies various effects to the generated audio before playback. |
-| [ovos_tts_transformer_NovaSR](#ovos_tts_transformer_novasr) | No description available |
 
 ## ovos-dialog-normalizer-plugin
 
@@ -164,24 +159,6 @@ my-transformer = "my_package.module:MyTransformer"
 
 
 - **Description**: a dialog transformer plugins for OVOS
-
----
-
-## ovos_tts_transformer_FlashSR
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos_tts_transformer_FlashSR](https://github.com/OpenVoiceOS/ovos_tts_transformer_FlashSR)
-
-
-- **Description**: No description available
-
----
-
-## ovos-transcription-validator-plugin
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-transcription-validator-plugin](https://github.com/OpenVoiceOS/ovos-transcription-validator-plugin)
-
-
-- **Description**: A plugin for [OVOS](https://openvoiceos.com) that uses an OpenAI-compatible Large Language Model (LLM) to validate
 
 ---
 
@@ -221,30 +198,12 @@ my-transformer = "my_package.module:MyTransformer"
 
 ---
 
-## ovos-tts-transformer-NovaSR
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-tts-transformer-NovaSR](https://github.com/OpenVoiceOS/ovos-tts-transformer-NovaSR)
-
-
-- **Description**: No description available
-
----
-
 ## ovos-utterance-plugin-cancel
 
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-utterance-plugin-cancel](https://github.com/OpenVoiceOS/ovos-utterance-plugin-cancel)
 
 
 - **Description**: plugin to look at the tail end of the transcribed phrase, ignoring the utterance if it ends with "nevermind that" or "cancel it" or "ignore that".
-
----
-
-## ovos-tts-transformer-FlashSR
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-tts-transformer-FlashSR](https://github.com/OpenVoiceOS/ovos-tts-transformer-FlashSR)
-
-
-- **Description**: No description available
 
 ---
 
@@ -263,15 +222,6 @@ my-transformer = "my_package.module:MyTransformer"
 
 
 - **Description**: This repository contains a Python package for a Text-to-Speech (TTS) transformer that utilizes SoX (Sound eXchange) for audio processing. The transformer applies various effects to the generated audio before playback.
-
----
-
-## ovos_tts_transformer_NovaSR
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos_tts_transformer_NovaSR](https://github.com/OpenVoiceOS/ovos_tts_transformer_NovaSR)
-
-
-- **Description**: No description available
 
 ---
 

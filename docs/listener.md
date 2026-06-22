@@ -387,6 +387,3 @@ WakeWordTest(
 
 
 - Audio transformer E2E test: `Transformer plugins/ovos-audio-transformer-plugin-ggwave/test/end2end/test_ggwave_transformer.py`
-
-
-- STT pipeline E2E test: `STT plugins/ovos-stt-plugin-rover/test/end2end/test_rover_listener_e2e.py`

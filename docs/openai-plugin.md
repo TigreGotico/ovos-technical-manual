@@ -386,10 +386,4 @@ print(lang)  # "en"
 - [Persona Server](persona-server.md) — expose a persona via OpenAI-compatible HTTP API
 
 
-- [Mixture of Solvers](mos-plugin.md) — using OpenAI engines as workers or kings
-
-
-- [Claude Plugin](claude-plugin.md) — Anthropic Claude alternative with more engine types
-
-
 - [GGUF Plugin](gguf-plugin.md) — fully offline local alternative

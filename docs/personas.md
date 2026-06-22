@@ -80,16 +80,16 @@ history across turns:
 
 ```json
 {
-  "name": "Claude with Memory",
-  "memory_module": "ovos-memory-claude-plugin",
-  "handlers": ["ovos-chat-claude-plugin"],
-  "ovos-chat-claude-plugin": {
-    "api_key": "sk-ant-...",
-    "model": "claude-haiku-4-5-20251001",
+  "name": "Assistant with Memory",
+  "memory_module": "ovos-memory-plugin-longterm",
+  "handlers": ["ovos-chat-openai-plugin"],
+  "ovos-chat-openai-plugin": {
+    "api_url": "https://api.openai.com/v1",
+    "key": "sk-...",
+    "model": "gpt-4o-mini",
     "system_prompt": "You are a helpful assistant."
   },
-  "ovos-memory-claude-plugin": {
-    "api_key": "sk-ant-...",
+  "ovos-memory-plugin-longterm": {
     "max_history": 30,
     "compress": true
   }
@@ -106,7 +106,6 @@ The `memory_module` key names an `opm.agents.memory` plugin. The default when om
 |---|---|---|
 | `ovos-agents-short-term-memory-plugin` (`BasicShortTermMemory`) | `ovos-persona` | In-RAM short-term history, no API key |
 | `ovos-memory-plugin-longterm` (`LongTermMemory`) | `ovos-memory-plugins` | Local JSON/SQLite store (uses an OpenAI-compatible endpoint only for LLM summarization) |
-| `ovos-memory-claude-plugin` (`ClaudeContextManager`) | `ovos-claude-plugin` | LLM-compressed history via Claude |
 
 `ovos-memory-plugins` is **local-first**: server- / cloud-coupled RAG memory lives in
 `ovos-openai-plugin` as `PersonaServerRAGMemory` (`ovos-openai-rag-memory-plugin`), not here.
@@ -275,12 +274,6 @@ cross-instance bridging, not local routing. For secure remote access see
 Cross-references:
 
 - [Agent Plugins](agent-plugins.md) — full engine-type reference with config examples
-
-
-- [Mixture of Solvers](mos-plugin.md) — orchestrate multiple agents for better answers
-
-
-- [Claude Plugin](claude-plugin.md) — all ten Claude-backed engine implementations
 
 
 - [OpenAI Plugin](openai-plugin.md) — OpenAI-compatible engine implementations and translation plugins

@@ -5,11 +5,6 @@
 
 TTS plugins are responsible for converting text into audio for playback.
 
-> **Neural ONNX voices** — [phoonnx](https://github.com/TigreGotico/phoonnx) ships the `ovos-tts-plugin-phoonnx` TTS plugin, an ONNX runtime for VITS/Piper-style voices with built-in G2P. It is an active alternative to the per-engine plugins listed below.
-
-!!! warning "Upcoming — unreleased"
-    Several new phoonnx synthesis engines and G2P backends are in open PRs, not yet on a release: Matcha-TTS ([#128](https://github.com/TigreGotico/phoonnx/pull/128)), Mixer-TTS training ([#146](https://github.com/TigreGotico/phoonnx/pull/146)), the Chatterbox autoregressive codec-LM with d-vector cloning ([#181](https://github.com/TigreGotico/phoonnx/pull/181)), and LoRA voice adaptation for VITS ([#126](https://github.com/TigreGotico/phoonnx/pull/126)).
-
 ## TTS
 
 All OVOS TTS plugins need to define a class based on the TTS base class from `ovos_plugin_manager`.

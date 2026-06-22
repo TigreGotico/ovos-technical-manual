@@ -24,13 +24,12 @@ Repository: `OpenVoiceOS Workspace/Agent Plugins/ovos-gguf-plugin`
 | `opm.agents.summarizer` | `ovos-summarizer-gguf-plugin` | `GGUFSummarizer` | `ovos_gguf_plugin/summarizer.py` |
 | `opm.lang.translate` | `ovos-translate-gguf-plugin` | `GGUFTextTranslator` | `ovos_gguf_plugin/translate.py` |
 | `opm.lang.detect` | `ovos-lang-detect-gguf-plugin` | `GGUFTextLangDetector` | `ovos_gguf_plugin/translate.py` |
-| `opm.embeddings.text` | `ovos-gguf-embeddings-plugin` | `GGUFEmbeddings` | `ovos_gguf_plugin/embeddings.py` |
 | `opm.transformer.dialog` | `ovos-dialog-transformer-gguf-plugin` | `GGUFDialogTransformer` | `ovos_gguf_plugin/dialog_transformers.py` |
 
 !!! note "Scope"
-    Unlike `ovos-claude-plugin`, this plugin does **not** ship coref / reranker / extractive-QA /
-    NLI / yes-no / memory engines, a chat-summarizer, or an utterance transformer. For a local
-    LLM reranker, use `ovos-flashrank-reranker-plugin` instead.
+    This plugin does **not** ship coref / reranker / extractive-QA / NLI / yes-no / memory
+    engines, a chat-summarizer, or an utterance transformer. For reranking, install any
+    `opm.agents.reranker` plugin (see [Agent Plugins](agent-plugins.md)).
 
 ---
 
@@ -82,8 +81,7 @@ it is treated as a Hub repo id and loaded with `Llama.from_pretrained(repo_id=..
 **OPM plugin name:** `ovos-chat-gguf-plugin`
 
 Multi-turn conversational LLM using a local GGUF model. Implements `continue_chat`,
-`stream_tokens`, and `stream_sentences` — API-compatible with `ClaudeChatEngine` and
-`OpenAIChatEngine` for offline use.
+`stream_tokens`, and `stream_sentences` — API-compatible with `OpenAIChatEngine` for offline use.
 
 ```json
 {
@@ -171,27 +169,6 @@ Translate text between languages or detect a text's language using a local GGUF 
 
 ---
 
-## Text Embeddings (`opm.embeddings.text`)
-
-**Class:** `GGUFEmbeddings` — `ovos_gguf_plugin/embeddings.py:GGUFEmbeddings`
-
-**OPM plugin name:** `ovos-gguf-embeddings-plugin`
-
-Produces text embeddings via a GGUF embedding model executed through `llama.cpp`. A built-in
-registry maps friendly names to their Hub location; any other `model` value is treated as a
-repo id or local path.
-
-```json
-{
-  "ovos-gguf-embeddings-plugin": {
-    "model": "/path/to/embedding-model.gguf"
-  }
-}
-
-```
-
----
-
 ## Dialog Transformer (`opm.transformer.dialog`)
 
 **Class:** `GGUFDialogTransformer` — `ovos_gguf_plugin/dialog_transformers.py:GGUFDialogTransformer`
@@ -271,12 +248,6 @@ CMAKE_ARGS="-DGGML_CUDA=on" pip install llama-cpp-python --force-reinstall
 
 
 - [LLM Transformers](llm-transformers.md) — dialog transformer pipeline
-
-
-- [Mixture of Solvers](mos-plugin.md) — using GGUF engines as offline workers in MoS
-
-
-- [Claude Plugin](claude-plugin.md) — Anthropic Claude cloud alternative
 
 
 - [OpenAI Plugin](openai-plugin.md) — OpenAI-compatible API alternative

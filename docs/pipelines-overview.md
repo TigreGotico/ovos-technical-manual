@@ -118,9 +118,7 @@ OVOS allows users to customize the intent pipeline through configuration files. 
 |--------|-------------|
 | [ovos-common-query-pipeline-plugin](#ovos-common-query-pipeline-plugin) | Answer questions by gathering answers from several skills |
 | [ovos-m2v-pipeline](#ovos-m2v-pipeline) | Intent matching powered by the Model2Vec model |
-| [ovos-ha-pipeline](#ovos-ha-pipeline) | Home Assistant integration |
 | [ovos-padatious-pipeline-plugin](#ovos-padatious-pipeline-plugin) | Neural network intent parser |
-| [ovos-ollama-intent-pipeline-plugin](#ovos-ollama-intent-pipeline-plugin) | Intent matching via Ollama LLMs |
 | [ovos-adapt-pipeline-plugin](#ovos-adapt-pipeline-plugin) | Adapt Intent Parser |
 | [ovos-ocp-pipeline-plugin](#ovos-ocp-pipeline-plugin) | Specialized media handling |
 
@@ -142,30 +140,12 @@ OVOS allows users to customize the intent pipeline through configuration files. 
 
 ---
 
-## ovos-ha-pipeline
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-ha-pipeline](https://github.com/OpenVoiceOS/ovos-ha-pipeline)
-
-
-- **Description**: Home Assistant intent pipeline integration.
-
----
-
 ## ovos-padatious-pipeline-plugin
 
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-padatious-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-padatious-pipeline-plugin)
 
 
 - **Description**: An efficient and agile neural network intent parser.
-
----
-
-## ovos-ollama-intent-pipeline-plugin
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-ollama-intent-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-ollama-intent-pipeline-plugin)
-
-
-- **Description**: Powered by local or remote LLMs via Ollama.
 
 ---
 

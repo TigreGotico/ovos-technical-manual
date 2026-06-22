@@ -74,10 +74,7 @@ The matcher class is `CommonQAService` (a `PipelinePlugin`, so it exposes a sing
     "ovos-common-query-pipeline-plugin": {
       "min_self_confidence": 0.5,
       "min_reranker_score": 0.2,
-      "reranker": "ovos-flashrank-reranker-plugin",
-      "ovos-flashrank-reranker-plugin": {
-        "model": "ms-marco-TinyBERT-L-2-v2"
-      }
+      "reranker": "<your-reranker-plugin>"
     }
   }
 }
@@ -90,7 +87,7 @@ back to the older `intents.common_query` key.
 |-----|---------|-------------|
 | `min_self_confidence` | `0.5` | Minimum confidence a skill must self-report to be considered. |
 | `min_reranker_score` | `0.2` | Minimum reranker score to accept a reranked answer. |
-| `reranker` | `ovos-flashrank-reranker-plugin` | Multiple-choice solver plugin used to rerank (must be installed). |
+| `reranker` | — | An installed `opm.agents.reranker` plugin used to reorder candidate answers. See [Agent Plugins](agent-plugins.md). |
 | `ignore_skill_scores` | `true` | When a reranker is loaded, trust its order over the skills' self-scores. |
 | `min_response_wait` | `1` | Seconds to wait before evaluating responses. |
 | `max_response_wait` | `4` | Hard cap (seconds) on gathering responses, regardless of extensions. |

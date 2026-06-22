@@ -870,7 +870,7 @@
 - Jun 2024 - [First successful run of OpenVoiceOS natively on Windows](https://github.com/mikejgray/ovos-windows): https://drive.google.com/file/d/171801mbhbpG79BvlOlUCxVyMPcDGgnbM/view?usp=sharing
 
 
-- Jul 2024 - Introduction of [ovos-gguf-plugin](https://github.com/OpenVoiceOS/ovos-gguf-plugin) and [ovos-document-chunkers](https://github.com/OpenVoiceOS/ovos-document-chunkers), enabling local LLM inference and RAG capabilities.
+- Jul 2024 - Introduction of [ovos-gguf-plugin](https://github.com/OpenVoiceOS/ovos-gguf-plugin), enabling local LLM inference.
 
 
 - Sep 2024 - `ovos-core` version **0.1.0** released, hitting the first major feature milestone after adopting Semantic Versioning.
@@ -904,9 +904,6 @@
 
 
 - Mar 2026 - `ovos-bus-client` version **1.5.0** released.
-
-
-- Mar 2026 - Introduction of [ovos-claude-plugin](https://github.com/OpenVoiceOS/ovos-claude-plugin), integrating Anthropic's Claude into the OVOS persona system.
 
 
 - Mar 2026 - **GUI refactor**: `ovos-gui` moves to a template-based `GUIInterface` and the `opm.gui_adapter` plugin system, decoupling the GUI layer from the legacy QML/page model.

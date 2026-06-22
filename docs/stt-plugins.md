@@ -167,16 +167,11 @@ MySTTConfig = {
 | [ovos-stt-http-server](#ovos-stt-http-server) | Turn any OVOS STT plugin into a micro service! |
 | [ovos-stt-plugin-wav2vec2](#ovos-stt-plugin-wav2vec2) | OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) |
 | [ovos-stt-plugin-whisper](#ovos-stt-plugin-whisper) | OpenVoiceOS STT plugin for [Whisper](https://github.com/guillaumekln/faster-whisper), using transformers library |
-| [ovos-stt-plugin-MyNorthAI](#ovos-stt-plugin-mynorthai) | No description available |
 | [ovos-stt-plugin-whispercpp](#ovos-stt-plugin-whispercpp) | OpenVoiceOS STT plugin for [whispercpp](https://github.com/ggerganov/whisper.cpp) |
 | [ovos-stt-plugin-fasterwhisper](#ovos-stt-plugin-fasterwhisper) | OpenVoiceOS STT plugin for [Faster Whisper](https://github.com/guillaumekln/faster-whisper) |
-| [ovos-stt-plugin-coreml](#ovos-stt-plugin-coreml) | An OVOS Speech-to-Text plugin that runs speech recognition models natively on Apple devices using CoreML. |
 | [ovos-stt-plugin-nemo](#ovos-stt-plugin-nemo) | OpenVoiceOS STT plugin for [Nemo](https://docs.nvidia.com/nemo-framework/user-guide/latest/nemotoolkit/asr/models.html), GPU is **strongly recommended** |
-| [ovos-stt-plugin-sherpa-onnx](#ovos-stt-plugin-sherpa-onnx) | An OpenVoiceOS Speech-to-Text plugin that uses [Sherpa-ONNX](https://github.com/k2-fsa/sherpa-onnx), the next-generation Kaldi-based speech recognition toolkit. This plugin runs completely offline and supports a wide variety of state-of-the-art architectures including Transducer, Whisper, Moonshine, Paraformer, and various CTC models. |
 | [ovos-stt-plugin-whisper-lm](#ovos-stt-plugin-whisper-lm) | OpenVoiceOS STT plugin for [Whisper-LM-transformers](https://github.com/hitz-zentroa/whisper-lm-transformers), KenLM and Large language model integration with Whisper ASR models implemented in Hugging Face library. |
-| [ovos-stt-plugin-rover](#ovos-stt-plugin-rover) | This plugin provides a **meta-STT engine** for OVOS that aggregates the output of multiple individual STT backends using the **ROVER** (Recognizer Output Voting Error Reduction) algorithm. |
 | [ovos-stt-plugin-citrinet](#ovos-stt-plugin-citrinet) | OpenVoiceOS STT plugin |
-| [ovos-stt-plugin-onnx-asr](#ovos-stt-plugin-onnx-asr) | An OpenVoiceOS Speech-to-Text plugin backed by the lightweight [onnx-asr](https://github.com/istupakov/onnx-asr) library. This plugin runs offline and supports high-performance models like Nvidia Canary, Parakeet, and OpenAI Whisper via ONNX Runtime. |
 | [ovos-stt-plugin-nos](#ovos-stt-plugin-nos) | `pip install ovos-stt-plugin-nos` |
 | [ovos-stt-plugin-HiTZ](#ovos-stt-plugin-hitz) | OpenVoiceOS STT plugin for **Basque** models trained by [HiTZ](https://huggingface.co/HiTZ) |
 | [ovos-stt-plugin-vosk](#ovos-stt-plugin-vosk) | Mycroft STT plugin for [Vosk](https://alphacephei.com/vosk/) |
@@ -315,15 +310,6 @@ MySTTConfig = {
 
 ---
 
-## ovos-stt-plugin-MyNorthAI
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-MyNorthAI](https://github.com/OpenVoiceOS/ovos-stt-plugin-MyNorthAI)
-
-
-- **Description**: No description available
-
----
-
 ## ovos-stt-plugin-whispercpp
 
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp)
@@ -371,32 +357,6 @@ MySTTConfig = {
 
 ---
 
-## ovos-stt-plugin-coreml
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-coreml](https://github.com/OpenVoiceOS/ovos-stt-plugin-coreml)
-
-
-- **Description**: An OVOS Speech-to-Text plugin that runs speech recognition models natively on Apple devices using CoreML.
-
-### Default Configuration
-
-```json
-{
-  "stt": {
-    "module": "ovos-stt-plugin-coreml",
-    "ovos-stt-plugin-coreml": {
-      "metadata": "/path/to/parakeet_ctc_coreml/metadata.json",
-      "vocab":    "/path/to/parakeet_ctc_coreml/vocab.json",
-      "encoder":  "/path/to/parakeet_ctc_coreml/parakeet_ctc_mel_encoder.mlpackage",
-      "decoder":  "/path/to/parakeet_ctc_coreml/parakeet_ctc_decoder.mlpackage"
-    }
-  }
-}
-
-```
-
----
-
 ## ovos-stt-plugin-nemo
 
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-nemo](https://github.com/OpenVoiceOS/ovos-stt-plugin-nemo)
@@ -414,34 +374,6 @@ MySTTConfig = {
         "use_cuda": false
     }
   }
-
-```
-
----
-
-## ovos-stt-plugin-sherpa-onnx
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-sherpa-onnx](https://github.com/OpenVoiceOS/ovos-stt-plugin-sherpa-onnx)
-
-
-- **Description**: An OpenVoiceOS Speech-to-Text plugin that uses [Sherpa-ONNX](https://github.com/k2-fsa/sherpa-onnx), the next-generation Kaldi-based speech recognition toolkit. This plugin runs completely offline and supports a wide variety of state-of-the-art architectures including Transducer, Whisper, Moonshine, Paraformer, and various CTC models.
-
-### Default Configuration
-
-```json
-{
-  "stt": {
-    "module": "ovos-stt-plugin-sherpa-onnx",
-    "ovos-stt-plugin-sherpa-onnx": {
-      "model": "sherpa-onnx-zipformer-en-libriheavy-20230830-large-punct-case",
-      "model_type": "transducer",
-      "encoder": "encoder-epoch-16-avg-2.int8.onnx",
-      "decoder": "decoder-epoch-16-avg-2.int8.onnx",
-      "joiner": "joiner-epoch-16-avg-2.int8.onnx",
-      "tokens": "tokens.txt"
-    }
-  }
-}
 
 ```
 
@@ -473,50 +405,6 @@ MySTTConfig = {
 
 ---
 
-## ovos-stt-plugin-rover
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-rover](https://github.com/OpenVoiceOS/ovos-stt-plugin-rover)
-
-
-- **Description**: This plugin provides a **meta-STT engine** for OVOS that aggregates the output of multiple individual STT backends using the **ROVER** (Recognizer Output Voting Error Reduction) algorithm.
-
-### Default Configuration
-
-```json
-{
-  "stt": {
-    "module": "ovos-stt-plugin-rover",
-    "ovos-stt-plugin-rover": {
-        "timeout": 12,
-        "workers": 4,
-        "backends": [
-          {
-            "module": "ovos-stt-plugin-whisper",
-            "config": {
-              "model": "small.en"
-            }
-          },
-          {
-            "module": "ovos-stt-plugin-vosk",
-            "config": {
-              "model": "vosk-model-en-us"
-            }
-          },
-          {
-            "module": "ovos-stt-plugin-xxx",
-            "config": {
-              "model": "..."
-            }
-          }
-        ]
-    }
-  }
-}
-
-```
-
----
-
 ## ovos-stt-plugin-citrinet
 
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-citrinet](https://github.com/OpenVoiceOS/ovos-stt-plugin-citrinet)
@@ -533,30 +421,6 @@ MySTTConfig = {
       "lang": "ca"
     }
   }
-
-```
-
----
-
-## ovos-stt-plugin-onnx-asr
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-onnx-asr](https://github.com/OpenVoiceOS/ovos-stt-plugin-onnx-asr)
-
-
-- **Description**: An OpenVoiceOS Speech-to-Text plugin backed by the lightweight [onnx-asr](https://github.com/istupakov/onnx-asr) library. This plugin runs offline and supports high-performance models like Nvidia Canary, Parakeet, and OpenAI Whisper via ONNX Runtime.
-
-### Default Configuration
-
-```json
-{
-  "stt": {
-    "module": "ovos-stt-plugin-onnx-asr",
-    "ovos-stt-plugin-onnx-asr": {
-      "model": "nemo-canary-1b-v2",
-      "quantization": "int8"
-    }
-  }
-}
 
 ```
 

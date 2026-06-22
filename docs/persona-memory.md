@@ -1,5 +1,8 @@
 # Persona Memory Plugins
 
+!!! warning "Upcoming — unreleased"
+    The `ovos-memory-plugins` repository is not public yet. This documents planned/upcoming functionality.
+
 **What this is:** a pluggable way to control what an OVOS persona "remembers". Instead of a fixed conversation buffer, a memory plugin decides which past messages (and any summaries or retrieved snippets) get prepended to the LLM call on each turn, and how that history is persisted across turns and sessions.
 
 Persona memory is managed through the `AgentContextManager` interface (OPM `opm.agents.memory`), introduced in [OpenVoiceOS/ovos-plugin-manager#363](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/363) (merged). Integration into `ovos-persona` landed in [OpenVoiceOS/ovos-persona#143](https://github.com/OpenVoiceOS/ovos-persona/pull/143) (merged).
@@ -64,7 +67,7 @@ In a persona JSON or YAML file, set `memory_module` to the plugin entry point:
 
 ## Available Plugins (ovos-memory-plugins)
 
-[TigreGotico/ovos-memory-plugins](https://github.com/TigreGotico/ovos-memory-plugins) packages two `AgentContextManager` implementations.
+[OpenVoiceOS/ovos-memory-plugins](https://github.com/OpenVoiceOS/ovos-memory-plugins) packages two `AgentContextManager` implementations.
 
 ```bash
 pip install ovos-memory-plugins

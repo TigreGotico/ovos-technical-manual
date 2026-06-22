@@ -86,7 +86,7 @@ A lower `threshold` accepts quieter speech; raise it to require stronger speech 
 
 ## Speaker Verification
 
-[TigreGotico/speakeronnx](https://github.com/TigreGotico/speakeronnx) is a pure-`onnxruntime` speaker embedding library (wespeaker resnet34 and ecapa512 models, cc-by-4.0; more model integrations tracked in its issues). The companion plugin `ovos-ww-verifier-plugin-speaker` gates wake-word detections against enrolled household profiles — only recognized household members can activate the assistant; guests are silently ignored. With no profiles enrolled the verifier fails open (everyone allowed).
+The `ovos-ww-verifier-plugin-speaker` plugin gates wake-word detections against enrolled household profiles — only recognized household members can activate the assistant; guests are silently ignored. With no profiles enrolled the verifier fails open (everyone allowed).
 
 Enrollment is a one-time CLI step per person:
 
@@ -134,21 +134,9 @@ Use case: household authorization — a shared-wake-word deployment where each r
 
 ## microWakeWord Plugin
 
-> **Status:** [TigreGotico/ovos-ww-plugin-microwakeword](https://github.com/TigreGotico/ovos-ww-plugin-microwakeword) — private, in development.
+> **Status:** [OpenVoiceOS/ovos-ww-plugin-microwakeword](https://github.com/OpenVoiceOS/ovos-ww-plugin-microwakeword) — private, in development.
 
 OVOS wake-word plugin wrapping [microWakeWord](https://github.com/kahrendt/microWakeWord) TFLite streaming models from the ESPHome ecosystem. Enables zero-cost sub-1 MB wake word models originally designed for microcontrollers.
-
----
-
-## Synthetic Dataset Generation and ww-trainer
-
-The [ww-trainer](https://github.com/TigreGotico/ww-trainer) toolkit provides:
-
-- **Synthetic audio generation** — text-to-speech augmentation to bootstrap wake word training data.
-- **Single-run training** — train a Precise or microWakeWord compatible model from labeled audio.
-- **Genetic hyperparameter search** — automated architecture search.
-- **ONNX export** — produce deployment-ready `.onnx` model files compatible with `ovos-ww-plugin-precise-onnx`.
-- **Live inference testing** — verify a trained model against the microphone in real time.
 
 ---
 

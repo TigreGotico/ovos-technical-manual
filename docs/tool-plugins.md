@@ -32,7 +32,7 @@ The full authoring guide with `AgentTool`, `ToolArguments`, and `ToolOutput` exa
 
 ## PHAL Bus Provider
 
-[TigreGotico/ovos-PHAL-plugin-tools](https://github.com/TigreGotico/ovos-PHAL-plugin-tools) is a PHAL plugin that loads all installed `ToolBox` plugins and registers them on the MessageBus, making them available to any component that can send bus messages.
+[OpenVoiceOS/ovos-PHAL-plugin-tools](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-tools) is a PHAL plugin that loads all installed `ToolBox` plugins and registers them on the MessageBus, making them available to any component that can send bus messages.
 
 ```bash
 pip install ovos-PHAL-plugin-tools
