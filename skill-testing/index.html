@@ -1779,9 +1779,11 @@ waits for it to reach <code>READY</code> state before returning:</p>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># croft.status.state == ProcessState.READY</span>
 </span></code></pre></div>
 <p><code>MiniCroft</code> sets <code>isolate_config=True</code> by default, which clears user XDG configuration
-so tests are reproducible regardless of the developer's local <code>mycroft.conf</code>. It also
-sets a deterministic <code>default_pipeline</code> (<code>DEFAULT_TEST_PIPELINE</code>) that excludes AI/persona,
-<a href="../ocp-pipeline/">OCP</a>, and m2v stages — ensuring consistent intent matching.</p>
+so tests are reproducible regardless of the developer's local <code>mycroft.conf</code>. It also picks
+a deterministic pipeline: it uses <code>DEFAULT_TEST_PIPELINE</code> (Adapt + Padatious) when those
+matchers are installed, otherwise it auto-falls back to <code>LIGHT_TEST_PIPELINE</code> (padacioso-only,
+no C extensions). Either way AI/persona, <a href="../ocp-pipeline/">OCP</a>, and m2v stages are excluded —
+ensuring consistent intent matching.</p>
 <p>See <a href="../ovoscope-minicroft/">ovoscope: minicroft.md</a> for the full constructor reference.</p>
 <h3 id="fakebus">FakeBus<a class="headerlink" href="#fakebus" title="Permanent link">&para;</a></h3>
 <p><code>FakeBus</code> (from <code>ovos_utils.fakebus</code>) is an in-process pub/sub bus that implements

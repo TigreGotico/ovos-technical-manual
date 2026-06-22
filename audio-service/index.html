@@ -1346,6 +1346,13 @@
 <h1 id="audio-service">Audio Service<a class="headerlink" href="#audio-service" title="Permanent link">&para;</a></h1>
 <p><code>ovos-audio</code> is the component responsible for <a href="../tts-plugins/">TTS</a> synthesis and audio playback. It ensures that only one thing is speaking at a time and manages audio focus between different media sources.</p>
 <p><strong>In plain terms:</strong> when a skill says "tell the user X", that <code>speak</code> message lands here. <code>ovos-audio</code> turns the text into sound with a TTS plugin and plays it, ducking any background music while it talks.</p>
+<div class="admonition info">
+<p class="admonition-title">TTS is current; the built-in <em>media</em> playback is the legacy path</p>
+<p>The <strong>TTS / speech</strong> side of <code>ovos-audio</code> (described here) is fully current. Its bundled
+<strong>media-playback</strong> path — the <a href="../media-plugins/#ovos-ocp-audio-plugin">old audio service</a>
+(<code>enable_old_audioservice</code>, on by default) — is <strong>deprecated</strong> and being superseded by the
+standalone <a href="../ovos-media/"><code>ovos-media</code></a> daemon. See <a href="../ovos-media/">Media playback: legacy vs. ovos-media</a>.</p>
+</div>
 <hr />
 <details class="abstract">
 <summary>Technical Reference</summary>
