@@ -11,9 +11,8 @@ theme:
   features:
     - navigation.tabs
     - navigation.tabs.sticky
-    - navigation.sections
-    - navigation.expand
     - navigation.path
+    - navigation.prune
     - navigation.top
     - navigation.tracking
     - navigation.instant
@@ -90,9 +89,9 @@ nav:
   - Getting Started:
       - Installation Options: release-channels.md
       - ovos-installer: ovos-installer.md
-      - RaspOVOS Tutorial: install-raspovos.md
-      - Troubleshooting: raspovos-troubleshooting.md
       - Skill Examples: skill-examples.md
+      - RaspOVOS (legacy image): install-raspovos.md
+      - RaspOVOS Troubleshooting: raspovos-troubleshooting.md
   - Core Architecture:
       - High-level Overview: architecture-overview.md
       - Life of an Utterance: life-of-an-utterance.md
@@ -139,7 +138,7 @@ nav:
       - Language Selection: lang-selection.md
       - Customizing Resources: lang-customization.md
       - Bidirectional Translation: bidirectional-translation.md
-      - Contributing: gitlocalize-tutorial.md
+      - Contributing Translations: ovos-localize-tutorial.md
       - Translation Plugins: translation-plugins.md
       - Translation Server: translate-server.md
       - Technical Parsers:
