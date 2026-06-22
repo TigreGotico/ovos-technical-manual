@@ -1467,7 +1467,7 @@
 <h2 id="persona-server-compat-routes">Persona Server Compat Routes<a class="headerlink" href="#persona-server-compat-routes" title="Permanent link">&para;</a></h2>
 <p><code>pip install ovos-persona-server</code></p>
 <p>Status: merged to <code>dev</code>.</p>
-<p>The persona server baseline is an OpenAI-compatible chat API (<code>/v1/chat/completions</code>, also mounted at <code>/openai/v1</code>). Additional vendor routers are layered on top:</p>
+<p>The persona server baseline is an OpenAI-compatible chat API at <strong><code>/openai/v1/chat/completions</code></strong>. (The unprefixed <code>/v1/...</code> path is also mounted but is <strong>deprecated legacy</strong> — it returns a <code>Deprecation</code> header; a bare-root base URL 404s, so always include the <code>/openai/v1</code> prefix.) Additional vendor routers are layered on top:</p>
 <table>
 <thead>
 <tr>
@@ -1505,7 +1505,7 @@
 <h3 id="openai-compatible-example-existing-stable">OpenAI-compatible example (existing, stable)<a class="headerlink" href="#openai-compatible-example-existing-stable" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">openai</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">client</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;http://localhost:8337&quot;</span><span class="p">)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">client</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;http://localhost:8337/openai/v1&quot;</span><span class="p">)</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;tell me a joke&quot;</span><span class="p">}]</span>
