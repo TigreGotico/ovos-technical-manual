@@ -66,6 +66,16 @@ how it hears, thinks, and speaks, or teach it brand-new abilities.
     [:octicons-arrow-right-24: Translator guide](ovos-localize-tutorial.md) ·
     [Language support](lang-support.md)
 
+-   :material-robot-happy: __I want it to use AI / an LLM__
+
+    ---
+
+    Give your assistant a chat brain — ChatGPT-style, a local model, or a custom persona.
+
+    [:octicons-arrow-right-24: Personas](personas.md) ·
+    [Agent engines](agent-plugins.md) ·
+    [Local LLM (GGUF)](gguf-plugin.md)
+
 </div>
 
 ---
