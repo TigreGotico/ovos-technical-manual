@@ -57,7 +57,7 @@ A more advanced STT class for streaming data to the STT. This will receive chunk
 
 The plugin author needs to implement the `create_streaming_thread()` method creating a thread for handling data sent through `self.queue`. 
 
-The thread this method creates should be based on the [StreamThread class](). `handle_audio_data()` method also needs to be implemented.
+The thread this method creates should be based on the `StreamThread` class. `handle_audio_data()` method also needs to be implemented.
 
 ## Entry point
 

@@ -152,6 +152,8 @@ my-transformer = "my_package.module:MyTransformer"
 | [ovos-utterance-plugin-cancel](#ovos-utterance-plugin-cancel) | plugin to look at the tail end of the transcribed phrase, ignoring the utterance if it ends with "nevermind that" or "cancel it" or "ignore that". |
 | [ovos-audio-transformer-plugin-ggwave](#ovos-audio-transformer-plugin-ggwave) | plugin for https://github.com/ggerganov/ggwave |
 | [ovos-tts-transformer-sox-plugin](#ovos-tts-transformer-sox-plugin) | This repository contains a Python package for a Text-to-Speech (TTS) transformer that utilizes SoX (Sound eXchange) for audio processing. The transformer applies various effects to the generated audio before playback. |
+| [ovos_tts_transformer_FlashSR](#ovos_tts_transformer_flashsr) | ONNX-based audio super-resolution that upsamples synthesized TTS audio before playback (not yet on PyPI). |
+| [ovos_tts_transformer_NovaSR](#ovos_tts_transformer_novasr) | torch-based audio super-resolution upsampler for synthesized TTS audio (not yet on PyPI). |
 
 ## ovos-dialog-normalizer-plugin
 
@@ -222,6 +224,24 @@ my-transformer = "my_package.module:MyTransformer"
 
 
 - **Description**: This repository contains a Python package for a Text-to-Speech (TTS) transformer that utilizes SoX (Sound eXchange) for audio processing. The transformer applies various effects to the generated audio before playback.
+
+---
+
+## ovos_tts_transformer_FlashSR
+
+- **GitHub**: [https://github.com/OpenVoiceOS/ovos_tts_transformer_FlashSR](https://github.com/OpenVoiceOS/ovos_tts_transformer_FlashSR)
+
+
+- **Description**: ONNX-based audio super-resolution TTS transformer (`FlashSRTTSTransformer`); upsamples synthesized audio before playback, downloading its model from the Hugging Face Hub. Entry point `ovos-tts-transformer-FlashSR` under `opm.transformer.tts`. **Upcoming** — not yet published to PyPI.
+
+---
+
+## ovos_tts_transformer_NovaSR
+
+- **GitHub**: [https://github.com/OpenVoiceOS/ovos_tts_transformer_NovaSR](https://github.com/OpenVoiceOS/ovos_tts_transformer_NovaSR)
+
+
+- **Description**: torch-based super-resolution upsampler TTS transformer (`NovaSRTTSTransformer`). Entry point `ovos-tts-transformer-NovaSR` under `opm.transformer.tts`. **Upcoming** — not yet published to PyPI.
 
 ---
 

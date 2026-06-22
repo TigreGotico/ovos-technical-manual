@@ -100,6 +100,14 @@ Replace `"plugin_name"` with the identifier of the desired plugin and provide an
 
 ---
 
+!!! warning "Upcoming — unreleased"
+    The following super-resolution transformers exist in their repos but are **not yet published to PyPI**, so `pip install` will not find them. They upsample/enhance the TTS audio before playback.
+
+    * **OVOS FlashSR TTS Transformer** (`FlashSRTTSTransformer`): ONNX-based audio super-resolution, downloads its model from the Hugging Face Hub. Entry point `ovos-tts-transformer-FlashSR` under `opm.transformer.tts`. Source: [ovos_tts_transformer_FlashSR](https://github.com/OpenVoiceOS/ovos_tts_transformer_FlashSR).
+    * **OVOS NovaSR TTS Transformer** (`NovaSRTTSTransformer`): torch-based super-resolution upsampler. Entry point `ovos-tts-transformer-NovaSR` under `opm.transformer.tts`. Source: [ovos_tts_transformer_NovaSR](https://github.com/OpenVoiceOS/ovos_tts_transformer_NovaSR).
+
+---
+
 ## Creating Custom TTS Transformers
 
 To develop your own TTS Transformer:

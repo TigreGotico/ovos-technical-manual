@@ -234,12 +234,14 @@ There are **249** public, actively-maintained repositories in the [`OpenVoiceOS`
 | [ovos-tool-adapters](https://github.com/OpenVoiceOS/ovos-tool-adapters) |  |
 | [padatious_cache](https://github.com/OpenVoiceOS/padatious_cache) | pre trained padatious intents to make first boot faster |
 
-## Transformer plugins (2)
+## Transformer plugins (4)
 
 | Repository | Description |
 |---|---|
 | [ovos-audio-transformer-plugin-ggwave](https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-ggwave) | data over sound plugin |
 | [ovos-audio-transformer-plugin-speechbrain-langdetect](https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-speechbrain-langdetect) | speech language detection plugin |
+| [ovos_tts_transformer_FlashSR](https://github.com/OpenVoiceOS/ovos_tts_transformer_FlashSR) | ONNX TTS audio super-resolution (upcoming, not yet on PyPI) |
+| [ovos_tts_transformer_NovaSR](https://github.com/OpenVoiceOS/ovos_tts_transformer_NovaSR) | torch TTS audio super-resolution (upcoming, not yet on PyPI) |
 
 ## Hardware / OS images (10)
 
