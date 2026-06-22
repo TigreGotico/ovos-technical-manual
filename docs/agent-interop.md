@@ -21,8 +21,6 @@ OVOS exposes its speech, translation, and reasoning services as first-class agen
 
 ### STT Server
 
-> **Status:** Merged to `dev` — [OpenVoiceOS/ovos-stt-http-server#75](https://github.com/OpenVoiceOS/ovos-stt-http-server/pull/75)
-
 ```bash
 pip install "ovos-stt-http-server[mcp]"
 ovos-stt-server --engine ovos-stt-plugin-whisper --port 9666 --mcp
@@ -50,8 +48,6 @@ Claude Desktop config:
 
 ### TTS Server
 
-> **Status:** Merged to `dev` — [OpenVoiceOS/ovos-tts-server#100](https://github.com/OpenVoiceOS/ovos-tts-server/pull/100)
-
 ```bash
 pip install "ovos-tts-server[mcp]"
 ovos-tts-server --engine ovos-tts-plugin-piper --port 9667 --mcp
@@ -76,8 +72,6 @@ curl -s 'http://localhost:9667/v2/synthesize?utterance=hello%20world' -o out.wav
 
 ### Translate Server
 
-> **Status:** Merged to `dev` — [OpenVoiceOS/ovos-translate-server#16](https://github.com/OpenVoiceOS/ovos-translate-server/pull/16)
-
 ```bash
 pip install "ovos-translate-server[mcp]"
 python -m ovos_translate_server --tx-engine ovos-google-translate-plugin --port 9669
@@ -93,8 +87,6 @@ UTCP tools: `ovos_translate.translate`, `ovos_translate.detect_language`, and th
 MCP tools: `translate` (params: `text`, `target_lang`, optional `source_lang`), `detect_language` (param: `text`).
 
 ### Persona Server — Tool Plugins via MCP + UTCP
-
-> **Status:** Merged to `dev` — [OpenVoiceOS/ovos-persona-server#37](https://github.com/OpenVoiceOS/ovos-persona-server/pull/37)
 
 The persona server surfaces every installed OPM `ToolBox` plugin as both a UTCP tool and an MCP tool.
 
@@ -117,8 +109,6 @@ ovos-persona-server --persona my_persona.json
 A2A is the [Google A2A open protocol](https://google.github.io/A2A/). An A2A server publishes a discovery document (agent card) and accepts tasks via JSON-RPC 2.0.
 
 ### Persona Server as A2A Server
-
-> **Status:** Merged to `dev` — [OpenVoiceOS/ovos-persona-server#35](https://github.com/OpenVoiceOS/ovos-persona-server/pull/35)
 
 ```bash
 pip install "ovos-persona-server[a2a]"

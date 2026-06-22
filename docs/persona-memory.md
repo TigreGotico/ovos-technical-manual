@@ -8,7 +8,7 @@
 
 **What this is:** a pluggable way to control what an OVOS persona "remembers". Instead of a fixed conversation buffer, a memory plugin decides which past messages (and any summaries or retrieved snippets) get prepended to the LLM call on each turn, and how that history is persisted across turns and sessions.
 
-Persona memory is managed through the `AgentContextManager` interface (OPM `opm.agents.memory`), introduced in [OpenVoiceOS/ovos-plugin-manager#363](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/363) (merged). Integration into `ovos-persona` landed in [OpenVoiceOS/ovos-persona#143](https://github.com/OpenVoiceOS/ovos-persona/pull/143) (merged).
+Persona memory is managed through the `AgentContextManager` interface (OPM `opm.agents.memory`), which `ovos-persona` loads for each persona.
 
 ---
 
@@ -39,7 +39,7 @@ class MyMemory(AgentContextManager):  # all three methods are abstract
 
 ## Per-Session Persona Tracking
 
-[OpenVoiceOS/ovos-persona#140](https://github.com/OpenVoiceOS/ovos-persona/pull/140) (merged, built on ovos-bus-client#192) adds session isolation to persona management:
+Persona management is session-isolated:
 
 - Each `Session` can activate a different persona.
 - Conversation history is tracked per session, not globally.

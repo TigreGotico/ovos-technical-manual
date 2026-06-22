@@ -262,8 +262,7 @@ The base class (`PHALPlugin`) is a `threading.Thread`. Key points:
     `AbstractLed`, `AbstractFan`, and `AbstractSwitches` (plus a suite of ready-made
     LED animations) — live in the
     [`ovos-hardware-helpers`](https://github.com/OpenVoiceOS/ovos_hardware_helpers)
-    library. They previously lived in `ovos-plugin-manager`; that library is the
-    drop-in replacement.
+    library; subclass them there when writing a hardware PHAL plugin.
 
 ### Validator
 

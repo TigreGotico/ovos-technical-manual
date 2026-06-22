@@ -138,7 +138,7 @@ pip install ovos-core[mycroft,plugins,skills-essential]
 
 ## Technical Notes
 
-- OVOS originally began as a fork of `mycroft-core`. Since version **0.0.8**, it has been **fully modularized**, with each major service in its own repository.
+- OVOS is **fully modularized**, with each major service in its own repository, so you install only what you need.
 
 
 - All packages follow [Semantic Versioning (SemVer)](https://semver.org/), so you can rely on versioning to understand stability and compatibility.

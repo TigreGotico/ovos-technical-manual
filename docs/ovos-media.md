@@ -16,7 +16,7 @@
     |---|---|---|
     | **Package** | `ovos-ocp-audio-plugin` in [`ovos-audio`](audio-service.md) | `ovos-media` (standalone daemon) |
     | **Status** | deprecated, still shipped & on by default | opt-in refactor, not default |
-    | **Playback** | one monolithic audio backend | per-request audio/video/web [media plugins](media-plugins.md) (`opm.media.*`) |
+    | **Playback** | one bundled audio backend | per-request audio/video/web [media plugins](media-plugins.md) (`opm.media.*`) |
     | **Extras** | — | MPRIS, per-session state, multiple players |
     | **Config** | `enable_old_audioservice: true` (default) | `enable_old_audioservice: false` + run `ovos-media` |
 
@@ -65,16 +65,14 @@ To use `ovos-media` you need to disable the old audio service and enable the OCP
 
 ---
 
-## Architecture History
+## Architecture
 
-OCP (OVOS Common Play) was originally implemented as an `AudioBackend` plugin inside the Mycroft
-audio service — a severe misuse of an interface designed for thin wrappers around playback binaries.
-The result was `ovos-ocp-audio-plugin`: a monolith that crammed NLP, search orchestration, player
-state machine, MPRIS, and GUI into a single mycroft audio backend.
-
-The NLP portion was later extracted into `ovos-ocp-pipeline-plugin` (now `ocp-pipeline`), and the
-player is now being migrated to `ovos-media`. Both the old plugin and the new daemon currently
-exist in parallel:
+OCP (OVOS Common Play) splits into a **search/match layer** and a **playback layer**. The search
+layer — the [`ocp-pipeline`](ocp-pipeline.md), OCP skills (media catalogs), and stream extractors —
+is shared regardless of which playback layer you run. The playback layer has two implementations
+that currently run in parallel: the legacy ["old audio service"](media-plugins.md#ovos-ocp-audio-plugin)
+(`ovos-ocp-audio-plugin` inside [`ovos-audio`](audio-service.md)) and the standalone `ovos-media`
+daemon described here, which is the target:
 
 ```
 [Current / target]
