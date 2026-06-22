@@ -2454,9 +2454,11 @@ Returns <code>{plugin_name: [list_of_valid_config_dicts]}</code>.</p>
 Invalid/empty config lists are removed.</p>
 <hr />
 <h2 id="configuration-priority">Configuration Priority<a class="headerlink" href="#configuration-priority" title="Permanent link">&para;</a></h2>
-<p>Within a config list, entries are sorted by their <code>"priority"</code> key. Higher values are
-more preferred; factory methods iterate from the end (highest priority last). The default
-priority is <code>60</code>. A dialect match boosts priority by <code>+15</code>.</p>
+<p>Within a config list, entries are sorted <strong>ascending</strong> by their <code>"priority"</code> key (default
+<code>60</code>) — <code>sort_plugin_configs()</code> puts the highest-numbered priority at the end of the list.
+A dialect (non-exact-language) match has <code>+15</code> added to its priority. See
+<code>sort_plugin_configs</code> / <code>get_valid_plugin_configs</code> in <code>ovos_plugin_manager.utils.config</code>
+for the exact ordering used when selecting a config.</p>
 <hr />
 <h2 id="voice-satellites-hivemind">Voice Satellites (<a href="../hivemind-agents/">HiveMind</a>)<a class="headerlink" href="#voice-satellites-hivemind" title="Permanent link">&para;</a></h2>
 <p>HiveMind setups allow distributing which plugins run server-side or satellite-side:</p>

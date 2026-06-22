@@ -1607,11 +1607,10 @@
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8181</span><span class="p">,</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">&quot;route&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/core&quot;</span><span class="p">,</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">&quot;ssl&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;max_msg_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">&quot;filter&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nt">&quot;filter_logs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;gui.status.request&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;gui.page.upload&quot;</span><span class="p">]</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;shared_connection&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">&quot;max_msg_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
 </span></code></pre></div>
 <table>
 <thead>
@@ -1643,22 +1642,20 @@
 <td>Enable WSS/TLS.</td>
 </tr>
 <tr>
+<td><code>shared_connection</code></td>
+<td><code>true</code></td>
+<td>When <code>true</code>, each skill gets its own bus connection (so one skill can't manipulate another's).</td>
+</tr>
+<tr>
 <td><code>max_msg_size</code></td>
 <td><code>25</code></td>
 <td>Max WebSocket frame size in megabytes.</td>
 </tr>
-<tr>
-<td><code>filter</code></td>
-<td><code>false</code></td>
-<td>Enable debug logging of message types before broadcast.</td>
-</tr>
-<tr>
-<td><code>filter_logs</code></td>
-<td><code>["gui.status.request", "gui.page.upload"]</code></td>
-<td>Message types excluded from filter logging.</td>
-</tr>
 </tbody>
 </table>
+<p><code>filter</code> / <code>filter_logs</code> are also recognized (code-level defaults in the message-bus event
+handler — <code>filter</code> off, <code>filter_logs</code> <code>["gui.status.request", "gui.page.upload"]</code>) but are not
+part of the shipped <code>mycroft.conf</code> <code>websocket</code> section.</p>
 <div class="admonition danger">
 <p class="admonition-title">Security: the bus has no authentication — keep it local</p>
 <p>The messagebus has <strong>no authentication and no encryption</strong>, and <strong>any</strong> client that can
