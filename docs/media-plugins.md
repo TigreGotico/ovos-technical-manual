@@ -3,48 +3,35 @@
 !!! abstract "In a nutshell"
     These plugins are the **playback backends** that actually push audio/video to your
     speakers or screen (VLC, MPV, Chromecast, Spotify…). OVOS is mid-migration between two
-    playback systems, so there are **two families** of these plugins. Which one you need
-    depends on which backend you run — see [Media playback: legacy vs. ovos-media](ovos-media.md).
+    playback systems, and a single plugin **package is meant to ship a version for both** —
+    see [Media playback: legacy vs. ovos-media](ovos-media.md).
 
-OVOS has two media-playback backends that share the same [OCP](ocp-pipeline.md) search
-framework but use **different, non-interchangeable** playback plugins:
+## Two interfaces, one package
 
-- **Legacy "old audio service"** — the [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin)
-  inside [`ovos-audio`](audio-service.md), with `AudioBackend`-style plugins. **Deprecated but
-  still the shipped default.**
-- **[`ovos-media`](ovos-media.md) (upcoming)** — a standalone daemon with `opm.media.*`
-  plugins you can mix per request. **Opt-in; not the default yet.**
+A playback plugin can implement **two separate entry-point families**:
 
-A plugin written for one backend does **not** work in the other. Pick the family that
-matches your configured backend.
+- **Old audio service** — `mycroft.plugin.audioservice` (used by the deprecated
+  [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) / "old audio service", the shipped default).
+- **[`ovos-media`](ovos-media.md)** — `opm.media.{audio,video,web}` (the upcoming daemon).
 
----
+These two families are **separate** (different entry-point groups and base classes), **but a
+plugin package is meant to ship a version for *both*** — so a single `pip install` gives you a
+backend that works whichever playback system you run. Where a package currently ships only one
+family, adding the other is a **TODO**.
 
-## ovos-media plugins (upcoming)
+| Package | Player | Ships for |
+|---|---|---|
+| [ovos-media-plugin-spotify](#ovos-media-plugin-spotify) | Spotify Connect | ✅ both (old audio service + ovos-media) |
+| [ovos-media-plugin-chromecast](#ovos-media-plugin-chromecast) | Chromecast (audio + video) | ✅ both |
+| [ovos-media-plugin-vlc](#ovos-media-plugin-vlc) | headless VLC (audio + video) | ovos-media only — *old audio service: TODO* |
+| [ovos-media-plugin-mplayer](#ovos-media-plugin-mplayer) | MPlayer (audio + video) | ovos-media only — *old audio service: TODO* |
+| [ovos-media-plugin-simple](#ovos-media-plugin-simple) | minimal/default audio | ovos-media only — *old audio service: TODO* |
+| [ovos-plugin-vlc](#ovos-plugin-vlc) | VLC | old audio service only (legacy) — use ovos-media-plugin-vlc for ovos-media |
+| [ovos-audio-plugin-mpv](#ovos-audio-plugin-mpv) | MPV | old audio service only (legacy) |
+| [ovos-audio-plugin-simple](#ovos-audio-plugin-simple) | minimal audio | old audio service only — ⚠️ ovos ≤ 0.0.7 |
 
-Used by the [`ovos-media`](ovos-media.md) daemon (`opm.media.{audio,video,web}`). Enable
-them by listing them under `media` → `audio_players` / `video_players` in `mycroft.conf`.
-
-| Plugin | Description |
-|--------|-------------|
-| [ovos-media-plugin-vlc](#ovos-media-plugin-vlc) | Headless VLC audio/video playback for ovos-media. |
-| [ovos-media-plugin-mplayer](#ovos-media-plugin-mplayer) | MPlayer playback backend for ovos-media. |
-| [ovos-media-plugin-simple](#ovos-media-plugin-simple) | Minimal/default playback backend for ovos-media. |
-| [ovos-media-plugin-spotify](#ovos-media-plugin-spotify) | Spotify Connect playback (works with ovos-audio and ovos-media). |
-| [ovos-media-plugin-chromecast](#ovos-media-plugin-chromecast) | Cast playback to a Chromecast (works with ovos-audio and ovos-media). |
-
-## Legacy audio backends (old audio service — deprecated)
-
-Used by the legacy [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) / "old audio service"
-in [`ovos-audio`](audio-service.md). **Deprecated** — kept because the old audio service is
-still shipped and on by default. New setups should prefer the ovos-media plugins above.
-
-| Plugin | Description |
-|--------|-------------|
-| [ovos-ocp-audio-plugin](#ovos-ocp-audio-plugin) | The "old audio service" itself — bundles OCP search, player state, MPRIS and GUI into one `ovos-audio` backend. ⚠️ Deprecated; superseded by [ovos-media](ovos-media.md). |
-| [ovos-plugin-vlc](#ovos-plugin-vlc) | VLC `AudioBackend` for the old audio service. |
-| [ovos-audio-plugin-mpv](#ovos-audio-plugin-mpv) | MPV `AudioBackend` for the old audio service. |
-| [ovos-audio-plugin-simple](#ovos-audio-plugin-simple) | ⚠️ Very old simple backend — only works on ovos ≤ 0.0.7. |
+The [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) below is not a playback backend — it is the
+**old audio service itself** (deprecated, still the shipped default).
 
 ---
 
@@ -53,7 +40,7 @@ still shipped and on by default. New setups should prefer the ovos-media plugins
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-spotify](https://github.com/OpenVoiceOS/ovos-media-plugin-spotify)
 
 
-- **Description**: spotify plugin for [ovos-audio](https://github.com/OpenVoiceOS/ovos-audio) and [ovos-media](https://github.com/OpenVoiceOS/ovos-media)
+- **Description**: Spotify Connect playback. Ships entry points for **both** the old audio service (`mycroft.plugin.audioservice`) and [ovos-media](https://github.com/OpenVoiceOS/ovos-media) (`opm.media.audio`).
 
 ---
 
@@ -62,7 +49,7 @@ still shipped and on by default. New setups should prefer the ovos-media plugins
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-vlc](https://github.com/OpenVoiceOS/ovos-media-plugin-vlc)
 
 
-- **Description**: vlc plugin for [ovos-media](https://github.com/OpenVoiceOS/ovos-media)
+- **Description**: Headless VLC audio/video playback. Currently ships the [ovos-media](https://github.com/OpenVoiceOS/ovos-media) version (`opm.media.audio` / `opm.media.video`) only; an old-audio-service version is a TODO (use [ovos-plugin-vlc](#ovos-plugin-vlc) on the old audio service for now).
 
 ---
 
@@ -71,7 +58,7 @@ still shipped and on by default. New setups should prefer the ovos-media plugins
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-chromecast](https://github.com/OpenVoiceOS/ovos-media-plugin-chromecast)
 
 
-- **Description**: chromecast plugin for [ovos-audio](https://github.com/OpenVoiceOS/ovos-audio) and [ovos-media](https://github.com/OpenVoiceOS/ovos-media)
+- **Description**: Cast audio/video to a Chromecast. Ships entry points for **both** the old audio service and [ovos-media](https://github.com/OpenVoiceOS/ovos-media) (`opm.media.audio` / `opm.media.video`).
 
 ---
 
@@ -89,7 +76,7 @@ still shipped and on by default. New setups should prefer the ovos-media plugins
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-simple](https://github.com/OpenVoiceOS/ovos-media-plugin-simple)
 
 
-- **Description**: simple plugin for [ovos-media](https://github.com/OpenVoiceOS/ovos-media)
+- **Description**: Minimal/default audio playback for [ovos-media](https://github.com/OpenVoiceOS/ovos-media) (`opm.media.audio`). An old-audio-service version is a TODO.
 
 ---
 
@@ -98,7 +85,7 @@ still shipped and on by default. New setups should prefer the ovos-media plugins
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-audio-plugin-simple](https://github.com/OpenVoiceOS/ovos-audio-plugin-simple)
 
 
-- **Description**: ⚠️ Legacy old-audio-service backend. This plugin was made for old OCP, it only works in ovos <= 0.0.7
+- **Description**: ⚠️ Legacy old-audio-service backend (`mycroft.plugin.audioservice`). This plugin was made for old OCP and only works on ovos ≤ 0.0.7.
 
 ---
 
@@ -107,7 +94,7 @@ still shipped and on by default. New setups should prefer the ovos-media plugins
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-plugin-vlc](https://github.com/OpenVoiceOS/ovos-plugin-vlc)
 
 
-- **Description**: The VLC OVOS Plugin integrates VLC media player capabilities with the Open Voice OS (OVOS) ecosystem, providing an audio backend for playing various media formats. ⚠️ Legacy old-audio-service `AudioBackend`; for ovos-media use [ovos-media-plugin-vlc](#ovos-media-plugin-vlc).
+- **Description**: VLC `AudioBackend` for the **old audio service** (`mycroft.plugin.audioservice`). For the [ovos-media](ovos-media.md) backend use [ovos-media-plugin-vlc](#ovos-media-plugin-vlc).
 
 ---
 
@@ -116,7 +103,7 @@ still shipped and on by default. New setups should prefer the ovos-media plugins
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-mplayer](https://github.com/OpenVoiceOS/ovos-media-plugin-mplayer)
 
 
-- **Description**: Mplayer plugin for [ovos-media](https://github.com/OpenVoiceOS/ovos-media)
+- **Description**: MPlayer audio/video playback for [ovos-media](https://github.com/OpenVoiceOS/ovos-media) (`opm.media.audio` / `opm.media.video`). An old-audio-service version is a TODO.
 
 ---
 
@@ -125,6 +112,6 @@ still shipped and on by default. New setups should prefer the ovos-media plugins
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-audio-plugin-mpv](https://github.com/OpenVoiceOS/ovos-audio-plugin-mpv)
 
 
-- **Description**: The MPV OVOS Plugin integrates MPV media player capabilities with the Open Voice OS (OVOS) ecosystem, providing an audio backend for playing various media formats. ⚠️ Legacy old-audio-service `AudioBackend`.
+- **Description**: MPV `AudioBackend` for the **old audio service** (`mycroft.plugin.audioservice`).
 
 ---
