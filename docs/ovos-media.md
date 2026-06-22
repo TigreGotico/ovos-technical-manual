@@ -20,8 +20,15 @@
     | **Extras** | — | MPRIS, per-session state, multiple players |
     | **Config** | `enable_old_audioservice: true` (default) | `enable_old_audioservice: false` + run `ovos-media` |
 
-    The OCP **pipeline**, **skills** and **stream extractors** are unaffected by which backend
-    you use — only the *playback* layer differs.
+    The OCP **pipeline** and **stream extractors** are unaffected by which backend you use —
+    only the *playback* layer differs. (OCP **skills** are a separate, longer-term change —
+    see the next note.)
+
+!!! info "Planned — MediaProvider plugins replace OCP skills"
+    Longer term, media catalogs will move **out of skills and into plugins**: a new
+    **MediaProvider** plugin type is planned, which `ovos-media` will consume directly in place
+    of today's [OCP skills](ocp-skills.md). This is **not implemented yet** (no such plugin type
+    exists in `ovos-plugin-manager` today); OCP skills remain the way to provide media for now.
 
 `ovos-media` is the standalone audio/video daemon for OpenVoiceOS. It is the **upcoming
 replacement** for the legacy audio service, providing a more robust and modular media player
