@@ -1,0 +1,2652 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/ecosystem-index/">
+      
+      
+        <link rel="prev" href="../wyoming-bridges/">
+      
+      
+        <link rel="next" href="../bus-client-overview/">
+      
+      
+      <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>OVOS Repository Index - OpenVoiceOS Technical Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ovos-repository-index" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenVoiceOS Technical Manual" class="md-header__button md-logo" aria-label="OpenVoiceOS Technical Manual" data-md-component="logo">
+      
+  <img src="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenVoiceOS Technical Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OVOS Repository Index
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TigreGotico/ovos-technical-manual" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TigreGotico/ovos-technical-manual
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../release-channels/" class="md-tabs__link">
+          
+  
+  Get Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../architecture-overview/" class="md-tabs__link">
+          
+  
+  Core Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../pipelines-overview/" class="md-tabs__link">
+          
+  
+  Intent Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../lang-support/" class="md-tabs__link">
+          
+  
+  Language Support
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../skill-design-guidelines/" class="md-tabs__link">
+          
+  
+  Skill Development
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../plugins-index/" class="md-tabs__link">
+          
+  
+  Plugin Ecosystem
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../stt-server/" class="md-tabs__link">
+          
+  
+  Advanced & Self Hosting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenVoiceOS Technical Manual" class="md-nav__button md-logo" aria-label="OpenVoiceOS Technical Manual" data-md-component="logo">
+      
+  <img src="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true" alt="logo">
+
+    </a>
+    OpenVoiceOS Technical Manual
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TigreGotico/ovos-technical-manual" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TigreGotico/ovos-technical-manual
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href=".." class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../release-channels/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Get Started
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../architecture-overview/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Core Architecture
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../pipelines-overview/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Intent Pipeline
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../lang-support/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Language Support
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../skill-design-guidelines/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Skill Development
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../plugins-index/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Plugin Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../stt-server/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Advanced & Self Hosting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    OVOS Repository Index
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    OVOS Repository Index
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-services-libraries-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core services &amp; libraries (17)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skills-53" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skills (53)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stt-plugins-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      STT plugins (11)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tts-plugins-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTS plugins (17)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wake-word-plugins-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wake Word plugins (7)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vad-plugins-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      VAD plugins (3)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microphone-plugins-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Microphone plugins (4)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solver-agent-plugins-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solver / Agent plugins (7)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phal-plugins-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      PHAL plugins (18)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#media-ocp-plugins-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Media / OCP plugins (14)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#translation-plugins-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Translation plugins (6)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-intent-plugins-9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pipeline / Intent plugins (9)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformer-plugins-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transformer plugins (2)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-os-images-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware / OS images (10)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tooling-ci-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tooling &amp; CI (14)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datasets-models-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Datasets &amp; Models (3)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-infrastructure-webblog-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project infrastructure (web/blog) (4)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-components-48" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other components (48)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../bus-client-overview/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Library Docs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../docs-viewer/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../mark1/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Misc
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-services-libraries-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core services &amp; libraries (17)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skills-53" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skills (53)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stt-plugins-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      STT plugins (11)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tts-plugins-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTS plugins (17)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wake-word-plugins-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Wake Word plugins (7)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vad-plugins-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      VAD plugins (3)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microphone-plugins-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Microphone plugins (4)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solver-agent-plugins-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solver / Agent plugins (7)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phal-plugins-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      PHAL plugins (18)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#media-ocp-plugins-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Media / OCP plugins (14)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#translation-plugins-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Translation plugins (6)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-intent-plugins-9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pipeline / Intent plugins (9)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformer-plugins-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transformer plugins (2)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-os-images-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware / OS images (10)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tooling-ci-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tooling &amp; CI (14)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datasets-models-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Datasets &amp; Models (3)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-infrastructure-webblog-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project infrastructure (web/blog) (4)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-components-48" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other components (48)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="ovos-repository-index">OVOS Repository Index<a class="headerlink" href="#ovos-repository-index" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>OVOS is a large ecosystem of small, focused repositories — core services, plus hundreds of swappable <a href="../plugins-index/">plugins</a> and <a href="../skill-design-guidelines/">skills</a>. This page is the map: every <strong>public</strong> repository in the <a href="https://github.com/OpenVoiceOS">OpenVoiceOS GitHub organization</a>, grouped by what it does, so you can find the right one. (Archived and private repos are omitted.)</p>
+</div>
+<p>There are <strong>249</strong> public, actively-maintained repositories in the <a href="https://github.com/OpenVoiceOS"><code>OpenVoiceOS</code></a> organization. Browse them by category below; click any name to open it on GitHub.</p>
+<blockquote>
+<p>Generated from the live organization repository list. If a repository is missing here it is either archived, private, or newly created — check the <a href="https://github.com/OpenVoiceOS">organization page</a> for the authoritative list.</p>
+</blockquote>
+<h2 id="core-services-libraries-17">Core services &amp; libraries (17)<a class="headerlink" href="#core-services-libraries-17" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-audio">ovos-audio</a></td>
+<td>OpenVoiceOS audio output daemon</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-bus-client">ovos-bus-client</a></td>
+<td>messagebus client for the OVOS ecosystem</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-color-parser">ovos-color-parser</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-config">ovos-config</a></td>
+<td>OVOS configuration manager library</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-core">ovos-core</a></td>
+<td>OpenVoiceOS Core, the FOSS Artificial Intelligence platform.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-date-parser">ovos-date-parser</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener">ovos-dinkum-listener</a></td>
+<td>ovos-listener based on the voice loop from mycroft-dinkum</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-gui">ovos-gui</a></td>
+<td>ovos-core metapackage for gui daemon</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-gui-api-client">ovos-gui-api-client</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-lang-parser">ovos-lang-parser</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-messagebus">ovos-messagebus</a></td>
+<td>ovos-core bus daemon</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-number-parser">ovos-number-parser</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-opendata-server">ovos-opendata-server</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-plugin-manager">ovos-plugin-manager</a></td>
+<td>plugin manager for OpenVoiceOS , STT/TTS/Wakewords that can be used anywhere</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-pydantic-models">ovos-pydantic-models</a></td>
+<td>Full index of all valid OpenVoiceOS bus messages + pydantic models for validation</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-utils">ovos-utils</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-workshop">ovos-workshop</a></td>
+<td>frameworks, templates and patches for the OpenVoiceOS universe</td>
+</tr>
+</tbody>
+</table>
+<h2 id="skills-53">Skills (53)<a class="headerlink" href="#skills-53" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-alerts">ovos-skill-alerts</a></td>
+<td>Alerts Skill Repository</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-application-launcher">ovos-skill-application-launcher</a></td>
+<td>launch applications by voice</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-audio-recording">ovos-skill-audio-recording</a></td>
+<td>control recording mode in ovos-dinkum-listener</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-bandcamp">ovos-skill-bandcamp</a></td>
+<td>bandcamp common play skill</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-boot-finished">ovos-skill-boot-finished</a></td>
+<td>Skill to speak a notification when everything is started and ready</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-camera">ovos-skill-camera</a></td>
+<td>webcam for OVOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-cmd">ovos-skill-cmd</a></td>
+<td>A simple OVOS skill for launching shell scripts and system commands</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-color-picker">ovos-skill-color-picker</a></td>
+<td>Look up css3 colors.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-confucius-quotes">ovos-skill-confucius-quotes</a></td>
+<td>Quotes from Confucius</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-count">ovos-skill-count</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-date-time">ovos-skill-date-time</a></td>
+<td>OpenVoiceOS Date and Time Skill, providing the current time, date and day of week for cities around the world.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-days-in-history">ovos-skill-days-in-history</a></td>
+<td>Informs you of historical tidbits about a given calendar day</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-ddg">ovos-skill-ddg</a></td>
+<td>duck duck go skill</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-diagnostics">ovos-skill-diagnostics</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-dictation">ovos-skill-dictation</a></td>
+<td>save transcripts to home directory</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-easter-eggs">ovos-skill-easter-eggs</a></td>
+<td>fun easter eggs for mycroft</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-fallback-unknown">ovos-skill-fallback-unknown</a></td>
+<td>OpenVoiceOS official Unknown Fallback Skill - used if no Intent is matched to an Utterance</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-fuster-quotes">ovos-skill-fuster-quotes</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-ggwave">ovos-skill-ggwave</a></td>
+<td>voice interface to control ggwave plugin</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-hello-world">ovos-skill-hello-world</a></td>
+<td>OpenVoiceOS Hello World Skill - use this basic Skill to see how OpenVoiceOS Skills work.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-homescreen">ovos-skill-homescreen</a></td>
+<td>Provides the resting screen for OVOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-icanhazdadjokes">ovos-skill-icanhazdadjokes</a></td>
+<td>i can haz dad joke skill</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-ip">ovos-skill-ip</a></td>
+<td>OpenVoiceOS official IP Skill - find the IP address of your Device</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-iss-location">ovos-skill-iss-location</a></td>
+<td>track the ISS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-laugh">ovos-skill-laugh</a></td>
+<td>make mycroft do an evil laugh</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-local-media">ovos-skill-local-media</a></td>
+<td>Local File Browser for OpenVoice OS Platform</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-mark1-ctrl">ovos-skill-mark1-ctrl</a></td>
+<td>control the mycroft enclosure vocally</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-moviemaster">ovos-skill-moviemaster</a></td>
+<td>OVOS skill to query IMDB about movies</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-naptime">ovos-skill-naptime</a></td>
+<td>OpenVoiceOS official Naptime Skill - put the assistant to sleep for a while</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-news">ovos-skill-news</a></td>
+<td>News Streams from around the globe</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-number-facts">ovos-skill-number-facts</a></td>
+<td>number facts</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-parrot">ovos-skill-parrot</a></td>
+<td>taks back to user like a parrot</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-personal">ovos-skill-personal</a></td>
+<td>OpenVoiceOS official Personality Skill - answers basic personality questions around OVOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-pokepedia">ovos-skill-pokepedia</a></td>
+<td>OVOS Pokémon Battle Assistant — child-friendly voice queries against PokeAPI (en-US/es-ES/fr-FR/it-IT). Fork of denix…</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-pyradios">ovos-skill-pyradios</a></td>
+<td>Pyradios skill for OpenVoiceOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-randomness">ovos-skill-randomness</a></td>
+<td>An OVOS skill for all kinds of chance - make a choice, roll a die, flip a coin, pick between two choices, etc.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-screenshot">ovos-skill-screenshot</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-somafm">ovos-skill-somafm</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-soundcloud">ovos-skill-soundcloud</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-speedtest">ovos-skill-speedtest</a></td>
+<td>A simple Speedtest Skill for OVOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-spelling">ovos-skill-spelling</a></td>
+<td>OpenVoiceOS spelling Skill</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-spotify">ovos-skill-spotify</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-tunein">ovos-skill-tunein</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-volume">ovos-skill-volume</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-wallpapers">ovos-skill-wallpapers</a></td>
+<td>Pictures from wallhaven.cc</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-weather">ovos-skill-weather</a></td>
+<td>OpenVoiceOS official Weather Skill, providing weather conditions and forecasts.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-wikihow">ovos-skill-wikihow</a></td>
+<td>wikihow for OpenVoiceOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-wikipedia">ovos-skill-wikipedia</a></td>
+<td>wikipedia skill for OpenVoiceOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-wolfie">ovos-skill-wolfie</a></td>
+<td>wolfram alpha spoken answers skill</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-word-of-the-day">ovos-skill-word-of-the-day</a></td>
+<td>Skill for OVOS, to get the word of the day</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-wordnet">ovos-skill-wordnet</a></td>
+<td>wordnet skill</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-youtube">ovos-skill-youtube</a></td>
+<td>play music from youtube in mycroft</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-skill-youtube-music">ovos-skill-youtube-music</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="stt-plugins-11">STT plugins (11)<a class="headerlink" href="#stt-plugins-11" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-azure">ovos-stt-plugin-azure</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-chromium">ovos-stt-plugin-chromium</a></td>
+<td>A stt plugin for OpenVoiceOS using the google chrome browser api</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-citrinet">ovos-stt-plugin-citrinet</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-fasterwhisper">ovos-stt-plugin-fasterwhisper</a></td>
+<td>FasterWhisper for OpenVoiceOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-nemo">ovos-stt-plugin-nemo</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-vosk">ovos-stt-plugin-vosk</a></td>
+<td>vosk STT plugin for mycroft</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2">ovos-stt-plugin-wav2vec2</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-whisper-lm">ovos-stt-plugin-whisper-lm</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp">ovos-stt-plugin-whispercpp</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-stt-server">ovos-stt-server</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-stt-server-plugin">ovos-stt-server-plugin</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="tts-plugins-17">TTS plugins (17)<a class="headerlink" href="#tts-plugins-17" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-SAM">ovos-tts-plugin-SAM</a></td>
+<td>S.A.M - Software Automatic Mouth</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-ahotts">ovos-tts-plugin-ahotts</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-azure">ovos-tts-plugin-azure</a></td>
+<td>OpenVoiceOS Text-to-speech plugin for the Azure Cognitive Services</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-beepspeak">ovos-tts-plugin-beepspeak</a></td>
+<td>experiment adding new r2d2 tts engine for mycroft</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-coqui">ovos-tts-plugin-coqui</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-cotovia">ovos-tts-plugin-cotovia</a></td>
+<td>galician tts plugin for OVOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-edge-tts">ovos-tts-plugin-edge-tts</a></td>
+<td>OpenVoiceOS Text-to-speech plugin with Edge TTS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG">ovos-tts-plugin-espeakNG</a></td>
+<td>espeakNG plugin</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-google-tx">ovos-tts-plugin-google-tx</a></td>
+<td>google translate tts plugin for OVOS / mycroft</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-lux">ovos-tts-plugin-lux</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-marytts">ovos-tts-plugin-marytts</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic">ovos-tts-plugin-mimic</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-pico">ovos-tts-plugin-pico</a></td>
+<td>pico-tts-plugin</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-polly">ovos-tts-plugin-polly</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-server">ovos-tts-server</a></td>
+<td>simple flask server to host OpenVoiceOS tts plugins as a service</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-server-plugin">ovos-tts-server-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-transformer-sox-plugin">ovos-tts-transformer-sox-plugin</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="wake-word-plugins-7">Wake Word plugins (7)<a class="headerlink" href="#wake-word-plugins-7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-microwakeword">ovos-ww-plugin-microwakeword</a></td>
+<td>OVOS wake-word plugin wrapping microWakeWord tflite streaming models (ESPHome ecosystem)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-openWakeWord">ovos-ww-plugin-openWakeWord</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx">ovos-ww-plugin-precise-onnx</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-vosk">ovos-ww-plugin-vosk</a></td>
+<td>vosk wake word plugin for OpenVoiceOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-wakewordlab">ovos-ww-plugin-wakewordlab</a></td>
+<td>OVOS wake word plugin using wakewordlab</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/precise-lite-models">precise-lite-models</a></td>
+<td>Free models for precise-lite</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/wyoming-ovos-wakeword">wyoming-ovos-wakeword</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="vad-plugins-3">VAD plugins (3)<a class="headerlink" href="#vad-plugins-3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-vad-plugin-noise">ovos-vad-plugin-noise</a></td>
+<td>simple noise ratio based VAD plugin</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-vad-plugin-silero">ovos-vad-plugin-silero</a></td>
+<td>ovos plugin for voice activity detection using silero vad</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-vad-plugin-webrtcvad">ovos-vad-plugin-webrtcvad</a></td>
+<td>ovos plugin for voice activity detection using webrtcvad</td>
+</tr>
+</tbody>
+</table>
+<h2 id="microphone-plugins-4">Microphone plugins (4)<a class="headerlink" href="#microphone-plugins-4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-microphone-plugin-alsa">ovos-microphone-plugin-alsa</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-microphone-plugin-files">ovos-microphone-plugin-files</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-microphone-plugin-pyaudio">ovos-microphone-plugin-pyaudio</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice">ovos-microphone-plugin-sounddevice</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="solver-agent-plugins-7">Solver / Agent plugins (7)<a class="headerlink" href="#solver-agent-plugins-7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin">ovos-a2a-agent-plugin</a></td>
+<td>Consume external A2A agents as OVOS persona solvers</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-agentic-loop">ovos-agentic-loop</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-persona">ovos-persona</a></td>
+<td>Persona service</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-persona-server">ovos-persona-server</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-solver-failure-plugin">ovos-solver-failure-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-solver-plugin-aiml">ovos-solver-plugin-aiml</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-solver-plugin-rivescript">ovos-solver-plugin-rivescript</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="phal-plugins-18">PHAL plugins (18)<a class="headerlink" href="#phal-plugins-18" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL">ovos-PHAL</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-alsa">ovos-PHAL-plugin-alsa</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-app-launcher">ovos-PHAL-plugin-app-launcher</a></td>
+<td>PHAL plugin: desktop application launcher OS actions over the OVOS messagebus</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-camera">ovos-PHAL-plugin-camera</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-connectivity-events">ovos-PHAL-plugin-connectivity-events</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-dotstar">ovos-PHAL-plugin-dotstar</a></td>
+<td>PHAL plugin for dotstar type LED's</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-gpsd">ovos-PHAL-plugin-gpsd</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys">ovos-PHAL-plugin-hotkeys</a></td>
+<td>map key presses to OVOS bus events</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-ipgeo">ovos-PHAL-plugin-ipgeo</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk1">ovos-PHAL-plugin-mk1</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk2-v6-fan-control">ovos-PHAL-plugin-mk2-v6-fan-control</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-network-manager">ovos-PHAL-plugin-network-manager</a></td>
+<td>NetworkManager plugin for PHAL</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-oauth">ovos-PHAL-plugin-oauth</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-pulseaudio">ovos-PHAL-plugin-pulseaudio</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-system">ovos-PHAL-plugin-system</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-tools">ovos-PHAL-plugin-tools</a></td>
+<td>PHAL service provider exposing OVOS tool plugins over the messagebus</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-wallpaper-manager">ovos-PHAL-plugin-wallpaper-manager</a></td>
+<td>Central wallpaper management interface for homescreens and other desktops</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-sensors">ovos-PHAL-sensors</a></td>
+<td>expose your OVOS device under HomeAssistant</td>
+</tr>
+</tbody>
+</table>
+<h2 id="media-ocp-plugins-14">Media / OCP plugins (14)<a class="headerlink" href="#media-ocp-plugins-14" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-media-plugin-chromecast">ovos-media-plugin-chromecast</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-media-plugin-mplayer">ovos-media-plugin-mplayer</a></td>
+<td>OVOS audio backend plugin</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-media-plugin-simple">ovos-media-plugin-simple</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-media-plugin-spotify">ovos-media-plugin-spotify</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-media-plugin-vlc">ovos-media-plugin-vlc</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin">ovos-ocp-audio-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ocp-bandcamp-plugin">ovos-ocp-bandcamp-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ocp-files-plugin">ovos-ocp-files-plugin</a></td>
+<td>A library for reading and, in the future, writing audio metadata. <a href="https://audio-metadata.readthedocs.io/">https://audio-metadata.readthedocs.io/</a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ocp-m3u-plugin">ovos-ocp-m3u-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ocp-news-plugin">ovos-ocp-news-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ocp-pipeline-plugin">ovos-ocp-pipeline-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ocp-rss-plugin">ovos-ocp-rss-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ocp-youtube-plugin">ovos-ocp-youtube-plugin</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="translation-plugins-6">Translation plugins (6)<a class="headerlink" href="#translation-plugins-6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-google-translate-plugin">ovos-google-translate-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-lang-detector-classics-plugin">ovos-lang-detector-classics-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-lang-detector-fasttext-plugin">ovos-lang-detector-fasttext-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb">ovos-translate-plugin-nllb</a></td>
+<td>No Language Left Behind</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-translate-server">ovos-translate-server</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-translate-server-plugin">ovos-translate-server-plugin</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="pipeline-intent-plugins-9">Pipeline / Intent plugins (9)<a class="headerlink" href="#pipeline-intent-plugins-9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/intent-test-set">intent-test-set</a></td>
+<td>a dataset to benchmark our intent pipelines</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-adapt-pipeline-plugin">ovos-adapt-pipeline-plugin</a></td>
+<td>Adapt Intent Parser</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin">ovos-common-query-pipeline-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-hierarchical-knn-pipeline">ovos-hierarchical-knn-pipeline</a></td>
+<td>OVOS Hierarchical KNN pipeline for intent matching</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-hivemind-pipeline-plugin">ovos-hivemind-pipeline-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-m2v-pipeline">ovos-m2v-pipeline</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-padatious-pipeline-plugin">ovos-padatious-pipeline-plugin</a></td>
+<td>A neural network intent parser</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tool-adapters">ovos-tool-adapters</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/padatious_cache">padatious_cache</a></td>
+<td>pre trained padatious intents to make first boot faster</td>
+</tr>
+</tbody>
+</table>
+<h2 id="transformer-plugins-2">Transformer plugins (2)<a class="headerlink" href="#transformer-plugins-2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-ggwave">ovos-audio-transformer-plugin-ggwave</a></td>
+<td>data over sound plugin</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-speechbrain-langdetect">ovos-audio-transformer-plugin-speechbrain-langdetect</a></td>
+<td>speech language detection plugin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hardware-os-images-10">Hardware / OS images (10)<a class="headerlink" href="#hardware-os-images-10" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/buildroot">buildroot</a></td>
+<td>Buildroot, making embedded Linux easy. Note that this is not the official repository, but only a mirror. The official…</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/mycroft-mark1-firmware">mycroft-mark1-firmware</a></td>
+<td>firmware for the mark1 arduino (faceplate and eyes)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-buildroot">ovos-buildroot</a></td>
+<td>Open Voice Operating System - Buildroot edition is a minimalistic linux OS bringing the OVOS voice assistant to embbe…</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-hardware-helpers">ovos-hardware-helpers</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-i2c-detection">ovos-i2c-detection</a></td>
+<td>A small repo containing auto-detection scripts for i2c devices</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-i2csound">ovos-i2csound</a></td>
+<td>Script for i2c HAT detection</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-mark1-utils">ovos-mark1-utils</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-systemd">ovos-systemd</a></td>
+<td>Systemd service files for the Mycroft A.I. software stack</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/raspOVOS">raspOVOS</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/raspovos-audio-setup">raspovos-audio-setup</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="tooling-ci-14">Tooling &amp; CI (14)<a class="headerlink" href="#tooling-ci-14" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/gh-automations">gh-automations</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-busmon">ovos-busmon</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-docker">ovos-docker</a></td>
+<td>Open Voice OS container images and docker-compose.yml files for x86_64 and aarch64 CPU architectures.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-docker-stt">ovos-docker-stt</a></td>
+<td>Open Voice OS Speech-to-Text (STT) container images and docker-compose.yml file for x86_64 CPU architecture.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-docker-tts">ovos-docker-tts</a></td>
+<td>Open Voice OS TTS Docker images</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-docker-tx">ovos-docker-tx</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-docs-viewer">ovos-docs-viewer</a></td>
+<td>terminal docs viewer</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-installer">ovos-installer</a></td>
+<td>Open Voice OS and/or HiveMind installer using Ansible with an intuitive and easy Text-based User Interface</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-spec-tools">ovos-spec-tools</a></td>
+<td>Reference implementation of the OVOS formal specifications — sentence template expander, locale resource loader, dial…</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tools">ovos-tools</a></td>
+<td>helper bash utils for raspOVOS and other linux systems</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-wyoming-docker">ovos-wyoming-docker</a></td>
+<td>A collection of Docker images for running OVOS services using the Wyoming Protocol.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-yaml-editor">ovos-yaml-editor</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/wyoming-ovos-stt">wyoming-ovos-stt</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/wyoming-ovos-tts">wyoming-ovos-tts</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="datasets-models-3">Datasets &amp; Models (3)<a class="headerlink" href="#datasets-models-3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-datasets">ovos-datasets</a></td>
+<td>Datasets collected by OpenVoiceOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ww-community-dataset">ovos-ww-community-dataset</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/voices_demo">voices_demo</a></td>
+<td>demo sounds file for TTS voices trained by OVOS</td>
+</tr>
+</tbody>
+</table>
+<h2 id="project-infrastructure-webblog-4">Project infrastructure (web/blog) (4)<a class="headerlink" href="#project-infrastructure-webblog-4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-blogs">ovos-blogs</a></td>
+<td>ovos blog site built with Next.js using the Starter Blog template</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-landing-page">ovos-landing-page</a></td>
+<td>OpenVoiceOS is a community-driven, open-source voice AI platform for creating custom voice-controlled ​interfaces acr…</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-org-website">ovos-org-website</a></td>
+<td>Test repo for ovos webpage</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-technical-manual">ovos-technical-manual</a></td>
+<td>developer oriented documentation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="other-components-48">Other components (48)<a class="headerlink" href="#other-components-48" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/.github">.github</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/DrQA">DrQA</a></td>
+<td>A pytorch implementation of Reading Wikipedia to Answer Open-Domain Questions.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/OVOS-skills-store">OVOS-skills-store</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/OpenVoiceOS">OpenVoiceOS</a></td>
+<td>OpenVoiceOS - Release Tracker</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/VocalFusionDriver">VocalFusionDriver</a></td>
+<td>Raspberry Pi VocalFusion linux driver for kernel 5.10</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture">architecture</a></td>
+<td>Formal architecture specifications for OpenVoiceOS — the intent template grammar, locale resource formats, and the in…</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/linha-fina">linha-fina</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/message_spec">message_spec</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/mycroft-classic-listener">mycroft-classic-listener</a></td>
+<td>simpler alternative to ovos-listener, historical reference to classic mycroft-core implementation for the mark1 device</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/mycroft-gui-qt6">mycroft-gui-qt6</a></td>
+<td>The Graphical User Interface used by the Mycroft Mark II and more</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/mycroft-legacy">mycroft-legacy</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/nebulento">nebulento</a></td>
+<td>fuzzy matching intent parser</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-YesNo-plugin">ovos-YesNo-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-audio-plugin-mpv">ovos-audio-plugin-mpv</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-audio-plugin-simple">ovos-audio-plugin-simple</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-bidirectional-translation-plugin">ovos-bidirectional-translation-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-chromadb-embeddings-plugin">ovos-chromadb-embeddings-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ddg-plugin">ovos-ddg-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-dialog-normalizer-plugin">ovos-dialog-normalizer-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-gguf-plugin">ovos-gguf-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin">ovos-legacy-mycroft-gui-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-lingua-franca">ovos-lingua-franca</a></td>
+<td>Mycroft's multilingual text parsing and formatting library</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-localize">ovos-localize</a></td>
+<td>GitHub-native localization platform for OpenVoiceOS skills and plugins</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-machine-translations">ovos-machine-translations</a></td>
+<td>temporary resource files while we wait for GitLocalize</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-messagebus-chat-plugin">ovos-messagebus-chat-plugin</a></td>
+<td>OVOS ChatEngine plugin (opm.agents.chat) that proxies turns through the OVOS messagebus</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-openai-plugin">ovos-openai-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-option-matcher-fuzzy-plugin">ovos-option-matcher-fuzzy-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-plugin-vlc">ovos-plugin-vlc</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-qdrant-embeddings-plugin">ovos-qdrant-embeddings-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-utterance-corrections-plugin">ovos-utterance-corrections-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-utterance-normalizer">ovos-utterance-normalizer</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-utterance-plugin-cancel">ovos-utterance-plugin-cancel</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-wikipedia-plugin">ovos-wikipedia-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-wolfram-alpha-plugin">ovos-wolfram-alpha-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-wordnet-plugin">ovos-wordnet-plugin</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-ww-verifier-plugin-speaker">ovos-ww-verifier-plugin-speaker</a></td>
+<td>OVOS wake word verifier plugin: reject non-enrolled speakers</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos_assets">ovos_assets</a></td>
+<td>Images, Icon, Artwork type assets used across OpenVoiceOS</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovoscope">ovoscope</a></td>
+<td>an end-to-end testing framework for OpenVoiceOS.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/padacioso">padacioso</a></td>
+<td>dead simple regex based intent parser</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/palavreado">palavreado</a></td>
+<td>dead simple keyword based intent parser</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/pi-gen">pi-gen</a></td>
+<td>Tool used to create the official Raspberry Pi OS images</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/pyhtmx-gui-client">pyhtmx-gui-client</a></td>
+<td>A GUI client fo OpenVoiceOS based on HTMX + TailwindCSS + daisyUI</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/quebra_frases">quebra_frases</a></td>
+<td>chunks strings into byte sized pieces</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/renovate-config">renovate-config</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/rpi-linux">rpi-linux</a></td>
+<td>Kernel source tree for Raspberry Pi-provided kernel builds. Issues unrelated to the linux kernel should be posted on …</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/scripts">scripts</a></td>
+<td>random scripts for ovos stuff</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/status">status</a></td>
+<td>Open Voice OS Server Status Page</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/wallpaper_changer">wallpaper_changer</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.top", "navigation.tracking", "navigation.instant", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../javascripts/analytics.js"></script>
+      
+    
+  </body>
+</html>
