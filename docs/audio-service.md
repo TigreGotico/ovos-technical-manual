@@ -4,6 +4,12 @@
 
 **In plain terms:** when a skill says "tell the user X", that `speak` message lands here. `ovos-audio` turns the text into sound with a TTS plugin and plays it, ducking any background music while it talks.
 
+!!! info "TTS is current; the built-in *media* playback is the legacy path"
+    The **TTS / speech** side of `ovos-audio` (described here) is fully current. Its bundled
+    **media-playback** path — the [old audio service](media-plugins.md#ovos-ocp-audio-plugin)
+    (`enable_old_audioservice`, on by default) — is **deprecated** and being superseded by the
+    standalone [`ovos-media`](ovos-media.md) daemon. See [Media playback: legacy vs. ovos-media](ovos-media.md).
+
 ---
 
 ??? abstract "Technical Reference"

@@ -77,7 +77,7 @@ useful events for downstream services:
 | `recognizer_loop:wakeword` | `{"utterance", "lang"}` | Wake word fired |
 | `recognizer_loop:utterance` | `{"utterances": [str], "lang"}` | Transcribed command (the main result) |
 | `recognizer_loop:speech.recognition.unknown` | none | STT returned nothing (silence / failure) |
-| `recognizer_loop:awoken` | none | Listener woke from sleep |
+| `mycroft.awoken` | none | Listener woke from sleep |
 
 It also reacts to inbound commands such as `recognizer_loop:sleep`,
 `recognizer_loop:wake_up`, `recognizer_loop:record_stop` and `recognizer_loop:state.get`.

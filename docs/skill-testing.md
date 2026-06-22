@@ -93,9 +93,11 @@ croft = get_minicroft(["ovos-skill-hello-world.openvoiceos"])
 ```
 
 `MiniCroft` sets `isolate_config=True` by default, which clears user XDG configuration
-so tests are reproducible regardless of the developer's local `mycroft.conf`. It also
-sets a deterministic `default_pipeline` (`DEFAULT_TEST_PIPELINE`) that excludes AI/persona,
-[OCP](ocp-pipeline.md), and m2v stages — ensuring consistent intent matching.
+so tests are reproducible regardless of the developer's local `mycroft.conf`. It also picks
+a deterministic pipeline: it uses `DEFAULT_TEST_PIPELINE` (Adapt + Padatious) when those
+matchers are installed, otherwise it auto-falls back to `LIGHT_TEST_PIPELINE` (padacioso-only,
+no C extensions). Either way AI/persona, [OCP](ocp-pipeline.md), and m2v stages are excluded —
+ensuring consistent intent matching.
 
 See [ovoscope: minicroft.md](ovoscope-minicroft.md) for the full constructor reference.
 
