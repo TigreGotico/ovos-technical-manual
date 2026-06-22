@@ -92,7 +92,7 @@ Status: merged to `dev` (the server is now FastAPI, replacing the former Flask a
 
 Status: merged to `dev`.
 
-The persona server baseline is an OpenAI-compatible chat API (`/v1/chat/completions`, also mounted at `/openai/v1`). Additional vendor routers are layered on top:
+The persona server baseline is an OpenAI-compatible chat API at **`/openai/v1/chat/completions`**. (The unprefixed `/v1/...` path is also mounted but is **deprecated legacy** — it returns a `Deprecation` header; a bare-root base URL 404s, so always include the `/openai/v1` prefix.) Additional vendor routers are layered on top:
 
 | Prefix | Vendor |
 |--------|--------|
@@ -108,7 +108,7 @@ The persona server baseline is an OpenAI-compatible chat API (`/v1/chat/completi
 ```python
 import openai
 
-client = openai.OpenAI(api_key="", base_url="http://localhost:8337")
+client = openai.OpenAI(api_key="", base_url="http://localhost:8337/openai/v1")
 response = client.chat.completions.create(
     model="",
     messages=[{"role": "user", "content": "tell me a joke"}]

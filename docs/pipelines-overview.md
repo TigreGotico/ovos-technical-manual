@@ -84,7 +84,7 @@ OVOS allows users to customize the intent pipeline through configuration files. 
 
 ```json
   "intents": {
-    "adapt": {
+    "ovos-adapt-pipeline-plugin": {
       "conf_high": 0.5,
       "conf_med": 0.3,
       "conf_low": 0.2
