@@ -1562,16 +1562,23 @@ GUI right now</strong>. A ground-up replacement (the <a href="../gui-adapters/">
 the <a href="../ovos-installer/"><code>ovos-installer</code></a> still installs this legacy Qt client until the
 replacement lands. Kept for reference and Mark 2 maintenance.</p>
 </div>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>Currently only a <a href="https://github.com/OpenVoiceOS/mycroft-gui-qt5">QT5 gui-client</a> is available, help wanted to <a href="https://github.com/OpenVoiceOS/mycroft-gui-qt6">migrate to QT6</a>!</p>
+<div class="admonition danger">
+<p class="admonition-title">Qt5 is deprecated upstream and will not be updated</p>
+<p>The <a href="https://github.com/OpenVoiceOS/mycroft-gui-qt5">Qt5 gui-client</a> is the <strong>only client
+that currently runs</strong>, but <strong>Qt5 itself has been deprecated upstream for a long time</strong> and
+this client <strong>will not be updated</strong>. It is kept solely so existing (e.g. Mark 2) devices
+keep a screen.</p>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Upcoming — unreleased</p>
-<p>A Qt6/Kirigami successor with the session-based GUI protocol is in flight at
-<a href="https://github.com/OpenVoiceOS/mycroft-gui-qt6/pull/7">OpenVoiceOS/mycroft-gui-qt6#7</a>
-(branch <code>feat/gui-protocol-rework</code>). It is not released and still needs a human
-C++/Qt6 build review.</p>
+<p class="admonition-title">Both successors are unreleased work-in-progress</p>
+<p>Two replacement GUI clients are being built, <strong>both unreleased / WIP</strong> — neither is usable yet:</p>
+<ul>
+<li><strong>Qt6/Kirigami</strong> — <a href="https://github.com/OpenVoiceOS/mycroft-gui-qt6">mycroft-gui-qt6</a>
+  (<code>feat/gui-protocol-rework</code>); still needs a human C++/Qt6 build review.</li>
+<li><strong>pyhtmx</strong> (browser/HTMX) — a web-based render path via the GUI-adapter system.</li>
+</ul>
+<p>Until one of these ships, there is <strong>no maintained GUI client</strong>. See
+<a href="../gui-adapters/">GUI Adapters</a> for the rework architecture.</p>
 </div>
 <h2 id="introduction-to-qml">Introduction to QML<a class="headerlink" href="#introduction-to-qml" title="Permanent link">&para;</a></h2>
 <p>The reference GUI client implementation is based on the QML user interface markup language that gives you complete freedom to create in-depth innovative interactions without boundaries or provide you with simple templates within the GUI framework that allow minimalistic display of text and images based on your skill development specifics and preferences.</p>
