@@ -9,7 +9,7 @@
 
 `IntentService` is the component of `ovos-core` responsible for routing user utterances through the configured **Intent Pipeline** until a match is found.
 
-**In plain terms:** this is the part that takes the words you said and figures out *which* skill should answer. It runs each matcher in your pipeline in order (converse, adapt, padatious, …) and stops at the first one confident enough to handle the request.
+**In plain terms:** this is the part that takes the words you said and figures out *which* skill should answer. It runs each matcher in your pipeline in order (e.g. stop, converse, padatious, adapt, …) and stops at the first one confident enough to handle the request.
 
 ---
 

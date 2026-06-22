@@ -53,7 +53,7 @@ Insert the tier IDs you need into your `mycroft.conf` under the `intents.pipelin
       "handle_fallback": true,
       "default_persona": "Remote Llama",
       "min_intent_confidence": 0.6,
-      "personas_path": "~/.config/mycroft/ovos_persona"
+      "personas_path": "~/.config/ovos_persona"
     },
     "pipeline": [
       // Depending on strategy, insert plugin here
@@ -174,7 +174,7 @@ Even when no persona is active, this mode allows the pipeline to fall back to a 
 
 ## Persona Configuration
 
-Personas are loaded from the XDG persona config directory (typically `~/.config/mycroft/ovos_persona/`, overridable via the `personas_path` config key). Each `*.json` file in that directory defines one persona (its name is the `"name"` field, or the filename without `.json`). Plugin-provided personas are also discovered unless `ignore_plugin_personas` is set.
+Personas are loaded from the XDG persona config directory (typically `~/.config/ovos_persona/`, overridable via the `personas_path` config key). Each `*.json` file in that directory defines one persona (its name is the `"name"` field, or the filename without `.json`). Plugin-provided personas are also discovered unless `ignore_plugin_personas` is set.
 
 ### Example:
 

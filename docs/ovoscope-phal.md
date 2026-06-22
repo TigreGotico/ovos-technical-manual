@@ -8,7 +8,7 @@
     real device is needed. See the [Glossary](glossary.md).
 
 `ovoscope.phal` provides `MiniPHAL` and `PHALTest` for testing PHAL
-(Plugin Hardware Abstraction Layer) plugins without physical hardware.
+(Platform Hardware Abstraction Layer) plugins without physical hardware.
 
 ## Why PHAL is Testable
 

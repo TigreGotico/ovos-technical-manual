@@ -60,9 +60,9 @@ The entry point group is the canonical identifier used in `setup.py` / `pyprojec
 | [Wake Word](wake-word-plugins.md) | `opm.wake_word` | `ovos_plugin_manager.templates.hotwords.HotWordEngine` |
 | Wake Word Verifier | `opm.wake_word.verifier` | `HotWordVerifier` |
 | [VAD](vad-plugins.md) ([Voice Activity Detection](vad-plugins.md)) | `opm.VAD` | `VADEngine` |
-| Microphone | `opm.microphone` | `OVOSMicrophone` |
+| Microphone | `opm.microphone` | `Microphone` |
 | G2P (Grapheme-to-Phoneme) | `opm.g2p` | `Grapheme2PhonemePlugin` |
-| Audio→IPA | `opm.audio2ipa` | `Audio2IPAPlugin` |
+| Audio→IPA | `opm.audio2ipa` | `Audio2IPA` |
 | Voice Clone | `opm.vc` | `VoiceClonePlugin` |
 
 ### System & Hardware Plugins

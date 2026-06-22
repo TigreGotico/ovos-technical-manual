@@ -16,7 +16,7 @@ LLM-backed implementations are provided by `ovos-openai-plugin` / `ovos-gguf-plu
 (dialog transformers).
 
 Multiple transformers of each type can be stacked. The `priority` config key controls
-execution order (lower number = runs earlier).
+execution order (higher priority runs first).
 
 ---
 
@@ -29,7 +29,7 @@ dict.
 A typical utterance transformer normalises informal or noisy speech to standard form, or
 classifies ASR output as valid or invalid *before* it reaches intent matching so that garbled
 speech like `"Potato stop green light now yes."` is discarded. The `priority` config key
-controls where each runs in the chain (lower number = earlier).
+controls where each runs in the chain (higher priority runs first).
 
 ---
 
@@ -116,7 +116,7 @@ Multiple transformers can be active simultaneously. Priority controls order:
 
 ```
 
-Utterance transformers run first (lowest priority first), cleaning or validating ASR output
+Utterance transformers run first (highest priority first), cleaning or validating ASR output
 before intent matching. The dialog transformer rewrites skill responses (priority 50) before TTS.
 
 ---

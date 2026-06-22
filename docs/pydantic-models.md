@@ -465,10 +465,10 @@ assert typed_speak.data.expect_response is False
 - `audio.audioservice` — being superseded by [OCP](ocp-pipeline.md) for media playback
 
 
-- `intents.adapt` — superseded by Padacioso / ML-based pipeline plugins
+- `intents.adapt` — Adapt keyword matcher config (consider Padatious or M2V for broad deployments)
 
 
-- `intents.padatious` — superseded by Padacioso
+- `intents.padatious` — Padatious example-based matcher config
 
 ---
 

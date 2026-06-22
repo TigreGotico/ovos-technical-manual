@@ -256,7 +256,8 @@ from ovos_workshop.skills.fallback import FallbackSkill
 from ovos_workshop.decorators import fallback_handler
 
 class MyFallback(FallbackSkill):
-    def can_answer(self, utterances, lang) -> bool:
+    def can_answer(self, message: Message) -> bool:
+        # utterances are read from the message internally
         return True   # always willing to try
 
     @fallback_handler(priority=50)

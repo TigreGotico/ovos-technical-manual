@@ -55,24 +55,26 @@ The `IntentService` within `ovos-core` picks up the transcription. Before matchi
 **Service:** `ovos-core` (Intent Service)
 **Process:** Ordered evaluation of matchers.
 
-The (potentially modified) utterance is now evaluated against the **Intent Pipeline**. Each matcher is tried in order until a high-confidence match is found:
+The (potentially modified) utterance is now evaluated against the **Intent Pipeline**. The pipeline is **configurable**, but the default order runs roughly as follows, each stage tried until one is confident enough to handle the request. Most stages run in high → medium → low confidence tiers interleaved through the list:
 
-1.  **[Converse](converse-pipeline.md)**: Active skills are given a chance to intercept the utterance first (e.g., for multi-turn questions).
-
-
-2.  **[Adapt](adapt-pipeline.md)**: High-confidence keyword matching for simple, direct commands.
+1.  **[Stop](stop-pipeline.md)**: "stop" / "cancel" is checked first so the assistant can always be interrupted.
 
 
-3.  **[Padatious](padatious-pipeline.md)**: Expression-based matching for more natural language.
+2.  **[Converse](converse-pipeline.md)**: Active skills are given a chance to intercept the utterance (e.g., for multi-turn questions).
 
 
-4.  **[Common Play](ocp-pipeline.md) ([OCP](ocp-pipeline.md))**: If the utterance sounds like a media request (e.g., "Play some jazz"), it's routed to OCP.
+3.  **[Common Play](ocp-pipeline.md) ([OCP](ocp-pipeline.md))**: If the utterance sounds like a media request (e.g., "Play some jazz"), it's routed to OCP.
 
 
-5.  **[Common Query](cq-pipeline.md)**: If no direct match is found, OVOS queries various skills for general knowledge (e.g., "Who is Einstein?").
+4.  **[Padatious](padatious-pipeline.md)**: Example-based matching for natural-language phrasings.
 
 
-6.  **[Fallback](fallback-pipeline.md)**: As a last resort, fallback skills (like LLM-based solvers) can attempt to handle the utterance.
+5.  **[Adapt](adapt-pipeline.md)**: Keyword/rule matching for direct commands.
+
+
+6.  **[Fallback](fallback-pipeline.md)**: As a last resort, fallback skills (like LLM-based solvers) attempt to handle the utterance.
+
+(Other matchers such as [Model2Vec](m2v-pipeline.md) and, if installed, [Common Query](cq-pipeline.md) for general-knowledge questions, slot into this order too — see [Pipelines](pipelines-overview.md) for the full default and how to customize it.)
 
 ---
 

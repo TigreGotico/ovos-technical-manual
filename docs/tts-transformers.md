@@ -90,11 +90,18 @@ Replace `"plugin_name"` with the identifier of the desired plugin and provide an
 ```json
   "tts_transformers": {
     "ovos-tts-transformer-sox-plugin": {
-      "effects": ["pitch 300", "reverb"]
+      "default_effects": {
+        "reverb": {},
+        "pitch": {"n_semitones": 1}
+      }
     }
   }
 
 ```
+
+  `default_effects` is a **dict** mapping an effect name to its parameter dict (each is
+  forwarded as keyword arguments). Supported effects include `pitch`, `phaser`, `flanger`,
+  `reverb`, `tempo`, `treble`, `tremolo`, `reverse`, `speed`, `chorus`, and `echo`.
 
 * **Requirements**: Ensure SoX is installed and available in your system's PATH.
 

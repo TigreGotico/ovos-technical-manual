@@ -58,7 +58,7 @@ When developing a custom wake word plugin, the following methods are essential:
 - **`found_wake_word()`**: This method must be defined. It returns whether the wake word has been detected and resets internal state.
 
 
-- **`update(chunk)`**: An optional method for processing live audio chunks and making streaming predictions.
+- **`update(chunk)`**: Required (abstract) method for processing live audio chunks and making streaming predictions.
 
 
 - **`stop()`**: An optional method to shut down the plugin, like unloading data or halting external processes.

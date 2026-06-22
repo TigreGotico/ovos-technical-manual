@@ -24,11 +24,13 @@
     only the *playback* layer differs. (OCP **skills** are a separate, longer-term change —
     see the next note.)
 
-!!! info "Planned — MediaProvider plugins replace OCP skills"
-    Longer term, media catalogs will move **out of skills and into plugins**: a new
-    **MediaProvider** plugin type is planned, which `ovos-media` will consume directly in place
-    of today's [OCP skills](ocp-skills.md). This is **not implemented yet** (no such plugin type
-    exists in `ovos-plugin-manager` today); OCP skills remain the way to provide media for now.
+!!! info "Upcoming — MediaProvider plugins replace OCP skills"
+    Media catalogs are moving **out of skills and into plugins**: a new **MediaProvider** plugin
+    type (`opm.media.provider` / `PluginTypes.MEDIA_PROVIDER`) that the OCP pipeline loads
+    **in-process** and calls `search()` on directly, in place of today's
+    [OCP skills](ocp-skills.md). This is **upcoming, not released** — in flight in
+    [ovos-plugin-manager#405](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/405)
+    (Phase 1 of the `ovos-media` migration). OCP skills remain the way to provide media for now.
 
 `ovos-media` is the standalone audio/video daemon for OpenVoiceOS. It is the **upcoming
 replacement** for the legacy audio service, providing a more robust and modular media player

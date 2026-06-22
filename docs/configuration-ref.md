@@ -131,7 +131,7 @@ bus = client_from_config(subconf="core", file_path="/etc/mycroft/bus.conf")
 ```json
 {
   "core": {"route": "/core", "port": "8181"},
-  "gui":  {"route": "/gui",  "port": "8811"}
+  "gui":  {"route": "/gui",  "port": "18181"}
 }
 
 ```

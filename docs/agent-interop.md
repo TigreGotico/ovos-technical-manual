@@ -115,20 +115,20 @@ pip install "ovos-persona-server[a2a]"
 ovos-persona-server --persona my_persona.json --a2a-base-url http://localhost:8337
 ```
 
-The `OVOSPersonaAgentExecutor` wraps the active persona and exposes it at `/a2a`. The agent card at `/.well-known/agent.json` advertises the persona's skills and capabilities. Both blocking (`tasks/send`) and streaming (`tasks/sendSubscribe`) modes are supported when the persona solver supports streaming.
+The `OVOSPersonaAgentExecutor` wraps the active persona and exposes it at `/a2a`. The agent card at `/a2a/.well-known/agent.json` advertises the persona's skills and capabilities. Both blocking (`tasks/send`) and streaming (`tasks/sendSubscribe`) modes are supported when the persona solver supports streaming.
 
-### ovos-a2a-solver-plugin — OVOS as A2A Consumer
+### OVOS as A2A Consumer
 
-[OpenVoiceOS/ovos-a2a-agent-plugin](https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin) (pip: `ovos-a2a-agent`) is an `A2AAgentEngine` `ChatEngine` plugin (OPM group `opm.agents.chat`, entry point `ovos-a2a-agent`) that delegates persona reasoning to any external A2A server.
+[OpenVoiceOS/ovos-a2a-agent-plugin](https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin) (pip: `ovos-a2a-solver-plugin`) is an `A2AChatEngine` `ChatEngine` plugin (OPM group `opm.agents.chat`, entry point `ovos-a2a-solver`) that delegates persona reasoning to any external A2A server.
 
 ```yaml
 # persona YAML
 name: my-a2a-persona
-engine: ovos-a2a-agent
+engine: ovos-a2a-solver
 engine_config:
-  url: "https://my-a2a-agent.example.com"
-  api_key: "<token>"
-  timeout: 30
+  agent_url: "https://my-a2a-agent.example.com"
+  auth_header: "Bearer <token>"
+  timeout: 60
   streaming: false
 ```
 
@@ -136,30 +136,10 @@ Config keys:
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `url` | — | Base URL of the A2A server (**required**) |
-| `api_key` | — | Bearer token, added via a request interceptor |
-| `timeout` | `30` | Seconds per call |
+| `agent_url` | — | Base URL of the A2A server (**required**) |
+| `auth_header` | — | `Authorization` header value, e.g. `Bearer <token>` |
+| `timeout` | `60` | Seconds per call |
 | `streaming` | `false` | Use the SSE streaming endpoint when `true` |
-
-### HiveMind A2A Bridge
-
-[OpenVoiceOS/ovos-a2a-agent-plugin](https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin) bridges the HiveMind mesh to any external A2A agent. Natural-language queries arriving from satellites are forwarded to the A2A server via JSON-RPC 2.0 and the response is streamed back.
-
-```json
-{
-  "hivemind": {
-    "agent_protocol": "ovos-a2a-agent-plugin",
-    "a2a_agent": {
-      "agent_url": "http://localhost:9999",
-      "auth_header": "Bearer secret",
-      "timeout": 60,
-      "streaming": false
-    }
-  }
-}
-```
-
-The plugin registers under the `hivemind.agent.protocol` entry-point group; HiveMind-core discovers it automatically when installed.
 
 ---
 
