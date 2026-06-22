@@ -1,5 +1,12 @@
 # FakeBus
 
+!!! abstract "In a nutshell"
+    Inside the assistant, the different parts talk to each other by passing
+    messages, like coworkers sending notes over a shared channel. FakeBus is a
+    pretend version of that channel that runs entirely on one machine, used for
+    testing or for simple setups where the real one is not available. It is a
+    developer tool. See the [Glossary](glossary.md).
+
 **Module:** `ovos_utils.fakebus`
 
 In-process message bus and message implementation for testing, standalone usage, or environments where `ovos-bus-client` is not available. Behaves like the real `MessageBusClient` API without any WebSocket connection.

@@ -1,5 +1,13 @@
 # OCP / Common Play Testing
 
+!!! abstract "In a nutshell"
+    When you ask the assistant to "play" something, several add-ons may each
+    suggest what to play (a song, a podcast, a radio station), and the best match
+    wins. OCP (OpenVoiceOS Common Play) is the system that runs that little
+    contest. This page is a developer tool for testing those "play"-handling
+    add-ons to make sure they answer such requests correctly. See the
+    [Glossary](glossary.md).
+
 `ovoscope.ocp` provides `OCPTest` and `assert_ocp_query_response` for testing
 OCP (OpenVoiceOS Common Play) skills that handle media queries.  For testing
 the OCP player state machine, see `OCPPlayerHarness` in `ovoscope.media`.

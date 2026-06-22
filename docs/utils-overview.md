@@ -1,6 +1,9 @@
 
 # ovos-utils
 
+!!! abstract "In a nutshell"
+    `ovos-utils` is a shared toolbox of small helpers that the rest of OVOS reuses, so the same basic jobs do not have to be re-invented in every component. This page is a developer reference listing what is in the toolbox. If you are not writing OVOS code, you do not need it. See the [Glossary](glossary.md).
+
 Shared utility library used by all OVOS components. Provides logging, process lifecycle management, a testing-friendly fake message bus, event scheduling, file utilities, network checks, audio playback, and XDG path helpers.
 
 ---

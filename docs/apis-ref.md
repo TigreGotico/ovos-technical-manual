@@ -230,7 +230,7 @@ The old `mycroft.audio.*` namespace is no longer supported in `ovos-audio`. Use 
 
 **Module:** `ovos_bus_client.apis.enclosure.EnclosureAPI`
 
-Legacy interface for controlling Mycroft Mark 1 hardware (eyes, mouth, system). This class (`self.enclosure`) is **being deprecated**: in the [GUI rework](gui-adapters.md) the Mark 1 faceplate is remodelled as one of the new **GUI plugins** (a GUI adapter), so the faceplate is driven by the standard display events rather than this bus API. New skills should not use it.
+Interface for controlling Mycroft Mark 1 hardware (eyes, mouth, system). `self.enclosure` is being **removed from the `OVOSSkill` base class** (the same direction as `self.gui`); the `EnclosureAPI` class itself is **not removed** — it moves into the **`ovos-mark1-utils`** library, so callers import it from there instead of using `self.enclosure`. In the [GUI rework](gui-adapters.md) the faceplate's bus **event listeners** move into a new **GUI plugin** (the faceplate becomes a GUI plugin); other Mark 1 hardware may be handled by a dedicated mk1 PHAL plugin (to be decided).
 
 ```python
 

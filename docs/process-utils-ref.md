@@ -1,5 +1,8 @@
 # Process Utilities
 
+!!! abstract "In a nutshell"
+    OVOS runs as several long-lived background programs (called "processes"). This developer reference covers the helpers those programs use to manage their own life: announcing whether they are starting up, ready, or in trouble, declaring what they need in order to run, and making sure only one copy runs at a time. It is mainly for people writing OVOS services; skill authors only touch a small part of it. See the [Glossary](glossary.md).
+
 **Module:** `ovos_utils.process_utils`
 
 `ovos_utils.process_utils` provides the building blocks OVOS services use to manage their own lifecycle: declaring what they need to run (`RuntimeRequirements`), tracking and broadcasting their state over the message bus (`ProcessStatus` / `ProcessState`), single-instance locking (`PIDLock`), and clock-safe waiting (`MonotonicEvent`). Skill and plugin authors mostly interact with `RuntimeRequirements`; the rest is used by service entry points.

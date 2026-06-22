@@ -1,5 +1,8 @@
 # ovos-date-parser
 
+!!! abstract "In a nutshell"
+    This is a helper that translates between everyday date and time phrases and the precise dates a computer understands. It works both ways: it can read "next Friday at 3pm" and pin down the exact moment, and it can turn an exact time back into natural words like "three o'clock". It handles many languages, which is what lets the assistant understand and speak dates the way you do. See the [Number parser](number-parser.md) for the same idea applied to numbers, or the [Glossary](glossary.md) for terms.
+
 `ovos-date-parser` is a multilingual library for turning human date/time phrases into Python objects (`extract_datetime`, `extract_duration`) and for turning `datetime`/`timedelta` objects back into natural spoken or written text (`nice_time`, `nice_date`, `nice_duration`, ...).
 
 **What you get in 30 seconds:**

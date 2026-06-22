@@ -1,5 +1,8 @@
 # Deprecation Log & Migration Guide
 
+!!! abstract "In a nutshell"
+    As OVOS improves, some older pieces get retired and replaced — much like a phone dropping support for a very old app. "Deprecated" means a piece still works for now but is on its way out. This page is a running list of what is being retired and what to use instead, so developers can update their code in time. If you are not writing OVOS code, you can skip it. See the [Glossary](glossary.md).
+
 This document tracks deprecated modules, classes, and architectural patterns within the OpenVoiceOS ecosystem. For whole **repositories** that have been archived (and their replacements), see **[Deprecated & Archived Repositories](deprecated-repos.md)**.
 
 Starting with `ovos-core` **0.0.8**, the project strictly follows **Semantic Versioning**:
@@ -34,6 +37,13 @@ Following the [OVOS Deprecation Policy](architecture-overview.md), deprecated fe
     `SkillGUI`. This is a real future direction, not a released change — no published
     `ovos-workshop` ships it yet. The `ovos_bus_client.apis.gui` import remains current on
     stable installs.
+
+!!! warning "Upcoming — `self.enclosure` leaves the skill base class"
+    `self.enclosure` ([`EnclosureAPI`](apis-ref.md#enclosureapi)) is being **removed as a built-in
+    `OVOSSkill` property** (the same direction as `self.gui`). The API is **not deleted** — it
+    moves into the **`ovos-mark1-utils`** library. In the [GUI rework](gui-adapters.md) the Mark 1
+    **faceplate** becomes one of the new **GUI plugins** (its bus event listeners move there); other
+    Mark 1 hardware may go to a dedicated **mk1 PHAL plugin** (to be decided). See [Mark 1](mark1.md).
 
 ### [ovos-media] OVOSAbstractApplication
 **Date:** March 2026  

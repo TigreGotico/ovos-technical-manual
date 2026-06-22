@@ -1,4 +1,13 @@
 # OvoScope + ovos-pydantic-models Integration
+
+!!! abstract "In a nutshell"
+    Inside the assistant, parts communicate by sending messages, but today those
+    messages are loose forms where a simple typo can go unnoticed. This page
+    explores pairing the testing tool with a library that gives every message a
+    strict template, so mistakes get caught early, like a form that refuses to
+    submit if a field is filled in wrong. It is a forward-looking design note for
+    developers. See the [Glossary](glossary.md).
+
 OvoScope currently operates on untyped `ovos_bus_client.message.Message` objects — dicts with string keys. `ovos-pydantic-models` provides typed Pydantic v2 models for every OVOS message type. This document describes how they can be used together and what a deeper integration could look like.
 ---
 

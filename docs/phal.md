@@ -257,6 +257,14 @@ The base class (`PHALPlugin`) is a `threading.Thread`. Key points:
   `enclosure.mouth.*`) and `recognizer_loop:*` bus handlers; override the matching
   `on_*` methods to react to them. Call `super().shutdown()` to unregister them.
 
+!!! note "Hardware-interface ABCs live in `ovos-hardware-helpers`"
+    The abstract base classes that hardware PHAL plugins implement —
+    `AbstractLed`, `AbstractFan`, and `AbstractSwitches` (plus a suite of ready-made
+    LED animations) — live in the
+    [`ovos-hardware-helpers`](https://github.com/OpenVoiceOS/ovos_hardware_helpers)
+    library. They previously lived in `ovos-plugin-manager`; that library is the
+    drop-in replacement.
+
 ### Validator
 
 Controls whether the plugin is auto-enabled:

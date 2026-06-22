@@ -1,5 +1,13 @@
 # Pipeline Plugin Testing
 
+!!! abstract "In a nutshell"
+    When the assistant hears a sentence, it tries to figure out which task you
+    meant, handing the sentence to a series of matchers until one recognizes it.
+    This page is a developer tool for testing those matchers on their own, to
+    answer one focused question: does this sentence get matched, and to which
+    task? It skips the rest of the assistant so the test runs quickly. See the
+    [Glossary](glossary.md).
+
 `ovoscope.pipeline` provides `PipelineHarness` for testing intent / pipeline
 plugins in isolation — no skill is needed.
 

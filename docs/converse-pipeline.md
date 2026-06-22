@@ -1,5 +1,8 @@
 # Converse Pipeline
 
+!!! abstract "In a nutshell"
+    Normally each thing you say to the assistant is handled on its own. The Converse pipeline lets a skill stay "in the conversation" for a few turns, so it can ask a follow-up and understand your reply in context — much like a person who remembers what you were just talking about. For example, after a skill asks "which room?", it can keep listening so your answer "the kitchen" lands in the right place. See the [Glossary](glossary.md) for terms, or [Fallbacks](fallbacks.md) for what happens when nothing is actively listening.
+
 The **Converse Pipeline** in **OpenVoiceOS (OVOS)** manages active conversational contexts between the assistant and skills. It allows skills to keep handling user input across multiple turns, enabling more natural, stateful conversations.
 
 ---

@@ -1,5 +1,8 @@
 # Locations
 
+!!! abstract "In a nutshell"
+    Like any program, OVOS keeps its settings files in specific folders on your computer. This developer reference lists where those folders are and the rules OVOS follows to find them. You only need it if you are troubleshooting where a setting lives or writing code that reads configuration. See the [Glossary](glossary.md).
+
 **Module:** `ovos_config.locations`
 
 Path constants and XDG path helpers used by the rest of `ovos-config` to locate configuration files.

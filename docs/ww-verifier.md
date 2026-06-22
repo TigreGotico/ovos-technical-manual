@@ -1,5 +1,8 @@
 # Wake Word Verifier Plugins
 
+!!! abstract "In a nutshell"
+    A "wake word" is the phrase that gets the assistant's attention, like "Hey Mycroft". Sometimes the assistant thinks it heard that phrase when it didn't. A wake word verifier is a second pair of ears: after the wake word seems to have been detected, it double-checks the recorded audio and can cancel a false alarm before the assistant starts listening. This cuts down on the device waking up by accident. See the [Wake Word plugins](wake-word-plugins.md) for the detectors themselves, or the [Glossary](glossary.md) for terms.
+
 The wake word verifier framework lets one or more secondary plugins inspect the audio captured during a wake-word detection event and veto false triggers. This is separate from the detection plugin itself and runs as a post-detection gate.
 
 OPM interface: [OpenVoiceOS/ovos-plugin-manager#341](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/341) (merged).  

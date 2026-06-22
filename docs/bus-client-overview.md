@@ -1,6 +1,13 @@
 
 # ovos-bus-client Documentation
 
+!!! abstract "In a nutshell"
+    The parts of the assistant talk to each other over a shared channel called the
+    MessageBus. This package is the toolkit that lets a program connect to that
+    channel, send and receive messages, and keep track of a conversation. This
+    page is a developer reference and table of contents for that toolkit. See the
+    [Glossary](glossary.md).
+
 `ovos-bus-client` provides the WebSocket client, `Message` objects, `Session` management, and high-level API interfaces for communicating with the OVOS [MessageBus](bus-service.md).
 
 ## Contents

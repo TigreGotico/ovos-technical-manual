@@ -1,3 +1,6 @@
+!!! abstract "In a nutshell"
+    OVOS did not appear out of nowhere; it grew out of an earlier voice assistant called Mycroft, and other projects branched off along the way. This page is the family tree showing where everything came from and how the pieces relate. It is background reading for anyone curious about the project's history. See the [Glossary](glossary.md).
+
 ## Family Tree
 
 ![imagem](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/95db65ea-0aff-49f3-bd80-85919a3356e5)

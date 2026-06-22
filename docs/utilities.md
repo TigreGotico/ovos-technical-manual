@@ -1,5 +1,8 @@
 # Utilities
 
+!!! abstract "In a nutshell"
+    Every software project has a drawer of small, handy tools — for working with files, checking the network, and so on — that get reused everywhere. This is a developer reference for that drawer in OVOS. It is only useful if you are writing OVOS code and looking for a ready-made helper. See the [Glossary](glossary.md).
+
 Reference for the remaining utility modules in `ovos_utils`.
 
 ---

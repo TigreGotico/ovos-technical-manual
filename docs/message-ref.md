@@ -1,5 +1,12 @@
 # Message
 
+!!! abstract "In a nutshell"
+    Every time one part of the assistant tells another part something, it sends a
+    "Message" — the basic note they pass back and forth. This is a developer
+    reference for what those notes look like and how to work with them. If you are
+    not building on the system internals, you can skip this. See the
+    [Glossary](glossary.md) and [ovos-bus-client overview](bus-client-overview.md).
+
 **Module:** `ovos_bus_client.message`
 
 `Message` is the fundamental unit of communication across the OVOS MessageBus. Every event sent or received is a `Message`.
@@ -45,6 +52,12 @@ The `Message` envelope is re-exported unchanged from
 (the OVOS-MSG-1 spec). `serialize` / `deserialize` produce and consume **plain
 JSON** with no transport concerns mixed in — encryption is **not** a `Message`
 responsibility (see [Encryption](#encryption) below).
+
+The same module also defines `MalformedMessage` (a `ValueError`/`AssertionError`
+raised by the constructor and `deserialize` on an invalid message) and the
+constant `DEFAULT_SESSION_ID = "default"` — the reserved session id used when a
+message carries no session (the interaction is treated as originating from the
+local device).
 
 ## Routing Methods
 

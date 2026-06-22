@@ -1,5 +1,8 @@
 # ovos-workshop Documentation
 
+!!! abstract "In a nutshell"
+    A "skill" is an add-on that teaches OVOS to do one thing — tell the weather, set a timer, play music. `ovos-workshop` is the starter kit that gives skill makers the building blocks so they do not have to start from scratch. This page is for people who want to build their own skills; if you just use OVOS, you can skip it. See [Skill Design Best Practices](skill-best-practices.md) and the [Glossary](glossary.md).
+
 `ovos-workshop` provides all base classes, decorators, and helpers needed to write skills and applications for OpenVoiceOS.
 
 **Package:** `ovos-workshop`

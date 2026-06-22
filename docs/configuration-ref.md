@@ -1,5 +1,8 @@
 # Configuration
 
+!!! abstract "In a nutshell"
+    Settings tell OVOS how its parts should behave and how to find each other, much like the preferences screen on a phone. This is a developer reference listing those settings and their defaults; the good news is that everything comes with sensible defaults, so most people never need to change anything here. It is mainly for people setting up or fine-tuning a system. See the [Glossary](glossary.md).
+
 Connection parameters are loaded from `mycroft.conf` via `ovos-config`. All values have sensible defaults for local development.
 
 ## MessageBus (Core)

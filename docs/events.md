@@ -1,5 +1,8 @@
 # Events
 
+!!! abstract "In a nutshell"
+    OVOS components react to "events" — little announcements like "the user said something" or "a timer went off" that travel between the parts of the system. This developer reference covers the helper tools that let a skill listen for those announcements, tidy them all up when it shuts down, and schedule things to happen later. It is for people writing skills or plugins. See the [Glossary](glossary.md).
+
 **Module:** `ovos_utils.events`
 
 `ovos_utils.events` provides the bookkeeping that skills use around message bus handlers: `EventContainer` tracks every handler a skill registers so they can all be cleanly removed on shutdown, and the handler wrappers add the standard start/stop/error reporting and skill-ID unmunging that intent handlers rely on. `EventSchedulerInterface` (now moved to `ovos-bus-client`) schedules timed and repeating events over the bus.

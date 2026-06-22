@@ -1,5 +1,8 @@
 # MessageBusClient
 
+!!! abstract "In a nutshell"
+    OVOS is built from many small programs that all need to talk to each other. The "message bus" is the shared loudspeaker they use: one part announces something, and any other part that cares can listen and react. This page is a developer reference for `MessageBusClient`, the piece of code that lets a program connect to that loudspeaker to send and receive announcements. If you are not writing OVOS code, you can safely skip it. See the [Glossary](glossary.md).
+
 **Module:** `ovos_bus_client.client.client.MessageBusClient`
 
 `MessageBusClient` is a WebSocket client that connects to the OVOS `ovos-messagebus` service and provides an event-emitter interface over it.

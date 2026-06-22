@@ -1,5 +1,14 @@
 # Audio Testing with ovoscope
 
+!!! abstract "In a nutshell"
+    This page is about automatically checking that the voice assistant actually
+    *plays sound* the way it should — both speaking out loud and playing media
+    like music. Instead of a person listening every time, a test program pretends
+    to be the speaker and confirms the right things happen (the assistant talks,
+    the music pauses while it talks, and so on). It is meant for developers writing
+    these automated checks. See the [Glossary](glossary.md) and
+    [Skill Testing](skill-testing.md).
+
 This page tests the **`ovos-audio` services** — the `AudioService` (media
 playback / ducking) and the `PlaybackService` (TTS speak lifecycle) — using the
 mock backends and context-manager harnesses in `ovoscope.audio`. It is the

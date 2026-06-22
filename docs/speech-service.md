@@ -7,6 +7,8 @@
 
 `ovos-dinkum-listener` is the service responsible for audio capture, [Wake Word](wake-word-plugins.md) detection, and [Speech-to-Text](stt-plugins.md) ([STT](stt-plugins.md)). It is the default, full-featured listener; `ovos-simple-listener` is a lighter alternative that emits the same `recognizer_loop:*` bus events but without the full state machine.
 
+A third, even more minimal option is `mycroft-classic-listener` — the original mycroft-core listener ported to the OVOS plugin ecosystem. It implements the same `recognizer_loop:*` contract but does **not** support `instant_listen`, multiple hotwords, VAD, listening modes, or fallback STT (fallback hotwords via OPM are supported).
+
 ---
 
 ??? abstract "Technical Reference"

@@ -1,5 +1,8 @@
 # Logging
 
+!!! abstract "In a nutshell"
+    A "log" is the running diary a program writes about what it is doing — invaluable when something goes wrong and you want to know why. This developer reference describes `LOG`, the ready-made tool OVOS code uses to write those diary entries. It is for people writing or debugging OVOS code. See the [Glossary](glossary.md).
+
 **Module:** `ovos_utils.log`
 
 `ovos_utils.log` gives you `LOG` — a ready-to-use, OVOS-wide logger you import and call with no setup. It writes self-identifying log lines (module, function, and line of the caller) and can optionally rotate log files. Most code just needs `from ovos_utils.log import LOG`, then `LOG.info(...)`.

@@ -1,5 +1,12 @@
 # Developer Guide — Using ovos-pydantic-models
 
+!!! abstract "In a nutshell"
+    The parts of the assistant exchange messages, but by default those messages
+    are loose and a typo can slip through unnoticed. This library gives each kind
+    of message a strict template that catches such mistakes early, like a form
+    that won't accept a misspelled field. This guide is for developers and
+    explains when and how to use it. See the [Glossary](glossary.md).
+
 `ovos-pydantic-models` provides typed Pydantic v2 models for every message that flows over the OVOS [MessageBus](bus-service.md). This guide explains when and how to use it in skills, plugins, and core components.
 
 ---

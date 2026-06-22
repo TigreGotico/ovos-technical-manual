@@ -1,6 +1,9 @@
 
 # OVOS Release Flow
 
+!!! abstract "In a nutshell"
+    Software is published in versions, and OVOS offers each new version on three "channels" you can think of like ripeness: alpha is freshly cut and experimental, testing is partly proven, and stable is ready for everyday use. This page explains how a code change travels from a developer's keyboard to a published release. It is mainly for contributors and maintainers. See [Release Channels](release-channels.md) and the [Glossary](glossary.md).
+
 All OVOS packages follow a rolling release model with three channels: **alpha**, **testing**, and **stable**. This document describes the full lifecycle from code change to published package, and separately covers the versioning strategy for gh-automations itself.
 
 ---

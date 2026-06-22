@@ -1,4 +1,12 @@
 # CI Integration — ovoscope
+
+!!! abstract "In a nutshell"
+    "CI" (continuous integration) means having a server automatically run your
+    tests every time you change the code, so problems get caught right away
+    instead of slipping through. This page shows developers how to set that up so
+    ovoscope tests run on their own. See the [Glossary](glossary.md) and
+    [Skill Testing](skill-testing.md).
+
 This document explains how to wire ovoscope end-to-end tests into a repo's CI pipeline using
 `gh-automations` reusable workflows, and how to structure test files and fixtures.
 ---

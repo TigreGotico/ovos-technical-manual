@@ -97,6 +97,18 @@ The tracker provides daily updates and displays all languages that have reached 
 
 See **[Contribute Translations with OVOS Localize](ovos-localize-tutorial.md)** for the step-by-step translator guide.
 
+### Open-data ML datasets
+
+OVOS Localize also auto-generates **machine-learning-ready JSONL datasets** from the scanned
+skill data (hosted statically, refreshed daily), under `data/datasets/`:
+
+- **Intent classification** (`classification/{lang}.jsonl`) — `.intent`/`.voc` phrases mapped
+  to their skill domain and intent name (for training NLU / small language models).
+- **Parallel corpora** (`translation/{lang_pair}.jsonl`) — English keys paired with their
+  translations from `.dialog`/`.intent` files (for machine translation).
+
+These load directly via HuggingFace `datasets.load_dataset(...)`.
+
 ---
 
 ## Known Limitations

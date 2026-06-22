@@ -1,5 +1,13 @@
 # MiniListener — Listener Pipeline Testing
 
+!!! abstract "In a nutshell"
+    Before the assistant can understand a request, the raw sound from the
+    microphone passes through small processing steps (think of them like filters
+    that clean up or transform the audio). This page describes a tool for
+    developers to test those early audio-handling steps on their own, without
+    needing a real microphone or the rest of the system. See the
+    [Glossary](glossary.md).
+
 `MiniListener` extends ovoscope's testing capability beyond the skill pipeline
 to cover **audio transformer plugins** — the plugins that process raw audio
 chunks before speech reaches the intent engine.

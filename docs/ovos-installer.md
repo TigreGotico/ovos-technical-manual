@@ -244,6 +244,48 @@ It is recommend that you run `ovos-config autoconfigure --help` after the initia
 
 ---
 
+## Non-interactive (scenario) install
+
+For scripting or fleet deployment, the installer can run without the TUI by reading a
+scenario file from `~/.config/ovos-installer/scenario.yaml`. Example (Docker
+containers on a Raspberry Pi with default skills):
+
+```yaml
+---
+uninstall: false
+method: containers       # or "virtualenv"
+channel: testing         # or "alpha"
+profile: ovos
+features:
+  skills: true
+  extra_skills: false
+raspberry_pi_tuning: true
+share_telemetry: true
+```
+
+Key options:
+
+| Key | Meaning |
+| --- | --- |
+| `method` | `containers` (Docker) or `virtualenv` (Python virtual environment) |
+| `channel` | Release channel: `testing` or `alpha` |
+| `profile` | Installation profile (e.g. `ovos`) |
+| `features.*` | Per-feature toggles (e.g. `skills`, `extra_skills`, `llm`) |
+| `raspberry_pi_tuning` | Enable Raspberry Pi performance tuning (includes an overclock prompt) |
+| `share_telemetry` | Allow sharing anonymous usage statistics |
+
+Ready-made example scenarios live in the
+[`scenarios/`](https://github.com/OpenVoiceOS/ovos-installer/tree/main/scenarios)
+directory of the repository.
+
+> 💡 **LLM and Home Assistant features.** Setting `features.llm: true` enables the OVOS
+> Persona LLM fallback and requires the `llm.api_url`, `llm.key`, `llm.model`, and
+> `llm.persona` keys (an OpenAI-compatible endpoint). A Home Assistant feature is also
+> available. **macOS** is supported with `launchd` service management, but only with the
+> `virtualenv` method and the `alpha` channel.
+
+---
+
 ## Troubleshooting
 
 > Something went wrong?

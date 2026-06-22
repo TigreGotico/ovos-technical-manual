@@ -1,5 +1,13 @@
 # Message Base, Context, and Session
 
+!!! abstract "In a nutshell"
+    The parts of the assistant talk to each other by passing messages. This is a
+    developer reference describing the common shape every message shares, the
+    extra background info attached to it (such as who is asking and in what
+    language), and how a single back-and-forth conversation is kept together. If
+    you are not building on the system internals, you can skip this. See the
+    [Glossary](glossary.md).
+
 ## OpenVoiceOSMessage
 
 ```

@@ -1,5 +1,13 @@
 # End-to-End Testing with `ovoscope`
 
+!!! abstract "In a nutshell"
+    ovoscope is the official tool developers use to test OpenVoiceOS add-ons and
+    core parts. It runs a small, fast, pretend version of the whole assistant on
+    one machine so you can confirm a request is understood and answered correctly,
+    without setting up real hardware. "End-to-end" just means it checks the whole
+    journey, from what the user said to what the assistant did. See the
+    [Glossary](glossary.md) and [Skill Testing](skill-testing.md).
+
 **ovoscope** is the official testing framework for OpenVoiceOS skills and core components. It provides a lightweight, in-process environment for running **End-to-End (E2E) tests** without requiring a full system installation.
 
 !!! success "The Gold Standard for Skills"

@@ -44,6 +44,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 | [ovos-solver-plugin-aiml](#ovos-solver-plugin-aiml) | Give Mycroft some sass with AIML! |
 | [ovos-persona](#ovos-persona) | The **`PersonaPipeline`** brings multi-persona management to OpenVoiceOS (OVOS), enabling interactive conversations with virtual assistants. 🎙️ With personas, you can customize how queries are handled by assigning specific solvers to each persona. |
 | [ovos-openai-plugin](#ovos-openai-plugin) | Leverages [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to provide the following ovos plugins: |
+| [ovos-messagebus-chat-plugin](#ovos-messagebus-chat-plugin) | `OVOSMessagebusChatAgent` — a `ChatEngine` (`opm.agents.chat`, entry point `ovos-messagebus`) that proxies each turn through a connected OVOS messagebus pipeline. |
 | [ovos-wikipedia-solver](#ovos-wikipedia-solver) | Answers factual questions by querying Wikipedia. |
 | [ovos-chromadb-embeddings-plugin](#ovos-chromadb-embeddings-plugin) | The `ChromaEmbeddingsDB` plugin integrates with the [ChromaDB](https://www.trychroma.com/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using ChromaDB’s capabilities. |
 | [ovos-wolfram-alpha-solver](#ovos-wolfram-alpha-solver) | Answers computational and factual questions via the Wolfram Alpha API. |
@@ -60,6 +61,18 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 
 
 - **Description**: The `QdrantEmbeddingsDB` plugin integrates with the [qdrant](https://qdrant.tech/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using qdrant’s capabilities.
+
+- **Entry point group**: `opm.embeddings` (the `EmbeddingsDB` backends register here, not under `opm.agents.*`).
+
+- **Config keys**:
+
+| Key | Default | Notes |
+|---|---|---|
+| `vector_size` | — | **Required.** Dimension of the stored embedding vectors. |
+| `distance_metric` | `cosine` | One of `cosine`, `euclidean`, `dot`. |
+| `host` | — | When set, connects to a remote Qdrant server (otherwise a persistent local client is used). |
+| `port` | `6333` | HTTP port for the remote client. |
+| `grpc_port` | `6334` | gRPC port for the remote client. |
 
 ---
 
@@ -90,6 +103,16 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 
 ---
 
+## ovos-messagebus-chat-plugin
+
+- **GitHub**: [https://github.com/OpenVoiceOS/ovos-messagebus-chat-plugin](https://github.com/OpenVoiceOS/ovos-messagebus-chat-plugin)
+
+- **Entry point**: `ovos-messagebus` → `OVOSMessagebusChatAgent` (group `opm.agents.chat`).
+
+- **Description**: A `ChatEngine` that proxies each turn through a connected OVOS messagebus pipeline, letting a persona answer via the full skills/intent stack rather than an LLM.
+
+---
+
 ## ovos-wikipedia-solver
 
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-wikipedia-solver](https://github.com/OpenVoiceOS/ovos-wikipedia-solver)
@@ -105,6 +128,18 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 
 
 - **Description**: The `ChromaEmbeddingsDB` plugin integrates with the [ChromaDB](https://www.trychroma.com/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using ChromaDB’s capabilities.
+
+- **Entry point group**: `opm.embeddings` (the `EmbeddingsDB` backends register here, not under `opm.agents.*`).
+
+- **Config keys**:
+
+| Key | Default | Notes |
+|---|---|---|
+| `path` | `./chromadb_storage` | Storage path for the persistent local client. |
+| `host` | — | When set, connects to a remote ChromaDB HTTP server instead of the local persistent client. |
+| `port` | `8000` | Port for the remote HTTP client. |
+
+Per-collection metadata defaults `hnsw:space` to `cosine` when not specified.
 
 ---
 

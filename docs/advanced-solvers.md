@@ -145,6 +145,24 @@ Implementations: `GGUFYesNoEngine`.
 
 ---
 
+## Option Matcher — `opm.agents.option_matcher`
+
+**Base class:** `OptionMatcherEngine`
+
+Resolves a free-form user reply to one entry in a fixed list of options — the engine behind a
+skill's `ask_selection()`. The reference implementation,
+[`ovos-option-matcher-fuzzy-plugin`](https://github.com/OpenVoiceOS/ovos-option-matcher-fuzzy-plugin)
+(`FuzzyOptionMatcherPlugin`), resolves in order: fuzzy match (rapidfuzz `WRatio`) when the score
+reaches `min_conf` (config key, default `0.65`), then locale-aware "last option" vocab, then
+ordinal/cardinal vocab (longest match wins), then a numeric fallback via `ovos-number-parser`,
+returning `None` if nothing matches.
+
+`OVOSSkill.ask_selection()` loads the engine via `skills.ask_selection_plugin` (checked in the
+skill's `settings.json` first, then `mycroft.conf`), defaulting to
+`ovos-option-matcher-fuzzy-plugin` when neither is set.
+
+---
+
 ## Coreference Resolution — `opm.agents.coref`
 
 **Base class:** `CoreferenceEngine`

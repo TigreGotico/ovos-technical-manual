@@ -35,6 +35,43 @@ Select a homescreen skill in `mycroft.conf` (or via [ovos-shell](ovos-shell.md))
 
 ```
 
+## Homescreen bus messages
+
+So a display can render a live idle screen without depending on any skill, the
+`HomescreenManager` coordinates homescreen data and widget state over the bus. It emits
+`homescreen.data.*` and `homescreen.widget.*` messages at fixed intervals (or in
+response to other events), and consumes registration/lifecycle events to keep that data
+current. The Qt shell ([ovos-shell](ovos-shell.md)) consumes these messages.
+
+### `homescreen.data.*`
+
+| Message | Emitted | Payload |
+|---|---|---|
+| `homescreen.data.time` | every **10 s** (via `ovos_date_parser.get_date_strings()`) | `time_string`, `date_string`, `weekday_string`, `day_string`, `month_string`, `year_string` |
+| `homescreen.data.weather` | every **900 s** (requested from the weather skill) | `weather_api_enabled`, `weather_code`, `weather_temp` |
+| `homescreen.data.wallpaper` | on `homescreen.wallpaper.set` (PHAL wallpaper manager) | `wallpaper_path`, `selected_wallpaper` |
+| `homescreen.data.notifications` | on `ovos.notification.update_counter` / `ovos.notification.update_storage_model` | `notification_counter`, `notification_model` |
+| `homescreen.data.apps` | when a skill registers/unregisters an app | `applications_model` (list of `{name, thumbnail, action}`) |
+| `homescreen.data.examples` | on example registration, on `detach_skill`, and every **900 s** to rotate the list | `skill_examples`, `skill_info_enabled`, `skill_info_prefix` |
+| `homescreen.data.connectivity` | on connectivity changes | `system_connectivity` (`"online"`, `"network"`, `"offline"`) |
+
+### `homescreen.widget.*`
+
+| Message | Emitted |
+|---|---|
+| `homescreen.widget.timer` | on `ovos.widgets.timer.update` / `.display` / `.remove` |
+| `homescreen.widget.alarm` | on `ovos.widgets.alarm.update` / `.display` / `.remove` |
+| `homescreen.widget.media` | on OCP player state changes (`gui.player.media.service.sync.status`) and track info responses |
+
+### Consumed registration / lifecycle events
+
+| Message | Action |
+|---|---|
+| `homescreen.register.app` | Store the app entry, re-emit `homescreen.data.apps` |
+| `homescreen.register.examples` | Store examples per skill/lang, re-emit `homescreen.data.examples` |
+| `detach_skill` | Remove the skill from apps + examples, re-emit the affected messages |
+| `mycroft.ready` | Re-push all cached state (apps, connectivity, wallpaper, notifications) |
+
 ## Resting Faces
 
 The resting face API provides skill authors the ability to extend their skills to supply their own customized IDLE screens that will be displayed when there is no activity on the screen.

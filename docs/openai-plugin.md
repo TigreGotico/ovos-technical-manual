@@ -64,6 +64,22 @@ All plugins wrap `OpenAIChatCompletions` internally.
 Multi-turn conversational LLM. The primary engine type used inside [personas](personas.md).
 Works with any OpenAI-compatible endpoint.
 
+### Tool / function calling
+
+`OpenAIChatEngine` sets `supports_tools = True`, so it advertises native
+function-calling to callers. `continue_chat(messages, …, tools=…)` accepts
+`ToolBox` objects and/or raw OpenAI tool dicts; when the model decides to call a
+tool, the returned `AgentMessage` carries `tool_calls` (assistant `tool_calls`
+turns and `MessageRole.TOOL` results are serialized back to the API on the next
+round-trip), letting the caller run a tool loop. This is the same hook the
+[agentic loop](agentic-loop.md) engines drive.
+
+!!! note "Memory lives in `ovos-persona`, not this plugin"
+    The chat engine is stateless — it only sees the `messages` it is handed each
+    turn. Short-term conversational memory is supplied by `ovos-persona` (which
+    accumulates the history), not by `ovos-openai-plugin`. The only memory backend
+    this package ships is the server-coupled RAG memory described below.
+
 ### Plugin-specific keys
 
 | Key | Type | Default | Description |

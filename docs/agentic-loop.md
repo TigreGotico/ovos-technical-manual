@@ -58,6 +58,22 @@ All loop engines accept the same config envelope:
 | `toolboxes` | List of OPM `ToolBox` entry points to load |
 | `max_iterations` | Maximum reasoning steps before forced conclusion |
 
+### Per-loop limits
+
+Beyond the shared `max_iterations`, several loops read their own budget keys from
+the engine config (each defaults if unset):
+
+| Loop | Key | Default | Meaning |
+|---|---|---|---|
+| `ovos-reflexion-loop` | `max_reflections` | `3` | Reflection episodes before returning the last answer |
+| `ovos-plan-execute-loop` | `max_step_iterations` | `5` | Tool-call cycles per plan step |
+| `ovos-plan-execute-loop` | `max_steps` | `10` | Plan steps executed |
+| `ovos-critic-loop` | `max_critique_rounds` | `2` | Critique → verify → revise rounds |
+| `ovos-self-ask-loop` | `max_follow_ups` | `8` | Sub-questions before forcing a final answer |
+| `ovos-tree-of-thoughts-loop` | `n_branches` | `3` | Candidate thoughts generated per step |
+| `ovos-tree-of-thoughts-loop` | `beam_width` | `2` | Branches kept after evaluation |
+| `ovos-tree-of-thoughts-loop` | `max_depth` | `4` | Reasoning depth before forcing an answer |
+
 ---
 
 ## Built-in Toolboxes
@@ -108,6 +124,18 @@ messages = ctx.build_conversation_context(utterance, session_id="s1")
 - `ShellToolBox` — `allow_shell` defaults to `false`. Only enable with fully-trusted LLMs; commands are passed directly to `/bin/sh`.
 - `FileSystemToolBox` — set `root_path` to restrict file access to a subtree.
 - `MathToolBox` — uses `ast.parse` with an allowlist; `eval()` is never called.
+
+### Toolbox security keys
+
+These keys go in the per-toolbox config block:
+
+| Toolbox | Key | Default | Effect |
+|---|---|---|---|
+| `FileSystemToolBox` | `root_path` | `"."` | Sandbox root; every path is resolved relative to it and must stay inside |
+| `FileSystemToolBox` | `allow_write` | `true` | When `false`, `write_file` is disabled (read-only agent) |
+| `ShellToolBox` | `allow_shell` | `false` | Must be `true` for `run_command` to execute at all |
+| `ShellToolBox` | `allowed_commands` | `[]` | When non-empty, only these first-words are permitted |
+| `ShellToolBox` | `max_timeout` | `120` | Upper bound (seconds) the per-call `timeout` is capped to |
 
 ---
 

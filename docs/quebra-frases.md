@@ -1,5 +1,8 @@
 # Quebra Frases
 
+!!! abstract "In a nutshell"
+    This is a small text-handling toolkit that does the everyday chores of breaking writing into pieces — splitting a block of text into sentences, or a sentence into individual words ("tokens") — and comparing several phrases to find what they have in common. OVOS leans on it to tidy up what you said before trying to understand it. The name is Portuguese for "phrase breaking". See the [Glossary](glossary.md) for unfamiliar terms.
+
 `quebra_frases` is a lightweight text-processing toolkit for tokenization (words / sentences / paragraphs), chunking around delimiters, and comparing several utterances to find their common / uncommon / exclusive parts. OVOS uses it for utterance normalization and intent-sample analysis.
 
 **What you get in 30 seconds:**

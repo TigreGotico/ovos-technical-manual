@@ -1,6 +1,9 @@
 
 # ovos-lang-parser
 
+!!! abstract "In a nutshell"
+    This is a small helper that connects the *name* of a language to the short code computers use for it. When you say "switch to Spanish", it figures out you mean the language tagged `es`; and when the assistant needs to mention a language out loud, it turns that code back into the spoken name "Spanish". That two-way translation is what lets you change languages just by asking. See the [Glossary](glossary.md) for terms, or [Language Selection](lang-selection.md) for how OVOS decides which language to use.
+
 OpenVoiceOS's multilingual language-name parsing and pronouncing library. It converts spoken language names ("Spanish", "Espagnol") to BCP-47 codes (`"es"`) and vice versa, so skills and components can handle language-selection commands in natural speech.
 
 **What you get in 30 seconds:**

@@ -1,5 +1,11 @@
 # Skill Testing with [ovoscope](ovoscope-overview.md)
 
+!!! abstract "In a nutshell"
+    A "skill" is an add-on that gives the assistant a new ability, like telling
+    the weather or setting a timer. This is the starting point for developers who
+    want to automatically check that a skill does the right thing when spoken to,
+    rather than testing it by hand every time. See the [Glossary](glossary.md).
+
 This section is the entry point for end-to-end testing of OVOS skills using
 **ovoscope** — the framework for verifying that skills behave correctly at the
 bus message level.

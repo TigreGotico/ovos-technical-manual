@@ -37,6 +37,14 @@ router that dispatches each display event to every installed **GUI adapter plugi
 adapter translates template events into whatever protocol it needs (Qt WebSocket,
 HTTP+SSE, curses, …). Multiple adapters can run at once, enabling multi-modal output.
 
+!!! info "Adapters can add their own extra functionality (optional)"
+    Beyond rendering the standard display templates, a GUI adapter plugin **may define its own
+    extra bus event listeners**, exposing additional, **optional** capabilities that skills can
+    choose to use. Examples include **Mark 1 events / faceplate control** (the
+    [Mark 1](mark1.md) faceplate becomes such an adapter), **home screens**, and **custom QML**.
+    These are opt-in: a skill works without them, but can adopt the extra functionality offered
+    by whichever adapter(s) are installed.
+
 ## Entry point
 
 Adapters are discovered via the `opm.gui_adapter` entry-point group:

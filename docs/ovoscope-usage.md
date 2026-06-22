@@ -1,4 +1,11 @@
 # OvoScope Usage Guide
+
+!!! abstract "In a nutshell"
+    This is a step-by-step walkthrough for developers who want to write and run
+    their very first automated test for a skill, starting from nothing. If you are
+    not writing tests yourself, you can safely skip this page. See the
+    [Glossary](glossary.md) and the [ovoscope overview](ovoscope-overview.md).
+
 This guide takes you from zero to writing and running your first end-to-end skill test. It
 assumes familiarity with Python's `unittest` and the OVOS bus message model.
 ---

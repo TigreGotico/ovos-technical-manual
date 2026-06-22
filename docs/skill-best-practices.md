@@ -1,5 +1,8 @@
 # Skill Design Best Practices
 
+!!! abstract "In a nutshell"
+    A "skill" is an add-on that teaches OVOS to do something, like answering a question or setting a timer. This guide collects hard-won advice on making a skill that feels natural and reliable to talk to, not just one that technically works. It is written for skill makers. See [Skill Examples](skill-examples.md) and the [Glossary](glossary.md).
+
 Creating a high-quality OVOS skill is not just about writing code; it's about designing a user experience that is intuitive, robust, and respects the user's intent. This guide outlines the best practices for developing skills that feel "native" to the OVOS ecosystem.
 
 ---

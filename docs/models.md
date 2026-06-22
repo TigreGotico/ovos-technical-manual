@@ -1,5 +1,12 @@
 # Config Models
 
+!!! abstract "In a nutshell"
+    The assistant's settings come from several files stacked on top of each other,
+    so a user's personal choices can override the system defaults. This is a
+    developer reference for the building blocks that load and represent each of
+    those settings files. If you are not building on the system internals, you can
+    skip this. See the [Glossary](glossary.md).
+
 **Module:** `ovos_config.models`
 
 Each layer of the configuration stack is a `LocalConf` instance — a file-backed `dict` subclass. Specialised subclasses represent each layer.

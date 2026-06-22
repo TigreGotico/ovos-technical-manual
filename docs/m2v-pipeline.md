@@ -1,5 +1,8 @@
 # Model2Vec Intent Pipeline
 
+!!! abstract "In a nutshell"
+    This is another tool that figures out which skill should handle what you said. Instead of matching exact keywords or memorized examples, it compares the *meaning* of your words to the commands it knows — so it can still understand you when you phrase things differently than expected. Think of it as recognizing that "turn the music down" and "lower the volume" are asking for the same thing. It is meant to work alongside the keyword-based [Adapt](adapt-pipeline.md) and example-based [Padatious](padatious-pipeline.md) tools, not replace them. See the [Glossary](glossary.md) for unfamiliar terms.
+
 The **Model2Vec Intent Pipeline** matches utterances to skill intents using
 [Model2Vec](https://github.com/MinishLab/model2vec) static embeddings instead of
 deterministic parsers. Where Adapt looks for keywords and Padatious learns from

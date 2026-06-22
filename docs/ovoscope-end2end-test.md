@@ -1,5 +1,13 @@
 # End2EndTest
 
+!!! abstract "In a nutshell"
+    This is the main tool for checking that a skill works from start to finish:
+    you write down what the user "says", list what the assistant should do in
+    response, and the tool runs a tiny stand-in version of the whole assistant to
+    confirm it behaves as expected. Think of it as a rehearsal with a script,
+    where the tool plays both the user and the judge. It is for developers. See
+    the [Glossary](glossary.md) and [Skill Testing](skill-testing.md).
+
 `End2EndTest` is ovoscope's primary API. It wires together `MiniCroft` (a stripped-down OVOS core), `CaptureSession`, and all assertion logic into a single declarative test object.
 
 ## New here? The one-minute mental model
