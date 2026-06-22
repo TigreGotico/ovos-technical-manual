@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/stop-pipeline/">
+        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/ovos-localize-tutorial/">
       
       
-        <link rel="prev" href="../persona-pipeline/">
+        <link rel="prev" href="../bidirectional-translation/">
       
       
-        <link rel="next" href="../ocp-pipeline/">
+        <link rel="next" href="../translation-plugins/">
       
       
       <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Stop - OpenVoiceOS Technical Manual</title>
+        <title>Contributing Translations - OpenVoiceOS Technical Manual</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#stop-pipeline" class="md-skip">
+        <a href="#contribute-translations-with-ovos-localize" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Stop
+              Contributing Translations
             
           </span>
         </div>
@@ -271,12 +271,10 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../pipelines-overview/" class="md-tabs__link">
           
   
@@ -291,10 +289,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../lang-support/" class="md-tabs__link">
           
   
@@ -612,6 +612,48 @@
       
   
   
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../pipelines-overview/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Intent Pipeline
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -632,24 +674,24 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   <span class="md-ellipsis">
-    Intent Pipeline
+    Language Support
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            Intent Pipeline
+            Language Support
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -660,74 +702,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../pipelines-overview/" class="md-nav__link">
+      <a href="../lang-support/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Overview & Reference
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Pipeline Matchers
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_2">
-            <span class="md-nav__icon md-icon"></span>
-            Pipeline Matchers
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../adapt-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Adapt
+    Overview
   </span>
   
 
@@ -744,11 +723,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../padatious-pipeline/" class="md-nav__link">
+      <a href="../lang-selection/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Padatious
+    Language Selection
   </span>
   
 
@@ -765,11 +744,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../m2v-pipeline/" class="md-nav__link">
+      <a href="../lang-customization/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Model2Vec
+    Customizing Resources
   </span>
   
 
@@ -786,53 +765,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../converse-pipeline/" class="md-nav__link">
+      <a href="../bidirectional-translation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Converse
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cq-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Common Query
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../persona-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Persona
+    Bidirectional Translation
   </span>
   
 
@@ -862,7 +799,7 @@
           
   
   <span class="md-ellipsis">
-    Stop
+    Contributing Translations
   </span>
   
 
@@ -873,7 +810,7 @@
         
   
   <span class="md-ellipsis">
-    Stop
+    Contributing Translations
   </span>
   
 
@@ -895,55 +832,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
+  <a href="#what-youll-be-translating" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation
+      What you'll be translating
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#purpose" class="md-nav__link">
+  <a href="#step-1-open-the-site-and-pick-a-language" class="md-nav__link">
     <span class="md-ellipsis">
-      Purpose
+      Step 1 — Open the site and pick a language
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#step-2-translate" class="md-nav__link">
     <span class="md-ellipsis">
-      How it works
+      Step 2 — Translate
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How it works">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-submit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3 — Submit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-syntax-rules-important" class="md-nav__link">
+    <span class="md-ellipsis">
+      The syntax rules (important)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The syntax rules (important)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#high-confidence-stop_high" class="md-nav__link">
+  <a href="#variables-curly-braces" class="md-nav__link">
     <span class="md-ellipsis">
-      High-confidence (stop_high)
+      Variables — {curly braces}
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#medium-confidence-stop_medium" class="md-nav__link">
+  <a href="#alternatives-optional-words-abc" class="md-nav__link">
     <span class="md-ellipsis">
-      Medium-confidence (stop_medium)
+      Alternatives &amp; optional words — (a|b|c)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#low-confidence-stop_low" class="md-nav__link">
+  <a href="#slots-repeated-variations" class="md-nav__link">
     <span class="md-ellipsis">
-      Low-confidence (stop_low)
+      Slots (repeated variations)
     </span>
   </a>
   
@@ -955,54 +910,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#localization" class="md-nav__link">
+  <a href="#tips-for-good-translations" class="md-nav__link">
     <span class="md-ellipsis">
-      Localization
+      Tips for good translations
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#session-integration" class="md-nav__link">
+  <a href="#where-this-fits-in-ovos" class="md-nav__link">
     <span class="md-ellipsis">
-      Session Integration
+      Where this fits in OVOS
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#bus-events" class="md-nav__link">
+  <a href="#need-help" class="md-nav__link">
     <span class="md-ellipsis">
-      Bus Events
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configuration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#design-philosophy" class="md-nav__link">
-    <span class="md-ellipsis">
-      Design Philosophy
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
+      Need help?
     </span>
   </a>
   
@@ -1024,11 +952,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../ocp-pipeline/" class="md-nav__link">
+      <a href="../translation-plugins/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    OCP
+    Translation Plugins
   </span>
   
 
@@ -1045,11 +973,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../fallback-pipeline/" class="md-nav__link">
+      <a href="../translate-server/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Fallback
+    Translation Server
   </span>
   
 
@@ -1059,14 +987,6 @@
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
               
                 
   
@@ -1090,54 +1010,11 @@
         
   
   
-    <a href="../prompts/" class="md-nav__link">
+    <a href="../lang-parser/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Logic & Concepts
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../transformer-plugins/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Transformers
+    Technical Parsers
   </span>
   
 
@@ -1155,48 +1032,6 @@
             
           </ul>
         </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../lang-support/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Language Support
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
       
     </li>
   
@@ -1491,55 +1326,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
+  <a href="#what-youll-be-translating" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation
+      What you'll be translating
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#purpose" class="md-nav__link">
+  <a href="#step-1-open-the-site-and-pick-a-language" class="md-nav__link">
     <span class="md-ellipsis">
-      Purpose
+      Step 1 — Open the site and pick a language
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#step-2-translate" class="md-nav__link">
     <span class="md-ellipsis">
-      How it works
+      Step 2 — Translate
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How it works">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-submit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3 — Submit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-syntax-rules-important" class="md-nav__link">
+    <span class="md-ellipsis">
+      The syntax rules (important)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The syntax rules (important)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#high-confidence-stop_high" class="md-nav__link">
+  <a href="#variables-curly-braces" class="md-nav__link">
     <span class="md-ellipsis">
-      High-confidence (stop_high)
+      Variables — {curly braces}
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#medium-confidence-stop_medium" class="md-nav__link">
+  <a href="#alternatives-optional-words-abc" class="md-nav__link">
     <span class="md-ellipsis">
-      Medium-confidence (stop_medium)
+      Alternatives &amp; optional words — (a|b|c)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#low-confidence-stop_low" class="md-nav__link">
+  <a href="#slots-repeated-variations" class="md-nav__link">
     <span class="md-ellipsis">
-      Low-confidence (stop_low)
+      Slots (repeated variations)
     </span>
   </a>
   
@@ -1551,54 +1404,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#localization" class="md-nav__link">
+  <a href="#tips-for-good-translations" class="md-nav__link">
     <span class="md-ellipsis">
-      Localization
+      Tips for good translations
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#session-integration" class="md-nav__link">
+  <a href="#where-this-fits-in-ovos" class="md-nav__link">
     <span class="md-ellipsis">
-      Session Integration
+      Where this fits in OVOS
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#bus-events" class="md-nav__link">
+  <a href="#need-help" class="md-nav__link">
     <span class="md-ellipsis">
-      Bus Events
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configuration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#design-philosophy" class="md-nav__link">
-    <span class="md-ellipsis">
-      Design Philosophy
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
+      Need help?
     </span>
   </a>
   
@@ -1622,178 +1448,137 @@
   
 
 
-<h1 id="stop-pipeline">Stop Pipeline<a class="headerlink" href="#stop-pipeline" title="Permanent link">&para;</a></h1>
+<h1 id="contribute-translations-with-ovos-localize">Contribute Translations with OVOS Localize<a class="headerlink" href="#contribute-translations-with-ovos-localize" title="Permanent link">&para;</a></h1>
+<p>Want OVOS to speak your language? You don't need to be a programmer to help. <strong>OVOS
+Localize</strong> is a web app where you translate the phrases OVOS says and understands,
+right in your browser — no code, no setup, no command line.</p>
+<div class="admonition info">
+<p class="admonition-title">What replaced GitLocalize</p>
+<p>OVOS used to translate on a third-party service called <em>GitLocalize</em>. That has
+been <strong>retired</strong> and replaced by <strong><a href="https://openvoiceos.github.io/ovos-localize/">OVOS Localize</a></strong>,
+a purpose-built tool that understands OVOS resource files (intents, dialogs,
+vocabularies) and shows you the actual skill code each phrase belongs to. If you
+have old GitLocalize bookmarks, switch to the link above.</p>
+</div>
 <blockquote>
-<p>Specification: <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-stop-1.md">OVOS-STOP-1: Stop Pipeline Plugin</a>.</p>
+<p><strong>Live site:</strong> <strong><a href="https://openvoiceos.github.io/ovos-localize/">openvoiceos.github.io/ovos-localize</a></strong></p>
 </blockquote>
-<p>The <strong>stop pipeline</strong> is a core component of the Open Voice OS (OVOS) pipeline architecture. It defines the logic responsible for stopping ongoing interactions with active skills. This includes aborting responses, halting speech, and terminating background tasks that skills may be performing. </p>
-<p>Because stopping is a <strong>fundamental feature of a voice assistant</strong>, it is implemented as a <strong>dedicated pipeline plugin</strong>, not just a fallback or intent handler.</p>
 <hr />
-<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
-<p><strong>Module:</strong> <code>ovos_core.intent_services.stop_service.StopService</code>
-<strong>Pipeline plugin ID:</strong> <code>ovos-stop-pipeline-plugin</code>
-<strong>Stage names:</strong> <code>stop_high</code>, <code>stop_medium</code>, <code>stop_low</code></p>
-<p><code>StopService</code> subclasses both <code>ConfidenceMatcherPipeline</code> and <code>OVOSAbstractApplication</code> (its <code>skill_id</code> is <code>stop.openvoiceos</code>). Because it is a <code>ConfidenceMatcherPipeline</code>, the single base plugin ID auto-expands into three confidence-tier matchers — <code>match_high</code>, <code>match_medium</code> and <code>match_low</code> — which you reference in the pipeline as <code>stop_high</code>, <code>stop_medium</code>, <code>stop_low</code>. It ships inside <code>ovos-core</code>:</p>
-<div class="language-ini highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">[project.entry-points.&quot;opm.pipeline&quot;]</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="na">ovos-stop-pipeline-plugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ovos_core.intent_services.stop_service:StopService&quot;</span>
-</span></code></pre></div>
-<hr />
-<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p>A voice assistant must always be capable of responding to a "stop" command. Whether the user says <em>“stop,” “cancel,”</em> or another localized phrase, OVOS must quickly:</p>
-<ul>
-<li>
-<p>Determine if a skill is actively responding</p>
-</li>
-<li>
-<p>Allow skills to confirm whether they can be stopped</p>
-</li>
-<li>
-<p>Abort conversations, questions, or spoken responses</p>
-</li>
-</ul>
-<p>The <code>stop</code> pipeline guarantees this behavior through a flexible plugin system and localized vocab matching.</p>
-<hr />
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>The stop pipeline exposes three confidence tiers.</p>
-<h3 id="high-confidence-stop_high">High-confidence (<code>stop_high</code>)<a class="headerlink" href="#high-confidence-stop_high" title="Permanent link">&para;</a></h3>
-<p>Triggered when a user says an <strong>exact</strong> match (<code>voc_match(..., exact=True)</code>) for the <code>stop</code> or <code>global_stop</code> vocab, e.g.:</p>
-<ul>
-<li>
-<p>“Stop”</p>
-</li>
-<li>
-<p>“Cancel”</p>
-</li>
-<li>
-<p>“Parar” (in Portuguese)</p>
-</li>
-<li>
-<p>“Stopp” (in German)</p>
-</li>
-</ul>
-<p>The plugin:</p>
-<ol>
-<li>
-<p>Collects the session's <strong>active skills</strong> (skipping session-blacklisted ones).</p>
-</li>
-<li>
-<p>Pings each via <code>{skill_id}.stop.ping</code> and waits up to <code>0.5s</code> for <code>skill.stop.pong</code> replies (<code>can_handle</code>).</p>
-</li>
-<li>
-<p>Forwards <code>{skill_id}.stop</code> to the skills that can be stopped, then listens for a <code>{skill_id}.stop.response</code> confirmation.</p>
-</li>
-<li>
-<p>If no skill is active (or the utterance matched <code>global_stop</code>), emits a <strong>global stop</strong>: <code>mycroft.stop</code>.</p>
-</li>
-</ol>
-<h3 id="medium-confidence-stop_medium">Medium-confidence (<code>stop_medium</code>)<a class="headerlink" href="#medium-confidence-stop_medium" title="Permanent link">&para;</a></h3>
-<p>A fuzzy (<code>exact=False</code>) match of the same <code>stop</code> / <code>global_stop</code> vocab, for phrases that contain a stop command but are not exact. When it matches, it delegates to <code>match_low</code> to compute a confidence score.</p>
-<h3 id="low-confidence-stop_low">Low-confidence (<code>stop_low</code>)<a class="headerlink" href="#low-confidence-stop_low" title="Permanent link">&para;</a></h3>
-<p>Scores the utterance against the <code>stop</code> vocab list via fuzzy matching (<code>match_one</code>), adds a small bonus when active skills are present, and rejects anything below <code>min_conf</code> (default <code>0.5</code>). Used as a permissive catch-all so phrases like “can you stop now?” still reach the stop logic.</p>
-<hr />
-<h2 id="localization">Localization<a class="headerlink" href="#localization" title="Permanent link">&para;</a></h2>
-<p>The plugin supports stop commands in multiple languages using <code>.voc</code> files bundled in <code>ovos-core</code> under <code>ovos_core/intent_services/locale/&lt;lang&gt;/</code>:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ovos_core/intent_services/locale/
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  en-us/
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    stop.voc
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    global_stop.voc
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  pt-pt/
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    stop.voc
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    global_stop.voc
-</span></code></pre></div>
-<p><code>match_high</code>/<code>match_medium</code> look up the <code>stop</code> and <code>global_stop</code> vocab groups; <code>match_low</code> uses the <code>stop</code> list only. Not every language ships both files (some provide only <code>stop.voc</code>).</p>
-<hr />
-<h2 id="session-integration">Session Integration<a class="headerlink" href="#session-integration" title="Permanent link">&para;</a></h2>
-<p>The stop plugin interfaces with the OVOS session system:</p>
-<ul>
-<li>
-<p>Skills that respond to <code>stop</code> will be removed from <strong>active skill list</strong></p>
-</li>
-<li>
-<p>Session blacklists are respected, blacklisted skills will not be pinged</p>
-</li>
-<li>
-<p>Session state is updated after each successful stop</p>
-</li>
-</ul>
-<hr />
-<h2 id="bus-events">Bus Events<a class="headerlink" href="#bus-events" title="Permanent link">&para;</a></h2>
+<h2 id="what-youll-be-translating">What you'll be translating<a class="headerlink" href="#what-youll-be-translating" title="Permanent link">&para;</a></h2>
+<p>OVOS skills keep their language in small text files. You'll mostly meet three kinds:</p>
 <table>
 <thead>
 <tr>
-<th>Event</th>
-<th>Direction</th>
-<th>Purpose</th>
+<th>File</th>
+<th>Holds</th>
+<th>Plain English</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>stop:global</code></td>
-<td>in</td>
-<td>Handled by <code>handle_global_stop</code> — emits <code>mycroft.stop</code> (and <code>ovos.utterance.handled</code>)</td>
+<td><strong>dialogs</strong> (<code>.dialog</code>)</td>
+<td>sentences <strong>OVOS speaks</strong></td>
+<td>"The weather today is {temperature} degrees."</td>
 </tr>
 <tr>
-<td><code>stop:skill</code></td>
-<td>in</td>
-<td>Handled by <code>handle_skill_stop</code> — forwards <code>{skill_id}.stop</code></td>
+<td><strong>intents</strong> (<code>.intent</code>)</td>
+<td>sentences <strong>the user says</strong></td>
+<td>"what is the weather like"</td>
 </tr>
 <tr>
-<td><code>{skill_id}.stop.ping</code></td>
-<td>out</td>
-<td>Asks a skill whether it can stop</td>
-</tr>
-<tr>
-<td><code>skill.stop.pong</code></td>
-<td>in</td>
-<td>Skill's <code>can_handle</code> reply</td>
-</tr>
-<tr>
-<td><code>{skill_id}.stop</code></td>
-<td>out</td>
-<td>Tells a specific skill to stop</td>
-</tr>
-<tr>
-<td><code>{skill_id}.stop.response</code></td>
-<td>in</td>
-<td>Skill's stop confirmation</td>
-</tr>
-<tr>
-<td><code>mycroft.stop</code></td>
-<td>out</td>
-<td>Global stop signal when no skill handles it</td>
+<td><strong>vocab</strong> (<code>.voc</code>)</td>
+<td>keywords / fragments</td>
+<td>"weather", "forecast"</td>
 </tr>
 </tbody>
 </table>
-<p>There is no <code>ovos.skills.stop</code> message; the per-skill signal is <code>{skill_id}.stop</code> and the global one is <code>mycroft.stop</code>.</p>
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<p>The service reads its config from <code>mycroft.conf</code> under <code>skills.stop</code>. The only key it consults is <code>min_conf</code> (default <code>0.5</code>), the floor used by the low-confidence matcher:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;skills&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;stop&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="nt">&quot;min_conf&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
-</span></code></pre></div>
-<h2 id="design-philosophy">Design Philosophy<a class="headerlink" href="#design-philosophy" title="Permanent link">&para;</a></h2>
+<p>You translate the <em>meaning</em>, not word-for-word. The tool shows you, on screen, which
+skill and which line of code each phrase comes from — so you always have context.</p>
+<hr />
+<h2 id="step-1-open-the-site-and-pick-a-language">Step 1 — Open the site and pick a language<a class="headerlink" href="#step-1-open-the-site-and-pick-a-language" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Go to <strong><a href="https://openvoiceos.github.io/ovos-localize/">openvoiceos.github.io/ovos-localize</a></strong>.</li>
+<li>Choose the <strong>language</strong> you want to translate into and the <strong>skill</strong> you want to work on.
+   The dashboard shows how complete each language is, so you can see where help is needed most.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Don't see your language?</p>
+<p>Languages are added on request. Ask in the
+<a href="https://matrix.to/#/#openvoiceos-languages:matrix.org">Matrix chat</a> or
+<a href="https://github.com/OpenVoiceOS/lang-support-tracker/issues">open an issue</a> and
+we'll enable it.</p>
+</div>
+<h2 id="step-2-translate">Step 2 — Translate<a class="headerlink" href="#step-2-translate" title="Permanent link">&para;</a></h2>
+<p>The editor has three columns:</p>
 <ul>
-<li>
-<p><strong>Low latency</strong>: skills are pinged with a 0.5s wait, so stop resolves quickly</p>
-</li>
-<li>
-<p><strong>Extensible</strong>: other plugins can extend or override this pipeline</p>
-</li>
-<li>
-<p><strong>Localized</strong>: matching is language-aware via per-language vocab</p>
-</li>
-<li>
-<p><strong>Resilient</strong>: falls back to a global <code>mycroft.stop</code> if no skill responds</p>
-</li>
+<li><strong>Left</strong> — the original English phrase.</li>
+<li><strong>Center</strong> — where you type your translation (with a live preview so you can see how
+  it expands).</li>
+<li><strong>Right</strong> — the <strong>skill code context</strong>: the actual Python function that uses this
+  phrase, so you understand <em>when</em> OVOS says or expects it.</li>
+</ul>
+<p>You can also use the <strong>auto-translate</strong> button to get a machine-translation starting
+point, then fix it up — much faster than starting from a blank box.</p>
+<h2 id="step-3-submit">Step 3 — Submit<a class="headerlink" href="#step-3-submit" title="Permanent link">&para;</a></h2>
+<p>When you're happy with a file, click <strong>Submit</strong>. OVOS Localize files your work for you
+and a bot turns it into a pull request on GitHub. A native speaker or maintainer reviews
+it, and once merged your translation ships in the next skill release. You'll need a free
+<strong>GitHub account</strong> to submit, but you never have to touch git or write code.</p>
+<hr />
+<h2 id="the-syntax-rules-important">The syntax rules (important)<a class="headerlink" href="#the-syntax-rules-important" title="Permanent link">&para;</a></h2>
+<p>OVOS phrases use a few special markers. Keep these intact or the skill can break.</p>
+<h3 id="variables-curly-braces">Variables — <code>{curly braces}</code><a class="headerlink" href="#variables-curly-braces" title="Permanent link">&para;</a></h3>
+<p>Variables are placeholders that get filled in at runtime (a name, a number, a city).</p>
+<ul>
+<li>Original: <code>My name is {name}</code></li>
+<li>Spanish: <code>Mi nombre es {name}</code></li>
+</ul>
+<p><strong>Rules:</strong></p>
+<ul>
+<li><strong>Never translate</strong> the text inside <code>{ }</code> — copy it exactly.</li>
+<li>You may <strong>move</strong> a variable to fit your language's grammar.</li>
+<li>Don't invent new variables, and don't let two variables touch — keep at least one
+  real word between them.</li>
+</ul>
+<h3 id="alternatives-optional-words-abc">Alternatives &amp; optional words — <code>(a|b|c)</code><a class="headerlink" href="#alternatives-optional-words-abc" title="Permanent link">&para;</a></h3>
+<p>The <code>(option1|option2)</code> syntax offers interchangeable choices; an empty option makes a
+word optional.</p>
+<ul>
+<li>Alternatives: <code>I love (cats|dogs|birds)</code> → <code>Amo (gatos|perros|pájaros)</code></li>
+<li>Optional word: <code>I (really|) love it</code> → <code>(Realmente|) me encanta</code></li>
+</ul>
+<h3 id="slots-repeated-variations">Slots (repeated variations)<a class="headerlink" href="#slots-repeated-variations" title="Permanent link">&para;</a></h3>
+<p>Sometimes one phrase appears several times so OVOS can recognise different phrasings.
+Each variation is a <strong>slot</strong>.</p>
+<ul>
+<li>Translate <strong>at least one</strong> slot per file.</li>
+<li>If a slot doesn't make sense in your language, enter <code>[UNUSED]</code> — that tells us you
+  reviewed it on purpose.</li>
+<li>Need more room for natural variations? Add a new line and write another translation.</li>
 </ul>
 <hr />
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>The <code>stop</code> pipeline ensures that OVOS is always in control. Whether a user needs to quickly interrupt a skill, cancel a conversation, or shut down all interactions, the <code>StopService</code> plugin provides the robust, language-aware foundation to make that possible.</p>
-<p>It is <strong>not considered optional</strong>, all OVOS installations should include this pipeline by default.</p>
+<h2 id="tips-for-good-translations">Tips for good translations<a class="headerlink" href="#tips-for-good-translations" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Meaning over literalness</strong> — convey what's meant, not a word-for-word swap.</li>
+<li><strong>Be consistent</strong> — use the same term for the same concept throughout.</li>
+<li><strong>Use the code context</strong> (right column) when a phrase is ambiguous.</li>
+<li><strong>Sound natural</strong> — these are things a person says out loud to a voice assistant.</li>
+</ul>
+<hr />
+<h2 id="where-this-fits-in-ovos">Where this fits in OVOS<a class="headerlink" href="#where-this-fits-in-ovos" title="Permanent link">&para;</a></h2>
+<p>OVOS Localize is the front door for translators. Under the hood it reads the same locale
+files described in <strong><a href="../lang-customization/">Customizing Language Resources</a></strong> and
+feeds the broader <strong><a href="../lang-support/">Language Support</a></strong> effort. Developers who want to
+validate locale files in CI can use its <code>ovos-localize-cli</code> tool; translators never need it.</p>
+<p>For the technical side of multilingual support — language selection, parsers, and
+translation plugins — see the <strong><a href="../lang-support/">Language Support overview</a></strong>.</p>
+<hr />
+<h2 id="need-help">Need help?<a class="headerlink" href="#need-help" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Matrix chat:</strong> <a href="https://matrix.to/#/#openvoiceos-languages:matrix.org">#openvoiceos-languages:matrix.org</a></li>
+<li><strong>Email:</strong> <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#111;&#112;&#101;&#110;&#118;&#111;&#105;&#99;&#101;&#111;&#115;&#46;&#111;&#114;&#103;">&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#111;&#112;&#101;&#110;&#118;&#111;&#105;&#99;&#101;&#111;&#115;&#46;&#111;&#114;&#103;</a></li>
+</ul>
+<p>Thank you — every translation makes OVOS usable for more people around the world. 🌍</p>
 
 
 
