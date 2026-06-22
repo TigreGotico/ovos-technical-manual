@@ -16,6 +16,12 @@ asked to display its idle page.
 `ovos-gui` tracks the configured homescreen via its `HomescreenManager`
 (`ovos_gui/homescreen.py`) and shows it when nothing else is on screen.
 
+!!! note "Where HomescreenManager lives (legacy vs. rework)"
+    On the current (legacy) stack the `HomescreenManager` lives in `ovos-gui`. In the
+    [GUI rework](gui-adapters.md) it **moves into the legacy Qt adapter**
+    (`ovos-legacy-mycroft-gui-plugin`, `ovos_legacy_mycroft_gui/homescreen.py`), which takes
+    over the homescreen data/widget coordination. The bus contract is the same either way.
+
 ## Configuration
 
 Select a homescreen skill in `mycroft.conf` (or via [ovos-shell](ovos-shell.md)):
