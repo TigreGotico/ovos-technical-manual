@@ -78,6 +78,19 @@ Below is a list of available pipeline components, categorized by their confidenc
 
 ---
 
+### Other available matchers (not enabled by default)
+
+These are additional OVOS-org intent-matcher pipeline plugins you can install and add to the
+pipeline. They expose the same high/medium/low confidence tiers as Adapt/Padatious:
+
+| Plugin | Description |
+|---|---|
+| [`nebulento`](https://github.com/OpenVoiceOS/nebulento) | Fuzzy / typo-tolerant template matcher (rapidfuzz); no training step. Listens on the same `padatious:register_intent` bus events, plus a hierarchical variant. |
+| [`palavreado`](https://github.com/OpenVoiceOS/palavreado) | Dead-simple keyword matcher; an Adapt drop-in that responds to the same `register_vocab`/`register_intent` events (zero-change skill swap). |
+| [`ovos-hierarchical-knn-pipeline`](https://github.com/OpenVoiceOS/ovos-hierarchical-knn-pipeline) | Embedding-based two-stage k-NN matcher (Granite embeddings + FAISS); a heavier alternative to [Model2Vec](m2v-pipeline.md) (~320 MB RAM, AVX2, 11 languages). |
+
+---
+
 ## Customizing the Pipeline
 
 OVOS allows users to customize the intent pipeline through configuration files. Users can enable or disable specific components, adjust their order, and set confidence thresholds.
