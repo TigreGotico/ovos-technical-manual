@@ -117,7 +117,7 @@ There are **249** public, actively-maintained repositories in the [`OpenVoiceOS`
 | [ovos-tts-plugin-edge-tts](https://github.com/OpenVoiceOS/ovos-tts-plugin-edge-tts) | OpenVoiceOS Text-to-speech plugin with Edge TTS |
 | [ovos-tts-plugin-espeakNG](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG) | espeakNG plugin |
 | [ovos-tts-plugin-google-tx](https://github.com/OpenVoiceOS/ovos-tts-plugin-google-tx) | google translate tts plugin for OVOS / mycroft |
-| [ovos-tts-plugin-lux](https://github.com/OpenVoiceOS/ovos-tts-plugin-lux) |  |
+| [ovos-tts-plugin-lux](https://github.com/OpenVoiceOS/ovos-tts-plugin-lux) | LuxTTS — zipvoice-based voice-cloning TTS (48 kHz, en-US) |
 | [ovos-tts-plugin-marytts](https://github.com/OpenVoiceOS/ovos-tts-plugin-marytts) |  |
 | [ovos-tts-plugin-mimic](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic) |  |
 | [ovos-tts-plugin-pico](https://github.com/OpenVoiceOS/ovos-tts-plugin-pico) | pico-tts-plugin |
@@ -304,7 +304,7 @@ There are **249** public, actively-maintained repositories in the [`OpenVoiceOS`
 | [OpenVoiceOS](https://github.com/OpenVoiceOS/OpenVoiceOS) | OpenVoiceOS - Release Tracker |
 | [VocalFusionDriver](https://github.com/OpenVoiceOS/VocalFusionDriver) | Raspberry Pi VocalFusion linux driver for kernel 5.10 |
 | [architecture](https://github.com/OpenVoiceOS/architecture) | Formal architecture specifications for OpenVoiceOS — the intent template grammar, locale resource formats, and the in… |
-| [linha-fina](https://github.com/OpenVoiceOS/linha-fina) |  |
+| [linha-fina](https://github.com/OpenVoiceOS/linha-fina) | SVM intent-engine pipeline plugin used as a benchmarking baseline (not a production matcher) |
 | [message_spec](https://github.com/OpenVoiceOS/message_spec) |  |
 | [mycroft-classic-listener](https://github.com/OpenVoiceOS/mycroft-classic-listener) | simpler alternative to ovos-listener, historical reference to classic mycroft-core implementation for the mark1 device |
 | [mycroft-gui-qt6](https://github.com/OpenVoiceOS/mycroft-gui-qt6) | The Graphical User Interface used by the Mycroft Mark II and more |

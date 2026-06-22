@@ -123,6 +123,7 @@ MyTTSConfig = {
 | [ovos-tts-server-plugin](#ovos-tts-server-plugin) | OpenVoiceOS companion plugin for [OpenVoiceOS TTS Server](https://github.com/OpenVoiceOS/ovos-tts-server) |
 | [ovos-tts-plugin-coqui](#ovos-tts-plugin-coqui) | OVOS TTS plugin for [Coqui TTS](https://coqui-tts.readthedocs.io/en/latest) |
 | [ovos-tts-plugin-pico](#ovos-tts-plugin-pico) | SVOX Pico lightweight offline text-to-speech. |
+| [ovos-tts-plugin-lux](https://github.com/OpenVoiceOS/ovos-tts-plugin-lux) | LuxTTS — zipvoice-based voice-cloning TTS (48 kHz, en-US). |
 
 ## ovos-tts-server
 

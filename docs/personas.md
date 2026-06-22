@@ -203,7 +203,8 @@ All keys live under `"intents": { "persona": { ... } }` in `mycroft.conf`:
 | `persona_blacklist` | `[]` | Persona names to skip when loading |
 | `ignore_plugin_personas` | `false` | Skip OPM-registered plugin personas |
 | `min_intent_confidence` | `0.6` | Minimum padatious confidence for persona intents |
-| `memory_module` | `"ovos-agents-short-term-memory-plugin"` | Memory plugin (`null` to disable) |
+
+(`memory_module` is **not** a PersonaService key — it is a **per-persona** JSON key set inside each persona file; see above.)
 
 ### Voice intents
 

@@ -40,7 +40,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 
 | Plugin | Description |
 |--------|-------------|
-| [ovos-qdrant-embeddings-plugin](#ovos-qdrant-embeddings-plugin) | The `QdrantEmbeddingsDB` plugin integrates with the [qdrant](https://www.tryQdrant.com/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using qdrant’s capabilities. |
+| [ovos-qdrant-embeddings-plugin](#ovos-qdrant-embeddings-plugin) | The `QdrantEmbeddingsDB` plugin integrates with the [qdrant](https://qdrant.tech/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using qdrant’s capabilities. |
 | [ovos-solver-plugin-aiml](#ovos-solver-plugin-aiml) | Give Mycroft some sass with AIML! |
 | [ovos-persona](#ovos-persona) | The **`PersonaPipeline`** brings multi-persona management to OpenVoiceOS (OVOS), enabling interactive conversations with virtual assistants. 🎙️ With personas, you can customize how queries are handled by assigning specific solvers to each persona. |
 | [ovos-openai-plugin](#ovos-openai-plugin) | Leverages [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to provide the following ovos plugins: |
@@ -59,7 +59,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-qdrant-embeddings-plugin](https://github.com/OpenVoiceOS/ovos-qdrant-embeddings-plugin)
 
 
-- **Description**: The `QdrantEmbeddingsDB` plugin integrates with the [qdrant](https://www.tryQdrant.com/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using qdrant’s capabilities.
+- **Description**: The `QdrantEmbeddingsDB` plugin integrates with the [qdrant](https://qdrant.tech/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using qdrant’s capabilities.
 
 ---
 

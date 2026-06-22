@@ -28,6 +28,7 @@ Repository: `OpenVoiceOS Workspace/Agent Plugins/ovos-gguf-plugin`
 | `opm.lang.translate` | `ovos-translate-gguf-plugin` | `GGUFTextTranslator` | `ovos_gguf_plugin/translate.py` |
 | `opm.lang.detect` | `ovos-lang-detect-gguf-plugin` | `GGUFTextLangDetector` | `ovos_gguf_plugin/translate.py` |
 | `opm.transformer.dialog` | `ovos-dialog-transformer-gguf-plugin` | `GGUFDialogTransformer` | `ovos_gguf_plugin/dialog_transformers.py` |
+| `opm.embeddings.text` | `ovos-gguf-embeddings-plugin` | `GGUFEmbeddings` | `ovos_gguf_plugin/embeddings.py` |
 
 !!! note "Scope"
     This plugin does **not** ship coref / reranker / extractive-QA / NLI / yes-no / memory
