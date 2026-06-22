@@ -1585,9 +1585,21 @@
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p><strong>Security:</strong> Never expose the messagebus to the public internet. It provides full control over the OVOS instance. For remote access, use <a href="https://jarbashivemind.github.io/HiveMind-community-docs/">HiveMind</a>.</p>
-</blockquote>
+<div class="admonition danger">
+<p class="admonition-title">Security: the bus has no authentication — keep it local</p>
+<p>The messagebus has <strong>no authentication and no encryption</strong>, and <strong>any</strong> client that can
+connect gets <strong>full control</strong> of the device (it can trigger skills, read everything on the
+bus, even run code via some plugins). Treat it like an open door to the whole assistant.</p>
+<ul>
+<li><strong>Keep it bound to localhost</strong> (<code>host: "127.0.0.1"</code>, the shipped default). Only set
+  <code>"0.0.0.0"</code> if you fully control the network, and <strong>never port-forward 8181</strong> to the
+  internet.</li>
+<li>For <strong>remote access</strong> (satellites, phones, other rooms), don't expose the bus — use
+  <a href="../hivemind-agents/">HiveMind</a>, which adds authentication and encryption on top.</li>
+<li>This is also why the bus is a trust boundary: a malicious skill or plugin on the device
+  already has full access, so only install software you trust.</li>
+</ul>
+</div>
 <hr />
 <h2 id="implementation-messagebuseventhandler">Implementation: <code>MessageBusEventHandler</code><a class="headerlink" href="#implementation-messagebuseventhandler" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_messagebus.event_handler.MessageBusEventHandler</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/event_handler.py"><code>ovos_messagebus/event_handler.py</code></a></p>
