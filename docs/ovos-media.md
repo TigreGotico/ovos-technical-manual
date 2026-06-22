@@ -1,6 +1,31 @@
 # ovos-media
 
-`ovos-media` is the standalone audio/video daemon for OpenVoiceOS. It replaces the legacy audio service with a more robust and modular media player based on the OpenVoiceOS [Common Play](ocp-pipeline.md) ([OCP](ocp-pipeline.md)) framework.
+!!! warning "Upcoming — a refactor that is not the default yet"
+    `ovos-media` is the **upcoming** media-playback service for OVOS, still being refactored.
+    It is **not enabled by default**. Today, stock installs play media through the **legacy
+    audio backend** — the [`ovos-ocp-audio-plugin`](media-plugins.md#ovos-ocp-audio-plugin)
+    ("old audio service") inside [`ovos-audio`](audio-service.md), which is **deprecated but
+    still shipped**. Switching to `ovos-media` is opt-in (see below) and some parts are still
+    coupled (Qt5 GUI, player-as-skill). Treat this page as the *target architecture*.
+
+!!! info "Which media system am I running? (legacy vs. ovos-media)"
+    OVOS has **two media-playback backends** that share the same [OCP](ocp-pipeline.md)
+    search framework (pipeline + skills + extractors):
+
+    | | Legacy (current default) | ovos-media (upcoming) |
+    |---|---|---|
+    | **Package** | `ovos-ocp-audio-plugin` in [`ovos-audio`](audio-service.md) | `ovos-media` (standalone daemon) |
+    | **Status** | deprecated, still shipped & on by default | opt-in refactor, not default |
+    | **Playback** | one monolithic audio backend | per-request audio/video/web [media plugins](media-plugins.md) (`opm.media.*`) |
+    | **Extras** | — | MPRIS, per-session state, multiple players |
+    | **Config** | `enable_old_audioservice: true` (default) | `enable_old_audioservice: false` + run `ovos-media` |
+
+    The OCP **pipeline**, **skills** and **stream extractors** are unaffected by which backend
+    you use — only the *playback* layer differs.
+
+`ovos-media` is the standalone audio/video daemon for OpenVoiceOS. It is the **upcoming
+replacement** for the legacy audio service, providing a more robust and modular media player
+built on the OpenVoiceOS [Common Play](ocp-pipeline.md) ([OCP](ocp-pipeline.md)) framework.
 
 **In plain terms:** the old audio service could only play one kind of stream through a thin wrapper. `ovos-media` is a proper media daemon: it has separate audio/video/web players you pick per request, supports MPRIS (so your phone's media controls work), and keeps per-session state so multiple devices can each play their own thing.
 
