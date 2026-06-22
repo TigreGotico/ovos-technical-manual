@@ -124,7 +124,7 @@ if not is_silence:
 
 | Plugin | Description |
 |--------|-------------|
-| [ovos-vad-plugin-webrtcvad](#ovos-vad-plugin-webrtcvad) | No description available |
+| [ovos-vad-plugin-webrtcvad](#ovos-vad-plugin-webrtcvad) | Voice activity detection using webrtcvad. |
 | [ovos-vad-plugin-noise](#ovos-vad-plugin-noise) | simple VAD plugin extracted from the old [ovos-listener](https://github.com/OpenVoiceOS/ovos-listener/blob/dev/ovos_listener/silence.py) |
 | [ovos-vad-plugin-silero](#ovos-vad-plugin-silero) | Silero Voice Activity Detection (VAD) plugin. |
 
@@ -133,7 +133,7 @@ if not is_silence:
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-vad-plugin-webrtcvad](https://github.com/OpenVoiceOS/ovos-vad-plugin-webrtcvad)
 
 
-- **Description**: No description available
+- **Description**: Voice activity detection using webrtcvad.
 
 ---
 

@@ -110,8 +110,7 @@ class MyWWPlugin(HotWordEngine):
 
 | Plugin | Description |
 |--------|-------------|
-| [ovos-ww-plugin-openWakeWord](#ovos-ww-plugin-openwakeword) | No description available |
-| [ovos-ww-plugin-nyumaya-legacy](#ovos-ww-plugin-nyumaya-legacy) | No description available |
+| [ovos-ww-plugin-openWakeWord](#ovos-ww-plugin-openwakeword) | Wake-word detection using the open-source openWakeWord neural models. |
 | [ovos-ww-plugin-vosk](#ovos-ww-plugin-vosk) | Mycroft wake word plugin for [Vosk](https://alphacephei.com/vosk/) |
 | [ovos-ww-plugin-precise-onnx](#ovos-ww-plugin-precise-onnx) | ONNX-exported Precise wake word model (current default). |
 
@@ -120,16 +119,7 @@ class MyWWPlugin(HotWordEngine):
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-ww-plugin-openWakeWord](https://github.com/OpenVoiceOS/ovos-ww-plugin-openWakeWord)
 
 
-- **Description**: No description available
-
----
-
-## ovos-ww-plugin-nyumaya-legacy
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-ww-plugin-nyumaya-legacy](https://github.com/OpenVoiceOS/ovos-ww-plugin-nyumaya-legacy)
-
-
-- **Description**: No description available
+- **Description**: Wake-word detection using the open-source openWakeWord neural models.
 
 ---
 

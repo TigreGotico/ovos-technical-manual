@@ -389,12 +389,12 @@ skill as a voice frontend.
 | [ovos-PHAL-plugin-dotstar](#ovos-phal-plugin-dotstar) | **Compatible with** |
 | [ovos-PHAL-plugin-wallpaper-manager](#ovos-phal-plugin-wallpaper-manager) | This PHAL plugin provides a central wallpaper management interface for homescreens and other desktops |
 | [ovos-PHAL-plugin-ipgeo](#ovos-phal-plugin-ipgeo) | Autoconfigure default location based on ip address via [ip-api.com](https://ip-api.com) |
-| [ovos-PHAL-sensors](#ovos-phal-sensors) | No description available |
+| [ovos-PHAL-sensors](#ovos-phal-sensors) | Exposes the OVOS device and its sensors to Home Assistant. |
 | [ovos-PHAL-plugin-alsa](#ovos-phal-plugin-alsa) | controls system volume with alsa |
 | [ovos-PHAL-plugin-mk2-v6-fan-control](#ovos-phal-plugin-mk2-v6-fan-control) | **Compatible with** |
-| [ovos-PHAL-plugin-gpsd](#ovos-phal-plugin-gpsd) | No description available |
+| [ovos-PHAL-plugin-gpsd](#ovos-phal-plugin-gpsd) | Provides GPS location to OVOS via gpsd. |
 | [ovos-PHAL-plugin-mk1](#ovos-phal-plugin-mk1) | handles integration with the Mycroft Mark1 hardware |
-| [ovos-PHAL-plugin-connectivity-events](#ovos-phal-plugin-connectivity-events) | No description available |
+| [ovos-PHAL-plugin-connectivity-events](#ovos-phal-plugin-connectivity-events) | Reports network connectivity changes to the messagebus. |
 | [ovos-PHAL-plugin-camera](#ovos-phal-plugin-camera) | This plugin allows users to interact with cameras using OpenCV or libcamera, take snapshots, and serve video streams over HTTP. It also provides methods for handling camera operations via message bus events. |
 | [ovos-PHAL-plugin-pulseaudio](#ovos-phal-plugin-pulseaudio) | controls system volume with pulseaudio |
 | [ovos-PHAL-plugin-oauth](#ovos-phal-plugin-oauth) | Stable |
@@ -442,7 +442,7 @@ skill as a voice frontend.
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-PHAL-sensors](https://github.com/OpenVoiceOS/ovos-PHAL-sensors)
 
 
-- **Description**: No description available
+- **Description**: Exposes the OVOS device and its sensors to Home Assistant.
 
 ---
 
@@ -469,7 +469,7 @@ skill as a voice frontend.
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-PHAL-plugin-gpsd](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-gpsd)
 
 
-- **Description**: No description available
+- **Description**: Provides GPS location to OVOS via gpsd.
 
 ---
 
@@ -487,7 +487,7 @@ skill as a voice frontend.
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-PHAL-plugin-connectivity-events](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-connectivity-events)
 
 
-- **Description**: No description available
+- **Description**: Reports network connectivity changes to the messagebus.
 
 ---
 

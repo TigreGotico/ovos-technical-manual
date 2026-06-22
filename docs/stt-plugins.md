@@ -160,8 +160,8 @@ MySTTConfig = {
 | Plugin | Description |
 |--------|-------------|
 | [ovos-stt-plugin-wav2vec](#ovos-stt-plugin-wav2vec) | OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) |
-| [ovos-stt-plugin-azure](#ovos-stt-plugin-azure) | No description available |
-| [ovos-stt-plugin-chromium](#ovos-stt-plugin-chromium) | No description available |
+| [ovos-stt-plugin-azure](#ovos-stt-plugin-azure) | Microsoft Azure cloud speech-to-text. |
+| [ovos-stt-plugin-chromium](#ovos-stt-plugin-chromium) | Speech-to-text using the Google Chrome browser speech API. |
 | [ovos-stt-plugin-mms](#ovos-stt-plugin-mms) | OVOS plugin for [The Massively Multilingual Speech (MMS) project](https://huggingface.co/docs/transformers/main/en/model_doc/mms) |
 | [ovos-stt-server-plugin](#ovos-stt-server-plugin) | OpenVoiceOS companion plugin for [OpenVoiceOS STT Server](https://github.com/OpenVoiceOS/ovos-stt-http-server) |
 | [ovos-stt-http-server](#ovos-stt-http-server) | Turn any OVOS STT plugin into a micro service! |
@@ -202,7 +202,7 @@ MySTTConfig = {
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-azure](https://github.com/OpenVoiceOS/ovos-stt-plugin-azure)
 
 
-- **Description**: No description available
+- **Description**: Microsoft Azure cloud speech-to-text.
 
 ---
 
@@ -211,7 +211,7 @@ MySTTConfig = {
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-chromium](https://github.com/OpenVoiceOS/ovos-stt-plugin-chromium)
 
 
-- **Description**: No description available
+- **Description**: Speech-to-text using the Google Chrome browser speech API.
 
 ---
 

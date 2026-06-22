@@ -108,21 +108,21 @@ MyTTSConfig = {
 | Plugin | Description |
 |--------|-------------|
 | [ovos-tts-server](#ovos-tts-server) | Turn any OVOS TTS plugin into a micro service! |
-| [ovos-tts-plugin-polly](#ovos-tts-plugin-polly) | No description available |
+| [ovos-tts-plugin-polly](#ovos-tts-plugin-polly) | Amazon Polly cloud text-to-speech. |
 | [ovos-tts-plugin-google-tx](#ovos-tts-plugin-google-tx) | OVOS TTS plugin for [gTTS](https://github.com/pndurette/gTTS) |
 | [ovos-tts-plugin-edge-tts](#ovos-tts-plugin-edge-tts) | TTS plugin for [OVOS](https://openvoiceos.org) based on [Edge-TTS](https://github.com/rany2/edge-tts) |
 | [ovos-tts-plugin-matxa-multispeaker-cat](#ovos-tts-plugin-matxa-multispeaker-cat) | 🍵 [Matxa-TTS](https://huggingface.co/projecte-aina/matxa-tts-cat-multiaccent), the multispeaker, multidialectal neural TTS model.  It works together with the vocoder model 🥑 [alVoCat](https://huggingface.co/projecte-aina/alvocat-vocos-22khz), to generate high quality and expressive speech efficiently in four Catalan dialects: |
 | [ovos-tts-plugin-marytts](#ovos-tts-plugin-marytts) | TTS Plugin for [MaryTTS](https://github.com/marytts/marytts) |
-| [ovos-tts-plugin-espeakNG](#ovos-tts-plugin-espeakng) | No description available |
-| [ovos-tts-plugin-beepspeak](#ovos-tts-plugin-beepspeak) | No description available |
+| [ovos-tts-plugin-espeakNG](#ovos-tts-plugin-espeakng) | eSpeak NG offline text-to-speech (robotic, supports many languages). |
+| [ovos-tts-plugin-beepspeak](#ovos-tts-plugin-beepspeak) | Novelty R2-D2-style beep text-to-speech. |
 | [ovos-tts-plugin-cotovia](#ovos-tts-plugin-cotovia) | OVOS TTS plugin for [Cotovia TTS](http://gtm.uvigo.es/cotovia) |
 | [ovos-tts-plugin-mimic](#ovos-tts-plugin-mimic) | OVOS TTS plugin for [Mimic](https://github.com/MycroftAI/mimic1) |
-| [ovos-tts-plugin-SAM](#ovos-tts-plugin-sam) | No description available |
+| [ovos-tts-plugin-SAM](#ovos-tts-plugin-sam) | S.A.M. — Software Automatic Mouth, the classic retro speech synthesizer. |
 | [ovos-tts-plugin-azure](#ovos-tts-plugin-azure) | This TTS service for OpenVoiceOS requires a subscription to Microsoft Azure and the creation of a Speech resource (https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/overview#create-the-azure-resource) |
 | [ovos-tts-plugin-ahotts](#ovos-tts-plugin-ahotts) | OVOS TTS plugin for [AhoTTS](https://github.com/aholab/AhoTTS) |
 | [ovos-tts-server-plugin](#ovos-tts-server-plugin) | OpenVoiceOS companion plugin for [OpenVoiceOS TTS Server](https://github.com/OpenVoiceOS/ovos-tts-server) |
 | [ovos-tts-plugin-coqui](#ovos-tts-plugin-coqui) | OVOS TTS plugin for [Coqui TTS](https://coqui-tts.readthedocs.io/en/latest) |
-| [ovos-tts-plugin-pico](#ovos-tts-plugin-pico) | No description available |
+| [ovos-tts-plugin-pico](#ovos-tts-plugin-pico) | SVOX Pico lightweight offline text-to-speech. |
 
 ## ovos-tts-server
 
@@ -138,7 +138,7 @@ MyTTSConfig = {
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-tts-plugin-polly](https://github.com/OpenVoiceOS/ovos-tts-plugin-polly)
 
 
-- **Description**: No description available
+- **Description**: Amazon Polly cloud text-to-speech.
 
 ---
 
@@ -218,7 +218,7 @@ MyTTSConfig = {
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG)
 
 
-- **Description**: No description available
+- **Description**: eSpeak NG offline text-to-speech (robotic, supports many languages).
 
 ---
 
@@ -227,7 +227,7 @@ MyTTSConfig = {
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-tts-plugin-beepspeak](https://github.com/OpenVoiceOS/ovos-tts-plugin-beepspeak)
 
 
-- **Description**: No description available
+- **Description**: Novelty R2-D2-style beep text-to-speech.
 
 ---
 
@@ -279,7 +279,7 @@ MyTTSConfig = {
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-tts-plugin-SAM](https://github.com/OpenVoiceOS/ovos-tts-plugin-SAM)
 
 
-- **Description**: No description available
+- **Description**: S.A.M. — Software Automatic Mouth, the classic retro speech synthesizer.
 
 ---
 
@@ -376,7 +376,7 @@ MyTTSConfig = {
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-tts-plugin-pico](https://github.com/OpenVoiceOS/ovos-tts-plugin-pico)
 
 
-- **Description**: No description available
+- **Description**: SVOX Pico lightweight offline text-to-speech.
 
 ---
 
