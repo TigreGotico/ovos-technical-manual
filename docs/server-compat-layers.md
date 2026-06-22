@@ -23,8 +23,6 @@ All compat routers are always loaded; no feature flag is needed.
 
 `pip install ovos-stt-http-server`
 
-Status: merged to `dev`.
-
 | Prefix | Vendor |
 |--------|--------|
 | `/openai` | OpenAI Whisper (`/openai/v1/audio/transcriptions`) |
@@ -51,8 +49,6 @@ Status: merged to `dev`.
 
 `pip install ovos-tts-server`
 
-Status: merged to `dev`.
-
 | Prefix | Vendor |
 |--------|--------|
 | `/elevenlabs` | ElevenLabs |
@@ -72,8 +68,6 @@ Status: merged to `dev`.
 
 `pip install ovos-translate-server`
 
-Status: merged to `dev` (the server is now FastAPI, replacing the former Flask app).
-
 | Prefix | Vendor |
 |--------|--------|
 | `/libretranslate` | LibreTranslate |
@@ -89,8 +83,6 @@ Status: merged to `dev` (the server is now FastAPI, replacing the former Flask a
 ## Persona Server Compat Routes
 
 `pip install ovos-persona-server`
-
-Status: merged to `dev`.
 
 The persona server baseline is an OpenAI-compatible chat API at **`/openai/v1/chat/completions`**. (The unprefixed `/v1/...` path is also mounted but is **deprecated legacy** — it returns a `Deprecation` header; a bare-root base URL 404s, so always include the `/openai/v1` prefix.) Additional vendor routers are layered on top:
 

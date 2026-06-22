@@ -11,8 +11,6 @@ This page covers the plugin ecosystem, the PHAL bus provider, and integration wi
 
 ## OPM ToolBox Interface
 
-Source: [OpenVoiceOS/ovos-plugin-manager#340](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/340) (merged).
-
 Every `ToolBox` plugin:
 
 1. Declares its tools via `discover_tools()`, returning a list of `AgentTool` instances.

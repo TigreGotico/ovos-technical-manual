@@ -5,16 +5,11 @@
 
 The wake word verifier framework lets one or more secondary plugins inspect the audio captured during a wake-word detection event and veto false triggers. This is separate from the detection plugin itself and runs as a post-detection gate.
 
-OPM interface: [OpenVoiceOS/ovos-plugin-manager#341](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/341) (merged).  
-Listener integration: [OpenVoiceOS/ovos-dinkum-listener#191](https://github.com/OpenVoiceOS/ovos-dinkum-listener/pull/191) (merged).
-
 ---
 
 ## Pre-Wake VAD
 
 Before the wake word detector even fires, an optional VAD gate can filter frames that are clearly silent, reducing the detection surface for false activations.
-
-Source: [OpenVoiceOS/ovos-dinkum-listener#189](https://github.com/OpenVoiceOS/ovos-dinkum-listener/pull/189) (merged).
 
 ```json
 {
