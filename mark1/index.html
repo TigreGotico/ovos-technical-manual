@@ -1409,6 +1409,15 @@
 <p>The <strong>Mycroft Mark 1</strong> was the first official hardware for Mycroft AI. It features a distinctive faceplate with a 32x8 LED "mouth" and two RGB LED "eyes". OpenVoiceOS provides full support for the Mark 1 hardware, including both a high-level <code>EnclosureAPI</code> for common tasks and a low-level <code>ovos-mark1-utils</code> library for fine-grained control.</p>
 <hr />
 <h2 id="enclosure-api">Enclosure API<a class="headerlink" href="#enclosure-api" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title"><code>self.enclosure</code> / <code>EnclosureAPI</code> is being deprecated</p>
+<p>The skill-facing <code>self.enclosure</code> (<a href="../apis-ref/#enclosureapi"><code>EnclosureAPI</code></a>) is on its
+way out. In the <a href="../gui-adapters/">GUI rework</a> the Mark 1 faceplate (LED "mouth" + "eyes")
+is being remodelled as <strong>one of the new GUI plugins</strong> — i.e. a <a href="../gui-adapters/">GUI adapter</a>
+that renders the standard display events onto the faceplate — rather than a special
+enclosure bus API. Prefer the normal GUI/<a href="../skill-gui/"><code>self.gui</code></a> path for new skills;
+this page documents the legacy API for existing Mark 1 skills.</p>
+</div>
 <p>The <code>EnclosureAPI</code> is an abstraction over the "body" of the device. It provides a standard way for skills to interact with hardware features like displays and LEDs without needing to know the low-level details of the hardware transport.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.apis.enclosure</span> <span class="kn">import</span> <span class="n">EnclosureAPI</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
