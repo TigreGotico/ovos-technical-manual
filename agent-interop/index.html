@@ -1538,9 +1538,6 @@
 <hr />
 <h2 id="mcp-utcp-on-the-service-servers">MCP + UTCP on the Service Servers<a class="headerlink" href="#mcp-utcp-on-the-service-servers" title="Permanent link">&para;</a></h2>
 <h3 id="stt-server">STT Server<a class="headerlink" href="#stt-server" title="Permanent link">&para;</a></h3>
-<blockquote>
-<p><strong>Status:</strong> Merged to <code>dev</code> — <a href="https://github.com/OpenVoiceOS/ovos-stt-http-server/pull/75">OpenVoiceOS/ovos-stt-http-server#75</a></p>
-</blockquote>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-stt-http-server[mcp]&quot;</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ovos-stt-server<span class="w"> </span>--engine<span class="w"> </span>ovos-stt-plugin-whisper<span class="w"> </span>--port<span class="w"> </span><span class="m">9666</span><span class="w"> </span>--mcp
 </span></code></pre></div>
@@ -1577,9 +1574,6 @@
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="tts-server">TTS Server<a class="headerlink" href="#tts-server" title="Permanent link">&para;</a></h3>
-<blockquote>
-<p><strong>Status:</strong> Merged to <code>dev</code> — <a href="https://github.com/OpenVoiceOS/ovos-tts-server/pull/100">OpenVoiceOS/ovos-tts-server#100</a></p>
-</blockquote>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-tts-server[mcp]&quot;</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ovos-tts-server<span class="w"> </span>--engine<span class="w"> </span>ovos-tts-plugin-piper<span class="w"> </span>--port<span class="w"> </span><span class="m">9667</span><span class="w"> </span>--mcp
 </span></code></pre></div>
@@ -1613,9 +1607,6 @@
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="s1">&#39;http://localhost:9667/v2/synthesize?utterance=hello%20world&#39;</span><span class="w"> </span>-o<span class="w"> </span>out.wav
 </span></code></pre></div>
 <h3 id="translate-server">Translate Server<a class="headerlink" href="#translate-server" title="Permanent link">&para;</a></h3>
-<blockquote>
-<p><strong>Status:</strong> Merged to <code>dev</code> — <a href="https://github.com/OpenVoiceOS/ovos-translate-server/pull/16">OpenVoiceOS/ovos-translate-server#16</a></p>
-</blockquote>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-translate-server[mcp]&quot;</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>python<span class="w"> </span>-m<span class="w"> </span>ovos_translate_server<span class="w"> </span>--tx-engine<span class="w"> </span>ovos-google-translate-plugin<span class="w"> </span>--port<span class="w"> </span><span class="m">9669</span>
 </span></code></pre></div>
@@ -1643,9 +1634,6 @@
 <p>UTCP tools: <code>ovos_translate.translate</code>, <code>ovos_translate.detect_language</code>, and the native HTTP REST endpoints.</p>
 <p>MCP tools: <code>translate</code> (params: <code>text</code>, <code>target_lang</code>, optional <code>source_lang</code>), <code>detect_language</code> (param: <code>text</code>).</p>
 <h3 id="persona-server-tool-plugins-via-mcp-utcp">Persona Server — Tool Plugins via MCP + UTCP<a class="headerlink" href="#persona-server-tool-plugins-via-mcp-utcp" title="Permanent link">&para;</a></h3>
-<blockquote>
-<p><strong>Status:</strong> Merged to <code>dev</code> — <a href="https://github.com/OpenVoiceOS/ovos-persona-server/pull/37">OpenVoiceOS/ovos-persona-server#37</a></p>
-</blockquote>
 <p>The persona server surfaces every installed OPM <code>ToolBox</code> plugin as both a UTCP tool and an MCP tool.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-persona-server[mcp]&quot;</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ovos-persona-server<span class="w"> </span>--persona<span class="w"> </span>my_persona.json
@@ -1685,9 +1673,6 @@
 <h2 id="a2a-agent-to-agent-protocol">A2A (Agent-to-Agent Protocol)<a class="headerlink" href="#a2a-agent-to-agent-protocol" title="Permanent link">&para;</a></h2>
 <p>A2A is the <a href="https://google.github.io/A2A/">Google A2A open protocol</a>. An A2A server publishes a discovery document (agent card) and accepts tasks via JSON-RPC 2.0.</p>
 <h3 id="persona-server-as-a2a-server">Persona Server as A2A Server<a class="headerlink" href="#persona-server-as-a2a-server" title="Permanent link">&para;</a></h3>
-<blockquote>
-<p><strong>Status:</strong> Merged to <code>dev</code> — <a href="https://github.com/OpenVoiceOS/ovos-persona-server/pull/35">OpenVoiceOS/ovos-persona-server#35</a></p>
-</blockquote>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-persona-server[a2a]&quot;</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ovos-persona-server<span class="w"> </span>--persona<span class="w"> </span>my_persona.json<span class="w"> </span>--a2a-base-url<span class="w"> </span>http://localhost:8337
 </span></code></pre></div>

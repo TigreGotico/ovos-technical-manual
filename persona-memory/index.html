@@ -1414,7 +1414,7 @@
 <p>This controls what your assistant's persona <em>remembers</em> from earlier in a conversation. Rather than always carrying the whole chat along, a memory plugin decides which past messages — or short summaries of them — to bring back into the next reply, like a notepad that keeps the bits worth keeping. It also decides whether those notes survive between separate conversations. See <a href="../personas/">AI Agents &amp; Personas</a> for the bigger picture and the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
 </div>
 <p><strong>What this is:</strong> a pluggable way to control what an OVOS persona "remembers". Instead of a fixed conversation buffer, a memory plugin decides which past messages (and any summaries or retrieved snippets) get prepended to the LLM call on each turn, and how that history is persisted across turns and sessions.</p>
-<p>Persona memory is managed through the <code>AgentContextManager</code> interface (OPM <code>opm.agents.memory</code>), introduced in <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/363">OpenVoiceOS/ovos-plugin-manager#363</a> (merged). Integration into <code>ovos-persona</code> landed in <a href="https://github.com/OpenVoiceOS/ovos-persona/pull/143">OpenVoiceOS/ovos-persona#143</a> (merged).</p>
+<p>Persona memory is managed through the <code>AgentContextManager</code> interface (OPM <code>opm.agents.memory</code>), which <code>ovos-persona</code> loads for each persona.</p>
 <hr />
 <h2 id="interface">Interface<a class="headerlink" href="#interface" title="Permanent link">&para;</a></h2>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.agents</span> <span class="kn">import</span> <span class="n">AgentContextManager</span><span class="p">,</span> <span class="n">AgentMessage</span>
@@ -1437,7 +1437,7 @@
 <p><code>AgentMessage</code> (<code>role</code>, <code>content</code>, optional <code>tool_calls</code> / <code>tool_call_id</code> / <code>name</code>) is the canonical message type. The short-term memory previously hard-coded in <code>ovos-persona</code> is now a plugin under this interface, so all memory strategies are composable.</p>
 <hr />
 <h2 id="per-session-persona-tracking">Per-Session Persona Tracking<a class="headerlink" href="#per-session-persona-tracking" title="Permanent link">&para;</a></h2>
-<p><a href="https://github.com/OpenVoiceOS/ovos-persona/pull/140">OpenVoiceOS/ovos-persona#140</a> (merged, built on <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/TigreGotico/ovos-bus-client/issues/192" title="GitHub Issue: TigreGotico/ovos-bus-client #192">ovos-bus-client#192</a>) adds session isolation to persona management:</p>
+<p>Persona management is session-isolated:</p>
 <ul>
 <li>Each <code>Session</code> can activate a different persona.</li>
 <li>Conversation history is tracked per session, not globally.</li>

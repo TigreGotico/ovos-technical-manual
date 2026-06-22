@@ -925,9 +925,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#architecture-history" class="md-nav__link">
+  <a href="#architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      Architecture History
+      Architecture
     </span>
   </a>
   
@@ -1523,9 +1523,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#architecture-history" class="md-nav__link">
+  <a href="#architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      Architecture History
+      Architecture
     </span>
   </a>
   
@@ -1845,7 +1845,7 @@ search framework (pipeline + skills + extractors):</p>
 </tr>
 <tr>
 <td><strong>Playback</strong></td>
-<td>one monolithic audio backend</td>
+<td>one bundled audio backend</td>
 <td>per-request audio/video/web <a href="../media-plugins/">media plugins</a> (<code>opm.media.*</code>)</td>
 </tr>
 <tr>
@@ -1896,14 +1896,13 @@ built on the OpenVoiceOS <a href="../ocp-pipeline/">Common Play</a> (<a href="..
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p">}</span>
 </span></code></pre></div>
 <hr />
-<h2 id="architecture-history">Architecture History<a class="headerlink" href="#architecture-history" title="Permanent link">&para;</a></h2>
-<p>OCP (OVOS Common Play) was originally implemented as an <code>AudioBackend</code> plugin inside the Mycroft
-audio service — a severe misuse of an interface designed for thin wrappers around playback binaries.
-The result was <code>ovos-ocp-audio-plugin</code>: a monolith that crammed NLP, search orchestration, player
-state machine, MPRIS, and GUI into a single mycroft audio backend.</p>
-<p>The NLP portion was later extracted into <code>ovos-ocp-pipeline-plugin</code> (now <code>ocp-pipeline</code>), and the
-player is now being migrated to <code>ovos-media</code>. Both the old plugin and the new daemon currently
-exist in parallel:</p>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<p>OCP (OVOS Common Play) splits into a <strong>search/match layer</strong> and a <strong>playback layer</strong>. The search
+layer — the <a href="../ocp-pipeline/"><code>ocp-pipeline</code></a>, OCP skills (media catalogs), and stream extractors —
+is shared regardless of which playback layer you run. The playback layer has two implementations
+that currently run in parallel: the legacy <a href="../media-plugins/#ovos-ocp-audio-plugin">"old audio service"</a>
+(<code>ovos-ocp-audio-plugin</code> inside <a href="../audio-service/"><code>ovos-audio</code></a>) and the standalone <code>ovos-media</code>
+daemon described here, which is the target:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[Current / target]
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  ovos-core intent pipeline
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    └── ocp-pipeline-plugin

@@ -1986,8 +1986,7 @@ Skills and the core pipeline never run as root.</p>
 <code>AbstractLed</code>, <code>AbstractFan</code>, and <code>AbstractSwitches</code> (plus a suite of ready-made
 LED animations) — live in the
 <a href="https://github.com/OpenVoiceOS/ovos_hardware_helpers"><code>ovos-hardware-helpers</code></a>
-library. They previously lived in <code>ovos-plugin-manager</code>; that library is the
-drop-in replacement.</p>
+library; subclass them there when writing a hardware PHAL plugin.</p>
 </div>
 <h3 id="validator">Validator<a class="headerlink" href="#validator" title="Permanent link">&para;</a></h3>
 <p>Controls whether the plugin is auto-enabled:</p>
