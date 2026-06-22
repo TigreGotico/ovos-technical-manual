@@ -22,7 +22,7 @@
     
     
       
-        <title>GUI Service - OpenVoiceOS Technical Manual</title>
+        <title>GUI Service (legacy) - OpenVoiceOS Technical Manual</title>
       
     
     
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GUI Service
+              GUI Service (legacy)
             
           </span>
         </div>
@@ -926,7 +926,7 @@
           
   
   <span class="md-ellipsis">
-    GUI Service
+    GUI Service (legacy)
   </span>
   
 
@@ -937,7 +937,7 @@
         
   
   <span class="md-ellipsis">
-    GUI Service
+    GUI Service (legacy)
   </span>
   
 
@@ -1496,6 +1496,17 @@
 
 
 <h1 id="gui-service-ovos-gui">GUI Service (ovos-gui)<a class="headerlink" href="#gui-service-ovos-gui" title="Permanent link">&para;</a></h1>
+<div class="admonition danger">
+<p class="admonition-title">The OVOS GUI is deprecated — assume it is not usable today</p>
+<p>The current <strong>"legacy" OVOS GUI</strong> stack is <strong>deprecated</strong> and should be treated as
+<strong>broken</strong>: <strong>there is no generally usable OVOS GUI right now</strong>. A ground-up replacement
+(the <a href="../gui-adapters/">GUI rework</a>, spec <strong>OVOS-GUI-1</strong>) is actively being built but is
+<strong>not yet ready</strong>.</p>
+<p>On <strong>Mark 2</strong> devices the <a href="../ovos-installer/"><code>ovos-installer</code></a> still sets up this legacy
+GUI, so those devices keep a screen until the replacement lands. Everything below
+documents the legacy stack — kept for Mark 2 maintenance and reference, <strong>not recommended
+for new work</strong>.</p>
+</div>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
 <p><code>ovos-gui</code> is the part of OpenVoiceOS that decides what shows up on a screen — text, images, a music player, or an idle home screen. Skills never draw to the display themselves; they send a request to this service, which keeps track of what each skill wants shown and passes it on to whatever screen is connected. Think of it as a stage manager that decides which scene is in front of the audience at any moment. To learn more, see the <a href="../homescreen/">Home Screen</a> and the <a href="../glossary/">Glossary</a>.</p>

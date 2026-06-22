@@ -22,7 +22,7 @@
     
     
       
-        <title>Homescreen - OpenVoiceOS Technical Manual</title>
+        <title>Home Screen (legacy) - OpenVoiceOS Technical Manual</title>
       
     
     
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Homescreen
+              Home Screen (legacy)
             
           </span>
         </div>
@@ -1086,7 +1086,7 @@
         
   
   <span class="md-ellipsis">
-    GUI Protocol
+    GUI Protocol (legacy)
   </span>
   
 
@@ -1107,7 +1107,7 @@
         
   
   <span class="md-ellipsis">
-    OVOS Shell
+    OVOS Shell (legacy)
   </span>
   
 
@@ -1128,7 +1128,7 @@
         
   
   <span class="md-ellipsis">
-    GUI Adapters
+    GUI Adapters (rework — upcoming)
   </span>
   
 
@@ -1149,7 +1149,7 @@
         
   
   <span class="md-ellipsis">
-    Qt5 GUI
+    Qt5 GUI (legacy)
   </span>
   
 
@@ -1179,7 +1179,7 @@
           
   
   <span class="md-ellipsis">
-    Homescreen
+    Home Screen (legacy)
   </span>
   
 
@@ -1190,7 +1190,7 @@
         
   
   <span class="md-ellipsis">
-    Homescreen
+    Home Screen (legacy)
   </span>
   
 
@@ -1410,6 +1410,15 @@
 
 
 <h1 id="openvoiceos-home-screen">OpenVoiceOS Home Screen<a class="headerlink" href="#openvoiceos-home-screen" title="Permanent link">&para;</a></h1>
+<div class="admonition danger">
+<p class="admonition-title">The OVOS GUI is deprecated — assume it is not usable today</p>
+<p>The home screen is part of the <strong>legacy</strong> OVOS GUI stack, which is <strong>deprecated</strong> and
+should be treated as <strong>broken</strong>: <strong>there is no generally usable OVOS GUI right now</strong>. A
+ground-up replacement (the <a href="../gui-adapters/">GUI rework</a>, spec <strong>OVOS-GUI-1</strong>) is actively
+being built but is <strong>not yet ready</strong>. On <strong>Mark 2</strong> devices the
+<a href="../ovos-installer/"><code>ovos-installer</code></a> still sets up the legacy home screen until the
+replacement lands. Kept for reference and Mark 2 maintenance.</p>
+</div>
 <p>The home screen is what a device with a display shows when it is idle — clock, date,
 weather, widgets, and so on. It is an ordinary <strong>skill</strong> that registers a <em>resting screen</em>;
 when the <a href="../gui-service/">GUI</a> namespace stack is empty, the configured homescreen skill is

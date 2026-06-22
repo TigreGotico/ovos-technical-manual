@@ -22,7 +22,7 @@
     
     
       
-        <title>GUI Support - OpenVoiceOS Technical Manual</title>
+        <title>GUI Support (legacy) - OpenVoiceOS Technical Manual</title>
       
     
     
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GUI Support
+              GUI Support (legacy)
             
           </span>
         </div>
@@ -1052,7 +1052,7 @@
           
   
   <span class="md-ellipsis">
-    GUI Support
+    GUI Support (legacy)
   </span>
   
 
@@ -1063,7 +1063,7 @@
         
   
   <span class="md-ellipsis">
-    GUI Support
+    GUI Support (legacy)
   </span>
   
 
@@ -1604,6 +1604,16 @@
 
 
 <h1 id="gui-skills-guiinterface">GUI Skills (GUIInterface)<a class="headerlink" href="#gui-skills-guiinterface" title="Permanent link">&para;</a></h1>
+<div class="admonition danger">
+<p class="admonition-title">The OVOS GUI is deprecated — assume it is not usable today</p>
+<p>The current <strong>"legacy" OVOS GUI</strong> stack is <strong>deprecated</strong> and should be treated as
+<strong>broken</strong>: <strong>there is no generally usable OVOS GUI right now</strong>. A ground-up replacement
+(the <a href="../gui-adapters/">GUI rework</a>, spec <strong>OVOS-GUI-1</strong>) is actively being built but is
+<strong>not yet ready</strong>. Adding screen support to a skill today only benefits <strong>Mark 2</strong>
+devices, where the <a href="../ovos-installer/"><code>ovos-installer</code></a> keeps the legacy GUI running
+until the replacement lands. This page documents the legacy API for reference and Mark 2
+maintenance — voice should remain the primary interface.</p>
+</div>
 <p>Many OVOS devices have a screen. A skill can drive that screen the same way it
 speaks: through a small Python API. You set some values, ask for a page to be
 shown, and any connected GUI client (Qt shell, web, terminal, ...) renders it.</p>

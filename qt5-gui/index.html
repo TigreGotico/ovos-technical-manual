@@ -22,7 +22,7 @@
     
     
       
-        <title>Qt5 GUI - OpenVoiceOS Technical Manual</title>
+        <title>Qt5 GUI (legacy) - OpenVoiceOS Technical Manual</title>
       
     
     
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Qt5 GUI
+              Qt5 GUI (legacy)
             
           </span>
         </div>
@@ -1086,7 +1086,7 @@
         
   
   <span class="md-ellipsis">
-    GUI Protocol
+    GUI Protocol (legacy)
   </span>
   
 
@@ -1107,7 +1107,7 @@
         
   
   <span class="md-ellipsis">
-    OVOS Shell
+    OVOS Shell (legacy)
   </span>
   
 
@@ -1128,7 +1128,7 @@
         
   
   <span class="md-ellipsis">
-    GUI Adapters
+    GUI Adapters (rework — upcoming)
   </span>
   
 
@@ -1158,7 +1158,7 @@
           
   
   <span class="md-ellipsis">
-    Qt5 GUI
+    Qt5 GUI (legacy)
   </span>
   
 
@@ -1169,7 +1169,7 @@
         
   
   <span class="md-ellipsis">
-    Qt5 GUI
+    Qt5 GUI (legacy)
   </span>
   
 
@@ -1351,7 +1351,7 @@
         
   
   <span class="md-ellipsis">
-    Homescreen
+    Home Screen (legacy)
   </span>
   
 
@@ -1656,12 +1656,14 @@
 
 
 <h1 id="mycroft-gui-qt5">Mycroft-GUI QT5<a class="headerlink" href="#mycroft-gui-qt5" title="Permanent link">&para;</a></h1>
-<div class="admonition info">
-<p class="admonition-title">When to use this page</p>
-<p>For most skills the built-in <code>SYSTEM_*</code> page templates (see
-<a href="../skill-gui/">GUI Skills</a>) are enough and require no UI code. Read on when
-you want a fully custom screen rendered by the Qt/QML client — <code>show_page</code>
-accepts your own <code>.qml</code> files, this is a supported path, not a legacy one.</p>
+<div class="admonition danger">
+<p class="admonition-title">The OVOS GUI is deprecated — assume it is not usable today</p>
+<p>The Qt5/QML client described here is part of the <strong>legacy</strong> OVOS GUI stack, which is
+<strong>deprecated</strong> and should be treated as <strong>broken</strong>: <strong>there is no generally usable OVOS
+GUI right now</strong>. A ground-up replacement (the <a href="../gui-adapters/">GUI rework</a>, spec
+<strong>OVOS-GUI-1</strong>) is actively being built but is <strong>not yet ready</strong>. On <strong>Mark 2</strong> devices
+the <a href="../ovos-installer/"><code>ovos-installer</code></a> still installs this legacy Qt client until the
+replacement lands. Kept for reference and Mark 2 maintenance.</p>
 </div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>

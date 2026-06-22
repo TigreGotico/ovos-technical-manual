@@ -22,7 +22,7 @@
     
     
       
-        <title>GUI Protocol - OpenVoiceOS Technical Manual</title>
+        <title>GUI Protocol (legacy) - OpenVoiceOS Technical Manual</title>
       
     
     
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GUI Protocol
+              GUI Protocol (legacy)
             
           </span>
         </div>
@@ -1095,7 +1095,7 @@
           
   
   <span class="md-ellipsis">
-    GUI Protocol
+    GUI Protocol (legacy)
   </span>
   
 
@@ -1106,7 +1106,7 @@
         
   
   <span class="md-ellipsis">
-    GUI Protocol
+    GUI Protocol (legacy)
   </span>
   
 
@@ -1399,7 +1399,7 @@
         
   
   <span class="md-ellipsis">
-    OVOS Shell
+    OVOS Shell (legacy)
   </span>
   
 
@@ -1420,7 +1420,7 @@
         
   
   <span class="md-ellipsis">
-    GUI Adapters
+    GUI Adapters (rework — upcoming)
   </span>
   
 
@@ -1441,7 +1441,7 @@
         
   
   <span class="md-ellipsis">
-    Qt5 GUI
+    Qt5 GUI (legacy)
   </span>
   
 
@@ -1462,7 +1462,7 @@
         
   
   <span class="md-ellipsis">
-    Homescreen
+    Home Screen (legacy)
   </span>
   
 
@@ -1878,6 +1878,15 @@
 
 
 <h1 id="gui-protocol">GUI Protocol<a class="headerlink" href="#gui-protocol" title="Permanent link">&para;</a></h1>
+<div class="admonition danger">
+<p class="admonition-title">The OVOS GUI is deprecated — assume it is not usable today</p>
+<p>This describes the <strong>legacy</strong> GUI protocol, which is <strong>deprecated</strong> and should be treated
+as <strong>broken</strong>: <strong>there is no generally usable OVOS GUI right now</strong>. A ground-up
+replacement (the <a href="../gui-adapters/">GUI rework</a>, spec <strong>OVOS-GUI-1</strong>) is actively being
+built but is <strong>not yet ready</strong>. On <strong>Mark 2</strong> devices the
+<a href="../ovos-installer/"><code>ovos-installer</code></a> still sets up this legacy stack until the
+replacement lands. Kept for reference and Mark 2 maintenance.</p>
+</div>
 <p>The <code>ovos-gui</code> service exposes two communication channels:</p>
 <ol>
 <li>
