@@ -80,7 +80,18 @@ All settings live under the `websocket` key in `mycroft.conf`:
 | `filter` | `false` | Enable debug logging of message types before broadcast. |
 | `filter_logs` | `["gui.status.request", "gui.page.upload"]` | Message types excluded from filter logging. |
 
-> **Security:** Never expose the messagebus to the public internet. It provides full control over the OVOS instance. For remote access, use [HiveMind](https://jarbashivemind.github.io/HiveMind-community-docs/).
+!!! danger "Security: the bus has no authentication — keep it local"
+    The messagebus has **no authentication and no encryption**, and **any** client that can
+    connect gets **full control** of the device (it can trigger skills, read everything on the
+    bus, even run code via some plugins). Treat it like an open door to the whole assistant.
+
+    - **Keep it bound to localhost** (`host: "127.0.0.1"`, the shipped default). Only set
+      `"0.0.0.0"` if you fully control the network, and **never port-forward 8181** to the
+      internet.
+    - For **remote access** (satellites, phones, other rooms), don't expose the bus — use
+      [HiveMind](hivemind-agents.md), which adds authentication and encryption on top.
+    - This is also why the bus is a trust boundary: a malicious skill or plugin on the device
+      already has full access, so only install software you trust.
 
 ---
 
