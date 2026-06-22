@@ -1780,7 +1780,61 @@
 
 
 <h1 id="ovos-media">ovos-media<a class="headerlink" href="#ovos-media" title="Permanent link">&para;</a></h1>
-<p><code>ovos-media</code> is the standalone audio/video daemon for OpenVoiceOS. It replaces the legacy audio service with a more robust and modular media player based on the OpenVoiceOS <a href="../ocp-pipeline/">Common Play</a> (<a href="../ocp-pipeline/">OCP</a>) framework.</p>
+<div class="admonition warning">
+<p class="admonition-title">Upcoming — a refactor that is not the default yet</p>
+<p><code>ovos-media</code> is the <strong>upcoming</strong> media-playback service for OVOS, still being refactored.
+It is <strong>not enabled by default</strong>. Today, stock installs play media through the <strong>legacy
+audio backend</strong> — the <a href="../media-plugins/#ovos-ocp-audio-plugin"><code>ovos-ocp-audio-plugin</code></a>
+("old audio service") inside <a href="../audio-service/"><code>ovos-audio</code></a>, which is <strong>deprecated but
+still shipped</strong>. Switching to <code>ovos-media</code> is opt-in (see below) and some parts are still
+coupled (Qt5 GUI, player-as-skill). Treat this page as the <em>target architecture</em>.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Which media system am I running? (legacy vs. ovos-media)</p>
+<p>OVOS has <strong>two media-playback backends</strong> that share the same <a href="../ocp-pipeline/">OCP</a>
+search framework (pipeline + skills + extractors):</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Legacy (current default)</th>
+<th>ovos-media (upcoming)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>ovos-ocp-audio-plugin</code> in <a href="../audio-service/"><code>ovos-audio</code></a></td>
+<td><code>ovos-media</code> (standalone daemon)</td>
+</tr>
+<tr>
+<td><strong>Status</strong></td>
+<td>deprecated, still shipped &amp; on by default</td>
+<td>opt-in refactor, not default</td>
+</tr>
+<tr>
+<td><strong>Playback</strong></td>
+<td>one monolithic audio backend</td>
+<td>per-request audio/video/web <a href="../media-plugins/">media plugins</a> (<code>opm.media.*</code>)</td>
+</tr>
+<tr>
+<td><strong>Extras</strong></td>
+<td>—</td>
+<td>MPRIS, per-session state, multiple players</td>
+</tr>
+<tr>
+<td><strong>Config</strong></td>
+<td><code>enable_old_audioservice: true</code> (default)</td>
+<td><code>enable_old_audioservice: false</code> + run <code>ovos-media</code></td>
+</tr>
+</tbody>
+</table>
+<p>The OCP <strong>pipeline</strong>, <strong>skills</strong> and <strong>stream extractors</strong> are unaffected by which backend
+you use — only the <em>playback</em> layer differs.</p>
+</div>
+<p><code>ovos-media</code> is the standalone audio/video daemon for OpenVoiceOS. It is the <strong>upcoming
+replacement</strong> for the legacy audio service, providing a more robust and modular media player
+built on the OpenVoiceOS <a href="../ocp-pipeline/">Common Play</a> (<a href="../ocp-pipeline/">OCP</a>) framework.</p>
 <p><strong>In plain terms:</strong> the old audio service could only play one kind of stream through a thin wrapper. <code>ovos-media</code> is a proper media daemon: it has separate audio/video/web players you pick per request, supports MPRIS (so your phone's media controls work), and keeps per-session state so multiple devices can each play their own thing.</p>
 <p>To use <code>ovos-media</code> you need to disable the old audio service and enable the OCP pipeline in <code>ovos-core</code>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>

@@ -983,6 +983,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ovos-media-plugins-upcoming" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-media plugins (upcoming)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-audio-backends-old-audio-service-deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Legacy audio backends (old audio service — deprecated)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ovos-media-plugin-spotify" class="md-nav__link">
     <span class="md-ellipsis">
       ovos-media-plugin-spotify
@@ -1303,6 +1321,24 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ovos-media-plugins-upcoming" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-media plugins (upcoming)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-audio-backends-old-audio-service-deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Legacy audio backends (old audio service — deprecated)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ovos-media-plugin-spotify" class="md-nav__link">
     <span class="md-ellipsis">
       ovos-media-plugin-spotify
@@ -1402,6 +1438,28 @@
 
 
 <h1 id="media-plugins-reference">Media Plugins Reference<a class="headerlink" href="#media-plugins-reference" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>These plugins are the <strong>playback backends</strong> that actually push audio/video to your
+speakers or screen (VLC, MPV, Chromecast, Spotify…). OVOS is mid-migration between two
+playback systems, so there are <strong>two families</strong> of these plugins. Which one you need
+depends on which backend you run — see <a href="../ovos-media/">Media playback: legacy vs. ovos-media</a>.</p>
+</div>
+<p>OVOS has two media-playback backends that share the same <a href="../ocp-pipeline/">OCP</a> search
+framework but use <strong>different, non-interchangeable</strong> playback plugins:</p>
+<ul>
+<li><strong>Legacy "old audio service"</strong> — the <a href="#ovos-ocp-audio-plugin"><code>ovos-ocp-audio-plugin</code></a>
+  inside <a href="../audio-service/"><code>ovos-audio</code></a>, with <code>AudioBackend</code>-style plugins. <strong>Deprecated but
+  still the shipped default.</strong></li>
+<li><strong><a href="../ovos-media/"><code>ovos-media</code></a> (upcoming)</strong> — a standalone daemon with <code>opm.media.*</code>
+  plugins you can mix per request. <strong>Opt-in; not the default yet.</strong></li>
+</ul>
+<p>A plugin written for one backend does <strong>not</strong> work in the other. Pick the family that
+matches your configured backend.</p>
+<hr />
+<h2 id="ovos-media-plugins-upcoming">ovos-media plugins (upcoming)<a class="headerlink" href="#ovos-media-plugins-upcoming" title="Permanent link">&para;</a></h2>
+<p>Used by the <a href="../ovos-media/"><code>ovos-media</code></a> daemon (<code>opm.media.{audio,video,web}</code>). Enable
+them by listing them under <code>media</code> → <code>audio_players</code> / <code>video_players</code> in <code>mycroft.conf</code>.</p>
 <table>
 <thead>
 <tr>
@@ -1411,43 +1469,58 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="#ovos-media-plugin-spotify">ovos-media-plugin-spotify</a></td>
-<td>spotify plugin for <a href="https://github.com/OpenVoiceOS/ovos-audio">ovos-audio</a> and <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a></td>
-</tr>
-<tr>
 <td><a href="#ovos-media-plugin-vlc">ovos-media-plugin-vlc</a></td>
-<td>vlc plugin for <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a></td>
-</tr>
-<tr>
-<td><a href="#ovos-media-plugin-chromecast">ovos-media-plugin-chromecast</a></td>
-<td>chromecast plugin for <a href="https://github.com/OpenVoiceOS/ovos-audio">ovos-audio</a> and <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a></td>
-</tr>
-<tr>
-<td><a href="#ovos-ocp-audio-plugin">ovos-ocp-audio-plugin</a></td>
-<td><img alt="" src="https://raw.githubusercontent.com/OpenVoiceOS/ovos-media/dev/ovos_media/res/desktop/OCP.png" /></td>
-</tr>
-<tr>
-<td><a href="#ovos-media-plugin-simple">ovos-media-plugin-simple</a></td>
-<td>simple plugin for <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a></td>
-</tr>
-<tr>
-<td><a href="#ovos-audio-plugin-simple">ovos-audio-plugin-simple</a></td>
-<td>This plugin was made for old OCP, it only works in ovos &lt;= 0.0.7</td>
-</tr>
-<tr>
-<td><a href="#ovos-plugin-vlc">ovos-plugin-vlc</a></td>
-<td>The VLC OVOS Plugin integrates VLC media player capabilities with the Open Voice OS (OVOS) ecosystem, providing an audio backend for playing various media formats.</td>
+<td>Headless VLC audio/video playback for ovos-media.</td>
 </tr>
 <tr>
 <td><a href="#ovos-media-plugin-mplayer">ovos-media-plugin-mplayer</a></td>
-<td>Mplayer plugin for <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a></td>
+<td>MPlayer playback backend for ovos-media.</td>
 </tr>
 <tr>
-<td><a href="#ovos-audio-plugin-mpv">ovos-audio-plugin-mpv</a></td>
-<td>The MPV OVOS Plugin integrates MPV media player capabilities with the Open Voice OS (OVOS) ecosystem, providing an audio backend for playing various media formats.</td>
+<td><a href="#ovos-media-plugin-simple">ovos-media-plugin-simple</a></td>
+<td>Minimal/default playback backend for ovos-media.</td>
+</tr>
+<tr>
+<td><a href="#ovos-media-plugin-spotify">ovos-media-plugin-spotify</a></td>
+<td>Spotify Connect playback (works with ovos-audio and ovos-media).</td>
+</tr>
+<tr>
+<td><a href="#ovos-media-plugin-chromecast">ovos-media-plugin-chromecast</a></td>
+<td>Cast playback to a Chromecast (works with ovos-audio and ovos-media).</td>
 </tr>
 </tbody>
 </table>
+<h2 id="legacy-audio-backends-old-audio-service-deprecated">Legacy audio backends (old audio service — deprecated)<a class="headerlink" href="#legacy-audio-backends-old-audio-service-deprecated" title="Permanent link">&para;</a></h2>
+<p>Used by the legacy <a href="#ovos-ocp-audio-plugin"><code>ovos-ocp-audio-plugin</code></a> / "old audio service"
+in <a href="../audio-service/"><code>ovos-audio</code></a>. <strong>Deprecated</strong> — kept because the old audio service is
+still shipped and on by default. New setups should prefer the ovos-media plugins above.</p>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#ovos-ocp-audio-plugin">ovos-ocp-audio-plugin</a></td>
+<td>The "old audio service" itself — bundles OCP search, player state, MPRIS and GUI into one <code>ovos-audio</code> backend. ⚠️ Deprecated; superseded by <a href="../ovos-media/">ovos-media</a>.</td>
+</tr>
+<tr>
+<td><a href="#ovos-plugin-vlc">ovos-plugin-vlc</a></td>
+<td>VLC <code>AudioBackend</code> for the old audio service.</td>
+</tr>
+<tr>
+<td><a href="#ovos-audio-plugin-mpv">ovos-audio-plugin-mpv</a></td>
+<td>MPV <code>AudioBackend</code> for the old audio service.</td>
+</tr>
+<tr>
+<td><a href="#ovos-audio-plugin-simple">ovos-audio-plugin-simple</a></td>
+<td>⚠️ Very old simple backend — only works on ovos ≤ 0.0.7.</td>
+</tr>
+</tbody>
+</table>
+<hr />
 <h2 id="ovos-media-plugin-spotify">ovos-media-plugin-spotify<a class="headerlink" href="#ovos-media-plugin-spotify" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -1484,7 +1557,7 @@
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin">https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: <img alt="" src="https://raw.githubusercontent.com/OpenVoiceOS/ovos-media/dev/ovos_media/res/desktop/OCP.png" /></p>
+<p><strong>Description</strong>: The legacy <strong>"old audio service"</strong> OCP backend. It crams OCP search orchestration, the player state machine, MPRIS and the GUI into a single <code>ovos-audio</code> <code>AudioBackend</code>. ⚠️ <strong>Deprecated but still shipped and enabled by default</strong> (<code>enable_old_audioservice: true</code>); superseded by the standalone <a href="../ovos-media/">ovos-media</a> daemon.</p>
 </li>
 </ul>
 <hr />
@@ -1504,7 +1577,7 @@
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-audio-plugin-simple">https://github.com/OpenVoiceOS/ovos-audio-plugin-simple</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: This plugin was made for old OCP, it only works in ovos &lt;= 0.0.7</p>
+<p><strong>Description</strong>: ⚠️ Legacy old-audio-service backend. This plugin was made for old OCP, it only works in ovos &lt;= 0.0.7</p>
 </li>
 </ul>
 <hr />
@@ -1514,7 +1587,7 @@
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-plugin-vlc">https://github.com/OpenVoiceOS/ovos-plugin-vlc</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: The VLC OVOS Plugin integrates VLC media player capabilities with the Open Voice OS (OVOS) ecosystem, providing an audio backend for playing various media formats.</p>
+<p><strong>Description</strong>: The VLC OVOS Plugin integrates VLC media player capabilities with the Open Voice OS (OVOS) ecosystem, providing an audio backend for playing various media formats. ⚠️ Legacy old-audio-service <code>AudioBackend</code>; for ovos-media use <a href="#ovos-media-plugin-vlc">ovos-media-plugin-vlc</a>.</p>
 </li>
 </ul>
 <hr />
@@ -1534,7 +1607,7 @@
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-audio-plugin-mpv">https://github.com/OpenVoiceOS/ovos-audio-plugin-mpv</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: The MPV OVOS Plugin integrates MPV media player capabilities with the Open Voice OS (OVOS) ecosystem, providing an audio backend for playing various media formats.</p>
+<p><strong>Description</strong>: The MPV OVOS Plugin integrates MPV media player capabilities with the Open Voice OS (OVOS) ecosystem, providing an audio backend for playing various media formats. ⚠️ Legacy old-audio-service <code>AudioBackend</code>.</p>
 </li>
 </ul>
 <hr />
