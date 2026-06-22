@@ -764,6 +764,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#embeddings-knowledge-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Embeddings &amp; Knowledge Plugins
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-persona-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill &amp; Persona Plugins
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deprecated-types" class="md-nav__link">
     <span class="md-ellipsis">
       Deprecated Types
@@ -1401,6 +1419,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#embeddings-knowledge-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Embeddings &amp; Knowledge Plugins
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill-persona-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill &amp; Persona Plugins
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#deprecated-types" class="md-nav__link">
     <span class="md-ellipsis">
       Deprecated Types
@@ -1664,12 +1700,22 @@ The entry point group is the canonical identifier used in <code>setup.py</code> 
 <tr>
 <td>Microphone</td>
 <td><code>opm.microphone</code></td>
-<td><code>Microphone</code></td>
+<td><code>OVOSMicrophone</code></td>
 </tr>
 <tr>
 <td>G2P (Grapheme-to-Phoneme)</td>
 <td><code>opm.g2p</code></td>
 <td><code>Grapheme2PhonemePlugin</code></td>
+</tr>
+<tr>
+<td>Audio→IPA</td>
+<td><code>opm.audio2ipa</code></td>
+<td><code>Audio2IPAPlugin</code></td>
+</tr>
+<tr>
+<td>Voice Clone</td>
+<td><code>opm.vc</code></td>
+<td><code>VoiceClonePlugin</code></td>
 </tr>
 </tbody>
 </table>
@@ -1858,14 +1904,39 @@ Until it lands, the current GUI plugin type is <code>opm.gui</code> (<code>GUIEx
 <td><code>ChatEngine</code></td>
 </tr>
 <tr>
+<td>Chat (multimodal)</td>
+<td><code>opm.agents.chat.multimodal</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Multimodal adapter</td>
+<td><code>opm.agents.multimodal_adapter</code></td>
+<td>—</td>
+</tr>
+<tr>
 <td>Retrieval</td>
 <td><code>opm.agents.retrieval</code></td>
 <td><code>RetrievalEngine</code></td>
 </tr>
 <tr>
+<td>Document retrieval</td>
+<td><code>opm.agents.retrieval.documents</code></td>
+<td><code>DocumentIndexerEngine</code></td>
+</tr>
+<tr>
+<td>Q/A retrieval</td>
+<td><code>opm.agents.retrieval.qa</code></td>
+<td><code>QAIndexerEngine</code></td>
+</tr>
+<tr>
 <td>Summarizer</td>
 <td><code>opm.agents.summarizer</code></td>
 <td><code>SummarizerEngine</code></td>
+</tr>
+<tr>
+<td>Chat summarizer</td>
+<td><code>opm.agents.summarizer.chat</code></td>
+<td>—</td>
 </tr>
 <tr>
 <td>Extractive QA</td>
@@ -1883,9 +1954,88 @@ Until it lands, the current GUI plugin type is <code>opm.gui</code> (<code>GUIEx
 <td><code>ReRankerEngine</code></td>
 </tr>
 <tr>
+<td>Coreference</td>
+<td><code>opm.agents.coref</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Yes/No</td>
+<td><code>opm.agents.yesno</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Toolbox</td>
+<td><code>opm.agents.toolbox</code></td>
+<td><code>ToolBox</code></td>
+</tr>
+<tr>
 <td>Memory</td>
 <td><code>opm.agents.memory</code></td>
 <td><code>AgentContextManager</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="embeddings-knowledge-plugins">Embeddings &amp; Knowledge Plugins<a class="headerlink" href="#embeddings-knowledge-plugins" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Plugin type</th>
+<th>Entry point group</th>
+<th>Template base class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Embeddings (generic)</td>
+<td><code>opm.embeddings</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Text embeddings</td>
+<td><code>opm.embeddings.text</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Voice embeddings</td>
+<td><code>opm.embeddings.voice</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Image embeddings</td>
+<td><code>opm.embeddings.image</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Face embeddings</td>
+<td><code>opm.embeddings.face</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Knowledge triples</td>
+<td><code>opm.triples</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="skill-persona-plugins">Skill &amp; Persona Plugins<a class="headerlink" href="#skill-persona-plugins" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Plugin type</th>
+<th>Entry point group</th>
+<th>Template base class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../skill-design-guidelines/">Skill</a></td>
+<td><code>opm.skill</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><a href="../personas/">Persona</a></td>
+<td><code>opm.plugin.persona</code></td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
@@ -1925,12 +2075,28 @@ in new plugins:</p>
 <td><code>opm.VAD</code></td>
 </tr>
 <tr>
+<td><code>ovos.plugin.microphone</code></td>
+<td><code>opm.microphone</code></td>
+</tr>
+<tr>
+<td><code>ovos.plugin.skill</code></td>
+<td><code>opm.skill</code></td>
+</tr>
+<tr>
 <td><code>ovos.plugin.g2p</code></td>
 <td><code>opm.g2p</code></td>
 </tr>
 <tr>
+<td><code>ovos.plugin.audio2ipa</code></td>
+<td><code>opm.audio2ipa</code></td>
+</tr>
+<tr>
 <td><code>ovos.plugin.gui</code></td>
 <td><code>opm.gui</code></td>
+</tr>
+<tr>
+<td><code>ovos.ocp.extractor</code></td>
+<td><code>opm.ocp.extractor</code></td>
 </tr>
 <tr>
 <td><code>neon.plugin.lang.translate</code></td>
@@ -1956,8 +2122,32 @@ in new plugins:</p>
 <td><code>neon.plugin.solver</code></td>
 <td><code>opm.solver.question</code></td>
 </tr>
+<tr>
+<td><code>intentbox.coreference</code></td>
+<td><code>opm.coreference</code></td>
+</tr>
+<tr>
+<td><code>intentbox.keywords</code></td>
+<td><code>opm.keywords</code></td>
+</tr>
+<tr>
+<td><code>intentbox.segmentation</code></td>
+<td><code>opm.segmentation</code></td>
+</tr>
+<tr>
+<td><code>intentbox.tokenization</code></td>
+<td><code>opm.tokenization</code></td>
+</tr>
+<tr>
+<td><code>intentbox.postag</code></td>
+<td><code>opm.postag</code></td>
+</tr>
 </tbody>
 </table>
+<p>The legacy <strong>solver</strong> groups (<code>opm.solver.question</code>, <code>opm.solver.chat</code>,
+<code>opm.solver.summarization</code>, <code>opm.solver.entailment</code>, <code>opm.solver.multiple_choice</code>,
+<code>opm.solver.reading_comprehension</code>) and <code>opm.coreference</code> are superseded by the
+<code>opm.agents.*</code> types above and will be removed in the next major release.</p>
 <hr />
 <h2 id="writing-a-plugin">Writing a Plugin<a class="headerlink" href="#writing-a-plugin" title="Permanent link">&para;</a></h2>
 <h3 id="1-implement-the-base-class">1. Implement the base class<a class="headerlink" href="#1-implement-the-base-class" title="Permanent link">&para;</a></h3>
