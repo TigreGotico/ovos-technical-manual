@@ -1391,7 +1391,7 @@ between the listener and the intent pipeline.</p>
 <h2 id="streamingstt"><code>StreamingSTT</code><a class="headerlink" href="#streamingstt" title="Permanent link">&para;</a></h2>
 <p>A more advanced STT class for streaming data to the STT. This will receive chunks of audio data as they become available and they are streamed to an STT engine.</p>
 <p>The plugin author needs to implement the <code>create_streaming_thread()</code> method creating a thread for handling data sent through <code>self.queue</code>. </p>
-<p>The thread this method creates should be based on the <a href="">StreamThread class</a>. <code>handle_audio_data()</code> method also needs to be implemented.</p>
+<p>The thread this method creates should be based on the <code>StreamThread</code> class. <code>handle_audio_data()</code> method also needs to be implemented.</p>
 <h2 id="entry-point">Entry point<a class="headerlink" href="#entry-point" title="Permanent link">&para;</a></h2>
 <p>To make the class detectable as an STT plugin, the package needs to provide an entry point under the <code>opm.stt</code> namespace.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">setup</span><span class="p">([</span><span class="o">...</span><span class="p">],</span>

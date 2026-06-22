@@ -1388,6 +1388,15 @@
 </li>
 </ul>
 <hr />
+<div class="admonition warning">
+<p class="admonition-title">Upcoming — unreleased</p>
+<p>The following super-resolution transformers exist in their repos but are <strong>not yet published to PyPI</strong>, so <code>pip install</code> will not find them. They upsample/enhance the TTS audio before playback.</p>
+<ul>
+<li><strong>OVOS FlashSR TTS Transformer</strong> (<code>FlashSRTTSTransformer</code>): ONNX-based audio super-resolution, downloads its model from the Hugging Face Hub. Entry point <code>ovos-tts-transformer-FlashSR</code> under <code>opm.transformer.tts</code>. Source: <a href="https://github.com/OpenVoiceOS/ovos_tts_transformer_FlashSR">ovos_tts_transformer_FlashSR</a>.</li>
+<li><strong>OVOS NovaSR TTS Transformer</strong> (<code>NovaSRTTSTransformer</code>): torch-based super-resolution upsampler. Entry point <code>ovos-tts-transformer-NovaSR</code> under <code>opm.transformer.tts</code>. Source: <a href="https://github.com/OpenVoiceOS/ovos_tts_transformer_NovaSR">ovos_tts_transformer_NovaSR</a>.</li>
+</ul>
+</div>
+<hr />
 <h2 id="creating-custom-tts-transformers">Creating Custom TTS Transformers<a class="headerlink" href="#creating-custom-tts-transformers" title="Permanent link">&para;</a></h2>
 <p>To develop your own TTS Transformer:</p>
 <p><strong>Create a Python Class</strong>:</p>

@@ -1602,6 +1602,14 @@ separate <code>tts_transformers</code> module).</p>
 <td><a href="#ovos-tts-transformer-sox-plugin">ovos-tts-transformer-sox-plugin</a></td>
 <td>This repository contains a Python package for a Text-to-Speech (TTS) transformer that utilizes SoX (Sound eXchange) for audio processing. The transformer applies various effects to the generated audio before playback.</td>
 </tr>
+<tr>
+<td><a href="#ovos_tts_transformer_flashsr">ovos_tts_transformer_FlashSR</a></td>
+<td>ONNX-based audio super-resolution that upsamples synthesized TTS audio before playback (not yet on PyPI).</td>
+</tr>
+<tr>
+<td><a href="#ovos_tts_transformer_novasr">ovos_tts_transformer_NovaSR</a></td>
+<td>torch-based audio super-resolution upsampler for synthesized TTS audio (not yet on PyPI).</td>
+</tr>
 </tbody>
 </table>
 <h2 id="ovos-dialog-normalizer-plugin">ovos-dialog-normalizer-plugin<a class="headerlink" href="#ovos-dialog-normalizer-plugin" title="Permanent link">&para;</a></h2>
@@ -1681,6 +1689,26 @@ separate <code>tts_transformers</code> module).</p>
 </li>
 <li>
 <p><strong>Description</strong>: This repository contains a Python package for a Text-to-Speech (TTS) transformer that utilizes SoX (Sound eXchange) for audio processing. The transformer applies various effects to the generated audio before playback.</p>
+</li>
+</ul>
+<hr />
+<h2 id="ovos_tts_transformer_flashsr">ovos_tts_transformer_FlashSR<a class="headerlink" href="#ovos_tts_transformer_flashsr" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos_tts_transformer_FlashSR">https://github.com/OpenVoiceOS/ovos_tts_transformer_FlashSR</a></p>
+</li>
+<li>
+<p><strong>Description</strong>: ONNX-based audio super-resolution TTS transformer (<code>FlashSRTTSTransformer</code>); upsamples synthesized audio before playback, downloading its model from the Hugging Face Hub. Entry point <code>ovos-tts-transformer-FlashSR</code> under <code>opm.transformer.tts</code>. <strong>Upcoming</strong> — not yet published to PyPI.</p>
+</li>
+</ul>
+<hr />
+<h2 id="ovos_tts_transformer_novasr">ovos_tts_transformer_NovaSR<a class="headerlink" href="#ovos_tts_transformer_novasr" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos_tts_transformer_NovaSR">https://github.com/OpenVoiceOS/ovos_tts_transformer_NovaSR</a></p>
+</li>
+<li>
+<p><strong>Description</strong>: torch-based super-resolution upsampler TTS transformer (<code>NovaSRTTSTransformer</code>). Entry point <code>ovos-tts-transformer-NovaSR</code> under <code>opm.transformer.tts</code>. <strong>Upcoming</strong> — not yet published to PyPI.</p>
 </li>
 </ul>
 <hr />
