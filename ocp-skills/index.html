@@ -1458,11 +1458,14 @@
 <p class="admonition-title">Getting deprecated — OCP skills are being phased out</p>
 <p>OCP <strong>skills</strong> (media-provider skills built on <code>OVOSCommonPlaybackSkill</code> /
 <a href="#search-results"><code>@ocp_search</code></a>) are how media search works <strong>today</strong> and still work,
-but they are <strong>slated for deprecation</strong>. The planned replacement is a dedicated
-<strong>MediaProvider plugin</strong> type that <a href="../ovos-media/"><code>ovos-media</code></a> will consume directly —
-moving media catalogs out of skills and into plugins. MediaProvider plugins are <strong>not
-implemented yet</strong>, so keep using OCP skills for now; this page will track the migration as
-it lands.</p>
+but they are <strong>slated for deprecation</strong>. The replacement is a dedicated <strong>MediaProvider</strong>
+plugin type (<code>opm.media.provider</code>) that the OCP pipeline will load <strong>in-process</strong> and call
+<code>search()</code> on directly — instead of broadcasting <code>ovos.common_play.query</code> over the bus to
+skills — moving media catalogs out of skills and into plugins. This is <strong>upcoming, not
+released</strong>: it is in flight in
+<a href="https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/405">ovos-plugin-manager#405</a>
+(Phase 1 of the <code>ovos-media</code> migration). Keep using OCP skills for now; this page will track
+the migration as it lands.</p>
 </div>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>

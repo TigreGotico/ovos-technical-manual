@@ -1463,7 +1463,7 @@ without model training.</p>
 <p><strong><code>found_wake_word()</code></strong>: This method must be defined. It returns whether the wake word has been detected and resets internal state.</p>
 </li>
 <li>
-<p><strong><code>update(chunk)</code></strong>: An optional method for processing live audio chunks and making streaming predictions.</p>
+<p><strong><code>update(chunk)</code></strong>: Required (abstract) method for processing live audio chunks and making streaming predictions.</p>
 </li>
 <li>
 <p><strong><code>stop()</code></strong>: An optional method to shut down the plugin, like unloading data or halting external processes.</p>

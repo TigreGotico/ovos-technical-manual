@@ -1469,7 +1469,7 @@
 <p>Specification: intent/entity registration follows <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-4.md">OVOS-INTENT-4: Intent and Entity Registration Bus Contract</a>; pipeline ordering follows <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-pipeline-1.md">OVOS-PIPELINE-1</a>.</p>
 </blockquote>
 <p><code>IntentService</code> is the component of <code>ovos-core</code> responsible for routing user utterances through the configured <strong>Intent Pipeline</strong> until a match is found.</p>
-<p><strong>In plain terms:</strong> this is the part that takes the words you said and figures out <em>which</em> skill should answer. It runs each matcher in your pipeline in order (converse, adapt, padatious, …) and stops at the first one confident enough to handle the request.</p>
+<p><strong>In plain terms:</strong> this is the part that takes the words you said and figures out <em>which</em> skill should answer. It runs each matcher in your pipeline in order (e.g. stop, converse, padatious, adapt, …) and stops at the first one confident enough to handle the request.</p>
 <hr />
 <details class="abstract">
 <summary>Technical Reference</summary>

@@ -1357,27 +1357,28 @@
 <h2 id="4-intent-pipeline-matching">4. Intent Pipeline Matching<a class="headerlink" href="#4-intent-pipeline-matching" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> <code>ovos-core</code> (Intent Service)
 <strong>Process:</strong> Ordered evaluation of matchers.</p>
-<p>The (potentially modified) utterance is now evaluated against the <strong>Intent Pipeline</strong>. Each matcher is tried in order until a high-confidence match is found:</p>
+<p>The (potentially modified) utterance is now evaluated against the <strong>Intent Pipeline</strong>. The pipeline is <strong>configurable</strong>, but the default order runs roughly as follows, each stage tried until one is confident enough to handle the request. Most stages run in high → medium → low confidence tiers interleaved through the list:</p>
 <ol>
 <li>
-<p><strong><a href="../converse-pipeline/">Converse</a></strong>: Active skills are given a chance to intercept the utterance first (e.g., for multi-turn questions).</p>
+<p><strong><a href="../stop-pipeline/">Stop</a></strong>: "stop" / "cancel" is checked first so the assistant can always be interrupted.</p>
 </li>
 <li>
-<p><strong><a href="../adapt-pipeline/">Adapt</a></strong>: High-confidence keyword matching for simple, direct commands.</p>
-</li>
-<li>
-<p><strong><a href="../padatious-pipeline/">Padatious</a></strong>: Expression-based matching for more natural language.</p>
+<p><strong><a href="../converse-pipeline/">Converse</a></strong>: Active skills are given a chance to intercept the utterance (e.g., for multi-turn questions).</p>
 </li>
 <li>
 <p><strong><a href="../ocp-pipeline/">Common Play</a> (<a href="../ocp-pipeline/">OCP</a>)</strong>: If the utterance sounds like a media request (e.g., "Play some jazz"), it's routed to OCP.</p>
 </li>
 <li>
-<p><strong><a href="../cq-pipeline/">Common Query</a></strong>: If no direct match is found, OVOS queries various skills for general knowledge (e.g., "Who is Einstein?").</p>
+<p><strong><a href="../padatious-pipeline/">Padatious</a></strong>: Example-based matching for natural-language phrasings.</p>
 </li>
 <li>
-<p><strong><a href="../fallback-pipeline/">Fallback</a></strong>: As a last resort, fallback skills (like LLM-based solvers) can attempt to handle the utterance.</p>
+<p><strong><a href="../adapt-pipeline/">Adapt</a></strong>: Keyword/rule matching for direct commands.</p>
+</li>
+<li>
+<p><strong><a href="../fallback-pipeline/">Fallback</a></strong>: As a last resort, fallback skills (like LLM-based solvers) attempt to handle the utterance.</p>
 </li>
 </ol>
+<p>(Other matchers such as <a href="../m2v-pipeline/">Model2Vec</a> and, if installed, <a href="../cq-pipeline/">Common Query</a> for general-knowledge questions, slot into this order too — see <a href="../pipelines-overview/">Pipelines</a> for the full default and how to customize it.)</p>
 <hr />
 <h2 id="5-skill-execution">5. <a href="../skill-design-guidelines/">Skill</a> Execution<a class="headerlink" href="#5-skill-execution" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> A specific Skill (running in <code>ovos-core</code>)
