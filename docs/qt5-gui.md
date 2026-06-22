@@ -8,14 +8,21 @@
     the [`ovos-installer`](ovos-installer.md) still installs this legacy Qt client until the
     replacement lands. Kept for reference and Mark 2 maintenance.
 
-!!! info
-    Currently only a [QT5 gui-client](https://github.com/OpenVoiceOS/mycroft-gui-qt5) is available, help wanted to [migrate to QT6](https://github.com/OpenVoiceOS/mycroft-gui-qt6)!
+!!! danger "Qt5 is deprecated upstream and will not be updated"
+    The [Qt5 gui-client](https://github.com/OpenVoiceOS/mycroft-gui-qt5) is the **only client
+    that currently runs**, but **Qt5 itself has been deprecated upstream for a long time** and
+    this client **will not be updated**. It is kept solely so existing (e.g. Mark 2) devices
+    keep a screen.
 
-!!! warning "Upcoming — unreleased"
-    A Qt6/Kirigami successor with the session-based GUI protocol is in flight at
-    [OpenVoiceOS/mycroft-gui-qt6#7](https://github.com/OpenVoiceOS/mycroft-gui-qt6/pull/7)
-    (branch `feat/gui-protocol-rework`). It is not released and still needs a human
-    C++/Qt6 build review.
+!!! warning "Both successors are unreleased work-in-progress"
+    Two replacement GUI clients are being built, **both unreleased / WIP** — neither is usable yet:
+
+    - **Qt6/Kirigami** — [mycroft-gui-qt6](https://github.com/OpenVoiceOS/mycroft-gui-qt6)
+      (`feat/gui-protocol-rework`); still needs a human C++/Qt6 build review.
+    - **pyhtmx** (browser/HTMX) — a web-based render path via the GUI-adapter system.
+
+    Until one of these ships, there is **no maintained GUI client**. See
+    [GUI Adapters](gui-adapters.md) for the rework architecture.
 
 ## Introduction to QML
 
