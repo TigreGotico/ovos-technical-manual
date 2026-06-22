@@ -1485,9 +1485,18 @@ and implemented across these PRs/branches:</p>
 <li><a href="https://github.com/OpenVoiceOS/pyhtmx-gui-client/pull/1">pyhtmx-gui-client#1</a> @ <code>feat/gui-adapter</code> — the browser/HTMX adapter</li>
 </ul>
 <p>The per-call routing argument is <strong><code>session_id</code></strong>. Per OVOS-GUI-1, this is the sole
-routing key — there is no separate site/room/location dimension; a shared/multi-room
-screen is expressed by its clients sharing one <code>session_id</code>. The landing PRs rename the
-earlier <code>site_id</code> parameter to <code>session_id</code> throughout the adapter contract.</p>
+routing key for the Python <strong>adapter contract</strong> — there is no separate site/room/location
+dimension; a shared/multi-room screen is expressed by its clients sharing one <code>session_id</code>.
+The landing PRs rename the earlier <code>site_id</code> parameter to <code>session_id</code> throughout the
+adapter contract.</p>
+<div class="admonition note">
+<p class="admonition-title">Client-side <code>site_id</code> still exists (in flux)</p>
+<p>The Qt6 client rework branch (<code>mycroft-gui-qt6</code> <code>feat/gui-protocol-rework</code>) still ships
+a separate <strong><code>site_id</code></strong> dimension (<code>--site-id</code> flag, <code>MYCROFT_SITE_ID</code> env var,
+<code>site_id_sync_mode</code> in ovos-gui) for multi-site setups. So at the <em>client</em> layer
+site_id is not yet gone, even though the OVOS-GUI-1 <em>adapter contract</em> collapses
+routing to <code>session_id</code>. This is unreleased and the two layers may still be reconciled.</p>
+</div>
 </div>
 <p>In the rework, <code>ovos-gui</code> no longer renders or talks to Qt clients directly. It becomes a
 router that dispatches each display event to every installed <strong>GUI adapter plugin</strong>. Each

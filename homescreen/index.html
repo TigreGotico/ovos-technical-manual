@@ -1322,6 +1322,13 @@ when the <a href="../gui-service/">GUI</a> namespace stack is empty, the configu
 asked to display its idle page.</p>
 <p><code>ovos-gui</code> tracks the configured homescreen via its <code>HomescreenManager</code>
 (<code>ovos_gui/homescreen.py</code>) and shows it when nothing else is on screen.</p>
+<div class="admonition note">
+<p class="admonition-title">Where HomescreenManager lives (legacy vs. rework)</p>
+<p>On the current (legacy) stack the <code>HomescreenManager</code> lives in <code>ovos-gui</code>. In the
+<a href="../gui-adapters/">GUI rework</a> it <strong>moves into the legacy Qt adapter</strong>
+(<code>ovos-legacy-mycroft-gui-plugin</code>, <code>ovos_legacy_mycroft_gui/homescreen.py</code>), which takes
+over the homescreen data/widget coordination. The bus contract is the same either way.</p>
+</div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>Select a homescreen skill in <code>mycroft.conf</code> (or via <a href="../ovos-shell/">ovos-shell</a>):</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
