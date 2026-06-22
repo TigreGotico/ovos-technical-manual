@@ -1,5 +1,8 @@
 # Converse
 
+!!! abstract "In a nutshell"
+    Normally a skill answers one request and then forgets about you. "Converse" lets a skill stay in the conversation for a little while after it has spoken, so it can catch a quick follow-up like "yes", "no", "thanks", or "the red one" that only makes sense as a reply. It's the difference between a one-off answer and a short back-and-forth chat. New terms are explained in the [Glossary](glossary.md).
+
 > Specification: [OVOS-SESSION-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-session-1.md) / [OVOS-SESSION-2](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-session-2.md) (Session) — converse runs per active skill within a Session.
 
 **What / why (beginners):** `converse()` lets a skill keep listening *after* it has just spoken, without registering a new intent for every possible follow-up. Once your skill runs, it goes onto the **Active Skills List** for a few minutes; while it is there, every new utterance is offered to its `converse()` method *before* normal intent parsing. This is how you handle "yes / no / thanks / the red one" replies that only make sense right after your skill acted.

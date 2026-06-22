@@ -1,5 +1,8 @@
 # Intent Design
 
+!!! abstract "In a nutshell"
+    People ask for the same thing in many different ways: "what's the weather?", "weather in Melbourne", or just "weather" all mean roughly the same. An *intent* is what the user is actually trying to do, and the part of OVOS that figures it out is the *intent parser*. This page explains how OVOS recognizes intents and pulls out the useful details (like a place or a date), and describes the two different styles you can use to define them. New terms are explained in the [Glossary](glossary.md).
+
 > Specification: [OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-1.md) (Sentence Template Grammar), [OVOS-INTENT-2](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-2.md) (Locale Resource Formats), [OVOS-INTENT-3](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-3.md) (Intent Definition)
 
 A user can accomplish the same task by expressing their intent in multiple ways. The role of the intent parser is to

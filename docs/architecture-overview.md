@@ -1,5 +1,8 @@
 # Architecture Overview
 
+!!! abstract "In a nutshell"
+    OpenVoiceOS is a voice assistant built from many small, independent parts rather than one big program. Think of it like a team where each member has one job — listening for the wake word, turning speech into text, figuring out what you asked, answering — and they all talk to each other over a shared channel. Because the parts are separate, you can run only the ones you need, replace any one with a different version, or even spread them across several devices. See the [Glossary](glossary.md) for unfamiliar terms and the [Bus Service](bus-service.md) for the shared channel they use to talk.
+
 OpenVoiceOS (OVOS) is a **modular voice assistant platform**. Unlike monolithic systems, OVOS is composed of independent services that communicate over a common **[MessageBus](bus-service.md)**. This modularity allows you to run only the components you need, swap out plugins for different backends, and even distribute services across multiple devices.
 
 ## High-Level Flow

@@ -1,5 +1,8 @@
 # OCP Skills
 
+!!! abstract "In a nutshell"
+    OCP (OVOS Common Playback) is the part of OVOS that handles playing media, like music, podcasts, or radio. An OCP skill doesn't listen for "play X" itself; instead it acts as a source of media. When someone asks to play something, OVOS asks every OCP skill "can you find this?", each one answers with whatever it can offer and how good a match it thinks it is, and OVOS plays the best result. It's like asking several record shops for an album and going with whoever has the closest match. New terms are explained in the [Glossary](glossary.md).
+
 OCP (OVOS Common Playback) skills are built from the `OVOSCommonPlaybackSkill` class.
 
 **What / why (beginners):** an OCP skill is a *media provider*. You do **not** write intents like "play X" — OCP owns the "play music / play a podcast / play the radio" voice interaction. Your skill only answers the question *"given this search phrase, what can you play?"*. You decorate one or more search methods with `@ocp_search`, return a list (or yield a stream) of result dicts with a confidence score, and OCP picks the best match across every installed OCP skill and handles the actual playback, queueing and GUI.

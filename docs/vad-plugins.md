@@ -1,5 +1,8 @@
 # Voice Activity Detection (VAD) Plugins
 
+!!! abstract "In a nutshell"
+    *Voice Activity Detection* (VAD) is how the assistant tells the difference between someone actually speaking and plain silence or background noise. It is what lets the system know when you have started talking and, just as importantly, when you have finished, so it knows when to stop listening and respond. Without it, the assistant wouldn't know where your command begins and ends. See the [Glossary](glossary.md) for related terms.
+
 Voice Activity Detection (VAD) is a critical component in the OVOS listener pipeline. It is responsible for identifying segments of audio that contain human speech, allowing the system to ignore silence and background noise.
 
 ## How it works

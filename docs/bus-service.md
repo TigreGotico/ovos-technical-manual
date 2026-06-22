@@ -1,5 +1,8 @@
 # Bus Service
 
+!!! abstract "In a nutshell"
+    The Message Bus is the shared channel that lets all the separate parts of OpenVoiceOS talk to one another. Picture a group radio frequency: whatever one part says is heard by everyone tuned in, and each part simply pays attention to the messages meant for it and ignores the rest. There's no traffic controller deciding who gets what — every message goes to everybody. It's how the listener, the brain, the audio, and the screen all stay in sync. See the [Architecture Overview](architecture-overview.md) for how the pieces fit together, or the [Glossary](glossary.md) for unfamiliar terms.
+
 > Specification: the wire format is defined by [OVOS-MSG-1: Bus Message](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-msg-1.md). This page describes the reference implementation.
 
 The **Message Bus** is the central nervous system of the OVOS platform. All services communicate by publishing and subscribing to typed `Message` objects through this central WebSocket broker.

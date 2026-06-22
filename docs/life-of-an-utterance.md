@@ -1,5 +1,8 @@
 # The Life of an Utterance
 
+!!! abstract "In a nutshell"
+    This page follows a single spoken command on its whole journey through OpenVoiceOS — from the instant sound reaches the microphone to the moment you hear a reply. Along the way the system notices the wake word, records what you say, turns it into text, works out what you meant, does the task, and speaks back. It's a guided tour of the assembly line that handles every voice command. New to the terms here? Start with the [Glossary](glossary.md), or see the [Architecture Overview](architecture-overview.md) for the bigger picture.
+
 > Specification: [OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-pipeline-1.md) (utterance lifecycle) and [OVOS-MSG-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-msg-1.md) (bus messages).
 
 This guide provides a technical, step-by-step walkthrough of how a voice command is processed by OpenVoiceOS, from the moment sound hits the microphone to the final spoken response.

@@ -1,3 +1,8 @@
+# Skill Structure
+
+!!! abstract "In a nutshell"
+    A skill is just a folder of files, organized in a predictable way so OVOS knows where to find everything. Some files hold the words your skill listens for and the phrases it says back, grouped by language so the skill can be translated. Another file holds the actual instructions for what the skill does. This page walks through that layout piece by piece, so you can recognize each part when you open a skill. New terms are explained in the [Glossary](glossary.md).
+
 ## Anatomy of a [Skill](skill-design-guidelines.md)
 
 ### `vocab`, `dialog`, and `locale` directories

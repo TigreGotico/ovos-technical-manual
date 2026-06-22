@@ -1,5 +1,8 @@
 # Transformer Plugins
 
+!!! abstract "In a nutshell"
+    As your voice travels through the assistant — from raw sound, to written words, to a matched request, to the spoken reply — transformer plugins are optional helpers that can tidy or tweak the information at each step. Think of them as filters on an assembly line: one might clean up background noise, another might fix a misheard word before the system tries to understand it. They don't take over any step; they just polish what passes between steps. See the [Glossary](glossary.md) for related terms.
+
 Transformer plugins let you intercept and modify data as it flows through the OVOS pipeline. Each type is a small class with a `transform()` method that runs at a fixed stage — turning raw audio into cleaner audio, fixing transcribed text before intent matching, enriching a matched intent, or post-processing speech before playback.
 
 A transformer never *replaces* a stage; it sits between two stages and reshapes what passes through. Several plugins of the same type can be active at once — they run in sequence, sorted by `priority` (highest first), so each one builds on the output of the previous.

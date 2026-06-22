@@ -1,5 +1,8 @@
 # GUI Service (ovos-gui)
 
+!!! abstract "In a nutshell"
+    `ovos-gui` is the part of OpenVoiceOS that decides what shows up on a screen — text, images, a music player, or an idle home screen. Skills never draw to the display themselves; they send a request to this service, which keeps track of what each skill wants shown and passes it on to whatever screen is connected. Think of it as a stage manager that decides which scene is in front of the audience at any moment. To learn more, see the [Home Screen](homescreen.md) and the [Glossary](glossary.md).
+
 `ovos-gui` is the GUI orchestration daemon for OpenVoiceOS. It tracks display state and
 manages the **namespace stack** that determines what is currently visible on screen.
 

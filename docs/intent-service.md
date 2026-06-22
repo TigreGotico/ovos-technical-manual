@@ -1,5 +1,8 @@
 # Intent Service
 
+!!! abstract "In a nutshell"
+    The Intent Service is the part of OpenVoiceOS that figures out what you actually meant. Once the [Speech Service](speech-service.md) has turned your words into text, this service reads that text and decides which skill should handle it — much like a receptionist hearing your request and directing you to the right desk. It tries a series of matchers in order and stops at the first one confident enough to respond. New to the terms? See the [Glossary](glossary.md).
+
 **Module:** `ovos_core.intent_services.service.IntentService` — [`ovos_core/intent_services/service.py`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py)
 
 > Specification: intent/entity registration follows [OVOS-INTENT-4: Intent and Entity Registration Bus Contract](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-4.md); pipeline ordering follows [OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-pipeline-1.md).

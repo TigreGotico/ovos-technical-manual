@@ -1,5 +1,8 @@
 # TTS Plugins
 
+!!! abstract "In a nutshell"
+    TTS stands for *Text-to-Speech*: this is the part that gives your assistant its voice, turning written replies into spoken audio you can hear. It is the opposite of dictation — instead of listening to you, it talks back. Different TTS plugins offer different voices and qualities, and some run on your own device while others use a cloud service. See the [Glossary](glossary.md) for related terms.
+
 TTS plugins are responsible for converting text into audio for playback.
 
 > **Neural ONNX voices** — [phoonnx](https://github.com/TigreGotico/phoonnx) ships the `ovos-tts-plugin-phoonnx` TTS plugin, an ONNX runtime for VITS/Piper-style voices with built-in G2P. It is an active alternative to the per-engine plugins listed below.

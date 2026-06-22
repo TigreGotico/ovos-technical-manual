@@ -1,5 +1,8 @@
 # Wake Word Plugins
 
+!!! abstract "In a nutshell"
+    A *wake word* is the special phrase that gets your assistant's attention — like "Hey Mycroft" — so it only starts paying attention when you mean to talk to it, instead of listening all the time. Wake word plugins are the different tools that listen for that phrase. Some are more accurate for a fixed phrase, while others let you pick your own wake word with less setup. See the [Glossary](glossary.md) and the [listener service](speech-service.md) for related details.
+
 Wake Word plugins allow Open Voice OS to detect specific words or sounds, typically the assistant’s name (e.g., "Hey Mycroft"), but can be customized for various use cases. These plugins enable the system to listen for and react to activation commands or phrases.
 
 ## Available Plugins

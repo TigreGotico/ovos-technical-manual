@@ -2,7 +2,7 @@
 
 **For beginners:** agent plugins are the installable building blocks that let a persona think,
 answer, rank, summarize, remember, or resolve pronouns. You don't call them directly — you list
-them in a [persona](personas.md) and the [PersonaService](personas.md#personaservice--pipeline-plugin)
+them in a [persona](personas.md) and the [PersonaService](personas.md#personaservice-pipeline-plugin)
 loads them. Each plugin advertises itself to OVOS through an OPM entry-point group.
 
 **For advanced users:** every agent engine subclasses an abstract base in
