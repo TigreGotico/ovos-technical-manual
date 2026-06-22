@@ -1,5 +1,8 @@
 # Fallback Pipeline
 
+!!! abstract "In a nutshell"
+    When you say something and none of your assistant's regular skills know how to respond, the fallback pipeline is the safety net that tries one last set of "catch-all" skills so the assistant still says something instead of going silent. Think of it as the help desk that gets your question only after everyone else has passed on it. It asks these backup skills in a set order until one of them handles the request. See the [Converse Pipeline](converse-pipeline.md) for what runs before this, or the [Glossary](glossary.md) for terms.
+
 The **Fallback Pipeline** in **OpenVoiceOS (OVOS)** manages how fallback skills are queried when no primary skill handles a user's utterance. It coordinates multiple fallback handlers, ensuring the system gracefully attempts to respond even when regular intent matching fails.
 
 ---

@@ -1,5 +1,8 @@
 # Wyoming Bridges
 
+!!! abstract "In a nutshell"
+    "Wyoming" is a common language (a network protocol) that voice gadgets use to talk to each other — most famously Home Assistant's voice features. These bridges are small adapter programs that let OVOS's own engines speak that common language, so Home Assistant and similar tools can use an OVOS wake word, speech-to-text, or text-to-speech engine without knowing anything about OVOS. Think of them as translators that let OVOS plug into the wider voice-assistant world. See [STT plugins](stt-plugins.md), [TTS plugins](tts-plugins.md), and the [Glossary](glossary.md).
+
 [Wyoming](https://github.com/rhasspy/wyoming) is a simple TCP-based peer-to-peer protocol
 for voice assistant components, originally developed for Home Assistant's voice pipeline.
 It defines a small set of typed events that flow over a socket connection, covering the

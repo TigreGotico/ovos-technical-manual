@@ -1,5 +1,8 @@
 # Padacioso
 
+!!! abstract "In a nutshell"
+    Padacioso is a simple tool that figures out what a user *meant* by matching what they said against a list of example phrases you write out by hand — like a phrasebook. Unlike its smarter sibling Padatious, it does no machine learning and needs no training: it just checks the words literally, with a little flexibility for optional words and fill-in-the-blank slots. It also pulls out useful pieces (an "entity", e.g. the city name in "weather in Lisbon"). See the [Glossary](glossary.md) for terms like *intent* and *entity*.
+
 *A lightweight, dead-simple intent parser*
 
 Built on top of [simplematch](https://github.com/tfeldmann/simplematch), inspired by [Padaos](https://github.com/MycroftAI/padaos).

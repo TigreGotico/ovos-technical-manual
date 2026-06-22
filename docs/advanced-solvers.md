@@ -1,5 +1,8 @@
 # Specialized [Agent Engine](agent-plugins.md) Types
 
+!!! abstract "In a nutshell"
+    Beyond plain chatting, OVOS offers a toolbox of small, specialized AI helpers — each good at one narrow job, like ranking which answer is most relevant, summarizing text, or detecting a language. Because each is a separate, swappable piece, you can mix and match them to build more capable assistants. See [Agent Plugins](agent-plugins.md) for the broader idea and the [Glossary](glossary.md) for unfamiliar terms.
+
 OVOS provides a full suite of specialized agent engine types beyond simple chat. Each type solves
 a specific NLP sub-problem and registers under its own OPM entry point group, making it
 independently discoverable, configurable, and composable.

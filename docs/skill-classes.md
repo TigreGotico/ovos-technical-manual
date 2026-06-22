@@ -1,5 +1,8 @@
 # Skill Classes
 
+!!! abstract "In a nutshell"
+    A "skill" is an add-on that gives your voice assistant a new ability. Rather than building each one from scratch, you start from a ready-made template (a "base class") and customize it. This page lists the available templates — a general-purpose one and specialized ones for things like games, media playback, or catch-all replies — so you can pick the closest fit. Unsure what a term means? See the [Glossary](glossary.md); for hands-on basics see [Skill Best Practices](skill-best-practices.md).
+
 `ovos-workshop` provides all base classes needed to write skills for OpenVoiceOS. Every skill ultimately inherits from `OVOSSkill`.
 
 **Package:** `ovos-workshop` | **Entry point group:** `opm.skill`

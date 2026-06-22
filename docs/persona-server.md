@@ -1,5 +1,8 @@
 # OVOS Persona Server
 
+!!! abstract "In a nutshell"
+    A "persona" is an OVOS chat character — a configured AI personality that answers questions. This server puts a persona online and makes it *look and behave like* the well-known AI chat services (such as OpenAI, Ollama, or Anthropic Claude). The practical upshot: any app or tool that already knows how to talk to one of those services can be pointed at your persona instead, with no changes — handy for plugging an OVOS persona into other software (like Home Assistant). Note it has no built-in password protection, so keep it on a trusted network. See [OVOS Personas](personas.md) and the [Glossary](glossary.md).
+
 The OVOS Persona Server exposes any OVOS [persona](personas.md) over HTTP using the APIs of the major LLM vendors, so an OVOS persona becomes a drop-in replacement for an LLM backend in third-party tools. A single server simultaneously serves OpenAI-, Ollama-, Anthropic-, Gemini-, Cohere-, AWS Bedrock- and HuggingFace TGI-compatible endpoints, plus embeddings, MCP, UTCP and A2A surfaces.
 
 It is a FastAPI app served by `uvicorn`. A persona is loaded from a JSON file at startup; the persona's `solvers` do the actual work (anything from a local rule-based bot to a remote LLM).

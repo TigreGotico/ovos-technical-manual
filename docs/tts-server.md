@@ -1,5 +1,8 @@
 # OpenVoiceOS [TTS](tts-plugins.md) Server
 
+!!! abstract "In a nutshell"
+    This is a small standalone program that turns any OVOS text-to-speech voice — the part that reads written text aloud — into a web service. You send it some text over a simple web request and it sends back the spoken audio, so one capable machine can do the talking for many lightweight devices. It can also imitate popular cloud voice services (like ElevenLabs or OpenAI), letting software built for those use your own server instead. See [TTS plugins](tts-plugins.md) and the [Glossary](glossary.md).
+
 **Lightweight HTTP microservice for any OVOS text‑to‑speech plugin, with optional caching.**
 
 Wrap your favorite OVOS TTS engine in a FastAPI service—ready to deploy locally, in Docker, or behind a load balancer.

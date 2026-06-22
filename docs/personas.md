@@ -1,5 +1,8 @@
 # AI Agents & Personas in OpenVoiceOS
 
+!!! abstract "In a nutshell"
+    A "persona" is a chosen personality and brain for your assistant — think of it as deciding *who* answers you and how they sound, much like picking a character. Behind each persona are interchangeable "engines" (the actual AI pieces that do the thinking), and a routing layer decides which persona should handle each thing you say. This lets you swap or combine brains without rebuilding the whole assistant. To dig deeper see [Tool Plugins](tool-plugins.md) and [Persona Memory](persona-memory.md), or the [Glossary](glossary.md) for unfamiliar terms.
+
 OpenVoiceOS (OVOS) provides a flexible, modular system for integrating AI agents into voice-first
 environments. The architecture is built in layers: low-level **agent engine plugins** registered
 through OPM, named **personas** that combine one or more engines into a conversational identity,

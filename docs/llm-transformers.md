@@ -1,5 +1,8 @@
 # Generative AI [Transformer](transformer-plugins.md) Plugins
 
+!!! abstract "In a nutshell"
+    These plugins let an AI language model quietly tweak things as the assistant works — like a helpful editor sitting in the middle of the conversation. They can step in twice: once to clean up or rephrase what you just said before the assistant tries to understand it, and once to polish the assistant's reply before it's spoken aloud. You can stack several of them and set the order they run in. To learn more, see [Transformer Plugins](transformer-plugins.md) and the [Glossary](glossary.md).
+
 **Transformer plugins** intercept the OVOS processing pipeline at two points — before intent
 matching (utterance transformers) and before [TTS](tts-plugins.md) synthesis (dialog transformers). They operate
 independently of the persona system but can use the same LLM backends.

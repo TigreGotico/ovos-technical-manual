@@ -1,5 +1,8 @@
 # Skill Settings
 
+!!! abstract "In a nutshell"
+    "Settings" are a skill's saved preferences — things like a username, an API key, or a chosen option — that stick around even after a restart. Think of it as a small notepad each skill keeps to remember how the user wants it to behave. This page shows how a skill reads and writes those values, and how it reacts when a user changes them. To design the on-screen form users fill in, see [Skill Settings Meta](skill-settings-meta.md); for term definitions see the [Glossary](glossary.md).
+
 Settings provide per-skill persistent key-value storage backed by a JSON file. They allow users to configure and personalize skill behaviour — changing defaults, providing API keys, or adjusting integration preferences.
 
 ---

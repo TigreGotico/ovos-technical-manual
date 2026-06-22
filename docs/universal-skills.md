@@ -1,5 +1,8 @@
 # UniversalSkill
 
+!!! abstract "In a nutshell"
+    A "Universal" skill is one you write in a single language but that works in many. It automatically translates what the user said into your chosen working language before your code runs, and translates your replies back into the user's language afterward — so you handle everything in, say, English while users speak whatever they like. Think of it as a built-in interpreter sitting on either side of your skill. It needs translation plugins set up to work. For the family of skill templates see [Skill Classes](skill-classes.md); for term definitions see the [Glossary](glossary.md).
+
 The `UniversalSkill` class is designed to facilitate automatic translation of input and output messages between different languages. 
 
 This skill is particularly useful when native language support is not feasible, providing a convenient way to handle multilingual interactions.

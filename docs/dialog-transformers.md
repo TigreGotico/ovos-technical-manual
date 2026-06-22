@@ -1,5 +1,8 @@
 # Dialog Transformers
 
+!!! abstract "In a nutshell"
+    These plugins give the assistant's written reply one last edit *just before* it's read aloud. Like a proofreader catching the text on its way out, they can adjust the tone, simplify the wording, or translate it — and because this happens in one shared place, it applies to every feature at once without changing any of them. See [Transformer Plugins](transformer-plugins.md) and the [Glossary](glossary.md) for unfamiliar terms.
+
 **Dialog Transformers** in OpenVoiceOS (OVOS) are plugins that modify or enhance text responses just before they are sent to the [Text-to-Speech](tts-plugins.md) ([TTS](tts-plugins.md)) engine. This allows for dynamic adjustments to the assistant's speech, such as altering tone, simplifying language, or translating content, without requiring changes to individual skills.
 
 ---

@@ -1,5 +1,8 @@
 # OCP Plugins Reference
 
+!!! abstract "In a nutshell"
+    OCP (the Open Common Play system) is the part of OVOS that plays media — music, podcasts, news, radio and the like. Each plugin on this page teaches it to handle one kind of source, such as YouTube links, Bandcamp pages, RSS feeds, or local files. So if you ask to play something, the right plugin knows how to find the actual audio stream and start it. See the [Glossary](glossary.md) for unfamiliar terms.
+
 | Plugin | Description |
 |--------|-------------|
 | [ovos-ocp-files-plugin](#ovos-ocp-files-plugin) | Please see the original repo |

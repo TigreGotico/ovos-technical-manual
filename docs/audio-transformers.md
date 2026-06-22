@@ -1,5 +1,8 @@
 # Audio Transformers
 
+!!! abstract "In a nutshell"
+    Audio transformers clean up and inspect the sound from your microphone *before* the assistant tries to turn it into words. Like a sound engineer adjusting a recording, they can do things such as reduce background noise or detect which language is being spoken, which helps the assistant understand you more reliably. See [Transformer Plugins](transformer-plugins.md) for the wider family and the [Glossary](glossary.md) for unfamiliar terms.
+
 **Audio Transformers** in OpenVoiceOS (OVOS) are plugins designed to process raw audio input before it reaches the [Speech-to-Text](stt-plugins.md) ([STT](stt-plugins.md)) engine. They enable functionalities such as noise reduction, language detection, and data transmission over sound, thereby enhancing the accuracy and versatility of voice interactions.
 
 ---

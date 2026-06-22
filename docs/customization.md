@@ -1,5 +1,8 @@
 # Customization
 
+!!! abstract "In a nutshell"
+    You don't have to be a programmer to make a skill behave the way you like. This page shows how to change the things an existing skill says — to give your assistant its own personality — or to add a language it doesn't yet support, all by dropping a few text files into a folder on your device. The original skill stays untouched; your changes simply override it. The later sections are a reference for developers. For more on those text files see [Resource Files](resource-files.md); for term definitions see the [Glossary](glossary.md).
+
 ## Resource Files
 
 Resource files are essential components of OVOS skills, containing data such as dialogs, intents, vocabularies, regular expressions, templates, and more. 

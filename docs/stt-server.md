@@ -1,5 +1,8 @@
 # OpenVoiceOS [STT](stt-plugins.md) HTTP Server
 
+!!! abstract "In a nutshell"
+    This is a small standalone program that turns any OVOS speech-to-text engine — the part that converts spoken audio into written text — into a web service. Once it's running, other devices on your network (or the internet) can send it audio over a simple web request and get back the transcribed text, so one capable machine can do the listening for many lightweight devices. It can even pretend to be popular cloud services (like OpenAI Whisper or Google), so software written for those works against your own server unchanged. See [STT plugins](stt-plugins.md) and the [Glossary](glossary.md).
+
 **Lightweight HTTP microservice for any OVOS speech‑to‑text plugin, with optional Gradio UI.**
 
 The OpenVoiceOS STT HTTP Server wraps your chosen OVOS STT plugin inside a FastAPI service (complete with automatic language detection), making it easy to deploy on your local machine, in Docker, or behind a load balancer.

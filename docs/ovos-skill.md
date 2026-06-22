@@ -1,5 +1,8 @@
 # OVOSSkill
 
+!!! abstract "In a nutshell"
+    A "skill" is an add-on that teaches your voice assistant to do one new thing — like telling the weather or setting a timer. Every skill is built on top of a shared starter kit called `OVOSSkill`, which quietly handles the housekeeping: starting up, listening for commands, speaking replies, remembering settings, and shutting down. This page is a reference for that starter kit and its methods. New to all this? Start with [Skill Classes](skill-classes.md) or the [Glossary](glossary.md).
+
 **Module:** `ovos_workshop.skills.ovos.OVOSSkill`
 
 `OVOSSkill` is the base class that all OVOS skills inherit from. It handles startup, intent registration, resource loading, settings, event management, GUI, and shutdown.

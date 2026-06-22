@@ -1,5 +1,8 @@
 # Server Compatibility Layers
 
+!!! abstract "In a nutshell"
+    The OVOS servers (for speech-to-text, text-to-speech, translation, and chat personas) can *impersonate* the popular commercial services people already build software for — OpenAI, Google, DeepL, ElevenLabs, Anthropic, and many more. This page lists which imitations each server offers. The benefit: an app written to talk to one of those big-name services can be pointed at your own OVOS server instead, with no code changes, like a power adapter that lets the same plug fit a different socket. See the [STT Server](stt-server.md), [TTS Server](tts-server.md), [Translate Server](translate-server.md), and [Persona Server](persona-server.md) pages, or the [Glossary](glossary.md).
+
 Each OVOS service server exposes vendor-prefixed routers so existing clients and integrations can connect without modification. Every router accepts the vendor's original request format and translates it to the native OVOS plugin call.
 
 ---

@@ -1,5 +1,8 @@
 # Skill Metadata File
 
+!!! abstract "In a nutshell"
+    `skill.json` is a small "info card" for your skill — its name, a short description, an icon, and a few example phrases. OVOS and skill stores read this card to install your skill and show it off nicely in menus and on screens, much like the listing page for an app in an app store. It does not change what the skill does; it just describes it. For the saved-preferences side of things see [Skill Settings](skill-settings.md); for term definitions see the [Glossary](glossary.md).
+
 The `skill.json` file is an optional but powerful way to describe your Open Voice OS (OVOS) skill. It provides metadata used for installation, discovery, and display in GUIs or app stores.
 
 ## Purpose

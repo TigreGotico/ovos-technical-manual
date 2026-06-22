@@ -1,5 +1,8 @@
 # Utterance Transformers
 
+!!! abstract "In a nutshell"
+    An "utterance" is simply the text of what you said, once the assistant has transcribed your speech into words. These plugins get to fix and tidy that text *before* the assistant tries to understand it — for example correcting misheard words, smoothing out the phrasing, or handling more than one language — so it matches your request more reliably. See [Transformer Plugins](transformer-plugins.md) and the [Glossary](glossary.md) for unfamiliar terms.
+
 **Utterance Transformers** in OpenVoiceOS (OVOS) are plugins that process and modify user utterances immediately after speech-to-text ([STT](stt-plugins.md)) conversion but before intent recognition. They serve to enhance the accuracy and flexibility of the assistant by correcting errors, normalizing input, and handling multilingual scenarios.
 
 ---

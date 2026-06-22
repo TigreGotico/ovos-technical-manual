@@ -1,5 +1,8 @@
 # Agent Interoperability: MCP, UTCP, and A2A
 
+!!! abstract "In a nutshell"
+    This page is about letting OVOS work *together with other AI systems*. OVOS can offer its abilities — like speech, translation, and reasoning — to outside AI tools, and can also call on them, using a few shared "languages" (the protocols MCP, UTCP, and A2A) so different systems can find and use each other. Think of it as agents agreeing on a common plug and socket so they can cooperate. See the [Glossary](glossary.md) for unfamiliar terms.
+
 OVOS exposes its speech, translation, and reasoning services as first-class agent tools via two discovery/calling protocols — **MCP** (Model Context Protocol) and **UTCP** (Universal Tool Calling Protocol) — and implements bidirectional **A2A** (Agent-to-Agent) bridging.
 
 ---

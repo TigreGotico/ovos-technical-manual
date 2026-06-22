@@ -1,5 +1,8 @@
 # Intent Transformers
 
+!!! abstract "In a nutshell"
+    Once the assistant has figured out *what you want* (your "intent" — for example, "set a timer"), these plugins can add extra detail or tidy up that request before the matching feature actually runs. It's a chance to fill in or pull out the specifics — like spotting names, places, or numbers in what you said — in one shared place instead of repeating that work everywhere. See [Transformer Plugins](transformer-plugins.md) and the [Glossary](glossary.md) for unfamiliar terms.
+
 **Intent Transformers** are a pluggable mechanism in OVOS that allow you to enrich or transform intent data **after** an intent is matched by an engine ([Padatious](padatious-pipeline.md), [Adapt](adapt-pipeline.md), etc.), but **before** it is passed to the skill handler.
 
 This is useful for:

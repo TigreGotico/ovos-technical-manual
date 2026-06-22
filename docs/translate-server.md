@@ -1,6 +1,9 @@
 
 # `ovos-translate-server` — HTTP Translation Server
 
+!!! abstract "In a nutshell"
+    This is a small standalone program that puts OVOS's language tools — translating text between languages and guessing what language a piece of text is in — online as a web service. Other devices send it text over a simple web request and get back the translation (or the detected language), so one machine can do this work for many. It can also imitate popular translation services (like DeepL, Google Translate, or LibreTranslate), so software written for those works against your own server unchanged. See [Translation Plugins](translation-plugins.md) and the [Glossary](glossary.md).
+
 ## What it Does
 
 `ovos-translate-server` wraps any OVOS translation plugin and language-detection plugin and exposes them as a FastAPI HTTP service (served by `uvicorn`). It is the standard way to make OVOS language plugins available to remote clients or to use them as a microservice in a Docker-based deployment.

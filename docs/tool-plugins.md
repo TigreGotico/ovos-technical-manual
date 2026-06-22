@@ -1,5 +1,8 @@
 # Agent Tool Plugins
 
+!!! abstract "In a nutshell"
+    These plugins give an AI assistant real *abilities* it can reach for — like fetching information or performing an action — rather than only talking. Each "tool" is described in a standard way so the AI knows what it does and what information it needs, much like labelled buttons on a control panel. See [Agentic Loops](agentic-loop.md) for how an assistant decides to use them, and the [Glossary](glossary.md) for unfamiliar terms.
+
 The OPM `ToolBox` framework provides a standardized mechanism for exposing discoverable, schema-validated functions to OVOS agents (persona solvers, agentic loops, MCP/UTCP clients).
 
 This page covers the plugin ecosystem, the PHAL bus provider, and integration with agentic loops. For full authoring documentation see the [Plugin Manager reference](plugin-manager.md).

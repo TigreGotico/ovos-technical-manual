@@ -1,5 +1,8 @@
 # OpenAI Agent Plugin (`ovos-openai-plugin`)
 
+!!! abstract "In a nutshell"
+    This plugin lets OVOS talk to AI chat services that follow OpenAI's popular format — that includes OpenAI itself, but also many private or locally-run alternatives that copy the same style. So it's the bridge that connects your assistant to a chosen AI "brain", whether that brain lives in the cloud or on your own machine. See [AI Agents & Personas](personas.md) for how this fits in, and the [Glossary](glossary.md) for unfamiliar terms.
+
 `ovos-openai-plugin` connects OVOS to any OpenAI-compatible Chat Completions API — including
 OpenAI itself, local models via [Ollama](https://ollama.com) or `llama.cpp`, self-hosted
 proxies, and [`ovos-persona-server`](persona-server.md).

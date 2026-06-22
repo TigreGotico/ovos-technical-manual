@@ -1,5 +1,8 @@
 # Configuration Management
 
+!!! abstract "In a nutshell"
+    This page is about how you change OVOS's settings — your language, voice, microphone, and so on. OVOS ships with a complete set of sensible defaults you never touch; instead you write a tiny personal file listing only the things you want different, and OVOS stacks your file on top of the defaults so the rest stays as-is (like adding a sticky note over a printed form). The `ovos-config` command-line tool helps you view and edit those settings. For the full menu of every setting, see the [Configuration Reference](config-reference.md); for term definitions see the [Glossary](glossary.md).
+
 `ovos-config` is the configuration layer for the entire OVOS ecosystem. It provides a layered, merged `Configuration` singleton that all OVOS components read from, plus XDG-aware path helpers, a CLI tool, and meta-config support for custom distributions.
 
 For a detailed list of every available configuration option, see the **[Configuration Reference](config-reference.md)**.

@@ -1,5 +1,8 @@
 # settingsmeta.json
 
+!!! abstract "In a nutshell"
+    This file describes the form users see when they configure your skill — the labelled boxes, checkboxes, and drop-down menus on a settings screen. You list each option (its label, its type, and a starting value) and OVOS builds the screen for you. It's like designing a fill-in-the-blanks form so people can adjust a skill without editing any files. For where those answers are stored and used, see [Skill Settings](skill-settings.md); for term definitions see the [Glossary](glossary.md).
+
 ## Define settings UI for a [Skill](skill-design-guidelines.md)
 
 To define our Skills settings UI we use a `settingsmeta.json` or `settingsmeta.yaml` file. 

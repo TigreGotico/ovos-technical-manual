@@ -1,5 +1,8 @@
 # Grapheme-to-Phoneme (G2P) Plugins
 
+!!! abstract "In a nutshell"
+    These plugins work out *how a written word should sound*. A "grapheme" is just a letter you see on the page, and a "phoneme" is a unit of sound you hear when it's spoken — so this is the part that figures out, for example, that "knight" sounds like "nite". The voice that reads text aloud uses this to pronounce words more correctly, and on-screen avatars use it to move their lips in time with the speech. For unfamiliar terms, see the [Glossary](glossary.md); to learn about the voices that speak, see [TTS Plugins](tts-plugins.md).
+
 Grapheme-to-Phoneme (G2P) plugins are responsible for converting written text (graphemes) into their spoken representations (phonemes). These are used by [TTS](tts-plugins.md) engines to improve pronunciation and by the GUI to provide lip-sync data (visemes).
 
 ## How it works

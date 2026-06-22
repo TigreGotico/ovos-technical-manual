@@ -1,5 +1,8 @@
 # SSMLBuilder 
 
+!!! abstract "In a nutshell"
+    Normally the assistant just reads text aloud in a flat voice. SSML is a way to add stage directions to that text — pause here, say this word louder, slow down, whisper, change the pitch — so speech sounds more natural and expressive. It's like the difference between reading a script plainly and acting it out. The `SSMLBuilder` helper on this page lets you add those directions without memorizing the markup by hand. Note: not every voice supports every effect. For spoken replies in general see [Statements](statements.md); for term definitions see the [Glossary](glossary.md).
+
 ## What is SSML?
 
 Speech Synthesis Markup Language (SSML) is a markup language used to enhance synthesized speech output. It provides developers with a way to control various aspects of speech synthesis, such as pronunciation, intonation, volume, and speed, by using predefined tags and attributes.

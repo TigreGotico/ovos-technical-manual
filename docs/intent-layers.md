@@ -1,5 +1,8 @@
 # Intent Layers and Permissions
 
+!!! abstract "In a nutshell"
+    An "intent" is a thing a user can ask the assistant to do. "Intent layers" let a skill switch groups of these on and off depending on what's happening — for example, only listening for "north," "south," "attack" while a game is actually being played, then turning them off again. It's like having different sets of buttons appear only when they make sense. The second half of this page covers "permissions" — rules for which skills are even allowed to join in. For more on intents see [Intents](intents.md); for term definitions see the [Glossary](glossary.md).
+
 ---
 
 ## Intent Layers

@@ -1,5 +1,8 @@
 # Resource Files
 
+!!! abstract "In a nutshell"
+    Skills keep their words in separate text files rather than buried in the program code. These "resource files" hold things like the phrases the assistant can say, the example sentences it listens for, and the keywords it recognizes — each language gets its own folder. This separation makes a skill easy to translate and tweak without touching the code. This page explains the folder layout and the kinds of files. See also [Statements](statements.md) for spoken replies and the [Glossary](glossary.md).
+
 Skills load localized resources from a structured directory layout. Resources are loaded automatically at startup for every language in `native_langs` (`core_lang` + `secondary_langs`).
 
 ## Directory Layout
