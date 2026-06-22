@@ -60,8 +60,10 @@ The entry point group is the canonical identifier used in `setup.py` / `pyprojec
 | [Wake Word](wake-word-plugins.md) | `opm.wake_word` | `ovos_plugin_manager.templates.hotwords.HotWordEngine` |
 | Wake Word Verifier | `opm.wake_word.verifier` | `HotWordVerifier` |
 | [VAD](vad-plugins.md) ([Voice Activity Detection](vad-plugins.md)) | `opm.VAD` | `VADEngine` |
-| Microphone | `opm.microphone` | `Microphone` |
+| Microphone | `opm.microphone` | `OVOSMicrophone` |
 | G2P (Grapheme-to-Phoneme) | `opm.g2p` | `Grapheme2PhonemePlugin` |
+| Audio→IPA | `opm.audio2ipa` | `Audio2IPAPlugin` |
+| Voice Clone | `opm.vc` | `VoiceClonePlugin` |
 
 ### System & Hardware Plugins
 
@@ -125,12 +127,38 @@ The entry point group is the canonical identifier used in `setup.py` / `pyprojec
 | Plugin type | Entry point group | Template base class |
 |---|---|---|
 | Chat | `opm.agents.chat` | `ChatEngine` |
+| Chat (multimodal) | `opm.agents.chat.multimodal` | — |
+| Multimodal adapter | `opm.agents.multimodal_adapter` | — |
 | Retrieval | `opm.agents.retrieval` | `RetrievalEngine` |
+| Document retrieval | `opm.agents.retrieval.documents` | `DocumentIndexerEngine` |
+| Q/A retrieval | `opm.agents.retrieval.qa` | `QAIndexerEngine` |
 | Summarizer | `opm.agents.summarizer` | `SummarizerEngine` |
+| Chat summarizer | `opm.agents.summarizer.chat` | — |
 | Extractive QA | `opm.agents.extractive_qa` | `ExtractiveQAEngine` |
 | NLI | `opm.agents.nli` | `NaturalLanguageInferenceEngine` |
 | Reranker | `opm.agents.reranker` | `ReRankerEngine` |
+| Coreference | `opm.agents.coref` | — |
+| Yes/No | `opm.agents.yesno` | — |
+| Toolbox | `opm.agents.toolbox` | `ToolBox` |
 | Memory | `opm.agents.memory` | `AgentContextManager` |
+
+### Embeddings & Knowledge Plugins
+
+| Plugin type | Entry point group | Template base class |
+|---|---|---|
+| Embeddings (generic) | `opm.embeddings` | — |
+| Text embeddings | `opm.embeddings.text` | — |
+| Voice embeddings | `opm.embeddings.voice` | — |
+| Image embeddings | `opm.embeddings.image` | — |
+| Face embeddings | `opm.embeddings.face` | — |
+| Knowledge triples | `opm.triples` | — |
+
+### Skill & Persona Plugins
+
+| Plugin type | Entry point group | Template base class |
+|---|---|---|
+| [Skill](skill-design-guidelines.md) | `opm.skill` | — |
+| [Persona](personas.md) | `opm.plugin.persona` | — |
 
 ### Deprecated Types
 
@@ -145,14 +173,28 @@ in new plugins:
 | `ovos.plugin.phal` | `opm.phal` |
 | `ovos.plugin.phal.admin` | `opm.phal.admin` |
 | `ovos.plugin.VAD` | `opm.VAD` |
+| `ovos.plugin.microphone` | `opm.microphone` |
+| `ovos.plugin.skill` | `opm.skill` |
 | `ovos.plugin.g2p` | `opm.g2p` |
+| `ovos.plugin.audio2ipa` | `opm.audio2ipa` |
 | `ovos.plugin.gui` | `opm.gui` |
+| `ovos.ocp.extractor` | `opm.ocp.extractor` |
 | `neon.plugin.lang.translate` | `opm.lang.translate` |
 | `neon.plugin.lang.detect` | `opm.lang.detect` |
 | `neon.plugin.text` | `opm.transformer.text` |
 | `neon.plugin.metadata` | `opm.transformer.metadata` |
 | `neon.plugin.audio` | `opm.transformer.audio` |
 | `neon.plugin.solver` | `opm.solver.question` |
+| `intentbox.coreference` | `opm.coreference` |
+| `intentbox.keywords` | `opm.keywords` |
+| `intentbox.segmentation` | `opm.segmentation` |
+| `intentbox.tokenization` | `opm.tokenization` |
+| `intentbox.postag` | `opm.postag` |
+
+The legacy **solver** groups (`opm.solver.question`, `opm.solver.chat`,
+`opm.solver.summarization`, `opm.solver.entailment`, `opm.solver.multiple_choice`,
+`opm.solver.reading_comprehension`) and `opm.coreference` are superseded by the
+`opm.agents.*` types above and will be removed in the next major release.
 
 ---
 
