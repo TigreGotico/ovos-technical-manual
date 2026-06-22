@@ -89,7 +89,9 @@ makes the rest of the manual click into place:
 !!! info "Plugins vs. Skills — the two ways to extend OVOS"
     A **skill** adds an *ability* ("set a timer", "play the news"). A **plugin** swaps
     out a *building block* (a different speech-to-text engine, a new wake word, another
-    voice). See the **[Plugin Ecosystem](plugins-index.md)** to explore what's available.
+    voice). See the **[Plugin Ecosystem](plugins-index.md)** to explore what's available,
+    or the **[OVOS Repository Index](ecosystem-index.md)** for a map of every public
+    repository in the project.
 
 ---
 

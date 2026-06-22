@@ -86,7 +86,7 @@ nav:
   - Home:
       - Introduction: index.md
       - Glossary: glossary.md
-  - Getting Started:
+  - Get Started:
       - Installation Options: release-channels.md
       - ovos-installer: ovos-installer.md
       - Skill Examples: skill-examples.md
@@ -140,7 +140,6 @@ nav:
       - Bidirectional Translation: bidirectional-translation.md
       - Contributing Translations: ovos-localize-tutorial.md
       - Translation Plugins: translation-plugins.md
-      - Translation Server: translate-server.md
       - Technical Parsers:
           - Language Names: lang-parser.md
           - Numbers: number-parser.md
@@ -149,9 +148,10 @@ nav:
           - Quebra Frases: quebra-frases.md
           - Padacioso: padacioso.md
   - Skill Development:
-      - Design Guidelines: skill-design-guidelines.md
-      - Best Practices: skill-best-practices.md
-      - Anatomy of a Skill: skill-structure.md
+      - Guides:
+          - Design Guidelines: skill-design-guidelines.md
+          - Best Practices: skill-best-practices.md
+          - Anatomy of a Skill: skill-structure.md
       - Logic & Intents:
           - Intent Design: intents.md
           - Intent Layers: intent-layers.md
@@ -163,6 +163,7 @@ nav:
           - skill.json: skill-json.md
           - F.A.Q.: skill-dev-faq.md
       - Skill APIs:
+          - ovos-workshop Overview: workshop-overview.md
           - OVOSSkill API: ovos-skill.md
           - Skill Base Classes: skill-classes.md
           - Decorators: decorators.md
@@ -172,40 +173,37 @@ nav:
           - Resource Files: resource-files.md
           - GUI Support (legacy): skill-gui.md
           - Runtime Requirements: skill-runtime-requirements.md
-  - Advanced Skill Types:
-      - Fallback Skills: fallbacks.md
-      - Common Query Skills: common-query.md
-      - Media Skills (OCP): ocp-skills.md
-      - Universal Skills: universal-skills.md
-  - End-to-End Testing (ovoscope):
-      - Overview: ovoscope-overview.md
-      - Usage Guide: ovoscope-usage.md
-      - CI Integration: ovoscope-ci.md
-      - MiniCroft: ovoscope-minicroft.md
-      - End2EndTest Reference: ovoscope-end2end-test.md
-      - PHAL Testing: ovoscope-phal.md
-      - Pipeline Testing: ovoscope-pipeline.md
-      - Audio Testing: audio-testing.md
-      - Listener Testing: listener.md
-      - OCP Testing: ocp.md
-      - Pydantic Integration: pydantic-integration.md
-      - Capture Sessions: capture-session.md
-      - FakeBus Reference: fakebus.md
-      - Skill Testing Architecture: skill-testing.md
+      - Advanced Skill Types:
+          - Fallback Skills: fallbacks.md
+          - Common Query Skills: common-query.md
+          - Media Skills (OCP): ocp-skills.md
+          - Universal Skills: universal-skills.md
+      - Testing Skills (ovoscope):
+          - Overview: ovoscope-overview.md
+          - Usage Guide: ovoscope-usage.md
+          - CI Integration: ovoscope-ci.md
+          - MiniCroft: ovoscope-minicroft.md
+          - End2EndTest Reference: ovoscope-end2end-test.md
+          - PHAL Testing: ovoscope-phal.md
+          - Pipeline Testing: ovoscope-pipeline.md
+          - Audio Testing: audio-testing.md
+          - Listener Testing: listener.md
+          - OCP Testing: ocp.md
+          - Pydantic Integration: pydantic-integration.md
+          - Capture Sessions: capture-session.md
+          - FakeBus Reference: fakebus.md
+          - Skill Testing Architecture: skill-testing.md
   - Plugin Ecosystem:
       - Index & Overview: plugins-index.md
       - AI & Agents:
           - Agent Engines: agent-plugins.md
-          - Mixture of Solvers: mos-plugin.md
           - Personas: personas.md
           - Persona Memory: persona-memory.md
           - Agentic Loop Architectures: agentic-loop.md
           - Agent Tool Plugins: tool-plugins.md
           - Agent Interoperability (MCP/UTCP/A2A): agent-interop.md
           - Specialized Solvers: advanced-solvers.md
-          - ovos-judge: ovos-judge.md
-          - Claude: claude-plugin.md
-          - OpenAI: openai-plugin.md
+          - OpenAI-compatible: openai-plugin.md
           - GGUF / Local LLM: gguf-plugin.md
           - LLM Transformers: llm-transformers.md
       - Speech & Audio:
@@ -234,26 +232,14 @@ nav:
       - Server Compatibility Layers: server-compat-layers.md
       - HiveMind: hivemind-agents.md
       - Wyoming Bridges: wyoming-bridges.md
-      - Pydantic Models: pydantic-models.md
-      - Models Reference: models.md
-      - Pydantic Dev Guide: pydantic-dev-guide.md
-      - Deprecation Log: deprecation-log.md
-  - Utilities & Reference:
+  - Reference:
+      - OVOS Repository Index: ecosystem-index.md
       - Library Docs:
-          - ovos-workshop:
-              - Overview: workshop-overview.md
-              - OVOSSkill API: ovos-skill.md
-              - Skill Base Classes: skill-classes.md
-              - Decorators: decorators.md
-              - Intent Layers: intent-layers.md
-              - Settings: skill-settings.md
-              - Resource Files: resource-files.md
           - ovos-bus-client:
               - Overview: bus-client-overview.md
               - Message Objects: message-ref.md
               - MessageBus Client: client-ref.md
               - Async Client: async-client.md
-              - Session Management: session.md
               - High-level APIs: apis-ref.md
               - Configuration: configuration-ref.md
           - ovos-utils:
@@ -262,28 +248,21 @@ nav:
               - Process Management: process-utils-ref.md
               - Bus Events: events.md
               - Utilities: utilities.md
-              - FakeBus: fakebus.md
-          - ovos-config:
-              - Overview: config.md
-              - Reference: config-reference.md
-              - Locations: locations-ref.md
           - ovos-pydantic-models:
               - Overview: pydantic-models.md
               - Message Base: message-base.md
               - Missing Messages: missing-messages.md
               - Developer Guide: pydantic-dev-guide.md
+              - Models Reference: models.md
       - Tools:
-          - ovos-diagnostics: diagnostics.md
           - ovos-docs-viewer: docs-viewer.md
           - gh-automations: gh-automations-overview.md
           - gh-automations Release: gh-automations-release.md
           - gh-automations Workflows: gh-automations-workflows.md
-      - Document Processing:
-          - Document Chunkers: document-chunkers.md
       - Misc:
-          - Eggscript: eggscript.md
           - Mark 1 Hardware: mark1.md
           - Timeline: timeline.md
+          - Deprecation Log: deprecation-log.md
           - License: license.md
 
 extra_css:
