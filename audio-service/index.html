@@ -991,27 +991,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../phal/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    PHAL (Hardware)
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1425,11 +1404,21 @@
 <p><code>ovos-audio</code> is the component responsible for <a href="../tts-plugins/">TTS</a> synthesis and audio playback. It ensures that only one thing is speaking at a time and manages audio focus between different media sources.</p>
 <p><strong>In plain terms:</strong> when a skill says "tell the user X", that <code>speak</code> message lands here. <code>ovos-audio</code> turns the text into sound with a TTS plugin and plays it, ducking any background music while it talks.</p>
 <div class="admonition info">
-<p class="admonition-title">TTS is current; the built-in <em>media</em> playback is the legacy path</p>
-<p>The <strong>TTS / speech</strong> side of <code>ovos-audio</code> (described here) is fully current. Its bundled
-<strong>media-playback</strong> path — the <a href="../media-plugins/#ovos-ocp-audio-plugin">old audio service</a>
-(<code>enable_old_audioservice</code>, on by default) — is <strong>deprecated</strong> and being superseded by the
-standalone <a href="../ovos-media/"><code>ovos-media</code></a> daemon. See <a href="../ovos-media/">Media playback: legacy vs. ovos-media</a>.</p>
+<p class="admonition-title">Two independent subsystems — don't conflate them</p>
+<p><code>ovos-audio</code> hosts <strong>two separate things</strong> that are easy to mix up:</p>
+<ol>
+<li><strong>The TTS / sound playback queue</strong> (described on this page) — a single playback queue
+   (<code>TTS.queue</code>, drained by one <code>PlaybackThread</code>) that plays <strong>spoken responses <em>and</em> sound
+   effects</strong> (beeps, notification sounds). This is the core job of <code>ovos-audio</code>, is <strong>always
+   on</strong>, and has <strong>nothing to do</strong> with the media audioservice or <code>ovos-media</code>.</li>
+<li><strong>The legacy media audioservice</strong> — an <em>optional</em> subsystem (<code>AudioService</code>, gated by
+   <code>enable_old_audioservice</code>, on by default) that plays music/news/streams through
+   <a href="../media-plugins/#ovos-ocp-audio-plugin">audioservice backends</a> such as
+   <a href="../ocp-audio-plugin/">OCP</a>. This is the <strong>deprecated</strong> part, being superseded by the
+   standalone <a href="../ovos-media/"><code>ovos-media</code></a> daemon.</li>
+</ol>
+<p>Switching media playback to <code>ovos-media</code> (<code>enable_old_audioservice: false</code>) turns off
+subsystem 2 only — TTS and sound playback (subsystem 1) keep working exactly as before.</p>
 </div>
 <hr />
 <details class="abstract">
@@ -1448,26 +1437,33 @@ standalone <a href="../ovos-media/"><code>ovos-media</code></a> daemon. See <a h
 <hr />
 </details>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The audio service receives <code>speak</code> messages from the <a href="../bus-service/">MessageBus</a>, sends them to a <a href="../tts-plugins/">TTS</a> engine, and plays the resulting audio. It also manages a "media" pipeline for playing music, news, and other streams.</p>
+<p>The audio service receives <code>speak</code> messages from the <a href="../bus-service/">MessageBus</a>, sends them to a <a href="../tts-plugins/">TTS</a> engine, and plays the resulting audio through its playback queue. The same queue also plays sound effects (<code>mycroft.audio.queue</code> / <code>mycroft.audio.play_sound</code>). Separately, and only when <code>enable_old_audioservice</code> is on, it <em>also</em> hosts the legacy media audioservice for music/news/streams — see the <strong>Two independent subsystems</strong> note at the top of this page.</p>
 <h3 id="key-responsibilities">Key Responsibilities<a class="headerlink" href="#key-responsibilities" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p><strong><a href="../tts-plugins/">TTS</a> Synthesis</strong>: Converts text to speech using various plugins.</p>
 </li>
 <li>
-<p><strong>Playback Management</strong>: Handles multiple audio streams and ensures smooth transitions.</p>
+<p><strong>Speech &amp; Sound Playback</strong>: A single queue (<code>TTS.queue</code>, one <code>PlaybackThread</code>) plays spoken responses and sound effects in order.</p>
 </li>
 <li>
-<p><strong>Audio Focus</strong>: Prioritizes speech over music or other background sounds.</p>
+<p><strong>Audio Focus</strong>: Prioritizes speech over music or other background sounds (ducking).</p>
 </li>
 <li>
 <p><strong>Viseme Generation</strong>: Provides lip-sync data for <a href="../qt5-gui/">GUI</a> animations.</p>
 </li>
+<li>
+<p><strong>Legacy media playback</strong> <em>(optional, <code>enable_old_audioservice</code>)</em>: routes music/stream URIs to an audioservice backend — the deprecated path replaced by <a href="../ovos-media/">ovos-media</a>.</p>
+</li>
 </ul>
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[MessageBus] --(speak)--&gt; [PlaybackService] --(synthesis)--&gt; [TTS Plugin]
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                               |
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                               +--(playback)--&gt; [PlaybackThread] --(ALSA/Pulse)--&gt; [Speakers]
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Subsystem 1 — TTS / sound playback (always on):
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  [MessageBus] --(speak)------&gt; [PlaybackService] --(synthesis)--&gt; [TTS Plugin]
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>               --(play_sound)---&gt;      |
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                                       +--&gt; [TTS.queue] --&gt; [PlaybackThread] --(ALSA/Pulse)--&gt; [Speakers]
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Subsystem 2 — legacy media audioservice (only if enable_old_audioservice):
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  [MessageBus] --(mycroft.audio.service.play)--&gt; [AudioService] --&gt; [audioservice backend: OCP / mpv / vlc]
 </span></code></pre></div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>Settings for the audio service are located in the <code>tts</code> and <code>Audio</code> sections of <code>mycroft.conf</code>.</p>

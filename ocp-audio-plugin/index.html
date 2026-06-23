@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/ocp-audio-plugin/">
       
       
-        <link rel="prev" href="../plugin-arena/">
+        <link rel="prev" href="../g2p-plugins/">
       
       
         <link rel="next" href="../ovos-media/">
@@ -793,6 +793,27 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../plugin-arena/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Arena (benchmarks)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -851,10 +872,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -865,8 +886,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_7_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_4">
             <span class="md-nav__icon md-icon"></span>
             Media & GUI
           </label>
@@ -1483,8 +1504,17 @@ and MPRIS.</p>
 <p>Since OVOS became its own project that monolith has been <strong>split apart, repo by repo, and
 properly integrated</strong> into OVOS: intent matching moved to the <a href="../ocp-pipeline/">OCP pipeline</a>,
 stream resolution to <a href="../ocp-plugins/">stream-extractor plugins</a>, shared types to <code>ovos-utils</code>,
-and so on. <a href="../ovos-media/"><code>ovos-media</code></a> is the <strong>final step</strong> — it gives the player itself a
-proper home as a standalone service instead of riding inside the TTS-playback service.</p>
+and so on. <a href="../ovos-media/"><code>ovos-media</code></a> is the <strong>final step</strong> — it gives the media player itself
+a proper home as a standalone service instead of masquerading as an audio backend inside
+<a href="../audio-service/"><code>ovos-audio</code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">This is <em>media</em> playback, not TTS/sound playback</p>
+<p>The OCP audio plugin (and the <code>ovos-media</code> daemon that replaces it) handles <strong>media</strong>
+playback only — music, podcasts, video, streams. The spoken-response and sound-effect
+playback queue inside <a href="../audio-service/"><code>ovos-audio</code></a> is a <strong>separate subsystem</strong> that is
+unaffected: turning OCP off (or switching to <code>ovos-media</code>) does not change how TTS or
+notification sounds are played.</p>
+</div>
 <hr />
 <h2 id="status-today-legacy-but-the-default">Status today — legacy, but the default<a class="headerlink" href="#status-today-legacy-but-the-default" title="Permanent link">&para;</a></h2>
 <p>The OCP audio plugin is <strong>still the default media playback path</strong>:</p>
