@@ -1602,13 +1602,15 @@ folder</p>
 <p><code>.dialog</code> files used for defining speech responses</p>
 </li>
 <li>
-<p><code>.intent</code> files used for defining <a href="../padatious-pipeline/">Padatious</a> Intents</p>
+<p><code>.intent</code> files define <strong>template (example-based) intents</strong> — whole sample phrases
+  (matched by <a href="../padatious-pipeline/">Padatious</a>)</p>
 </li>
 <li>
-<p><code>.voc</code> files define keywords primarily used in <a href="../adapt-pipeline/">Adapt</a> Intents</p>
+<p><code>.voc</code> files define the keywords used by <strong>keyword (rule-based) intents</strong>
+  (matched by <a href="../adapt-pipeline/">Adapt</a>)</p>
 </li>
 <li>
-<p><code>.entity</code> files define a named entity primarily used in Padatious Intents</p>
+<p><code>.entity</code> files define a named entity used by template intents</p>
 </li>
 </ul>
 <h3 id="initpy"><strong>init</strong>.py<a class="headerlink" href="#initpy" title="Permanent link">&para;</a></h3>
@@ -1651,16 +1653,18 @@ registered with the system. Intents will be registered and Skill settings will b
 <h4 id="intent_handler"><a class="magiclink magiclink-github magiclink-mention" href="https://github.com/intent_handler" title="GitHub User: intent_handler">@intent_handler</a><a class="headerlink" href="#intent_handler" title="Permanent link">&para;</a></h4>
 <p>We can use the <code>initialize</code> function to manually register intents, however the <code>@intent_handler</code> decorator is a
 cleaner way to achieve this. We will learn all about the different <a href="../intents/">Intents</a> shortly. </p>
-<p>In skills we can see two different intent styles.</p>
+<p>In skills we can see the two different intent styles.</p>
 <ol>
-<li>An Adapt handler, triggered by a keyword defined in a <code>ThankYouKeyword.voc</code> file.</li>
+<li>A <strong>keyword (rule-based) intent</strong>, triggered by a keyword defined in a <code>ThankYouKeyword.voc</code>
+   file (matched by Adapt).</li>
 </ol>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>   <span class="nd">@intent_handler</span><span class="p">(</span><span class="n">IntentBuilder</span><span class="p">(</span><span class="s1">&#39;ThankYouIntent&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="s1">&#39;ThankYouKeyword&#39;</span><span class="p">))</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>   <span class="k">def</span> <span class="nf">handle_thank_you_intent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>       <span class="bp">self</span><span class="o">.</span><span class="n">speak_dialog</span><span class="p">(</span><span class="s2">&quot;welcome&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <ol>
-<li>A Padatious intent handler, triggered using a list of sample phrases.</li>
+<li>A <strong>template (example-based) intent</strong>, triggered by a list of sample phrases (matched by
+   Padatious).</li>
 </ol>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>   <span class="nd">@intent_handler</span><span class="p">(</span><span class="s1">&#39;HowAreYou.intent&#39;</span><span class="p">)</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>   <span class="k">def</span> <span class="nf">handle_how_are_you_intent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
