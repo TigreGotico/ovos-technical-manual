@@ -46,7 +46,7 @@ There are **83** archived repositories. They are grouped by area below; each row
 | [ovos-stt-plugin-fasterwhisper-zuazo](https://github.com/OpenVoiceOS/ovos-stt-plugin-fasterwhisper-zuazo) | — | [ovos-stt-plugin-fasterwhisper](https://github.com/OpenVoiceOS/ovos-stt-plugin-fasterwhisper) |
 | [ovos-stt-plugin-mms](https://github.com/OpenVoiceOS/ovos-stt-plugin-mms) | — | [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2) |
 | [ovos-stt-plugin-nos](https://github.com/OpenVoiceOS/ovos-stt-plugin-nos) | — | [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2) |
-| [ovos-stt-plugin-projectAINA-remote](https://github.com/OpenVoiceOS/ovos-stt-plugin-projectAINA-remote) | — | Removed — use [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2) |
+| [ovos-stt-plugin-projectAINA-remote](https://github.com/OpenVoiceOS/ovos-stt-plugin-projectAINA-remote) | — | Removed — unofficial demo server, now gone; no replacement |
 
 ## TTS plugins (7)
 
@@ -54,13 +54,13 @@ There are **83** archived repositories. They are grouped by area below; each row
 
 | Repository | What it was | Replacement / status |
 |---|---|---|
-| [ovos-tts-plugin-cotovia-remote](https://github.com/OpenVoiceOS/ovos-tts-plugin-cotovia-remote) | — | [ovos-tts-plugin-cotovia](https://github.com/OpenVoiceOS/ovos-tts-plugin-cotovia) |
-| [ovos-tts-plugin-matxa-multispeaker-cat](https://github.com/OpenVoiceOS/ovos-tts-plugin-matxa-multispeaker-cat) | — | [phoonnx](https://github.com/TigreGotico/phoonnx) |
+| [ovos-tts-plugin-cotovia-remote](https://github.com/OpenVoiceOS/ovos-tts-plugin-cotovia-remote) | — | Removed — unofficial demo server, now gone; no replacement |
+| [ovos-tts-plugin-matxa-multispeaker-cat](https://github.com/OpenVoiceOS/ovos-tts-plugin-matxa-multispeaker-cat) | — | [phoonnx](https://github.com/TigreGotico/phoonnx) — runs the same Matxa Catalan models |
 | [ovos-tts-plugin-mimic2](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic2) | — | Removed — proprietary cloud-hosted Tacotron model, never released. The `kusal` voice in [phoonnx](https://github.com/TigreGotico/phoonnx) was trained on the same dataset and can be used instead. |
-| [ovos-tts-plugin-mimic3](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3) | Text to speech plugin for OVOS using Mimic 3 | [phoonnx](https://github.com/TigreGotico/phoonnx) |
-| [ovos-tts-plugin-mimic3-server](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3-server) | — | [phoonnx](https://github.com/TigreGotico/phoonnx) |
-| [ovos-tts-plugin-nos](https://github.com/OpenVoiceOS/ovos-tts-plugin-nos) | Galician TTS | [phoonnx](https://github.com/TigreGotico/phoonnx) |
-| [ovos-tts-plugin-piper](https://github.com/OpenVoiceOS/ovos-tts-plugin-piper) | — | [phoonnx](https://github.com/TigreGotico/phoonnx) |
+| [ovos-tts-plugin-mimic3](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3) | Text to speech plugin for OVOS using Mimic 3 | Removed — Mimic3 is abandoned upstream; obsolete, no replacement |
+| [ovos-tts-plugin-mimic3-server](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3-server) | — | Removed — modeled the now-dead Mycroft Mimic3 server API; obsolete, no replacement |
+| [ovos-tts-plugin-nos](https://github.com/OpenVoiceOS/ovos-tts-plugin-nos) | Galician TTS | [phoonnx](https://github.com/TigreGotico/phoonnx) — runs the Proxecto Nós Galician voices |
+| [ovos-tts-plugin-piper](https://github.com/OpenVoiceOS/ovos-tts-plugin-piper) | — | [phoonnx](https://github.com/TigreGotico/phoonnx) — runs Piper ONNX voices (incl. the `kusal` voice) |
 
 ## Wake-word & VAD plugins (9)
 
