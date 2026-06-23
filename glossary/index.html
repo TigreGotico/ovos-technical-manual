@@ -1011,6 +1011,10 @@
 <td>(Formerly <a href="../agent-plugins/">Solver</a>) A plugin that provides answers to questions or interacts with LLMs (e.g., ChatEngine, RetrievalEngine).</td>
 </tr>
 <tr>
+<td><strong>ASR (Automatic Speech Recognition)</strong></td>
+<td>Another name for <a href="../stt-plugins/">STT</a> — turning spoken audio into text.</td>
+</tr>
+<tr>
 <td><strong>Audio Service</strong></td>
 <td>The OVOS component (<code>ovos-audio</code>) responsible for <a href="../tts-plugins/">TTS</a> synthesis and audio playback.</td>
 </tr>
@@ -1020,7 +1024,7 @@
 </tr>
 <tr>
 <td><strong><a href="../ocp-pipeline/">Common Play</a> (<a href="../ocp-pipeline/">OCP</a>)</strong></td>
-<td>A framework and intent handler specialized in finding and playing media (music, video, podcasts).</td>
+<td>OpenVoiceOS Common Play — a framework and intent handler specialized in finding and playing media (music, video, podcasts).</td>
 </tr>
 <tr>
 <td><strong>Constraints file</strong></td>
@@ -1039,12 +1043,20 @@
 <td><code>ovos-dinkum-listener</code>, the default <a href="../speech-service/">voice loop</a>: wake word → record → <a href="../vad-plugins/">VAD</a> → <a href="../stt-plugins/">STT</a>.</td>
 </tr>
 <tr>
+<td><strong>Embeddings</strong></td>
+<td>Numeric vectors that capture the <em>meaning</em> of text (or audio/images), so similar things sit close together. Used for semantic search and <a href="../persona-memory/">RAG memory</a>.</td>
+</tr>
+<tr>
 <td><strong>Enclosure</strong></td>
-<td>The physical hardware housing the assistant (e.g., Mycroft Mark 1).</td>
+<td>The physical hardware housing the assistant (e.g., Mycroft <a href="../mark1/">Mark 1</a>).</td>
 </tr>
 <tr>
 <td><strong>Entity</strong></td>
 <td>A specific piece of data extracted from an utterance (e.g., "London" in "What is the weather in London?").</td>
+</tr>
+<tr>
+<td><strong>Entry point</strong></td>
+<td>A line in a package's <code>pyproject.toml</code> / <code>setup.py</code> that advertises a plugin or skill class to OVOS, so <a href="../plugin-manager/">OPM</a> can discover it (e.g. under <code>opm.stt</code> or <code>opm.skill</code>).</td>
 </tr>
 <tr>
 <td><strong>Extras</strong></td>
@@ -1056,19 +1068,23 @@
 </tr>
 <tr>
 <td><strong>G2P (Grapheme-to-Phoneme)</strong></td>
-<td>The process of converting written text into phonetic representations for pronunciation.</td>
+<td>The process of converting written text into phonetic representations for pronunciation. See <a href="../g2p-plugins/">G2P plugins</a>.</td>
 </tr>
 <tr>
 <td><strong>GUI Service</strong></td>
 <td>The component (<code>ovos-gui</code>) that manages visual displays and <a href="../qt5-gui/">QML</a>/HTML interfaces. ⚠️ The current ("legacy") GUI is <a href="../gui-service/">deprecated</a> — there is no usable OVOS GUI right now; a replacement is in progress.</td>
 </tr>
 <tr>
-<td><strong><a href="../hivemind-agents/">HiveMind</a></strong></td>
-<td>A protocol and ecosystem for connecting "satellites" (limited hardware) to a central OVOS "hub".</td>
+<td><strong>Headless</strong></td>
+<td>A device with no monitor or keyboard (e.g. a Raspberry Pi you control over SSH). OVOS runs happily headless.</td>
 </tr>
 <tr>
-<td><strong>Hub</strong></td>
-<td>In <a href="../hivemind-agents/">HiveMind</a>, the central device running OVOS that satellites connect to for the heavy work.</td>
+<td><strong><a href="../hivemind-agents/">HiveMind</a></strong></td>
+<td>A protocol and ecosystem for connecting "satellites" (limited hardware) to a central OVOS server.</td>
+</tr>
+<tr>
+<td><strong><code>hivemind-core</code></strong></td>
+<td>In <a href="../hivemind-agents/">HiveMind</a>, the central server that satellites and clients connect to for the heavy work (skills, <a href="../stt-plugins/">STT</a>/<a href="../tts-plugins/">TTS</a>, LLM).</td>
 </tr>
 <tr>
 <td><strong>Intent</strong></td>
@@ -1076,11 +1092,15 @@
 </tr>
 <tr>
 <td><strong>Intent file (<code>.intent</code>)</strong></td>
-<td>A list of example sentences <strong>a user might say</strong> to trigger a <a href="../skill-design-guidelines/">skill</a>, used to train <a href="../padatious-pipeline/">Padatious</a>.</td>
+<td>A list of example sentences <strong>a user might say</strong> to trigger a <a href="../skill-design-guidelines/">skill</a> — a <em>template (example-based)</em> intent matched by <a href="../padatious-pipeline/">Padatious</a>.</td>
 </tr>
 <tr>
 <td><strong><a href="../pipelines-overview/">Intent Pipeline</a></strong></td>
 <td>The ordered sequence of parsers and matchers used to resolve an utterance into an intent.</td>
+</tr>
+<tr>
+<td><strong>IPA (International Phonetic Alphabet)</strong></td>
+<td>A standard notation for the individual sounds of speech, used by <a href="../g2p-plugins/">G2P</a> / phonemizers.</td>
 </tr>
 <tr>
 <td><strong><a href="../qt5-gui/">Kirigami</a></strong></td>
@@ -1091,6 +1111,10 @@
 <td>The service that captures microphone audio, detects the <a href="../wake-word-plugins/">wake word</a>, and records speech for transcription. See <a href="../speech-service/">Speech Service</a>.</td>
 </tr>
 <tr>
+<td><strong><a href="../mark1/">Mark 1 / Mark 2</a></strong></td>
+<td>Mycroft's reference hardware devices. OVOS still supports the Mark 1 faceplate and the Mark 2.</td>
+</tr>
+<tr>
 <td><strong>Message</strong></td>
 <td>A JSON object sent over the MessageBus, containing a <code>type</code>, <code>data</code>, and <code>context</code>.</td>
 </tr>
@@ -1099,8 +1123,16 @@
 <td>A lightweight, in-process version of OVOS Core used for end-to-end testing with <code>ovoscope</code>.</td>
 </tr>
 <tr>
+<td><strong><code>mycroft.conf</code></strong></td>
+<td>OVOS's main <a href="../config/">configuration</a> file (JSON). The same filename is layered across system → distribution → user locations, with the user's copy winning.</td>
+</tr>
+<tr>
 <td><strong>OCP Stream Extractor</strong></td>
 <td>A plugin that resolves abstract URIs (like YouTube links) into playable media streams.</td>
+</tr>
+<tr>
+<td><strong>ONNX</strong></td>
+<td>An open, portable model format OVOS uses to run STT / TTS / wake-word neural models efficiently across platforms (CPU-friendly).</td>
 </tr>
 <tr>
 <td><strong>OPM (<a href="../plugin-manager/">ovos-plugin-manager</a>)</strong></td>
@@ -1115,6 +1147,10 @@
 <td>The "brain" service that runs skills and decides which one should answer an utterance. See <a href="../core/">ovos-core</a>.</td>
 </tr>
 <tr>
+<td><strong><a href="../ovos-installer/">ovos-installer</a></strong></td>
+<td>The guided installer (a TUI wizard) that sets OVOS up for you — the recommended way to install.</td>
+</tr>
+<tr>
 <td><strong><a href="../padatious-pipeline/">Padatious</a></strong></td>
 <td>An example-based intent parser that uses a small neural network to match utterances against sample sentences.</td>
 </tr>
@@ -1124,7 +1160,7 @@
 </tr>
 <tr>
 <td><strong><a href="../phal/">PHAL</a></strong></td>
-<td><a href="../phal/">Platform &amp; Hardware Abstraction Layer</a>; a service that handles low-level hardware interactions (volume, buttons, etc.).</td>
+<td>Platform &amp; Hardware Abstraction Layer; a service that handles low-level hardware interactions (volume, buttons, etc.).</td>
 </tr>
 <tr>
 <td><strong>Plugin</strong></td>
@@ -1135,12 +1171,16 @@
 <td>A declarative language used for designing the user interface of OVOS skills.</td>
 </tr>
 <tr>
+<td><strong>RAG (Retrieval-Augmented Generation)</strong></td>
+<td>Fetching relevant remembered/retrieved context and giving it to an LLM <em>before</em> it answers. See <a href="../persona-memory/">Persona Memory</a>.</td>
+</tr>
+<tr>
 <td><strong>Release Channel</strong></td>
 <td>A stability track — <em>stable</em>, <em>testing</em>, or <em>alpha</em> — that controls how new the installed packages are. See <a href="../release-channels/">Release Channels</a>.</td>
 </tr>
 <tr>
 <td><strong>Satellite</strong></td>
-<td>In <a href="../hivemind-agents/">HiveMind</a>, a lightweight device (e.g. a small Pi) that captures voice and forwards it to the hub.</td>
+<td>In <a href="../hivemind-agents/">HiveMind</a>, a lightweight device (e.g. a small Pi) that captures voice and forwards it to <code>hivemind-core</code>.</td>
 </tr>
 <tr>
 <td><strong><a href="../session/">Session</a></strong></td>
@@ -1153,6 +1193,18 @@
 <tr>
 <td><strong>Skill Settings</strong></td>
 <td>Per-skill configuration, optionally editable by the user. See <a href="../skill-settings/">Skill Settings</a>.</td>
+</tr>
+<tr>
+<td><strong><code>skill_id</code></strong></td>
+<td>A skill's unique identifier (e.g. <code>ovos-skill-weather.openvoiceos</code>), taken from its <a href="../plugin-manager/">entry point</a>. Used to namespace its settings, events, and resources.</td>
+</tr>
+<tr>
+<td><strong>Solver</strong></td>
+<td>The former name for an <a href="../agent-plugins/">Agent Engine</a> — you'll still see it in older configs and code.</td>
+</tr>
+<tr>
+<td><strong>SSML (Speech Synthesis Markup Language)</strong></td>
+<td>Tags that control <em>how</em> <a href="../tts-plugins/">TTS</a> speaks a sentence — pauses, emphasis, pitch, rate. See <a href="../ssml/">SSML</a>.</td>
 </tr>
 <tr>
 <td><strong><a href="../stt-plugins/">STT</a> (<a href="../stt-plugins/">Speech-to-Text</a>)</strong></td>
@@ -1180,11 +1232,19 @@
 </tr>
 <tr>
 <td><strong>Vocabulary (<code>.voc</code>)</strong></td>
-<td>A file of keywords / sentence fragments (not full sentences) that <a href="../adapt-pipeline/">Adapt</a> and skills match against.</td>
+<td>A file of keywords / sentence fragments (not full sentences) used by <em>keyword (rule-based)</em> intents — what <a href="../adapt-pipeline/">Adapt</a> and skills match against.</td>
 </tr>
 <tr>
 <td><strong><a href="../wake-word-plugins/">Wake Word</a></strong></td>
 <td>The specific phrase (e.g., "Hey Mycroft") that triggers the listener to start recording.</td>
+</tr>
+<tr>
+<td><strong><a href="../wyoming-bridges/">Wyoming</a></strong></td>
+<td>A simple voice protocol (from the Home Assistant world) that OVOS can bridge to and from.</td>
+</tr>
+<tr>
+<td><strong>XDG</strong></td>
+<td>The freedesktop standard for <em>where</em> config / data / cache files live (<code>~/.config</code>, <code>~/.local/share</code>, …). OVOS follows it, so your settings aren't scattered.</td>
 </tr>
 </tbody>
 </table>
