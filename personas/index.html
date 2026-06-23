@@ -1710,9 +1710,8 @@ history across turns:</p>
 <p><code>ovos-memory-plugins</code> is <strong>local-first</strong>: server- / cloud-coupled RAG memory lives in
 <code>ovos-openai-plugin</code> as <code>PersonaServerRAGMemory</code> (<code>ovos-openai-rag-memory-plugin</code>), not here.</p>
 <blockquote>
-<p><strong>Upcoming:</strong> <a href="https://github.com/OpenVoiceOS/ovos-memory-plugins/pull/9">OpenVoiceOS/ovos-memory-plugins#9</a>
-(draft) makes the package purely local-first: it adds <code>LocalRAGMemory</code>
-(<code>ovos-memory-plugin-local-rag</code>), a fully in-process RAG backend using local OVOS embeddings +
+<p><strong>Upcoming (repo not public yet):</strong> the package is purely local-first — <code>LocalRAGMemory</code>
+(<code>ovos-memory-plugin-local-rag</code>) is a fully in-process RAG backend using local OVOS embeddings +
 an <code>EmbeddingsDB</code> plugin (no HTTP, no cloud key), and removes the current server-coupled HTTP
 <code>RAGMemory</code> (<code>ovos-memory-plugin-rag</code>) in favour of <code>ovos-openai-plugin</code>'s server RAG.</p>
 </blockquote>

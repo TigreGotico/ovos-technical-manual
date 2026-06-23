@@ -1567,7 +1567,12 @@
 <p>Fallback: if the vector store endpoint is unavailable, in-process cosine similarity is used.</p>
 <div class="admonition warning">
 <p class="admonition-title">Upcoming — unreleased</p>
-<p><a href="https://github.com/OpenVoiceOS/ovos-memory-plugins/pull/9">OpenVoiceOS/ovos-memory-plugins#9</a> (<code>feat!</code>, open) makes this plugin <strong>fully local</strong>: it replaces the server-coupled <code>ovos-memory-plugin-rag</code> / <code>RAGMemory</code> with <code>ovos-memory-plugin-local-rag</code> / <code>LocalRAGMemory</code>, which embeds and stores exchanges in-process via OVOS embeddings plugins (<code>opm.embeddings.text</code> + <code>EmbeddingsDB</code>) — no network, no cloud key. <code>ovos-memory-plugins</code> is local-first only; any server- or OpenAI-coupled RAG lives in <code>ovos-openai-plugin</code> instead. After that PR lands, the entry point above and its <code>api_url</code>-based config no longer apply.</p>
+<p><code>ovos-memory-plugins</code> is <strong>fully local</strong>: <code>ovos-memory-plugin-local-rag</code> / <code>LocalRAGMemory</code>
+embeds and stores exchanges <strong>in-process</strong> via OVOS embeddings plugins (<code>opm.embeddings.text</code>
++ <code>EmbeddingsDB</code>) — no network, no cloud key. It is local-first only; any server- or
+OpenAI-coupled RAG lives in <a href="../openai-plugin/"><code>ovos-openai-plugin</code></a> instead (so the old
+<code>api_url</code>-based server-coupled entry point does not apply here). The repository is not public
+yet, hence Upcoming.</p>
 </div>
 <hr />
 <h2 id="plugin-entry-points">Plugin Entry Points<a class="headerlink" href="#plugin-entry-points" title="Permanent link">&para;</a></h2>
