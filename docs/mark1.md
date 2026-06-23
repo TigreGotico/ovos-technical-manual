@@ -60,19 +60,46 @@ self.enclosure.mouth_display_png('/path/to/image.png', threshold=70, invert=Fals
 
 ## Mark 1 Utilities (`ovos-mark1-utils`)
 
-For more advanced control, such as pixel-by-pixel eye manipulation or complex faceplate animations, use the [ovos-mark1-utils](https://github.com/OpenVoiceOS/ovos-mark1-utils) library.
+For more advanced control, such as pixel-by-pixel eye manipulation or complex faceplate
+animations, use the [ovos-mark1-utils](https://github.com/OpenVoiceOS/ovos-mark1-utils)
+library (import name `ovos_mark1`, `pip install ovos-mark1-utils`). It interacts with the
+faceplate over the [message bus](bus-service.md) (see the
+[PHAL Mark 1 message spec](https://openvoiceos.github.io/message_spec/phal_mk1/)) and offers
+three layers:
+
+- **`Mark1EnclosureAPI`** — the high-level enclosure API (mouth text, mouth animations, eye
+  colour, system reset). It subclasses the standard `EnclosureAPI` and is what
+  `self.enclosure` resolves to on Mark 1 hardware.
+- **`Eyes`** — fine-grained eye control (colour, brightness, blink, spins).
+- **`FaceplateGrid` / `BlackScreen`** — pixel-level drawing on the 32×8 mouth display, plus
+  ready-made icons and animations.
+
+```python
+from ovos_mark1 import Mark1EnclosureAPI
+from ovos_bus_client.util import get_mycroft_bus
+
+bus = get_mycroft_bus()
+enclosure = Mark1EnclosureAPI(bus)
+enclosure.mouth_text("hello")
+enclosure.eyes_color(255, 0, 0)   # red eyes
+```
 
 ### Animating the Eyes
 
 ```python
 from ovos_mark1.eyes import Eyes
-from ovos_bus_client.utils import get_mycroft_bus
+from ovos_bus_client.util import get_mycroft_bus
 
 bus = get_mycroft_bus()
 eyes = Eyes(bus)
-eyes.hue_spin()
-
+eyes.change_color("blue")  # named colour
+eyes.blink()               # blink both eyes
+eyes.hue_spin()            # cycle the hue
+eyes.on(); eyes.off()      # raw on / off
 ```
+
+The `Eyes` API also exposes `set_hue` / `set_saturation` / `set_luminance` and their animated
+`hue_spin` / `saturation_spin` / `luminance_spin` variants.
 
 ### Faceplate Icons
 
