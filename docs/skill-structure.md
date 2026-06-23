@@ -180,11 +180,13 @@ In the following example we cancel a scheduled event and call a method in our Sk
 
 ```
 
-### settingsmeta.yaml
+### settingsmeta.yaml *(optional, legacy)*
 
-This file defines the settings UI that will be available to a User through a backend or companion app
+This optional file describes a settings UI for the skill. It is a **legacy format from the old
+Mycroft backend** that OVOS doesn't run, so it is **usually absent** — skills handle their settings
+without it, and only some community config tools still read it.
 
-Jump to [Skill Settings](skill-settings.md) for more information on this file and handling of Skill settings.
+Jump to [Skill Settings Meta](skill-settings-meta.md) for the format, and [Skill Settings](skill-settings.md) for how skills actually read and write settings.
 
 
 ### Packaging and Distribution

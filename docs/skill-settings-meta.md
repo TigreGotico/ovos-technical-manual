@@ -1,14 +1,33 @@
 # settingsmeta.json
 
 !!! abstract "In a nutshell"
-    This file describes the form users see when they configure your skill — the labelled boxes, checkboxes, and drop-down menus on a settings screen. You list each option (its label, its type, and a starting value) and OVOS builds the screen for you. It's like designing a fill-in-the-blanks form so people can adjust a skill without editing any files. For where those answers are stored and used, see [Skill Settings](skill-settings.md); for term definitions see the [Glossary](glossary.md).
+    This optional file describes a form for configuring your skill — labelled boxes, checkboxes,
+    and drop-downs on a settings screen — so a tool can render a settings UI without you writing
+    one. **Heads-up: this is a legacy format and most OVOS skills don't ship it.** It came from
+    the old Mycroft backend, which OVOS doesn't run; your skill's settings work fine without it
+    (see [Skill Settings](skill-settings.md)). It only matters if you use a community tool that
+    reads it. For term definitions see the [Glossary](glossary.md).
+
+!!! warning "Legacy — specified but not used by OVOS itself"
+    `settingsmeta.json` / `.yaml` is a **legacy format inherited from the Mycroft backend
+    server**, which presented a web form to edit skill settings. **OVOS does not run that backend**,
+    so nothing in OVOS core consumes this file, and it is **optional and usually absent** in modern
+    skills. Your skill reads and writes its settings perfectly well without it — see
+    [Skill Settings](skill-settings.md).
+
+    It is still *specified* (and `ovos-workshop` can auto-generate a basic version from a skill's
+    settings), and some **community tools still consume it to render a settings UI** — most notably
+    [`ovos-skill-config-tool`](https://github.com/OscillateLabsLLC/ovos-skill-config-tool) by
+    Oscillate Labs. Provide a `settingsmeta` file only if you specifically target such a tool; the
+    rest of this page documents the format for that case.
 
 ## Define settings UI for a [Skill](skill-design-guidelines.md)
 
-To define our Skills settings UI we use a `settingsmeta.json` or `settingsmeta.yaml` file. 
-This file must be in the root directory of the Skill and must follow a specific structure.
+To define a Skill's settings UI you can provide a `settingsmeta.json` or `settingsmeta.yaml` file.
+When present, it lives in the root directory of the Skill and follows the structure below.
 
-Once settings have been defined using a `settingsmeta` file, they will be presented to the user in the configured backend or helper application
+A `settingsmeta` file does nothing on its own — it is only meaningful to a tool that reads it (a
+community settings editor like the one above), which then presents the described fields to the user.
 
 ### Example settingsmeta file
 
