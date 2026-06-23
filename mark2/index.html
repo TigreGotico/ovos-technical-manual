@@ -1052,11 +1052,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../phal/" class="md-nav__link">
+      <a href="../i2c-sound/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Hardware Overview (PHAL)
+    i2c Sound & Audio Setup
   </span>
   
 
@@ -1185,9 +1185,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-raspovos-image-path-and-ovos-i2csound" class="md-nav__link">
+  <a href="#the-raspovos-image-path" class="md-nav__link">
     <span class="md-ellipsis">
-      The raspOVOS image path (and ovos-i2csound)
+      The raspOVOS image path
     </span>
   </a>
   
@@ -1359,9 +1359,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-raspovos-image-path-and-ovos-i2csound" class="md-nav__link">
+  <a href="#the-raspovos-image-path" class="md-nav__link">
     <span class="md-ellipsis">
-      The raspOVOS image path (and ovos-i2csound)
+      The raspOVOS image path
     </span>
   </a>
   
@@ -1526,7 +1526,7 @@ the container method is not supported there.) That role:</p>
 <div class="admonition warning">
 <p class="admonition-title"><code>ovos-i2csound</code> is <em>not</em> used by the installer</p>
 <p>A common misconception: the <a href="../ovos-installer/">ovos-installer</a> does <strong>not</strong> use
-<code>ovos-i2csound</code> or any other <a href="#the-raspovos-image-path-and-ovos-i2csound">raspOVOS</a> helper
+<code>ovos-i2csound</code> or any other <a href="../i2c-sound/">raspOVOS</a> helper
 script. <code>ovos-i2csound</code> belongs to the raspOVOS image. The installer's Mark 2 audio comes
 entirely from the <code>VocalFusionDriver</code> kernel module above.</p>
 </div>
@@ -1549,22 +1549,19 @@ the module.</p>
 recent kernels. Historically it derives from earlier community XMOS-loader code, adapted for OVOS
 by Peter Steenbergen (j1nx).</p>
 <hr />
-<h2 id="the-raspovos-image-path-and-ovos-i2csound">The raspOVOS image path (and <code>ovos-i2csound</code>)<a class="headerlink" href="#the-raspovos-image-path-and-ovos-i2csound" title="Permanent link">&para;</a></h2>
+<h2 id="the-raspovos-image-path">The raspOVOS image path<a class="headerlink" href="#the-raspovos-image-path" title="Permanent link">&para;</a></h2>
 <p><a href="../ovos-installer/"><code>ovos-installer</code></a> is one way to get OVOS onto a device; the other is
-<strong>raspOVOS</strong>, a ready-made Raspberry Pi OS image with OVOS layered on top
-(<a href="https://github.com/OpenVoiceOS/raspOVOS"><code>OpenVoiceOS/raspOVOS</code></a> is the active repo;
-<a href="https://github.com/TigreGotico/raspOVOS"><code>TigreGotico/raspOVOS</code></a> is older). The raspOVOS images
-handle i2c sound HATs with a different helper:</p>
-<p><a href="https://github.com/OpenVoiceOS/ovos-i2csound"><code>ovos-i2csound</code></a> is a shell script plus systemd
-service that <strong>auto-detects an i2c sound HAT at boot and configures ALSA</strong> for it, writing the
-detected board name to <code>/etc/OpenVoiceOS/i2c_platform</code> (a marker other plugins read). It supports
-the SJ201 and a range of Respeaker-style HATs.</p>
+<strong><a href="../install-raspovos/">raspOVOS</a></strong>, a ready-made Raspberry Pi OS image
+(<a href="https://github.com/OpenVoiceOS/raspOVOS"><code>OpenVoiceOS/raspOVOS</code></a>) with OVOS layered on top.</p>
+<p>The two paths set the SJ201 up <strong>differently</strong>. The installer builds the
+<a href="#the-ovos-kernel-driver-vocalfusiondriver"><code>VocalFusionDriver</code></a> kernel module (above); the raspOVOS
+image instead detects and configures i2c sound HATs with <code>ovos-i2csound</code> and friends — see
+<strong><a href="../i2c-sound/">i2c Sound &amp; Audio Setup</a></strong> for those tools.</p>
 <div class="admonition note">
 <p class="admonition-title"><code>ovos-i2csound</code> belongs to the raspOVOS image, not the installer</p>
-<p><code>ovos-i2csound</code> is part of the <strong>raspOVOS</strong> image build. It is <strong>not</strong> invoked by
-the ansible <a href="../ovos-installer/">ovos-installer</a>, which uses the
-<a href="#the-ovos-kernel-driver-vocalfusiondriver"><code>VocalFusionDriver</code></a> kernel module for the Mark 2
-instead. Don't expect <code>ovos-i2csound</code> on an installer-provisioned system.</p>
+<p><code>ovos-i2csound</code> is <strong>not</strong> invoked by the ansible <a href="../ovos-installer/">ovos-installer</a>, which
+uses the <a href="#the-ovos-kernel-driver-vocalfusiondriver"><code>VocalFusionDriver</code></a> kernel module for the
+Mark 2 instead. Don't expect <code>ovos-i2csound</code> on an installer-provisioned system.</p>
 </div>
 <hr />
 <h2 id="neon-mark-2-packages-official-but-separate">Neon Mark 2 packages (official, but separate)<a class="headerlink" href="#neon-mark-2-packages-official-but-separate" title="Permanent link">&para;</a></h2>
@@ -1607,7 +1604,7 @@ AI, HassOS and SkiffOS). It builds the SJ201 audio stack from its own Buildroot 
 VocalFusion/XVF3510 driver, baked into the image at build time.</p>
 <p>It is now a <strong>legacy / dormant</strong> project: it is not formally archived, but it has no current
 releases and little recent activity. New installs should use the
-<a href="../ovos-installer/">ovos-installer</a> or the <a href="#the-raspovos-image-path-and-ovos-i2csound">raspOVOS</a>
+<a href="../ovos-installer/">ovos-installer</a> or the <a href="#the-raspovos-image-path">raspOVOS</a>
 images instead. It is documented here because it is a meaningful part of OVOS history and still
 the ancestor of today's Mark 2 audio packaging.</p>
 <hr />
