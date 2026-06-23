@@ -1688,49 +1688,60 @@ RaspOVOS users and for reference.</p>
 <hr />
 <h2 id="step-6-using-ovos-commands">Step 6: Using OVOS Commands<a class="headerlink" href="#step-6-using-ovos-commands" title="Permanent link">&para;</a></h2>
 <h3 id="helpful-commands">Helpful Commands<a class="headerlink" href="#helpful-commands" title="Permanent link">&para;</a></h3>
-<p>Once the terminal appears, you’ll see a guide with OVOS commands. Some key commands include:</p>
+<p>When you log in, RaspOVOS prints a welcome banner listing its built-in helper commands. These
+are <strong>RaspOVOS-specific shell helpers</strong> (aliases and small scripts baked into the image) — they
+are part of the RaspOVOS image, not a standard <code>pip install</code> of OVOS. Run <code>ovos-help</code> at any time
+to reprint the full list.</p>
+<p><strong>Web interfaces:</strong></p>
 <ul>
-<li>
-<p><strong>Configuration:</strong></p>
+<li><code>ovos-yaml-editor</code> — web editor for OVOS configuration (port 9210).</li>
+<li><code>ovos-skill-config-tool</code> — web editor for individual skill settings (port 8000).</li>
+</ul>
+<p><strong>Talking to OVOS:</strong></p>
 <ul>
-<li><code>ovos-config</code> — Manage configuration files.</li>
+<li><code>ovos-config</code> — manage your local OVOS configuration files.</li>
+<li><code>ovos-listen</code> — activate the microphone to listen for a command.</li>
+<li><code>ovos-speak &lt;phrase&gt;</code> — have OVOS speak a phrase to the user.</li>
+<li><code>ovos-say-to &lt;phrase&gt;</code> — send an utterance to OVOS as if you had spoken it.</li>
+<li><code>ovos-simple-cli</code> — chat with your device from the terminal.</li>
+<li><code>ovos-docs-viewer</code> — open the documentation viewer (also <code>ovos-manual</code>, <code>ovos-skills-info</code>).</li>
 </ul>
-</li>
-<li>
-<p><strong>Voice Commands:</strong></p>
+<p><strong>Managing packages:</strong></p>
 <ul>
-<li>
-<p><code>ovos-listen</code> — Activate the microphone for commands.</p>
-</li>
-<li>
-<p><code>ovos-speak &lt;phrase&gt;</code> — Make OVOS speak a specific phrase.</p>
-</li>
+<li><code>ovos-install</code> — install OVOS packages with the correct version constraints.</li>
+<li><code>ovos-update</code> — update all OVOS and skill packages.</li>
+<li><code>ovos-force-reinstall</code> — force a full reinstall of all OVOS packages (last-resort repair).</li>
+<li><code>ovos-freeze</code> — export installed OVOS packages to <code>requirements.txt</code>.</li>
+<li><code>ovos-outdated</code> — list outdated OVOS/skill packages.</li>
+<li><code>ovos-reset-brain</code> — reset the "OVOS brain" to a blank state by uninstalling all skills.</li>
 </ul>
-</li>
-<li>
-<p><strong><a href="../skill-design-guidelines/">Skill</a> Management:</strong></p>
+<p><strong>Inspecting plugins:</strong></p>
 <ul>
-<li>
-<p><code>ovos-install [PACKAGE_NAME]</code> — Install OVOS packages.</p>
-</li>
-<li>
-<p><code>ovos-update</code> — Update all OVOS and skill packages.</p>
-</li>
+<li><code>ls-skills</code> — list the <code>skill_id</code> of every installed skill.</li>
+<li><code>ls-stt</code> / <code>ls-tts</code> / <code>ls-ww</code> / <code>ls-tx</code> — list installed <a href="../stt-plugins/">STT</a> / <a href="../tts-plugins/">TTS</a> / wake-word / <a href="../translation-plugins/">translation</a> plugins.</li>
 </ul>
-</li>
-<li>
-<p><strong>Logs and Status:</strong></p>
+<p><strong>Logs and status:</strong></p>
 <ul>
-<li>
-<p><code>ologs</code> — View logs in real-time.</p>
-</li>
-<li>
-<p><code>ovos-status</code> — Check the status of OVOS-related services.</p>
-</li>
+<li><code>ologs</code> — view all logs in real time.</li>
+<li><code>ovos-logs [COMMAND] --help</code> — a small tool to help navigate the logs.</li>
+<li><code>ovos-status</code> — list OVOS-related systemd services.</li>
+<li><code>ovos-restart</code> — restart all OVOS-related systemd services.</li>
+<li><code>ovos-server-status</code> — check the live status of the public OVOS servers.</li>
 </ul>
-</li>
+<p><strong>Misc:</strong></p>
+<ul>
+<li><code>ovos-commands</code> — usage examples for the installed skills.</li>
+<li><code>ovos-support</code> — compile logs into a support package to share when asking for help.</li>
+<li><code>ovos-help</code> — reprint this command list.</li>
 </ul>
-<p>You use the command <code>ovos-help</code> to print the message with all commands again at any point</p>
+<div class="admonition note">
+<p class="admonition-title">Audio HAT setup on RaspOVOS uses <code>ovos-i2csound</code></p>
+<p>On RaspOVOS, an i2c sound HAT (such as a Respeaker or the Mark 2's SJ201) is detected and
+configured at boot by the <strong><code>ovos-i2csound</code></strong> service shipped in the image, which writes the
+detected board to <code>/etc/OpenVoiceOS/i2c_platform</code>. This is specific to the RaspOVOS/buildroot
+image path — the <a href="../ovos-installer/">ovos-installer</a> does <strong>not</strong> use it (see
+<a href="../mark2/">Mark 2 Hardware</a> for the installer's kernel-driver approach).</p>
+</div>
 <h3 id="check-logs-in-real-time">Check Logs in Real-Time<a class="headerlink" href="#check-logs-in-real-time" title="Permanent link">&para;</a></h3>
 <ul>
 <li>

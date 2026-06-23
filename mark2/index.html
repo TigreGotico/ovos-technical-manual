@@ -1125,6 +1125,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#two-boards-dev-kit-vs-retail-mark-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two boards: dev kit vs retail Mark II
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#support-status-best-effort-legacy" class="md-nav__link">
     <span class="md-ellipsis">
       Support status — best-effort legacy
@@ -1143,18 +1152,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#audio-setup-ovos-i2csound" class="md-nav__link">
+  <a href="#what-the-ovos-installer-does-for-the-mark-2" class="md-nav__link">
     <span class="md-ellipsis">
-      Audio setup — ovos-i2csound
+      What the ovos-installer does for the Mark 2
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hardware-phal-plugins" class="md-nav__link">
+  <a href="#the-ovos-kernel-driver-vocalfusiondriver" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware PHAL plugins
+      The OVOS kernel driver: VocalFusionDriver
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-raspovos-image-path-and-ovos-i2csound" class="md-nav__link">
+    <span class="md-ellipsis">
+      The raspOVOS image path (and ovos-i2csound)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#neon-mark-2-packages-official-but-separate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neon Mark 2 packages (official, but separate)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buildroot-where-ovos-originated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Buildroot: where OVOS originated
     </span>
   </a>
   
@@ -1283,6 +1319,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#two-boards-dev-kit-vs-retail-mark-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two boards: dev kit vs retail Mark II
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#support-status-best-effort-legacy" class="md-nav__link">
     <span class="md-ellipsis">
       Support status — best-effort legacy
@@ -1301,18 +1346,45 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#audio-setup-ovos-i2csound" class="md-nav__link">
+  <a href="#what-the-ovos-installer-does-for-the-mark-2" class="md-nav__link">
     <span class="md-ellipsis">
-      Audio setup — ovos-i2csound
+      What the ovos-installer does for the Mark 2
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hardware-phal-plugins" class="md-nav__link">
+  <a href="#the-ovos-kernel-driver-vocalfusiondriver" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware PHAL plugins
+      The OVOS kernel driver: VocalFusionDriver
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-raspovos-image-path-and-ovos-i2csound" class="md-nav__link">
+    <span class="md-ellipsis">
+      The raspOVOS image path (and ovos-i2csound)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#neon-mark-2-packages-official-but-separate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Neon Mark 2 packages (official, but separate)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buildroot-where-ovos-originated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Buildroot: where OVOS originated
     </span>
   </a>
   
@@ -1348,129 +1420,218 @@
 <h1 id="mycroft-mark-2-hardware">Mycroft Mark 2 Hardware<a class="headerlink" href="#mycroft-mark-2-hardware" title="Permanent link">&para;</a></h1>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
-<p>The <strong>Mark 2</strong> is Mycroft's second smart-speaker, and unlike the <a href="../mark1/">Mark 1</a>
-(which only had a tiny LED "face") it is a full little computer with a <strong>touchscreen</strong>.
-Because of that screen, the Mark 2 runs the <em>complete</em> OVOS software stack plus a graphical
-shell — there is no special "Mark 2 build" of OVOS, just standard OVOS with the right
-hardware drivers switched on. Be aware that the Mark 2 is a <strong>best-effort, legacy platform</strong>
-(even less actively maintained than the <a href="../mark1/">Mark 1</a>). This page explains how OVOS
-uses the Mark 2's screen, microphone, LED ring, and fan — and the one thing you must <strong>not</strong>
-do (mix in Neon packages; see the warning below). New to the terms here? See the
-<a href="../glossary/">Glossary</a>.</p>
+<p>The <strong>Mark 2</strong> is Mycroft's second smart-speaker — a Raspberry Pi 4 with a touchscreen and a
+custom audio board (the <strong>SJ201</strong> HAT). Unlike the faceplate-only <a href="../mark1/">Mark 1</a>, it runs
+the <em>complete</em> OVOS software stack plus a graphical shell. Getting its hardware working takes
+a custom kernel driver, a firmware (EEPROM) update, and board-specific tweaks, so the Mark 2
+is a <strong>best-effort, not-actively-maintained legacy platform</strong> — even more so than the
+<a href="../mark1/">Mark 1</a>. There are also <strong>two slightly different boards</strong> (an early "dev kit" and
+the retail unit) that need slightly different setup. This page documents the OVOS way to set
+it up (via the <a href="../ovos-installer/">ovos-installer</a>), the kernel driver involved, and the one
+thing you must <strong>not</strong> do — mix in Neon packages (see the warning below). New to the terms
+here? See the <a href="../glossary/">Glossary</a>.</p>
 </div>
-<p>The <strong>Mycroft Mark 2</strong> is built around a <strong>Raspberry Pi 4</strong> carrying the <strong>SJ201</strong> audio/HAT
-board (microphones, speaker amplifier, LED ring, fan, and buttons) behind a square IPS
-touchscreen. OpenVoiceOS supports the Mark 2 and is the platform you get when you flash an OVOS
-image with the <a href="../ovos-installer/">ovos-installer</a>.</p>
+<p>The <strong>Mycroft Mark 2</strong> is built around a <strong>Raspberry Pi 4</strong> carrying the <strong>SJ201</strong> HAT — an
+audio board with a far-field microphone array (an XMOS VocalFusion DSP), a TAS5806 speaker
+amplifier, an LED ring, a fan, and hardware buttons — behind a square IPS touchscreen.</p>
+<div class="admonition note">
+<p class="admonition-title">Hardware support was left in rough shape</p>
+<p>Mycroft's hardware bring-up for the Mark 2 was incomplete and poorly documented. Making the
+SJ201 work needs a <strong>custom out-of-tree kernel module</strong>, <strong>device-tree overlays</strong>, a
+<strong>bootloader/EEPROM firmware update</strong>, and a <strong>separate amplifier init step</strong> — none of which
+is standard Raspberry Pi practice. OVOS has reconstructed a working path, but expect rough
+edges and treat everything below as best-effort.</p>
+</div>
+<hr />
+<h2 id="two-boards-dev-kit-vs-retail-mark-ii">Two boards: dev kit vs retail Mark II<a class="headerlink" href="#two-boards-dev-kit-vs-retail-mark-ii" title="Permanent link">&para;</a></h2>
+<p>There are <strong>two SJ201 revisions</strong>, and they need slightly different setup:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Dev kit</strong> (early backers)</th>
+<th><strong>Retail Mark II</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SJ201 board</td>
+<td>revision 6</td>
+<td>revision 10</td>
+</tr>
+<tr>
+<td>Tell-tale</td>
+<td>exposes an <code>attiny1614</code> micro-controller on the i2c bus</td>
+<td>no <code>attiny1614</code></td>
+</tr>
+<tr>
+<td>Fan control</td>
+<td>needs the <a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk2-v6-fan-control"><code>ovos-PHAL-plugin-mk2-v6-fan-control</code></a> plugin</td>
+<td>PWM fan handled by a device-tree overlay</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="../ovos-installer/">ovos-installer</a> tells them apart automatically by probing the i2c bus: a
+Raspberry Pi 4 with the <code>tas5806</code> amplifier present is treated as the "Mark 2 family", and if an
+<code>attiny1614</code> is <em>also</em> present it is treated as the <strong>dev kit</strong>.</p>
 <hr />
 <h2 id="support-status-best-effort-legacy">Support status — best-effort legacy<a class="headerlink" href="#support-status-best-effort-legacy" title="Permanent link">&para;</a></h2>
 <p>When Mycroft AI shut down, <strong>Neon AI</strong> officially took over the Mark 2: they continued selling
-the devices and are the party nominally responsible for ongoing Mark 2 support. OVOS still runs
-on the Mark 2, but treats it as a <strong>best-effort, not actively maintained legacy platform</strong> —
-even more so than the <a href="../mark1/">Mark 1</a>. Expect rough edges (for example, LED support is
-currently incomplete in the <a href="../ovos-installer/">ovos-installer</a> path).</p>
+the devices and publish their own Mark 2 software (see <a href="#neon-mark-2-packages-official-but-separate">Neon's hardware
+packages</a> below). OVOS still runs on the Mark 2 but
+treats it as a <strong>best-effort, not actively maintained legacy platform</strong>.</p>
 <div class="admonition danger">
-<p class="admonition-title">Do not install Neon packages on an OVOS system</p>
+<p class="admonition-title">Do not install Neon packages on an OVOS system (and vice-versa)</p>
 <p>Neon is <strong>downstream of OVOS</strong> and runs on a <strong>completely different release cycle</strong>: Neon
 packages <strong>pin older versions of OVOS packages</strong>. If you install Neon's Mark 2 packages on
 top of an OVOS install, <code>pip</code> will happily <strong>downgrade your OVOS packages</strong> to satisfy those
 pins, leaving you in a broken, half-downgraded, non-functional state that is very hard to
 untangle.</p>
 <p>Pick <strong>one</strong> stack and stay on it. The OVOS path is the <a href="../ovos-installer/">ovos-installer</a>,
-which uses <strong>only OVOS repositories</strong> — it does not pull in any Neon packages. If you want
-Neon's Mark 2 image instead, flash that and don't mix OVOS packages into it. Do not combine
-the two.</p>
+which uses <strong>only OVOS repositories</strong> — it pulls in <strong>no</strong> Neon packages. If you want Neon's
+Mark 2 software instead, use their image/packages on their own and don't mix OVOS packages
+into it.</p>
 </div>
 <hr />
 <h2 id="how-ovos-runs-on-the-mark-2">How OVOS runs on the Mark 2<a class="headerlink" href="#how-ovos-runs-on-the-mark-2" title="Permanent link">&para;</a></h2>
 <p>Unlike the <a href="../mark1/">Mark 1</a>, the Mark 2 has a real display, so it runs the <strong>graphical</strong>
-OVOS experience rather than a faceplate API:</p>
+OVOS experience:</p>
 <ul>
-<li>The standard <a href="../architecture-overview/">core services</a> run exactly as they do on any other
-  device — there is no Mark 2 fork of <code>ovos-core</code>.</li>
+<li>The standard <a href="../architecture-overview/">core services</a> run exactly as on any other device —
+  there is no Mark 2 fork of <code>ovos-core</code>.</li>
 <li>The screen is driven by the <a href="../gui-service/">GUI service</a> feeding the
-  <strong><a href="../ovos-shell/"><code>ovos-shell</code></a></strong> Qt5/<a href="../qt5-gui/">Kirigami</a> application (the same shell used
-  on any Raspberry Pi with a touchscreen). The <a href="../ovos-installer/">ovos-installer</a> installs
-  <code>ovos-shell</code> on Mark 2 devices so they keep a screen until the
-  <a href="../gui-adapters/">GUI rework</a> replacement lands.</li>
-<li>Hardware peripherals (microphones, LED ring, fan, buttons) are handled by individual
-  <strong><a href="../phal/">PHAL</a> plugins</strong> plus a low-level i2c setup script, described below.</li>
+  <strong><a href="../ovos-shell/"><code>ovos-shell</code></a></strong> Qt5/<a href="../qt5-gui/">Kirigami</a> application. The
+  <a href="../ovos-installer/">ovos-installer</a> installs <code>ovos-shell</code> on Mark 2 devices so they keep a
+  screen until the <a href="../gui-adapters/">GUI rework</a> replacement lands.</li>
+<li>The microphone is read through the <strong><code>ovos-microphone-plugin-sounddevice</code></strong> plugin (the
+  installer tunes its block size and latency for the SJ201), <em>not</em> an ALSA/i2c helper.</li>
 </ul>
 <hr />
-<h2 id="audio-setup-ovos-i2csound">Audio setup — <code>ovos-i2csound</code><a class="headerlink" href="#audio-setup-ovos-i2csound" title="Permanent link">&para;</a></h2>
-<p>The SJ201 microphones and amplifier sit on the Raspberry Pi's i2c bus.
-<strong><a href="https://github.com/OpenVoiceOS/ovos-i2csound"><code>ovos-i2csound</code></a></strong> is the install-time script
-that detects the attached i2c sound card (the SJ201, or a Respeaker HAT) and writes the correct
-ALSA configuration so the mic array and speaker work. It is a system-level helper run once with
-<code>sudo</code>, not a Python plugin, and is set up automatically by the <a href="../ovos-installer/">ovos-installer</a>
-on supported boards.</p>
+<h2 id="what-the-ovos-installer-does-for-the-mark-2">What the ovos-installer does for the Mark 2<a class="headerlink" href="#what-the-ovos-installer-does-for-the-mark-2" title="Permanent link">&para;</a></h2>
+<p>When the <a href="../ovos-installer/">ovos-installer</a> detects Mark 2 hardware it applies a dedicated
+<code>ovos_hardware_mark2</code> role. (On the Mark 2 you must use the installer's <strong><code>virtualenv</code></strong> method —
+the container method is not supported there.) That role:</p>
+<ol>
+<li><strong>Builds and installs the OVOS kernel driver.</strong> It clones
+   <a href="#the-ovos-kernel-driver-vocalfusiondriver"><code>VocalFusionDriver</code></a>, copies the SJ201
+   <strong>device-tree overlays</strong> (soundcard, buttons, PWM fan; Pi-5 variants auto-selected), enables
+   the UART, compiles the <strong><code>vocalfusion-soundcard.ko</code></strong> kernel module against the running kernel
+   headers, installs it, and registers it to load at boot.</li>
+<li><strong>Updates the bootloader firmware.</strong> It sets the Raspberry Pi EEPROM release channel and runs
+   an EEPROM update (a reboot may be required).</li>
+<li><strong>Initialises the amplifier and board.</strong> It creates an SJ201 helper virtualenv and runs the
+   XMOS flash tool plus the TAS5806 amplifier init.</li>
+<li><strong>Sets up the touchscreen.</strong> It adds the <code>rpi-backlight</code> overlay and switches the display
+   driver overlay (<code>vc4-kms-v3d</code> → <code>vc4-fkms-v3d</code>) for the Mark 2 panel.</li>
+<li><strong>Configures audio routing</strong> via a Mark 2 WirePlumber/PipeWire profile.</li>
+<li><strong>Writes a tuned <a href="../config/"><code>mycroft.conf</code></a></strong> — the <code>sounddevice</code> microphone settings above,
+   Mark-2 wake-word sensitivity/VAD tuning, the <a href="../ocp-audio-plugin/">legacy OCP audio</a> playback
+   path, and (on the <strong>dev kit</strong> only) the <code>ovos-PHAL-plugin-mk2-v6-fan-control</code> fan plugin.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title"><code>ovos-i2csound</code> is <em>not</em> used by the installer</p>
+<p>A common misconception: the <a href="../ovos-installer/">ovos-installer</a> does <strong>not</strong> use
+<code>ovos-i2csound</code> or any other <a href="#the-raspovos-image-path-and-ovos-i2csound">raspOVOS</a> helper
+script. Those belong to the raspOVOS / buildroot image-build path. The installer's Mark 2
+audio comes entirely from the <code>VocalFusionDriver</code> kernel module above.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">LED ring support is incomplete via the installer</p>
+<p>The installer brings up audio, fan, touchscreen and buttons, but <strong>LED-ring support on the
+Mark 2 is currently incomplete</strong> in the ovos-installer path.</p>
+</div>
 <hr />
-<h2 id="hardware-phal-plugins">Hardware PHAL plugins<a class="headerlink" href="#hardware-phal-plugins" title="Permanent link">&para;</a></h2>
-<p>The Mark 2's discrete hardware features are each driven by a small
-<a href="../phal/">PHAL</a> plugin, enabled under the <code>"PHAL"</code> section of
-<a href="../config/"><code>mycroft.conf</code></a>:</p>
+<h2 id="the-ovos-kernel-driver-vocalfusiondriver">The OVOS kernel driver: <code>VocalFusionDriver</code><a class="headerlink" href="#the-ovos-kernel-driver-vocalfusiondriver" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/OpenVoiceOS/VocalFusionDriver"><code>OpenVoiceOS/VocalFusionDriver</code></a> is OVOS's
+out-of-tree Linux <strong>kernel driver and device-tree overlays</strong> for the SJ201 HAT. It builds a
+<code>vocalfusion-soundcard.ko</code> module that wires up the SJ201's <strong>XMOS VocalFusion</strong> DSP microphone
+over I2S (configuring the master clock on a GPIO, plus reset/power lines), and ships the
+device-tree overlays for the soundcard, the hardware <strong>buttons</strong>, and the <strong>PWM fan</strong> — with
+both standard and Raspberry-Pi-5 variants, and separate <strong>rev6 vs rev10</strong> handling for the two
+board versions. The TAS5806 <strong>amplifier</strong> is initialised separately at boot rather than inside
+the module.</p>
+<p>It is actively used (the installer builds it on every Mark 2 setup) and has received fixes for
+recent kernels. Historically it derives from earlier community XMOS-loader code, adapted for OVOS
+by Peter Steenbergen (j1nx).</p>
+<div class="admonition warning">
+<p class="admonition-title">Licensing is unresolved</p>
+<p>At time of writing <code>VocalFusionDriver</code> has <strong>no LICENSE file</strong> in the repository (there is an
+open request to add one). Treat its licensing as unclear until that is resolved.</p>
+</div>
+<hr />
+<h2 id="the-raspovos-image-path-and-ovos-i2csound">The raspOVOS image path (and <code>ovos-i2csound</code>)<a class="headerlink" href="#the-raspovos-image-path-and-ovos-i2csound" title="Permanent link">&para;</a></h2>
+<p><a href="../ovos-installer/"><code>ovos-installer</code></a> is one way to get OVOS onto a device; the other is
+<strong>raspOVOS</strong>, a ready-made Raspberry Pi OS image with OVOS layered on top
+(<a href="https://github.com/OpenVoiceOS/raspOVOS"><code>OpenVoiceOS/raspOVOS</code></a> is the active repo;
+<a href="https://github.com/TigreGotico/raspOVOS"><code>TigreGotico/raspOVOS</code></a> is older). The raspOVOS images —
+and the older <a href="#buildroot-where-ovos-originated">buildroot</a> images — handle i2c sound HATs with a
+different helper:</p>
+<p><a href="https://github.com/OpenVoiceOS/ovos-i2csound"><code>ovos-i2csound</code></a> is a shell script plus systemd
+service that <strong>auto-detects an i2c sound HAT at boot and configures ALSA</strong> for it, writing the
+detected board name to <code>/etc/OpenVoiceOS/i2c_platform</code> (a marker other plugins read). It supports
+the SJ201 and a range of Respeaker-style HATs.</p>
+<div class="admonition note">
+<p class="admonition-title"><code>ovos-i2csound</code> belongs to the image path, not the installer</p>
+<p><code>ovos-i2csound</code> is part of the <strong>raspOVOS / buildroot</strong> image build. It is <strong>not</strong> invoked by
+the ansible <a href="../ovos-installer/">ovos-installer</a>, which uses the
+<a href="#the-ovos-kernel-driver-vocalfusiondriver"><code>VocalFusionDriver</code></a> kernel module for the Mark 2
+instead. Don't expect <code>ovos-i2csound</code> on an installer-provisioned system.</p>
+</div>
+<hr />
+<h2 id="neon-mark-2-packages-official-but-separate">Neon Mark 2 packages (official, but separate)<a class="headerlink" href="#neon-mark-2-packages-official-but-separate" title="Permanent link">&para;</a></h2>
+<p>Because Neon AI is the platform's official maintainer, they publish their own Mark 2 hardware
+packages. These are <strong>Neon-maintained and downstream of OVOS</strong> — useful to know about, but see
+the <a href="#support-status-best-effort-legacy">downgrade warning</a> before installing any of them on an
+OVOS system.</p>
 <table>
 <thead>
 <tr>
-<th>Feature</th>
-<th>Plugin</th>
-<th>Notes</th>
+<th>Neon package</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Cooling fan (Mark 2 "dev kit" / v6 board)</td>
-<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk2-v6-fan-control"><code>ovos-PHAL-plugin-mk2-v6-fan-control</code></a></td>
-<td>Auto-enabled by <code>ovos-i2csound</code> when the board is detected</td>
+<td><code>sj201-interface</code> (<a href="https://github.com/NeonGeckoCom/sj201-interface">repo</a>)</td>
+<td>Python library + <code>sj201</code> CLI for the board itself — detect revision (<code>get-revision</code> → 6 or 10), reset the LED ring, set fan speed, init the TI/TAS5806 amplifier, patch <code>config.txt</code>. Derived from Mycroft's <code>mark-ii-hardware-testing</code>.</td>
 </tr>
 <tr>
-<td>LED ring (Respeaker / VoiceBonnet HATs)</td>
-<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-dotstar"><code>ovos-PHAL-plugin-dotstar</code></a></td>
-<td>For DotStar-style addressable LEDs; <strong>LED support on the Mark 2 is currently incomplete in the ovos-installer path</strong></td>
+<td><code>neon-phal-plugin-linear_led</code> (<a href="https://github.com/NeonGeckoCom/neon-phal-plugin-linear_led">repo</a>)</td>
+<td>PHAL plugin driving the LED ring (listening/speaking/muted/error animations).</td>
 </tr>
 <tr>
-<td>Speaker volume / mixer (ALSA)</td>
-<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-alsa"><code>ovos-PHAL-plugin-alsa</code></a></td>
-<td>Volume control over the message bus</td>
+<td><code>neon-phal-plugin-fan</code> (<a href="https://github.com/NeonGeckoCom/neon-phal-plugin-fan">repo</a>)</td>
+<td>CPU-temperature-based fan control.</td>
 </tr>
 <tr>
-<td>System actions (reboot, shutdown, factory reset)</td>
-<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-system"><code>ovos-PHAL-plugin-system</code></a></td>
-<td>Used by the shell's settings UI</td>
-</tr>
-<tr>
-<td>Wi-Fi onboarding</td>
-<td><a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-wifi-setup"><code>ovos-PHAL-plugin-wifi-setup</code></a></td>
-<td>First-boot network setup on the touchscreen</td>
+<td><code>neon-phal-plugin-switches</code> (<a href="https://github.com/NeonGeckoCom/neon-phal-plugin-switches">repo</a>)</td>
+<td>Reads the SJ201 hardware buttons (volume up/down, action, mute).</td>
 </tr>
 </tbody>
 </table>
-<p>Enable a plugin manually like this:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;PHAL&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;ovos-PHAL-plugin-mk2-v6-fan-control&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">}</span>
-</span></code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">The old all-in-one <code>ovos-PHAL-plugin-mk2</code> is deprecated</p>
-<p>Early images shipped a single <code>ovos-PHAL-plugin-mk2</code> plugin that bundled LED, fan and
-button handling. It is <strong>deprecated and should not be installed</strong> — its functions were split
-into the focused, individually-installable plugins listed above so each board variant only
-loads what it actually has.</p>
-</div>
+<hr />
+<h2 id="buildroot-where-ovos-originated">Buildroot: where OVOS originated<a class="headerlink" href="#buildroot-where-ovos-originated" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/OpenVoiceOS/ovos-buildroot"><code>OpenVoiceOS/ovos-buildroot</code></a> is the original
+<strong>Buildroot-based</strong> embedded Linux distribution that first brought <code>ovos-core</code> to devices like
+the Raspberry Pi and the Mark 2 — the project where OpenVoiceOS itself began (drawing on Mycroft
+AI, HassOS and SkiffOS). It contains the canonical Buildroot packages for the VocalFusion/XVF3510
+audio stack and the original <code>ovos-i2csound</code> script.</p>
+<p>It is now a <strong>legacy / dormant</strong> project: it is not formally archived, but it has no current
+releases and little recent activity. New installs should use the
+<a href="../ovos-installer/">ovos-installer</a> or the <a href="#the-raspovos-image-path-and-ovos-i2csound">raspOVOS</a>
+images instead. It is documented here because it is a meaningful part of OVOS history and still
+the ancestor of today's Mark 2 audio packaging.</p>
 <hr />
 <h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
 <ul>
+<li><strong><a href="../ovos-installer/">ovos-installer</a></strong> — the supported way to provision a Mark 2.</li>
 <li><strong><a href="../ovos-shell/">ovos-shell</a></strong> — the graphical shell the Mark 2 displays.</li>
 <li><strong><a href="../phal/">PHAL</a></strong> — how hardware-abstraction plugins work and load.</li>
-<li><strong><a href="../ovos-installer/">ovos-installer</a></strong> — flashing and provisioning a Mark 2.</li>
+<li><strong><a href="../ocp-audio-plugin/">OCP Audio Plugin</a></strong> — the legacy media-playback path the installer enables.</li>
 <li><strong><a href="../mark1/">Mark 1 Hardware</a></strong> — the faceplate-based predecessor.</li>
 </ul>
 <hr />
-<p><em>Source code: <a href="https://github.com/OpenVoiceOS/ovos-i2csound">OpenVoiceOS/ovos-i2csound</a>.</em></p>
+<p><em>Source code: <a href="https://github.com/OpenVoiceOS/ovos-installer">OpenVoiceOS/ovos-installer</a> (<code>ovos_hardware_mark2</code> role) and <a href="https://github.com/OpenVoiceOS/VocalFusionDriver">OpenVoiceOS/VocalFusionDriver</a>.</em></p>
 
 
 
