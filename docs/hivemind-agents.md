@@ -1,68 +1,91 @@
-# Remote Agents with OpenVoiceOS
+# Remote Agents with HiveMind
 
-While OpenVoiceOS is designed primarily for **local-first usage**, more advanced deployments—like hosting agents in the cloud, connecting multiple voice satellites, or enabling multi-user access through a web frontend—are made possible via the **HiveMind** companion project.
+!!! abstract "In a nutshell"
+    OpenVoiceOS runs **local-first**, but sometimes you want one capable machine to do the
+    thinking and a fleet of small devices ("satellites") to do the listening and speaking — or
+    you want to reach your assistant securely from off-device. **HiveMind** is the companion
+    project that makes that possible: it exposes an OVOS install (or a single persona) over an
+    authenticated, encrypted protocol that satellites and clients connect to.
+
+!!! info "HiveMind lives under its own org"
+    The HiveMind packages referenced here are maintained in the **[JarbasHiveMind](https://github.com/JarbasHiveMind)**
+    GitHub organization (not `OpenVoiceOS`). The full guide is the
+    [HiveMind community docs](https://jarbashivemind.github.io/HiveMind-community-docs/); this
+    page covers how HiveMind relates to OVOS.
 
 ---
 
-## HiveMind Server
+## The pieces
 
-**HiveMind** is a distributed voice assistant framework that allows you to expose **AI Agents** (either full [ovos-core](core.md) installs or just individual personas) over a secure protocol.
+| Piece | Role |
+|---|---|
+| **`hivemind-core`** | The server. Listens for connections, authenticates clients, enforces permissions, and routes messages to an **agent**. |
+| **Agent** | What actually answers — either a full [ovos-core](core.md) install (`hivemind-ovos-agent-plugin`) or a single [persona](personas.md) (`hivemind-persona-agent-plugin`). |
+| **Satellites / clients** | The devices and apps that connect to `hivemind-core` (mic satellites, CLI clients, your own code). |
 
-> 💡 Unlike the lightweight `persona-server`, HiveMind is designed for trusted, networked setups.
+`hivemind-core` is **pluggable** via the **HiveMind Plugin Manager (HPM)** across four axes, so
+you can swap implementations without touching the rest:
 
-**Key Features**:
-
-- **Secure Access**: Communicates over the **HiveMind protocol**, which supports authentication, encryption and granular permissions — safe for exposing OVOS to remote clients or satellites.
-
-
-- **Agent Plugins**: Agent plugins integrate the **HiveMind protocol** with various frameworks, including OpenVoiceOS. Keep your existing infrastructure even when you totally replaces the brains!
-
-
-- **Multi-User Ready**: Great for use in **cloud hosting**, **web portals**, or **enterprise environments** where access control is critical.
-
-
-- **Composable**: Let **local personas delegate** questions to a smarter **remote OVOS instance**.
+- **Agent protocol** — what brain answers (OVOS / persona / others).
+- **Network protocol** — how clients connect (WebSocket is the reference implementation).
+- **Database** — where client credentials live (JSON / SQLite / Redis).
+- **Binary data handler** — how binary payloads (e.g. audio) move over the mesh.
 
 ![](img/satellites.png)
 
-**Typical Use-cases**:
+---
 
-- 🏡 Running OpenVoiceOS on a powerful server or in the cloud.
+## Quickstart: expose an OVOS install
 
+```bash
+pip install hivemind-core
+```
 
-- 🛰️ Connecting lightweight devices (satellites).
+**1. Provision a client.** Every satellite/client needs an access key issued by the server:
 
+```bash
+hivemind-core add-client       # prints an access key + password for one client
+```
 
-- 📱 Remote access to OpenVoiceOS.
+This writes the client to the server's credentials database (under
+`xdg_data_home()/hivemind-core`), separate from the server config at
+`~/.config/hivemind-core/server.json`.
 
+**2. Start the server:**
 
-- 🧑‍🤝‍🧑 Serving multiple users or applications concurrently.
+```bash
+hivemind-core listen           # start listening for HiveMind connections
+```
 
-Check out the [HiveMind documentation](https://jarbashivemind.github.io/HiveMind-community-docs/) for more info
+By default it serves the local `ovos-core` via `hivemind-ovos-agent-plugin` (configured under
+`agent_protocol` in `server.json`).
+
+**3. Give a client its identity, then connect.** On the *client* device, persist the access key
+issued in step 1 (this is the step that makes everything else work):
+
+```bash
+pip install hivemind-websocket-client
+hivemind-client set-identity    # stores the access key / host for this node
+```
+
+After `set-identity`, clients (and the [solver](#using-hivemind-as-a-solver) below) can connect
+without being handed connection details each time.
 
 ---
 
-## HiveMind Personas
+## Choosing the agent: full OVOS vs a single persona
 
-The `hivemind-persona-agent-plugin` project allows you to **expose a single persona**—not the full OVOS stack—through hivemind
+The agent is selected by the `agent_protocol.module` key in `~/.config/hivemind-core/server.json`.
 
-This enables you to deploy AI agents for external use without needing a full OVOS assistant.
+### Full OVOS — `hivemind-ovos-agent-plugin`
 
-![Untitled-2025-04-15-2340(15)](https://github.com/user-attachments/assets/f71d24c2-8a12-472b-9a44-3034fe6595e3)
+The default. Bridges HiveMind to a running [ovos-core](core.md) over its messagebus, so remote
+clients get the **whole** assistant (skills, pipelines, OCP, etc.).
 
+### A single persona — `hivemind-persona-agent-plugin`
 
-### Why Use It?
-
-- Minimal attack surface (persona only, no full assistant features).
-
-
-- Can be queried remotely using the HiveMind protocol.
-
-> 💡 This is **not** the same as `persona-server`. `hivemind-persona-agent-plugin` uses a **secure protocol** (HiveMind), while `ovos-persona-server` uses insecure HTTP.
-
-### Server Configuration
-
-in your hivemind config file `~/.config/hivemind-core/server.json`
+Exposes just one [persona](personas.md) — no `ovos-core`, no messagebus — so the attack surface
+is minimal. It answers straight from the configured persona.
 
 ```json
 {
@@ -70,147 +93,107 @@ in your hivemind config file `~/.config/hivemind-core/server.json`
     "module": "hivemind-persona-agent-plugin",
     "hivemind-persona-agent-plugin": {
       "persona": {
-	  "name": "Llama",
-	  "solvers": [
-		"ovos-solver-openai-plugin"
-	  ],
-	  "ovos-solver-openai-plugin": {
-		"api_url": "https://llama.smartgic.io/v1",
-		"key": "sk-xxxx",
-		"system_prompt": "You are helpful, creative, clever, and very friendly."
-	  }
-	}
+        "name": "Llama",
+        "solvers": ["ovos-solver-openai-plugin"],
+        "ovos-solver-openai-plugin": {
+          "api_url": "https://llama.smartgic.io/v1",
+          "key": "sk-xxxx",
+          "system_prompt": "You are helpful, creative, clever, and very friendly."
+        }
+      }
     }
   }
 }
-
 ```
 
-The `persona` value may be either an inline config dict (as above) or a path to an
-[ovos-persona](https://github.com/OpenVoiceOS/ovos-persona) JSON file (string, `~` is
-expanded).
-
-Then install the plugin and start the hub:
-
-```bash
-pip install hivemind-persona-agent-plugin
-hivemind-core add-client   # provision a client (one-time)
-hivemind-core listen       # start the server
-```
-
-> 💡 Unlike `hivemind-ovos-agent-plugin`, the persona agent needs no running
-> `ovos-core` and no OVOS messagebus — it answers straight from the configured
-> persona. The `"module"` value under `agent_protocol` must match the plugin's
-> entry-point name exactly (`hivemind-persona-agent-plugin`), and the same string is
-> reused as the key holding its config.
+The `persona` value may be an inline config dict (above) or a path to an
+[ovos-persona](https://github.com/OpenVoiceOS/ovos-persona) JSON file (`~` is expanded). The
+`"module"` value must equal the plugin's entry-point name, and that same string is reused as the
+key holding its config.
 
 ---
 
-## HiveMind as a [Solver](agent-plugins.md) Plugin
+## Satellites & clients
 
-Want your local assistant to ask a remote one when it's stuck? You can!
+A server is only useful once something connects to it. On the client side:
 
-The hivemind-bus-client can function as a solver plugin, allowing you to:
+- **[`hivemind-websocket-client`](https://github.com/JarbasHiveMind/hivemind-websocket-client)** — the client library and the `hivemind-client` CLI (`set-identity`, send utterances, etc.).
+- **[`hivemind-mic-satellite`](https://github.com/JarbasHiveMind/hivemind-mic-satellite)** — a thin device that only does wake-word + microphone capture; STT/TTS run server-side.
+- **[`hivemind-listener`](https://github.com/JarbasHiveMind/hivemind-listener)** — the server-side audio entrypoint that performs STT/TTS for audio satellites (binary audio over the mesh).
 
-- 🦾 Delegate processing to a more powerful/secure server for specific tasks.
+This split is the real "voice satellite" story: cheap devices listen and speak, the server thinks.
 
+---
 
-- 🌍 Handle outages: Handle intermitent local agent failures from other solver plugins in your persona definition
+## Permissions & access control
 
+HiveMind is **deny-by-default**: a client may only do what it has been explicitly granted.
+`hivemind-core` exposes admin CLI commands to manage this, including:
 
-- 🤝 Use remote hivemind agents in a collaborative AI / MoS (mixture-of-solvers) setup.
-  
-![Untitled-2025-04-15-2340(14)](https://github.com/user-attachments/assets/3222e4f3-ba75-4e95-9775-7a39c8e06381)
+- `add-client` / `list-clients` / `revoke` — manage who may connect.
+- `allow-msg` / `blacklist-msg` — whitelist or block specific bus message types per client.
+- `make-admin` / `revoke-admin`, `allow-escalate` / `allow-propagate` — elevate or restrict a client.
+- `blacklist-skill` / `blacklist-intent` — stop a client from reaching specific skills/intents.
 
-> 🤖 *“When in doubt, ask a smarter OVOS.”*
+This is what makes HiveMind safe to expose to satellites or other users, unlike the plain
+[persona-server](persona-server.md) (HTTP, no auth).
 
+!!! tip "Web admin UI"
+    [`hivemind-admin-panel`](https://github.com/JarbasHiveMind/hivemind-admin-panel) is a web UI
+    for managing clients, permissions, plugins and personas instead of the CLI.
 
-For usage with persona, use `"ovos-solver-hivemind-plugin"` for the solver id
+---
+
+## Using HiveMind as a solver
+
+Want your *local* assistant to ask a *remote* HiveMind agent when it's stuck? Install the
+**[`ovos-solver-hivemind-plugin`](https://github.com/JarbasHiveMind/ovos-solver-hivemind-plugin)**
+(class `HiveMindSolver`, import `ovos_hivemind_solver`) and add it to a persona. It is a normal
+[solver](agent-plugins.md), so it slots into a mixture-of-solvers chain — handy for delegating
+hard questions, surviving local outages, or collaborative setups.
 
 ```json
 {
   "name": "HiveMind Agent",
-  "solvers": [
-    "ovos-solver-hivemind-plugin"
-  ],
+  "solvers": ["ovos-solver-hivemind-plugin"],
   "ovos-solver-hivemind-plugin": {"autoconnect": true}
 }
-
 ```
 
-You can also use it in your own python projects
+Or from your own code (the node identity must already be set with `hivemind-client set-identity`):
 
 ```python
 from ovos_hivemind_solver import HiveMindSolver
 
-bot = HiveMindSolver()
-bot.connect()  # connection info from identity file
+bot = HiveMindSolver()          # reads the identity provisioned via `hivemind-client set-identity`
+bot.connect()
 print(bot.spoken_answer("what is the speed of light?"))
-
 ```
 
+---
+
+## Deployment patterns
+
+HiveMind and the [persona-server](persona-server.md) cover different trust boundaries:
+
+| Use case | Tools | Secure? | Notes |
+|---|---|---|---|
+| Local interface + persona | `ovos-persona-server` + `persona.json` | ❌ | OpenAI-compatible HTTP, no auth — quick setups only |
+| Local interface + OpenVoiceOS | `ovos-persona-server` + the `ovos-messagebus` handler | ❌ | Exposes the OVOS bus to the persona server; HTTP, no auth |
+| Local interface + remote HiveMind agent | `ovos-persona-server` + `ovos-solver-hivemind-plugin` | ❌ | HTTP front, but the agent itself is remote |
+| Secure remote OpenVoiceOS agent | `hivemind-core` + `hivemind-ovos-agent-plugin` + `ovos-core` | ✅ | Auth, encryption, granular permissions |
+| Secure remote persona agent | `hivemind-core` + `hivemind-persona-agent-plugin` + `persona.json` | ✅ | Same, persona-only (minimal surface) |
+
+The HTTP rows are useful for wiring a persona into local tools (Home Assistant's Ollama
+integration, OpenWebUI, …) on a trusted network. The HiveMind rows are what you expose to
+satellites or untrusted networks.
+
+> ⚠️ The plain [`persona-server`](persona-server.md) is **HTTP only — not encrypted or
+> authenticated**. Keep it on a trusted local network; use HiveMind for anything remote.
 
 ---
 
-## Chaining Components for Flexible Deployments
+## Further reading
 
-HiveMind and persona-server can be combined to bridge secure and insecure environments, depending on your needs:
-
-- expose existing OpenAI/Ollama servers to hivemind satellites **securely**
-
-
-    - connect hivemind satellites directly to existing LLM apps (eg. ollama)
-
-
-- expose a remote `hivemind-core` to local **insecure** ollama/openai endpoints
-
-
-    - eg. to integrate hivemind into HomeAssistant
-
-
--  expose a localhost `ovos-core`/`persona.json` to local **insecure** ollama/openai endpoints
-
-
-    - half-way compromise, does not expose the full messagebus and does not require hivemind
-
-
-    - easier to setup and configure
-
-
-| Use Case                          | Tool                   | Secure? | API Type              | Notes                                                | 
-
-|----------------------------------|------------------------|---------|------------------------|------------------------------------------------------|
-| Local interface + Persona | `ovos-persona-server` + `persona.json`    | ❌      | OpenAI-compatible      | Great for quick setups, not public exposure`,HTTP, no auth |
-| Local interface + OpenVoiceOS | `ovos-persona-server` + `ovos-solver-bus-plugin`      | ❌      | OpenAI-compatible    | OpenVoiceOS bus must be exposed to `ovos-persona-server`,HTTP, no auth |
-| Local interface + HiveMind Agent | `ovos-persona-server` + `ovos-solver-hivemind-plugin`      | ❌      | OpenAI-compatible      | Same as above, but for any remote hivemind agent,HTTP, no auth |
-| Secure remote OpenVoiceOS agent  | `hivemind-core` + `hivemind-ovos-agent-plugin` + `ovos-core`    | ✅      | HiveMind protocol      | Auth, encryption, granular permissions, HTTP or Websockets                   |
-| Secure remote Persona agent      | `hivemind-core` + `hivemind-persona-agent-plugin` + `persona.json`    | ✅      | HiveMind protocol      | Auth, encryption, granular permissions, HTTP or Websockets                       |
-
-
-The first 3 examples allow us to integrate our Agents with HomeAssistant via the Ollama Integration
-
-The last 2 examples allow us to integrate with HiveMind ecosystem and all the existing satellite implementations
-
----
-
-## ⚠️ Related (Insecure) Alternatives
-
-While useful for experimentation, some other persona access methods are **not secure** for remote use:
-
-🦙 `ovos-persona-server`:
-
-- ✅ Compatible with **OpenAI/Ollama APIs**.
-
-
-- ❌ **HTTP only**, not encrypted or authenticated.
-
-
-- ✅ Useful to expose personas to **HomeAssistant**, **OpenWebUI**, and similar local network tools.
-
-🏠 HomeAssistant + `ovos-persona-server`:
-
-- 🗣️ Can route HomeAssistant **wyoming satellites** to an OVOS persona.
-
-
-- ❌ Uses **Wyoming protocol**, which lacks hivemind's security features.
-
+- [HiveMind community docs](https://jarbashivemind.github.io/HiveMind-community-docs/)
+- [OVOS & HiveMind in the Manufacturing Industry](https://blog.openvoiceos.org/posts/2026-01-14-OVOS-hivemind-industry) — OVOS blog
