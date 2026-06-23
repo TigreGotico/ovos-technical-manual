@@ -1074,6 +1074,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rag-solver-upcoming" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAG Solver — upcoming
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#deprecated-solver-types" class="md-nav__link">
     <span class="md-ellipsis">
       Deprecated Solver Types
@@ -1438,6 +1447,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rag-solver-upcoming" class="md-nav__link">
+    <span class="md-ellipsis">
+      RAG Solver — upcoming
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#deprecated-solver-types" class="md-nav__link">
     <span class="md-ellipsis">
       Deprecated Solver Types
@@ -1639,6 +1657,16 @@ needs no API key and is always available when <code>ovos-persona</code> is insta
 </span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">reply</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">continue_chat</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Provided by any installed <code>opm.agents.chat.multimodal</code> plugin.</p>
+<hr />
+<h2 id="rag-solver-upcoming">RAG Solver — upcoming<a class="headerlink" href="#rag-solver-upcoming" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Upcoming — work in progress</p>
+<p><a href="https://github.com/OpenVoiceOS/ovos-rag-solver"><code>ovos-rag-solver</code></a> is an in-progress
+retrieval-augmented <a href="../agent-plugins/">solver</a> (entry point <code>ovos-chromadb-rag-solver-plugin</code>,
+class <code>ChromadbRAG</code>) that wraps a chat solver with a ChromaDB document store, so answers are
+grounded in your own documents. It is early-access (HiveMind insiders) and not yet generally
+released. For released memory/RAG, see <a href="../persona-memory/">Persona Memory</a>.</p>
+</div>
 <hr />
 <h2 id="deprecated-solver-types">Deprecated <a href="../agent-plugins/">Solver</a> Types<a class="headerlink" href="#deprecated-solver-types" title="Permanent link">&para;</a></h2>
 <p>The legacy <code>opm.solver.*</code> entry points are deprecated and will be removed in the next major
