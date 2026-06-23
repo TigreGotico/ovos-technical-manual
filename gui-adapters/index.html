@@ -1671,8 +1671,10 @@ id, default <code>"default"</code>). All default to no-ops, so partial implement
 <code>SYSTEM_*</code> template to the matching <code>handle_show_*</code> method. Adapters normally override the
 individual <code>handle_show_*</code> methods rather than <code>dispatch_template</code> itself.</p>
 <h3 id="connection-status">Connection status<a class="headerlink" href="#connection-status" title="Permanent link">&para;</a></h3>
-<p>Implement <code>any_client_connected() -&gt; bool</code> to participate in <code>gui.status.request</code>
-responses:</p>
+<p>Optionally provide <code>any_client_connected() -&gt; bool</code> to participate in <code>gui.status.request</code>
+responses. It is <strong>not</strong> part of the <code>AbstractGUIPlugin</code> base class — the router calls it by
+duck-typing (<code>getattr(adapter, "any_client_connected", lambda: False)()</code>), so define it only if
+your adapter tracks client connections:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span> <span class="nf">any_client_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_my_connected_clients</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
 </span></code></pre></div>

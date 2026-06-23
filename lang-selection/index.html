@@ -1406,16 +1406,24 @@
 </tr>
 </tbody>
 </table>
-<p>If <strong>none</strong> of these keys is present or valid, the service keeps the message's existing language (<code>message.context["lang"]</code>), which defaults to the system <code>lang</code> from <code>mycroft.conf</code>. There is no <code>data["lang"]</code> step.</p>
+<p>The message language itself is resolved by <code>get_message_lang()</code>, which checks <code>message.data["lang"]</code> first and then <code>message.context["lang"]</code>; if neither is present it falls back to the system <code>lang</code> from <code>mycroft.conf</code>.</p>
 <h3 id="validation-against-valid_langs">Validation against <code>valid_langs</code><a class="headerlink" href="#validation-against-valid_langs" title="Permanent link">&para;</a></h3>
-<p>Each candidate above is validated against the enabled-language list before it is accepted. That list is taken from <code>message.context["valid_langs"]</code> if the source provided one, otherwise from <code>get_valid_languages()</code> (i.e. <code>lang</code> + <code>secondary_langs</code> in <code>mycroft.conf</code>). OVOS uses the <code>langcodes</code> library (via the <code>closest_lang</code> helper) to find the closest match:</p>
+<p>Each candidate above is validated against the enabled-language list before it is accepted. That list is taken from <code>message.context["valid_langs"]</code> if the source provided one, otherwise from <code>get_valid_languages()</code> (i.e. <code>lang</code> + <code>secondary_langs</code> in <code>mycroft.conf</code>). OVOS uses the <code>closest_lang</code> helper (from <code>ovos_spec_tools</code>) to find the closest match:</p>
 <ul>
 <li>If a candidate matches an enabled language within a "distance" of <code>10</code> (standard regional difference, e.g. <code>en-au</code> ↔ <code>en-us</code>), that enabled language is used.</li>
 <li>If a candidate does not match, it is <strong>skipped</strong> (a warning is logged) and the next priority key is tried.</li>
 </ul>
 <hr />
 <h2 id="language-helper-utilities">Language Helper Utilities<a class="headerlink" href="#language-helper-utilities" title="Permanent link">&para;</a></h2>
-<p>Developers can use standard helpers from <code>ovos_utils.lang</code> to handle BCP-47 tags correctly.</p>
+<p>Developers should use the language helpers from <strong><code>ovos_spec_tools</code></strong> — <code>standardize_lang()</code>
+(normalize a tag, e.g. <code>"en-us"</code> → <code>"en-US"</code>) and <code>closest_lang()</code> (pick the closest enabled
+language). These are what <code>ovos-core</code> itself uses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The older <code>ovos_utils.lang</code> helpers below (<code>standardize_lang_tag</code>, <code>get_language_dir</code>) are
+<strong>deprecated</strong> in favour of the <code>ovos_spec_tools</code> helpers above; they are documented here
+because existing skills still reference them.</p>
+</div>
 <h3 id="standardize_lang_taglang_code-macrotrue"><code>standardize_lang_tag(lang_code, macro=True)</code><a class="headerlink" href="#standardize_lang_taglang_code-macrotrue" title="Permanent link">&para;</a></h3>
 <p>Normalizes a language tag to a canonical form (e.g., <code>"en-us"</code> -&gt; <code>"en-US"</code>). It is used internally to ensure comparisons are reliable. With <code>macro=True</code> it can also collapse a tag to its macro-language.</p>
 <h3 id="get_language_dirbase_path-langen-us"><code>get_language_dir(base_path, lang="en-US")</code><a class="headerlink" href="#get_language_dirbase_path-langen-us" title="Permanent link">&para;</a></h3>

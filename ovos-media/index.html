@@ -1121,15 +1121,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gui-still-qt5mycroft-gui-bound" class="md-nav__link">
-    <span class="md-ellipsis">
-      GUI still Qt5/mycroft-gui bound
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#ocpmediacatalog-is-a-skill" class="md-nav__link">
     <span class="md-ellipsis">
       OCPMediaCatalog is a skill
@@ -1719,15 +1710,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gui-still-qt5mycroft-gui-bound" class="md-nav__link">
-    <span class="md-ellipsis">
-      GUI still Qt5/mycroft-gui bound
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#ocpmediacatalog-is-a-skill" class="md-nav__link">
     <span class="md-ellipsis">
       OCPMediaCatalog is a skill
@@ -1918,7 +1900,7 @@ daemon described here, which is the target:</p>
 </span></code></pre></div>
 <hr />
 <h2 id="ocp-pipeline-plugin">OCP Pipeline Plugin<a class="headerlink" href="#ocp-pipeline-plugin" title="Permanent link">&para;</a></h2>
-<p><strong>Package:</strong> <code>ocp-pipeline</code> (<code>ovos_ocp_pipeline_plugin</code>)
+<p><strong>Package:</strong> import name <code>ocp_pipeline</code> (PyPI distribution <code>ovos-ocp-pipeline-plugin</code>)
 <strong>Entry point group:</strong> <code>opm.pipeline</code>
 <strong>Class:</strong> <code>OCPPipelineMatcher</code> (entry point <code>ovos-ocp-pipeline-plugin</code>); the legacy bridge is <code>MycroftCPSLegacyPipeline</code> (<code>ovos-ocp-pipeline-plugin-legacy</code>)</p>
 <p>The OCP pipeline plugin is the NLP brain of the media stack. It integrates with <code>ovos-core</code>'s
@@ -2074,7 +2056,7 @@ satellite has its own player:</p>
 <p><code>ovos_media/media_backends/</code> — <code>AudioService</code>, <code>VideoService</code>, <code>WebService</code> — each manages typed backend plugins</p>
 </li>
 <li>
-<p><code>ovos_media/gui.py</code> — <code>OCPGUIInterface</code>, <code>OCPGUIState</code> — pushes GUI state to mycroft-gui</p>
+<p><code>ovos_media/player.py</code> — uses a <code>GUIInterface</code> from <code>ovos-gui-api-client</code> (<code>self.gui.show_media_player(...)</code>) to push player state via the template API (the old <code>ovos_media/gui.py</code> / <code>OCPGUIInterface</code> is gone)</p>
 </li>
 <li>
 <p><code>ovos_media/mpris.py</code> — MPRIS integration</p>
@@ -2273,11 +2255,6 @@ plugin includes a bridge:</p>
 <p>This bridge is marked for removal in <code>ovos-core 0.1.0</code>.</p>
 <hr />
 <h2 id="known-coupling-issues">Known Coupling Issues<a class="headerlink" href="#known-coupling-issues" title="Permanent link">&para;</a></h2>
-<h3 id="gui-still-qt5mycroft-gui-bound">GUI still Qt5/mycroft-gui bound<a class="headerlink" href="#gui-still-qt5mycroft-gui-bound" title="Permanent link">&para;</a></h3>
-<p><code>ovos_media/gui.py</code> still ships Qt5 <a href="../qt5-gui/">QML</a> files (<code>ovos_media/qt5/</code>) and drives the GUI in the
-mycroft-gui style. No alternative renderers (web UI, kiosk, headless) are supported without
-replacing <code>gui.py</code>. The GUI adapter plugin system (<code>opm.gui_adapter</code>) is the planned fix but
-has not yet been applied to <code>ovos-media</code>.</p>
 <h3 id="ocpmediacatalog-is-a-skill">OCPMediaCatalog is a skill<a class="headerlink" href="#ocpmediacatalog-is-a-skill" title="Permanent link">&para;</a></h3>
 <p><code>ovos_media/player.py</code> inherits from <code>OVOSCommonPlaybackSkill</code>. This registers <code>ovos-media</code> as
 a skill on the bus and loads skill infrastructure (settings, locale, etc.). It also registers
