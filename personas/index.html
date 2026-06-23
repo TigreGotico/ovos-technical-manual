@@ -1703,18 +1703,39 @@ history across turns:</p>
 <tr>
 <td><code>ovos-memory-plugin-longterm</code> (<code>LongTermMemory</code>)</td>
 <td><code>ovos-memory-plugins</code></td>
-<td>Local JSON/SQLite store (uses an OpenAI-compatible endpoint only for LLM summarization)</td>
+<td>Rolling LLM summary + recent window (JSON/SQLite)</td>
+</tr>
+<tr>
+<td><code>ovos-memory-plugin-local-rag</code> (<code>LocalRAGMemory</code>)</td>
+<td><code>ovos-memory-plugins</code></td>
+<td>Semantic top-k recall via local embeddings + a vector DB (no external service)</td>
+</tr>
+<tr>
+<td><code>ovos-memory-plugin-lexical</code> (<code>LexicalMemory</code>)</td>
+<td><code>ovos-memory-plugins</code></td>
+<td>BM25 keyword recall (SQLite, stdlib-only)</td>
+</tr>
+<tr>
+<td><code>ovos-memory-plugin-recency</code> (<code>RecencyMemory</code>)</td>
+<td><code>ovos-memory-plugins</code></td>
+<td>Recent-window history</td>
+</tr>
+<tr>
+<td><code>ovos-memory-plugin-entity</code> (<code>EntityMemory</code>)</td>
+<td><code>ovos-memory-plugins</code></td>
+<td>Durable facts about the user</td>
+</tr>
+<tr>
+<td><code>ovos-memory-plugin-composite</code> (<code>CompositeMemory</code>)</td>
+<td><code>ovos-memory-plugins</code></td>
+<td>Ensemble that fuses several of the above</td>
 </tr>
 </tbody>
 </table>
-<p><code>ovos-memory-plugins</code> is <strong>local-first</strong>: server- / cloud-coupled RAG memory lives in
-<code>ovos-openai-plugin</code> as <code>PersonaServerRAGMemory</code> (<code>ovos-openai-rag-memory-plugin</code>), not here.</p>
-<blockquote>
-<p><strong>Upcoming (repo not public yet):</strong> the package is purely local-first — <code>LocalRAGMemory</code>
-(<code>ovos-memory-plugin-local-rag</code>) is a fully in-process RAG backend using local OVOS embeddings +
-an <code>EmbeddingsDB</code> plugin (no HTTP, no cloud key), and removes the current server-coupled HTTP
-<code>RAGMemory</code> (<code>ovos-memory-plugin-rag</code>) in favour of <code>ovos-openai-plugin</code>'s server RAG.</p>
-</blockquote>
+<p><code>ovos-memory-plugins</code> is <strong>local-first</strong>: most backends need no external service (only
+<code>longterm</code>/<code>entity</code> call an OpenAI-compatible chat endpoint, which can be your own local LLM).
+Server-/cloud-coupled RAG memory lives separately in <a href="../openai-plugin/"><code>ovos-openai-plugin</code></a>
+as <code>PersonaServerRAGMemory</code>. See <a href="../persona-memory/">Persona Memory</a> for the full reference.</p>
 <h3 id="non-llm-personas">Non-LLM personas<a class="headerlink" href="#non-llm-personas" title="Permanent link">&para;</a></h3>
 <p>Personas do not require LLMs. Any installed OPM solver plugin can serve as a handler, enabling
 fully local, privacy-preserving conversational agents:</p>
