@@ -1067,6 +1067,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Using HiveMind as a solver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#as-an-intent-pipeline-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      As an intent-pipeline stage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1268,6 +1283,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Using HiveMind as a solver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#as-an-intent-pipeline-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      As an intent-pipeline stage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1453,6 +1483,25 @@ hard questions, surviving local outages, or collaborative setups.</p>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">bot</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">bot</span><span class="o">.</span><span class="n">spoken_answer</span><span class="p">(</span><span class="s2">&quot;what is the speed of light?&quot;</span><span class="p">))</span>
 </span></code></pre></div>
+<h3 id="as-an-intent-pipeline-stage">As an intent-pipeline stage<a class="headerlink" href="#as-an-intent-pipeline-stage" title="Permanent link">&para;</a></h3>
+<p>There is also a pipeline-plugin form,
+<strong><a href="https://github.com/JarbasHiveMind/ovos-hivemind-pipeline-plugin"><code>ovos-hivemind-pipeline-plugin</code></a></strong>
+(entry point <code>opm.pipeline</code>, class <code>HiveMindPipeline</code>). Instead of living inside a persona, it
+slots directly into the <a href="../pipelines-overview/">intent pipeline</a> — <em>"when in doubt, ask a smarter
+OVOS install."</em> Add it to <code>intents.pipeline</code> and configure it under <code>mycroft.conf</code>:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">&quot;pipeline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ovos-hivemind-pipeline-plugin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">],</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">&quot;ovos-hivemind-pipeline-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hive Mind&quot;</span><span class="p">,</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">      </span><span class="nt">&quot;confirmation&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">      </span><span class="nt">&quot;slave_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Use the <strong>solver</strong> form to delegate inside a persona's reasoning; use the <strong>pipeline</strong> form to
+delegate at the intent-matching stage (e.g. as a late, catch-all matcher).</p>
 <hr />
 <h2 id="deployment-patterns">Deployment patterns<a class="headerlink" href="#deployment-patterns" title="Permanent link">&para;</a></h2>
 <p>HiveMind and the <a href="../persona-server/">persona-server</a> cover different trust boundaries:</p>
