@@ -85,9 +85,10 @@ pipeline. They expose the same high/medium/low confidence tiers as Adapt/Padatio
 
 | Plugin | Description |
 |---|---|
-| [`nebulento`](https://github.com/OpenVoiceOS/nebulento) | Fuzzy / typo-tolerant template matcher (rapidfuzz); no training step. Listens on the same `padatious:register_intent` bus events, plus a hierarchical variant. |
-| [`palavreado`](https://github.com/OpenVoiceOS/palavreado) | Dead-simple keyword matcher; an Adapt drop-in that responds to the same `register_vocab`/`register_intent` events (zero-change skill swap). |
-| [`ovos-hierarchical-knn-pipeline`](https://github.com/OpenVoiceOS/ovos-hierarchical-knn-pipeline) | Embedding-based two-stage k-NN matcher (Granite embeddings + FAISS); a heavier alternative to [Model2Vec](m2v-pipeline.md) (~320 MB RAM, AVX2, 11 languages). |
+| [Padacioso](padacioso.md) | Literal template matcher (simplematch); no training. A pure-Python sibling of [Padatious](padatious-pipeline.md). |
+| [Nebulento](nebulento.md) | Fuzzy / typo-tolerant template matcher (rapidfuzz); no training step. Listens on the same `padatious:register_intent` bus events, plus a hierarchical variant. |
+| [Palavreado](palavreado.md) | Dead-simple keyword matcher; an [Adapt](adapt-pipeline.md) drop-in that responds to the same `register_vocab`/`register_intent` events (zero-change skill swap). |
+| [Hierarchical KNN](knn-pipeline.md) | Embedding-based two-stage k-NN matcher (Granite embeddings + FAISS); a heavier semantic alternative to [Model2Vec](m2v-pipeline.md) (~560 MB footprint, AVX2, 11 languages). |
 
 ---
 

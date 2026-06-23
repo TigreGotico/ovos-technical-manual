@@ -57,8 +57,8 @@ There are **83** archived repositories. They are grouped by area below; each row
 | [ovos-tts-plugin-cotovia-remote](https://github.com/OpenVoiceOS/ovos-tts-plugin-cotovia-remote) | — | Removed — unofficial demo server, now gone; no replacement |
 | [ovos-tts-plugin-matxa-multispeaker-cat](https://github.com/OpenVoiceOS/ovos-tts-plugin-matxa-multispeaker-cat) | — | [phoonnx](https://github.com/TigreGotico/phoonnx) — runs the same Matxa Catalan models |
 | [ovos-tts-plugin-mimic2](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic2) | — | Removed — proprietary cloud-hosted Tacotron model, never released. The `kusal` voice in [phoonnx](https://github.com/TigreGotico/phoonnx) was trained on the same dataset and can be used instead. |
-| [ovos-tts-plugin-mimic3](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3) | Text to speech plugin for OVOS using Mimic 3 | Removed — Mimic3 is abandoned upstream; obsolete, no replacement |
-| [ovos-tts-plugin-mimic3-server](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3-server) | — | Removed — modeled the now-dead Mycroft Mimic3 server API; obsolete, no replacement |
+| [ovos-tts-plugin-mimic3](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3) | Text to speech plugin for OVOS using Mimic 3 | [phoonnx](https://github.com/TigreGotico/phoonnx) — directly supports the Mimic3 voices (as it does Larynx and Piper voices) |
+| [ovos-tts-plugin-mimic3-server](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3-server) | — | The Mimic3 server API is gone, but [phoonnx](https://github.com/TigreGotico/phoonnx) runs the Mimic3 voices directly |
 | [ovos-tts-plugin-nos](https://github.com/OpenVoiceOS/ovos-tts-plugin-nos) | Galician TTS | [phoonnx](https://github.com/TigreGotico/phoonnx) — runs the Proxecto Nós Galician voices |
 | [ovos-tts-plugin-piper](https://github.com/OpenVoiceOS/ovos-tts-plugin-piper) | — | [phoonnx](https://github.com/TigreGotico/phoonnx) — runs Piper ONNX voices (incl. the `kusal` voice) |
 

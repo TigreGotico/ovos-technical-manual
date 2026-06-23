@@ -116,12 +116,17 @@ nav:
           - Adapt: adapt-pipeline.md
           - Padatious: padatious-pipeline.md
           - Model2Vec: m2v-pipeline.md
+          - Hierarchical KNN: knn-pipeline.md
           - Converse: converse-pipeline.md
           - Common Query: cq-pipeline.md
           - Persona: persona-pipeline.md
           - Stop: stop-pipeline.md
           - OCP: ocp-pipeline.md
           - Fallback: fallback-pipeline.md
+      - Alternative Parsers:
+          - Padacioso (literal): padacioso.md
+          - Nebulento (fuzzy): nebulento.md
+          - Palavreado (keyword): palavreado.md
       - Logic & Concepts:
           - Prompts: prompts.md
           - Context: context.md
@@ -146,7 +151,6 @@ nav:
           - Dates & Time: date-parser.md
           - Colors: color-parser.md
           - Quebra Frases: quebra-frases.md
-          - Padacioso: padacioso.md
   - Skill Development:
       - Guides:
           - Your First Skill: first-skill.md
