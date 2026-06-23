@@ -71,7 +71,11 @@ from ovos_plugin_manager.templates.tts import TTS
 
 class MyTTSPlugin(TTS):
     def __init__(self, *args, **kwargs):
-        # Specify output format and supported SSML tags
+        # Output format, and the SSML tags this engine GENUINELY handles.
+        # Most engines support none — if so, omit ssml_tags (it defaults to
+        # empty) and OVOS strips all SSML before get_tts() runs. Only list a
+        # tag here if your engine actually understands it; listed tags are
+        # passed through to get_tts() (optionally rewritten via modify_tag()).
         ssml_tags = ["speak", "s", "w", "voice", "prosody",
                      "say-as", "break", "sub", "phoneme"]
         super().__init__(*args, **kwargs, audio_ext="wav", ssml_tags=ssml_tags)
