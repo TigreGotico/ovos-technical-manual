@@ -145,3 +145,7 @@ Optional file for homescreen integration. Placed at `locale/<lang>/skill.json`:
 ```
 
 These examples are emitted to the homescreen as `homescreen.register.examples` on skill startup.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

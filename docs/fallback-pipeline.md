@@ -168,3 +168,7 @@ Just like with converse, a badly designed or malicious skill can hijack the fall
 
 
 - [Skill Classes](skill-classes.md) — `FallbackSkill` base class
+
+---
+
+*Source code: [OpenVoiceOS/ovos-core](https://github.com/OpenVoiceOS/ovos-core).*

@@ -406,3 +406,7 @@ print(lang)  # "en"
 
 
 - [GGUF Plugin](gguf-plugin.md) — fully offline local alternative
+
+---
+
+*Source code: [OpenVoiceOS/ovos-openai-plugin](https://github.com/OpenVoiceOS/ovos-openai-plugin).*

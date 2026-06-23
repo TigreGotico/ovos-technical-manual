@@ -286,3 +286,7 @@ Requires GUI and internet to load. Will stay loaded if internet is lost (e.g., t
 
 
 - Consider defining graceful fallbacks to avoid unnecessary unloading.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-utils](https://github.com/OpenVoiceOS/ovos-utils).*

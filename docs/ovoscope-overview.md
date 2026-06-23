@@ -100,3 +100,7 @@ state — populate `expected_messages` and call `test.execute()` directly. See t
 
 
 *   **[MiniCroft API](ovoscope-minicroft.md)** — Full reference for the in-process core.
+
+---
+
+*Source code: [OpenVoiceOS/ovoscope](https://github.com/OpenVoiceOS/ovoscope).*

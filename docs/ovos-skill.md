@@ -411,3 +411,7 @@ class MyClientSkill(OVOSSkill):
 
 
 - [Bus Client](bus-client-overview.md) — `MessageBusClient` used internally by `SkillApi`
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

@@ -156,3 +156,7 @@ Return all configured log directories across all services.
 ## `get_available_logs(directories) → List[str]`
 
 Return a list of log file basenames (e.g. `["audio", "skills", "bus"]`) found in the configured log directories.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-utils](https://github.com/OpenVoiceOS/ovos-utils).*

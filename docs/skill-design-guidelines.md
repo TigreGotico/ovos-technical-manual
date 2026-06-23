@@ -294,3 +294,7 @@ Inevitably, the user will say something that your skill can’t handle. It’s b
 | **User**    | _5 minutes_             |
 
 In the first example OVOS does not give the user any options to finish the job they set out to do. Try to avoid situations where the user has to start the conversation over.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

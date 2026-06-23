@@ -162,3 +162,7 @@ def assert_ocp_query_response(
 The `min_results`/`expected_media`/`media_type` block only runs when `min_results > 0`
 or `expected_media` is given, so calling with no media arguments is a no-op for those
 checks.
+
+---
+
+*Source code: [OpenVoiceOS/ovoscope](https://github.com/OpenVoiceOS/ovoscope).*

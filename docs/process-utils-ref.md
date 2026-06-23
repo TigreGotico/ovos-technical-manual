@@ -145,3 +145,7 @@ Chainable POSIX signal handler. Each instance installs a user function as the ne
 ## `reset_sigint_handler()`
 
 Reset `SIGINT` to the default Python handler. Needed when starting OVOS services from shell scripts that have modified the signal mask.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-utils](https://github.com/OpenVoiceOS/ovos-utils).*

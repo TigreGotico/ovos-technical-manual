@@ -324,3 +324,7 @@ The release workflow gates alpha publishing on test success — a failing test b
 
 
 - Core examples: `ovos-core/test/end2end/`
+
+---
+
+*Source code: [OpenVoiceOS/ovoscope](https://github.com/OpenVoiceOS/ovoscope).*

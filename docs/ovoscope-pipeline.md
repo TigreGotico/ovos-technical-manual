@@ -213,3 +213,7 @@ class TestM2V(unittest.TestCase):
 `mycroft.skill.handler.start` (failure) before emitting the utterance,
 then waits on a `threading.Event` with the given timeout.  Bus handlers are
 removed after the wait completes to avoid cross-test leakage.
+
+---
+
+*Source code: [OpenVoiceOS/ovoscope](https://github.com/OpenVoiceOS/ovoscope).*

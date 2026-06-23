@@ -276,3 +276,7 @@ Protections include:
 
 
 - [Bus Session](session.md) — `Session.active_skills`, `activate_skill()`, `deactivate_skill()`
+
+---
+
+*Source code: [OpenVoiceOS/ovos-core](https://github.com/OpenVoiceOS/ovos-core).*

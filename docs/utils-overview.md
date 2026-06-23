@@ -74,3 +74,7 @@ pip install ovos-utils
 
 
 - [Utilities](utilities.md) — file, network, sound, threading, XDG helpers
+
+---
+
+*Source code: [OpenVoiceOS/ovos-utils](https://github.com/OpenVoiceOS/ovos-utils).*

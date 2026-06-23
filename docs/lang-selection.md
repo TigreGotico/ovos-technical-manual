@@ -76,3 +76,7 @@ If `multilingual_matching` is enabled under the `"intents"` section of `mycroft.
 ```
 
 This allows seamless switching between languages without manual reconfiguration, at the cost of extra matching work per failed utterance.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-core](https://github.com/OpenVoiceOS/ovos-core).*

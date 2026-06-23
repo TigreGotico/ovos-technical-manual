@@ -264,3 +264,7 @@ docker run -p 9686:9686 my-translate-server
 - `ovos-translate-server-plugin` — companion client plugin that points an OVOS device at this server
 - `ovos-translate-plugin-nllb` — example translation plugin (Meta NLLB model)
 - `ovos-lang-detector-classics-plugin` — example detection plugin (ensemble of classical methods)
+
+---
+
+*Source code: [OpenVoiceOS/ovos-translate-server](https://github.com/OpenVoiceOS/ovos-translate-server).*

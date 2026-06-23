@@ -275,3 +275,7 @@ from ovoscope.pydantic_helpers import to_bus_message  # ImportError only on call
 | Native pydantic in `End2EndTest` | Seamless API (no `to_bus_message` call) | 💡 Future: `__post_init__` auto-conversion |
 | Schema validation in assertions | Catch malformed skill messages | 💡 Future: `validate_schemas=True` flag |
 Install the extras to use the implemented patterns: `pip install ovoscope[pydantic]`
+
+---
+
+*Source code: [OpenVoiceOS/ovoscope](https://github.com/OpenVoiceOS/ovoscope).*

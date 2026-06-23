@@ -561,3 +561,7 @@ All decorators are importable from `ovos_workshop.decorators`:
 
 
 - [Bus Session](session.md) — session state available to skills
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

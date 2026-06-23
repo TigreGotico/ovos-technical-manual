@@ -103,3 +103,7 @@ The paths above are all affected by:
 | `OVOS_CONFIG_FILENAME` | Replaces `"mycroft.conf"` as the config filename |
 
 See [meta.md](config.md) for the full env var API.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-config](https://github.com/OpenVoiceOS/ovos-config).*

@@ -309,3 +309,7 @@ Register the class under the `opm.agents.memory` entry-point group in your packa
 - [Personas](personas.md)
 - [Agent Tool Plugins](tool-plugins.md)
 - [Agent Interoperability](agent-interop.md)
+
+---
+
+*Source code: [OpenVoiceOS/ovos-memory-plugins](https://github.com/OpenVoiceOS/ovos-memory-plugins).*

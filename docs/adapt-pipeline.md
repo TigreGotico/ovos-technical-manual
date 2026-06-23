@@ -117,3 +117,7 @@ Avoid using Adapt for public-facing or general-purpose assistant skills. Modern 
 **Vocabulary files.** Skills supply keyword lists as `.voc` files (one phrase per line, with `(a|b)` alternatives and `[optional]` words expanded at registration), and regular-expression entities as `.rx` files using Python named groups, e.g. `(?P<Location>.+)`. Registration flows over the bus via `register_vocab` and `register_intent`.
 
 **Gotcha — collisions are silent.** Two skills that require overlapping vocabulary can shadow each other; the higher-scoring match wins with no warning. Make each skill's required keywords as specific as possible, and prefer the domain/hierarchical entry points when running many skills together.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-adapt-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-adapt-pipeline-plugin).*

@@ -67,3 +67,7 @@ If your skill has a GUI, test it on both horizontal and vertical screens. Use [K
 
 ### Sync Visuals with Speech
 When using `self.gui.show_page()`, try to synchronize the visual information with the spoken response. Don't overwhelm the user with too much text on the screen while the assistant is speaking.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

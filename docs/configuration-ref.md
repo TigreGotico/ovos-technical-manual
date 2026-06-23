@@ -139,3 +139,7 @@ bus = client_from_config(subconf="core", file_path="/etc/mycroft/bus.conf")
 ## Environment / Remote Config
 
 Since connection parameters come from `ovos-config`, they inherit its full config stack: XDG user config overrides system defaults, and remote config can be pushed via `mycroft.skills.settings.changed`. See `ovos-config` documentation for the full config resolution order.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-bus-client](https://github.com/OpenVoiceOS/ovos-bus-client).*

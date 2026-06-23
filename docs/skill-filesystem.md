@@ -209,3 +209,7 @@ if not fs.exists("config.json"):
 
 
 - [Configuration](config.md) — XDG path helpers used internally
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

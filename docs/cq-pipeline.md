@@ -115,3 +115,7 @@ self-reported confidences.
   nothing immediately.
 * Skills using the old CommonQuery base class still work but log a deprecation
   warning and are matched as plain `question:action`.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-common-query-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin).*

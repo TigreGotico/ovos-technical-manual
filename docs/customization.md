@@ -227,3 +227,7 @@ These examples are emitted to the homescreen as `homescreen.register.examples` o
 
 
 - [Skill Classes](skill-classes.md) — `OVOSSkill` properties (`resources`, `lang`, `find_resource`)
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

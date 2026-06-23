@@ -101,3 +101,7 @@ from ovos_bus_client.apis.events import EventSchedulerInterface
 | `shutdown()` | Cancel repeating events and clear all registered handlers |
 
 `when` may be a `datetime`, or a positive `int`/`float` representing seconds from now.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-utils](https://github.com/OpenVoiceOS/ovos-utils).*

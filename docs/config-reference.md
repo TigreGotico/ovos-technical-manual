@@ -122,3 +122,7 @@ The `intents.pipeline` defines the order in which matchers are evaluated.
 | `host` | `"127.0.0.1"` | Host for the core MessageBus. |
 | `port` | `8181` | Port for the core MessageBus. |
 | `shared_connection`| `true` | If true, all skills share one websocket. |
+
+---
+
+*Source code: [OpenVoiceOS/ovos-config](https://github.com/OpenVoiceOS/ovos-config).*

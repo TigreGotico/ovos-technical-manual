@@ -174,3 +174,7 @@ On startup, MiniCroft captures all messages emitted during skill loading into `b
 
 4. `mycroft.ready` — all core services ready
 Skills that participate in `converse` or `fallback` registration also emit messages during boot (e.g. `ovos.skills.fallback.register`).
+
+---
+
+*Source code: [OpenVoiceOS/ovoscope](https://github.com/OpenVoiceOS/ovoscope).*

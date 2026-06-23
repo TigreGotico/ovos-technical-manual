@@ -145,3 +145,7 @@ entry-point ID), the section ovos-core passes to the plugin when loading it.
 pipeline matcher that routes to deprecated Mycroft CPS skills; `legacy: true` forces
 OCP to drive playback through the classic audio service API instead of OCP itself.
 Leave both off unless you specifically need to support pre-OCP skills.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-ocp-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-ocp-pipeline-plugin).*

@@ -189,3 +189,7 @@ templates = self.resources.load_template_file("greeting")
 ```
 
 > The legacy `self.translate()`, `self.translate_list()`, `self.translate_namedvalue()` and `self.translate_template()` helper methods have been **removed** from `OVOSSkill`. Use the `self.resources.*` loaders shown above instead.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

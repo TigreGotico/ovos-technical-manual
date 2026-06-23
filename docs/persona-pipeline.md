@@ -310,3 +310,6 @@ Releasing a persona (via the `Release.voc` keyword match) ends the active sessio
 
 ---
 
+---
+
+*Source code: [OpenVoiceOS/ovos-persona](https://github.com/OpenVoiceOS/ovos-persona).*

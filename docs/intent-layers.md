@@ -259,3 +259,7 @@ These functions directly modify `mycroft.conf` and take effect on the next skill
 
 
 - [ovos-core](core.md) — skill manager configuration and pipeline stages
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

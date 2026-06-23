@@ -497,3 +497,7 @@ python -m http.server 8080 --directory docs
 
 
 - [Skill Classes](skill-classes.md) — skill base classes that emit/handle these messages
+
+---
+
+*Source code: [OpenVoiceOS/ovos-pydantic-models](https://github.com/OpenVoiceOS/ovos-pydantic-models).*

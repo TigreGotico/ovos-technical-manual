@@ -139,3 +139,7 @@ OVOS-MSG-1 defines `forward` / `reply` / `response` as the three normative messa
 ## `dig_for_message()`
 
 Tries to import and call `ovos_bus_client.message.dig_for_message`. Returns `None` if `ovos-bus-client` is not installed.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-utils](https://github.com/OpenVoiceOS/ovos-utils).*

@@ -87,3 +87,7 @@ You can customize which parts of `ovos-core` start by using flags in the CLI or 
 | `enable_file_watcher` | Skill settings file watcher |
 
 CLI equivalents are the `--disable-*` forms: `--disable-intent-service`, `--disable-installer`, `--disable-file-watcher`, etc.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-core](https://github.com/OpenVoiceOS/ovos-core).*

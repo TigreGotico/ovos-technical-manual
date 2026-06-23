@@ -152,3 +152,7 @@ See also:
 - [Number Parser](number-parser.md)
 - [Date Parser](date-parser.md)
 - [Color Parser](color-parser.md)
+
+---
+
+*Source code: [OpenVoiceOS/ovos-lang-parser](https://github.com/OpenVoiceOS/ovos-lang-parser).*

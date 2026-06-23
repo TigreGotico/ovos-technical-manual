@@ -133,3 +133,7 @@ before intent matching. The dialog transformer rewrites skill responses (priorit
 
 
 - [GGUF Plugin](gguf-plugin.md) — local GGUF transformer configuration reference
+
+---
+
+*Source code: [OpenVoiceOS/ovos-core](https://github.com/OpenVoiceOS/ovos-core).*

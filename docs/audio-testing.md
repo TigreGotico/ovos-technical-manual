@@ -265,3 +265,7 @@ Default `track_prefixes` captures: `"mycroft.audio."`,
 
 
 - End-to-end tests — `ovos-audio/test/end2end/`
+
+---
+
+*Source code: [OpenVoiceOS/ovoscope](https://github.com/OpenVoiceOS/ovoscope).*

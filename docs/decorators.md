@@ -521,3 +521,7 @@ def handle_confirm(self, message):
 # Context is added AFTER handle_confirm() returns.
 
 ```
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

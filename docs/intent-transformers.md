@@ -147,3 +147,6 @@ my-transformer = "my_module:MyCustomTransformer"
 
 Unlike utterance transformers, intent transformers get the message bus attached (`bind(bus)`) when loaded, so `self.bus` is available inside `transform()`.
 
+---
+
+*Source code: [OpenVoiceOS/ovos-core](https://github.com/OpenVoiceOS/ovos-core).*

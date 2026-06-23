@@ -231,3 +231,7 @@ This file contains metadata used by the OVOS Skill Store and installer.
 }
 
 ```
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

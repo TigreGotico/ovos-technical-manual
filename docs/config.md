@@ -444,3 +444,7 @@ entry_points={
 }
 
 ```
+
+---
+
+*Source code: [OpenVoiceOS/ovos-config](https://github.com/OpenVoiceOS/ovos-config).*

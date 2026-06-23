@@ -152,3 +152,7 @@ emits `trigger_message`, then asserts each `expected_types` entry was emitted wi
 | `plugin_factories` | `Dict[str, Callable[[FakeBus], Any]]` | `{}` | `(bus) -> plugin` factories keyed by `plugin_id`; built against the harness bus. Use this when the plugin must be constructed with the harness bus. |
 | `config` | `Dict[str, Dict]` | `{}` | Per-plugin config. |
 | `timeout` | `float` | `5.0` | Per-expectation wait timeout in seconds. |
+
+---
+
+*Source code: [OpenVoiceOS/ovoscope](https://github.com/OpenVoiceOS/ovoscope).*

@@ -253,17 +253,6 @@ Provided by any installed `opm.agents.chat.multimodal` plugin.
 
 ---
 
-## RAG Solver — upcoming
-
-!!! warning "Upcoming — work in progress"
-    [`ovos-rag-solver`](https://github.com/OpenVoiceOS/ovos-rag-solver) is an in-progress
-    retrieval-augmented [solver](agent-plugins.md) (entry point `ovos-chromadb-rag-solver-plugin`,
-    class `ChromadbRAG`) that wraps a chat solver with a ChromaDB document store, so answers are
-    grounded in your own documents. It is early-access (HiveMind insiders) and not yet generally
-    released. For released memory/RAG, see [Persona Memory](persona-memory.md).
-
----
-
 ## Deprecated [Solver](agent-plugins.md) Types
 
 The legacy `opm.solver.*` entry points are deprecated and will be removed in the next major
