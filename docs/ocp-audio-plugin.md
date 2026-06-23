@@ -53,8 +53,16 @@ and MPRIS.
 Since OVOS became its own project that monolith has been **split apart, repo by repo, and
 properly integrated** into OVOS: intent matching moved to the [OCP pipeline](ocp-pipeline.md),
 stream resolution to [stream-extractor plugins](ocp-plugins.md), shared types to `ovos-utils`,
-and so on. [`ovos-media`](ovos-media.md) is the **final step** — it gives the player itself a
-proper home as a standalone service instead of riding inside the TTS-playback service.
+and so on. [`ovos-media`](ovos-media.md) is the **final step** — it gives the media player itself
+a proper home as a standalone service instead of masquerading as an audio backend inside
+[`ovos-audio`](audio-service.md).
+
+!!! note "This is *media* playback, not TTS/sound playback"
+    The OCP audio plugin (and the `ovos-media` daemon that replaces it) handles **media**
+    playback only — music, podcasts, video, streams. The spoken-response and sound-effect
+    playback queue inside [`ovos-audio`](audio-service.md) is a **separate subsystem** that is
+    unaffected: turning OCP off (or switching to `ovos-media`) does not change how TTS or
+    notification sounds are played.
 
 ---
 

@@ -71,7 +71,7 @@ can launch it directly — useful for debugging or minimal/headless setups.
 | `ovos-core` | The skills service ([ovos-core](core.md)) | `ovos-core` |
 | `ovos-messagebus` | The [MessageBus](bus-service.md) server | `ovos-messagebus` |
 | `ovos-dinkum-listener` | The [speech/listener service](speech-service.md) | `ovos-dinkum-listener` |
-| `ovos-audio` | The [audio service](audio-service.md) (TTS + media playback) | `ovos-audio` |
+| `ovos-audio` | The [audio service](audio-service.md) — TTS & sound playback (and the legacy media audioservice) | `ovos-audio` |
 | `ovos-gui-service` | The [GUI service](gui-service.md) | `ovos-gui` |
 | `ovos-gui-debug-tui` | A terminal viewer for GUI state, for debugging | `ovos-gui` |
 | `ovos-intent-service` | The [intent service](intent-service.md), run standalone | `ovos-core` |

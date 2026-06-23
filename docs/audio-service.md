@@ -7,11 +7,21 @@
 
 **In plain terms:** when a skill says "tell the user X", that `speak` message lands here. `ovos-audio` turns the text into sound with a TTS plugin and plays it, ducking any background music while it talks.
 
-!!! info "TTS is current; the built-in *media* playback is the legacy path"
-    The **TTS / speech** side of `ovos-audio` (described here) is fully current. Its bundled
-    **media-playback** path — the [old audio service](media-plugins.md#ovos-ocp-audio-plugin)
-    (`enable_old_audioservice`, on by default) — is **deprecated** and being superseded by the
-    standalone [`ovos-media`](ovos-media.md) daemon. See [Media playback: legacy vs. ovos-media](ovos-media.md).
+!!! info "Two independent subsystems — don't conflate them"
+    `ovos-audio` hosts **two separate things** that are easy to mix up:
+
+    1. **The TTS / sound playback queue** (described on this page) — a single playback queue
+       (`TTS.queue`, drained by one `PlaybackThread`) that plays **spoken responses *and* sound
+       effects** (beeps, notification sounds). This is the core job of `ovos-audio`, is **always
+       on**, and has **nothing to do** with the media audioservice or `ovos-media`.
+    2. **The legacy media audioservice** — an *optional* subsystem (`AudioService`, gated by
+       `enable_old_audioservice`, on by default) that plays music/news/streams through
+       [audioservice backends](media-plugins.md#ovos-ocp-audio-plugin) such as
+       [OCP](ocp-audio-plugin.md). This is the **deprecated** part, being superseded by the
+       standalone [`ovos-media`](ovos-media.md) daemon.
+
+    Switching media playback to `ovos-media` (`enable_old_audioservice: false`) turns off
+    subsystem 2 only — TTS and sound playback (subsystem 1) keep working exactly as before.
 
 ---
 
@@ -30,28 +40,34 @@
 
 ## Overview
 
-The audio service receives `speak` messages from the [MessageBus](bus-service.md), sends them to a [TTS](tts-plugins.md) engine, and plays the resulting audio. It also manages a "media" pipeline for playing music, news, and other streams.
+The audio service receives `speak` messages from the [MessageBus](bus-service.md), sends them to a [TTS](tts-plugins.md) engine, and plays the resulting audio through its playback queue. The same queue also plays sound effects (`mycroft.audio.queue` / `mycroft.audio.play_sound`). Separately, and only when `enable_old_audioservice` is on, it *also* hosts the legacy media audioservice for music/news/streams — see the **Two independent subsystems** note at the top of this page.
 
 ### Key Responsibilities
 
 - **[TTS](tts-plugins.md) Synthesis**: Converts text to speech using various plugins.
 
 
-- **Playback Management**: Handles multiple audio streams and ensures smooth transitions.
+- **Speech & Sound Playback**: A single queue (`TTS.queue`, one `PlaybackThread`) plays spoken responses and sound effects in order.
 
 
-- **Audio Focus**: Prioritizes speech over music or other background sounds.
+- **Audio Focus**: Prioritizes speech over music or other background sounds (ducking).
 
 
 - **Viseme Generation**: Provides lip-sync data for [GUI](qt5-gui.md) animations.
 
+
+- **Legacy media playback** *(optional, `enable_old_audioservice`)*: routes music/stream URIs to an audioservice backend — the deprecated path replaced by [ovos-media](ovos-media.md).
+
 ## Architecture
 
 ```
-[MessageBus] --(speak)--> [PlaybackService] --(synthesis)--> [TTS Plugin]
-                               |
-                               +--(playback)--> [PlaybackThread] --(ALSA/Pulse)--> [Speakers]
+Subsystem 1 — TTS / sound playback (always on):
+  [MessageBus] --(speak)------> [PlaybackService] --(synthesis)--> [TTS Plugin]
+               --(play_sound)--->      |
+                                       +--> [TTS.queue] --> [PlaybackThread] --(ALSA/Pulse)--> [Speakers]
 
+Subsystem 2 — legacy media audioservice (only if enable_old_audioservice):
+  [MessageBus] --(mycroft.audio.service.play)--> [AudioService] --> [audioservice backend: OCP / mpv / vlc]
 ```
 
 ## Configuration
