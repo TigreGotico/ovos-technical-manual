@@ -1,5 +1,8 @@
 # Customizing Language Resources
 
+!!! abstract "In a nutshell"
+    Every skill ships small text files that say what phrases to listen for and what to say back. This page shows how to swap in your own versions of those files — to reword a reply, fix wording for your accent or dialect, or add a language a skill doesn't include — all without editing the skill's actual code. You drop your edited copy into a personal folder, and OVOS loads yours instead, falling back to the skill's original for anything you didn't change. See [Language Support](lang-support.md) for the bigger picture, or the [Glossary](glossary.md) for terms.
+
 OpenVoiceOS lets you override or extend a skill's **locale resources** — the plain-text files that tell the assistant what to listen for and what to say — without touching the skill's source code. This is how you localize responses, fix intent matching for your accent, reword a reply, or add a language a skill doesn't ship.
 
 **New here?** A skill ships small text files grouped by language. You can drop your own copy of any one of those files into a user folder, and OVOS will load yours instead of the skill's. You only override the files you care about; everything else falls back to the skill.

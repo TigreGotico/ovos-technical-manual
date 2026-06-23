@@ -1,4 +1,8 @@
 # MiniCroft
+
+!!! abstract "In a nutshell"
+    To check that a skill behaves correctly, you would normally need to run the whole assistant — microphone, speakers, network and all. `MiniCroft` is a stripped-down stand-in: a tiny, self-contained version of OVOS that loads just the skills you care about and pretends to be the real thing, so automated tests can talk to it and check the answers. It is the test-bench that powers OvoScope, the OVOS skill-testing tool. This is a developer page; see the [Glossary](glossary.md) for unfamiliar terms.
+
 `MiniCroft` is a minimal, in-process OVOS Core that loads real skill plugins and runs the full intent pipeline on a `FakeBus`. It is the execution engine behind every OvoScope test.
 
 !!! tip "New here? You rarely build `MiniCroft` directly"

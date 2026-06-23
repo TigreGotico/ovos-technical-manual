@@ -1,5 +1,8 @@
 # Mycroft Mark 1 Hardware
 
+!!! abstract "In a nutshell"
+    The **Mark 1** was the original Mycroft smart speaker, recognizable by its little face: a grid of LEDs that forms a scrolling "mouth" and two colored "eyes". This developer page explains how OVOS lets skills control that faceplate — showing text or images on the mouth, and changing the eyes' color, blinking, and animations. It covers both a simple high-level interface and a lower-level library for fine-grained, pixel-by-pixel effects. See the [Glossary](glossary.md) for unfamiliar terms.
+
 The **Mycroft Mark 1** was the first official hardware for Mycroft AI. It features a distinctive faceplate with a 32x8 LED "mouth" and two RGB LED "eyes". OpenVoiceOS provides full support for the Mark 1 hardware, including both a high-level `EnclosureAPI` for common tasks and a low-level `ovos-mark1-utils` library for fine-grained control.
 
 ---

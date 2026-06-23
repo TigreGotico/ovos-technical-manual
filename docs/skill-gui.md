@@ -1,5 +1,8 @@
 # GUI Skills (GUIInterface)
 
+!!! abstract "In a nutshell"
+    When an OVOS device has a screen, a skill can show things on it — text, images, a page of results — not just speak. This page describes the small Python toolkit a skill author uses to push data to the screen and ask for a page to be displayed. It is a developer topic, and the screen system is being rebuilt (see [GUI Adapters](gui-adapters.md)), so voice should stay the main way you interact while the screen support is treated as a bonus. See the [Glossary](glossary.md) for terms.
+
 !!! danger "The OVOS GUI is deprecated — assume it is not usable today"
     The current **"legacy" OVOS GUI** stack is **deprecated** and should be treated as
     **broken**: **there is no generally usable OVOS GUI right now**. A ground-up replacement

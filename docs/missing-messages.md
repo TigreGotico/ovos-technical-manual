@@ -1,5 +1,8 @@
 # Intentionally Excluded Messages
 
+!!! abstract "In a nutshell"
+    OVOS components talk to each other by sending little "messages" over an internal channel called the [message bus](bus-service.md). Most of those messages are documented as a shared, reusable protocol — but some are deliberately left out, because they belong to a single plugin, a separate project, or are otherwise not part of the common OVOS vocabulary. This page is a reference list of those intentionally-excluded messages and why each one is skipped. It's mainly useful to developers auditing bus coverage; most users won't need it. See the [Glossary](glossary.md) for terms.
+
 Messages found in the workspace scan that are **not modeled** and will not be — either because they are plugin-private, project-specific, or not part of the reusable OVOS bus protocol.
 
 Run `python tools/scan_for_messages.py --unmodeled-only` to verify coverage.

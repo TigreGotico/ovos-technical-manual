@@ -1,5 +1,8 @@
 # Fallback [Skill](skill-design-guidelines.md)
 
+!!! abstract "In a nutshell"
+    A fallback skill is a catch-all that only gets a turn when no regular skill understood what you said. It is where you put things like "sorry, I didn't catch that", a web search, or a large language model that should answer only when nothing more specific did. Each fallback has a priority number so you can decide which ones try first, with broad "I don't understand" handlers going last. To see how this fits into the bigger picture, read the [Fallback Pipeline](fallback-pipeline.md), or the [Glossary](glossary.md) for terms.
+
 A **Fallback** skill is the last line of defense: it is only consulted when no intent matched the utterance. This is where you put a catch-all ("I didn't understand"), an LLM, a web search, or any handler that should run *only* when nothing more specific did.
 
 ## Order of precedence

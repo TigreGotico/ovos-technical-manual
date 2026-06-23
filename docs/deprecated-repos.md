@@ -1,5 +1,8 @@
 # Deprecated & Archived Repositories
 
+!!! abstract "In a nutshell"
+    This page is a reference list of old OVOS code projects that are no longer maintained, together with what replaced each one. It exists so that if you run into an old package name or an out-of-date guide online, you can look it up here, see that it has been retired, and find the current thing to use instead. You do not need to read it top to bottom — treat it as a lookup table. See the [Glossary](glossary.md) for terms.
+
 !!! warning "These repositories are archived"
     The repositories below are **archived** in the [OpenVoiceOS GitHub organization](https://github.com/OpenVoiceOS) — they are read-only and no longer maintained. They are listed here so you can recognise them and find the current replacement. Do **not** start new work against them.
 

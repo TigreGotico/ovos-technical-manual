@@ -1,5 +1,8 @@
 # OVOS Release Channels & Installation Options
 
+!!! abstract "In a nutshell"
+    OVOS is built from many small swappable pieces, and this page explains the different ways to install them and how to pick how cutting-edge (or how rock-stable) your version is. A "release channel" is like choosing between a tested, stable edition or an early-preview edition that has the newest features but more rough edges. Most people should ignore the details and just use the guided [`ovos-installer`](ovos-installer.md); the manual steps here are for tinkerers who want precise control. See the [Glossary](glossary.md) for terms.
+
 !!! tip "Just want it working? Use the installer."
     Most people should install OVOS with the **[`ovos-installer`](ovos-installer.md)** — a guided
     wizard that handles everything. The manual `pip` commands and version-pinning below are for

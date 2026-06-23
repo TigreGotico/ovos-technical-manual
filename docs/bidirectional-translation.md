@@ -1,5 +1,8 @@
 # Bidirectional Translation
 
+!!! abstract "In a nutshell"
+    Many OVOS skills only "speak" one language, usually English. This plugin acts like a live interpreter sitting between you and the assistant: it translates what you say into the language the skills understand, and then translates the assistant's reply back into your language before it is spoken aloud. So you can ask a question in Spanish, have an English-only skill answer it, and still hear the response in Spanish. See [Translation Plugins](translation-plugins.md) or the [Glossary](glossary.md) for related terms.
+
 The **Bidirectional Translation Plugin** (`ovos-bidirectional-translation-plugin`) is a powerful tool that allows OpenVoiceOS to interact in **any language**, even if the installed skills are only available in a single primary language (like English).
 
 It works by translating user utterances into the system's native language before intent matching, and then translating the system's spoken responses back into the user's original language.

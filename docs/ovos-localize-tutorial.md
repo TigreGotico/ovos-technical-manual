@@ -1,5 +1,8 @@
 # Contribute Translations with OVOS Localize
 
+!!! abstract "In a nutshell"
+    OVOS only speaks the languages that volunteers have translated it into — and you can be one of them without writing any code. OVOS Localize is a website where you translate the short phrases the assistant says and listens for, right in your browser. If you can use a translation app, you can help OVOS understand and speak your language. See the [Glossary](glossary.md) for unfamiliar terms.
+
 Want OVOS to speak your language? You don't need to be a programmer to help. **OVOS
 Localize** is a web app where you translate the phrases OVOS says and understands,
 right in your browser — no code, no setup, no command line.

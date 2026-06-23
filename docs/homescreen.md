@@ -1,5 +1,8 @@
 # OpenVoiceOS Home Screen
 
+!!! abstract "In a nutshell"
+    The home screen (or "resting screen") is what a device with a display shows when it is just sitting idle — typically the clock, date, weather, and small widgets, much like a smart speaker's standby face. When nothing else is being shown, OVOS falls back to this screen. Note that this page covers the **legacy** screen stack, which is deprecated today and mainly relevant to **Mark 2** devices; in the upcoming rework the home screen becomes a job for the display backend rather than a skill. See the [Glossary](glossary.md) for terms.
+
 !!! danger "The OVOS GUI is deprecated — assume it is not usable today"
     The home screen is part of the **legacy** OVOS GUI stack, which is **deprecated** and
     should be treated as **broken**: **there is no generally usable OVOS GUI right now**. A

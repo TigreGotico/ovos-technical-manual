@@ -1,5 +1,8 @@
 # How to Install Open Voice OS with the `ovos-installer`
 
+!!! abstract "In a nutshell"
+    This is the friendly, guided way to get OVOS onto your machine. You run a single command, then a menu-driven wizard walks you through a few choices (your language, where to install, which features you want) and does the rest for you. It works the same on a Raspberry Pi or an everyday Linux laptop, and is the recommended way to install — no programming required. See the [Glossary](glossary.md) for unfamiliar terms.
+
 Welcome to the quick-start guide for installing Open Voice OS (OVOS) using the official `ovos-installer`! This guide is suitable for **Raspberry Pi** and **desktop/server** Linux environments. Whether you’re running this on a headless Raspberry Pi or your everyday laptop, the steps are mostly the same—only the way you connect to the device differs.
 
 > ⚠️ Note: Some “exotic” hardware (like ReSpeaker microphones or certain audio HATs) may require extra configuration. The installer aims for wide compatibility, but specialized setups might need some manual intervention.

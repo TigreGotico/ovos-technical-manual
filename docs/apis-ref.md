@@ -1,5 +1,8 @@
 # High-Level APIs
 
+!!! abstract "In a nutshell"
+    Inside OVOS, the different parts (the screen, the speakers, timers, and so on) talk to each other by passing little messages back and forth. Writing those raw messages by hand is fiddly, so OVOS ships ready-made helper objects that wrap the common chores in plain method calls — for example, "show this on the screen", "play this audio", or "run this in 10 seconds". This page lists those helpers and how skills use them. See the [Glossary](glossary.md) for terms like *bus* and *skill*.
+
 `ovos_bus_client.apis` provides ready-made interfaces for the most common interactions with OVOS services. Skills and applications use these instead of emitting raw bus messages.
 
 ---

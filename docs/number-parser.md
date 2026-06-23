@@ -1,5 +1,8 @@
 # OVOS Number Parser
 
+!!! abstract "In a nutshell"
+    Computers store numbers as digits (`123`), but people say them as words ("one hundred and twenty-three") — and the words differ in every language. This library is the translator between the two: it can read a number out loud for the assistant to speak, or pick a number out of something you said ("set a timer for twenty-five minutes") and turn it back into digits. It also understands fractions and ordinals like "third". See the [Glossary](glossary.md) for unfamiliar terms.
+
 `ovos-number-parser` converts numbers between digits and spoken words across many languages: it speaks a number aloud (`123` → "one hundred and twenty-three"), pulls a number out of free text ("I have twenty apples" → `20`), and detects fractions and ordinals.
 
 **What you get in 30 seconds:**

@@ -1,5 +1,8 @@
 # RaspOVOS: A Beginner's Guide to Setting Up Your Raspberry Pi with OVOS
 
+!!! abstract "In a nutshell"
+    This is a step-by-step guide to turning a Raspberry Pi (a small, inexpensive computer) into a working OVOS voice assistant by flashing a ready-made "RaspOVOS" image onto an SD card or USB drive. It walks you through hardware choices, writing the image, first boot, connecting to Wi-Fi, and the handy commands you'll use afterward. Heads-up: these pre-built images are now **outdated** — for a fresh install the recommended path is the [`ovos-installer`](ovos-installer.md) instead. See the [Glossary](glossary.md) for unfamiliar terms.
+
 !!! warning "Not currently recommended"
     The pre-built **RaspOVOS** images are **outdated** and **not recommended** for new
     installs right now. For a Raspberry Pi (or any Linux device), use the

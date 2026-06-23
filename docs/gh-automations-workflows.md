@@ -1,6 +1,9 @@
 
 # Reusable Workflow Reference
 
+!!! abstract "In a nutshell"
+    This page is the detailed reference for every shared automation recipe ("workflow") that OVOS projects can plug in — one section per recipe, listing all its settings and what each does. It is aimed at maintainers wiring up a project's testing and release machinery, so it reads like a settings catalogue rather than a tutorial. If you just want the big picture of what these automations are for, start with the [gh-automations overview](gh-automations-overview.md); see also the [Glossary](glossary.md).
+
 All reusable workflows are in `.github/workflows/` and are called via:
 
 ```yaml

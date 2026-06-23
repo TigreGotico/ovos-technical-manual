@@ -1,4 +1,8 @@
 # CaptureSession
+
+!!! abstract "In a nutshell"
+    When you test an OVOS skill, you want to send it a fake request and then check everything it said and did in response. `CaptureSession` is the recorder for that: it listens in on a test assistant, captures every internal message that flies by during one interaction, and hands you the list so you can make sure the skill behaved. Most of the time the higher-level test helper drives this for you; you only reach for it directly when you want the raw recording. See the [Glossary](glossary.md) for terms like *message* and *bus*.
+
 `CaptureSession` subscribes to all messages on the `FakeBus` and records them during a single test interaction. It handles synchronous responses (ordered, from the intent pipeline) and asynchronous responses (from external threads, unordered).
 
 !!! tip "When would I use this directly?"

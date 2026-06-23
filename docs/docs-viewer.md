@@ -1,6 +1,9 @@
 
 # `ovos-docs-viewer` — Documentation Index
 
+!!! abstract "In a nutshell"
+    `ovos-docs-viewer` is a little program that lets you read the OVOS documentation right inside your terminal, without opening a web browser. You run `ovos-docs-viewer technical` to open this very manual, then use the arrow keys to browse the pages and press `q` to quit. It downloads the docs the first time and remembers them afterwards, so later visits work even offline. See the [Glossary](glossary.md) for terms.
+
 `ovos-docs-viewer` is a terminal-based documentation browser for OpenVoiceOS. It downloads Markdown documentation from GitHub, then renders it interactively inside the terminal using a [Textual](https://textual.textualize.io/) TUI with a file-tree sidebar and a Markdown viewer panel.
 
 **Minimal use:** `ovos-docs-viewer technical` opens the technical manual in your terminal. Pass one of the documentation keys below as the single argument; the first run downloads and caches the docs, later runs read from the cache. Use the arrow keys to walk the file tree, Enter to open a file, and `q` to quit. It is read-only and needs network access only on first use (and every time for `live-status`).

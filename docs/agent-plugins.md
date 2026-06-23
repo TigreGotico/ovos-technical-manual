@@ -1,5 +1,8 @@
 # Agent Plugins
 
+!!! abstract "In a nutshell"
+    Agent plugins are the swappable "brains" your assistant can use to do thinking work: holding a conversation, answering a factual question, summarizing a document, picking the best of several answers, remembering what was said earlier, or figuring out who "she" refers to. You don't run them yourself — you list the ones you want in a [persona](personas.md), and OVOS loads them. Think of it like choosing which apps to install on a phone, except the "apps" are different reasoning skills. See [Agents & Personas](personas.md) or the [Glossary](glossary.md) for related terms.
+
 **For beginners:** agent plugins are the installable building blocks that let a persona think,
 answer, rank, summarize, remember, or resolve pronouns. You don't call them directly — you list
 them in a [persona](personas.md) and the [PersonaService](personas.md#personaservice-pipeline-plugin)

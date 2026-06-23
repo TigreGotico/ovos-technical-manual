@@ -1,5 +1,8 @@
 # Skill Installer (SkillsStore)
 
+!!! abstract "In a nutshell"
+    This is the built-in part of OVOS that can add or remove [skills](skill-examples.md) (and other software packages) while the assistant is running — no need to open a terminal or restart anything. Think of it as an app-store back end: something asks "install this skill," and OVOS downloads and wires it in on the fly. It is switched off unless explicitly enabled, for safety. See [Skill Manager](skill-manager.md) for how skills then get loaded, or the [Glossary](glossary.md) for terms.
+
 **Module:** `ovos_core.skill_installer.SkillsStore` — [`ovos_core/skill_installer.py`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_installer.py)
 
 The `SkillsStore` is a built-in subsystem of `ovos-core` that provides runtime skill and package management via the [MessageBus](bus-service.md).

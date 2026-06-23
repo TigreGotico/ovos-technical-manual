@@ -1,6 +1,9 @@
 
 # ovos-color-parser
 
+!!! abstract "In a nutshell"
+    This is a small library that turns everyday color descriptions into exact color values a computer can use. Say "make the lamp a bright, slightly warm muted blue" and it figures out the actual red/green/blue numbers — handy for voice-controlled smart lights. It knows nearly 6,000 English color names plus words like "bright", "warm", and "muted", and can even handle "set it to 520 nanometres" for the science-minded. See the [Glossary](glossary.md) for related terms.
+
 OpenVoiceOS's multilingual color parsing and color-space conversion library. It turns natural-language color descriptions ("bright, slightly warm muted blue") into concrete RGB/HLS/HSV values, and provides color-space utilities needed for smart-light control and similar voice-driven color applications.
 
 **What you get in 30 seconds:**

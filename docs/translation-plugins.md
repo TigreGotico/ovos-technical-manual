@@ -1,5 +1,8 @@
 # Language Detection and Translation Plugins
 
+!!! abstract "In a nutshell"
+    These add-ons give OVOS two related abilities: working out *what language* some text is in, and *rewriting* text from one language into another. They power features like [Bidirectional Translation](bidirectional-translation.md), so your assistant can understand and reply across languages. Some run entirely offline on your device; others call an online service. You pick which ones to use in the configuration file. See the [Glossary](glossary.md) for terms.
+
 Language detection and translation plugins let OVOS identify the language of a piece of text and translate it between languages. They are the building blocks used by features like [Bidirectional Translation](bidirectional-translation.md), and they can also be called directly from your own code.
 
 **New here?** Two separate jobs are involved:

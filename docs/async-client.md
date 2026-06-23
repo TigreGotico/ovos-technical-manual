@@ -1,5 +1,8 @@
 # AsyncMessageBusClient
 
+!!! abstract "In a nutshell"
+    OVOS components chat over an internal "message bus", and programs connect to it with a client. The usual client uses background threads; this proposed alternative uses Python's `async`/`await` style instead, which is handier when your program already works that way or needs to fire off lots of messages at once without waiting on each one. Heads up: it is a draft proposal, not yet shipped — for real code today, use the regular [`MessageBusClient`](client-ref.md). See the [Glossary](glossary.md) for terms like *message bus*.
+
 !!! info "Upcoming feature — not yet released"
     `AsyncMessageBusClient` is **not in a released version of `ovos-bus-client`**.
     It is proposed in draft PR

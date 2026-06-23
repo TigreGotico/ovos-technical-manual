@@ -1,5 +1,8 @@
 # Mycroft-GUI QT5
 
+!!! abstract "In a nutshell"
+    Some OVOS devices have a screen, and this page describes the older way of drawing on it — a graphical toolkit called Qt5/QML, where you describe what a screen should look like (text, images, animations, cards) in a markup language. This is the **legacy** screen path: it is deprecated and a ground-up replacement is being built (see [GUI Adapters](gui-adapters.md)), so treat the examples here as reference rather than something to build new work on. Voice, not the screen, is meant to be the main way you interact with OVOS. See the [Glossary](glossary.md) for terms.
+
 !!! danger "The OVOS GUI is deprecated — assume it is not usable today"
     The Qt5/QML client described here is part of the **legacy** OVOS GUI stack, which is
     **deprecated** and should be treated as **broken**: **there is no generally usable OVOS

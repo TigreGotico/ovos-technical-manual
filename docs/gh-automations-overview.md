@@ -1,6 +1,9 @@
 
 # gh-automations
 
+!!! abstract "In a nutshell"
+    `gh-automations` is a shared toolbox of ready-made automation recipes that every OVOS code project can borrow, instead of each one writing its own. These recipes handle the repetitive chores around publishing software — running tests, checking licences, bumping version numbers, and pushing releases out. Because the recipe lives in one place, fixing or improving it once updates every project that uses it. This is a developer/maintainer reference; see the [Workflow Reference](gh-automations-workflows.md) for the full list, or the [Glossary](glossary.md).
+
 `gh-automations` (hosted at [OpenVoiceOS/gh-automations](https://github.com/OpenVoiceOS/gh-automations)) is the shared GitHub Actions automation library for OpenVoiceOS repositories.
 
 ## What it does, in plain terms

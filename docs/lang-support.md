@@ -1,5 +1,8 @@
 # Language Support in OpenVoiceOS
 
+!!! abstract "In a nutshell"
+    Making OVOS truly work in a given language takes more than translating menu text — it needs translated skill phrases, a speech-to-text engine that understands that language, and a text-to-speech voice that can speak it. This page explains the current state of language support, how to get a working setup quickly with the `ovos-config autoconfigure` command, and how you can help improve your language by translating phrases or testing real speech. If you just want it running now, jump to [Auto-Configuration](#auto-configuration). See also [Customizing Language Resources](lang-customization.md) and the [Glossary](glossary.md).
+
 OpenVoiceOS (OVOS) aims to support multiple languages across its components, including intent recognition, speech-to-text ([STT](stt-plugins.md)), text-to-speech ([TTS](tts-plugins.md)), and skill dialogs. However, full language support requires more than translation of interface text. This document outlines the current state of language support, known limitations, and how contributors can help improve multilingual performance in OVOS.
 
 **Want it working now?** Jump to [Auto-Configuration](#auto-configuration) — `ovos-config autoconfigure -l <lang> ...` sets up recommended STT/TTS plugins in one command. **Want to make your language work better?** See [How to Improve Language Support](#how-to-improve-language-support).
