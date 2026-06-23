@@ -46,7 +46,7 @@ There are **83** archived repositories. They are grouped by area below; each row
 | [ovos-stt-plugin-fasterwhisper-zuazo](https://github.com/OpenVoiceOS/ovos-stt-plugin-fasterwhisper-zuazo) | — | [ovos-stt-plugin-fasterwhisper](https://github.com/OpenVoiceOS/ovos-stt-plugin-fasterwhisper) |
 | [ovos-stt-plugin-mms](https://github.com/OpenVoiceOS/ovos-stt-plugin-mms) | — | [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2) |
 | [ovos-stt-plugin-nos](https://github.com/OpenVoiceOS/ovos-stt-plugin-nos) | — | [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2) |
-| [ovos-stt-plugin-projectAINA-remote](https://github.com/OpenVoiceOS/ovos-stt-plugin-projectAINA-remote) | — | Removed — unofficial demo server, now gone; no replacement |
+| [ovos-stt-plugin-projectAINA-remote](https://github.com/OpenVoiceOS/ovos-stt-plugin-projectAINA-remote) | — | Remote demo server is gone, but it served a Catalan **Whisper** model — run that model locally with [ovos-stt-plugin-fasterwhisper](https://github.com/OpenVoiceOS/ovos-stt-plugin-fasterwhisper) or [ovos-stt-plugin-whisper](https://github.com/OpenVoiceOS/ovos-stt-plugin-whisper) |
 
 ## TTS plugins (7)
 
