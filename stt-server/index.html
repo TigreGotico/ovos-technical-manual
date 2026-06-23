@@ -1288,8 +1288,12 @@
 <p><strong>Install the server</strong> </p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-stt-http-server
 </span></code></pre></div>
-<p><strong>Configure your STT plugin</strong>  </p>
-<p>In your <code>mycroft.conf</code> (or equivalent) under the <code>stt</code> section:  </p>
+<p><strong>Choose your STT plugin</strong></p>
+<p>You name the plugin to serve with the <code>--engine</code> flag (below). Note that — unlike a full OVOS
+install — the standalone server instantiates the plugin with an <strong>empty config</strong>, so it runs
+with the plugin's <strong>built-in defaults</strong>; it does <strong>not</strong> read the <code>stt</code> section of
+<code>mycroft.conf</code>. Pick a plugin whose defaults suit you, or one that loads its own configuration.</p>
+<p>A normal OVOS install (not this server) selects its STT plugin under the <code>stt</code> section instead:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w"> </span><span class="nt">&quot;stt&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">   </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-stt-plugin-xxx&quot;</span><span class="p">,</span>
@@ -1331,7 +1335,7 @@
 </li>
 <li>
 <p><strong>Plugin wrapping</strong><br />
-<code>--engine</code> names any <code>opm.stt</code> plugin entry point (Whisper, Deepgram, etc.); it is loaded dynamically via the OVOS Plugin Manager. Plugin config is read from the <code>stt</code> section of your <code>mycroft.conf</code>.</p>
+<code>--engine</code> names any <code>opm.stt</code> plugin entry point (Whisper, Deepgram, etc.); it is loaded dynamically via the OVOS Plugin Manager. The server instantiates it with an empty config (built-in defaults), not the <code>stt</code> section of <code>mycroft.conf</code>.</p>
 </li>
 <li>
 <p><strong>Language detection</strong><br />

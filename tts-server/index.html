@@ -1304,8 +1304,9 @@ glue code required.</p>
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span>--port<span class="w"> </span>PORT<span class="w">           </span>port<span class="w"> </span>number<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">9666</span><span class="o">)</span>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span>--host<span class="w"> </span>HOST<span class="w">           </span>host<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span><span class="m">0</span>.0.0.0<span class="o">)</span>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span>--cache<span class="w">               </span>save<span class="w"> </span>every<span class="w"> </span>synth<span class="w"> </span>to<span class="w"> </span>disk
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span>--lang<span class="w"> </span>LANG<span class="w">           </span>default<span class="w"> </span>language<span class="w"> </span>supported<span class="w"> </span>by<span class="w"> </span>plugin<span class="w"> </span><span class="o">(</span>default:<span class="w"> </span>en-us<span class="o">)</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">  </span>--mcp<span class="w">                 </span>mount<span class="w"> </span>MCP<span class="w"> </span>server<span class="w"> </span>at<span class="w"> </span>/mcp<span class="w"> </span><span class="o">(</span>requires<span class="w"> </span>ovos-tts-server<span class="o">[</span>mcp<span class="o">])</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">  </span>--lang<span class="w"> </span>LANG<span class="w">           </span>accepted<span class="w"> </span><span class="k">for</span><span class="w"> </span>compatibility<span class="w"> </span>but<span class="w"> </span>currently<span class="w"> </span>ignored<span class="p">;</span><span class="w"> </span>the<span class="w"> </span>default
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">                        </span>language<span class="w"> </span>comes<span class="w"> </span>from<span class="w"> </span>config<span class="w"> </span><span class="o">(</span><span class="sb">`</span>lang<span class="sb">`</span><span class="o">)</span><span class="w"> </span>or<span class="w"> </span>falls<span class="w"> </span>back<span class="w"> </span>to<span class="w"> </span><span class="s2">&quot;mul&quot;</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">  </span>--mcp<span class="w">                 </span>mount<span class="w"> </span>MCP<span class="w"> </span>server<span class="w"> </span>at<span class="w"> </span>/mcp<span class="w"> </span><span class="o">(</span>requires<span class="w"> </span>ovos-tts-server<span class="o">[</span>mcp<span class="o">])</span>
 </span></code></pre></div>
 <hr />
 <h2 id="technical-explanation">Technical Explanation<a class="headerlink" href="#technical-explanation" title="Permanent link">&para;</a></h2>
@@ -1346,7 +1347,7 @@ glue code required.</p>
 <tr>
 <td><code>/status</code></td>
 <td>GET</td>
-<td>Returns loaded plugin name, supported langs/voices, default model/voice.</td>
+<td>Returns loaded plugin name, supported <code>langs</code>, and <code>default_lang</code> / <code>default_model</code> / <code>default_voice</code>.</td>
 </tr>
 <tr>
 <td><code>/synthesize/{utterance}</code></td>
