@@ -840,6 +840,49 @@
         
   
   
+    <a href="../padacioso/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Alternative Parsers
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
     <a href="../prompts/" class="md-nav__link">
       
   
@@ -1485,16 +1528,20 @@ pipeline. They expose the same high/medium/low confidence tiers as Adapt/Padatio
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/OpenVoiceOS/nebulento"><code>nebulento</code></a></td>
+<td><a href="../padacioso/">Padacioso</a></td>
+<td>Literal template matcher (simplematch); no training. A pure-Python sibling of <a href="../padatious-pipeline/">Padatious</a>.</td>
+</tr>
+<tr>
+<td><a href="../nebulento/">Nebulento</a></td>
 <td>Fuzzy / typo-tolerant template matcher (rapidfuzz); no training step. Listens on the same <code>padatious:register_intent</code> bus events, plus a hierarchical variant.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenVoiceOS/palavreado"><code>palavreado</code></a></td>
-<td>Dead-simple keyword matcher; an Adapt drop-in that responds to the same <code>register_vocab</code>/<code>register_intent</code> events (zero-change skill swap).</td>
+<td><a href="../palavreado/">Palavreado</a></td>
+<td>Dead-simple keyword matcher; an <a href="../adapt-pipeline/">Adapt</a> drop-in that responds to the same <code>register_vocab</code>/<code>register_intent</code> events (zero-change skill swap).</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenVoiceOS/ovos-hierarchical-knn-pipeline"><code>ovos-hierarchical-knn-pipeline</code></a></td>
-<td>Embedding-based two-stage k-NN matcher (Granite embeddings + FAISS); a heavier alternative to <a href="../m2v-pipeline/">Model2Vec</a> (~320 MB RAM, AVX2, 11 languages).</td>
+<td><a href="../knn-pipeline/">Hierarchical KNN</a></td>
+<td>Embedding-based two-stage k-NN matcher (Granite embeddings + FAISS); a heavier semantic alternative to <a href="../m2v-pipeline/">Model2Vec</a> (~560 MB footprint, AVX2, 11 languages).</td>
 </tr>
 </tbody>
 </table>
