@@ -1600,8 +1600,8 @@
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_core.intent_services.fallback_service.FallbackService</code>
 <strong>Pipeline plugin ID:</strong> <code>ovos-fallback-pipeline-plugin</code>
-<strong>Stage names:</strong> <code>fallback_high</code>, <code>fallback_medium</code>, <code>fallback_low</code></p>
-<p><code>FallbackService</code> subclasses <code>ConfidenceMatcherPipeline</code>, so the single base ID auto-expands into the three <code>match_high</code>/<code>match_medium</code>/<code>match_low</code> matchers exposed as <code>fallback_high</code>, <code>fallback_medium</code>, <code>fallback_low</code>. It ships inside <code>ovos-core</code>:</p>
+<strong>Stage names:</strong> <code>ovos-fallback-pipeline-plugin-high</code>, <code>ovos-fallback-pipeline-plugin-medium</code>, <code>ovos-fallback-pipeline-plugin-low</code> (deprecated aliases: <code>fallback_high</code>, <code>fallback_medium</code>, <code>fallback_low</code>)</p>
+<p><code>FallbackService</code> subclasses <code>ConfidenceMatcherPipeline</code>, so the single base ID auto-expands into the three <code>match_high</code>/<code>match_medium</code>/<code>match_low</code> matchers exposed as <code>ovos-fallback-pipeline-plugin-high</code>, <code>-medium</code>, and <code>-low</code>. It ships inside <code>ovos-core</code>:</p>
 <div class="language-ini highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">[project.entry-points.&quot;opm.pipeline&quot;]</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="na">ovos-fallback-pipeline-plugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ovos_core.intent_services.fallback_service:FallbackService&quot;</span>
 </span></code></pre></div>
@@ -1618,26 +1618,26 @@
 </thead>
 <tbody>
 <tr>
-<td><code>fallback_high</code></td>
+<td><code>ovos-fallback-pipeline-plugin-high</code></td>
 <td><code>0 &lt; p ≤ 5</code></td>
 <td>High-priority fallback skills</td>
 <td>Critical fallback handlers</td>
 </tr>
 <tr>
-<td><code>fallback_medium</code></td>
+<td><code>ovos-fallback-pipeline-plugin-medium</code></td>
 <td><code>5 &lt; p ≤ 90</code></td>
 <td>Medium-priority fallback skills</td>
 <td>General fallback skills</td>
 </tr>
 <tr>
-<td><code>fallback_low</code></td>
+<td><code>ovos-fallback-pipeline-plugin-low</code></td>
 <td><code>90 &lt; p ≤ 101</code></td>
 <td>Low-priority fallback skills</td>
 <td>Catch-all or chatbot fallback skills</td>
 </tr>
 </tbody>
 </table>
-<p>Each matcher filters registered fallbacks with <code>range.start &lt; priority ≤ range.stop</code> (exclusive start, inclusive stop). Lower priority numbers run first. A fallback that registers without a priority defaults to <code>101</code>, placing it in the <code>fallback_low</code> tier. Priorities can be overridden by users via config.</p>
+<p>Each matcher filters registered fallbacks with <code>range.start &lt; priority ≤ range.stop</code> (exclusive start, inclusive stop). Lower priority numbers run first. A fallback that registers without a priority defaults to <code>101</code>, placing it in the low tier. Priorities can be overridden by users via config.</p>
 <hr />
 <h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <ol>

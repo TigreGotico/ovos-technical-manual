@@ -1909,6 +1909,10 @@
 
 
 <h1 id="pydantic-message-models">Pydantic Message Models<a class="headerlink" href="#pydantic-message-models" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>OVOS components talk to each other by passing little "messages" over an internal <a href="../bus-service/">message bus</a> — think of it as a shared notice board where every part of the assistant posts and reads notes. This library is a typed catalogue of every kind of note that can be posted, so that programs catch mistakes (a misspelled field, a wrong value) the moment they build a message instead of failing silently later. It is aimed at developers; if you are just using OVOS you never see it. See the <a href="../glossary/">Glossary</a> for the underlying terms.</p>
+</div>
 <p><code>ovos-pydantic-models</code> provides typed <a href="https://docs.pydantic.dev/latest/">Pydantic v2</a> models for every message that flows over the OVOS <a href="../bus-service/">MessageBus</a>. This package is the machine-readable specification of the OVOS bus protocol — covering 595+ message types organized by subsystem.</p>
 <blockquote>
 <p><strong>Beta</strong> — Message models are semi-automatically generated and under active review. Some subsystems are deprecated but documented here for historical reference. Do not treat this as a stable API contract.</p>

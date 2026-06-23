@@ -22,7 +22,7 @@
     
     
       
-        <title>Prompts - OpenVoiceOS Technical Manual</title>
+        <title>Asking the User - OpenVoiceOS Technical Manual</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#prompting-the-user-for-responses-in-ovos-skills" class="md-skip">
+        <a href="#asking-the-user-for-responses-in-ovos-skills" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Prompts
+              Asking the User
             
           </span>
         </div>
@@ -804,7 +804,7 @@
           
   
   <span class="md-ellipsis">
-    Prompts
+    Asking the User
   </span>
   
 
@@ -815,7 +815,7 @@
         
   
   <span class="md-ellipsis">
-    Prompts
+    Asking the User
   </span>
   
 
@@ -874,9 +874,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-multiple-choice-prompts-with-ask_selection" class="md-nav__link">
+  <a href="#4-multiple-choice-questions-with-ask_selection" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Multiple-Choice Prompts with ask_selection()
+      4. Multiple-Choice Questions with ask_selection()
     </span>
   </a>
   
@@ -1340,9 +1340,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-multiple-choice-prompts-with-ask_selection" class="md-nav__link">
+  <a href="#4-multiple-choice-questions-with-ask_selection" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Multiple-Choice Prompts with ask_selection()
+      4. Multiple-Choice Questions with ask_selection()
     </span>
   </a>
   
@@ -1389,13 +1389,22 @@
   
 
 
-<h1 id="prompting-the-user-for-responses-in-ovos-skills">Prompting the User for Responses in OVOS Skills<a class="headerlink" href="#prompting-the-user-for-responses-in-ovos-skills" title="Permanent link">&para;</a></h1>
+<h1 id="asking-the-user-for-responses-in-ovos-skills">Asking the User for Responses in OVOS Skills<a class="headerlink" href="#asking-the-user-for-responses-in-ovos-skills" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Sometimes a skill needs to ask the user something back — "which flavor?", "are you sure?",
+"pick one of these". This page shows the four built-in ways an OVOS skill does that: an
+open-ended question, a specific question that captures the reply (<code>get_response</code>), a yes/no
+question (<code>ask_yesno</code>), and a multiple-choice question (<code>ask_selection</code>). OVOS keeps the
+microphone open and parses the answer for you. For the <em>design</em> side — when to ask versus
+just tell the user — see the <a href="../skill-design-guidelines/">Skill Design Guidelines</a>.</p>
+</div>
 <p>OVOS provides several built-in methods for engaging users in interactive conversations. These include asking open-ended questions, confirming yes/no responses, and offering multiple-choice selections — all handled in a natural, voice-first way.</p>
-<p>Here we look at how to implement the most common types of prompts. For more information on conversation design see
-the <a href="https://mycroft-ai.gitbook.io/docs/skill-development/voice-user-interface-design-guidelines/interactions-and-guidelines/statements-and-prompts">Voice User Interface Design Guidelines</a>.</p>
+<p>Here we look at how to implement the most common ways of asking the user for input. For more information on conversation design see
+the <a href="../skill-design-guidelines/">Skill Design Guidelines</a>.</p>
 <hr />
 <h2 id="usage-guide">Usage Guide<a class="headerlink" href="#usage-guide" title="Permanent link">&para;</a></h2>
-<p>Here’s how to use different types of prompts in your OVOS skills:</p>
+<p>Here’s how to ask the user for different kinds of input in your OVOS skills:</p>
 <h3 id="1-open-ended-questions">1. Open-Ended Questions<a class="headerlink" href="#1-open-ended-questions" title="Permanent link">&para;</a></h3>
 <p>Let the user respond freely, either to trigger another skill or to handle the response with a custom intent.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
@@ -1439,7 +1448,7 @@ the <a href="https://mycroft-ai.gitbook.io/docs/skill-development/voice-user-int
 </li>
 </ul>
 <p><code>get_response()</code> returns the matched utterance as a <code>str</code>, or <code>None</code> if no valid response
-was captured. The first argument is the dialog/prompt to speak.</p>
+was captured. The first argument is the dialog to speak.</p>
 <hr />
 <h3 id="3-yesno-questions-with-ask_yesno">3. Yes/No Questions with <code>ask_yesno()</code><a class="headerlink" href="#3-yesno-questions-with-ask_yesno" title="Permanent link">&para;</a></h3>
 <p>Detects affirmations or negations from user responses.</p>
@@ -1607,7 +1616,7 @@ negations. Override it per skill via the <code>ask_yesno_plugin</code> setting.<
 </tbody>
 </table>
 <hr />
-<h3 id="4-multiple-choice-prompts-with-ask_selection">4. Multiple-Choice Prompts with <code>ask_selection()</code><a class="headerlink" href="#4-multiple-choice-prompts-with-ask_selection" title="Permanent link">&para;</a></h3>
+<h3 id="4-multiple-choice-questions-with-ask_selection">4. Multiple-Choice Questions with <code>ask_selection()</code><a class="headerlink" href="#4-multiple-choice-questions-with-ask_selection" title="Permanent link">&para;</a></h3>
 <p>Let users choose from a list of options, by name or number.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">intent_handler</span>
@@ -1631,7 +1640,7 @@ negations. Override it per skill via the <code>ask_yesno_plugin</code> setting.<
 <p><code>numeric</code> (bool): If <code>True</code>, speak the list with numbered options (default <code>False</code>)</p>
 </li>
 <li>
-<p><code>num_retries</code> (int): How many times to re-prompt on no match (default <code>-1</code>)</p>
+<p><code>num_retries</code> (int): How many times to re-ask on no match (default <code>-1</code>)</p>
 </li>
 </ul>
 <p>Returns the selected list element, or <code>None</code> if nothing matched. User responses like
@@ -1646,7 +1655,7 @@ negations. Override it per skill via the <code>ask_yesno_plugin</code> setting.<
 <p>OVOS automatically integrates with the intent engine to resolve follow-up responses.</p>
 </li>
 <li>
-<p>These prompts are designed to support natural dialogue flows, validating and re-prompting as needed.</p>
+<p>These interactions are designed to support natural dialogue flows, validating and re-asking as needed.</p>
 </li>
 </ul>
 <hr />

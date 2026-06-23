@@ -1548,6 +1548,10 @@
 
 
 <h1 id="language-support-in-openvoiceos">Language Support in OpenVoiceOS<a class="headerlink" href="#language-support-in-openvoiceos" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Making OVOS truly work in a given language takes more than translating menu text — it needs translated skill phrases, a speech-to-text engine that understands that language, and a text-to-speech voice that can speak it. This page explains the current state of language support, how to get a working setup quickly with the <code>ovos-config autoconfigure</code> command, and how you can help improve your language by translating phrases or testing real speech. If you just want it running now, jump to <a href="#auto-configuration">Auto-Configuration</a>. See also <a href="../lang-customization/">Customizing Language Resources</a> and the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p>OpenVoiceOS (OVOS) aims to support multiple languages across its components, including intent recognition, speech-to-text (<a href="../stt-plugins/">STT</a>), text-to-speech (<a href="../tts-plugins/">TTS</a>), and skill dialogs. However, full language support requires more than translation of interface text. This document outlines the current state of language support, known limitations, and how contributors can help improve multilingual performance in OVOS.</p>
 <p><strong>Want it working now?</strong> Jump to <a href="#auto-configuration">Auto-Configuration</a> — <code>ovos-config autoconfigure -l &lt;lang&gt; ...</code> sets up recommended STT/TTS plugins in one command. <strong>Want to make your language work better?</strong> See <a href="#how-to-improve-language-support">How to Improve Language Support</a>.</p>
 <p>Related pages: <a href="../lang-selection/">Language Selection</a> (how OVOS picks a language per utterance), <a href="../lang-customization/">Customizing Language Resources</a> (override/translate skill text), and <a href="../bidirectional-translation/">Bidirectional Translation</a> (use a single-language skill in any language).</p>

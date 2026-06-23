@@ -1460,6 +1460,10 @@
 
 
 <h1 id="skill-manager">Skill Manager<a class="headerlink" href="#skill-manager" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>The Skill Manager is the part of OVOS that finds all your installed <a href="../skill-examples/">skills</a> and starts them up when the assistant boots. It also decides <em>when</em> each one is allowed to run — some skills need the internet or a screen before they can work — and keeps re-checking, so a skill you install later appears without a restart. Think of it as the floor manager that knows which staff are on duty and clocks them in. See <a href="../skill-installer/">Skill Installer</a> for how skills get added, or the <a href="../glossary/">Glossary</a> for terms.</p>
+</div>
 <p><strong>Module:</strong> <code>ovos_core.skill_manager.SkillManager</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_manager.py"><code>ovos_core/skill_manager.py</code></a></p>
 <p>The <code>SkillManager</code> is a core component of <code>ovos-core</code>. It is a daemon <code>Thread</code> that owns the full lifecycle of skill plugins: discovery, loading, connectivity-gating, and graceful shutdown.</p>
 <p><strong>In plain terms:</strong> when OVOS starts, the SkillManager finds every installed skill, decides which ones are allowed to load right now (some need the network or a screen first), starts them, and re-scans periodically so newly installed skills show up without a restart.</p>

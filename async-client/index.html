@@ -1834,6 +1834,10 @@
 
 
 <h1 id="asyncmessagebusclient">AsyncMessageBusClient<a class="headerlink" href="#asyncmessagebusclient" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>OVOS components chat over an internal "message bus", and programs connect to it with a client. The usual client uses background threads; this proposed alternative uses Python's <code>async</code>/<code>await</code> style instead, which is handier when your program already works that way or needs to fire off lots of messages at once without waiting on each one. Heads up: it is a draft proposal, not yet shipped — for real code today, use the regular <a href="../client-ref/"><code>MessageBusClient</code></a>. See the <a href="../glossary/">Glossary</a> for terms like <em>message bus</em>.</p>
+</div>
 <div class="admonition info">
 <p class="admonition-title">Upcoming feature — not yet released</p>
 <p><code>AsyncMessageBusClient</code> is <strong>not in a released version of <code>ovos-bus-client</code></strong>.

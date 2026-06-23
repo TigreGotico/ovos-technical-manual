@@ -1545,27 +1545,31 @@
 </span></code></pre></div>
 <hr />
 <h2 id="pipeline-stages">Pipeline Stages<a class="headerlink" href="#pipeline-stages" title="Permanent link">&para;</a></h2>
-<p>The plugin ships a single OPM entry point, <code>ovos-padatious-pipeline-plugin</code>, mapped to the <code>PadatiousPipeline</code> class. Because that class is a <code>ConfidenceMatcherPipeline</code>, OVOS exposes three matcher stages from it, selected in your pipeline config by these legacy IDs:</p>
+<p>The plugin ships a single OPM entry point, <code>ovos-padatious-pipeline-plugin</code>, mapped to the <code>PadatiousPipeline</code> class. Because that class is a <code>ConfidenceMatcherPipeline</code>, OVOS exposes three matcher stages from it, selected in your pipeline config by these IDs (the short <code>padatious_*</code> aliases still work but are deprecated):</p>
 <table>
 <thead>
 <tr>
 <th>Pipeline ID</th>
+<th>Legacy alias</th>
 <th>Matcher</th>
 <th>Recommended Use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><code>ovos-padatious-pipeline-plugin-high</code></td>
 <td><code>padatious_high</code></td>
 <td><code>match_high</code></td>
 <td>Primary stage for Padatious use</td>
 </tr>
 <tr>
+<td><code>ovos-padatious-pipeline-plugin-medium</code></td>
 <td><code>padatious_medium</code></td>
 <td><code>match_medium</code></td>
 <td>Backup, if confidence tuning allows</td>
 </tr>
 <tr>
+<td><code>ovos-padatious-pipeline-plugin-low</code></td>
 <td><code>padatious_low</code></td>
 <td><code>match_low</code></td>
 <td>Not recommended (often inaccurate)</td>

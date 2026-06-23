@@ -1508,27 +1508,31 @@
 <p>While Adapt is good for <strong>explicit, deterministic command-and-control</strong>, it scales poorly across many skills and is hard to localize. <strong>It is not recommended for broad deployments</strong> — prefer it for <strong>personal skills</strong> where you control the full vocabulary.</p>
 <hr />
 <h2 id="pipeline-stages">Pipeline Stages<a class="headerlink" href="#pipeline-stages" title="Permanent link">&para;</a></h2>
-<p>The plugin ships an OPM entry point, <code>ovos-adapt-pipeline-plugin</code>, mapped to the <code>AdaptPipeline</code> class. That class is a <code>ConfidenceMatcherPipeline</code>, so OVOS exposes three matcher stages from it, selected in your pipeline config by these legacy IDs:</p>
+<p>The plugin ships an OPM entry point, <code>ovos-adapt-pipeline-plugin</code>, mapped to the <code>AdaptPipeline</code> class. That class is a <code>ConfidenceMatcherPipeline</code>, so OVOS exposes three matcher stages from it, selected in your pipeline config by these IDs (the short <code>adapt_*</code> aliases still work but are deprecated):</p>
 <table>
 <thead>
 <tr>
 <th>Pipeline ID</th>
+<th>Legacy alias</th>
 <th>Matcher</th>
 <th>Recommended Use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><code>ovos-adapt-pipeline-plugin-high</code></td>
 <td><code>adapt_high</code></td>
 <td><code>match_high</code></td>
 <td>Personal skills only</td>
 </tr>
 <tr>
+<td><code>ovos-adapt-pipeline-plugin-medium</code></td>
 <td><code>adapt_medium</code></td>
 <td><code>match_medium</code></td>
 <td>Use with caution</td>
 </tr>
 <tr>
+<td><code>ovos-adapt-pipeline-plugin-low</code></td>
 <td><code>adapt_low</code></td>
 <td><code>match_low</code></td>
 <td>Not recommended</td>

@@ -1490,6 +1490,10 @@
 
 
 <h1 id="skill-installer-skillsstore">Skill Installer (SkillsStore)<a class="headerlink" href="#skill-installer-skillsstore" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This is the built-in part of OVOS that can add or remove <a href="../skill-examples/">skills</a> (and other software packages) while the assistant is running — no need to open a terminal or restart anything. Think of it as an app-store back end: something asks "install this skill," and OVOS downloads and wires it in on the fly. It is switched off unless explicitly enabled, for safety. See <a href="../skill-manager/">Skill Manager</a> for how skills then get loaded, or the <a href="../glossary/">Glossary</a> for terms.</p>
+</div>
 <p><strong>Module:</strong> <code>ovos_core.skill_installer.SkillsStore</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_installer.py"><code>ovos_core/skill_installer.py</code></a></p>
 <p>The <code>SkillsStore</code> is a built-in subsystem of <code>ovos-core</code> that provides runtime skill and package management via the <a href="../bus-service/">MessageBus</a>.</p>
 <p><strong>In plain terms:</strong> other parts of the system (or you, over the bus) can ask OVOS to <code>pip install</code> a skill or library while it is running — no shell access or restart needed. It is opt-in and guarded behind the <code>allow_pip</code> config flag.</p>

@@ -856,13 +856,13 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#statements-and-prompts" class="md-nav__link">
+  <a href="#statements-and-questions" class="md-nav__link">
     <span class="md-ellipsis">
-      Statements and Prompts
+      Statements and Questions
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Statements and Prompts">
+    <nav class="md-nav" aria-label="Statements and Questions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -875,9 +875,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#prompts" class="md-nav__link">
+  <a href="#questions" class="md-nav__link">
     <span class="md-ellipsis">
-      Prompts
+      Questions
     </span>
   </a>
   
@@ -1416,13 +1416,13 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#statements-and-prompts" class="md-nav__link">
+  <a href="#statements-and-questions" class="md-nav__link">
     <span class="md-ellipsis">
-      Statements and Prompts
+      Statements and Questions
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Statements and Prompts">
+    <nav class="md-nav" aria-label="Statements and Questions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1435,9 +1435,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#prompts" class="md-nav__link">
+  <a href="#questions" class="md-nav__link">
     <span class="md-ellipsis">
-      Prompts
+      Questions
     </span>
   </a>
   
@@ -1565,8 +1565,8 @@ Skill that feels intuitive and natural to talk to.</p>
 <p>This is handled by an intent parser whose job it is to learn from your Skill what intents it can handle, and extract
 from the user's speech and key information that might be useful for your Skill. In this case it might include the
 specified date and location.</p>
-<h3 id="statements-and-prompts">Statements and Prompts<a class="headerlink" href="#statements-and-prompts" title="Permanent link">&para;</a></h3>
-<p>You can think of <strong>Prompts</strong> as questions and <strong>Statements</strong> as providing information to the user that does not need a
+<h3 id="statements-and-questions">Statements and Questions<a class="headerlink" href="#statements-and-questions" title="Permanent link">&para;</a></h3>
+<p>A <strong>Question</strong> asks the user for a response, while a <strong>Statement</strong> provides information to the user that does not need a
 follow-up response. For example a weather forecast like this would be considered a statement:</p>
 <blockquote>
 <p>Today’s forecast is sunny with a high of 60 and a low of 45.</p>
@@ -1575,13 +1575,13 @@ follow-up response. For example a weather forecast like this would be considered
 <p>For a lot of skills the conversation might end with a simple statement from OVOS, and no further action is necessary.
 Try to imagine what the user is trying to accomplish, if a simple statement gets the job done there is no reason to keep
 the conversation rolling, and in fact a follow-up might annoy the user with unnecessary interaction.</p>
-<h4 id="prompts">Prompts<a class="headerlink" href="#prompts" title="Permanent link">&para;</a></h4>
+<h4 id="questions">Questions<a class="headerlink" href="#questions" title="Permanent link">&para;</a></h4>
 <p>It may be tempting to always give users specific instructions like traditional automated phones systems <span class="arithmatex">\(Interactive
 Voice Response\)</span>. Many phone systems are notorious for being too verbose and difficult to follow.</p>
 <p>With OVOS we’re trying to break that mold and make the interaction natural. If you follow the phone system method you
 may be giving the user the exact phrasing to say, but you’re also taking up valuable time and training them to think the
 system is very narrow in capability. In the event that the user does give a response that your skill can not handle,
-create follow-up prompts that steer the user back on track.</p>
+create follow-up questions that steer the user back on track.</p>
 <p>Remember, there are no errors in a cooperative conversation.</p>
 <p><strong>Avoid</strong></p>
 <table>
@@ -1625,16 +1625,16 @@ create follow-up prompts that steer the user back on track.</p>
 </tr>
 </tbody>
 </table>
-<p>In the first example the user is told explicitly what they can say, but the prompt is unnatural, we don’t typically
-suggest responses to a conversation partner in real life. These long-winded prompts can become tiresome if they are used
+<p>In the first example the user is told explicitly what they can say, but the question is unnatural, we don’t typically
+suggest responses to a conversation partner in real life. These long-winded questions can become tiresome if they are used
 repeatedly throughout the skill. Remember the phone system example, typically poorly designed automated phone systems
 inundate the user with many options and additional instructions at every step of the interaction.</p>
-<p>In the second example we see a better prompt, although the user gives a response that is easy for a human to understand
-it is more difficult to design a skill to understand. Instead, the skill designer can apply a re-prompt strategy that
-steers the user back on track and doesn't require them to start the interaction over. In this case the re-prompt changes
+<p>In the second example we see a better question, although the user gives a response that is easy for a human to understand
+it is more difficult to design a skill to understand. Instead, the skill designer can ask the question again in a different way to
+steer the user back on track and doesn't require them to start the interaction over. In this case the follow-up question changes
 the wording slightly to make it clear that the user needs to say a number. The next time the user interacts with this
 Skill, they will likely say a number in their first interaction.</p>
-<p>Determining whether to respond to the user with a statement or a prompt can be a bit tricky. When the user is
+<p>Determining whether to respond to the user with a statement or a question can be a bit tricky. When the user is
 somewhat vague it is tempting to assume the user’s intent in order to speed along the interaction. Sometimes this is the
 right approach and sometimes it is not. If you are very confident in the user’s input then it is alright to assume, and
 respond with a statement. For example in the Wikipedia Skill the Wikipedia API is used to confidently select the best response.</p>
@@ -1657,7 +1657,7 @@ respond with a statement. For example in the Wikipedia Skill the Wikipedia API i
 </tr>
 </tbody>
 </table>
-<p>In contrast, let’s look at an example of where a follow-up prompt is a better approach. You’re working on a skill that
+<p>In contrast, let’s look at an example of where a follow-up question is a better approach. You’re working on a skill that
 gives important information about birds, such as wingspan, laden and unladen airspeed, etc..</p>
 <p><strong>Avoid</strong></p>
 <table>
@@ -1708,11 +1708,11 @@ gives important information about birds, such as wingspan, laden and unladen air
 <p>In the first example Mycroft assumes the user is referring to the European Swallow, however there is nothing to give
 confidence to that assumption. In this case it’s dangerous to assume the User meant the European Swallow since it is
 just as likely they meant the African Swallow. When there is no confidence in one answer versus another, OVOS should
-follow up with a prompt as demonstrated in the second example.</p>
+follow up with a question as demonstrated in the second example.</p>
 <p>Another approach to solving this problem is to offer the most likely answer and inform the user that there are other
 answers available with a statement.</p>
 <h3 id="confirmations">Confirmations<a class="headerlink" href="#confirmations" title="Permanent link">&para;</a></h3>
-<p>Confirmation approaches can also be defined by Statements or Prompts , but when we talk about them in the context of
+<p>Confirmation approaches can also be defined by Statements or Questions, but when we talk about them in the context of
 confirmations we call them Implicit and Explicit.</p>
 <h4 id="implicit-confirmation">Implicit Confirmation<a class="headerlink" href="#implicit-confirmation" title="Permanent link">&para;</a></h4>
 <p>This type of confirmation is also a statement. The idea is to parrot the information back to the user to confirm that it
@@ -1956,7 +1956,7 @@ For example, many personal navigation devices <span class="arithmatex">\(GPS uni
 </table>
 <p>This was a limitation of the technology, both the <a href="../stt-plugins/">STT</a> and intent parser were not capable of handling an entire address. 
 With OVOS you do not need to separate the address into multiple inputs. 
-It’s also easy to think like a traditional GUI and translate what are typically separate fields into prompts for the user,
+It’s also easy to think like a traditional GUI and translate what are typically separate fields into questions for the user,
 but that will only slow down the interaction. </p>
 <p>The best solution is to allow the user to input information both ways, all at once, or in pieces. 
 For example the Alarm skill allows the user to set a complicated alarm all in one go, or in steps.</p>

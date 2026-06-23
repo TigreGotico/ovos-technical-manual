@@ -1526,6 +1526,10 @@
 
 
 <h1 id="ovos-core">ovos-core<a class="headerlink" href="#ovos-core" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p><code>ovos-core</code> is the "brain" of your assistant. It does not listen through the microphone or talk through the speaker — those are separate helpers — but it is the part in the middle that loads your skills, takes the words you said, decides which skill should answer, and hands back the reply. Think of it as the dispatcher in a control room: it does not do the talking or listening itself, it just routes each request to the right place. Everything it does travels over the <a href="../bus-service/">MessageBus</a>; see also the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><code>ovos-core</code> is the central intelligence of OpenVoiceOS. It acts as the orchestrator, managing the lifecycle of skills, coordinating the intent pipeline, and ensuring smooth communication between all parts of the system.</p>
 <p><strong>In plain terms:</strong> <code>ovos-core</code> is the "brain" service. It does not capture audio or speak — those are separate services. Its job is to load your skills, take the transcribed text off the bus, decide which skill handles it, and hand off the reply. Everything it does flows over the <a href="../bus-service/">MessageBus</a>.</p>
 <h2 id="role-in-the-system">Role in the System<a class="headerlink" href="#role-in-the-system" title="Permanent link">&para;</a></h2>

@@ -3467,6 +3467,10 @@
 
 
 <h1 id="reusable-workflow-reference">Reusable Workflow Reference<a class="headerlink" href="#reusable-workflow-reference" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>This page is the detailed reference for every shared automation recipe ("workflow") that OVOS projects can plug in — one section per recipe, listing all its settings and what each does. It is aimed at maintainers wiring up a project's testing and release machinery, so it reads like a settings catalogue rather than a tutorial. If you just want the big picture of what these automations are for, start with the <a href="../gh-automations-overview/">gh-automations overview</a>; see also the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p>All reusable workflows are in <code>.github/workflows/</code> and are called via:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenVoiceOS/gh-automations/.github/workflows/&lt;name&gt;.yml@dev</span>
 </span></code></pre></div>

@@ -2149,15 +2149,15 @@
 <tbody>
 <tr>
 <td>0–4</td>
-<td><code>fallback_high</code></td>
+<td><code>ovos-fallback-pipeline-plugin-high</code></td>
 </tr>
 <tr>
 <td>5–89</td>
-<td><code>fallback_medium</code></td>
+<td><code>ovos-fallback-pipeline-plugin-medium</code></td>
 </tr>
 <tr>
 <td>90–100</td>
-<td><code>fallback_low</code></td>
+<td><code>ovos-fallback-pipeline-plugin-low</code></td>
 </tr>
 </tbody>
 </table>
@@ -2168,7 +2168,7 @@
 <h2 id="commonquery-common_query-on-ovosskill">CommonQuery — <code>@common_query</code> on <code>OVOSSkill</code><a class="headerlink" href="#commonquery-common_query-on-ovosskill" title="Permanent link">&para;</a></h2>
 <p>There is no dedicated <code>CommonQuerySkill</code> base class — decorate a method on a
 regular <code>OVOSSkill</code> with <code>@common_query()</code> to join the <code>question:query</code> /
-<code>common_qa</code> pipeline. The handler answers a natural language question and returns
+<code>ovos-common-query-pipeline-plugin</code> pipeline. The handler answers a natural language question and returns
 a confidence score; the pipeline collects responses from all skills and speaks
 the highest-confidence answer.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills.ovos</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>

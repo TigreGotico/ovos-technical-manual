@@ -1397,6 +1397,10 @@
 
 
 <h1 id="ovos-docs-viewer-documentation-index"><code>ovos-docs-viewer</code> — Documentation Index<a class="headerlink" href="#ovos-docs-viewer-documentation-index" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p><code>ovos-docs-viewer</code> is a little program that lets you read the OVOS documentation right inside your terminal, without opening a web browser. You run <code>ovos-docs-viewer technical</code> to open this very manual, then use the arrow keys to browse the pages and press <code>q</code> to quit. It downloads the docs the first time and remembers them afterwards, so later visits work even offline. See the <a href="../glossary/">Glossary</a> for terms.</p>
+</div>
 <p><code>ovos-docs-viewer</code> is a terminal-based documentation browser for OpenVoiceOS. It downloads Markdown documentation from GitHub, then renders it interactively inside the terminal using a <a href="https://textual.textualize.io/">Textual</a> TUI with a file-tree sidebar and a Markdown viewer panel.</p>
 <p><strong>Minimal use:</strong> <code>ovos-docs-viewer technical</code> opens the technical manual in your terminal. Pass one of the documentation keys below as the single argument; the first run downloads and caches the docs, later runs read from the cache. Use the arrow keys to walk the file tree, Enter to open a file, and <code>q</code> to quit. It is read-only and needs network access only on first use (and every time for <code>live-status</code>).</p>
 <h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>

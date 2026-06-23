@@ -1493,6 +1493,10 @@
 
 
 <h1 id="gh-automations">gh-automations<a class="headerlink" href="#gh-automations" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p><code>gh-automations</code> is a shared toolbox of ready-made automation recipes that every OVOS code project can borrow, instead of each one writing its own. These recipes handle the repetitive chores around publishing software — running tests, checking licences, bumping version numbers, and pushing releases out. Because the recipe lives in one place, fixing or improving it once updates every project that uses it. This is a developer/maintainer reference; see the <a href="../gh-automations-workflows/">Workflow Reference</a> for the full list, or the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p><code>gh-automations</code> (hosted at <a href="https://github.com/OpenVoiceOS/gh-automations">OpenVoiceOS/gh-automations</a>) is the shared GitHub Actions automation library for OpenVoiceOS repositories.</p>
 <h2 id="what-it-does-in-plain-terms">What it does, in plain terms<a class="headerlink" href="#what-it-does-in-plain-terms" title="Permanent link">&para;</a></h2>
 <p>Instead of every OVOS repo copy-pasting its own CI/CD YAML, this repo holds a set of <strong>reusable workflows</strong>. Your repo's workflow file is just a few lines that <em>call</em> one of these — GitHub runs the shared definition with your inputs. Update the shared workflow once, and every repo that references it gets the change.</p>

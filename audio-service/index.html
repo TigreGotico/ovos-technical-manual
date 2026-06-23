@@ -1418,6 +1418,10 @@
 
 
 <h1 id="audio-service">Audio Service<a class="headerlink" href="#audio-service" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p><code>ovos-audio</code> is the part of OVOS that actually makes sound come out of the speakers. When a skill wants to say something, this service turns that text into speech (using a <a href="../tts-plugins/">TTS</a> plugin) and plays it, while making sure only one thing talks at a time and turning down background music so you can hear the reply. Think of it as the assistant's mouth and its audio mixer rolled into one. See <a href="../tts-plugins/">TTS Plugins</a> or the <a href="../glossary/">Glossary</a> for related terms.</p>
+</div>
 <p><code>ovos-audio</code> is the component responsible for <a href="../tts-plugins/">TTS</a> synthesis and audio playback. It ensures that only one thing is speaking at a time and manages audio focus between different media sources.</p>
 <p><strong>In plain terms:</strong> when a skill says "tell the user X", that <code>speak</code> message lands here. <code>ovos-audio</code> turns the text into sound with a TTS plugin and plays it, ducking any background music while it talks.</p>
 <div class="admonition info">

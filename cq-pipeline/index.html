@@ -1489,6 +1489,10 @@
 
 
 <h1 id="common-query-pipeline">Common Query Pipeline<a class="headerlink" href="#common-query-pipeline" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>When you ask a general-knowledge question like "who wrote Hamlet?", the Common Query pipeline asks <em>all</em> your installed knowledge skills (Wikipedia, Wolfram Alpha, and so on) the same question at once, gathers their answers, and reads back the best one. Think of it as a quiz host who puts the question to every contestant and then announces the strongest reply. It never makes up answers itself — every answer comes from a skill, so if you have no knowledge skills installed it simply stays quiet. See the <a href="../pipelines-overview/">Intent Pipeline overview</a> or the <a href="../glossary/">Glossary</a>.</p>
+</div>
 <p>The <strong>Common Query Pipeline Plugin</strong> answers general-knowledge questions. When an
 utterance looks like a question ("Who wrote Hamlet?", "How tall is Everest?"), it
 broadcasts the question to every installed <strong>CommonQuery skill</strong>, collects their
@@ -1502,14 +1506,15 @@ reply.</p>
 <p>It ships with <code>ovos-core</code>, but can be installed standalone:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-common-query-pipeline-plugin
 </span></code></pre></div>
-<p>It registers one pipeline matcher: <strong><code>common_qa</code></strong>. Add it to your pipeline, near
-the end, so high-confidence intents win first:</p>
+<p>It registers one pipeline matcher: <strong><code>ovos-common-query-pipeline-plugin</code></strong> (legacy
+alias <code>common_qa</code>). Add it to your pipeline, near the end, so high-confidence intents
+win first:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;pipeline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">      </span><span class="s2">&quot;ovos-padatious-pipeline-plugin-high&quot;</span><span class="p">,</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="s2">&quot;ovos-adapt-pipeline-plugin-high&quot;</span><span class="p">,</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="s2">&quot;common_qa&quot;</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="s2">&quot;ovos-common-query-pipeline-plugin&quot;</span><span class="p">,</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="s2">&quot;ovos-fallback-pipeline-plugin-medium&quot;</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="p">]</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="p">}</span>
@@ -1520,7 +1525,7 @@ a question.</p>
 <hr />
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <p>The matcher class is <code>CommonQAService</code> (a <code>PipelinePlugin</code>, so it exposes a single
-<code>match()</code> — hence the one <code>common_qa</code> ID, not high/medium/low tiers).</p>
+<code>match()</code> — hence the one <code>ovos-common-query-pipeline-plugin</code> ID, not high/medium/low tiers).</p>
 <ol>
 <li><strong>Question detection</strong> — <code>is_question_like()</code> requires at least 3 words, a
    "question word" (<code>QuestionWord</code> vocab), and rejects utterances that match

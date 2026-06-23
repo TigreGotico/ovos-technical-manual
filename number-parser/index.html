@@ -1516,6 +1516,10 @@
 
 
 <h1 id="ovos-number-parser">OVOS Number Parser<a class="headerlink" href="#ovos-number-parser" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Computers store numbers as digits (<code>123</code>), but people say them as words ("one hundred and twenty-three") — and the words differ in every language. This library is the translator between the two: it can read a number out loud for the assistant to speak, or pick a number out of something you said ("set a timer for twenty-five minutes") and turn it back into digits. It also understands fractions and ordinals like "third". See the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
+</div>
 <p><code>ovos-number-parser</code> converts numbers between digits and spoken words across many languages: it speaks a number aloud (<code>123</code> → "one hundred and twenty-three"), pulls a number out of free text ("I have twenty apples" → <code>20</code>), and detects fractions and ordinals.</p>
 <p><strong>What you get in 30 seconds:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_number_parser</span> <span class="kn">import</span> <span class="n">pronounce_number</span><span class="p">,</span> <span class="n">extract_number</span>

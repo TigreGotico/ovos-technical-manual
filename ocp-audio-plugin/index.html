@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/ocp-pipeline/">
+        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/ocp-audio-plugin/">
       
       
-        <link rel="prev" href="../stop-pipeline/">
+        <link rel="prev" href="../plugin-arena/">
       
       
-        <link rel="next" href="../fallback-pipeline/">
+        <link rel="next" href="../ovos-media/">
       
       
       <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
@@ -22,7 +22,7 @@
     
     
       
-        <title>OCP - OpenVoiceOS Technical Manual</title>
+        <title>OCP Audio Plugin (legacy default) - OpenVoiceOS Technical Manual</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ocp-pipeline" class="md-skip">
+        <a href="#the-ocp-audio-plugin-ovos-plugin-common-play" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              OCP
+              OCP Audio Plugin (legacy default)
             
           </span>
         </div>
@@ -271,12 +271,10 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../pipelines-overview/" class="md-tabs__link">
           
   
@@ -336,10 +334,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../plugins-index/" class="md-tabs__link">
           
   
@@ -594,553 +594,39 @@
       
   
   
-    
   
   
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
   
-    
-    
-    
+  
+    <a href="../pipelines-overview/" class="md-nav__link">
       
-        
-        
-      
-      
-    
-    
-      
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
-            
   
   <span class="md-ellipsis">
     Intent Pipeline
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            Intent Pipeline
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../pipelines-overview/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Overview & Reference
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Pipeline Matchers
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_2">
-            <span class="md-nav__icon md-icon"></span>
-            Pipeline Matchers
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../adapt-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Adapt
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../padatious-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Padatious
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../m2v-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Model2Vec
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../knn-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Hierarchical KNN
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../converse-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Converse
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cq-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Common Query
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../persona-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Persona
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../stop-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Stop
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    OCP
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    OCP
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      Quick start
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pipeline-matchers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pipeline matchers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-a-media-intent-is-recognised" class="md-nav__link">
-    <span class="md-ellipsis">
-      How a media intent is recognised
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#search-and-result-filtering" class="md-nav__link">
-    <span class="md-ellipsis">
-      Search and result filtering
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configuration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gotcha-legacy-vs-ocp-playback" class="md-nav__link">
-    <span class="md-ellipsis">
-      Gotcha: legacy vs. OCP playback
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../fallback-pipeline/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Fallback
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../padacioso/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Alternative Parsers
-  </span>
-  
-
       
         <span class="md-nav__icon md-icon"></span>
       
     </a>
   
 
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../prompts/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Logic & Concepts
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../transformer-plugins/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Transformers
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -1239,6 +725,72 @@
       
   
   
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Plugin Ecosystem
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Plugin Ecosystem
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins-index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Index & Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     
@@ -1258,11 +810,11 @@
         
   
   
-    <a href="../plugins-index/" class="md-nav__link">
+    <a href="../mic-plugins/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Plugin Ecosystem
+    Speech & Audio
   </span>
   
 
@@ -1272,6 +824,365 @@
     </a>
   
 
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Media & GUI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            Media & GUI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    OCP Audio Plugin (legacy default)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    OCP Audio Plugin (legacy default)
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      What it is
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-why-ocp-is-an-audio-service-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background — why OCP is an "audio service plugin"
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status-today-legacy-but-the-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status today — legacy, but the default
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mpris" class="md-nav__link">
+    <span class="md-ellipsis">
+      MPRIS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standalone-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standalone mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-ovos-media-replaces-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      How ovos-media replaces it
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Pages
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovos-media/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ovos-media
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ocp-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OCP Extractors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../media-plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Media Playback
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui-protocol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GUI Protocol (legacy)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ovos-shell/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OVOS Shell (legacy)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui-adapters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GUI Adapters (rework — upcoming)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qt5-gui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Qt5 GUI (legacy)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homescreen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home Screen (legacy)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -1435,36 +1346,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
+  <a href="#what-it-is" class="md-nav__link">
     <span class="md-ellipsis">
-      Quick start
+      What it is
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#pipeline-matchers" class="md-nav__link">
+  <a href="#background-why-ocp-is-an-audio-service-plugin" class="md-nav__link">
     <span class="md-ellipsis">
-      Pipeline matchers
+      Background — why OCP is an "audio service plugin"
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-a-media-intent-is-recognised" class="md-nav__link">
+  <a href="#status-today-legacy-but-the-default" class="md-nav__link">
     <span class="md-ellipsis">
-      How a media intent is recognised
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#search-and-result-filtering" class="md-nav__link">
-    <span class="md-ellipsis">
-      Search and result filtering
+      Status today — legacy, but the default
     </span>
   </a>
   
@@ -1480,9 +1382,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gotcha-legacy-vs-ocp-playback" class="md-nav__link">
+  <a href="#mpris" class="md-nav__link">
     <span class="md-ellipsis">
-      Gotcha: legacy vs. OCP playback
+      MPRIS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standalone-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standalone mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-ovos-media-replaces-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      How ovos-media replaces it
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Pages
     </span>
   </a>
   
@@ -1506,205 +1435,164 @@
   
 
 
-<h1 id="ocp-pipeline">OCP Pipeline<a class="headerlink" href="#ocp-pipeline" title="Permanent link">&para;</a></h1>
+<h1 id="the-ocp-audio-plugin-ovos-plugin-common-play">The OCP Audio Plugin (<code>ovos-plugin-common-play</code>)<a class="headerlink" href="#the-ocp-audio-plugin-ovos-plugin-common-play" title="Permanent link">&para;</a></h1>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
-<p>When you say "play some jazz" or "next song", the assistant first has to realise you are talking about <em>media</em> and not, say, the weather. This is the part that does that: it spots that an utterance is a playback request, figures out what kind of media you want, asks the installed music/podcast/video skills to search for it, and hands the best result off to be played. Think of it as the dispatcher that turns "play X" into actual playback. See the <a href="../pipelines-overview/">Intent Pipeline</a> overview or the <a href="../glossary/">Glossary</a> for related terms.</p>
+<p><strong>OCP</strong> ("OVOS Common Play") is the voice media player behind "play some jazz" or "play the
+news". Today it ships as a plugin for the old <a href="../audio-service/">audio service</a> — the package
+<code>ovos-plugin-common-play</code>, which registers as an <em>audio backend</em> called <code>ovos_common_play</code>.
+This is the <strong>default</strong> way OVOS plays media right now. It still works and is enabled out of
+the box, but it is <strong>legacy</strong>: a dedicated replacement, <a href="../ovos-media/"><code>ovos-media</code></a>, is
+being built to take over the playback job. This page explains what the OCP audio plugin is,
+why it lives inside the audio service, and how <code>ovos-media</code> will replace it. For the <em>intent</em>
+side of OCP (deciding that "play X" is a media request) see the
+<a href="../ocp-pipeline/">OCP Pipeline</a>; for the skills that supply results see
+<a href="../ocp-skills/">Media Skills</a>.</p>
 </div>
-<p>The <strong>OCP (OVOS Common Play)</strong> Pipeline Plugin handles media playback commands —
-"play some jazz", "pause", "next song". It recognises that an utterance is about
-media, works out what kind of media is wanted, asks OCP-enabled skills to search
-for it, filters the results, and hands the best one to <code>ovos-audio</code> to play.</p>
-<p>Skills act purely as catalogs: they return search results, they do not play
-anything themselves. OCP centralises selection and playback.</p>
 <hr />
-<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-ocp-pipeline-plugin
-</span></code></pre></div>
-<p>It exposes confidence-tiered matchers (<code>ovos-ocp-pipeline-plugin-high</code>,
-<code>ovos-ocp-pipeline-plugin-medium</code>, <code>ovos-ocp-pipeline-plugin-low</code>) plus a legacy
-matcher (<code>ovos-ocp-pipeline-plugin-legacy</code>). A typical pipeline puts the high tier
-early and the low tier last:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;pipeline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">      </span><span class="s2">&quot;ovos-ocp-pipeline-plugin-high&quot;</span><span class="p">,</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="s2">&quot;ovos-padatious-pipeline-plugin-high&quot;</span><span class="p">,</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="s2">&quot;ovos-adapt-pipeline-plugin-high&quot;</span><span class="p">,</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="s2">&quot;ovos-ocp-pipeline-plugin-medium&quot;</span><span class="p">,</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="s2">&quot;ovos-fallback-pipeline-plugin-medium&quot;</span><span class="p">,</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="s2">&quot;ovos-ocp-pipeline-plugin-low&quot;</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="p">]</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>The older short names <code>ocp_high</code> / <code>ocp_medium</code> / <code>ocp_low</code> / <code>ocp_legacy</code> still work
-as <strong>deprecated aliases</strong> (ovos-core rewrites them to the canonical IDs above), but new
-configs should use the canonical names.</p>
-<p>Then install OCP-enabled media skills and ask to play something.</p>
-<hr />
-<h2 id="pipeline-matchers">Pipeline matchers<a class="headerlink" href="#pipeline-matchers" title="Permanent link">&para;</a></h2>
-<p>The matcher class is <code>OCPPipelineMatcher</code>, registered under the single OPM entry point
-<code>ovos-ocp-pipeline-plugin</code>. Because it is a <code>ConfidenceMatcherPipeline</code>, OVOS derives three
-tier matchers from it at runtime via <code>match_high</code> / <code>match_medium</code> / <code>match_low</code> — you reference
-them in the pipeline by the IDs below (the short <code>ocp_*</code> aliases are deprecated):</p>
-<table>
-<thead>
-<tr>
-<th>Pipeline ID</th>
-<th>Legacy alias</th>
-<th>Tier</th>
-<th>When to use</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>ovos-ocp-pipeline-plugin-high</code></td>
-<td><code>ocp_high</code></td>
-<td>high</td>
-<td>Explicit OCP intents ("play.intent", "pause", "next") — primary media commands.</td>
-</tr>
-<tr>
-<td><code>ovos-ocp-pipeline-plugin-medium</code></td>
-<td><code>ocp_medium</code></td>
-<td>medium</td>
-<td>Utterance classified as a media query by keyword matching.</td>
-</tr>
-<tr>
-<td><code>ovos-ocp-pipeline-plugin-low</code></td>
-<td><code>ocp_low</code></td>
-<td>low</td>
-<td>Broad keyword hits — only on devices used mainly for media playback.</td>
-</tr>
-</tbody>
-</table>
-<p>A separate class, <code>MycroftCPSLegacyPipeline</code>, is registered as its own entry point
-<code>ovos-ocp-pipeline-plugin-legacy</code> (alias <code>ocp_legacy</code>). It
-bridges to deprecated Mycroft CommonPlaySkill (CPS) skills and is off by default —
-only useful if you still run legacy CPS skills.</p>
-<blockquote>
-<p><code>ocp_low</code> keys off skill-registered media keywords, so it can fire on phrases
-that merely contain a known artist or show name even when no playback was
-intended. Place it last and only enable it on media-focused devices.</p>
-</blockquote>
-<hr />
-<h2 id="how-a-media-intent-is-recognised">How a media intent is recognised<a class="headerlink" href="#how-a-media-intent-is-recognised" title="Permanent link">&para;</a></h2>
-<p>OCP combines several signals:</p>
+<h2 id="what-it-is">What it is<a class="headerlink" href="#what-it-is" title="Permanent link">&para;</a></h2>
+<p>The <strong>OCP audio plugin</strong> is OCP packaged as a classic <a href="../audio-service/">audio service</a> backend.
+The pieces:</p>
 <ul>
-<li><strong>Explicit intents</strong> (<code>ocp_high</code>) — localized <code>.intent</code> files for play, pause,
-  resume, stop, next, previous, shuffle, etc.</li>
-<li><strong>Keyword matching</strong> (<code>ocp_medium</code> / <code>ocp_low</code>) — <code>voc_match_media()</code> maps
-  vocabulary (MusicKeyword, PodcastKeyword, MovieKeyword, NewsKeyword, …) to a
-  <code>MediaType</code> with a heuristic confidence. <code>is_ocp_query()</code> treats any non-GENERIC
-  media type as a playback query.</li>
-<li><strong>Skill-registered keywords</strong> — skills announce entities (artist names, show
-  titles) over <code>ovos.common_play.register_keyword</code>; these feed the
-  <code>AhocorasickNER</code> entity matcher and bias media-type classification.</li>
+<li><strong>Package / repo:</strong> <a href="https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin"><code>ovos-ocp-audio-plugin</code></a>
+  (PyPI name <code>ovos-plugin-common-play</code>, import name <code>ovos_plugin_common_play</code>).</li>
+<li><strong>Entry point:</strong> registers in the legacy <code>mycroft.plugin.audioservice</code> group under the type
+  name <strong><code>ovos_common_play</code></strong>.</li>
+<li><strong>What it does:</strong> the full OCP player — it receives the chosen media (search results gathered
+  by the <a href="../ocp-pipeline/">OCP pipeline</a> from <a href="../ocp-skills/">OCP skills</a>), manages the
+  now-playing queue and player state, runs <a href="../ocp-plugins/">stream extractors</a>, exposes the
+  player over <a href="#mpris">MPRIS</a>, and drives the actual audio output through a lower-level audio
+  backend (<code>mpv</code>, <code>vlc</code>, or <code>simple</code>).</li>
 </ul>
-<p>Media-type classification on <code>dev</code> is keyword/vocab based (localizable, but
-heuristic). If a query maps to exactly one media type that a skill can serve, that
-type is used with full confidence.</p>
-<p>Supported media types include <code>music</code>, <code>podcast</code>, <code>movie</code>, <code>radio</code>, <code>audiobook</code>,
-<code>news</code>, and many more from <code>ovos_utils.ocp.MediaType</code>.</p>
+<p>OCP is a <em>coordinator</em>, not an audio codec: it does the voice/queue/MPRIS logic and then hands
+the raw stream to one of the simple audio backends to make sound.</p>
 <hr />
-<h2 id="search-and-result-filtering">Search and result filtering<a class="headerlink" href="#search-and-result-filtering" title="Permanent link">&para;</a></h2>
-<p>After classifying, OCP emits <code>ovos.common_play.query</code> and gathers
-<code>ovos.common_play.query.response</code> results from skills, then filters them in
-<code>filter_results()</code>:</p>
+<h2 id="background-why-ocp-is-an-audio-service-plugin">Background — why OCP is an "audio service plugin"<a class="headerlink" href="#background-why-ocp-is-an-audio-service-plugin" title="Permanent link">&para;</a></h2>
+<p>OVOS inherited its <a href="../audio-service/">audio service</a> from Mycroft. In that original design the
+audio service had one job — play a sound file — and it loaded small <em>audio backend</em> plugins (a
+VLC backend, an mpv backend) to do it. The only supported extension point for "something that
+plays media" was therefore the <code>mycroft.plugin.audioservice</code> group.</p>
+<p>When OCP was built to add a real voice-controlled media player (search across skills, media
+types, playlists, resume/next/previous, MPRIS), it was slotted into that <strong>existing</strong> extension
+point — it became "just another audio backend", the <code>ovos_common_play</code> type. That is why a
+full-blown media player ends up living inside the humble audio service: it was the hook that
+existed at the time. The <a href="../ovos-media/"><code>ovos-media</code></a> refactor exists precisely to give the
+media player its own home instead of riding on the TTS-playback service.</p>
+<hr />
+<h2 id="status-today-legacy-but-the-default">Status today — legacy, but the default<a class="headerlink" href="#status-today-legacy-but-the-default" title="Permanent link">&para;</a></h2>
+<p>The OCP audio plugin is <strong>still the default media playback path</strong>:</p>
 <ul>
-<li><strong>Confidence</strong> — drops results whose <code>match_confidence</code> is below <code>min_score</code>.</li>
-<li><strong>Media-type consistency</strong> — when a non-GENERIC type was classified, results of
-  other types are removed (<code>filter_media</code>).</li>
-<li><strong>Stream-extractor availability</strong> — results needing a Stream Extractor plugin
-  (SEI) that is not installed are removed (<code>filter_SEI</code>). Available extractors come
-  from the <code>opm.ocp.extractor</code> plugin group, queried via
-  <code>ovos.common_play.SEI.get</code>.</li>
-<li><strong>Playback mode</strong> — audio-only / video-only preferences drop incompatible
-  results (<code>playback_mode</code>).</li>
+<li>It is installed as part of <a href="../audio-service/"><code>ovos-audio</code></a>'s media extra
+  (<code>ovos_plugin_common_play[extractors]</code>), so most installs already have it.</li>
+<li>The default config ships with <strong><code>"enable_old_audioservice": true</code></strong>, which turns on the old
+  audio service that loads OCP.</li>
+<li>In the default config the <code>"OCP"</code> backend (<code>type: ovos_common_play</code>) is <code>active</code>.</li>
 </ul>
-<p>OCP tracks player state per <code>Session</code> over the bus (<code>ovos.common_play.status</code>,
-<code>ovos.common_play.track.state</code>), so context-dependent commands behave correctly —
-e.g. "next song" does nothing when no player is active.</p>
+<p>So unless you have explicitly switched to <code>ovos-media</code>, your OVOS device is playing media through
+this plugin.</p>
 <hr />
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;ovos-ocp-pipeline-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="nt">&quot;legacy&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">&quot;min_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">      </span><span class="nt">&quot;filter_media&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="nt">&quot;filter_SEI&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="nt">&quot;playback_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">      </span><span class="nt">&quot;search_fallback&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="nt">&quot;entity_csvs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">}</span>
+<p>OCP is configured as a backend under the <code>Audio</code> section of <a href="../config/"><code>mycroft.conf</code></a>:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;enable_old_audioservice&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">&quot;Audio&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">&quot;backends&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">      </span><span class="nt">&quot;OCP&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos_common_play&quot;</span><span class="p">,</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="nt">&quot;preferred_audio_services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;mpv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;vlc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;simple&quot;</span><span class="p">],</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="nt">&quot;dbus_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;session&quot;</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="nt">&quot;manage_external_players&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="nt">&quot;active&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">      </span><span class="p">}</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="p">}</span>
 </span></code></pre></div>
+<ul>
+<li><strong><code>preferred_audio_services</code></strong> — order in which OCP picks a lower-level audio backend to
+  actually emit sound.</li>
+<li><strong><code>dbus_type</code></strong> / MPRIS keys — see <a href="#mpris">MPRIS</a> below.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title"><code>default-backend</code> must not be <code>"OCP"</code></p>
+<p>The audio service's <code>default-backend</code> selects the backend for <em>plain</em> <code>speak</code>/audio output
+(it defaults to <code>mpv</code>). OCP installs itself as the <code>OCP</code> backend, but <strong><code>"OCP"</code> is not a
+valid <code>default-backend</code> value</strong> — it only appears in <code>backends</code> for legacy reasons. Leave
+<code>default-backend</code> as <code>mpv</code> (or another simple backend).</p>
+</div>
+<hr />
+<h2 id="mpris">MPRIS<a class="headerlink" href="#mpris" title="Permanent link">&para;</a></h2>
+<p>OCP exposes the player over <strong>MPRIS</strong> (the standard Linux D-Bus media-control interface), so
+phones, desktops, and physical media keys can see and control playback. With
+<code>manage_external_players</code> enabled, OCP can also reach the other direction — voice-controlling
+third-party MPRIS apps (Spotify, a browser) and pausing them when OCP starts its own playback.</p>
+<hr />
+<h2 id="standalone-mode">Standalone mode<a class="headerlink" href="#standalone-mode" title="Permanent link">&para;</a></h2>
+<p>Normally OCP is started by <a href="../audio-service/"><code>ovos-audio</code></a>. The package also ships an
+<code>ovos-ocp-standalone</code> console script to run OCP as its own process, reading the usual
+<code>~/.config/mycroft/mycroft.conf</code>. This is useful in distributed setups — e.g. running OCP at a
+<a href="../hivemind-agents/">HiveMind</a> Core rather than on a satellite, since the satellite cannot
+register OCP's intents.</p>
+<hr />
+<h2 id="how-ovos-media-replaces-it">How <code>ovos-media</code> replaces it<a class="headerlink" href="#how-ovos-media-replaces-it" title="Permanent link">&para;</a></h2>
+<p><a href="../ovos-media/"><code>ovos-media</code></a> is the <strong>upcoming, opt-in</strong> replacement. Instead of cramming the
+media player into the audio service, it is a <strong>dedicated media daemon</strong> with a cleaner design:</p>
 <table>
 <thead>
 <tr>
-<th>Key</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
+<th></th>
+<th>OCP audio plugin (legacy, default)</th>
+<th><code>ovos-media</code> (upcoming)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>legacy</code></td>
-<td>bool</td>
-<td><code>false</code></td>
-<td>Use the classic (Mycroft) audio service API instead of OCP. Not recommended.</td>
+<td>Where it runs</td>
+<td>Inside <a href="../audio-service/"><code>ovos-audio</code></a> as a <code>mycroft.plugin.audioservice</code> backend</td>
+<td>Its own service/daemon</td>
 </tr>
 <tr>
-<td><code>min_score</code></td>
-<td>int</td>
-<td><code>50</code></td>
-<td>Minimum <code>match_confidence</code> to keep a skill result (0–100).</td>
+<td>Player plugins</td>
+<td>One bundled player; delegates to <code>mpv</code>/<code>vlc</code>/<code>simple</code> audio backends</td>
+<td>Typed plugins on <code>opm.media.audio</code> / <code>opm.media.video</code> / <code>opm.media.web</code> (see <a href="../media-plugins/">Media Playback</a>)</td>
 </tr>
 <tr>
-<td><code>filter_media</code></td>
-<td>bool</td>
-<td><code>true</code></td>
-<td>Drop results whose media type differs from the classified one.</td>
+<td>Video / web</td>
+<td>Limited</td>
+<td>First-class audio <strong>and</strong> video <strong>and</strong> web players</td>
 </tr>
 <tr>
-<td><code>filter_SEI</code></td>
-<td>bool</td>
-<td><code>true</code></td>
-<td>Drop results needing an unavailable Stream Extractor plugin.</td>
-</tr>
-<tr>
-<td><code>playback_mode</code></td>
-<td>int</td>
-<td><code>0</code></td>
-<td><code>0</code> = auto, <code>10</code> = audio-only, <code>20</code> = video-only (<code>PlaybackMode</code>).</td>
-</tr>
-<tr>
-<td><code>search_fallback</code></td>
-<td>bool</td>
-<td><code>true</code></td>
-<td>Run a generic search when no type-specific results are found.</td>
-</tr>
-<tr>
-<td><code>entity_csvs</code></td>
-<td>list</td>
-<td><code>[]</code></td>
-<td>User-supplied keyword CSVs feeding the entity matcher.</td>
+<td>Status</td>
+<td>Enabled by default</td>
+<td>Opt-in</td>
 </tr>
 </tbody>
 </table>
-<p>The config block is read from <code>intents.ovos-ocp-pipeline-plugin</code> (the plugin's
-entry-point ID), the section ovos-core passes to the plugin when loading it.</p>
+<p>What stays the same: the <strong>search layer is shared</strong>. The <a href="../ocp-pipeline/">OCP pipeline</a>
+(intent matching) and <a href="../ocp-skills/">OCP skills</a> (media providers) are used by <em>both</em> — only the
+<em>playback backend</em> changes. <code>ovos-media</code> also keeps a <strong>backwards-compatibility bridge</strong> that
+translates the old <code>mycroft.audio.service.*</code> bus messages, so existing skills and clients keep
+working.</p>
+<p>To switch to <code>ovos-media</code>: set <strong><code>"enable_old_audioservice": false</code></strong> in <code>mycroft.conf</code> and run
+the <code>ovos-media</code> daemon. See the <a href="../ovos-media/">ovos-media</a> page for the full setup and the list
+of player plugins.</p>
+<div class="admonition note">
+<p class="admonition-title">Don't run both at once</p>
+<p><code>enable_old_audioservice: true</code> (OCP) and a running <code>ovos-media</code> daemon both want to own
+media playback. Pick one. When <code>ovos-media</code> is in use, the OCP backend config above does
+nothing.</p>
+</div>
 <hr />
-<h2 id="gotcha-legacy-vs-ocp-playback">Gotcha: legacy vs. OCP playback<a class="headerlink" href="#gotcha-legacy-vs-ocp-playback" title="Permanent link">&para;</a></h2>
-<p><code>ocp_legacy</code> and <code>legacy: true</code> are two different things. <code>ocp_legacy</code> is a
-pipeline matcher that routes to deprecated Mycroft CPS skills; <code>legacy: true</code> forces
-OCP to drive playback through the classic audio service API instead of OCP itself.
-Leave both off unless you specifically need to support pre-OCP skills.</p>
+<h2 id="related-pages">Related Pages<a class="headerlink" href="#related-pages" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../ocp-pipeline/">OCP Pipeline</a> — how "play X" is recognised as a media request.</li>
+<li><a href="../ocp-skills/">Media Skills (OCP)</a> — writing skills that provide media results.</li>
+<li><a href="../ocp-plugins/">OCP Stream Extractors</a> — turning page URLs into playable streams.</li>
+<li><a href="../audio-service/">Audio Service</a> — the service this plugin loads into.</li>
+<li><a href="../ovos-media/">ovos-media</a> — the dedicated replacement.</li>
+</ul>
 <hr />
-<p><em>Source code: <a href="https://github.com/OpenVoiceOS/ovos-ocp-pipeline-plugin">OpenVoiceOS/ovos-ocp-pipeline-plugin</a>.</em></p>
+<p><em>Source code: <a href="https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin">OpenVoiceOS/ovos-ocp-audio-plugin</a>.</em></p>
 
 
 

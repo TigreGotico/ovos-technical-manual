@@ -1754,6 +1754,10 @@
 
 
 <h1 id="capturesession">CaptureSession<a class="headerlink" href="#capturesession" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>When you test an OVOS skill, you want to send it a fake request and then check everything it said and did in response. <code>CaptureSession</code> is the recorder for that: it listens in on a test assistant, captures every internal message that flies by during one interaction, and hands you the list so you can make sure the skill behaved. Most of the time the higher-level test helper drives this for you; you only reach for it directly when you want the raw recording. See the <a href="../glossary/">Glossary</a> for terms like <em>message</em> and <em>bus</em>.</p>
+</div>
 <p><code>CaptureSession</code> subscribes to all messages on the <code>FakeBus</code> and records them during a single test interaction. It handles synchronous responses (ordered, from the intent pipeline) and asynchronous responses (from external threads, unordered).</p>
 <div class="admonition tip">
 <p class="admonition-title">When would I use this directly?</p>
