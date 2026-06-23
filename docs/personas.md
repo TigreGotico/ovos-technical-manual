@@ -119,15 +119,17 @@ The `memory_module` key names an `opm.agents.memory` plugin. The default when om
 | Plugin / entry point | Package | Backend |
 |---|---|---|
 | `ovos-agents-short-term-memory-plugin` (`BasicShortTermMemory`) | `ovos-persona` | In-RAM short-term history, no API key |
-| `ovos-memory-plugin-longterm` (`LongTermMemory`) | `ovos-memory-plugins` | Local JSON/SQLite store (uses an OpenAI-compatible endpoint only for LLM summarization) |
+| `ovos-memory-plugin-longterm` (`LongTermMemory`) | `ovos-memory-plugins` | Rolling LLM summary + recent window (JSON/SQLite) |
+| `ovos-memory-plugin-local-rag` (`LocalRAGMemory`) | `ovos-memory-plugins` | Semantic top-k recall via local embeddings + a vector DB (no external service) |
+| `ovos-memory-plugin-lexical` (`LexicalMemory`) | `ovos-memory-plugins` | BM25 keyword recall (SQLite, stdlib-only) |
+| `ovos-memory-plugin-recency` (`RecencyMemory`) | `ovos-memory-plugins` | Recent-window history |
+| `ovos-memory-plugin-entity` (`EntityMemory`) | `ovos-memory-plugins` | Durable facts about the user |
+| `ovos-memory-plugin-composite` (`CompositeMemory`) | `ovos-memory-plugins` | Ensemble that fuses several of the above |
 
-`ovos-memory-plugins` is **local-first**: server- / cloud-coupled RAG memory lives in
-`ovos-openai-plugin` as `PersonaServerRAGMemory` (`ovos-openai-rag-memory-plugin`), not here.
-
-> **Upcoming (repo not public yet):** the package is purely local-first — `LocalRAGMemory`
-> (`ovos-memory-plugin-local-rag`) is a fully in-process RAG backend using local OVOS embeddings +
-> an `EmbeddingsDB` plugin (no HTTP, no cloud key), and removes the current server-coupled HTTP
-> `RAGMemory` (`ovos-memory-plugin-rag`) in favour of `ovos-openai-plugin`'s server RAG.
+`ovos-memory-plugins` is **local-first**: most backends need no external service (only
+`longterm`/`entity` call an OpenAI-compatible chat endpoint, which can be your own local LLM).
+Server-/cloud-coupled RAG memory lives separately in [`ovos-openai-plugin`](openai-plugin.md)
+as `PersonaServerRAGMemory`. See [Persona Memory](persona-memory.md) for the full reference.
 
 ### Non-LLM personas
 

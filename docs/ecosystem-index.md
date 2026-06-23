@@ -155,12 +155,13 @@ There are **249** public, actively-maintained repositories in the [`OpenVoiceOS`
 | [ovos-microphone-plugin-pyaudio](https://github.com/OpenVoiceOS/ovos-microphone-plugin-pyaudio) |  |
 | [ovos-microphone-plugin-sounddevice](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice) |  |
 
-## Solver / Agent plugins (7)
+## Solver / Agent plugins (8)
 
 | Repository | Description |
 |---|---|
 | [ovos-a2a-agent-plugin](https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin) | Consume external A2A agents as OVOS persona solvers |
 | [ovos-agentic-loop](https://github.com/OpenVoiceOS/ovos-agentic-loop) |  |
+| [ovos-memory-plugins](https://github.com/OpenVoiceOS/ovos-memory-plugins) | Local-first persona memory backends (longterm, local-rag, lexical, recency, entity, composite) |
 | [ovos-persona](https://github.com/OpenVoiceOS/ovos-persona) | Persona service |
 | [ovos-persona-server](https://github.com/OpenVoiceOS/ovos-persona-server) |  |
 | [ovos-solver-failure-plugin](https://github.com/OpenVoiceOS/ovos-solver-failure-plugin) |  |
