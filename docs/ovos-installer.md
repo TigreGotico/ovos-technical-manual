@@ -176,7 +176,7 @@ The data collection only happens during the installation process, nothing else w
 
 **The installer will ask you if you want to share or not the data.**
 
-Below is a list of the collected data _(please have a look to the [Ansible tempalte](https://github.com/OpenVoiceOS/ovos-installer/blob/main/ansible/roles/ovos_installer/templates/telemetry.json.j2) used ti publish the data)_.
+Below is a list of the collected data _(please have a look at the [Ansible template](https://github.com/OpenVoiceOS/ovos-installer/blob/main/ansible/roles/ovos_installer/templates/telemetry.json.j2) used to publish the data)_.
 
 | Data                   | Description                                              |
 | ---------------------- | -------------------------------------------------------- |
@@ -199,7 +199,7 @@ Below is a list of the collected data _(please have a look to the [Ansible tempa
 | `raspberry_pi`         | Does OVOS has been installed on Raspberry Pi             |
 | `skills_feature`       | Default OVOS's skills enabled during the installation    |
 | `sound_server`         | What PulseAudio or PipeWire used                         |
-| `tuning_enabled`       | Did the Rasperry Pi tuning feature wsas used             |
+| `tuning_enabled`       | Whether the Raspberry Pi tuning feature was used         |
 | `venv`                 | OVOS installed into a Python virtual environment         |
 
 ---
