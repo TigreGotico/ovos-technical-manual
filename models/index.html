@@ -1694,8 +1694,8 @@ skip this. See the <a href="../glossary/">Glossary</a>.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>load_config()</code></td>
-<td>Read from <code>self.path</code> and merge into self</td>
+<td><code>load_local(path=None)</code></td>
+<td>Read from <code>self.path</code> (or <code>path</code>) and merge into self</td>
 </tr>
 <tr>
 <td><code>store(path=None)</code></td>
@@ -1712,7 +1712,7 @@ skip this. See the <a href="../glossary/">Glossary</a>.</p>
 </tbody>
 </table>
 <h3 id="file-locking">File Locking<a class="headerlink" href="#file-locking" title="Permanent link">&para;</a></h3>
-<p><code>LocalConf</code> uses a <code>NamedLock</code> (keyed by file path) to coordinate concurrent reads and writes across threads/processes.</p>
+<p><code>LocalConf</code> uses a single class-level <code>NamedLock("ovos_config")</code> shared by all instances to coordinate concurrent reads and writes across threads/processes.</p>
 <hr />
 <h2 id="readonlyconfig"><code>ReadOnlyConfig</code><a class="headerlink" href="#readonlyconfig" title="Permanent link">&para;</a></h2>
 <p><code>LocalConf</code> subclass that raises <code>PermissionError</code> on any mutation.</p>

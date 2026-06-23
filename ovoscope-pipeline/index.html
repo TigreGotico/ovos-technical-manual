@@ -1857,7 +1857,7 @@ skill present the match is discarded.  <code>_SinkSkill</code> simply records th
 intent message and signals the waiting <code>match()</code> call.</p>
 <p>Users never interact with <code>_SinkSkill</code> directly.</p>
 <h2 id="pipelineharness-context-manager"><code>PipelineHarness</code> — Context Manager<a class="headerlink" href="#pipelineharness-context-manager" title="Permanent link">&para;</a></h2>
-<p><code>PipelineHarness</code> — <code>ovoscope/pipeline.py:71</code></p>
+<p><code>PipelineHarness</code> — <code>ovoscope/pipeline.py:91</code></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovoscope.pipeline</span> <span class="kn">import</span> <span class="n">PipelineHarness</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">with</span> <span class="n">PipelineHarness</span><span class="p">(</span>
@@ -1911,19 +1911,19 @@ intent message and signals the waiting <code>match()</code> call.</p>
 <tbody>
 <tr>
 <td><code>match(utterance, timeout=5.0)</code></td>
-<td><code>ovoscope/pipeline.py:135</code></td>
+<td><code>ovoscope/pipeline.py:156</code></td>
 <td><code>Optional[Message]</code></td>
 <td>Send utterance; return matched <code>Message</code> or <code>None</code> on timeout/failure.</td>
 </tr>
 <tr>
 <td><code>assert_matches(utterance, intent_type=None, timeout=5.0)</code></td>
-<td><code>ovoscope/pipeline.py:183</code></td>
+<td><code>ovoscope/pipeline.py:226</code></td>
 <td><code>Message</code></td>
 <td>Assert at least one stage matches. Raises <code>AssertionError</code> if no match. <code>intent_type</code> is a substring check on <code>msg_type</code>.</td>
 </tr>
 <tr>
 <td><code>assert_no_match(utterance, timeout=2.0)</code></td>
-<td><code>ovoscope/pipeline.py:213</code></td>
+<td><code>ovoscope/pipeline.py:256</code></td>
 <td><code>None</code></td>
 <td>Assert no stage matches. Raises <code>AssertionError</code> if a match is found.</td>
 </tr>
@@ -1936,7 +1936,7 @@ stage that returns a non-empty match list wins; remaining stages are skipped.</p
 when a stage commits to handling the utterance.</p>
 <p><strong>Failure signal</strong>: <code>intent_failure</code> or <code>mycroft.skill.handler.start</code> bus
 messages — emitted when no stage matched after all stages have been consulted.</p>
-<p><code>match()</code> — <code>ovoscope/pipeline.py:135</code> — uses separate <code>threading.Event</code>
+<p><code>match()</code> — <code>ovoscope/pipeline.py:156</code> — uses separate <code>threading.Event</code>
 objects for success and failure so that an <code>intent_failure</code> arriving first
 does not mask a subsequent late success match.  On timeout or failure the
 method returns <code>None</code>; on success it returns the captured <code>Message</code>.</p>
@@ -2062,9 +2062,9 @@ when a C-extension engine is absent in CI:</p>
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>            <span class="k">raise</span> <span class="n">unittest</span><span class="o">.</span><span class="n">SkipTest</span><span class="p">(</span><span class="s2">&quot;ovos-m2v-pipeline not installed&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="implementation-notes">Implementation Notes<a class="headerlink" href="#implementation-notes" title="Permanent link">&para;</a></h2>
-<p><code>PipelineHarness.__enter__</code> — <code>ovoscope/pipeline.py:104</code> — creates a
+<p><code>PipelineHarness.__enter__</code> — <code>ovoscope/pipeline.py:124</code> — creates a
 <code>MiniCroft</code> with <code>skill_ids=[]</code> and the specified pipeline.</p>
-<p><code>PipelineHarness.match()</code> — <code>ovoscope/pipeline.py:135</code> — subscribes to
+<p><code>PipelineHarness.match()</code> — <code>ovoscope/pipeline.py:156</code> — subscribes to
 <code>intent.service.skills.activated</code> (success) and <code>intent_failure</code> /
 <code>mycroft.skill.handler.start</code> (failure) before emitting the utterance,
 then waits on a <code>threading.Event</code> with the given timeout.  Bus handlers are
