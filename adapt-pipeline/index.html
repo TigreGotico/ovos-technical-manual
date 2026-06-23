@@ -1605,6 +1605,8 @@
 <p><code>AdaptPipeline</code> is the flat parser most deployments use. <code>DomainAdaptPipeline</code> and <code>HierarchicalAdaptPipeline</code> partition intents per skill/domain to cut down on cross-skill keyword collisions; they read extra config under <code>intents.ovos_adapt_domain_pipeline</code> and <code>intents.ovos_adapt_hierarchical_pipeline</code>. All three subclass <code>ConfidenceMatcherPipeline</code> and expose <code>match_high</code>/<code>match_medium</code>/<code>match_low</code>.</p>
 <p><strong>Vocabulary files.</strong> Skills supply keyword lists as <code>.voc</code> files (one phrase per line, with <code>(a|b)</code> alternatives and <code>[optional]</code> words expanded at registration), and regular-expression entities as <code>.rx</code> files using Python named groups, e.g. <code>(?P&lt;Location&gt;.+)</code>. Registration flows over the bus via <code>register_vocab</code> and <code>register_intent</code>.</p>
 <p><strong>Gotcha — collisions are silent.</strong> Two skills that require overlapping vocabulary can shadow each other; the higher-scoring match wins with no warning. Make each skill's required keywords as specific as possible, and prefer the domain/hierarchical entry points when running many skills together.</p>
+<hr />
+<p><em>Source code: <a href="https://github.com/OpenVoiceOS/ovos-adapt-pipeline-plugin">OpenVoiceOS/ovos-adapt-pipeline-plugin</a>.</em></p>
 
 
 
