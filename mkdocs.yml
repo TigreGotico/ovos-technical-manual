@@ -109,6 +109,7 @@ nav:
           - Speech Service: speech-service.md
           - Audio Service: audio-service.md
           - GUI Service (legacy): gui-service.md
+          - PHAL (Hardware Abstraction): phal.md
   - Intent Pipeline:
       - Overview & Reference: pipelines-overview.md
       - Pipeline Matchers:
@@ -237,7 +238,7 @@ nav:
           - gh-automations Release: gh-automations-release.md
           - gh-automations Workflows: gh-automations-workflows.md
       - Hardware:
-          - Hardware Overview (PHAL): phal.md
+          - i2c Sound & Audio Setup: i2c-sound.md
           - Mark 1: mark1.md
           - Mark 2: mark2.md
       - Project Info:

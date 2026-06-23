@@ -291,4 +291,4 @@ Enjoy your journey with RaspOVOS! With your Raspberry Pi set up, you can start e
 
 ---
 
-*Source code: [TigreGotico/raspOVOS](https://github.com/TigreGotico/raspOVOS).*
+*Source code: [OpenVoiceOS/raspOVOS](https://github.com/OpenVoiceOS/raspOVOS).*

@@ -102,7 +102,7 @@ the container method is not supported there.) That role:
 
 !!! warning "`ovos-i2csound` is *not* used by the installer"
     A common misconception: the [ovos-installer](ovos-installer.md) does **not** use
-    `ovos-i2csound` or any other [raspOVOS](#the-raspovos-image-path-and-ovos-i2csound) helper
+    `ovos-i2csound` or any other [raspOVOS](i2c-sound.md) helper
     script. `ovos-i2csound` belongs to the raspOVOS image. The installer's Mark 2 audio comes
     entirely from the `VocalFusionDriver` kernel module above.
 
@@ -129,24 +129,21 @@ by Peter Steenbergen (j1nx).
 
 ---
 
-## The raspOVOS image path (and `ovos-i2csound`)
+## The raspOVOS image path
 
 [`ovos-installer`](ovos-installer.md) is one way to get OVOS onto a device; the other is
-**raspOVOS**, a ready-made Raspberry Pi OS image with OVOS layered on top
-([`OpenVoiceOS/raspOVOS`](https://github.com/OpenVoiceOS/raspOVOS) is the active repo;
-[`TigreGotico/raspOVOS`](https://github.com/TigreGotico/raspOVOS) is older). The raspOVOS images
-handle i2c sound HATs with a different helper:
+**[raspOVOS](install-raspovos.md)**, a ready-made Raspberry Pi OS image
+([`OpenVoiceOS/raspOVOS`](https://github.com/OpenVoiceOS/raspOVOS)) with OVOS layered on top.
 
-[`ovos-i2csound`](https://github.com/OpenVoiceOS/ovos-i2csound) is a shell script plus systemd
-service that **auto-detects an i2c sound HAT at boot and configures ALSA** for it, writing the
-detected board name to `/etc/OpenVoiceOS/i2c_platform` (a marker other plugins read). It supports
-the SJ201 and a range of Respeaker-style HATs.
+The two paths set the SJ201 up **differently**. The installer builds the
+[`VocalFusionDriver`](#the-ovos-kernel-driver-vocalfusiondriver) kernel module (above); the raspOVOS
+image instead detects and configures i2c sound HATs with `ovos-i2csound` and friends — see
+**[i2c Sound & Audio Setup](i2c-sound.md)** for those tools.
 
 !!! note "`ovos-i2csound` belongs to the raspOVOS image, not the installer"
-    `ovos-i2csound` is part of the **raspOVOS** image build. It is **not** invoked by
-    the ansible [ovos-installer](ovos-installer.md), which uses the
-    [`VocalFusionDriver`](#the-ovos-kernel-driver-vocalfusiondriver) kernel module for the Mark 2
-    instead. Don't expect `ovos-i2csound` on an installer-provisioned system.
+    `ovos-i2csound` is **not** invoked by the ansible [ovos-installer](ovos-installer.md), which
+    uses the [`VocalFusionDriver`](#the-ovos-kernel-driver-vocalfusiondriver) kernel module for the
+    Mark 2 instead. Don't expect `ovos-i2csound` on an installer-provisioned system.
 
 ---
 
@@ -176,7 +173,7 @@ VocalFusion/XVF3510 driver, baked into the image at build time.
 
 It is now a **legacy / dormant** project: it is not formally archived, but it has no current
 releases and little recent activity. New installs should use the
-[ovos-installer](ovos-installer.md) or the [raspOVOS](#the-raspovos-image-path-and-ovos-i2csound)
+[ovos-installer](ovos-installer.md) or the [raspOVOS](#the-raspovos-image-path)
 images instead. It is documented here because it is a meaningful part of OVOS history and still
 the ancestor of today's Mark 2 audio packaging.
 
