@@ -174,3 +174,6 @@ class MyWWPlugin(HotWordEngine):
 
 ---
 
+## Further reading
+
+- [Precise Wake Word Engine Goes ONNX!](https://blog.openvoiceos.org/posts/2025-11-03-precise-onnx) — OVOS blog

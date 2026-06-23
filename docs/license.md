@@ -43,3 +43,7 @@ The following repositories do not respect our universal donor policy, please ens
 | [ovos-tts-plugin-espeakng](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakng)         | GPL       | depends on [espeak-ng](https://github.com/espeak-ng) (GPL)    |
 | [ovos-g2p-plugin-espeak](https://github.com/OpenVoiceOS/ovos-g2p-plugin-espeak)             | GPL       | depends on [espeak-phonemizer](https://github.com/rhasspy/espeak-phonemizer) (GPL)  |
 | [ovos-tts-plugin-SAM](https://github.com/OpenVoiceOS/ovos-tts-plugin-SAM)                   | ?         | reverse engineered abandonware              |
+
+## Further reading
+
+- [Why OpenVoiceOS Uses Permissive Licenses](https://blog.openvoiceos.org/posts/2023-02-28-permissive-licenses) — OVOS blog

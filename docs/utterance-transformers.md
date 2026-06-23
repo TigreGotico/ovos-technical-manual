@@ -246,3 +246,6 @@ After installation, add your transformer to the `mycroft.conf`:
 
 ```
 
+## Further reading
+
+- [Meet the OVOS Transcription Validator Plugin](https://blog.openvoiceos.org/posts/2025-07-22-ovos-transcription-validator-plugin) — OVOS blog

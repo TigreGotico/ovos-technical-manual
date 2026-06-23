@@ -381,3 +381,7 @@ MyTTSConfig = {
 
 ---
 
+## Further reading
+
+- [Introducing phoonnx — OVOS's next-gen TTS engine](https://blog.openvoiceos.org/posts/2025-10-06-phoonnx) — OVOS blog
+- [Making Synthetic Voices From Scratch](https://blog.openvoiceos.org/posts/2025-06-26-making-synthetic-voices-from-scratch) — OVOS blog

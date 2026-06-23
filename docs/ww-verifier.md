@@ -143,3 +143,7 @@ OVOS wake-word plugin wrapping [microWakeWord](https://github.com/kahrendt/micro
 - [Wake Word Plugins](wake-word-plugins.md) — detection plugin reference
 - [VAD Plugins](vad-plugins.md)
 - [Listener / Speech Service](speech-service.md)
+
+## Further reading
+
+- [A Noise Filter for Better Listening (Pre-Wake VAD)](https://blog.openvoiceos.org/posts/2025-11-06-prewake-vad) — OVOS blog

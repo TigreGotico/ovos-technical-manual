@@ -96,3 +96,7 @@ One of OVOS's greatest strengths is its plugin-based architecture. Almost every 
 - **Intent Plugins**: [Adapt](adapt-pipeline.md), [Padatious](padatious-pipeline.md), [Common Query](cq-pipeline.md), etc.
 
 This allows OVOS to run on everything from a high-end server to a Raspberry Pi Zero.
+
+## Further reading
+
+- [Good Old-Fashioned AI: The Secret Ingredient in a Modern Voice Assistant](https://blog.openvoiceos.org/posts/2025-11-25-gofai) — OVOS blog

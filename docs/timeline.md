@@ -910,3 +910,8 @@
 
 
 - Mar 2026 - **GUI refactor**: `ovos-gui` moves to a template-based `GUIInterface` and the `opm.gui_adapter` plugin system, decoupling the GUI layer from the legacy QML/page model.
+
+## Further reading
+
+- [A Brief History of Open Voice OS](https://blog.openvoiceos.org/posts/2023-02-15-a-brief-history-of-open-voice-os) — OVOS blog
+- [OVOS and Mycroft: A Fork That Wasn't Meant to Be](https://blog.openvoiceos.org/posts/2025-05-20-ovos-and-mycroft-a-fork-that-wasnt-meant-to-be) — OVOS blog

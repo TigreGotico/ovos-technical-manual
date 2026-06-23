@@ -305,3 +305,7 @@ Cross-references:
 
 
 - [Persona Server](persona-server.md) — expose a persona via OpenAI-compatible HTTP API
+
+## Further reading
+
+- [When Your Voice Assistant Becomes a Persona: The Power and Peril of LLMs](https://blog.openvoiceos.org/posts/2025-05-06-when-your-voice-assistant-becomes-a-persona) — OVOS blog

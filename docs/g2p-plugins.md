@@ -87,3 +87,7 @@ phonemes = g2p.get_arpa("hello", lang="en-us")
 print(f"Phonemes: {phonemes}")
 
 ```
+
+## Further reading
+
+- [The First Phonemizer for Barranquenho](https://blog.openvoiceos.org/posts/2025-12-14-barranquenho) — OVOS blog

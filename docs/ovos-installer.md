@@ -294,3 +294,6 @@ Don’t panic! If the installer fails, it will generate a log file and upload it
 
 OVOS is a community-driven project, maintained by passionate volunteers. Your feedback, bug reports, and patience are truly appreciated.
 
+## Further reading
+
+- [Boring installs, now on macOS (Intel + Apple Silicon)](https://blog.openvoiceos.org/posts/2026-03-05-ovos-installer-macos-intel-apple-silicon) — OVOS blog

@@ -487,3 +487,6 @@ MySTTConfig = {
 
 ---
 
+## Further reading
+
+- [Real-Time Offline Speech Recognition on OVOS (ONNX ASR)](https://blog.openvoiceos.org/posts/2026-02-16-onnx-asr) — OVOS blog

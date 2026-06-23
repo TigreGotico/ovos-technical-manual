@@ -197,3 +197,7 @@ Add to a persona JSON:
 ```
 
 A background asyncio event loop keeps sessions alive between tool calls. Each server's JSON Schema is translated to a Pydantic model at discovery time so the LLM receives the actual input schema.
+
+## Further reading
+
+- [Building an Open and Interoperable Voice Ecosystem (MCP / UTCP / A2A)](https://blog.openvoiceos.org/posts/2025-10-24-protocol_interoperability) — OVOS blog

@@ -171,3 +171,6 @@ if not is_silence:
 
 ---
 
+## Further reading
+
+- [OVOS Just Got a Noise Filter (Pre-Wake VAD)](https://blog.openvoiceos.org/posts/2025-11-06-prewake-vad) — OVOS blog

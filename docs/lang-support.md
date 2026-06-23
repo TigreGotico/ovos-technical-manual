@@ -256,3 +256,7 @@ Explore public benchmark tools for evaluating model performance:
 
 - Curious users: Explore benchmark results to see how well OVOS handles your language.
 
+## Further reading
+
+- [Cloning Voices for Endangered Languages: Asturian & Aragonese](https://blog.openvoiceos.org/posts/2025-12-09-ast) — OVOS blog
+- [Reflections on Our Collaboration: an Open Arabic Voice](https://blog.openvoiceos.org/posts/2025-10-01-arabic_tts_collaboration) — OVOS blog
