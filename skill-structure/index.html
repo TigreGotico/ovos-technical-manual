@@ -976,9 +976,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#settingsmetayaml" class="md-nav__link">
+  <a href="#settingsmetayaml-optional-legacy" class="md-nav__link">
     <span class="md-ellipsis">
-      settingsmeta.yaml
+      settingsmeta.yaml (optional, legacy)
     </span>
   </a>
   
@@ -1515,9 +1515,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#settingsmetayaml" class="md-nav__link">
+  <a href="#settingsmetayaml-optional-legacy" class="md-nav__link">
     <span class="md-ellipsis">
-      settingsmeta.yaml
+      settingsmeta.yaml (optional, legacy)
     </span>
   </a>
   
@@ -1703,9 +1703,11 @@ This might be particularly useful for Skills that have scheduled future events, 
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_scheduled_event</span><span class="p">(</span><span class="s1">&#39;my_event&#39;</span><span class="p">)</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">stop_my_subprocess</span><span class="p">()</span>
 </span></code></pre></div>
-<h3 id="settingsmetayaml">settingsmeta.yaml<a class="headerlink" href="#settingsmetayaml" title="Permanent link">&para;</a></h3>
-<p>This file defines the settings UI that will be available to a User through a backend or companion app</p>
-<p>Jump to <a href="../skill-settings/">Skill Settings</a> for more information on this file and handling of Skill settings.</p>
+<h3 id="settingsmetayaml-optional-legacy">settingsmeta.yaml <em>(optional, legacy)</em><a class="headerlink" href="#settingsmetayaml-optional-legacy" title="Permanent link">&para;</a></h3>
+<p>This optional file describes a settings UI for the skill. It is a <strong>legacy format from the old
+Mycroft backend</strong> that OVOS doesn't run, so it is <strong>usually absent</strong> — skills handle their settings
+without it, and only some community config tools still read it.</p>
+<p>Jump to <a href="../skill-settings-meta/">Skill Settings Meta</a> for the format, and <a href="../skill-settings/">Skill Settings</a> for how skills actually read and write settings.</p>
 <h3 id="packaging-and-distribution">Packaging and Distribution<a class="headerlink" href="#packaging-and-distribution" title="Permanent link">&para;</a></h3>
 <p>Modern OVOS skills use <code>pyproject.toml</code> for packaging. This allows your skill to be installed as a standard Python package and registered as a plugin via entry points.</p>
 <h4 id="pyprojecttoml-example"><code>pyproject.toml</code> Example<a class="headerlink" href="#pyprojecttoml-example" title="Permanent link">&para;</a></h4>

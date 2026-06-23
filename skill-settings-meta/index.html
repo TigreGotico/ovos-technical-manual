@@ -1690,12 +1690,31 @@
 <h1 id="settingsmetajson">settingsmeta.json<a class="headerlink" href="#settingsmetajson" title="Permanent link">&para;</a></h1>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
-<p>This file describes the form users see when they configure your skill — the labelled boxes, checkboxes, and drop-down menus on a settings screen. You list each option (its label, its type, and a starting value) and OVOS builds the screen for you. It's like designing a fill-in-the-blanks form so people can adjust a skill without editing any files. For where those answers are stored and used, see <a href="../skill-settings/">Skill Settings</a>; for term definitions see the <a href="../glossary/">Glossary</a>.</p>
+<p>This optional file describes a form for configuring your skill — labelled boxes, checkboxes,
+and drop-downs on a settings screen — so a tool can render a settings UI without you writing
+one. <strong>Heads-up: this is a legacy format and most OVOS skills don't ship it.</strong> It came from
+the old Mycroft backend, which OVOS doesn't run; your skill's settings work fine without it
+(see <a href="../skill-settings/">Skill Settings</a>). It only matters if you use a community tool that
+reads it. For term definitions see the <a href="../glossary/">Glossary</a>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Legacy — specified but not used by OVOS itself</p>
+<p><code>settingsmeta.json</code> / <code>.yaml</code> is a <strong>legacy format inherited from the Mycroft backend
+server</strong>, which presented a web form to edit skill settings. <strong>OVOS does not run that backend</strong>,
+so nothing in OVOS core consumes this file, and it is <strong>optional and usually absent</strong> in modern
+skills. Your skill reads and writes its settings perfectly well without it — see
+<a href="../skill-settings/">Skill Settings</a>.</p>
+<p>It is still <em>specified</em> (and <code>ovos-workshop</code> can auto-generate a basic version from a skill's
+settings), and some <strong>community tools still consume it to render a settings UI</strong> — most notably
+<a href="https://github.com/OscillateLabsLLC/ovos-skill-config-tool"><code>ovos-skill-config-tool</code></a> by
+Oscillate Labs. Provide a <code>settingsmeta</code> file only if you specifically target such a tool; the
+rest of this page documents the format for that case.</p>
 </div>
 <h2 id="define-settings-ui-for-a-skill">Define settings UI for a <a href="../skill-design-guidelines/">Skill</a><a class="headerlink" href="#define-settings-ui-for-a-skill" title="Permanent link">&para;</a></h2>
-<p>To define our Skills settings UI we use a <code>settingsmeta.json</code> or <code>settingsmeta.yaml</code> file. 
-This file must be in the root directory of the Skill and must follow a specific structure.</p>
-<p>Once settings have been defined using a <code>settingsmeta</code> file, they will be presented to the user in the configured backend or helper application</p>
+<p>To define a Skill's settings UI you can provide a <code>settingsmeta.json</code> or <code>settingsmeta.yaml</code> file.
+When present, it lives in the root directory of the Skill and follows the structure below.</p>
+<p>A <code>settingsmeta</code> file does nothing on its own — it is only meaningful to a tool that reads it (a
+community settings editor like the one above), which then presents the described fields to the user.</p>
 <h3 id="example-settingsmeta-file">Example settingsmeta file<a class="headerlink" href="#example-settingsmeta-file" title="Permanent link">&para;</a></h3>
 <p>To see it in action, lets look at a simple example from the <a href="https://github.com/MycroftAI/skill-date-time">Date-Time Skill</a>. First using the JSON syntax as a <code>settingsmeta.json</code> file:</p>
 <div class="language-javascript highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>

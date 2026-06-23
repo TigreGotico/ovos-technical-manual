@@ -1585,7 +1585,7 @@
 <h1 id="ssmlbuilder">SSMLBuilder<a class="headerlink" href="#ssmlbuilder" title="Permanent link">&para;</a></h1>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
-<p>Normally the assistant just reads text aloud in a flat voice. SSML is a way to add stage directions to that text — pause here, say this word louder, slow down, whisper, change the pitch — so speech sounds more natural and expressive. It's like the difference between reading a script plainly and acting it out. The <code>SSMLBuilder</code> helper on this page lets you add those directions without memorizing the markup by hand. Note: not every voice supports every effect. For spoken replies in general see <a href="../statements/">Statements</a>; for term definitions see the <a href="../glossary/">Glossary</a>.</p>
+<p>Normally the assistant just reads text aloud in a flat voice. SSML is a way to add stage directions to that text — pause here, say this word louder, slow down, whisper, change the pitch — so speech sounds more natural and expressive. It's like the difference between reading a script plainly and acting it out. The <code>SSMLBuilder</code> helper on this page lets you add those directions without memorizing the markup by hand. Heads-up: <strong>most TTS voices don't actually support SSML</strong> — but that's harmless, OVOS just strips the directions and reads the plain words, so it's always safe to send. For spoken replies in general see <a href="../statements/">Statements</a>; for term definitions see the <a href="../glossary/">Glossary</a>.</p>
 </div>
 <h2 id="what-is-ssml">What is SSML?<a class="headerlink" href="#what-is-ssml" title="Permanent link">&para;</a></h2>
 <p>Speech Synthesis Markup Language (SSML) is a markup language used to enhance synthesized speech output. It provides developers with a way to control various aspects of speech synthesis, such as pronunciation, intonation, volume, and speed, by using predefined tags and attributes.</p>
@@ -1728,15 +1728,32 @@
 </li>
 </ol>
 <h2 id="ssml-support-in-tts-plugins">SSML Support in <a href="../tts-plugins/">TTS</a> Plugins<a class="headerlink" href="#ssml-support-in-tts-plugins" title="Permanent link">&para;</a></h2>
-<p>OVOS TTS plugins implement support for SSML, ensuring that SSML content is processed accurately during speech synthesis. Let's take a closer look at how SSML handling works within the <code>TTS</code> abstract class:</p>
+<div class="admonition tip">
+<p class="admonition-title">It is always safe to send SSML — even to engines that don't support it</p>
+<p><strong>Most TTS engines do not support SSML.</strong> That's fine: you can emit SSML from any skill
+without checking the engine first. The base <code>TTS</code> class <strong>strips the tags before the engine
+ever sees them</strong>, so a non-SSML engine simply speaks the plain text — the markup is dropped,
+nothing breaks. You only need an SSML-capable engine if you actually want the <em>effect</em> (a
+pause, emphasis, a pitch change) to be heard.</p>
+</div>
+<p>By default a plugin declares <strong>no</strong> SSML support: the <code>ssml_tags</code> list is empty, so OVOS removes
+all SSML before synthesis. A plugin opts in by passing <code>ssml_tags=[...]</code> (the standard tags it can
+handle) to the <code>TTS</code> base class. The base class then does the filtering for it:</p>
 <ul>
 <li>
-<p><strong>SSML Validation</strong>: The <code>validate_ssml()</code> method checks if the TTS engine supports SSML. Unsupported or invalid SSML tags are removed from the input text to ensure proper processing.</p>
+<p><strong>SSML Validation</strong>: <code>validate_ssml()</code> runs on the text <em>before</em> it reaches the engine's
+  <code>get_tts()</code>. If <code>ssml_tags</code> is empty (the common case), <strong>every</strong> tag is stripped via
+  <code>remove_ssml()</code>. If the engine declared some supported tags, only those are kept and any other
+  tags are removed.</p>
 </li>
 <li>
-<p><strong>SSML Tag Handling</strong>: Supported SSML tags are processed by the TTS engine during synthesis. Unsupported tags are removed, while supported tags are modified or retained based on the implementation of the <code>modify_tag()</code> method.</p>
+<p><strong>SSML Tag Handling</strong>: for the tags an engine <em>does</em> support, <code>modify_tag()</code> lets the plugin
+  rewrite each one (e.g. translate a standard tag into a vendor-specific form) before it is passed
+  through to synthesis.</p>
 </li>
 </ul>
+<p>In other words, the plugin never has to worry about unsupported tags — by the time its <code>get_tts()</code>
+sees the text, the markup has already been reduced to what it declared it can handle.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># default handling of ssml, advanced plugins may override this method</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">def</span> <span class="nf">modify_tag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Override to modify each supported ssml tag.</span>
@@ -1808,9 +1825,14 @@
 <p>In this example, the <code>PollyTTS</code> plugin defines a list of supported SSML tags, including both standard and Amazon-specific tags. During initialization, the plugin sets up SSML support by providing the list of tags to the <code>TTS</code> superclass.</p>
 <p>When synthesizing speech using Amazon Polly, the plugin translates platform-specific SSML tags like <code>amazon:effect</code> to ensure compatibility with Amazon's speech synthesis service.</p>
 <h3 id="behavior-with-plugins-that-do-not-support-ssml">Behavior with Plugins That Do Not Support SSML<a class="headerlink" href="#behavior-with-plugins-that-do-not-support-ssml" title="Permanent link">&para;</a></h3>
-<p>When SSML text is sent to a TTS plugin that does not support SSML, the plugin will typically ignore the SSML tags and process the text as regular speech. </p>
-<p>This means that any SSML-specific effects, such as pauses, emphasis, or prosody modifications, will be dropped, and the synthesized speech will be generated without considering the SSML markup.</p>
-<p>It's important to ensure compatibility between the SSML content and the capabilities of the TTS plugin being used. If SSML-specific effects are essential for the intended speech output, it's recommended to verify that the selected TTS plugin supports SSML or consider using a different plugin that provides SSML support.</p>
+<p>When SSML text is sent to a TTS plugin that does not support SSML — again, <strong>the common case</strong> —
+OVOS strips the tags (via <code>remove_ssml()</code>) before the engine runs, and the engine speaks the
+remaining plain text. The SSML-specific effects (pauses, emphasis, prosody) are simply <strong>dropped</strong>;
+nothing errors and the user still hears the words.</p>
+<p>Because of this, <strong>you do not need to check whether the engine supports SSML before sending it</strong> —
+it is always safe. The only consideration is whether the effect <em>matters</em>: if a pause or emphasis
+is essential to be heard, choose an SSML-capable engine (such as Amazon Polly above). If it is just
+a nice-to-have, emit the SSML anyway and let non-supporting engines fall back to the plain text.</p>
 <hr />
 <p><em>Source code: <a href="https://github.com/OpenVoiceOS/ovos-utils">OpenVoiceOS/ovos-utils</a>.</em></p>
 

@@ -1600,7 +1600,7 @@
 <h1 id="skill-settings">Skill Settings<a class="headerlink" href="#skill-settings" title="Permanent link">&para;</a></h1>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
-<p>"Settings" are a skill's saved preferences — things like a username, an API key, or a chosen option — that stick around even after a restart. Think of it as a small notepad each skill keeps to remember how the user wants it to behave. This page shows how a skill reads and writes those values, and how it reacts when a user changes them. To design the on-screen form users fill in, see <a href="../skill-settings-meta/">Skill Settings Meta</a>; for term definitions see the <a href="../glossary/">Glossary</a>.</p>
+<p>"Settings" are a skill's saved preferences — things like a username, an API key, or a chosen option — that stick around even after a restart. Think of it as a small notepad each skill keeps to remember how the user wants it to behave. This page shows how a skill reads and writes those values, and how it reacts when a user changes them. To describe an optional (legacy) settings form for community config tools, see <a href="../skill-settings-meta/">Skill Settings Meta</a>; for term definitions see the <a href="../glossary/">Glossary</a>.</p>
 </div>
 <p>Settings provide per-skill persistent key-value storage backed by a JSON file. They allow users to configure and personalize skill behaviour — changing defaults, providing API keys, or adjusting integration preferences.</p>
 <hr />
@@ -1713,7 +1713,7 @@
 <p><a href="../skill-classes/">Skill Classes</a> — <code>OVOSSkill</code> base class</p>
 </li>
 <li>
-<p><a href="../skill-settings-meta/">Skill Settings Meta</a> — <code>settingsmeta.json</code> schema for GUI settings UI</p>
+<p><a href="../skill-settings-meta/">Skill Settings Meta</a> — the legacy <code>settingsmeta.json</code> settings-UI schema (optional, usually absent; only used by community config tools)</p>
 </li>
 <li>
 <p><a href="../core/">ovos-core</a> — settings file watcher and <code>ovos.skills.settings_changed</code> event</p>
