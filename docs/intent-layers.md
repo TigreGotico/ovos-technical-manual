@@ -119,7 +119,7 @@ self.intent_layers.disable()
 ### Registering a Layer Programmatically
 
 ```python
-self.register_intent_layer("my_layer", [
+self.intent_layers.update_layer("my_layer", [
     "my.first.intent",
     "my.second.intent",
     IntentBuilder("AdaptLayerIntent").require("LayerKeyword"),
@@ -127,7 +127,9 @@ self.register_intent_layer("my_layer", [
 
 ```
 
-This registers the intents without activating the layer. Call `activate_layer` to enable them.
+`update_layer` adds the intents to the named layer (creating it if needed) **without**
+activating it — call `self.intent_layers.activate_layer("my_layer")` to enable them. Use
+`replace_layer(layer_name, intent_list)` instead to overwrite a layer's intents.
 
 ---
 
