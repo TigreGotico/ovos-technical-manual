@@ -81,7 +81,7 @@ Locate a resource file by searching:
 | `read_vocab_file(path) → List[List[str]]` | Read a `.voc` file, expanding `{alt1\|alt2}` templates |
 | `load_regex_from_file(path, skill_id) → List[str]` | Load regexes from a `.rx` file, munging skill ID |
 | `load_vocabulary(basedir, skill_id) → dict` | Load all `.voc` files from a directory tree |
-| `load_regex(basedir, skill_id) → List[str]` | Load all `.rx` files from a directory |
+| `load_regex(basedir, skill_id) → List[List[str]]` | Load all `.rx` files from a directory |
 | `read_value_file(filename, delim) → OrderedDict` | Read a 2-column CSV as key-value pairs |
 | `read_translated_file(filename, data) → List[str]` | Read a file with `{key}` substitutions |
 

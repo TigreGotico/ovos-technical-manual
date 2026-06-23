@@ -1,6 +1,6 @@
 # Pydantic Message Models
 
-`ovos-pydantic-models` provides typed [Pydantic v2](https://docs.pydantic.dev/latest/) models for every message that flows over the OVOS [MessageBus](bus-service.md). This package is the machine-readable specification of the OVOS bus protocol — covering 545+ message types organized by subsystem.
+`ovos-pydantic-models` provides typed [Pydantic v2](https://docs.pydantic.dev/latest/) models for every message that flows over the OVOS [MessageBus](bus-service.md). This package is the machine-readable specification of the OVOS bus protocol — covering 595+ message types organized by subsystem.
 
 > **Beta** — Message models are semi-automatically generated and under active review. Some subsystems are deprecated but documented here for historical reference. Do not treat this as a stable API contract.
 
@@ -474,7 +474,7 @@ assert typed_speak.data.expect_response is False
 
 ## Interactive Reference
 
-`docs/index.html` is a searchable, filterable web UI with all 545+ message types:
+`docs/index.html` is a searchable, filterable web UI with all 595+ message types:
 
 ```bash
 python -m http.server 8080 --directory docs

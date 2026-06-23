@@ -63,10 +63,10 @@ gui.show_pages(["page1.qml", "page2.qml"], index=0)
     ```python
     from ovos_bus_client.apis.gui import PageTemplates   # available after #197
 
-    gui.show_page(PageTemplates.TEXT)        # "SYSTEM_text"
-    gui.show_page(PageTemplates.IMAGE)       # "SYSTEM_image"
-    gui.show_page(PageTemplates.URL)         # "SYSTEM_url"
-    gui.show_page(PageTemplates.LOADING)     # "SYSTEM_loading"
+    gui.show_page(PageTemplates.TEXT)        # "SYSTEM_TextFrame"
+    gui.show_page(PageTemplates.IMAGE)       # "SYSTEM_ImageFrame"
+    gui.show_page(PageTemplates.URL)         # "SYSTEM_UrlFrame"
+    gui.show_page(PageTemplates.LOADING)     # "SYSTEM_Loading"
     ```
 
     Planned templates: `LOADING`, `STATUS`, `TEXT`, `ERROR`, `IMAGE`,

@@ -22,7 +22,7 @@ Shared utility library used by all OVOS components. Provides logging, process li
 | `ovos_utils.thread_utils` | `create_daemon()`, `create_killable_daemon()`, `wait_for_exit_signal()`, `threaded_timeout` |
 | `ovos_utils.xdg_utils` | XDG Base Directory helpers (`xdg_config_home()`, `xdg_data_home()`, etc.) |
 | `ovos_utils.bracket_expansion` | Dialog template `{option1\|option2}` expansion |
-| `ovos_utils.decorators` | `classproperty`, `resting_screen_handler`, `skill_api_method`, etc. |
+| `ovos_utils.decorators` | `classproperty`, `timed_lru_cache` |
 | `ovos_utils.json_helper` | JSON load/save helpers |
 | `ovos_utils.list_utils` | `flatten_list()` and related helpers |
 | `ovos_utils.parse` | [Utterance](life-of-an-utterance.md) parsing helpers |

@@ -22,7 +22,7 @@ Traditional unit tests often miss integration issues (e.g., a skill loading corr
 *   **Real Intent Matching**: Uses the actual Adapt and Padatious engines.
 
 
-*   **Bus-Level Verification**: Asserts that the correct `speak` or `gui.show` messages are emitted.
+*   **Bus-Level Verification**: Asserts that the correct `speak` or `gui.page.show` messages are emitted.
 
 
 *   **No Hardware Needed**: Uses a `FakeBus` and mocked audio/hardware layers.

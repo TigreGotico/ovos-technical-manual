@@ -39,14 +39,14 @@ If the file does not exist, `LocalConf` initialises as an empty dict and creates
 
 | Method | Description |
 |---|---|
-| `load_config()` | Read from `self.path` and merge into self |
+| `load_local(path=None)` | Read from `self.path` (or `path`) and merge into self |
 | `store(path=None)` | Write current contents to disk (default: `self.path`) |
 | `merge(conf)` | Deep-merge another dict into self |
 | `reload()` | Re-read from disk, discarding in-memory changes |
 
 ### File Locking
 
-`LocalConf` uses a `NamedLock` (keyed by file path) to coordinate concurrent reads and writes across threads/processes.
+`LocalConf` uses a single class-level `NamedLock("ovos_config")` shared by all instances to coordinate concurrent reads and writes across threads/processes.
 
 ---
 
