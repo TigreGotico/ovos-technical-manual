@@ -410,7 +410,7 @@ class MyClientSkill(OVOSSkill):
 - [Decorators](skill-classes.md#decorators-quick-reference) — `@skill_api_method` and other decorators
 
 
-- [Bus Client](bus-client-overview.md) — `MessageBusClient` used internally by `SkillApi`
+- [Bus Client](core-libraries.md#ovos-bus-client) — `MessageBusClient` used internally by `SkillApi`
 
 ---
 

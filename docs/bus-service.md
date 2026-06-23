@@ -177,7 +177,7 @@ Every message on the bus is a JSON object with three fields:
 
 The bus recognises only one special message type: `connected` (emitted to a new client immediately after it opens a connection). All other types are application-level.
 
-See [Bus Client](bus-client-overview.md) for the `Message` Python API.
+See [Bus Client](core-libraries.md#ovos-bus-client) for the `Message` Python API.
 
 ---
 
@@ -321,7 +321,7 @@ When `filter` is off (the default), the bus never deserializes messages — it e
 
 ## Related Pages
 
-- [Bus Client](bus-client-overview.md) — `MessageBusClient`, `Message`, `Session` Python API
+- [Bus Client](core-libraries.md#ovos-bus-client) — `MessageBusClient`, `Message`, `Session` Python API
 
 
 - [Bus Session](session.md) — `Session`, `SessionManager`, `IntentContextManager`

@@ -34,7 +34,7 @@ language-appropriate defaults.
 
 ## Talking to a running OVOS — `ovos-bus-client`
 
-Shipped by **[`ovos-bus-client`](bus-client-overview.md)**. These send messages to a *running*
+Shipped by **[`ovos-bus-client`](core-libraries.md#ovos-bus-client)**. These send messages to a *running*
 OVOS over the [MessageBus](bus-service.md) — handy for testing, scripting, and debugging.
 
 | Command | What it does |
@@ -48,8 +48,8 @@ OVOS over the [MessageBus](bus-service.md) — handy for testing, scripting, and
 
 ## Reading the logs — `ovos-logs`
 
-Shipped by **[`ovos-utils`](log-ref.md)**. A helper for slicing and filtering the OVOS
-[log files](log-ref.md) without wrestling with `grep`/`tail`.
+Shipped by **[`ovos-utils`](core-libraries.md#ovos-utils)**. A helper for slicing and filtering the OVOS
+[log files](core-libraries.md#ovos-utils) without wrestling with `grep`/`tail`.
 
 | Command | What it does |
 |---|---|
@@ -83,8 +83,8 @@ can launch it directly — useful for debugging or minimal/headless setups.
 ## Related Pages
 
 - [ovos-config](config.md) — the configuration system the `ovos-config` CLI edits.
-- [ovos-bus-client Overview](bus-client-overview.md) — the library behind the `ovos-*` bus commands.
-- [Logging](log-ref.md) — log locations and levels that `ovos-logs` reads.
+- [ovos-bus-client Overview](core-libraries.md#ovos-bus-client) — the library behind the `ovos-*` bus commands.
+- [Logging](core-libraries.md#ovos-utils) — log locations and levels that `ovos-logs` reads.
 - [ovos-docs-viewer](docs-viewer.md) — the in-terminal documentation browser.
 - [RaspOVOS helper commands](install-raspovos.md#helpful-commands) — extra CLIs added by the RaspOVOS image.
 

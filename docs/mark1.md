@@ -11,7 +11,7 @@ The **Mycroft Mark 1** was the first official hardware for Mycroft AI. It featur
 
 !!! warning "`self.enclosure` is leaving the skill base class"
     `self.enclosure` will **no longer be a built-in `OVOSSkill` property** — the same direction
-    [`self.gui`](skill-gui.md) is going. The [`EnclosureAPI`](apis-ref.md#enclosureapi) itself is
+    [`self.gui`](skill-gui.md) is going. The `EnclosureAPI` itself is
     **not going away**: it moves into the **[`ovos-mark1-utils`](https://github.com/OpenVoiceOS/ovos-mark1-utils)**
     library, so code that needs it imports it from there rather than reaching for `self.enclosure`.
 

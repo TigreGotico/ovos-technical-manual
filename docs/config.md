@@ -409,7 +409,7 @@ ovos-config telemetry --disable   # opt out
 - [Bus Service](bus-service.md) — `websocket` config section
 
 
-- [Bus Client](bus-client-overview.md) — `websocket` and `session` config sections
+- [Bus Client](core-libraries.md#ovos-bus-client) — `websocket` and `session` config sections
 
 
 - [ovos-core](core.md) — `skills`, `intents`, `utterance_transformers` config sections
