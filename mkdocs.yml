@@ -109,7 +109,6 @@ nav:
           - Speech Service: speech-service.md
           - Audio Service: audio-service.md
           - GUI Service (legacy): gui-service.md
-          - PHAL (Hardware): phal.md
   - Intent Pipeline:
       - Overview & Reference: pipelines-overview.md
       - Pipeline Matchers:
@@ -244,6 +243,7 @@ nav:
       - Wyoming Bridges: wyoming-bridges.md
   - Reference:
       - OVOS Repository Index: ecosystem-index.md
+      - Command-line Tools: cli-tools.md
       - Library Docs:
           - ovos-bus-client:
               - Overview: bus-client-overview.md
@@ -269,9 +269,11 @@ nav:
           - gh-automations: gh-automations-overview.md
           - gh-automations Release: gh-automations-release.md
           - gh-automations Workflows: gh-automations-workflows.md
-      - Misc:
-          - Mark 1 Hardware: mark1.md
-          - Mark 2 Hardware: mark2.md
+      - Hardware:
+          - Hardware Overview (PHAL): phal.md
+          - Mark 1: mark1.md
+          - Mark 2: mark2.md
+      - Project Info:
           - Timeline: timeline.md
           - Deprecated & Archived Repos: deprecated-repos.md
           - License: license.md
