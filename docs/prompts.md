@@ -1,15 +1,23 @@
-# Prompting the User for Responses in OVOS Skills
+# Asking the User for Responses in OVOS Skills
+
+!!! abstract "In a nutshell"
+    Sometimes a skill needs to ask the user something back — "which flavor?", "are you sure?",
+    "pick one of these". This page shows the four built-in ways an OVOS skill does that: an
+    open-ended question, a specific question that captures the reply (`get_response`), a yes/no
+    question (`ask_yesno`), and a multiple-choice question (`ask_selection`). OVOS keeps the
+    microphone open and parses the answer for you. For the *design* side — when to ask versus
+    just tell the user — see the [Skill Design Guidelines](skill-design-guidelines.md).
 
 OVOS provides several built-in methods for engaging users in interactive conversations. These include asking open-ended questions, confirming yes/no responses, and offering multiple-choice selections — all handled in a natural, voice-first way.
 
-Here we look at how to implement the most common types of prompts. For more information on conversation design see
-the [Voice User Interface Design Guidelines](https://mycroft-ai.gitbook.io/docs/skill-development/voice-user-interface-design-guidelines/interactions-and-guidelines/statements-and-prompts).
+Here we look at how to implement the most common ways of asking the user for input. For more information on conversation design see
+the [Skill Design Guidelines](skill-design-guidelines.md).
 
 ---
 
 ## Usage Guide
 
-Here’s how to use different types of prompts in your OVOS skills:
+Here’s how to ask the user for different kinds of input in your OVOS skills:
 
 ### 1. Open-Ended Questions
 
@@ -62,7 +70,7 @@ class IceCreamSkill(OVOSSkill):
 - `num_retries`: How many times to retry if the response isn’t valid (default `-1`, retry until valid)
 
 `get_response()` returns the matched utterance as a `str`, or `None` if no valid response
-was captured. The first argument is the dialog/prompt to speak.
+was captured. The first argument is the dialog to speak.
 
 ---
 
@@ -139,7 +147,7 @@ Example mappings:
 
 ---
 
-### 4. Multiple-Choice Prompts with `ask_selection()`
+### 4. Multiple-Choice Questions with `ask_selection()`
 
 Let users choose from a list of options, by name or number.
 
@@ -167,7 +175,7 @@ class IceCreamSkill(OVOSSkill):
 - `numeric` (bool): If `True`, speak the list with numbered options (default `False`)
 
 
-- `num_retries` (int): How many times to re-prompt on no match (default `-1`)
+- `num_retries` (int): How many times to re-ask on no match (default `-1`)
 
 Returns the selected list element, or `None` if nothing matched. User responses like
 "chocolate", "the second one", or "option three" are all supported.
@@ -182,7 +190,7 @@ Returns the selected list element, or `None` if nothing matched. User responses 
 - OVOS automatically integrates with the intent engine to resolve follow-up responses.
 
 
-- These prompts are designed to support natural dialogue flows, validating and re-prompting as needed.
+- These interactions are designed to support natural dialogue flows, validating and re-asking as needed.
 
 ---
 
