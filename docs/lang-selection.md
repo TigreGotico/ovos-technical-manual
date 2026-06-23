@@ -18,11 +18,11 @@ The service inspects the message's `context` dict and picks the **first** of the
 | **2** | `request_lang` | Volunteered by the source (e.g., a specific wake word or remote client). |
 | **3** | `detected_lang` | Set by a [Transformer](transformer-plugins.md) plugin (e.g., a language classifier). |
 
-If **none** of these keys is present or valid, the service keeps the message's existing language (`message.context["lang"]`), which defaults to the system `lang` from `mycroft.conf`. There is no `data["lang"]` step.
+The message language itself is resolved by `get_message_lang()`, which checks `message.data["lang"]` first and then `message.context["lang"]`; if neither is present it falls back to the system `lang` from `mycroft.conf`.
 
 ### Validation against `valid_langs`
 
-Each candidate above is validated against the enabled-language list before it is accepted. That list is taken from `message.context["valid_langs"]` if the source provided one, otherwise from `get_valid_languages()` (i.e. `lang` + `secondary_langs` in `mycroft.conf`). OVOS uses the `langcodes` library (via the `closest_lang` helper) to find the closest match:
+Each candidate above is validated against the enabled-language list before it is accepted. That list is taken from `message.context["valid_langs"]` if the source provided one, otherwise from `get_valid_languages()` (i.e. `lang` + `secondary_langs` in `mycroft.conf`). OVOS uses the `closest_lang` helper (from `ovos_spec_tools`) to find the closest match:
 
 *   If a candidate matches an enabled language within a "distance" of `10` (standard regional difference, e.g. `en-au` ↔ `en-us`), that enabled language is used.
 *   If a candidate does not match, it is **skipped** (a warning is logged) and the next priority key is tried.
@@ -31,7 +31,14 @@ Each candidate above is validated against the enabled-language list before it is
 
 ## Language Helper Utilities
 
-Developers can use standard helpers from `ovos_utils.lang` to handle BCP-47 tags correctly.
+Developers should use the language helpers from **`ovos_spec_tools`** — `standardize_lang()`
+(normalize a tag, e.g. `"en-us"` → `"en-US"`) and `closest_lang()` (pick the closest enabled
+language). These are what `ovos-core` itself uses.
+
+!!! note
+    The older `ovos_utils.lang` helpers below (`standardize_lang_tag`, `get_language_dir`) are
+    **deprecated** in favour of the `ovos_spec_tools` helpers above; they are documented here
+    because existing skills still reference them.
 
 ### `standardize_lang_tag(lang_code, macro=True)`
 Normalizes a language tag to a canonical form (e.g., `"en-us"` -> `"en-US"`). It is used internally to ensure comparisons are reliable. With `macro=True` it can also collapse a tag to its macro-language.

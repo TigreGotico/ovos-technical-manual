@@ -40,7 +40,7 @@ This plugin only *orchestrates* translation; it does not translate anything itse
 ```json
 {
   "language": {
-    "detection_module": "ovos-lang-detector-classics-plugin",
+    "detection_module": "ovos-lang-detector-plugin-voter",
     "translation_module": "ovos-translate-plugin-nllb",
     "ovos-translate-plugin-nllb": {
       "model": "nllb-200_600M_int8"

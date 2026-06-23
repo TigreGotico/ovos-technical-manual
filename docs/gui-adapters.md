@@ -125,8 +125,10 @@ individual `handle_show_*` methods rather than `dispatch_template` itself.
 
 ### Connection status
 
-Implement `any_client_connected() -> bool` to participate in `gui.status.request`
-responses:
+Optionally provide `any_client_connected() -> bool` to participate in `gui.status.request`
+responses. It is **not** part of the `AbstractGUIPlugin` base class — the router calls it by
+duck-typing (`getattr(adapter, "any_client_connected", lambda: False)()`), so define it only if
+your adapter tracks client connections:
 
 ```python
 def any_client_connected(self) -> bool:

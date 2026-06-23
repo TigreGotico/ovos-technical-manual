@@ -16,7 +16,7 @@ A single package may ship one or both. In `mycroft.conf` you select them under t
 | `ovos-translate-plugin-server` ([repo](https://github.com/OpenVoiceOS/ovos-translate-server-plugin)) | ✔️ | ✔️ | API (self/community hosted) | Client for [ovos-translate-server](https://github.com/OpenVoiceOS/ovos-translate-server); ships a built-in public-server list with failover. Detection is a separate entry-point, `ovos-lang-detector-plugin-server`. |
 | `ovos-translate-plugin-nllb` ([repo](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb)) | ❌ | ✔️ | FOSS (Offline) | NLLB-200 via CTranslate2; downloads a model the first time. |
 | `ovos-lang-detector-fasttext-plugin` ([repo](https://github.com/OpenVoiceOS/ovos-lang-detector-fasttext-plugin)) | ✔️ | ❌ | FOSS (Offline) | fastText language identification. |
-| `ovos-lang-detector-classics-plugin` ([repo](https://github.com/OpenVoiceOS/ovos-lang-detector-classics-plugin)) | ✔️ | ❌ | FOSS (Offline) | A *voter* (`ovos-lang-detector-plugin-voter`) that averages several classic detectors (cld2, cld3, langdetect, fastlang). |
+| `ovos-lang-detector-classics-plugin` ([repo](https://github.com/OpenVoiceOS/ovos-lang-detector-classics-plugin)) | ✔️ | ❌ | FOSS (Offline) | A *voter* (`ovos-lang-detector-plugin-voter`) that averages classic detectors — by default cld2, langdetect and fastlang (cld3 is also available as a separate sub-plugin). |
 | `ovos-google-translate-plugin` ([repo](https://github.com/OpenVoiceOS/ovos-google-translate-plugin)) | ✔️ | ✔️ | API (free) | Translate (`ovos-google-translate-plugin`) and detect (`ovos-google-lang-detector-plugin`) are separate entry-points. |
 
 > **Heads up:** the package repo name, the pip name, and the **entry-point name you put in config** are not always the same. Configure plugins by their *entry-point name* (e.g. `ovos-translate-plugin-server`, not the repo `ovos-translate-server-plugin`). The names in the table above are the entry-point names.
@@ -46,9 +46,10 @@ class LanguageDetector:
 from ovos_plugin_manager.templates.language import LanguageTranslator
 
 class LanguageTranslator:
-    def translate(self, text: str, target: str = "", source: str = "") -> str:
-        """Translate text to `target`. If `source` is empty the plugin
-        detects it. If `target` is empty it falls back to self.internal_language."""
+    def translate(self, text: str, target: Optional[str] = None,
+                  source: Optional[str] = None) -> str:
+        """Abstract — every backend implements this. Translate `text` to
+        `target`; if `source` is None the plugin detects it."""
 
     @classproperty
     def available_languages(cls) -> Set[str]:

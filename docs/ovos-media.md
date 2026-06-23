@@ -94,7 +94,7 @@ daemon described here, which is the target:
 
 ## OCP Pipeline Plugin
 
-**Package:** `ocp-pipeline` (`ovos_ocp_pipeline_plugin`)
+**Package:** import name `ocp_pipeline` (PyPI distribution `ovos-ocp-pipeline-plugin`)
 **Entry point group:** `opm.pipeline`
 **Class:** `OCPPipelineMatcher` (entry point `ovos-ocp-pipeline-plugin`); the legacy bridge is `MycroftCPSLegacyPipeline` (`ovos-ocp-pipeline-plugin-legacy`)
 
@@ -219,7 +219,7 @@ Key modules:
 - `ovos_media/media_backends/` — `AudioService`, `VideoService`, `WebService` — each manages typed backend plugins
 
 
-- `ovos_media/gui.py` — `OCPGUIInterface`, `OCPGUIState` — pushes GUI state to mycroft-gui
+- `ovos_media/player.py` — uses a `GUIInterface` from `ovos-gui-api-client` (`self.gui.show_media_player(...)`) to push player state via the template API (the old `ovos_media/gui.py` / `OCPGUIInterface` is gone)
 
 
 - `ovos_media/mpris.py` — MPRIS integration
@@ -398,13 +398,6 @@ This bridge is marked for removal in `ovos-core 0.1.0`.
 ---
 
 ## Known Coupling Issues
-
-### GUI still Qt5/mycroft-gui bound
-
-`ovos_media/gui.py` still ships Qt5 [QML](qt5-gui.md) files (`ovos_media/qt5/`) and drives the GUI in the
-mycroft-gui style. No alternative renderers (web UI, kiosk, headless) are supported without
-replacing `gui.py`. The GUI adapter plugin system (`opm.gui_adapter`) is the planned fix but
-has not yet been applied to `ovos-media`.
 
 ### OCPMediaCatalog is a skill
 
