@@ -196,3 +196,7 @@ print(quebra_frases.get_exclusive_chunks(samples, squash=False))
 #['why are fire trucks red']])
 
 ```
+
+---
+
+*Source code: [OpenVoiceOS/quebra_frases](https://github.com/OpenVoiceOS/quebra_frases).*

@@ -168,3 +168,7 @@ my-skill-id = "my_skill.skill:MySkill"
 ```
 
 `ovos-plugin-manager` scans the `opm.skill` group at runtime (via `find_skill_plugins()`) and loads matching classes. The older `ovos.plugin.skill` group name is still accepted as a deprecated alias.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

@@ -134,3 +134,7 @@ print(message.content[0].text)
 - [Translate Server](translate-server.md)
 - [Persona Server](persona-server.md)
 - [Agent Interoperability](agent-interop.md) — MCP/UTCP endpoints on these same servers
+
+---
+
+*Source code: [ovos-stt-http-server](https://github.com/OpenVoiceOS/ovos-stt-http-server), [ovos-tts-server](https://github.com/OpenVoiceOS/ovos-tts-server), [ovos-translate-server](https://github.com/OpenVoiceOS/ovos-translate-server), [ovos-persona-server](https://github.com/OpenVoiceOS/ovos-persona-server).*

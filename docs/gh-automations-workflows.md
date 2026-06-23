@@ -1552,3 +1552,7 @@ usage: update_pr_comment.py \
 environment: GITHUB_TOKEN   (required)
 
 ```
+
+---
+
+*Source code: [OpenVoiceOS/gh-automations](https://github.com/OpenVoiceOS/gh-automations).*

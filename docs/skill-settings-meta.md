@@ -228,3 +228,7 @@ skillMetadata:
             value: option_one
 
 ```
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

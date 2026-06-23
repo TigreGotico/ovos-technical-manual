@@ -100,3 +100,7 @@ This allows OVOS to run on everything from a high-end server to a Raspberry Pi Z
 ## Further reading
 
 - [Good Old-Fashioned AI: The Secret Ingredient in a Modern Voice Assistant](https://blog.openvoiceos.org/posts/2025-11-25-gofai) — OVOS blog
+
+---
+
+*Source code: [OpenVoiceOS/ovos-core](https://github.com/OpenVoiceOS/ovos-core).*

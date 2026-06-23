@@ -99,3 +99,7 @@ class MeaningFallback(FallbackSkill):
 ```
 
 > The `can_answer` signature takes the full `Message` (transcriptions are in `message.data["utterances"]`), not a bare list of strings.
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

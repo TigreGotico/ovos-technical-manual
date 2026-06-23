@@ -167,3 +167,7 @@ export OVOS_CONFIG_PASSWORD=mypassword
 
 
 - [ovos-core](core.md) — settings file watcher and `ovos.skills.settings_changed` event
+
+---
+
+*Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

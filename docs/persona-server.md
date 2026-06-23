@@ -129,3 +129,7 @@ The Ollama surface (`/ollama/api/...`, legacy `/api/...`) lets Ollama clients tr
 - [OVOS Personas](personas.md)
 - [OpenAI Python SDK](https://github.com/openai/openai-python)
 - [Home Assistant Ollama Integration](https://www.home-assistant.io/integrations/ollama/)
+
+---
+
+*Source code: [OpenVoiceOS/ovos-persona-server](https://github.com/OpenVoiceOS/ovos-persona-server).*

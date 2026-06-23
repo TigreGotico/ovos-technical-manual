@@ -255,3 +255,7 @@ CMAKE_ARGS="-DGGML_CUDA=on" pip install llama-cpp-python --force-reinstall
 
 
 - [OpenAI Plugin](openai-plugin.md) — OpenAI-compatible API alternative
+
+---
+
+*Source code: [OpenVoiceOS/ovos-gguf-plugin](https://github.com/OpenVoiceOS/ovos-gguf-plugin).*

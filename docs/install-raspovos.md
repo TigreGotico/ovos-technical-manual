@@ -266,3 +266,7 @@ You use the command `ovos-help` to print the message with all commands again at 
 ---
 
 Enjoy your journey with RaspOVOS! With your Raspberry Pi set up, you can start exploring all the features of OpenVoiceOS.
+
+---
+
+*Source code: [TigreGotico/raspOVOS](https://github.com/TigreGotico/raspOVOS).*

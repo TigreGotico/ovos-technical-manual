@@ -50,3 +50,7 @@ drops from `1.0` to `0.85`. Entity placeholders like `{number}` are not
 wildcards and carry no penalty. An entity whose name was never registered with
 `add_entity` still matches but at a slightly reduced confidence (a small `0.04`
 penalty, e.g. `0.96`).
+
+---
+
+*Source code: [OpenVoiceOS/padacioso](https://github.com/OpenVoiceOS/padacioso).*
