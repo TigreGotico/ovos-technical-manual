@@ -87,10 +87,10 @@ In this mode, **personas override** all skills. The persona handles every uttera
 ```jsonc
 "pipeline": [
   "ovos-persona-pipeline-plugin-high",
-  "stop_high",
-  "converse",
-  "padatious_high",
-  "adapt_high",
+  "ovos-stop-pipeline-plugin-high",
+  "ovos-converse-pipeline-plugin",
+  "ovos-padatious-pipeline-plugin-high",
+  "ovos-adapt-pipeline-plugin-high",
   ...
 ]
 
@@ -109,12 +109,12 @@ Only unmatched or low-confidence utterances are routed to the persona.
 
 ```jsonc
 "pipeline": [
-  "stop_high",
-  "converse",
-  "padatious_high",
-  "adapt_high",
+  "ovos-stop-pipeline-plugin-high",
+  "ovos-converse-pipeline-plugin",
+  "ovos-padatious-pipeline-plugin-high",
+  "ovos-adapt-pipeline-plugin-high",
   "ovos-persona-pipeline-plugin-high",
-  "fallback_medium",
+  "ovos-fallback-pipeline-plugin-medium",
   ...
 ]
 
@@ -134,9 +134,9 @@ Even when no persona is active, this mode allows the pipeline to fall back to a 
 ```jsonc
 "pipeline": [
   ...
-  "fallback_medium",
+  "ovos-fallback-pipeline-plugin-medium",
   "ovos-persona-pipeline-plugin-low",
-  "fallback_low"
+  "ovos-fallback-pipeline-plugin-low"
 ]
 
 ```

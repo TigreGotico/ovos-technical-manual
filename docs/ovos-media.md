@@ -1,5 +1,8 @@
 # ovos-media
 
+!!! abstract "In a nutshell"
+    `ovos-media` is the planned future replacement for how OVOS plays music, podcasts and videos. Today, stock installs still use the older audio backend; `ovos-media` is an opt-in, work-in-progress rewrite meant to handle audio, video and web playback more cleanly and to support several players at once. If you are not deliberately trying it out, you are not using it yet — this page describes where things are heading. See the [OCP Pipeline](ocp-pipeline.md) for how playback requests are recognised, or the [Glossary](glossary.md) for terms.
+
 !!! warning "Upcoming — a refactor that is not the default yet"
     `ovos-media` is the **upcoming** media-playback service for OVOS, still being refactored.
     It is **not enabled by default**. Today, stock installs play media through the **legacy
@@ -51,14 +54,14 @@ To use `ovos-media` you need to disable the old audio service and enable the OCP
 {
   "intents": {
     "pipeline": [
-      "converse",
-      "ocp_high",
+      "ovos-converse-pipeline-plugin",
+      "ovos-ocp-pipeline-plugin-high",
       "...",
-      "common_qa",
-      "ocp_medium",
+      "ovos-common-query-pipeline-plugin",
+      "ovos-ocp-pipeline-plugin-medium",
       "...",
-      "ocp_low",
-      "fallback_low"
+      "ovos-ocp-pipeline-plugin-low",
+      "ovos-fallback-pipeline-plugin-low"
     ]
   }
 }
@@ -135,16 +138,16 @@ class OCPPlayerProxy:
 
 ### Pipeline Configuration
 
-The OCP matcher contributes several confidence-ranked pipeline stages — `ocp_high`, `ocp_medium`, `ocp_low`, plus `ocp_legacy` for old-style CommonPlay skills. Place them at the appropriate confidence tier in your pipeline:
+The OCP matcher contributes several confidence-ranked pipeline stages — `ovos-ocp-pipeline-plugin-high`, `-medium`, `-low`, plus `ovos-ocp-pipeline-plugin-legacy` for old-style CommonPlay skills. Place them at the appropriate confidence tier in your pipeline:
 
 ```json
 {
   "intents": {
     "pipeline": [
       "...",
-      "ocp_high",
-      "ocp_medium",
-      "ocp_low",
+      "ovos-ocp-pipeline-plugin-high",
+      "ovos-ocp-pipeline-plugin-medium",
+      "ovos-ocp-pipeline-plugin-low",
       "..."
     ]
   }
@@ -230,16 +233,19 @@ Media backends are typed: audio players register on the `opm.media.audio` entry-
 video players on `opm.media.video`, and web players on `opm.media.web`. They are configured under
 `media.audio_players` / `media.video_players` / `media.web_players` (see the config example below).
 
-| Package | Type | Description |
+The table below lists the **pip package** to install; each package registers one entry point per
+type it supports, named `ovos-media-<type>-plugin-<name>` (e.g. the `ovos-media-plugin-vlc`
+package registers `ovos-media-audio-plugin-vlc` and `ovos-media-video-plugin-vlc`). You configure
+the player by its entry-point name.
+
+| Package | Types | Description |
 |---|---|---|
-| `ovos-media-audio-plugin-vlc` / `ovos-media-video-plugin-vlc` | audio / video | VLC instance |
-| `ovos-media-audio-plugin-mplayer` | audio | mplayer |
-| `ovos-media-audio-plugin-mpv` | audio | mpv |
-| `ovos-media-audio-plugin-cli` | audio | Command-line player (simple fallback) |
-| `ovos-media-audio-plugin-spotify` | audio | Spotify Connect |
-| `ovos-media-audio-plugin-mass` | audio | Music Assistant |
-| `ovos-media-web-plugin-browser` | web | Open in local browser |
-| `ovos-media-audio-plugin-gui` / `ovos-media-video-plugin-gui` / `ovos-media-web-plugin-gui` | audio / video / web | Hand off to the GUI player |
+| [`ovos-media-plugin-vlc`](https://github.com/OpenVoiceOS/ovos-media-plugin-vlc) | audio, video | VLC instance |
+| [`ovos-media-plugin-mplayer`](https://github.com/OpenVoiceOS/ovos-media-plugin-mplayer) | audio, video | mplayer |
+| [`ovos-media-plugin-simple`](https://github.com/OpenVoiceOS/ovos-media-plugin-simple) | audio | Minimal audio player (simple fallback) |
+| [`ovos-media-plugin-spotify`](https://github.com/OpenVoiceOS/ovos-media-plugin-spotify) | audio | Spotify Connect |
+| [`ovos-media-plugin-chromecast`](https://github.com/OpenVoiceOS/ovos-media-plugin-chromecast) | audio, video | Cast to a Chromecast device |
+| [`ovos-media-plugin-qt5`](https://github.com/OpenVoiceOS/ovos-media-plugin-qt5) | audio, video, web | Hand off to the [GUI](gui-service.md) player ([ovos-shell](ovos-shell.md)) |
 
 ### Stream Extractor Plugins
 

@@ -1,5 +1,8 @@
 # OCP Pipeline
 
+!!! abstract "In a nutshell"
+    When you say "play some jazz" or "next song", the assistant first has to realise you are talking about *media* and not, say, the weather. This is the part that does that: it spots that an utterance is a playback request, figures out what kind of media you want, asks the installed music/podcast/video skills to search for it, and hands the best result off to be played. Think of it as the dispatcher that turns "play X" into actual playback. See the [Intent Pipeline](pipelines-overview.md) overview or the [Glossary](glossary.md) for related terms.
+
 The **OCP (OVOS Common Play)** Pipeline Plugin handles media playback commands —
 "play some jazz", "pause", "next song". It recognises that an utterance is about
 media, works out what kind of media is wanted, asks OCP-enabled skills to search
@@ -16,24 +19,29 @@ anything themselves. OCP centralises selection and playback.
 pip install ovos-ocp-pipeline-plugin
 ```
 
-It registers confidence-tiered matchers (`ocp_high`, `ocp_medium`, `ocp_low`) plus
-a legacy matcher (`ocp_legacy`). A typical pipeline puts the high tier early and
-the low tier last:
+It exposes confidence-tiered matchers (`ovos-ocp-pipeline-plugin-high`,
+`ovos-ocp-pipeline-plugin-medium`, `ovos-ocp-pipeline-plugin-low`) plus a legacy
+matcher (`ovos-ocp-pipeline-plugin-legacy`). A typical pipeline puts the high tier
+early and the low tier last:
 
 ```json
 {
   "intents": {
     "pipeline": [
-      "ocp_high",
+      "ovos-ocp-pipeline-plugin-high",
       "ovos-padatious-pipeline-plugin-high",
       "ovos-adapt-pipeline-plugin-high",
-      "ocp_medium",
+      "ovos-ocp-pipeline-plugin-medium",
       "ovos-fallback-pipeline-plugin-medium",
-      "ocp_low"
+      "ovos-ocp-pipeline-plugin-low"
     ]
   }
 }
 ```
+
+The older short names `ocp_high` / `ocp_medium` / `ocp_low` / `ocp_legacy` still work
+as **deprecated aliases** (ovos-core rewrites them to the canonical IDs above), but new
+configs should use the canonical names.
 
 Then install OCP-enabled media skills and ask to play something.
 
@@ -41,17 +49,19 @@ Then install OCP-enabled media skills and ask to play something.
 
 ## Pipeline matchers
 
-The matcher class is `OCPPipelineMatcher`, a `ConfidenceMatcherPipeline`, so it
-exposes three tiers via `match_high` / `match_medium` / `match_low`:
+The matcher class is `OCPPipelineMatcher`, registered under the single OPM entry point
+`ovos-ocp-pipeline-plugin`. Because it is a `ConfidenceMatcherPipeline`, OVOS derives three
+tier matchers from it at runtime via `match_high` / `match_medium` / `match_low` — you reference
+them in the pipeline by the IDs below (the short `ocp_*` aliases are deprecated):
 
-| Pipeline ID  | Tier   | When to use |
-|--------------|--------|-------------|
-| `ocp_high`   | high   | Explicit OCP intents ("play.intent", "pause", "next") — primary media commands. |
-| `ocp_medium` | medium | Utterance classified as a media query by keyword matching. |
-| `ocp_low`    | low    | Broad keyword hits — only on devices used mainly for media playback. |
+| Pipeline ID  | Legacy alias | Tier   | When to use |
+|--------------|--------------|--------|-------------|
+| `ovos-ocp-pipeline-plugin-high`   | `ocp_high`   | high   | Explicit OCP intents ("play.intent", "pause", "next") — primary media commands. |
+| `ovos-ocp-pipeline-plugin-medium` | `ocp_medium` | medium | Utterance classified as a media query by keyword matching. |
+| `ovos-ocp-pipeline-plugin-low`    | `ocp_low`    | low    | Broad keyword hits — only on devices used mainly for media playback. |
 
-A separate class, `MycroftCPSLegacyPipeline`, is registered as the entry point
-`ovos-ocp-pipeline-plugin-legacy` and surfaces as the **`ocp_legacy`** matcher. It
+A separate class, `MycroftCPSLegacyPipeline`, is registered as its own entry point
+`ovos-ocp-pipeline-plugin-legacy` (alias `ocp_legacy`). It
 bridges to deprecated Mycroft CommonPlaySkill (CPS) skills and is off by default —
 only useful if you still run legacy CPS skills.
 

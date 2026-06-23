@@ -15,9 +15,9 @@ Because stopping is a **fundamental feature of a voice assistant**, it is implem
 
 **Module:** `ovos_core.intent_services.stop_service.StopService`
 **Pipeline plugin ID:** `ovos-stop-pipeline-plugin`
-**Stage names:** `stop_high`, `stop_medium`, `stop_low`
+**Stage names:** `ovos-stop-pipeline-plugin-high`, `ovos-stop-pipeline-plugin-medium`, `ovos-stop-pipeline-plugin-low` (deprecated aliases: `stop_high`, `stop_medium`, `stop_low`)
 
-`StopService` subclasses both `ConfidenceMatcherPipeline` and `OVOSAbstractApplication` (its `skill_id` is `stop.openvoiceos`). Because it is a `ConfidenceMatcherPipeline`, the single base plugin ID auto-expands into three confidence-tier matchers — `match_high`, `match_medium` and `match_low` — which you reference in the pipeline as `stop_high`, `stop_medium`, `stop_low`. It ships inside `ovos-core`:
+`StopService` subclasses both `ConfidenceMatcherPipeline` and `OVOSAbstractApplication` (its `skill_id` is `stop.openvoiceos`). Because it is a `ConfidenceMatcherPipeline`, the single base plugin ID auto-expands into three confidence-tier matchers — `match_high`, `match_medium` and `match_low` — which you reference in the pipeline as `ovos-stop-pipeline-plugin-high`, `-medium`, and `-low`. It ships inside `ovos-core`:
 
 ```ini
 [project.entry-points."opm.pipeline"]

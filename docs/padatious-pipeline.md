@@ -29,13 +29,13 @@ def handle_weather(self, message):
 
 ## Pipeline Stages
 
-The plugin ships a single OPM entry point, `ovos-padatious-pipeline-plugin`, mapped to the `PadatiousPipeline` class. Because that class is a `ConfidenceMatcherPipeline`, OVOS exposes three matcher stages from it, selected in your pipeline config by these legacy IDs:
+The plugin ships a single OPM entry point, `ovos-padatious-pipeline-plugin`, mapped to the `PadatiousPipeline` class. Because that class is a `ConfidenceMatcherPipeline`, OVOS exposes three matcher stages from it, selected in your pipeline config by these IDs (the short `padatious_*` aliases still work but are deprecated):
 
-| Pipeline ID        | Matcher       | Recommended Use                       |
-| ------------------ | ------------- | ------------------------------------- |
-| `padatious_high`   | `match_high`  | Primary stage for Padatious use       |
-| `padatious_medium` | `match_medium`| Backup, if confidence tuning allows   |
-| `padatious_low`    | `match_low`   | Not recommended (often inaccurate)    |
+| Pipeline ID        | Legacy alias       | Matcher       | Recommended Use                       |
+| ------------------ | ------------------ | ------------- | ------------------------------------- |
+| `ovos-padatious-pipeline-plugin-high`   | `padatious_high`   | `match_high`  | Primary stage for Padatious use       |
+| `ovos-padatious-pipeline-plugin-medium` | `padatious_medium` | `match_medium`| Backup, if confidence tuning allows   |
+| `ovos-padatious-pipeline-plugin-low`    | `padatious_low`    | `match_low`   | Not recommended (often inaccurate)    |
 
 Each stage runs at a different point in the pipeline and applies a different confidence threshold to the same scored result.
 

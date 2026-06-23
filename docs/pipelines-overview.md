@@ -31,50 +31,50 @@ When an utterance arrives, OVOS walks the pipeline in order and hands the uttera
 
 The first stage that matches wins, so order matters: a high-confidence Padatious match is tried before any medium-confidence stage, which is tried before any low-confidence stage. Each component is a plugin that can be enabled, disabled, or reordered in your config.
 
-**Pipeline IDs vs. plugins.** The IDs you list in your `pipeline` config (like `adapt_high`) are not separate plugins. A confidence-aware plugin registers a single OPM entry point (e.g. `ovos-adapt-pipeline-plugin`), and OVOS derives the `_high`/`_medium`/`_low` matcher stages from it at runtime. Plugins that match at only one confidence level (such as `converse` or `common_qa`) expose a single bare ID. The legacy short IDs are mapped to plugin IDs by the `_PIPELINE_MIGRATION_MAP` in ovos-core.
+**Pipeline IDs vs. plugins.** The IDs you list in your `pipeline` config (like `ovos-adapt-pipeline-plugin-high`) are not separate plugins. A confidence-aware plugin registers a single OPM entry point (e.g. `ovos-adapt-pipeline-plugin`), and OVOS derives the `-high`/`-medium`/`-low` matcher stages from it at runtime. Plugins that match at only one confidence level (such as `ovos-converse-pipeline-plugin` or `ovos-common-query-pipeline-plugin`) expose a single bare ID. The older short names (`adapt_high`, `common_qa`, …) are **deprecated aliases**: ovos-core rewrites them to the canonical plugin IDs via the `_PIPELINE_MIGRATION_MAP`, so existing configs keep working, but new configs should use the canonical names shown below.
 
 ---
 
 ## Available Pipeline Components
 
-Below is a list of available pipeline components, categorized by their confidence levels and functionalities:
+Below is a list of available pipeline components, categorized by their confidence levels and functionalities. The **Pipeline ID** column shows the canonical name you put in your `pipeline` config; these are the names the default config ships with. The **Legacy alias** column shows the older short name that still works (ovos-core rewrites it to the canonical ID at load time) but should not be used in new configs.
 
 ### High Confidence Components
 
-| Pipeline | Description | Notes |
+| Pipeline ID | Legacy alias | Description |
 |---|---|---|
-| `stop_high` | Exact match for stop commands | Replaces [skill-ovos-stop](https://github.com/OpenVoiceOS/skill-ovos-stop) |
-| `converse` | Continuous conversation interception for skills | |
-| `padatious_high` | High-confidence matches using [Padatious](padatious-pipeline.md) | |
-| `adapt_high` | High-confidence matches using [Adapt](adapt-pipeline.md) | |
-| `fallback_high` | High-priority fallback skill matches | |
-| `ocp_high` | High-confidence media-related queries | |
-| `ovos-persona-pipeline-plugin-high` | Active persona conversation (e.g., LLM integration) | |
-| `ovos-m2v-pipeline-high` | Multilingual intent classifier | Only supports default skills |
+| `ovos-stop-pipeline-plugin-high` | `stop_high` | Exact match for stop commands (replaces [skill-ovos-stop](https://github.com/OpenVoiceOS/skill-ovos-stop)) |
+| `ovos-converse-pipeline-plugin` | `converse` | Continuous conversation interception for skills |
+| `ovos-padatious-pipeline-plugin-high` | `padatious_high` | High-confidence matches using [Padatious](padatious-pipeline.md) |
+| `ovos-adapt-pipeline-plugin-high` | `adapt_high` | High-confidence matches using [Adapt](adapt-pipeline.md) |
+| `ovos-fallback-pipeline-plugin-high` | `fallback_high` | High-priority fallback skill matches |
+| `ovos-ocp-pipeline-plugin-high` | `ocp_high` | High-confidence media-related queries |
+| `ovos-persona-pipeline-plugin-high` | — | Active persona conversation (e.g., LLM integration) |
+| `ovos-m2v-pipeline-high` | — | Multilingual intent classifier (only supports default skills) |
 
 ### Medium Confidence Components
 
-| Pipeline | Description | Notes |
+| Pipeline ID | Legacy alias | Description |
 |---|---|---|
-| `stop_medium` | Medium-confidence stop command matches | Replaces [skill-ovos-stop](https://github.com/OpenVoiceOS/skill-ovos-stop) |
-| `padatious_medium` | Medium-confidence matches using Padatious | |
-| `adapt_medium` | Medium-confidence matches using Adapt | |
-| `ocp_medium` | Medium-confidence media-related queries | |
-| `fallback_medium` | Medium-priority fallback skill matches | |
-| `ovos-m2v-pipeline-medium` | Multilingual intent classifier | Only supports default skills |
+| `ovos-stop-pipeline-plugin-medium` | `stop_medium` | Medium-confidence stop command matches |
+| `ovos-padatious-pipeline-plugin-medium` | `padatious_medium` | Medium-confidence matches using Padatious |
+| `ovos-adapt-pipeline-plugin-medium` | `adapt_medium` | Medium-confidence matches using Adapt |
+| `ovos-ocp-pipeline-plugin-medium` | `ocp_medium` | Medium-confidence media-related queries |
+| `ovos-fallback-pipeline-plugin-medium` | `fallback_medium` | Medium-priority fallback skill matches |
+| `ovos-m2v-pipeline-medium` | — | Multilingual intent classifier (only supports default skills) |
 
 ### Low Confidence Components
 
-| Pipeline | Description | Notes |
+| Pipeline ID | Legacy alias | Description |
 |---|---|---|
-| `stop_low` | Low-confidence stop command matches | Disabled by default |
-| `padatious_low` | Low-confidence matches using Padatious | Disabled by default |
-| `adapt_low` | Low-confidence matches using Adapt | |
-| `ocp_low` | Low-confidence media-related queries | |
-| `fallback_low` | Low-priority fallback skill matches | |
-| `common_qa` | Sends utterance to common-query skills | Best match among skills |
-| `ovos-persona-pipeline-plugin-low` | Persona catch-all fallback | |
-| `ovos-m2v-pipeline-low` | Multilingual intent classifier | Only supports default skills |
+| `ovos-stop-pipeline-plugin-low` | `stop_low` | Low-confidence stop command matches (disabled by default) |
+| `ovos-padatious-pipeline-plugin-low` | `padatious_low` | Low-confidence matches using Padatious (disabled by default) |
+| `ovos-adapt-pipeline-plugin-low` | `adapt_low` | Low-confidence matches using Adapt |
+| `ovos-ocp-pipeline-plugin-low` | `ocp_low` | Low-confidence media-related queries |
+| `ovos-fallback-pipeline-plugin-low` | `fallback_low` | Low-priority fallback skill matches |
+| `ovos-common-query-pipeline-plugin` | `common_qa` | Sends utterance to common-query skills (best match among skills) |
+| `ovos-persona-pipeline-plugin-low` | — | Persona catch-all fallback |
+| `ovos-m2v-pipeline-low` | — | Multilingual intent classifier (only supports default skills) |
 
 ---
 
@@ -109,17 +109,18 @@ OVOS allows users to customize the intent pipeline through configuration files. 
       "default_persona": "Remote Llama"
     },
     "pipeline": [
+      "ovos-stop-pipeline-plugin-high",
+      "ovos-converse-pipeline-plugin",
+      "ovos-ocp-pipeline-plugin-high",
+      "ovos-padatious-pipeline-plugin-high",
+      "ovos-adapt-pipeline-plugin-high",
       "ovos-m2v-pipeline-high",
-      "ocp_high",
-      "stop_high",
-      "converse",
-      "padatious_high",
-      "adapt_high",
-      "stop_medium",
-      "adapt_medium",
-      "common_qa",
-      "fallback_medium",
-      "fallback_low"
+      "ovos-ocp-pipeline-plugin-medium",
+      "ovos-fallback-pipeline-plugin-high",
+      "ovos-stop-pipeline-plugin-medium",
+      "ovos-adapt-pipeline-plugin-medium",
+      "ovos-fallback-pipeline-plugin-medium",
+      "ovos-fallback-pipeline-plugin-low"
     ]
   },
 

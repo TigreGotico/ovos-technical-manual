@@ -166,15 +166,15 @@ Entry point: `opm.pipeline = ovos-persona-pipeline-plugin`
 {
   "intents": {
     "pipeline": [
-      "stop_high",
-      "converse",
-      "padatious_high",
-      "adapt_high",
+      "ovos-stop-pipeline-plugin-high",
+      "ovos-converse-pipeline-plugin",
+      "ovos-padatious-pipeline-plugin-high",
+      "ovos-adapt-pipeline-plugin-high",
       "ovos-persona-pipeline-plugin-high",
-      "ocp_medium",
-      "fallback_medium",
+      "ovos-ocp-pipeline-plugin-medium",
+      "ovos-fallback-pipeline-plugin-medium",
       "ovos-persona-pipeline-plugin-low",
-      "fallback_low"
+      "ovos-fallback-pipeline-plugin-low"
     ]
   }
 }

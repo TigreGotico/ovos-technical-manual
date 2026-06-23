@@ -271,9 +271,9 @@ Priority determines stage:
 
 | Range | Stage |
 |---|---|
-| 0–4 | `fallback_high` |
-| 5–89 | `fallback_medium` |
-| 90–100 | `fallback_low` |
+| 0–4 | `ovos-fallback-pipeline-plugin-high` |
+| 5–89 | `ovos-fallback-pipeline-plugin-medium` |
+| 90–100 | `ovos-fallback-pipeline-plugin-low` |
 
 Priority can be overridden in config:
 
@@ -288,7 +288,7 @@ Priority can be overridden in config:
 
 There is no dedicated `CommonQuerySkill` base class — decorate a method on a
 regular `OVOSSkill` with `@common_query()` to join the `question:query` /
-`common_qa` pipeline. The handler answers a natural language question and returns
+`ovos-common-query-pipeline-plugin` pipeline. The handler answers a natural language question and returns
 a confidence score; the pipeline collects responses from all skills and speaks
 the highest-confidence answer.
 

@@ -11,9 +11,9 @@ The **Fallback Pipeline** in **OpenVoiceOS (OVOS)** manages how fallback skills 
 
 **Module:** `ovos_core.intent_services.fallback_service.FallbackService`
 **Pipeline plugin ID:** `ovos-fallback-pipeline-plugin`
-**Stage names:** `fallback_high`, `fallback_medium`, `fallback_low`
+**Stage names:** `ovos-fallback-pipeline-plugin-high`, `ovos-fallback-pipeline-plugin-medium`, `ovos-fallback-pipeline-plugin-low` (deprecated aliases: `fallback_high`, `fallback_medium`, `fallback_low`)
 
-`FallbackService` subclasses `ConfidenceMatcherPipeline`, so the single base ID auto-expands into the three `match_high`/`match_medium`/`match_low` matchers exposed as `fallback_high`, `fallback_medium`, `fallback_low`. It ships inside `ovos-core`:
+`FallbackService` subclasses `ConfidenceMatcherPipeline`, so the single base ID auto-expands into the three `match_high`/`match_medium`/`match_low` matchers exposed as `ovos-fallback-pipeline-plugin-high`, `-medium`, and `-low`. It ships inside `ovos-core`:
 
 ```ini
 [project.entry-points."opm.pipeline"]
@@ -26,11 +26,11 @@ ovos-fallback-pipeline-plugin = "ovos_core.intent_services.fallback_service:Fall
 
 | Pipeline ID | Priority Range | Description | Use Case |
 |---|---|---|---|
-| `fallback_high` | `0 < p ≤ 5` | High-priority fallback skills | Critical fallback handlers |
-| `fallback_medium` | `5 < p ≤ 90` | Medium-priority fallback skills | General fallback skills |
-| `fallback_low` | `90 < p ≤ 101` | Low-priority fallback skills | Catch-all or chatbot fallback skills |
+| `ovos-fallback-pipeline-plugin-high` | `0 < p ≤ 5` | High-priority fallback skills | Critical fallback handlers |
+| `ovos-fallback-pipeline-plugin-medium` | `5 < p ≤ 90` | Medium-priority fallback skills | General fallback skills |
+| `ovos-fallback-pipeline-plugin-low` | `90 < p ≤ 101` | Low-priority fallback skills | Catch-all or chatbot fallback skills |
 
-Each matcher filters registered fallbacks with `range.start < priority ≤ range.stop` (exclusive start, inclusive stop). Lower priority numbers run first. A fallback that registers without a priority defaults to `101`, placing it in the `fallback_low` tier. Priorities can be overridden by users via config.
+Each matcher filters registered fallbacks with `range.start < priority ≤ range.stop` (exclusive start, inclusive stop). Lower priority numbers run first. A fallback that registers without a priority defaults to `101`, placing it in the low tier. Priorities can be overridden by users via config.
 
 ---
 

@@ -1,5 +1,8 @@
 # Common Query Pipeline
 
+!!! abstract "In a nutshell"
+    When you ask a general-knowledge question like "who wrote Hamlet?", the Common Query pipeline asks *all* your installed knowledge skills (Wikipedia, Wolfram Alpha, and so on) the same question at once, gathers their answers, and reads back the best one. Think of it as a quiz host who puts the question to every contestant and then announces the strongest reply. It never makes up answers itself — every answer comes from a skill, so if you have no knowledge skills installed it simply stays quiet. See the [Intent Pipeline overview](pipelines-overview.md) or the [Glossary](glossary.md).
+
 The **Common Query Pipeline Plugin** answers general-knowledge questions. When an
 utterance looks like a question ("Who wrote Hamlet?", "How tall is Everest?"), it
 broadcasts the question to every installed **CommonQuery skill**, collects their
@@ -20,8 +23,9 @@ It ships with `ovos-core`, but can be installed standalone:
 pip install ovos-common-query-pipeline-plugin
 ```
 
-It registers one pipeline matcher: **`common_qa`**. Add it to your pipeline, near
-the end, so high-confidence intents win first:
+It registers one pipeline matcher: **`ovos-common-query-pipeline-plugin`** (legacy
+alias `common_qa`). Add it to your pipeline, near the end, so high-confidence intents
+win first:
 
 ```json
 {
@@ -29,7 +33,7 @@ the end, so high-confidence intents win first:
     "pipeline": [
       "ovos-padatious-pipeline-plugin-high",
       "ovos-adapt-pipeline-plugin-high",
-      "common_qa",
+      "ovos-common-query-pipeline-plugin",
       "ovos-fallback-pipeline-plugin-medium"
     ]
   }
@@ -44,7 +48,7 @@ a question.
 ## How it works
 
 The matcher class is `CommonQAService` (a `PipelinePlugin`, so it exposes a single
-`match()` — hence the one `common_qa` ID, not high/medium/low tiers).
+`match()` — hence the one `ovos-common-query-pipeline-plugin` ID, not high/medium/low tiers).
 
 1. **Question detection** — `is_question_like()` requires at least 3 words, a
    "question word" (`QuestionWord` vocab), and rejects utterances that match

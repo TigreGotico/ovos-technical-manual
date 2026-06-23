@@ -27,13 +27,13 @@ While Adapt is good for **explicit, deterministic command-and-control**, it scal
 
 ## Pipeline Stages
 
-The plugin ships an OPM entry point, `ovos-adapt-pipeline-plugin`, mapped to the `AdaptPipeline` class. That class is a `ConfidenceMatcherPipeline`, so OVOS exposes three matcher stages from it, selected in your pipeline config by these legacy IDs:
+The plugin ships an OPM entry point, `ovos-adapt-pipeline-plugin`, mapped to the `AdaptPipeline` class. That class is a `ConfidenceMatcherPipeline`, so OVOS exposes three matcher stages from it, selected in your pipeline config by these IDs (the short `adapt_*` aliases still work but are deprecated):
 
-| Pipeline ID    | Matcher        | Recommended Use        |
-| -------------- | -------------- | ---------------------- |
-| `adapt_high`   | `match_high`   | Personal skills only   |
-| `adapt_medium` | `match_medium` | Use with caution       |
-| `adapt_low`    | `match_low`    | Not recommended        |
+| Pipeline ID    | Legacy alias   | Matcher        | Recommended Use        |
+| -------------- | -------------- | -------------- | ---------------------- |
+| `ovos-adapt-pipeline-plugin-high`   | `adapt_high`   | `match_high`   | Personal skills only   |
+| `ovos-adapt-pipeline-plugin-medium` | `adapt_medium` | `match_medium` | Use with caution       |
+| `ovos-adapt-pipeline-plugin-low`    | `adapt_low`    | `match_low`    | Not recommended        |
 
 Each stage scores the utterance with Adapt and accepts it if the score clears that stage's threshold.
 
