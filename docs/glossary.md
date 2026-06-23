@@ -31,7 +31,7 @@ This glossary defines common terms, acronyms, and concepts used throughout the O
 | **IPA (International Phonetic Alphabet)** | A standard notation for the individual sounds of speech, used by [G2P](g2p-plugins.md) / phonemizers. |
 | **[Kirigami](qt5-gui.md)** | A UI framework from KDE used for building responsive OVOS GUI interfaces. |
 | **Listener** | The service that captures microphone audio, detects the [wake word](wake-word-plugins.md), and records speech for transcription. See [Speech Service](speech-service.md). |
-| **[Mark 1 / Mark 2](mark1.md)** | Mycroft's reference hardware devices. OVOS still supports the Mark 1 faceplate and the Mark 2. |
+| **[Mark 1](mark1.md) / [Mark 2](mark2.md)** | Mycroft's reference hardware devices. The Mark 1 is a faceplate-only speaker; the Mark 2 is a Raspberry Pi 4 device with a touchscreen running the full OVOS GUI stack. Both are still supported. |
 | **Message** | A JSON object sent over the MessageBus, containing a `type`, `data`, and `context`. |
 | **MiniCroft** | A lightweight, in-process version of OVOS Core used for end-to-end testing with `ovoscope`. |
 | **`mycroft.conf`** | OVOS's main [configuration](config.md) file (JSON). The same filename is layered across system → distribution → user locations, with the user's copy winning. |

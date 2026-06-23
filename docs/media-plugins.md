@@ -67,7 +67,7 @@ The [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) below is not a playback ba
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin](https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin)
 
 
-- **Description**: The legacy **"old audio service"** OCP backend. It crams OCP search orchestration, the player state machine, MPRIS and the GUI into a single `ovos-audio` `AudioBackend`. ⚠️ **Deprecated but still shipped and enabled by default** (`enable_old_audioservice: true`); superseded by the standalone [ovos-media](ovos-media.md) daemon.
+- **Description**: The legacy **"old audio service"** OCP backend. It crams OCP search orchestration, the player state machine, MPRIS and the GUI into a single `ovos-audio` `AudioBackend`. ⚠️ **Deprecated but still shipped and enabled by default** (`enable_old_audioservice: true`); superseded by the standalone [ovos-media](ovos-media.md) daemon. See the dedicated **[OCP Audio Plugin](ocp-audio-plugin.md)** page for the full background, configuration, and migration path.
 
 ---
 

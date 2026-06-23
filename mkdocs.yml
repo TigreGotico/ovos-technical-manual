@@ -128,7 +128,7 @@ nav:
           - Nebulento (fuzzy): nebulento.md
           - Palavreado (keyword): palavreado.md
       - Logic & Concepts:
-          - Prompts: prompts.md
+          - Asking the User: prompts.md
           - Context: context.md
           - Intent Layers: layers.md
       - Transformers:
@@ -210,6 +210,7 @@ nav:
           - G2P: g2p-plugins.md
           - Plugin Arena: plugin-arena.md
       - Media & GUI:
+          - OCP Audio Plugin (legacy default): ocp-audio-plugin.md
           - ovos-media: ovos-media.md
           - OCP Extractors: ocp-plugins.md
           - Media Playback: media-plugins.md
@@ -270,6 +271,7 @@ nav:
           - gh-automations Workflows: gh-automations-workflows.md
       - Misc:
           - Mark 1 Hardware: mark1.md
+          - Mark 2 Hardware: mark2.md
           - Timeline: timeline.md
           - Deprecated & Archived Repos: deprecated-repos.md
           - License: license.md
