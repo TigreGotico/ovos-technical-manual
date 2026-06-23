@@ -108,7 +108,12 @@ Stores every exchange as a vector-indexed document using an OpenAI-compatible fi
 Fallback: if the vector store endpoint is unavailable, in-process cosine similarity is used.
 
 !!! warning "Upcoming — unreleased"
-    [OpenVoiceOS/ovos-memory-plugins#9](https://github.com/OpenVoiceOS/ovos-memory-plugins/pull/9) (`feat!`, open) makes this plugin **fully local**: it replaces the server-coupled `ovos-memory-plugin-rag` / `RAGMemory` with `ovos-memory-plugin-local-rag` / `LocalRAGMemory`, which embeds and stores exchanges in-process via OVOS embeddings plugins (`opm.embeddings.text` + `EmbeddingsDB`) — no network, no cloud key. `ovos-memory-plugins` is local-first only; any server- or OpenAI-coupled RAG lives in `ovos-openai-plugin` instead. After that PR lands, the entry point above and its `api_url`-based config no longer apply.
+    `ovos-memory-plugins` is **fully local**: `ovos-memory-plugin-local-rag` / `LocalRAGMemory`
+    embeds and stores exchanges **in-process** via OVOS embeddings plugins (`opm.embeddings.text`
+    + `EmbeddingsDB`) — no network, no cloud key. It is local-first only; any server- or
+    OpenAI-coupled RAG lives in [`ovos-openai-plugin`](openai-plugin.md) instead (so the old
+    `api_url`-based server-coupled entry point does not apply here). The repository is not public
+    yet, hence Upcoming.
 
 ---
 

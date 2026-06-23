@@ -124,9 +124,8 @@ The `memory_module` key names an `opm.agents.memory` plugin. The default when om
 `ovos-memory-plugins` is **local-first**: server- / cloud-coupled RAG memory lives in
 `ovos-openai-plugin` as `PersonaServerRAGMemory` (`ovos-openai-rag-memory-plugin`), not here.
 
-> **Upcoming:** [OpenVoiceOS/ovos-memory-plugins#9](https://github.com/OpenVoiceOS/ovos-memory-plugins/pull/9)
-> (draft) makes the package purely local-first: it adds `LocalRAGMemory`
-> (`ovos-memory-plugin-local-rag`), a fully in-process RAG backend using local OVOS embeddings +
+> **Upcoming (repo not public yet):** the package is purely local-first — `LocalRAGMemory`
+> (`ovos-memory-plugin-local-rag`) is a fully in-process RAG backend using local OVOS embeddings +
 > an `EmbeddingsDB` plugin (no HTTP, no cloud key), and removes the current server-coupled HTTP
 > `RAGMemory` (`ovos-memory-plugin-rag`) in favour of `ovos-openai-plugin`'s server RAG.
 
