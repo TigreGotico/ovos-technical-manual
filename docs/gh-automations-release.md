@@ -169,7 +169,7 @@ After a stable release is published to PyPI, the constraints files in [ovos-rele
 | `constraints-testing.txt` | Testing |
 | `constraints-stable.txt` | Stable |
 
-These files use `>=` bounds (e.g. `ovos-utils>=0.3.0`) so users get the latest compatible version within their chosen channel. `downstream-check.yml` reads `constraints-alpha.txt` (default branch `main`) to compute reverse dependencies; the channel-compatibility check in `build-tests.yml` / `release-preview.yml` reads all three.
+These files use `>=` bounds (e.g. `ovos-utils>=0.3.0`) so users get the latest compatible version within their chosen channel. `downstream-check.yml` reads `constraints-alpha.txt` (default branch `main`) to compute reverse dependencies; the channel-compatibility check in `release-preview.yml` reads all three.
 
 ---
 
@@ -190,4 +190,4 @@ if: github.event.pull_request.merged == true || github.event_name == 'workflow_d
 
 ## Upcoming
 
-- **NGI codename release schedule** — [PR #36](https://github.com/OpenVoiceOS/gh-automations/pull/36) (`feat/codenames`) proposes a codename release schedule. Not yet merged; the flow above reflects current `dev`.
+- **NGI codename release schedule** — [PR #36](https://github.com/OpenVoiceOS/gh-automations/pull/36) (`feat/codename-releases`) proposes a codename release schedule. Not yet merged; the flow above reflects current `dev`.

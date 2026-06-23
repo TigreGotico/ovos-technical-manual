@@ -74,7 +74,7 @@ The filename below is the actual file in this repo (the `<name>.yml`). The name 
 
 | Workflow | Purpose |
 |---|---|
-| `build-tests.yml` | Build/install/test matrix across Python versions; channel-compatibility check. Posts `🔨 Build Tests`. |
+| `build-tests.yml` | Build/install/test matrix across Python versions. Posts `🔨 Build Tests`. |
 | `coverage.yml` | Run pytest with coverage; post `📊 Coverage`; optionally deploy the HTML report to Pages (`deploy_pages: true`). |
 | `ovoscope.yml` | Run [ovoscope](ovoscope-overview.md) end-to-end skill tests; post `🔌 Skill Tests (ovoscope)`. |
 | `intent-case-tests.yml` | Run the file-based ovoscope intent-routing accuracy matrix (sharded by language); post `🎯 Intent-Case Accuracy`. |

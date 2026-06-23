@@ -61,7 +61,7 @@ Pass these through with `secrets: inherit` (plus the automatic `GITHUB_TOKEN`).
 | Job | Condition | Description |
 |-----|-----------|-------------|
 | `bump_version` | `merged == true && not a skipped bot \|\| workflow_dispatch` | Determines bump type from PR labels, calls `update_version.py`, commits and pushes to `branch` via `git-auto-commit-action@v7`. Skips PRs from `allcontributors[bot]` and `pre-commit-ci[bot]` when `skip_bot_prs: true`. |
-| `update_changelog` | `update_changelog: true` + `bump_version` succeeded | Calls `github-changelog-generator-action@v2.3`, commits result |
+| `update_changelog` | `update_changelog: true` + `bump_version` succeeded | Calls `github-changelog-generator-action@v2.4`, commits result |
 | `tag_prerelease` | `publish_prerelease: true` + `bump_version` succeeded | Creates GitHub pre-release via `ncipollo/release-action@v1` |
 | `propose_release` | `propose_release: true` + `bump_version` succeeded | Creates `release-X.Y.ZaN` branch, opens PR to `master` via GitHub API |
 | `publish_pypi` | `publish_pypi: true` + `bump_version` succeeded | Builds with `python -m build`, publishes via `pypa/gh-action-pypi-publish@release/v1` (uses `PYPI_TOKEN`) |
@@ -192,7 +192,7 @@ jobs:
 
 ## `build-tests.yml`
 
-Runs build, install, and optionally tests across a configurable matrix of Python versions. Posts a `🔨 Build Tests` section to the PR comment. Also performs a **channel compatibility check** when `package_name` and `version_file` are provided.
+Runs build, install, and optionally tests across a configurable matrix of Python versions. Posts a `🔨 Build Tests` section to the PR comment. (The channel-compatibility check lives in [`release-preview.yml`](#release-previewyml), not here.)
 
 **Source:** `.github/workflows/build-tests.yml`
 
@@ -207,19 +207,13 @@ Runs build, install, and optionally tests across a configurable matrix of Python
 | `pre_install_pip` | string | `""` | Space-separated pip requirement specs installed **before** the package build/install. Use to override transitive deps with git URLs (e.g. test against an unreleased sibling). Each whitespace-separated item is one `pip install` argument, so quoted git URLs work. |
 | `test_path` | string | `""` | Path passed to pytest after install. Leave empty to skip test execution (build/install verification only). |
 | `pr_comment` | boolean | `true` | Post a `🔨 Build Tests` section to the OVOS PR Checks comment. Only fires on `pull_request` events. |
-| `package_name` | string | `""` | Package name for the channel compatibility check. If empty, auto-reads from `pyproject.toml`/`setup.py`. Both `package_name` and `version_file` must resolve for the channel check to run. |
-| `version_file` | string | `""` | Path to `version.py` in the calling repo (relative to repo root). If empty, auto-detects. Needed for the channel compatibility check. |
 
 ### Jobs
 
 | Job | Description |
 |-----|-------------|
 | `build_tests` | Matrix job. Runs `python -m build`, installs the resulting wheel (with extras if specified), optionally runs `pytest`. Saves per-version result as an artifact. |
-| `post_build_report` | Runs after the matrix, only on PR events with `pr_comment: true`. Downloads all result artifacts, runs the channel compatibility check, formats and posts the `section:build` PR comment. |
-
-### Channel compatibility check
-
-The `post_build_report` job checks out [OpenVoiceOS/ovos-releases](https://github.com/OpenVoiceOS/ovos-releases) and calls `scripts/check_release_channels.py` to verify whether the current version of the package is already pinned or constrained in the alpha/testing/stable channel files. This check only runs when both `package_name` and a readable `version_file` can be resolved. If either is missing or the version cannot be parsed, the channel check is silently skipped and the rest of the PR comment is still posted.
+| `post_build_report` | Runs after the matrix, only on PR events with `pr_comment: true`. Downloads all result artifacts, formats and posts the `section:build` PR comment. |
 
 ### Typical usage
 
@@ -240,8 +234,6 @@ jobs:
       python_versions: '["3.10", "3.11", "3.12"]'
       install_extras: 'test'
       test_path: 'test/'
-      package_name: 'my-package'
-      version_file: 'my_package/version.py'
 
 ```
 
@@ -608,7 +600,11 @@ Runs `pytest --cov` and deploys the HTML coverage report to GitHub Pages.
 | `install_extras` | string | `""` | Extra pip install arguments run before tests |
 | `test_path` | string | `test/` | Path passed to pytest |
 | `coverage_source` | string | `.` | `--cov=<value>` — set to your package directory |
-| `gh_pages_subdir` | string | `coverage` | Sub-directory within the Pages site, e.g. `coverage` → `https://org.github.io/repo/coverage/`. Empty string = deploy at root. |
+| `gh_pages_branch` | string | `gh-pages` | Branch the HTML coverage report is pushed to |
+
+!!! warning "Deprecated"
+    `coverage-pages.yml` is **deprecated** — use [`coverage.yml`](#coverageyml) with
+    `deploy_pages: true` instead.
 
 ### Jobs
 
@@ -617,9 +613,7 @@ Runs `pytest --cov` and deploys the HTML coverage report to GitHub Pages.
 | Checkout | Checks out the calling repo |
 | Setup Python + Install Dependencies | Installs `pytest`, `pytest-cov`, `coverage[toml]`, `ovoscope`, and the package itself |
 | Run Tests with Coverage | `pytest --cov --cov-report=html:htmlcov`. `continue-on-error: true` so deployment proceeds even with test failures. |
-| Prepare HTML report | Copies `htmlcov/` to `_pages_output/` (with optional subdirectory) |
-| Upload Pages artifact | `actions/upload-pages-artifact@v3` |
-| Deploy to GitHub Pages | `actions/deploy-pages@v4` |
+| Publish report | Checks out (or orphans) the `gh_pages_branch`, copies the generated `htmlcov/` onto it, and `git push`es the branch. |
 
 ### Typical usage
 
@@ -631,9 +625,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write   # needed to push the gh-pages branch
 
 jobs:
   coverage_pages:
@@ -646,10 +638,11 @@ jobs:
 
 ### Prerequisites
 
-1. Enable GitHub Pages in repo settings → Source: **GitHub Actions**
+1. Grant `contents: write` in the calling workflow (to push the branch).
 
 
-2. Grant `pages: write` and `id-token: write` permissions in the calling workflow
+2. In repo settings, set GitHub Pages → Source to the **`gh-pages` branch** (the report is
+   pushed there, not deployed via the Pages-Actions pipeline).
 
 ---
 
@@ -744,7 +737,7 @@ Scans installed dependencies for known CVEs using [`pypa/gh-action-pip-audit`](h
 | `ignore_vulns` | string | `GHSA-r9hx-vwmv-q579` | Newline-separated GHSA IDs to ignore. Default ignores GHSA-r9hx-vwmv-q579 (setuptools path traversal — dev-only, not exploitable at OVOS runtime). |
 | `warn_only` | boolean | `false` | When true, report vulnerabilities in the PR comment but do NOT fail the job. Useful for repos that want visibility without blocking merges. |
 | `pr_comment` | boolean | `true` | Post a `🔒 Security (pip-audit)` section to the shared OVOS PR Checks comment. Only fires on `pull_request` events. |
-| `upload_sarif` | boolean | `true` | Upload a SARIF report to GitHub's Security tab (Code scanning alerts). Requires the repo to have GitHub Advanced Security enabled, or be public. Uses `github/codeql-action/upload-sarif@v3`. `continue-on-error: true` so the job does not fail for private repos without GHAS. |
+| `upload_sarif` | boolean | `true` | Upload a SARIF report to GitHub's Security tab (Code scanning alerts). Requires the repo to have GitHub Advanced Security enabled, or be public. Uses `github/codeql-action/upload-sarif@v4`. `continue-on-error: true` so the job does not fail for private repos without GHAS. |
 
 ### Typical usage
 
@@ -1206,7 +1199,7 @@ End-to-end TTS intelligibility scoring: synthesises speech with the TTS plugin u
 
 ## `notify-matrix.yml`
 
-Sends a message to the OVOS Matrix channel. Uses [`fadenb/matrix-chat-message`](https://github.com/fadenb/matrix-chat-message).
+Sends a message to the OVOS Matrix channel via a raw `curl -X PUT` to the Matrix client-server API (`/_matrix/client/v3/rooms/.../send/m.room.message/...`).
 
 **Source:** `.github/workflows/notify-matrix.yml`
 
@@ -1458,7 +1451,7 @@ Detects and validates OVOS plugins via OPM. Supports multi-plugin-type repos. Ou
 - `validate_plugin_import(module_path, class_name)` — imports the class, measures time in ms, detects missing dependencies
 
 
-- `check_plugin_interface(plugin_cls, short_type)` — verifies `issubclass()` against the correct abstract base (10 types including `g2p`)
+- `check_plugin_interface(plugin_cls, short_type)` — verifies `issubclass()` against the correct abstract base (~30 types, including the `agents.*` family, `vc`, and `wake_word.verifier`)
 
 
 - `extract_metadata()` — reads name, version, authors, description, homepage, requires_python
