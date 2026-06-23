@@ -26,13 +26,15 @@ You will find several unfamiliar file extensions in this folder, but these are s
 * `.dialog` files used for defining speech responses
 
 
-* `.intent` files used for defining [Padatious](padatious-pipeline.md) Intents
+* `.intent` files define **template (example-based) intents** — whole sample phrases
+  (matched by [Padatious](padatious-pipeline.md))
 
 
-* `.voc` files define keywords primarily used in [Adapt](adapt-pipeline.md) Intents
+* `.voc` files define the keywords used by **keyword (rule-based) intents**
+  (matched by [Adapt](adapt-pipeline.md))
 
 
-* `.entity` files define a named entity primarily used in Padatious Intents
+* `.entity` files define a named entity used by template intents
 
 ### __init__.py
 
@@ -108,9 +110,10 @@ def initialize(self):
 We can use the `initialize` function to manually register intents, however the `@intent_handler` decorator is a
 cleaner way to achieve this. We will learn all about the different [Intents](intents.md) shortly. 
 
-In skills we can see two different intent styles.
+In skills we can see the two different intent styles.
 
-1. An Adapt handler, triggered by a keyword defined in a `ThankYouKeyword.voc` file.
+1. A **keyword (rule-based) intent**, triggered by a keyword defined in a `ThankYouKeyword.voc`
+   file (matched by Adapt).
 
 ```python
    @intent_handler(IntentBuilder('ThankYouIntent').require('ThankYouKeyword'))
@@ -119,7 +122,8 @@ In skills we can see two different intent styles.
 
 ```
 
-2. A Padatious intent handler, triggered using a list of sample phrases.
+2. A **template (example-based) intent**, triggered by a list of sample phrases (matched by
+   Padatious).
 
 ```python
    @intent_handler('HowAreYou.intent')

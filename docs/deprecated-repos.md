@@ -1,7 +1,7 @@
 # Deprecated & Archived Repositories
 
 !!! warning "These repositories are archived"
-    The repositories below are **archived** in the [OpenVoiceOS GitHub organization](https://github.com/OpenVoiceOS) — they are read-only and no longer maintained. They are listed here so you can recognise them and find the current replacement. Do **not** start new work against them. For deprecated *code/APIs* (within still-maintained repos), see the [Deprecation Log](deprecation-log.md).
+    The repositories below are **archived** in the [OpenVoiceOS GitHub organization](https://github.com/OpenVoiceOS) — they are read-only and no longer maintained. They are listed here so you can recognise them and find the current replacement. Do **not** start new work against them.
 
 There are **83** archived repositories. They are grouped by area below; each row gives the reason and the current replacement where one exists.
 

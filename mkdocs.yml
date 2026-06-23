@@ -267,7 +267,6 @@ nav:
       - Misc:
           - Mark 1 Hardware: mark1.md
           - Timeline: timeline.md
-          - Deprecation Log: deprecation-log.md
           - Deprecated & Archived Repos: deprecated-repos.md
           - License: license.md
 

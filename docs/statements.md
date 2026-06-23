@@ -85,7 +85,7 @@ The [Skill Structure](skill-structure.md) section describes where to place the I
 
 ### Statements with variables
 
-The second [Padatious](padatious-pipeline.md) Intent, **do.you.like.intent**, demonstrates the use of variables in the Intent file and in one of the dialog files:
+The second template intent ([Padatious](padatious-pipeline.md)), **do.you.like.intent**, demonstrates the use of variables in the Intent file and in one of the dialog files:
 
 
 `do.you.like.intent`
