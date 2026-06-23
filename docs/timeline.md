@@ -393,7 +393,7 @@
 - Feb 2022 - [OCP](https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin) released as an audio plugin (mycroft compatible)
 
 
-- Feb 2022 - [PHAL](ovoscope-phal.md) replaces `mycroft.client.enclosure` in `ovos-core`
+- Feb 2022 - [PHAL](phal.md) replaces `mycroft.client.enclosure` in `ovos-core`
 
 
 - Feb 2022 - [skill-ovos-date-time](https://github.com/OpenVoiceOS/skill-ovos-date-time) forked from Mycroft

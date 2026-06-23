@@ -69,7 +69,7 @@ The entry point group is the canonical identifier used in `setup.py` / `pyprojec
 
 | Plugin type | Entry point group | Template base class |
 |---|---|---|
-| [PHAL](ovoscope-phal.md) (user) | `opm.phal` | `PHALPlugin` |
+| [PHAL](phal.md) (user) | `opm.phal` | `PHALPlugin` |
 | PHAL (admin/root) | `opm.phal.admin` | `AdminPlugin` |
 | GUI | `opm.gui` | `GUIExtension` |
 

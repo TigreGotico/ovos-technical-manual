@@ -134,5 +134,5 @@ Restart `ovos-core` (or it will pick the skill up on its next scan). Then say:
 - **Have a back-and-forth** ("what's your name?" → reply) — see [Continuous Conversation](converse.md).
 - **Save settings or files** — see [Skill Settings](skill-settings.md) and [Filesystem](skill-filesystem.md).
 - **Make it sound good and behave well** — see [Skill Best Practices](skill-best-practices.md).
-- **Test it automatically** — see [Skill Testing](skill-testing.md).
+- **Test it automatically** — see [Skill Testing](ovoscope-overview.md).
 - Browse real skills for ideas in [Skill Examples](skill-examples.md).

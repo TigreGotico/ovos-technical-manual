@@ -123,7 +123,7 @@ Ready to build your own plugins or skills?
 *   **[Skill Development](skill-design-guidelines.md)**: Learn how to write your first voice skill.
 *   **[Plugin Ecosystem](plugins-index.md)**: Explore and create plugins for STT, TTS, VAD, and more.
 *   **[Intent Pipelines](pipelines-overview.md)**: Understand how OVOS parses natural language.
-*   **[Skill Testing](skill-testing.md)**: Ensure your skills are robust with `ovoscope`.
+*   **[Skill Testing](ovoscope-overview.md)**: Ensure your skills are robust with `ovoscope`.
 
 ### 🌍 Language Support
 

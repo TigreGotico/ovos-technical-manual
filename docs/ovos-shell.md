@@ -248,7 +248,7 @@ To unlock full functionality, configure `ovos-gui-plugin-shell-companion` in
 
 ```
 
-`ovos-shell` is tightly coupled to [PHAL](ovoscope-phal.md). The following PHAL plugins
+`ovos-shell` is tightly coupled to [PHAL](phal.md). The following PHAL plugins
 should also be installed for a fully functional shell:
 
 - `ovos-PHAL-plugin-network-manager`
