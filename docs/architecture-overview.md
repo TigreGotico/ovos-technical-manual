@@ -52,7 +52,8 @@ ovos-messagebus  (WebSocket pub/sub)
       │     └── EventScheduler        – timed bus events
       │
       ├── ovos-dinkum-listener  – STT / wake-word → recognizer_loop:utterance
-      ├── ovos-audio            – TTS playback
+      ├── ovos-audio            – TTS / sound playback (+ legacy media audioservice)
+      ├── ovos-media            – standalone media-playback service (opt-in; replaces legacy audioservice)
       ├── ovos-gui              – GUI layer
       └── ovos-phal             – hardware/platform plugins
 

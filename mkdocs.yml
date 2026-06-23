@@ -108,6 +108,7 @@ nav:
           - Skill Installer: skill-installer.md
           - Speech Service: speech-service.md
           - Audio Service: audio-service.md
+          - Media Service (ovos-media): ovos-media.md
           - GUI Service (legacy): gui-service.md
           - PHAL (Hardware Abstraction): phal.md
   - Intent Pipeline:
@@ -197,7 +198,6 @@ nav:
           - G2P: g2p-plugins.md
       - Media & GUI:
           - OCP Audio Plugin (legacy default): ocp-audio-plugin.md
-          - ovos-media: ovos-media.md
           - OCP Extractors: ocp-plugins.md
           - Media Playback: media-plugins.md
           - GUI Protocol (legacy): gui-protocol.md
