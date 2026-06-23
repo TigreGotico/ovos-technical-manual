@@ -170,6 +170,30 @@ bot.connect()
 print(bot.spoken_answer("what is the speed of light?"))
 ```
 
+### As an intent-pipeline stage
+
+There is also a pipeline-plugin form,
+**[`ovos-hivemind-pipeline-plugin`](https://github.com/JarbasHiveMind/ovos-hivemind-pipeline-plugin)**
+(entry point `opm.pipeline`, class `HiveMindPipeline`). Instead of living inside a persona, it
+slots directly into the [intent pipeline](pipelines-overview.md) — *"when in doubt, ask a smarter
+OVOS install."* Add it to `intents.pipeline` and configure it under `mycroft.conf`:
+
+```json
+{
+  "intents": {
+    "pipeline": ["...", "ovos-hivemind-pipeline-plugin", "..."],
+    "ovos-hivemind-pipeline-plugin": {
+      "name": "Hive Mind",
+      "confirmation": true,
+      "slave_mode": false
+    }
+  }
+}
+```
+
+Use the **solver** form to delegate inside a persona's reasoning; use the **pipeline** form to
+delegate at the intent-matching stage (e.g. as a late, catch-all matcher).
+
 ---
 
 ## Deployment patterns
