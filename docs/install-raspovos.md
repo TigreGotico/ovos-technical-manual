@@ -223,41 +223,60 @@ The most straightforward method is to set up Wi-Fi during the imaging process.
 ## Step 6: Using OVOS Commands
 
 ### Helpful Commands
-Once the terminal appears, you’ll see a guide with OVOS commands. Some key commands include:
 
-- **Configuration:**
+When you log in, RaspOVOS prints a welcome banner listing its built-in helper commands. These
+are **RaspOVOS-specific shell helpers** (aliases and small scripts baked into the image) — they
+are part of the RaspOVOS image, not a standard `pip install` of OVOS. Run `ovos-help` at any time
+to reprint the full list.
 
+**Web interfaces:**
 
-    - `ovos-config` — Manage configuration files.
+- `ovos-yaml-editor` — web editor for OVOS configuration (port 9210).
+- `ovos-skill-config-tool` — web editor for individual skill settings (port 8000).
 
+**Talking to OVOS:**
 
-- **Voice Commands:**
+- `ovos-config` — manage your local OVOS configuration files.
+- `ovos-listen` — activate the microphone to listen for a command.
+- `ovos-speak <phrase>` — have OVOS speak a phrase to the user.
+- `ovos-say-to <phrase>` — send an utterance to OVOS as if you had spoken it.
+- `ovos-simple-cli` — chat with your device from the terminal.
+- `ovos-docs-viewer` — open the documentation viewer (also `ovos-manual`, `ovos-skills-info`).
 
+**Managing packages:**
 
-    - `ovos-listen` — Activate the microphone for commands.
+- `ovos-install` — install OVOS packages with the correct version constraints.
+- `ovos-update` — update all OVOS and skill packages.
+- `ovos-force-reinstall` — force a full reinstall of all OVOS packages (last-resort repair).
+- `ovos-freeze` — export installed OVOS packages to `requirements.txt`.
+- `ovos-outdated` — list outdated OVOS/skill packages.
+- `ovos-reset-brain` — reset the "OVOS brain" to a blank state by uninstalling all skills.
 
+**Inspecting plugins:**
 
-    - `ovos-speak <phrase>` — Make OVOS speak a specific phrase.
+- `ls-skills` — list the `skill_id` of every installed skill.
+- `ls-stt` / `ls-tts` / `ls-ww` / `ls-tx` — list installed [STT](stt-plugins.md) / [TTS](tts-plugins.md) / wake-word / [translation](translation-plugins.md) plugins.
 
+**Logs and status:**
 
-- **[Skill](skill-design-guidelines.md) Management:**
+- `ologs` — view all logs in real time.
+- `ovos-logs [COMMAND] --help` — a small tool to help navigate the logs.
+- `ovos-status` — list OVOS-related systemd services.
+- `ovos-restart` — restart all OVOS-related systemd services.
+- `ovos-server-status` — check the live status of the public OVOS servers.
 
+**Misc:**
 
-    - `ovos-install [PACKAGE_NAME]` — Install OVOS packages.
+- `ovos-commands` — usage examples for the installed skills.
+- `ovos-support` — compile logs into a support package to share when asking for help.
+- `ovos-help` — reprint this command list.
 
-
-    - `ovos-update` — Update all OVOS and skill packages.
-
-
-- **Logs and Status:**
-
-
-    - `ologs` — View logs in real-time.
-
-
-    - `ovos-status` — Check the status of OVOS-related services.
-
-You use the command `ovos-help` to print the message with all commands again at any point
+!!! note "Audio HAT setup on RaspOVOS uses `ovos-i2csound`"
+    On RaspOVOS, an i2c sound HAT (such as a Respeaker or the Mark 2's SJ201) is detected and
+    configured at boot by the **`ovos-i2csound`** service shipped in the image, which writes the
+    detected board to `/etc/OpenVoiceOS/i2c_platform`. This is specific to the RaspOVOS/buildroot
+    image path — the [ovos-installer](ovos-installer.md) does **not** use it (see
+    [Mark 2 Hardware](mark2.md) for the installer's kernel-driver approach).
 
 ### Check Logs in Real-Time
 
