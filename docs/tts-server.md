@@ -70,7 +70,8 @@ options:
   --port PORT           port number (default: 9666)
   --host HOST           host (default: 0.0.0.0)
   --cache               save every synth to disk
-  --lang LANG           default language supported by plugin (default: en-us)
+  --lang LANG           accepted for compatibility but currently ignored; the default
+                        language comes from config (`lang`) or falls back to "mul"
   --mcp                 mount MCP server at /mcp (requires ovos-tts-server[mcp])
 
 ```
@@ -101,7 +102,7 @@ options:
 
 | Endpoint                  | Method | Description                                                          |
 |---------------------------|--------|---------------------------------------------------------------------|
-| `/status`                 | GET    | Returns loaded plugin name, supported langs/voices, default model/voice. |
+| `/status`                 | GET    | Returns loaded plugin name, supported `langs`, and `default_lang` / `default_model` / `default_voice`. |
 | `/synthesize/{utterance}` | GET    | Legacy: URL‑encoded text in the path → synthesized audio file.      |
 | `/v2/synthesize`          | GET    | `utterance` (required) plus optional query params → synthesized audio file. |
 | `/utcp`                   | GET    | UTCP tool-discovery manual (JSON).                                  |

@@ -84,5 +84,6 @@ You can customize which parts of `ovos-core` start by using flags in the CLI or 
 | `enable_installer` | `SkillsStore` |
 | `enable_event_scheduler` | `EventScheduler` |
 | `enable_skill_api` | `SkillApi.connect_bus` |
+| `enable_file_watcher` | Skill settings file watcher |
 
-CLI equivalents include `--disable-intent-service`, `--disable-installer`, etc.
+CLI equivalents are the `--disable-*` forms: `--disable-intent-service`, `--disable-installer`, `--disable-file-watcher`, etc.

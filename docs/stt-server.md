@@ -18,9 +18,14 @@ pip install ovos-stt-http-server
 
 ```
 
-**Configure your STT plugin**  
+**Choose your STT plugin**
 
-In your `mycroft.conf` (or equivalent) under the `stt` section:  
+You name the plugin to serve with the `--engine` flag (below). Note that — unlike a full OVOS
+install — the standalone server instantiates the plugin with an **empty config**, so it runs
+with the plugin's **built-in defaults**; it does **not** read the `stt` section of
+`mycroft.conf`. Pick a plugin whose defaults suit you, or one that loads its own configuration.
+
+A normal OVOS install (not this server) selects its STT plugin under the `stt` section instead:
 
 ```json
 {
@@ -79,7 +84,7 @@ options:
   The server is a FastAPI app served by `uvicorn`, exposing REST endpoints.
 
 - **Plugin wrapping**  
-  `--engine` names any `opm.stt` plugin entry point (Whisper, Deepgram, etc.); it is loaded dynamically via the OVOS Plugin Manager. Plugin config is read from the `stt` section of your `mycroft.conf`.
+  `--engine` names any `opm.stt` plugin entry point (Whisper, Deepgram, etc.); it is loaded dynamically via the OVOS Plugin Manager. The server instantiates it with an empty config (built-in defaults), not the `stt` section of `mycroft.conf`.
 
 - **Language detection**  
   `--lang-engine` names an `opm.transformer.audio` plugin implementing `AudioLanguageDetector`. When a `/stt` request passes `lang=auto`, audio is routed through it before transcription.
