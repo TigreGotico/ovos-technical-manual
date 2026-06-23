@@ -1801,13 +1801,15 @@
 </span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="bp">self</span><span class="o">.</span><span class="n">intent_layers</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
 </span></code></pre></div>
 <h3 id="registering-a-layer-programmatically">Registering a Layer Programmatically<a class="headerlink" href="#registering-a-layer-programmatically" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">register_intent_layer</span><span class="p">(</span><span class="s2">&quot;my_layer&quot;</span><span class="p">,</span> <span class="p">[</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">intent_layers</span><span class="o">.</span><span class="n">update_layer</span><span class="p">(</span><span class="s2">&quot;my_layer&quot;</span><span class="p">,</span> <span class="p">[</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="s2">&quot;my.first.intent&quot;</span><span class="p">,</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="s2">&quot;my.second.intent&quot;</span><span class="p">,</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">IntentBuilder</span><span class="p">(</span><span class="s2">&quot;AdaptLayerIntent&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="s2">&quot;LayerKeyword&quot;</span><span class="p">),</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">])</span>
 </span></code></pre></div>
-<p>This registers the intents without activating the layer. Call <code>activate_layer</code> to enable them.</p>
+<p><code>update_layer</code> adds the intents to the named layer (creating it if needed) <strong>without</strong>
+activating it — call <code>self.intent_layers.activate_layer("my_layer")</code> to enable them. Use
+<code>replace_layer(layer_name, intent_list)</code> instead to overwrite a layer's intents.</p>
 <hr />
 <h2 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_workshop.permissions</code></p>
