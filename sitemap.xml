@@ -25,15 +25,7 @@
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/apis-ref/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/architecture-overview/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/async-client/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
@@ -53,10 +45,6 @@
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/bus-client-overview/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/bus-service/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
@@ -66,10 +54,6 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/cli-tools/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/client-ref/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
@@ -89,10 +73,6 @@
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/configuration-ref/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/context/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
@@ -102,6 +82,10 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/converse/</loc>
+         <lastmod>2026-06-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/core-libraries/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
@@ -138,10 +122,6 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/ecosystem-index/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/events/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
@@ -269,10 +249,6 @@
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/log-ref/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/m2v-pipeline/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
@@ -289,23 +265,7 @@
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/message-base/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/message-ref/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/mic-plugins/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/missing-messages/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/models/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
@@ -437,23 +397,11 @@
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/process-utils-ref/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/prompts/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/pydantic-dev-guide/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/pydantic-integration/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/pydantic-models/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
@@ -602,14 +550,6 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/universal-skills/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/utilities/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/utils-overview/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
