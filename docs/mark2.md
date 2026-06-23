@@ -103,8 +103,8 @@ the container method is not supported there.) That role:
 !!! warning "`ovos-i2csound` is *not* used by the installer"
     A common misconception: the [ovos-installer](ovos-installer.md) does **not** use
     `ovos-i2csound` or any other [raspOVOS](#the-raspovos-image-path-and-ovos-i2csound) helper
-    script. Those belong to the raspOVOS / buildroot image-build path. The installer's Mark 2
-    audio comes entirely from the `VocalFusionDriver` kernel module above.
+    script. `ovos-i2csound` belongs to the raspOVOS image. The installer's Mark 2 audio comes
+    entirely from the `VocalFusionDriver` kernel module above.
 
 !!! info "LED ring support is incomplete via the installer"
     The installer brings up audio, fan, touchscreen and buttons, but **LED-ring support on the
@@ -127,10 +127,6 @@ It is actively used (the installer builds it on every Mark 2 setup) and has rece
 recent kernels. Historically it derives from earlier community XMOS-loader code, adapted for OVOS
 by Peter Steenbergen (j1nx).
 
-!!! warning "Licensing is unresolved"
-    At time of writing `VocalFusionDriver` has **no LICENSE file** in the repository (there is an
-    open request to add one). Treat its licensing as unclear until that is resolved.
-
 ---
 
 ## The raspOVOS image path (and `ovos-i2csound`)
@@ -138,17 +134,16 @@ by Peter Steenbergen (j1nx).
 [`ovos-installer`](ovos-installer.md) is one way to get OVOS onto a device; the other is
 **raspOVOS**, a ready-made Raspberry Pi OS image with OVOS layered on top
 ([`OpenVoiceOS/raspOVOS`](https://github.com/OpenVoiceOS/raspOVOS) is the active repo;
-[`TigreGotico/raspOVOS`](https://github.com/TigreGotico/raspOVOS) is older). The raspOVOS images —
-and the older [buildroot](#buildroot-where-ovos-originated) images — handle i2c sound HATs with a
-different helper:
+[`TigreGotico/raspOVOS`](https://github.com/TigreGotico/raspOVOS) is older). The raspOVOS images
+handle i2c sound HATs with a different helper:
 
 [`ovos-i2csound`](https://github.com/OpenVoiceOS/ovos-i2csound) is a shell script plus systemd
 service that **auto-detects an i2c sound HAT at boot and configures ALSA** for it, writing the
 detected board name to `/etc/OpenVoiceOS/i2c_platform` (a marker other plugins read). It supports
 the SJ201 and a range of Respeaker-style HATs.
 
-!!! note "`ovos-i2csound` belongs to the image path, not the installer"
-    `ovos-i2csound` is part of the **raspOVOS / buildroot** image build. It is **not** invoked by
+!!! note "`ovos-i2csound` belongs to the raspOVOS image, not the installer"
+    `ovos-i2csound` is part of the **raspOVOS** image build. It is **not** invoked by
     the ansible [ovos-installer](ovos-installer.md), which uses the
     [`VocalFusionDriver`](#the-ovos-kernel-driver-vocalfusiondriver) kernel module for the Mark 2
     instead. Don't expect `ovos-i2csound` on an installer-provisioned system.
@@ -176,8 +171,8 @@ OVOS system.
 [`OpenVoiceOS/ovos-buildroot`](https://github.com/OpenVoiceOS/ovos-buildroot) is the original
 **Buildroot-based** embedded Linux distribution that first brought `ovos-core` to devices like
 the Raspberry Pi and the Mark 2 — the project where OpenVoiceOS itself began (drawing on Mycroft
-AI, HassOS and SkiffOS). It contains the canonical Buildroot packages for the VocalFusion/XVF3510
-audio stack and the original `ovos-i2csound` script.
+AI, HassOS and SkiffOS). It builds the SJ201 audio stack from its own Buildroot packages for the
+VocalFusion/XVF3510 driver, baked into the image at build time.
 
 It is now a **legacy / dormant** project: it is not formally archived, but it has no current
 releases and little recent activity. New installs should use the

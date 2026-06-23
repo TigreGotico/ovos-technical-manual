@@ -274,8 +274,8 @@ to reprint the full list.
 !!! note "Audio HAT setup on RaspOVOS uses `ovos-i2csound`"
     On RaspOVOS, an i2c sound HAT (such as a Respeaker or the Mark 2's SJ201) is detected and
     configured at boot by the **`ovos-i2csound`** service shipped in the image, which writes the
-    detected board to `/etc/OpenVoiceOS/i2c_platform`. This is specific to the RaspOVOS/buildroot
-    image path — the [ovos-installer](ovos-installer.md) does **not** use it (see
+    detected board to `/etc/OpenVoiceOS/i2c_platform`. This is specific to the RaspOVOS image —
+    the [ovos-installer](ovos-installer.md) does **not** use it (see
     [Mark 2 Hardware](mark2.md) for the installer's kernel-driver approach).
 
 ### Check Logs in Real-Time
