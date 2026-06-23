@@ -4,13 +4,17 @@ A non-exhaustive list of skills available for OpenVoiceOS, these might be availa
 
 !!! tip "How to get a skill"
     Many of these ship with the [`ovos-installer`](ovos-installer.md)'s skill selection. To add
-    one yourself, `pip install` its package (the package name is on each skill's GitHub repo) and
-    restart `ovos-core` — it scans for installed skills automatically. To build your own, follow
-    [Your First Skill](first-skill.md).
+    one yourself, install its package (the repo link and `pip install` command are listed under
+    each skill below) and restart `ovos-core` — it scans for installed skills automatically.
+    If a skill isn't published to PyPI, install straight from git, e.g.
+    `pip install git+https://github.com/OpenVoiceOS/ovos-skill-weather`. To build your own,
+    follow [Your First Skill](first-skill.md).
 
 ---
 
 ## Alerts
+
+[:material-github: OpenVoiceOS/ovos-skill-alerts](https://github.com/OpenVoiceOS/ovos-skill-alerts) · `pip install ovos-skill-alerts`
 
 A skill to manage alarms, timers, reminders, events and todos and optionally sync them with a CalDAV service.
 
@@ -50,6 +54,8 @@ A skill to manage alarms, timers, reminders, events and todos and optionally syn
 
 ## Commands
 
+[:material-github: OpenVoiceOS/ovos-skill-cmd](https://github.com/OpenVoiceOS/ovos-skill-cmd) · `pip install ovos-skill-cmd`
+
 Allows you to execute shell scripts and system commands via voice.
 
 **Usage examples:**
@@ -63,6 +69,8 @@ Allows you to execute shell scripts and system commands via voice.
 
 
 ## Confucius Quotes
+
+[:material-github: OpenVoiceOS/ovos-skill-confucius-quotes](https://github.com/OpenVoiceOS/ovos-skill-confucius-quotes) · `pip install ovos-skill-confucius-quotes`
 
 Quotes from Confucius
 
@@ -83,6 +91,8 @@ Quotes from Confucius
 
 
 ## Today in History
+
+[:material-github: OpenVoiceOS/ovos-skill-days-in-history](https://github.com/OpenVoiceOS/ovos-skill-days-in-history) · `pip install ovos-skill-days-in-history`
 
 Provides historical events for today or any other calendar day using information pulled from Wikipedia.
 
@@ -107,6 +117,8 @@ Provides historical events for today or any other calendar day using information
 
 ## Dictation
 
+[:material-github: OpenVoiceOS/ovos-skill-dictation](https://github.com/OpenVoiceOS/ovos-skill-dictation) · `pip install ovos-skill-dictation`
+
 continuously transcribes user speech to text file while enabled
 
 **Usage examples:**
@@ -120,6 +132,8 @@ continuously transcribes user speech to text file while enabled
 
 
 ## IP Address
+
+[:material-github: OpenVoiceOS/ovos-skill-ip](https://github.com/OpenVoiceOS/ovos-skill-ip) · `pip install ovos-skill-ip`
 
 Network connection information
 
@@ -144,6 +158,8 @@ Network connection information
 
 ## ISS Location
 
+[:material-github: OpenVoiceOS/ovos-skill-iss-location](https://github.com/OpenVoiceOS/ovos-skill-iss-location) · `pip install ovos-skill-iss-location`
+
 Track the location of the ISS
 
 **Usage examples:**
@@ -166,6 +182,8 @@ Track the location of the ISS
 
 
 ## Movie Master
+
+[:material-github: OpenVoiceOS/ovos-skill-moviemaster](https://github.com/OpenVoiceOS/ovos-skill-moviemaster) · `pip install ovos-skill-moviemaster`
 
 Find information about movies, actors, and production details. Easily find information about a movie with your voice.
 
@@ -205,6 +223,8 @@ Find information about movies, actors, and production details. Easily find infor
 
 ## Number Facts
 
+[:material-github: OpenVoiceOS/ovos-skill-number-facts](https://github.com/OpenVoiceOS/ovos-skill-number-facts) · `pip install ovos-skill-number-facts`
+
 Facts about numbers
 
 **Usage examples:**
@@ -234,6 +254,8 @@ Facts about numbers
 
 ## Personal
 
+[:material-github: OpenVoiceOS/ovos-skill-personal](https://github.com/OpenVoiceOS/ovos-skill-personal) · `pip install ovos-skill-personal`
+
 Learn history and personality of the assistant. Ask about the 'birth' and parentage of the voice assistant and get a taste of the community who is fostering this open source artificial intelligence.
 
 **Usage examples:**
@@ -254,6 +276,8 @@ Learn history and personality of the assistant. Ask about the 'birth' and parent
 
 ## PyRadios
 
+[:material-github: OpenVoiceOS/ovos-skill-pyradios](https://github.com/OpenVoiceOS/ovos-skill-pyradios) · `pip install ovos-skill-pyradios`
+
 a client for the client for the Radio Browser API
 
 **Usage examples:**
@@ -268,6 +292,8 @@ a client for the client for the Radio Browser API
 
 ## Speedtest
 
+[:material-github: OpenVoiceOS/ovos-skill-speedtest](https://github.com/OpenVoiceOS/ovos-skill-speedtest) · `pip install ovos-skill-speedtest`
+
 runs an internet bandwidth test using speedtest.net
 
 **Usage examples:**
@@ -278,6 +304,8 @@ runs an internet bandwidth test using speedtest.net
 
 
 ## WikiHow
+
+[:material-github: OpenVoiceOS/ovos-skill-wikihow](https://github.com/OpenVoiceOS/ovos-skill-wikihow) · `pip install ovos-skill-wikihow`
 
 How to do nearly everything.
 
@@ -292,6 +320,8 @@ How to do nearly everything.
 
 
 ## Audio Recording
+
+[:material-github: OpenVoiceOS/ovos-skill-audio-recording](https://github.com/OpenVoiceOS/ovos-skill-audio-recording) · `pip install ovos-skill-audio-recording`
 
 Record and manage audio clips directly from your assistant.
 
@@ -316,6 +346,8 @@ Record and manage audio clips directly from your assistant.
 
 ## Boot Finished
 
+[:material-github: OpenVoiceOS/ovos-skill-boot-finished](https://github.com/OpenVoiceOS/ovos-skill-boot-finished) · `pip install ovos-skill-boot-finished`
+
 The Finished Booting skill provides notifications when OpenVoiceOS has fully started and all core services are ready
 
 **Usage examples:**
@@ -332,6 +364,8 @@ The Finished Booting skill provides notifications when OpenVoiceOS has fully sta
 
 
 ## Date & Time
+
+[:material-github: OpenVoiceOS/ovos-skill-date-time](https://github.com/OpenVoiceOS/ovos-skill-date-time) · `pip install ovos-skill-date-time`
 
 Get the current time, date, or information about specific calendar days.
 
@@ -362,6 +396,8 @@ Get the current time, date, or information about specific calendar days.
 
 ## DuckDuckGo
 
+[:material-github: OpenVoiceOS/ovos-skill-ddg](https://github.com/OpenVoiceOS/ovos-skill-ddg) · `pip install ovos-skill-ddg`
+
 Use DuckDuckGo to answer questions.
 
 **Usage examples:**
@@ -379,6 +415,8 @@ Use DuckDuckGo to answer questions.
 
 ## Hello World
 
+[:material-github: OpenVoiceOS/ovos-skill-hello-world](https://github.com/OpenVoiceOS/ovos-skill-hello-world) · `pip install ovos-skill-hello-world`
+
 Introductory [Skill](skill-design-guidelines.md) so that Skill Authors can see how an OVOS Skill is put together
 
 **Usage examples:**
@@ -395,6 +433,8 @@ Introductory [Skill](skill-design-guidelines.md) so that Skill Authors can see h
 
 
 ## Dad Jokes
+
+[:material-github: OpenVoiceOS/ovos-skill-icanhazdadjokes](https://github.com/OpenVoiceOS/ovos-skill-icanhazdadjokes) · `pip install ovos-skill-icanhazdadjokes`
 
 Brighten your day with dad humor. Laughter is not guaranteed, but eye rolls are likely.
 
@@ -424,6 +464,8 @@ Brighten your day with dad humor. Laughter is not guaranteed, but eye rolls are 
 
 
 ## Local Media
+
+[:material-github: OpenVoiceOS/ovos-skill-local-media](https://github.com/OpenVoiceOS/ovos-skill-local-media) · `pip install ovos-skill-local-media`
 
 Local Media File Browser For Open Voice OS
 
@@ -463,6 +505,8 @@ Local Media File Browser For Open Voice OS
 
 ## Naptime
 
+[:material-github: OpenVoiceOS/ovos-skill-naptime](https://github.com/OpenVoiceOS/ovos-skill-naptime) · `pip install ovos-skill-naptime`
+
 Put the assistant to sleep when you don't want to be disturbed.
 
 **Usage examples:**
@@ -479,6 +523,8 @@ Put the assistant to sleep when you don't want to be disturbed.
 
 
 ## News
+
+[:material-github: OpenVoiceOS/ovos-skill-news](https://github.com/OpenVoiceOS/ovos-skill-news) · `pip install ovos-skill-news`
 
 News streams from around the globe.
 
@@ -505,6 +551,8 @@ News streams from around the globe.
 
 
 ## Parrot
+
+[:material-github: OpenVoiceOS/ovos-skill-parrot](https://github.com/OpenVoiceOS/ovos-skill-parrot) · `pip install ovos-skill-parrot`
 
 Turn OpenVoiceOS into a echoing parrot! Make OVOS repeat whatever you want.
 
@@ -544,6 +592,8 @@ Turn OpenVoiceOS into a echoing parrot! Make OVOS repeat whatever you want.
 
 ## SomaFM
 
+[:material-github: OpenVoiceOS/ovos-skill-somafm](https://github.com/OpenVoiceOS/ovos-skill-somafm) · `pip install ovos-skill-somafm`
+
 Listen to a variety of commercial-free internet radio stations from SomaFM.
 
 **Usage examples:**
@@ -560,6 +610,8 @@ Listen to a variety of commercial-free internet radio stations from SomaFM.
 
 
 ## Spelling
+
+[:material-github: OpenVoiceOS/ovos-skill-spelling](https://github.com/OpenVoiceOS/ovos-skill-spelling) · `pip install ovos-skill-spelling`
 
 Provides the spelling of words and phrases upon request.
 
@@ -580,6 +632,8 @@ Provides the spelling of words and phrases upon request.
 
 
 ## Volume
+
+[:material-github: OpenVoiceOS/ovos-skill-volume](https://github.com/OpenVoiceOS/ovos-skill-volume) · `pip install ovos-skill-volume`
 
 Control the volume of OVOS with verbal commands
 
@@ -619,6 +673,8 @@ Control the volume of OVOS with verbal commands
 
 ## Weather
 
+[:material-github: OpenVoiceOS/ovos-skill-weather](https://github.com/OpenVoiceOS/ovos-skill-weather) · `pip install ovos-skill-weather`
+
 Get weather conditions, forecasts, expected precipitation and more! You can also ask for other cities around the world. Current conditions and weather forecasts come from OpenMeteo
 
 **Usage examples:**
@@ -657,6 +713,8 @@ Get weather conditions, forecasts, expected precipitation and more! You can also
 
 ## Wikipedia
 
+[:material-github: OpenVoiceOS/ovos-skill-wikipedia](https://github.com/OpenVoiceOS/ovos-skill-wikipedia) · `pip install ovos-skill-wikipedia`
+
 Query Wikipedia for answers to all your questions. Get just a summary, or ask for more to get in-depth information.
 
 **Usage examples:**
@@ -686,6 +744,8 @@ Query Wikipedia for answers to all your questions. Get just a summary, or ask fo
 
 ## Wolfie (Wolfram Alpha)
 
+[:material-github: OpenVoiceOS/ovos-skill-wolfie](https://github.com/OpenVoiceOS/ovos-skill-wolfie) · `pip install ovos-skill-wolfie`
+
 Use Wolfram Alpha for general knowledge questions.
 
 **Usage examples:**
@@ -711,6 +771,8 @@ Use Wolfram Alpha for general knowledge questions.
 
 
 ## Wordnet
+
+[:material-github: OpenVoiceOS/ovos-skill-wordnet](https://github.com/OpenVoiceOS/ovos-skill-wordnet) · `pip install ovos-skill-wordnet`
 
 Use Wordnet to answer dictionary-like questions.
 

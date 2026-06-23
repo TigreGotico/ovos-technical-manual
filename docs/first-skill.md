@@ -28,7 +28,7 @@ Make this structure (replace `youruser` with your name/handle later):
 
 ```
 ovos-skill-my-first/
-├── setup.py
+├── pyproject.toml
 └── ovos_skill_my_first/
     ├── __init__.py
     └── locale/
@@ -85,25 +85,34 @@ Hey — how can I help?
 ## Step 5 — Make it installable
 
 A skill is just a Python package that advertises itself to OVOS through an **entry point**.
-`setup.py`:
+`pyproject.toml`:
 
-```python
-from setuptools import setup
+```toml
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
 
-setup(
-    name="ovos-skill-my-first",
-    version="0.0.1",
-    packages=["ovos_skill_my_first"],
-    package_data={"ovos_skill_my_first": ["locale/*/*/*"]},
-    include_package_data=True,
-    install_requires=["ovos-workshop"],
-    # "<skill-name>.<author>" becomes the skill_id; the right-hand side is package:ClassName
-    entry_points={"ovos.plugin.skill": "my-first.youruser=ovos_skill_my_first:MyFirstSkill"},
-)
+[project]
+name = "ovos-skill-my-first"
+version = "0.0.1"
+description = "My first OVOS skill"
+license = {text = "Apache-2.0"}
+dependencies = ["ovos-workshop"]
+
+# "<skill-name>.<author>" becomes the skill_id; the right-hand side is package:ClassName
+[project.entry-points."opm.skill"]
+"my-first.youruser" = "ovos_skill_my_first:MyFirstSkill"
+
+[tool.setuptools]
+packages = ["ovos_skill_my_first"]
+
+[tool.setuptools.package-data]
+ovos_skill_my_first = ["locale/*/*/*"]
 ```
 
-The left side of the entry point (`my-first.youruser`) becomes your skill's **`skill_id`**
-(`<skill-name>.<author>`). The right side points at your skill class.
+The entry-point key (`my-first.youruser`) becomes your skill's **`skill_id`**
+(`<skill-name>.<author>`); the value points at your skill class. The `opm.skill` group is
+how the [Plugin Manager](plugin-manager.md) discovers installed skills.
 
 ## Step 6 — Install it and talk to it
 
