@@ -1299,15 +1299,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#channel-compatibility-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      Channel compatibility check
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#typical-usage_2" class="md-nav__link">
     <span class="md-ellipsis">
       Typical usage
@@ -2517,15 +2508,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#channel-compatibility-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      Channel compatibility check
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#typical-usage_2" class="md-nav__link">
     <span class="md-ellipsis">
       Typical usage
@@ -3670,7 +3652,7 @@
 <tr>
 <td><code>update_changelog</code></td>
 <td><code>update_changelog: true</code> + <code>bump_version</code> succeeded</td>
-<td>Calls <code>github-changelog-generator-action@v2.3</code>, commits result</td>
+<td>Calls <code>github-changelog-generator-action@v2.4</code>, commits result</td>
 </tr>
 <tr>
 <td><code>tag_prerelease</code></td>
@@ -3927,7 +3909,7 @@
 </span></code></pre></div>
 <hr />
 <h2 id="build-testsyml"><code>build-tests.yml</code><a class="headerlink" href="#build-testsyml" title="Permanent link">&para;</a></h2>
-<p>Runs build, install, and optionally tests across a configurable matrix of Python versions. Posts a <code>🔨 Build Tests</code> section to the PR comment. Also performs a <strong>channel compatibility check</strong> when <code>package_name</code> and <code>version_file</code> are provided.</p>
+<p>Runs build, install, and optionally tests across a configurable matrix of Python versions. Posts a <code>🔨 Build Tests</code> section to the PR comment. (The channel-compatibility check lives in <a href="#release-previewyml"><code>release-preview.yml</code></a>, not here.)</p>
 <p><strong>Source:</strong> <code>.github/workflows/build-tests.yml</code></p>
 <h3 id="inputs_2">Inputs<a class="headerlink" href="#inputs_2" title="Permanent link">&para;</a></h3>
 <table>
@@ -3982,18 +3964,6 @@
 <td><code>true</code></td>
 <td>Post a <code>🔨 Build Tests</code> section to the OVOS PR Checks comment. Only fires on <code>pull_request</code> events.</td>
 </tr>
-<tr>
-<td><code>package_name</code></td>
-<td>string</td>
-<td><code>""</code></td>
-<td>Package name for the channel compatibility check. If empty, auto-reads from <code>pyproject.toml</code>/<code>setup.py</code>. Both <code>package_name</code> and <code>version_file</code> must resolve for the channel check to run.</td>
-</tr>
-<tr>
-<td><code>version_file</code></td>
-<td>string</td>
-<td><code>""</code></td>
-<td>Path to <code>version.py</code> in the calling repo (relative to repo root). If empty, auto-detects. Needed for the channel compatibility check.</td>
-</tr>
 </tbody>
 </table>
 <h3 id="jobs_2">Jobs<a class="headerlink" href="#jobs_2" title="Permanent link">&para;</a></h3>
@@ -4011,12 +3981,10 @@
 </tr>
 <tr>
 <td><code>post_build_report</code></td>
-<td>Runs after the matrix, only on PR events with <code>pr_comment: true</code>. Downloads all result artifacts, runs the channel compatibility check, formats and posts the <code>section:build</code> PR comment.</td>
+<td>Runs after the matrix, only on PR events with <code>pr_comment: true</code>. Downloads all result artifacts, formats and posts the <code>section:build</code> PR comment.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="channel-compatibility-check">Channel compatibility check<a class="headerlink" href="#channel-compatibility-check" title="Permanent link">&para;</a></h3>
-<p>The <code>post_build_report</code> job checks out <a href="https://github.com/OpenVoiceOS/ovos-releases">OpenVoiceOS/ovos-releases</a> and calls <code>scripts/check_release_channels.py</code> to verify whether the current version of the package is already pinned or constrained in the alpha/testing/stable channel files. This check only runs when both <code>package_name</code> and a readable <code>version_file</code> can be resolved. If either is missing or the version cannot be parsed, the channel check is silently skipped and the rest of the PR comment is still posted.</p>
 <h3 id="typical-usage_2">Typical usage<a class="headerlink" href="#typical-usage_2" title="Permanent link">&para;</a></h3>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run Build Tests</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">on</span><span class="p">:</span>
@@ -4034,8 +4002,6 @@
 </span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">      </span><span class="nt">python_versions</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;[&quot;3.10&quot;,</span><span class="nv"> </span><span class="s">&quot;3.11&quot;,</span><span class="nv"> </span><span class="s">&quot;3.12&quot;]&#39;</span>
 </span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">      </span><span class="nt">install_extras</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;test&#39;</span>
 </span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">      </span><span class="nt">test_path</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;test/&#39;</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">      </span><span class="nt">package_name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;my-package&#39;</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">      </span><span class="nt">version_file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;my_package/version.py&#39;</span>
 </span></code></pre></div>
 <h3 id="notes_1">Notes<a class="headerlink" href="#notes_1" title="Permanent link">&para;</a></h3>
 <ul>
@@ -4776,13 +4742,18 @@
 <td><code>--cov=&lt;value&gt;</code> — set to your package directory</td>
 </tr>
 <tr>
-<td><code>gh_pages_subdir</code></td>
+<td><code>gh_pages_branch</code></td>
 <td>string</td>
-<td><code>coverage</code></td>
-<td>Sub-directory within the Pages site, e.g. <code>coverage</code> → <code>https://org.github.io/repo/coverage/</code>. Empty string = deploy at root.</td>
+<td><code>gh-pages</code></td>
+<td>Branch the HTML coverage report is pushed to</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition warning">
+<p class="admonition-title">Deprecated</p>
+<p><code>coverage-pages.yml</code> is <strong>deprecated</strong> — use <a href="#coverageyml"><code>coverage.yml</code></a> with
+<code>deploy_pages: true</code> instead.</p>
+</div>
 <h3 id="jobs_6">Jobs<a class="headerlink" href="#jobs_6" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4805,16 +4776,8 @@
 <td><code>pytest --cov --cov-report=html:htmlcov</code>. <code>continue-on-error: true</code> so deployment proceeds even with test failures.</td>
 </tr>
 <tr>
-<td>Prepare HTML report</td>
-<td>Copies <code>htmlcov/</code> to <code>_pages_output/</code> (with optional subdirectory)</td>
-</tr>
-<tr>
-<td>Upload Pages artifact</td>
-<td><code>actions/upload-pages-artifact@v3</code></td>
-</tr>
-<tr>
-<td>Deploy to GitHub Pages</td>
-<td><code>actions/deploy-pages@v4</code></td>
+<td>Publish report</td>
+<td>Checks out (or orphans) the <code>gh_pages_branch</code>, copies the generated <code>htmlcov/</code> onto it, and <code>git push</code>es the branch.</td>
 </tr>
 </tbody>
 </table>
@@ -4826,24 +4789,23 @@
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span>
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="nt">permissions</span><span class="p">:</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">  </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">  </span><span class="nt">pages</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">  </span><span class="nt">id-token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="nt">jobs</span><span class="p">:</span>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">  </span><span class="nt">coverage_pages</span><span class="p">:</span>
-</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenVoiceOS/gh-automations/.github/workflows/coverage-pages.yml@dev</span>
-</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span><span class="nt">secrets</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inherit</span>
-</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span><span class="nt">with</span><span class="p">:</span>
-</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">      </span><span class="nt">coverage_source</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;my_package&#39;</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">  </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span><span class="w">   </span><span class="c1"># needed to push the gh-pages branch</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="nt">jobs</span><span class="p">:</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">  </span><span class="nt">coverage_pages</span><span class="p">:</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenVoiceOS/gh-automations/.github/workflows/coverage-pages.yml@dev</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span><span class="nt">secrets</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inherit</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">    </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">      </span><span class="nt">coverage_source</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;my_package&#39;</span>
 </span></code></pre></div>
 <h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p>Enable GitHub Pages in repo settings → Source: <strong>GitHub Actions</strong></p>
+<p>Grant <code>contents: write</code> in the calling workflow (to push the branch).</p>
 </li>
 <li>
-<p>Grant <code>pages: write</code> and <code>id-token: write</code> permissions in the calling workflow</p>
+<p>In repo settings, set GitHub Pages → Source to the <strong><code>gh-pages</code> branch</strong> (the report is
+   pushed there, not deployed via the Pages-Actions pipeline).</p>
 </li>
 </ol>
 <hr />
@@ -5057,7 +5019,7 @@
 <td><code>upload_sarif</code></td>
 <td>boolean</td>
 <td><code>true</code></td>
-<td>Upload a SARIF report to GitHub's Security tab (Code scanning alerts). Requires the repo to have GitHub Advanced Security enabled, or be public. Uses <code>github/codeql-action/upload-sarif@v3</code>. <code>continue-on-error: true</code> so the job does not fail for private repos without GHAS.</td>
+<td>Upload a SARIF report to GitHub's Security tab (Code scanning alerts). Requires the repo to have GitHub Advanced Security enabled, or be public. Uses <code>github/codeql-action/upload-sarif@v4</code>. <code>continue-on-error: true</code> so the job does not fail for private repos without GHAS.</td>
 </tr>
 </tbody>
 </table>
@@ -6040,7 +6002,7 @@
 </table>
 <hr />
 <h2 id="notify-matrixyml"><code>notify-matrix.yml</code><a class="headerlink" href="#notify-matrixyml" title="Permanent link">&para;</a></h2>
-<p>Sends a message to the OVOS Matrix channel. Uses <a href="https://github.com/fadenb/matrix-chat-message"><code>fadenb/matrix-chat-message</code></a>.</p>
+<p>Sends a message to the OVOS Matrix channel via a raw <code>curl -X PUT</code> to the Matrix client-server API (<code>/_matrix/client/v3/rooms/.../send/m.room.message/...</code>).</p>
 <p><strong>Source:</strong> <code>.github/workflows/notify-matrix.yml</code></p>
 <h3 id="inputs_21">Inputs<a class="headerlink" href="#inputs_21" title="Permanent link">&para;</a></h3>
 <table>
@@ -6344,7 +6306,7 @@
 <p><code>validate_plugin_import(module_path, class_name)</code> — imports the class, measures time in ms, detects missing dependencies</p>
 </li>
 <li>
-<p><code>check_plugin_interface(plugin_cls, short_type)</code> — verifies <code>issubclass()</code> against the correct abstract base (10 types including <code>g2p</code>)</p>
+<p><code>check_plugin_interface(plugin_cls, short_type)</code> — verifies <code>issubclass()</code> against the correct abstract base (~30 types, including the <code>agents.*</code> family, <code>vc</code>, and <code>wake_word.verifier</code>)</p>
 </li>
 <li>
 <p><code>extract_metadata()</code> — reads name, version, authors, description, homepage, requires_python</p>

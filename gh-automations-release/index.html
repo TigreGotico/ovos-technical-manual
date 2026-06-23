@@ -1608,7 +1608,7 @@
 </tr>
 </tbody>
 </table>
-<p>These files use <code>&gt;=</code> bounds (e.g. <code>ovos-utils&gt;=0.3.0</code>) so users get the latest compatible version within their chosen channel. <code>downstream-check.yml</code> reads <code>constraints-alpha.txt</code> (default branch <code>main</code>) to compute reverse dependencies; the channel-compatibility check in <code>build-tests.yml</code> / <code>release-preview.yml</code> reads all three.</p>
+<p>These files use <code>&gt;=</code> bounds (e.g. <code>ovos-utils&gt;=0.3.0</code>) so users get the latest compatible version within their chosen channel. <code>downstream-check.yml</code> reads <code>constraints-alpha.txt</code> (default branch <code>main</code>) to compute reverse dependencies; the channel-compatibility check in <code>release-preview.yml</code> reads all three.</p>
 <hr />
 <h2 id="manual-reruns">Manual Reruns<a class="headerlink" href="#manual-reruns" title="Permanent link">&para;</a></h2>
 <p>Both <code>publish-alpha.yml</code> and <code>publish-stable.yml</code> support <code>workflow_dispatch</code>, so the wrapper workflows in your repo can be triggered manually from the GitHub Actions UI. This is useful when:</p>
@@ -1622,7 +1622,7 @@
 </span></code></pre></div>
 <h2 id="upcoming">Upcoming<a class="headerlink" href="#upcoming" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>NGI codename release schedule</strong> — <a href="https://github.com/OpenVoiceOS/gh-automations/pull/36">PR #36</a> (<code>feat/codenames</code>) proposes a codename release schedule. Not yet merged; the flow above reflects current <code>dev</code>.</li>
+<li><strong>NGI codename release schedule</strong> — <a href="https://github.com/OpenVoiceOS/gh-automations/pull/36">PR #36</a> (<code>feat/codename-releases</code>) proposes a codename release schedule. Not yet merged; the flow above reflects current <code>dev</code>.</li>
 </ul>
 
 
