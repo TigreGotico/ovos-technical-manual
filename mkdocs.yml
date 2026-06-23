@@ -199,6 +199,7 @@ nav:
           - Skill Testing Architecture: skill-testing.md
   - Plugin Ecosystem:
       - Index & Overview: plugins-index.md
+      - Plugin Arena (benchmarks): plugin-arena.md
       - Speech & Audio:
           - Microphone: mic-plugins.md
           - VAD: vad-plugins.md
@@ -207,7 +208,6 @@ nav:
           - STT: stt-plugins.md
           - TTS: tts-plugins.md
           - G2P: g2p-plugins.md
-          - Plugin Arena: plugin-arena.md
       - Media & GUI:
           - OCP Audio Plugin (legacy default): ocp-audio-plugin.md
           - ovos-media: ovos-media.md
