@@ -36,17 +36,25 @@ the raw stream to one of the simple audio backends to make sound.
 
 ## Background — why OCP is an "audio service plugin"
 
-OVOS inherited its [audio service](audio-service.md) from Mycroft. In that original design the
-audio service had one job — play a sound file — and it loaded small *audio backend* plugins (a
-VLC backend, an mpv backend) to do it. The only supported extension point for "something that
-plays media" was therefore the `mycroft.plugin.audioservice` group.
+OCP predates OVOS as a standalone project — it was first built for **mycroft-core**, which was
+not extensible enough to add a real media player cleanly. At the time the **only** way to
+intercept playback requests (and to sync with the GUI for things like video) was the audio
+service, which had one job — play a sound file — and loaded small *audio backend* plugins (a VLC
+backend, an mpv backend) to do it. The only extension point for "something that plays media" was
+therefore the `mycroft.plugin.audioservice` group.
 
-When OCP was built to add a real voice-controlled media player (search across skills, media
-types, playlists, resume/next/previous, MPRIS), it was slotted into that **existing** extension
-point — it became "just another audio backend", the `ovos_common_play` type. That is why a
-full-blown media player ends up living inside the humble audio service: it was the hook that
-existed at the time. The [`ovos-media`](ovos-media.md) refactor exists precisely to give the
-media player its own home instead of riding on the TTS-playback service.
+So OCP was bolted on as a **hack**: it registered itself as **the** audio backend (the
+`ovos_common_play` type, set as the default backend), **captured** every playback request, and
+then **delegated** the actual sound output back to a real audio backend (`mpv`/`vlc`/`simple`).
+Messy, but it slotted into the machinery that existed. The result was a **monolith**: a single
+plugin doing *everything* — NLP/intent matching, cross-skill search, the player state machine,
+and MPRIS.
+
+Since OVOS became its own project that monolith has been **split apart, repo by repo, and
+properly integrated** into OVOS: intent matching moved to the [OCP pipeline](ocp-pipeline.md),
+stream resolution to [stream-extractor plugins](ocp-plugins.md), shared types to `ovos-utils`,
+and so on. [`ovos-media`](ovos-media.md) is the **final step** — it gives the player itself a
+proper home as a standalone service instead of riding inside the TTS-playback service.
 
 ---
 
@@ -119,8 +127,11 @@ register OCP's intents.
 
 ## How `ovos-media` replaces it
 
-[`ovos-media`](ovos-media.md) is the **upcoming, opt-in** replacement. Instead of cramming the
-media player into the audio service, it is a **dedicated media daemon** with a cleaner design:
+[`ovos-media`](ovos-media.md) is the **final step** of the decomposition described
+[above](#background-why-ocp-is-an-audio-service-plugin) and the **upcoming, opt-in** replacement
+for this plugin. With the NLP, search, and extraction layers already split out into their own
+repos, what remains is the player itself — and instead of cramming it into the audio service,
+`ovos-media` gives it a **dedicated media daemon** with a cleaner design:
 
 | | OCP audio plugin (legacy, default) | `ovos-media` (upcoming) |
 |---|---|---|
