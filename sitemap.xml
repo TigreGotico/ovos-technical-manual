@@ -33,10 +33,6 @@
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/audio-testing/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/audio-transformers/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
@@ -46,10 +42,6 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/bus-service/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/capture-session/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
@@ -122,10 +114,6 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/ecosystem-index/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/fakebus/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
@@ -237,10 +225,6 @@
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/listener/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/llm-transformers/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
@@ -293,10 +277,6 @@
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/ocp/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/openai-plugin/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
@@ -321,31 +301,7 @@
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-ci/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-end2end-test/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-minicroft/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-overview/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-phal/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-pipeline/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/ovoscope-usage/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
@@ -398,10 +354,6 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/prompts/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/pydantic-integration/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
@@ -486,10 +438,6 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/skill-structure/</loc>
-         <lastmod>2026-06-23</lastmod>
-    </url>
-    <url>
-         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-testing/</loc>
          <lastmod>2026-06-23</lastmod>
     </url>
     <url>
