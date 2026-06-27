@@ -1340,9 +1340,14 @@
 <p class="admonition-title">In a nutshell</p>
 <p>Normally a skill listens for all of its commands at once. Intent Layers let a skill turn commands on and off as a conversation progresses, so only the choices that make sense right now are available — much like a "choose your own adventure" book where each page unlocks the next set of options. This is handy for step-by-step flows, games, or anything that should react differently depending on what the user just did. For the broader picture, see the <a href="../glossary/">Glossary</a>.</p>
 </div>
-<blockquote>
-<p><strong>WARNING</strong>: Skills using these features might not play well with <a href="https://jarbashivemind.github.io/HiveMind-community-docs/">HiveMind</a> due to shared state across satellites</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p><code>IntentLayer</code> gating is implemented through the session's <strong>intent context</strong> — each layer is a session context token its intents require. The mechanism is specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md">OVOS-CONTEXT-1 — Intent Context</a></strong> (see <a href="../context/">Context</a> and the <a href="../architecture-specs/">spec index</a>).</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title"><code>IntentLayers</code> are now per-session</p>
+<p>Since <strong>ovos-workshop 9.0.0</strong>, <code>IntentLayer</code> state lives in the <strong>session</strong>, so layered skills are concurrency-safe across <a href="https://jarbashivemind.github.io/HiveMind-community-docs/">HiveMind</a> satellites — two satellites can be in different layers at the same time. (The lower-level <code>enable_intent</code> / <code>disable_intent</code> calls in the next section still change the <strong>global</strong> intent set, so prefer layers for per-session flows.)</p>
+</div>
 <h2 id="managing-intents">Managing Intents<a class="headerlink" href="#managing-intents" title="Permanent link">&para;</a></h2>
 <p>Sometimes you might want to manually enable or disable an intent, in OVOSSkills you can do this explicitly to create stateful interactions</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">RotatingIntentsSkill</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span>
@@ -1371,7 +1376,7 @@
 </span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">disable_intent</span><span class="p">(</span><span class="s2">&quot;C.intent&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <blockquote>
-<p><strong>NOTE</strong>: Intent states are currently shared across Sessions</p>
+<p><strong>NOTE</strong>: <code>enable_intent</code> / <code>disable_intent</code> change the <strong>global</strong> intent set — these states are shared across <a href="../session/">Sessions</a>. For per-session gating, use <a href="#decorators">Intent Layers</a> (which gate via intent context) instead.</p>
 </blockquote>
 <h2 id="state-machines">State Machines<a class="headerlink" href="#state-machines" title="Permanent link">&para;</a></h2>
 <p>Another utils provided by <code>ovos-workshop</code> is <code>IntentLayers</code>, to manage groups of intent together</p>
@@ -1490,7 +1495,7 @@
 <p><a href="https://github.com/JarbasSkills/skill-moon-game/">skill-moon-game</a> is an example full voice game implemented this way</p>
 <p>An excerpt from the game to illustrate usage of <code>IntentLayer</code> decorators</p>
 <blockquote>
-<p><strong>NOTE</strong>: IntentLayers do not yet support <a href="../session/">Session</a>, in this example all <a href="https://jarbashivemind.github.io/HiveMind-community-docs/07_voicesat/">voice satellites</a> would join the game</p>
+<p><strong>NOTE</strong>: Since <strong>ovos-workshop 9.0.0</strong>, <code>IntentLayers</code> are <strong>per-session</strong> — gated via <a href="../context/">intent context</a> (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md">OVOS-CONTEXT-1</a>), so each <a href="https://jarbashivemind.github.io/HiveMind-community-docs/07_voicesat/">voice satellite</a> keeps its own layer state and they no longer all join the same game.</p>
 </blockquote>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.layers</span> <span class="kn">import</span> <span class="n">layer_intent</span><span class="p">,</span> <span class="n">enables_layer</span><span class="p">,</span> \
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">disables_layer</span><span class="p">,</span> <span class="n">resets_layers</span>
