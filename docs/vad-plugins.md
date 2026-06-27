@@ -40,7 +40,7 @@ You can configure the VAD plugin in your `mycroft.conf`:
 | [ovos-vad-plugin-silero](https://github.com/OpenVoiceOS/ovos-vad-plugin-silero) | Uses the Silero deep-learning model for high-accuracy VAD, particularly in noisy environments. |
 | [ovos-vad-plugin-noise](https://github.com/OpenVoiceOS/ovos-vad-plugin-noise) | Simple energy/noise-threshold VAD with no model download. |
 
-> Specification: audio capture and VAD are deployer-defined components feeding the listener; see [OVOS-AUDIO-IN-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-audio-in-1.md) for the audio-input service that consumes their output.
+> Specification: audio capture and VAD are deployer-defined components feeding the listener; see [OVOS-AUDIO-IN-1](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md) for the audio-input service that consumes their output.
 
 ---
 

@@ -5,7 +5,7 @@
 
 Microphone plugins in Open Voice OS (OVOS) are responsible for capturing audio input and feeding the raw PCM stream to the listener. They let you swap audio backends and platforms without touching the rest of the voice stack.
 
-> The audio-capture mechanism is **deployer-defined** and sits outside the formal audio-input service contract — the listener consumes whatever a microphone plugin produces. See the [OVOS-AUDIO-IN-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-audio-in-1.md) specification for how captured audio enters the utterance lifecycle.
+> The audio-capture mechanism is **deployer-defined** and sits outside the formal audio-input service contract — the listener consumes whatever a microphone plugin produces. See the [OVOS-AUDIO-IN-1](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md) specification for how captured audio enters the utterance lifecycle.
 
 ## Usage Guide
 

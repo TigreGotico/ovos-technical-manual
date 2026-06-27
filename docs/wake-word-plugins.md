@@ -20,7 +20,7 @@ Each plugin has its pros and cons: the Precise model is the most accurate for th
 default `hey mycroft`, while Vosk offers faster setup for arbitrary wake phrases
 without model training.
 
-> Specification: wake-word detection is one of the deployer-defined capture mechanisms that trigger the audio-input service (referenced in [OVOS-AUDIO-IN-1 §5.1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-audio-in-1.md) as the source of a `request_lang` hint).
+> Specification: wake-word detection is one of the deployer-defined capture mechanisms that trigger the audio-input service (referenced in [OVOS-AUDIO-IN-1 §5.1](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md) as the source of a `request_lang` hint).
 
 ## Wakeword Configuration
 
