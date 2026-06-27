@@ -1719,13 +1719,10 @@ share one global display stack.</p>
 <div class="admonition warning">
 <p class="admonition-title">Upcoming — unreleased</p>
 <p>The following describes a <strong>plugin-based rendering rework</strong> that is <strong>not yet
-released</strong> and not present on any published package. It is specified by
-<a href="https://github.com/OpenVoiceOS/architecture/pull/63">OpenVoiceOS/architecture#63</a>
-(the <strong>OVOS-GUI-1</strong> spec) and landed by
-<a href="https://github.com/OpenVoiceOS/ovos-gui/pull/112">OpenVoiceOS/ovos-gui#112</a>
-(branch <code>feat/gui-rework-landing</code>), with adapters in
-<a href="https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3">ovos-legacy-mycroft-gui-plugin#3</a>
-and <a href="https://github.com/OpenVoiceOS/pyhtmx-gui-client/pull/1">pyhtmx-gui-client#1</a>.
+released</strong> and not present on any published package. It is specified by the
+<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md">OVOS-GUI-1</a> spec
+and implemented in <code>ovos-gui</code>, with adapters in
+<code>ovos-legacy-mycroft-gui-plugin</code> and <code>pyhtmx-gui-client</code>.
 Do not rely on any of this on a stable install.</p>
 <p><strong>What changes.</strong> Per OVOS-GUI-1, <code>ovos-gui</code> becomes a <strong>pure state-and-dispatch hub</strong>:
 it runs <strong>no WebSocket server</strong> and renders nothing. It loads every installed

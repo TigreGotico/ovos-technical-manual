@@ -1635,8 +1635,7 @@ lives in <code>ovos_bus_client.apis.gui.GUIInterface</code>; the skill wrapper i
 <code>ovos_workshop.skills.ovos.SkillGUI</code>, namespaced to your <code>skill_id</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Upcoming — unreleased</p>
-<p><a href="https://github.com/OpenVoiceOS/ovos-workshop/pull/420">OpenVoiceOS/ovos-workshop#420</a>
-(<code>feat!: bind OVOSSkill.gui to ovos-gui-api-client</code>) rebinds <code>self.gui</code> to a
+<p>A planned breaking change rebinds <code>self.gui</code> to a
 <code>GUIInterface</code> from the standalone <strong><code>ovos-gui-api-client</code></strong> package (instead of
 <code>ovos_bus_client.apis.gui</code>) and drops the <code>ui_directories</code> constructor argument, since
 skills under the <a href="../gui-service/">GUI rework</a> no longer ship QML. This is <strong>not</strong> on a

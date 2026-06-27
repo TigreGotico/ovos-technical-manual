@@ -2244,10 +2244,9 @@ as normal bus events.</p>
 <hr />
 <div class="admonition warning">
 <p class="admonition-title">Upcoming — unreleased</p>
-<p>On the GUI-rework branch (<a href="https://github.com/OpenVoiceOS/ovos-gui/pull/112">OpenVoiceOS/ovos-gui#112</a>,
-<code>feat/gui-rework-landing</code>), specified by the <strong>OVOS-GUI-1</strong> spec
-(<a href="https://github.com/OpenVoiceOS/architecture/pull/63">OpenVoiceOS/architecture#63</a>;
-see <a href="../gui-service/">GUI Service</a>) the bus contract changes:</p>
+<p>In the GUI-rework, specified by the
+<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md">OVOS-GUI-1</a> spec
+(see <a href="../gui-service/">GUI Service</a>) the bus contract changes:</p>
 <ul>
 <li><code>gui.page.show</code> accepts <strong>only</strong> <code>SYSTEM_*</code> template names; if <code>page_names[0]</code> does
   not start with <code>SYSTEM_</code>, <code>handle_show_page()</code> logs an error and drops the request

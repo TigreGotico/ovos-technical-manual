@@ -1498,16 +1498,16 @@ generally usable OVOS GUI; <strong>Mark 2</strong> devices keep a screen via the
 <div class="admonition warning">
 <p class="admonition-title">Upcoming — unreleased</p>
 <p>This whole page describes the <strong>GUI-rendering rework</strong>, which is <strong>not yet released</strong>.
-Nothing here is available on a stable install. It is specified by the <strong>OVOS-GUI-1</strong>
-spec (<a href="https://github.com/OpenVoiceOS/architecture/pull/63">OpenVoiceOS/architecture#63</a>)
-and implemented across these PRs/branches:</p>
+Nothing here is available on a stable install. It is specified by the
+<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md">OVOS-GUI-1</a> spec
+and implemented across these components:</p>
 <ul>
-<li><code>ovos-plugin-manager</code> @ <code>gui</code> — <code>AbstractGUIPlugin</code>, <code>opm.gui_adapter</code> plugin type,
+<li><code>ovos-plugin-manager</code> — <code>AbstractGUIPlugin</code>, <code>opm.gui_adapter</code> plugin type,
   <code>OVOSGUIAdapterFactory</code></li>
-<li><a href="https://github.com/OpenVoiceOS/ovos-gui/pull/112">ovos-gui#112</a> @ <code>feat/gui-rework-landing</code> — the router that dispatches to adapters</li>
+<li><code>ovos-gui</code> — the router that dispatches to adapters</li>
 <li><code>ovos-gui-api-client</code> — the template-based <code>GUIInterface</code></li>
-<li><a href="https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3">ovos-legacy-mycroft-gui-plugin#3</a> @ <code>feat/session-id-contract</code> — the Qt adapter</li>
-<li><a href="https://github.com/OpenVoiceOS/pyhtmx-gui-client/pull/1">pyhtmx-gui-client#1</a> @ <code>feat/gui-adapter</code> — the browser/HTMX adapter</li>
+<li><code>ovos-legacy-mycroft-gui-plugin</code> — the Qt adapter</li>
+<li><code>pyhtmx-gui-client</code> — the browser/HTMX adapter</li>
 </ul>
 <p>The per-call routing argument is <strong><code>session_id</code></strong>. Per OVOS-GUI-1, this is the sole
 routing key for the Python <strong>adapter contract</strong> — there is no separate site/room/location
