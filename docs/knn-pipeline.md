@@ -7,6 +7,9 @@
     It's the heavyweight option you reach for when the simpler, deterministic matchers
     ([Adapt](adapt-pipeline.md), [Padatious](padatious-pipeline.md)) can't confidently decide.
 
+!!! info "📐 Formal specification"
+    Hierarchical KNN is a **pipeline plugin** under **[OVOS-PIPELINE-1 — Utterance Lifecycle & Pipeline](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**, filling the **template-intent** engine role of **[OVOS-INTENT-3 §5–§6](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md)** over the **[OVOS-INTENT-1 grammar](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md)**. Its embedding/k-NN matching is one of the engine-specific strategies INTENT-3 §8 leaves open. See the [spec index](architecture-specs.md).
+
 [`ovos-hierarchical-knn-pipeline`](https://github.com/OpenVoiceOS/ovos-hierarchical-knn-pipeline)
 is an intent-matching [pipeline plugin](pipelines-overview.md) (entry point `opm.pipeline`,
 class `HierarchicalKNNIntentPipeline`) powered by a **two-stage hierarchical k-NN classifier**

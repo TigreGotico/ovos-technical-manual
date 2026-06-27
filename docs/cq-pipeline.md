@@ -3,6 +3,9 @@
 !!! abstract "In a nutshell"
     When you ask a general-knowledge question like "who wrote Hamlet?", the Common Query pipeline asks *all* your installed knowledge skills (Wikipedia, Wolfram Alpha, and so on) the same question at once, gathers their answers, and reads back the best one. Think of it as a quiz host who puts the question to every contestant and then announces the strongest reply. It never makes up answers itself — every answer comes from a skill, so if you have no knowledge skills installed it simply stays quiet. See the [Intent Pipeline overview](pipelines-overview.md) or the [Glossary](glossary.md).
 
+!!! info "📐 Formal specification"
+    Common Query is specified by **[OVOS-COMMON-QUERY-1 — Common Query Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/common-query.md)**, built on **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**. See the [spec index](architecture-specs.md).
+
 The **Common Query Pipeline Plugin** answers general-knowledge questions. When an
 utterance looks like a question ("Who wrote Hamlet?", "How tall is Everest?"), it
 broadcasts the question to every installed **CommonQuery skill**, collects their
@@ -44,6 +47,16 @@ Now install one or more CommonQuery skills (e.g. Wikipedia, Wolfram Alpha) and a
 a question.
 
 ---
+
+!!! note "Why it never blocks fallback (and spec topic names)"
+    Common Query is a **scatter-gather contest** that runs *entirely inside `match`* (COMMON-QUERY-1 §2): it polls skills, collects full answers, ranks them, and only returns a `Match` if one clears the confidence threshold — otherwise it returns `None` and the orchestrator continues to fallback. The answer *is* the claim decision, so this is the spec's documented exception to PIPELINE-1 §4.4's "return fast" rule (§2.1). On a win it returns a **self-addressed** Match on the reserved `intent_name` `common_query` (PIPELINE-1 §7.3), dispatched on `<pipeline_id>:common_query`, and its own trivial handler speaks the selected answer. The spec topic names differ from the current code:
+
+    | OVOS-COMMON-QUERY-1 (canonical) | Current code |
+    |---|---|
+    | `ovos.common_query.ping` / `.pong` — wants-to-answer poll | discovery handshake (same names) |
+    | `<skill_id>:common_query` — full-answer request to a claiming skill | `question:query` broadcast |
+    | `<skill_id>.common_query.response` — a skill's answer + `conf` | `question:query.response` |
+    | `<pipeline_id>:common_query` — reserved-name handler dispatch | `question:action.<skill_id>` |
 
 ## How it works
 

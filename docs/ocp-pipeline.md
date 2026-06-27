@@ -3,6 +3,9 @@
 !!! abstract "In a nutshell"
     When you say "play some jazz" or "next song", the assistant first has to realise you are talking about *media* and not, say, the weather. This is the part that does that: it spots that an utterance is a playback request, figures out what kind of media you want, asks the installed music/podcast/video skills to search for it, and hands the best result off to be played. Think of it as the dispatcher that turns "play X" into actual playback. See the [Intent Pipeline](pipelines-overview.md) overview or the [Glossary](glossary.md) for related terms.
 
+!!! info "📐 Formal specification"
+    The media player this pipeline drives is specified by **[OVOS-OCP-1 — OVOS Common Playback](https://github.com/OpenVoiceOS/architecture/blob/dev/ocp-1.md)** — the per-session *Virtual Media Player* and its `ovos.common_play.*` control surface. The matching/classification side is a **pipeline plugin** under **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)** (OCP-1 explicitly leaves the NLU to PIPELINE-1). Media stop is one subscriber to the **[OVOS-STOP-1](https://github.com/OpenVoiceOS/architecture/blob/dev/stop-1.md)** cascade. See the [spec index](architecture-specs.md).
+
 The **OCP (OVOS Common Play)** Pipeline Plugin handles media playback commands —
 "play some jazz", "pause", "next song". It recognises that an utterance is about
 media, works out what kind of media is wanted, asks OCP-enabled skills to search
@@ -70,6 +73,9 @@ only useful if you still run legacy CPS skills.
 > intended. Place it last and only enable it on media-focused devices.
 
 ---
+
+!!! note "Playback vs. control, and why ordering matters"
+    OCP-1 §2 splits media commands into two classes the player must distinguish: **playback requests** ("play X", "open X") that acquire new media, and **control requests** ("pause", "resume", "next", "previous", "stop", seek) that act on whatever is *already* playing — including media OVOS did not start, when the MPRIS bridge (OCP-1 §6) is enabled. There is exactly **one Virtual Media Player per session** (OCP-1 §2, §5); a request names *the player*, not a backend, and the player routes. This is why a high-tier OCP stage belongs early in `session.pipeline`: as a selective pipeline plugin it claims a control utterance like "resume" or "next" only *while it holds paused media for that session*, and first-match-wins (PIPELINE-1 §6.2) lets it intercept those bare words before a general intent engine does — exactly the conservative, state-aware claiming pattern the spec describes. The `ovos.common_play.*` bus surface in the spec is the formal counterpart of the `ovos.common_play.query` / `…status` / `…track.state` topics used below.
 
 ## How a media intent is recognised
 
