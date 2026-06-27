@@ -642,6 +642,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../spec-tooling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Specification Tooling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../life-of-an-utterance/" class="md-nav__link">
         
   
@@ -863,6 +884,30 @@
   <a href="#connectivity-phal" class="md-nav__link">
     <span class="md-ellipsis">
       Connectivity / PHAL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#namespace-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespace migration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Namespace migration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#turning-the-bridges-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      Turning the bridges off
     </span>
   </a>
   
@@ -1528,6 +1573,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#namespace-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespace migration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Namespace migration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#turning-the-bridges-off" class="md-nav__link">
+    <span class="md-ellipsis">
+      Turning the bridges off
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#services-that-connect-to-the-bus" class="md-nav__link">
     <span class="md-ellipsis">
       Services That Connect to the Bus
@@ -1894,6 +1963,70 @@ Messages larger than this cause Tornado to close the connection.</p>
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="namespace-migration">Namespace migration<a class="headerlink" href="#namespace-migration" title="Permanent link">&para;</a></h2>
+<p>The <a href="../architecture-specs/">Formal Specifications</a> rename many bus topics into
+the <code>ovos.*</code> namespace — for example <code>recognizer_loop:utterance</code> →
+<code>ovos.utterance.handle</code>, <code>mycroft.skill.handler.*</code> → <code>ovos.intent.handler.*</code>,
+<code>complete_intent_failure</code> → <code>ovos.intent.unmatched</code>. Renaming a topic across an
+ecosystem of independently-released repos cannot happen in one coordinated step,
+so <strong><code>ovos-bus-client</code> migrates automatically and incrementally</strong> — the legacy
+and the new names interoperate transparently while the ecosystem moves over.</p>
+<p>The canonical legacy ↔ spec topic map lives in the <code>NamespaceTranslator</code> from
+<a href="../spec-tooling/"><code>ovos-spec-tools</code></a>, and the bus client applies it in two
+orthogonal directions, both <strong>on by default</strong>:</p>
+<ul>
+<li><strong>emit</strong> — a migrated message is <em>dual-sent</em> on <strong>both</strong> the legacy and the
+  <code>ovos.*</code> topic. The mirrored copy is reshaped into the counterpart topic's
+  payload shape (identity for payload-compatible renames; a per-topic transform
+  where the shape changed), so a consumer on either topic receives it in <em>its</em>
+  expected shape.</li>
+<li><strong>listen</strong> — subscribing to <em>either</em> name (<code>bus.on(...)</code>) also subscribes to
+  its counterpart, with <strong>de-duplication</strong> so a handler that would match both
+  fires exactly once.</li>
+</ul>
+<p>The result: a producer and a consumer can each switch from a legacy topic to its
+<code>ovos.*</code> spec name <strong>in any order, with no coordination</strong> — there is no flag day.
+A repo that has fully adopted <code>ovos.*</code> keeps working against one that has not,
+and vice-versa.</p>
+<h3 id="turning-the-bridges-off">Turning the bridges off<a class="headerlink" href="#turning-the-bridges-off" title="Permanent link">&para;</a></h3>
+<p>Each direction is independently controllable (default <code>true</code>), via environment
+variable or bus configuration:</p>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Env var</th>
+<th>Config key</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>modernize</td>
+<td><code>OVOS_BUS_MODERNIZE</code></td>
+<td><code>modernize</code></td>
+<td>emitting a <strong>legacy</strong> topic also emits the <code>ovos.*</code> one</td>
+</tr>
+<tr>
+<td>emit_legacy</td>
+<td><code>OVOS_BUS_EMIT_LEGACY</code></td>
+<td><code>emit_legacy</code></td>
+<td>emitting an <strong><code>ovos.*</code></strong> topic also emits the legacy one</td>
+</tr>
+</tbody>
+</table>
+<p>A deployment whose components all speak <code>ovos.*</code> can set <code>emit_legacy=false</code> to
+drop the legacy copies (and the extra bus traffic); one with no legacy producers
+left can also disable <code>modernize</code>. Until then, leave both on — that is what keeps
+adoption gradual and safe.</p>
+<div class="admonition note">
+<p class="admonition-title">Bridged ≠ conformant</p>
+<p><a href="../spec-tooling/"><code>ovos-test-harness</code></a> asserts spec behaviour on the
+canonical <code>ovos.*</code> topics. A component becomes <em>spec-conformant</em> once it
+speaks <code>ovos.*</code> directly; the bridge keeps it <strong>interoperable</strong> in the
+meantime, it does not make it conformant.</p>
+</div>
 <hr />
 <h2 id="services-that-connect-to-the-bus">Services That Connect to the Bus<a class="headerlink" href="#services-that-connect-to-the-bus" title="Permanent link">&para;</a></h2>
 <table>

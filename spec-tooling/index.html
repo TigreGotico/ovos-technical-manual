@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/intent-service/">
+        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/spec-tooling/">
       
       
-        <link rel="prev" href="../skill-manager/">
+        <link rel="prev" href="../architecture-specs/">
       
       
-        <link rel="next" href="../skill-installer/">
+        <link rel="next" href="../life-of-an-utterance/">
       
       
       <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Intent Service - OpenVoiceOS Technical Manual</title>
+        <title>Specification Tooling - OpenVoiceOS Technical Manual</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#intent-service" class="md-skip">
+        <a href="#specification-tooling" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Intent Service
+              Specification Tooling
             
           </span>
         </div>
@@ -639,10 +639,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../spec-tooling/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Specification Tooling
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -651,6 +671,53 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ovos-spec-tools-the-reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-spec-tools — the reference implementation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ovos-test-harness-the-conformance-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-test-harness — the conformance suite
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adopting-the-spec-namespace-without-a-flag-day" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adopting the spec namespace — without a flag day
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -766,8 +833,6 @@
                 
   
   
-    
-  
   
   
     
@@ -777,327 +842,30 @@
       
     
     
-      
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" checked>
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
-          
-          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
-            
+  
+  
+    <a href="../core/" class="md-nav__link">
+      
   
   <span class="md-ellipsis">
     Core Services
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_8">
-            <span class="md-nav__icon md-icon"></span>
-            Core Services
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../core/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    ovos-core
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../skill-manager/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Skill Manager
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+        <span class="md-nav__icon md-icon"></span>
       
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Intent Service
-  </span>
+    </a>
   
 
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    Intent Service
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#utterance-handling-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      Utterance Handling Flow
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#language-disambiguation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Language Disambiguation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multilingual-matching" class="md-nav__link">
-    <span class="md-ellipsis">
-      Multilingual Matching
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#session-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      Session Management
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#intent-match-emission" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intent Match Emission
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#intent-query-api" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intent Query API
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bus-events-handled" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bus Events Handled
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../skill-installer/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Skill Installer
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../speech-service/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Speech Service
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../audio-service/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Audio Service
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ovos-media/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Media Service (ovos-media)
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../gui-service/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    GUI Service (legacy)
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../phal/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    PHAL (Hardware Abstraction)
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -1442,63 +1210,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#utterance-handling-flow" class="md-nav__link">
+  <a href="#ovos-spec-tools-the-reference-implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      Utterance Handling Flow
+      ovos-spec-tools — the reference implementation
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#language-disambiguation" class="md-nav__link">
+  <a href="#ovos-test-harness-the-conformance-suite" class="md-nav__link">
     <span class="md-ellipsis">
-      Language Disambiguation
+      ovos-test-harness — the conformance suite
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#multilingual-matching" class="md-nav__link">
+  <a href="#adopting-the-spec-namespace-without-a-flag-day" class="md-nav__link">
     <span class="md-ellipsis">
-      Multilingual Matching
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#session-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      Session Management
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#intent-match-emission" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intent Match Emission
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#intent-query-api" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intent Query API
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bus-events-handled" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bus Events Handled
+      Adopting the spec namespace — without a flag day
     </span>
   </a>
   
@@ -1522,136 +1254,135 @@
   
 
 
-<h1 id="intent-service">Intent Service<a class="headerlink" href="#intent-service" title="Permanent link">&para;</a></h1>
+<h1 id="specification-tooling">Specification Tooling<a class="headerlink" href="#specification-tooling" title="Permanent link">&para;</a></h1>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
-<p>The Intent Service is the part of OpenVoiceOS that figures out what you actually meant. Once the <a href="../speech-service/">Speech Service</a> has turned your words into text, this service reads that text and decides which skill should handle it — much like a receptionist hearing your request and directing you to the right desk. It tries a series of matchers in order and stops at the first one confident enough to respond. New to the terms? See the <a href="../glossary/">Glossary</a>.</p>
+<p>The <a href="../architecture-specs/">Formal Specifications</a> say <em>what</em> must happen.
+Three pieces of tooling turn that from prose into something you can build on
+and check: <strong>ovos-spec-tools</strong> (a ready-made, conformant implementation of
+the low-level primitives), <strong>ovos-test-harness</strong> (an executable test suite
+that proves a running stack obeys the specs), and the <strong>bus-client namespace
+migration</strong> (which lets the ecosystem adopt the new spec topic names without
+a flag day).</p>
 </div>
-<p><strong>Module:</strong> <code>ovos_core.intent_services.service.IntentService</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py"><code>ovos_core/intent_services/service.py</code></a></p>
 <div class="admonition info">
 <p class="admonition-title">📐 Formal specification</p>
-<p>The utterance lifecycle, the <code>match(utterances, lang, session) → Match</code> contract, <strong>first-match-wins</strong> ordering, and the dispatch/handler-lifecycle events are specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 — Utterance Lifecycle &amp; Pipeline</a></strong>; what an intent <em>is</em> (keyword vs template) and the match-result shape by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md">OVOS-INTENT-3 — Intent Definition</a></strong>; and how skills declare intents/entities on the bus by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md">OVOS-INTENT-4 — Intent &amp; Entity Registration</a></strong>. See also the <a href="../architecture-specs/">spec index</a>. <code>IntentService</code> is the reference <strong>orchestrator</strong> of this lifecycle; the spec topic names below are canonical.</p>
+<p>These tools serve the <strong><a href="https://github.com/OpenVoiceOS/architecture">OpenVoiceOS/architecture</a></strong> specs — see the <a href="../architecture-specs/">spec index</a>.</p>
 </div>
-<p><code>IntentService</code> is the component of <code>ovos-core</code> responsible for routing user utterances through the configured <strong>Intent Pipeline</strong> until a match is found.</p>
-<p><strong>In plain terms:</strong> this is the part that takes the words you said and figures out <em>which</em> skill should answer. It runs each matcher in your pipeline in order (e.g. stop, converse, padatious, adapt, …) and stops at the first one confident enough to handle the request.</p>
 <hr />
-<details class="abstract">
-<summary>Technical Reference</summary>
-<ul>
-<li>
-<p><code>IntentService.handle_utterance()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py"><code>ovos_core/intent_services/service.py:415</code></a> — Main entry point for processing utterances.</p>
-</li>
-<li>
-<p><code>IntentService._emit_match_message()</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py"><code>ovos_core/intent_services/service.py:275</code></a> — logic for emitting match messages and activating skills.</p>
-</li>
-<li>
-<p><code>OVOSPipelineFactory.load_plugin()</code> — <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager/blob/dev/ovos_plugin_manager/pipeline.py"><code>ovos_plugin_manager/pipeline.py</code></a> — factory that builds matcher pipeline plugins from config (<code>get_installed_pipeline_ids()</code> lists them).</p>
-</li>
-</ul>
-</details>
-<h2 id="utterance-handling-flow">Utterance Handling Flow<a class="headerlink" href="#utterance-handling-flow" title="Permanent link">&para;</a></h2>
-<p>When an <code>ovos.utterance.handle</code> message (legacy: <code>recognizer_loop:utterance</code>) arrives on the bus — the lifecycle entry point of <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §9.1</a>:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ovos.utterance.handle  (legacy: recognizer_loop:utterance)   §9.1
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  │
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  ├── UtteranceTransformersService.transform()   # utterance-transformer chain   TRANSFORM-1 §3.2
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  ├── MetadataTransformersService.transform()    # metadata-transformer chain    TRANSFORM-1 §3.3
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  ├── disambiguate_lang()                        # pick the best language
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  ├── _validate_session()                        # get/create Session
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  └── for each pipeline plugin (in order, first-match-wins):    §6.2
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        match(utterances, lang, session) → Match | None         §4
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>          ├── match found → ovos.intent.matched (§9.2) → dispatch → handler trio (§8)
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>          └── no match   → next plugin
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>              (no plugin matched) → ovos.intent.unmatched (§9.3, legacy: complete_intent_failure)
-</span></code></pre></div>
-<p>Every lifecycle terminates with exactly one <code>ovos.utterance.handled</code> (§9.5), the universal end-marker, whether or not anything matched.</p>
-<h2 id="language-disambiguation">Language Disambiguation<a class="headerlink" href="#language-disambiguation" title="Permanent link">&para;</a></h2>
-<p>The language for an utterance is chosen based on a priority list from message context keys:</p>
-<ol>
-<li>
-<p><code>stt_lang</code> — language used by <a href="../stt-plugins/">STT</a> to transcribe.</p>
-</li>
-<li>
-<p><code>request_lang</code> — volunteered by the source (e.g. wake word).</p>
-</li>
-<li>
-<p><code>detected_lang</code> — detected by a transformer plugin.</p>
-</li>
-<li>
-<p>Config default / <code>message.data["lang"]</code>.</p>
-</li>
-</ol>
-<p>The chosen language is validated against <code>valid_langs</code> from config using <code>closest_lang()</code> (from <code>ovos_spec_tools</code>), which tolerates near-matches such as <code>en</code> vs <code>en-us</code>.</p>
-<h2 id="multilingual-matching">Multilingual Matching<a class="headerlink" href="#multilingual-matching" title="Permanent link">&para;</a></h2>
-<p>When <code>intents.multilingual_matching</code> is enabled, if the primary language produces no match, OVOS will try all other configured languages in order.</p>
-<h2 id="session-management">Session Management<a class="headerlink" href="#session-management" title="Permanent link">&para;</a></h2>
-<p>Each utterance is associated with a <code>Session</code>.</p>
-<ul>
-<li>
-<p>The <strong>default session</strong> expires and is reset automatically.</p>
-</li>
-<li>
-<p><strong>Non-default sessions</strong> (e.g., from <a href="../hivemind-agents/">HiveMind</a> clients) are updated but not reset.</p>
-</li>
-<li>
-<p>Session state (active skills, pipeline, blacklists) is serialised into every reply message under <code>context.session</code>.</p>
-</li>
-</ul>
-<h2 id="intent-match-emission">Intent Match Emission<a class="headerlink" href="#intent-match-emission" title="Permanent link">&para;</a></h2>
-<p>When a pipeline plugin returns a match:</p>
-<ol>
-<li>
-<p><code>IntentTransformersService.transform(match)</code> — the <strong>intent-transformer chain</strong> post-processes the match (OVOS-TRANSFORM-1 §3.4).</p>
-</li>
-<li>
-<p>Emit <code>ovos.intent.matched</code> (§9.2) — a notification that a plugin claimed the utterance.</p>
-</li>
-<li>
-<p>Build the dispatch message with <code>match.match_type</code> as the message type.</p>
-</li>
-<li>
-<p>Activate the skill in the session (<code>sess.activate_skill(skill_id)</code>) and emit <code>{skill_id}.activate</code> for the skill's callback.</p>
-</li>
-<li>
-<p>Wrap the dispatch in the <strong>handler-lifecycle trio</strong> — the orchestrator (not the skill) emits <code>ovos.intent.handler.start</code>, then exactly one of <code>ovos.intent.handler.complete</code> / <code>ovos.intent.handler.error</code> (§8, legacy: <code>mycroft.skill.handler.*</code>). The skill's intent handler runs between them.</p>
-</li>
-</ol>
-<h2 id="intent-query-api">Intent Query API<a class="headerlink" href="#intent-query-api" title="Permanent link">&para;</a></h2>
-<p>External tools can query the pipeline without triggering a skill action:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>intent.service.intent.get  {utterance: &quot;...&quot;, lang: &quot;...&quot;}
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  → intent.service.intent.reply  {intent: {...} | null, utterance: &quot;...&quot;}
-</span></code></pre></div>
-<h2 id="bus-events-handled">Bus Events Handled<a class="headerlink" href="#bus-events-handled" title="Permanent link">&para;</a></h2>
+<h2 id="ovos-spec-tools-the-reference-implementation">ovos-spec-tools — the reference implementation<a class="headerlink" href="#ovos-spec-tools-the-reference-implementation" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/OpenVoiceOS/ovos-spec-tools"><strong>ovos-spec-tools</strong></a> is the
+<strong>single conformant implementation</strong> of the low-level primitives the specs
+describe. OVOS components used to reimplement template expansion, resource
+loading, and language matching in several places — and the copies drifted.
+Rather than reimplement (and re-introduce the bugs), depend on this package; it
+is dependency-light (the core has <strong>no dependencies</strong>) and tracks the specs
+clause-for-clause.</p>
 <table>
 <thead>
 <tr>
-<th>Event</th>
-<th>Handler</th>
+<th>Primitive</th>
+<th>Spec</th>
+<th>What it does</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>ovos.utterance.handle</code> (legacy: <code>recognizer_loop:utterance</code>)</td>
-<td><code>handle_utterance</code></td>
+<td>Sentence-template expander</td>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1</a></td>
+<td>Expands <code>(a\|b)</code> / <code>[opt]</code> / <code>{slot}</code> / <code>&lt;vocab&gt;</code> into the sentences it denotes</td>
 </tr>
 <tr>
-<td><code>add_context</code></td>
-<td><code>handle_add_context</code></td>
+<td>Locale resource loader</td>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md">OVOS-INTENT-2</a></td>
+<td>Loads a skill's <code>locale/</code> <code>.intent</code> / <code>.dialog</code> / <code>.voc</code> / <code>.entity</code> / <code>.prompt</code> files</td>
 </tr>
 <tr>
-<td><code>remove_context</code></td>
-<td><code>handle_remove_context</code></td>
+<td>Dialog &amp; prompt renderer</td>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md">OVOS-INTENT-2 §4</a></td>
+<td>Renders a spoken <code>.dialog</code> line or a <code>.prompt</code> with slot substitution</td>
 </tr>
 <tr>
-<td><code>clear_context</code></td>
-<td><code>handle_clear_context</code></td>
+<td>Language-tag matching</td>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md">OVOS-INTENT-2 §2.2</a></td>
+<td>Picks the closest available BCP-47 language for a request</td>
+</tr>
+<tr>
+<td>Message envelope</td>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md">OVOS-MSG-1</a></td>
+<td>The <code>{type, data, context}</code> <code>Message</code> and its <code>forward</code>/<code>reply</code>/<code>response</code> derivations</td>
+</tr>
+<tr>
+<td><code>ovos-spec-lint</code></td>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1</a> / <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md">-2</a></td>
+<td>A linter that validates a <code>locale/</code> folder against the resource-format specs</td>
 </tr>
 </tbody>
 </table>
-<p>The <code>*_context</code> events mutate the per-session intent context (<code>session.intent_context</code>) specified by <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md">OVOS-CONTEXT-1</a> — see <a href="../session/">Session Aware Skills</a>.
-| <code>intent.service.intent.get</code> | <code>handle_get_intent</code> |
-| <code>intent.service.skills.deactivate</code> | <code>_handle_deactivate</code> |
-| <code>intent.service.pipelines.reload</code> | <code>handle_reload_pipelines</code> |</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-spec-tools<span class="w">            </span><span class="c1"># core — no dependencies (Python 3.10+)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-spec-tools<span class="o">[</span>langcodes<span class="o">]</span><span class="w"> </span><span class="c1"># adds smart language fallback</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_spec_tools</span> <span class="kn">import</span> <span class="n">expand</span><span class="p">,</span> <span class="n">LocaleResources</span><span class="p">,</span> <span class="n">render</span><span class="p">,</span> <span class="n">closest_lang</span><span class="p">,</span> <span class="n">Message</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">expand</span><span class="p">(</span><span class="s2">&quot;(turn|switch) [the] light&quot;</span><span class="p">)</span>             <span class="c1"># every sentence the template denotes</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">res</span> <span class="o">=</span> <span class="n">LocaleResources</span><span class="p">(</span><span class="s2">&quot;my-skill/locale&quot;</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">render</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">load_dialog</span><span class="p">(</span><span class="s2">&quot;weather&quot;</span><span class="p">,</span> <span class="s2">&quot;en-US&quot;</span><span class="p">),</span>     <span class="c1"># a spoken response</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>       <span class="n">slots</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mi">21</span><span class="p">})</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">closest_lang</span><span class="p">(</span><span class="s2">&quot;en-AU&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;pt-BR&quot;</span><span class="p">,</span> <span class="s2">&quot;en-US&quot;</span><span class="p">])</span>       <span class="c1"># -&gt; &#39;en-US&#39;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">m</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span><span class="s2">&quot;ovos.intent.list&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;skill.id&quot;</span><span class="p">})</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">m</span><span class="o">.</span><span class="n">response</span><span class="p">({</span><span class="s2">&quot;intents&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;...&quot;</span><span class="p">]})</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span>    <span class="c1"># -&gt; the &#39;ovos.intent.list.response&#39; JSON</span>
+</span></code></pre></div>
+<p>Lint a skill's locale folder against the grammar and format specs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ovos-spec-lint<span class="w"> </span>my-skill/locale
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">When to reach for it</p>
+<p>Building an intent engine, a skill loader, a satellite, or any third-party
+tool that touches OVOS templates, locale files, language selection, or the
+bus envelope? Depend on <code>ovos-spec-tools</code> instead of hand-rolling — that is
+exactly the drift the package exists to prevent. See also
+<a href="../resource-files/">Resource Files</a> and <a href="../lang-selection/">Language Selection</a>.</p>
+</div>
+<hr />
+<h2 id="ovos-test-harness-the-conformance-suite">ovos-test-harness — the conformance suite<a class="headerlink" href="#ovos-test-harness-the-conformance-suite" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/OpenVoiceOS/ovos-test-harness"><strong>ovos-test-harness</strong></a> is the
+<strong>executable counterpart</strong> of the specs. Each test asserts one observable bus
+behaviour a spec mandates, against a <em>real running OVOS stack</em>. If the specs are
+the law, this harness is the courtroom: it puts a concrete combination of OVOS
+repos on trial against the law and returns a verdict per normative clause —
+<strong>pass</strong>, <strong><code>xfail</code></strong> (a documented gap), or <strong>fail</strong>.</p>
+<p><strong>Why a separate repo.</strong> A single spec clause is only satisfied when a
+<em>combination</em> of branches across a dozen repos lines up — <code>ovos-core</code>,
+<code>ovos-workshop</code>, <code>ovos-bus-client</code>, the pipeline plugins, fixture skills. You
+cannot prove that from inside any one repo, because that repo's CI installs only
+its own package plus whatever pip resolves, and pip is free to downgrade a
+sibling out of the exact combination you are trying to validate.</p>
+<p><strong>The model.</strong> The harness is <strong>not a package</strong> — there is no <code>pip install .</code>.
+Its <a href="https://github.com/OpenVoiceOS/ovos-test-harness"><code>requirements.txt</code></a> is the
+<strong>stack under test</strong>: every line pins one repo to an exact git ref or version, so
+CI never re-resolves and never downgrades a component. Each test then:</p>
+<ul>
+<li>imports the spec vocabulary from <a href="https://github.com/OpenVoiceOS/ovos-spec-tools"><code>ovos-spec-tools</code></a>, so a topic name is <em>provably spec-defined</em> rather than a magic string;</li>
+<li>drives and captures the live bus through <a href="https://github.com/TigreGotico/ovoscope"><code>ovoscope</code></a> (see <a href="../ovoscope-overview/">Testing Skills</a>);</li>
+<li>asserts the spec-mandated behaviour and records pass / <code>xfail</code> / fail.</li>
+</ul>
+<p>This is where an implementation is <strong>proven to conform</strong> to the merged
+architecture specs — the bridge between the prescriptive Markdown and the code
+that has to honour it.</p>
+<hr />
+<h2 id="adopting-the-spec-namespace-without-a-flag-day">Adopting the spec namespace — without a flag day<a class="headerlink" href="#adopting-the-spec-namespace-without-a-flag-day" title="Permanent link">&para;</a></h2>
+<p>The specs rename many bus topics into the <code>ovos.*</code> namespace (for example
+<code>recognizer_loop:utterance</code> → <code>ovos.utterance.handle</code>). Migrating an ecosystem
+of independently-released repos to new topic names all at once is impossible —
+so <a href="../bus-service/"><strong>ovos-bus-client</strong></a> does it <strong>automatically and
+incrementally</strong>. A migrated message is dual-sent on <strong>both</strong> the legacy and the
+<code>ovos.*</code> topic, and a subscription to either name receives both (de-duplicated),
+so a producer and consumer can each switch to <code>ovos.*</code> <strong>in any order, with no
+coordination</strong>.</p>
+<p>This is what makes spec adoption gradual rather than a breaking change. The full
+mechanism — and how to turn the bridges off once a deployment is fully
+modernised — is documented under
+<a href="../bus-service/#namespace-migration"><strong>MessageBus Service → Namespace migration</strong></a>.</p>
 
 
 
