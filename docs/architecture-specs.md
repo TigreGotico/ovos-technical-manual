@@ -123,3 +123,15 @@ The repository also ships a non-normative
 [appendix](https://github.com/OpenVoiceOS/architecture/tree/dev/appendix) with
 design rationale, comparisons to other voice systems, and the catalogue of
 deliberate divergences from current OVOS code.
+
+---
+
+## Building on the specs
+
+You rarely need to implement a spec from scratch. The
+[**Specification Tooling**](spec-tooling.md) page covers the reference
+implementation ([`ovos-spec-tools`](https://github.com/OpenVoiceOS/ovos-spec-tools)),
+the executable conformance suite
+([`ovos-test-harness`](https://github.com/OpenVoiceOS/ovos-test-harness)), and the
+[bus-client namespace migration](bus-service.md#namespace-migration) that lets the
+ecosystem adopt the new `ovos.*` topics without a flag day.

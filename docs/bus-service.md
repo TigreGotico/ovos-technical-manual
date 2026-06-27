@@ -258,6 +258,57 @@ Topic names below are the canonical spec names ([OVOS-PIPELINE-1 §9](https://gi
 
 ---
 
+## Namespace migration
+
+The [Formal Specifications](architecture-specs.md) rename many bus topics into
+the `ovos.*` namespace — for example `recognizer_loop:utterance` →
+`ovos.utterance.handle`, `mycroft.skill.handler.*` → `ovos.intent.handler.*`,
+`complete_intent_failure` → `ovos.intent.unmatched`. Renaming a topic across an
+ecosystem of independently-released repos cannot happen in one coordinated step,
+so **`ovos-bus-client` migrates automatically and incrementally** — the legacy
+and the new names interoperate transparently while the ecosystem moves over.
+
+The canonical legacy ↔ spec topic map lives in the `NamespaceTranslator` from
+[`ovos-spec-tools`](spec-tooling.md), and the bus client applies it in two
+orthogonal directions, both **on by default**:
+
+- **emit** — a migrated message is *dual-sent* on **both** the legacy and the
+  `ovos.*` topic. The mirrored copy is reshaped into the counterpart topic's
+  payload shape (identity for payload-compatible renames; a per-topic transform
+  where the shape changed), so a consumer on either topic receives it in *its*
+  expected shape.
+- **listen** — subscribing to *either* name (`bus.on(...)`) also subscribes to
+  its counterpart, with **de-duplication** so a handler that would match both
+  fires exactly once.
+
+The result: a producer and a consumer can each switch from a legacy topic to its
+`ovos.*` spec name **in any order, with no coordination** — there is no flag day.
+A repo that has fully adopted `ovos.*` keeps working against one that has not,
+and vice-versa.
+
+### Turning the bridges off
+
+Each direction is independently controllable (default `true`), via environment
+variable or bus configuration:
+
+| Direction | Env var | Config key | Effect |
+|---|---|---|---|
+| modernize | `OVOS_BUS_MODERNIZE` | `modernize` | emitting a **legacy** topic also emits the `ovos.*` one |
+| emit_legacy | `OVOS_BUS_EMIT_LEGACY` | `emit_legacy` | emitting an **`ovos.*`** topic also emits the legacy one |
+
+A deployment whose components all speak `ovos.*` can set `emit_legacy=false` to
+drop the legacy copies (and the extra bus traffic); one with no legacy producers
+left can also disable `modernize`. Until then, leave both on — that is what keeps
+adoption gradual and safe.
+
+!!! note "Bridged ≠ conformant"
+    [`ovos-test-harness`](spec-tooling.md) asserts spec behaviour on the
+    canonical `ovos.*` topics. A component becomes *spec-conformant* once it
+    speaks `ovos.*` directly; the bridge keeps it **interoperable** in the
+    meantime, it does not make it conformant.
+
+---
+
 ## Services That Connect to the Bus
 
 | Service | Role |

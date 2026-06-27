@@ -95,6 +95,7 @@ nav:
   - Core Architecture:
       - High-level Overview: architecture-overview.md
       - Formal Specifications: architecture-specs.md
+      - Specification Tooling: spec-tooling.md
       - Life of an Utterance: life-of-an-utterance.md
       - MessageBus Service: bus-service.md
       - Plugin Manager: plugin-manager.md
