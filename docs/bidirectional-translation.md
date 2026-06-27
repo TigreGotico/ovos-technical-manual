@@ -3,6 +3,17 @@
 !!! abstract "In a nutshell"
     Many OVOS skills only "speak" one language, usually English. This plugin acts like a live interpreter sitting between you and the assistant: it translates what you say into the language the skills understand, and then translates the assistant's reply back into your language before it is spoken aloud. So you can ask a question in Spanish, have an English-only skill answer it, and still hear the response in Spanish. See [Translation Plugins](translation-plugins.md) or the [Glossary](glossary.md) for related terms.
 
+!!! info "📐 Formal specification"
+    This "interpreter in the middle" is built entirely from transformers, as
+    defined by
+    **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md)**.
+    The spec defines **six** ordered chains (audio / utterance / metadata /
+    intent / dialog / tts) at fixed points in the utterance lifecycle:
+    inbound translation runs as an **utterance-transformer** (before intent
+    matching), outbound translation as a **dialog**- or **tts-transformer**
+    (after a skill responds). For the full set see the
+    **[spec index](architecture-specs.md)**.
+
 The **Bidirectional Translation Plugin** (`ovos-bidirectional-translation-plugin`) is a powerful tool that allows OpenVoiceOS to interact in **any language**, even if the installed skills are only available in a single primary language (like English).
 
 It works by translating user utterances into the system's native language before intent matching, and then translating the system's spoken responses back into the user's original language.

@@ -3,6 +3,19 @@
 !!! abstract "In a nutshell"
     `ovos-media` is the planned future replacement for how OVOS plays music, podcasts and videos. Today, stock installs still use the older audio backend; `ovos-media` is an opt-in, work-in-progress rewrite meant to handle audio, video and web playback more cleanly and to support several players at once. If you are not deliberately trying it out, you are not using it yet — this page describes where things are heading. See the [OCP Pipeline](ocp-pipeline.md) for how playback requests are recognised, or the [Glossary](glossary.md) for terms.
 
+!!! info "📐 Formal specification"
+    Media playback is specified by two architecture documents:
+    **[OVOS-OCP-1 — OVOS Common Playback](https://github.com/OpenVoiceOS/architecture/blob/dev/ocp-1.md)**
+    defines the per-session **virtual media player** — the single logical
+    player every "play / pause / next / louder / stop" command targets, plus
+    the MPRIS bridge to and from the host OS — while
+    **[OVOS-AUDIO-1 — Audio Output Service](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-out.md)**
+    defines the **output service** that actually renders queued audio. OCP-1
+    fixes the *observable control surface*; how a URI becomes bytes on a
+    speaker is a backend concern. `ovos-media` is the implementation moving
+    toward that contract. For the full set see the
+    **[spec index](architecture-specs.md)**.
+
 !!! warning "Upcoming — a refactor that is not the default yet"
     `ovos-media` is the **upcoming** media-playback service for OVOS, still being refactored.
     It is **not enabled by default**. Today, stock installs play media through the **legacy

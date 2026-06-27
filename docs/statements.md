@@ -3,6 +3,16 @@
 !!! abstract "In a nutshell"
     A "statement" is simply something the assistant says out loud. Instead of writing the exact words inside the program, OVOS keeps them in plain-text "dialog" files — one phrase per line — so the same skill can speak any language and pick from several wordings to sound less robotic. This page walks through writing those reply files, slotting in details like a name or a number, and waiting for speech to finish. For the broader file layout see [Resource Files](resource-files.md); for term definitions see the [Glossary](glossary.md).
 
+!!! info "📐 Formal specification"
+    The `.dialog` file is a formal resource format.
+    **[OVOS-INTENT-2 — Locale Resource Formats](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md)**
+    fixes the `locale/` folder layout and the plain-text format of `.dialog`
+    (and its siblings `.intent`, `.voc`, `.entity`, `.prompt`), while
+    **[OVOS-INTENT-1 — Sentence Template Grammar](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md)**
+    defines the template grammar inside each line — including the `{variables}`
+    (named slots) filled in by the caller before the text is spoken. For the
+    full set see the **[spec index](architecture-specs.md)**.
+
 ## Speaking a statement
 
 One of OVOS's most important core capabilities is to convert text to speech, that is, to speak a statement.
