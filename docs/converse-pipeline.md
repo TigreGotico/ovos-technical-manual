@@ -3,7 +3,22 @@
 !!! abstract "In a nutshell"
     Normally each thing you say to the assistant is handled on its own. The Converse pipeline lets a skill stay "in the conversation" for a few turns, so it can ask a follow-up and understand your reply in context — much like a person who remembers what you were just talking about. For example, after a skill asks "which room?", it can keep listening so your answer "the kitchen" lands in the right place. See the [Glossary](glossary.md) for terms, or [Fallbacks](fallbacks.md) for what happens when nothing is actively listening.
 
+!!! info "📐 Formal specification"
+    The converse plugin is specified by **[OVOS-CONVERSE-1 — Active Handlers & Interactive Response](https://github.com/OpenVoiceOS/architecture/blob/dev/converse.md)**, built on **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**. It is the *imperative* complement to **[OVOS-CONTEXT-1 — Intent Context](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md)** (the declarative gating primitive, see [Follow up questions](context.md)). See the [spec index](architecture-specs.md).
+
 The **Converse Pipeline** in **OpenVoiceOS (OVOS)** manages active conversational contexts between the assistant and skills. It allows skills to keep handling user input across multiple turns, enabling more natural, stateful conversations.
+
+!!! note "Spec model vs. current code names"
+    OVOS-CONVERSE-1 frames converse as an **ordinary pipeline plugin**: it is *not* a special case in the orchestrator. During `match` it inspects two session fields and returns a `Match` on a **reserved `intent_name`** (PIPELINE-1 §7.3) which the orchestrator then dispatches like any other intent — `<skill_id>:converse` for a converse claim, `<skill_id>:response` for delivery of a solicited reply. Because converse depends on session state ("is a skill still active?", "is someone awaiting a reply?"), it only works when placed **before** the intent engines in `session.pipeline`, where first-match-wins lets it intercept. Two name mappings between spec and current code:
+
+    | OVOS-CONVERSE-1 (canonical) | Current `ovos-core` code |
+    |---|---|
+    | `session.converse_handlers` — the recency-ordered eligibility list the plugin polls | `Session.active_skills` |
+    | `session.response_mode` `{skill_id, expires_at}` — the single-shot response window for `get_response` | per-session `UtteranceState.RESPONSE` lock |
+    | poll round-trip `<skill_id>.converse.ping` / `.pong` (non-dispatch, dotted form) | `{skill_id}.converse.ping` / `skill.converse.pong`, dispatch via `converse:skill` → `{skill_id}.converse.request` |
+    | reserved-name dispatch `<skill_id>:converse` / `<skill_id>:response` | `converse:skill` handler |
+
+    The mechanics below describe the current code; the spec names are the target. Note the two lists are distinct in the spec: `converse_handlers` (converse eligibility) is drained independently of `active_handlers` (the stop cascade's recency record, PIPELINE-1 §7.1).
 
 ---
 

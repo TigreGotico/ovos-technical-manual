@@ -3,7 +3,13 @@
 !!! abstract "In a nutshell"
     A "persona" is a configurable AI character — often powered by a chatbot-style language model — that the assistant can hand your request to. This pipeline decides when to let that persona answer you instead of the usual command-matching skills, which is useful for open-ended chat or questions that no specific skill covers. You can set it to handle everything, or only step in when nothing else fits. See the [Glossary](glossary.md) for terms, or [Solver/Agent plugins](agent-plugins.md) for the components a persona uses to come up with answers.
 
+!!! info "📐 Formal specification"
+    The persona plugin is specified by **[OVOS-PERSONA-1 — Persona Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/persona.md)**, built on **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**. See the [spec index](architecture-specs.md).
+
 The **`ovos-persona-pipeline-plugin`** provides a dynamic way to integrate persona-based conversational behavior into the OVOS pipeline system. It allows you to route user utterances to AI personas instead of skill matchers, depending on context and configuration.
+
+!!! note "How the spec frames it"
+    A persona is a **complete conversational agent** that, when active, claims *every* utterance reaching its pipeline stage (PERSONA-1 §2). The active persona is held in one session field, **`session.persona_id`** (PERSONA-1 §3) — absent means no-persona mode (deterministic skills only); set means that persona's plugin catches everything that reaches it. The plugin is a self-matching pipeline plugin (PIPELINE-1 §7.0): its `Match.skill_id` equals its own `pipeline_id`. **Summon** sets `persona_id` (via `Match.updated_session`, a client, or a session sync); **dismiss** clears it — and the stop cascade (OVOS-STOP-1) clears it too, which is how "stop" returns control to the skills. The "full control / hybrid / fallback" strategies below are just different positions for the `persona` stage (route 2, active-persona catch-all) and an optional `persona_fallback` stage (route 3) in `session.pipeline` (PERSONA-1 §10).
 
 ---
 

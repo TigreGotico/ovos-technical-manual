@@ -3,7 +3,12 @@
 !!! abstract "In a nutshell"
     Padatious is one of the tools that helps the assistant work out what you want. Instead of matching fixed keywords, a skill gives it a handful of example sentences (like "what is the weather" and "what's the weather like"), and Padatious learns the pattern so it can recognize new phrasings of the same request. It is the "learns from examples" companion to the keyword-based [Adapt](adapt-pipeline.md) tool. See the [Glossary](glossary.md) for unfamiliar terms.
 
+!!! info "📐 Formal specification"
+    Padatious is a **pipeline plugin** under **[OVOS-PIPELINE-1 — Utterance Lifecycle & Pipeline](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**. It is a **template-intent** engine in the sense of **[OVOS-INTENT-3 — Intent Definition §5](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md)**: the `.intent` example sentences are *training data*, written in the **[OVOS-INTENT-1 — Sentence Template Grammar](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md)** with `{slot}` placeholders the engine fills at match time. See the [spec index](architecture-specs.md).
+
 The **Padatious Pipeline Plugin** brings example-based intent recognition to the **OpenVoiceOS (OVOS)** pipeline. You define each intent by listing a few example sentences in a plain-text `.intent` file; Padatious trains a small neural network (backed by [fann2](https://github.com/FutureLinkCorporation/fann2)) on those examples and scores incoming utterances against them.
+
+In OVOS-PIPELINE-1 terms Padatious is a pipeline plugin exposing `match(utterances, lang, session) → Match | None`; the orchestrator iterates `session.pipeline` and takes the first match. The `conf_high/medium/low` thresholds are Padatious's own per-stage accept gate, not a cross-plugin ranking — INTENT-1 §4 and INTENT-3 §1.1 leave generalization and scoring entirely engine-specific, which is exactly why a capable engine recognizes phrasings beyond its training samples.
 
 **When it runs:** Padatious sits early in the pipeline. Its high-confidence stage runs before Adapt, so a strong example match wins over a keyword rule. The medium and low stages run later, as the pipeline relaxes its confidence requirements.
 

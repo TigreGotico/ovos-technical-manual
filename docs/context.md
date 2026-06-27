@@ -3,7 +3,25 @@
 !!! abstract "In a nutshell"
     Normally each thing you say to your assistant is treated on its own, with no memory of the last sentence. Conversational context is the short-term memory that lets you ask a follow-up like "where's *he* from?" right after "how tall is John Cleese?" — the assistant remembers you were talking about Cleese and fills in the blank. Skill authors mark which details to remember, and that memory is kept separate for each ongoing conversation so different people or devices don't get mixed up. See [Skill design guidelines](skill-design-guidelines.md) or the [Glossary](glossary.md).
 
+!!! info "📐 Formal specification"
+    Intent context is specified by **[OVOS-CONTEXT-1 — Intent Context](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md)**, the *declarative* gating primitive over **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)** (its imperative complement is the converse plugin, **[OVOS-CONVERSE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/converse.md)**, see [Converse Pipeline](converse-pipeline.md)). See the [spec index](architecture-specs.md).
+
 Conversational context in Open Voice OS (OVOS) allows voice interactions to feel more natural by remembering parts of a conversation, like the subject being discussed. This is especially useful for follow-up questions where repeating context (like a person's name) would otherwise be necessary.
+
+!!! note "The spec model: a decaying per-session store that *gates* matching"
+    In CONTEXT-1 terms, intent context is the field **`session.intent_context`** — a flat map of **entries**, each `{value, expires_at?, turns_remaining?}`. Every entry **decays**: the orchestrator prunes dead entries before each match round and decrements `turns_remaining` after it (CONTEXT-1 §4), so a confirmation flag set with `turns_remaining: 1` lives for exactly the next utterance. An intent **gates** on context by declaring **`requires_context`** (match only while a key is live) and/or **`excludes_context`** (match only while a key is absent) — these are normative across *every* intent engine (CONTEXT-1 §6/§6.1). Keys are **scoped by shape**: a bare key like `person` is **shared** (cross-skill); a prefixed key `<skill_id>:flag` is **private** to that owner. Bare-string `requires_context` entries default to *private* scope — the safe default — so a foreign skill's shared `person` can never accidentally satisfy a private gate (you must write `{key: person, scope: shared}` to read across skills).
+
+!!! warning "Four different things called 'context' — do not conflate them"
+    CONTEXT-1 §1.1 is explicit that the word *context* names four unrelated things:
+
+    | Name | What it is | JSON path |
+    |---|---|---|
+    | `Message.context` | the bus-envelope metadata on every Message (routing keys, the `session` carrier) | `context` |
+    | `session.intent_context` | the field *inside* the session that holds context entries | `context.session.intent_context` |
+    | **intent context** (the term) | the decaying key/value state itself — the entries in that field | (entries of the above) |
+    | `Match.slots` | the slot map produced *at match time* for one dispatch | `data.slots` |
+
+    This page is about the third (and the field that holds it). It is *not* `Message.context`, and a context entry is *not* a `Match.slot` — though CONTEXT-1 §7's context-supplied-slot rule is the bridge: when a `requires_context` key also names a slot, its value fills that slot if the utterance did not (this is exactly the "remember which person" mechanism below).
 
 Currently, keyword-based conversational context is only consumed by the
 [Adapt](adapt-pipeline.md) pipeline, not [Padatious](padatious-pipeline.md).
@@ -157,6 +175,8 @@ class TeaSkill(OVOSSkill):
 ## Using context to enable **Intents**
 
 To make sure certain **Intents** can't be triggered unless some previous stage in a conversation has occurred. Context can be used to create "bubbles" of available intent handlers.
+
+> This is the **`requires_context`** gate of CONTEXT-1 §6 in action: `MilkContext` is a private flag (the `@adds_context` decorator stores it under the skill's own prefix), and an intent that `.require('MilkContext')` declares it as a precondition — so the `yes`/`no` intents are *invisible except in the narrow window* between the question and the reply, with no skill-side state machine. The complementary `excludes_context` gate (CONTEXT-1 §6.1) handles fire-once intents (e.g. "greet only once per session").
 
 ```text
 User: Hey Mycroft, bring me some Tea
