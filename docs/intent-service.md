@@ -5,7 +5,8 @@
 
 **Module:** `ovos_core.intent_services.service.IntentService` — [`ovos_core/intent_services/service.py`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py)
 
-> Specification: intent/entity registration follows [OVOS-INTENT-4: Intent and Entity Registration Bus Contract](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-4.md); pipeline ordering follows [OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-pipeline-1.md).
+!!! info "📐 Formal specification"
+    The utterance lifecycle, the `match(utterances, lang, session) → Match` contract, **first-match-wins** ordering, and the dispatch/handler-lifecycle events are specified by **[OVOS-PIPELINE-1 — Utterance Lifecycle & Pipeline](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**; what an intent *is* (keyword vs template) and the match-result shape by **[OVOS-INTENT-3 — Intent Definition](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md)**; and how skills declare intents/entities on the bus by **[OVOS-INTENT-4 — Intent & Entity Registration](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md)**. See also the [spec index](architecture-specs.md). `IntentService` is the reference **orchestrator** of this lifecycle; the spec topic names below are canonical.
 
 `IntentService` is the component of `ovos-core` responsible for routing user utterances through the configured **Intent Pipeline** until a match is found.
 
@@ -26,23 +27,25 @@
 
 ## Utterance Handling Flow
 
-When a `recognizer_loop:utterance` message arrives on the bus:
+When an `ovos.utterance.handle` message (legacy: `recognizer_loop:utterance`) arrives on the bus — the lifecycle entry point of [OVOS-PIPELINE-1 §9.1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md):
 
 ```
-recognizer_loop:utterance
+ovos.utterance.handle  (legacy: recognizer_loop:utterance)   §9.1
   │
-  ├── UtteranceTransformersService.transform()   # may rewrite utterance text
-  ├── MetadataTransformersService.transform()    # may enrich context
+  ├── UtteranceTransformersService.transform()   # utterance-transformer chain   TRANSFORM-1 §3.2
+  ├── MetadataTransformersService.transform()    # metadata-transformer chain    TRANSFORM-1 §3.3
   ├── disambiguate_lang()                        # pick the best language
   ├── _validate_session()                        # get/create Session
   │
-  └── for each pipeline stage (in order):
-        match_func(utterances, lang, message)
-          ├── match found → _emit_match_message() → skill intent handler
-          └── no match   → next stage
-              (all stages fail) → send_complete_intent_failure()
+  └── for each pipeline plugin (in order, first-match-wins):    §6.2
+        match(utterances, lang, session) → Match | None         §4
+          ├── match found → ovos.intent.matched (§9.2) → dispatch → handler trio (§8)
+          └── no match   → next plugin
+              (no plugin matched) → ovos.intent.unmatched (§9.3, legacy: complete_intent_failure)
 
 ```
+
+Every lifecycle terminates with exactly one `ovos.utterance.handled` (§9.5), the universal end-marker, whether or not anything matched.
 
 ## Language Disambiguation
 
@@ -79,21 +82,21 @@ Each utterance is associated with a `Session`.
 
 ## Intent Match Emission
 
-When a pipeline stage returns a match:
+When a pipeline plugin returns a match:
 
-1. `IntentTransformersService.transform(match)` — post-process the match.
-
-
-2. Build a reply message with `match.match_type` as the message type.
+1. `IntentTransformersService.transform(match)` — the **intent-transformer chain** post-processes the match (OVOS-TRANSFORM-1 §3.4).
 
 
-3. Activate the skill in the session (`sess.activate_skill(skill_id)`).
+2. Emit `ovos.intent.matched` (§9.2) — a notification that a plugin claimed the utterance.
 
 
-4. Emit `{skill_id}.activate` for the skill's callback.
+3. Build the dispatch message with `match.match_type` as the message type.
 
 
-5. Emit the reply — the skill's intent handler receives it.
+4. Activate the skill in the session (`sess.activate_skill(skill_id)`) and emit `{skill_id}.activate` for the skill's callback.
+
+
+5. Wrap the dispatch in the **handler-lifecycle trio** — the orchestrator (not the skill) emits `ovos.intent.handler.start`, then exactly one of `ovos.intent.handler.complete` / `ovos.intent.handler.error` (§8, legacy: `mycroft.skill.handler.*`). The skill's intent handler runs between them.
 
 ## Intent Query API
 
@@ -109,10 +112,12 @@ intent.service.intent.get  {utterance: "...", lang: "..."}
 
 | Event | Handler |
 |---|---|
-| `recognizer_loop:utterance` | `handle_utterance` |
+| `ovos.utterance.handle` (legacy: `recognizer_loop:utterance`) | `handle_utterance` |
 | `add_context` | `handle_add_context` |
 | `remove_context` | `handle_remove_context` |
 | `clear_context` | `handle_clear_context` |
+
+The `*_context` events mutate the per-session intent context (`session.intent_context`) specified by [OVOS-CONTEXT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md) — see [Session Aware Skills](session.md).
 | `intent.service.intent.get` | `handle_get_intent` |
 | `intent.service.skills.deactivate` | `_handle_deactivate` |
 | `intent.service.pipelines.reload` | `handle_reload_pipelines` |

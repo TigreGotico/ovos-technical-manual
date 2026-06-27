@@ -3,7 +3,8 @@
 !!! abstract "In a nutshell"
     One OVOS device can talk to several people at once: your phone, a kitchen speaker, and other connected devices may all be asking it things at the same time. A *session* is simply the information that says who is asking and in what language. If your skill remembers anything between requests, like a running game or a chat history, it needs to keep each person's information separate so two users don't get each other's answers, much like separate tables at a restaurant. This page shows how to make a skill session aware. New terms are explained in the [Glossary](glossary.md).
 
-> Specification: [OVOS-SESSION-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-session-1.md) (Session wire shape) and [OVOS-SESSION-2](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-session-2.md) (Session lifecycle & state ownership)
+!!! info "📐 Formal specification"
+    The session's wire shape and field registry are specified by **[OVOS-SESSION-1 — Session Carrier](https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md)**; who owns and may mutate session state, and the reserved `"default"` device-local session, by **[OVOS-SESSION-2 — Session Lifecycle & State Ownership](https://github.com/OpenVoiceOS/architecture/blob/dev/session-2.md)**; and the decaying per-session `intent_context` that gates which intents may match across turns by **[OVOS-CONTEXT-1 — Intent Context](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md)**. See also the [spec index](architecture-specs.md). SESSION-1 is the field registry; other specs *claim* fields into it (e.g. `intent_context` → CONTEXT-1, the transformer-chain lists → OVOS-TRANSFORM-1).
 
 **What / why (beginners):** a single OVOS device can be talking to many clients at once — your phone, a kitchen satellite, a HiveMind node. Each request arrives carrying a `Session` that identifies *who* is asking and *in what language*. If your skill stores any state (a chat history, a game in progress, a "current selection"), you must key that state by `session_id` instead of stashing it in a single instance variable — otherwise two users would clobber each other.
 
@@ -30,7 +31,7 @@ class MySkill(OVOSSkill):
 
 ```
 
-If the message originated in the device itself, the `session_id` is always equal to `"default"`, if it comes from an external client then it will be a unique uuid
+If the message originated in the device itself, the `session_id` is always equal to the reserved value `"default"`; if it comes from an external client then it will be a unique uuid. The `"default"` session is special: it is the device-local session whose state the orchestrator holds and persists in-process, rather than receiving it from a client on every message (OVOS-SESSION-2 §5).
 
 ## Magic Properties
 

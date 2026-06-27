@@ -3,7 +3,8 @@
 !!! abstract "In a nutshell"
     The speech service is the "ears" of OpenVoiceOS. It listens through the microphone, waits for a wake word (like "Hey Mycroft"), and then turns whatever you say next into text so the rest of the system can act on it. Think of it as the part that hears you and writes down your request. From here that text is handed off to the [Intent Service](intent-service.md), which works out what to do. New to the terms? See the [Glossary](glossary.md).
 
-> Specification: the audio-input service contract is defined by [OVOS-AUDIO-IN-1: Audio Input Service](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-audio-in-1.md).
+!!! info "📐 Formal specification"
+    The capture → audio-transformer chain → STT → utterance flow and the listening-lifecycle signals are specified by **[OVOS-AUDIO-IN-1 — Audio Input Service](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md)**; the audio-transformer chain that runs on the raw audio before STT by **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md)** (§3.1). See also the [spec index](architecture-specs.md). `ovos-dinkum-listener` is the reference implementation; the spec topic names below are canonical, with the legacy name noted once.
 
 `ovos-dinkum-listener` is the service responsible for audio capture, [Wake Word](wake-word-plugins.md) detection, and [Speech-to-Text](stt-plugins.md) ([STT](stt-plugins.md)). It is the default, full-featured listener; `ovos-simple-listener` is a lighter alternative that emits the same `recognizer_loop:*` bus events but without the full state machine.
 
@@ -46,7 +47,8 @@ The speech service is the "ears" of OpenVoiceOS. It continuously listens to the 
 ```
 [Microphone] --(audio)--> [VAD/Wake Word] --(trigger)--> [Recording]
                                                             |
-                                                            +--(audio)--> [STT Plugin] --(text)--> [MessageBus]
+                                                            +--(audio)--> [Audio-transformer chain] --> [STT Plugin] --(text)--> [MessageBus]
+                                                                          (TRANSFORM-1 §3.1)            emits ovos.utterance.handle
 
 ```
 
@@ -72,14 +74,16 @@ Source: `ovos_dinkum_listener/voice_loop/voice_loop.py:36` (`ListeningState`) an
 The listener publishes its activity on the OVOS [MessageBus](bus-service.md). The most
 useful events for downstream services:
 
+Canonical (spec) names are shown first, with the legacy name current code still emits in parentheses. The `ovos.listener.*` and `ovos.utterance.handle` names come from [OVOS-AUDIO-IN-1 §5–§6](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md); they become the wire names when the top-level `legacy_namespace: false` config is set.
+
 | Message | Payload | Meaning |
 |---|---|---|
-| `recognizer_loop:record_begin` | none | Command recording started |
-| `recognizer_loop:record_end` | none | Command recording ended |
-| `recognizer_loop:wakeword` | `{"utterance", "lang"}` | Wake word fired |
-| `recognizer_loop:utterance` | `{"utterances": [str], "lang"}` | Transcribed command (the main result) |
+| `ovos.listener.record.started` (legacy: `recognizer_loop:record_begin`) | none | Command recording started (§6.1) |
+| `ovos.listener.record.ended` (legacy: `recognizer_loop:record_end`) | none | Command recording ended (§6.2) |
+| `recognizer_loop:wakeword` | `{"utterance", "lang"}` | Wake word fired (implementation event; not respecified by AUDIO-IN-1 §6) |
+| `ovos.utterance.handle` (legacy: `recognizer_loop:utterance`) | `{"utterances": [str], "lang"}` | Transcribed command — the main result (§5, OVOS-PIPELINE-1 §9.1) |
 | `recognizer_loop:speech.recognition.unknown` | none | STT returned nothing (silence / failure) |
-| `mycroft.awoken` | none | Listener woke from sleep |
+| `ovos.listener.awoken` (legacy: `mycroft.awoken`) | none | Listener woke from sleep (§6.4) |
 
 It also reacts to inbound commands such as `recognizer_loop:sleep`,
 `recognizer_loop:wake_up`, `recognizer_loop:record_stop` and `recognizer_loop:state.get`.

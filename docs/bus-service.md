@@ -3,7 +3,8 @@
 !!! abstract "In a nutshell"
     The Message Bus is the shared channel that lets all the separate parts of OpenVoiceOS talk to one another. Picture a group radio frequency: whatever one part says is heard by everyone tuned in, and each part simply pays attention to the messages meant for it and ignores the rest. There's no traffic controller deciding who gets what — every message goes to everybody. It's how the listener, the brain, the audio, and the screen all stay in sync. See the [Architecture Overview](architecture-overview.md) for how the pieces fit together, or the [Glossary](glossary.md) for unfamiliar terms.
 
-> Specification: the wire format is defined by [OVOS-MSG-1: Bus Message](https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-msg-1.md). This page describes the reference implementation.
+!!! info "📐 Formal specification"
+    The `{type, data, context}` envelope, the `source`/`destination` routing keys, the `forward`/`reply`/`response` derivations, and the session carrier that rides in every message are all normative. See **[OVOS-MSG-1 — Bus Message](https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md)**, **[OVOS-SESSION-1 — Session Carrier](https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md)**, **[OVOS-SESSION-2 — Session Lifecycle](https://github.com/OpenVoiceOS/architecture/blob/dev/session-2.md)**, and **[OVOS-BRIDGE-1 — Bus Bridge & Opaque Relay](https://github.com/OpenVoiceOS/architecture/blob/dev/bridge-1.md)** (how satellites relay messages across a [HiveMind](hivemind-agents.md) mesh), plus the [spec index](architecture-specs.md). This page describes the reference implementation; where it diverges from the spec, the spec wins.
 
 The **Message Bus** is the central nervous system of the OVOS platform. All services communicate by publishing and subscribing to typed `Message` objects through this central WebSocket broker.
 
@@ -206,15 +207,17 @@ See [Bus Session](session.md) for full `Session` and `SessionManager` documentat
 
 The bus itself performs no routing — every client receives every message. However, `context["source"]` and `context["destination"]` allow applications (notably HiveMind) to implement their own routing logic.
 
-The `Message` object provides:
+The `Message` object provides the three derivations defined in [OVOS-MSG-1 §5](https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md) (the spec mandates the resulting message *shape*, not the method names):
 
-- `.reply(msg_type, data)` — swap `source`↔`destination`, preserving context
-
-
-- `.forward(msg_type, data)` — copy context verbatim under a new type
+- `.reply(msg_type, data)` — swap `source`↔`destination`, preserving context (MSG-1 §5.2)
 
 
-- `.response(data)` — shorthand for `reply(self.msg_type + ".response", ...)`
+- `.forward(msg_type, data)` — copy context verbatim under a new type (MSG-1 §5.1)
+
+
+- `.response(data)` — shorthand for `reply(self.msg_type + ".response", ...)` (MSG-1 §5.3)
+
+There is **no** central correlation/in-reply-to mechanism: messages are fully async and self-contained, and an asker that wants to match a `.response` back to its request does so itself, keyed on the `session` (MSG-1 §5.4).
 
 ---
 
@@ -222,12 +225,14 @@ The `Message` object provides:
 
 ### Core / Intent Pipeline
 
+Topic names below are the canonical spec names ([OVOS-PIPELINE-1 §9](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)); the legacy name is shown where current code still emits it (the spec topics are selected by the top-level `legacy_namespace: false` config).
+
 | Message type | Publisher | Consumers |
 |---|---|---|
-| `recognizer_loop:utterance` | `ovos-dinkum-listener` | `ovos-core` |
-| `speak` | `ovos-core` (skills) | `ovos-audio` |
-| `complete_intent_failure` | `ovos-core` | fallback skills |
-| `ovos.utterance.handled` | `ovos-core` | GUI clients |
+| `ovos.utterance.handle` (legacy: `recognizer_loop:utterance`) | `ovos-dinkum-listener` | the orchestrator (`ovos-core`) |
+| `ovos.utterance.speak` (legacy: `speak`) | handler / skill | `ovos-audio` |
+| `ovos.intent.unmatched` (legacy: `complete_intent_failure`) | the orchestrator | fallback handlers |
+| `ovos.utterance.handled` | the orchestrator | GUI clients (universal end-marker, §9.5) |
 
 ### Skill Manager
 
