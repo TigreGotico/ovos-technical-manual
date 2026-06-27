@@ -190,4 +190,4 @@ if: github.event.pull_request.merged == true || github.event_name == 'workflow_d
 
 ## Upcoming
 
-- **NGI codename release schedule** — [PR #36](https://github.com/OpenVoiceOS/gh-automations/pull/36) (`feat/codename-releases`) proposes a codename release schedule. Not yet merged; the flow above reflects current `dev`.
+- **NGI codename release schedule** — a codename release schedule is planned. It is not yet released; the flow above reflects current behaviour.

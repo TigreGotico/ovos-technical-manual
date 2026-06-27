@@ -11,16 +11,16 @@
 
 !!! warning "Upcoming — unreleased"
     This whole page describes the **GUI-rendering rework**, which is **not yet released**.
-    Nothing here is available on a stable install. It is specified by the **OVOS-GUI-1**
-    spec ([OpenVoiceOS/architecture#63](https://github.com/OpenVoiceOS/architecture/pull/63))
-    and implemented across these PRs/branches:
+    Nothing here is available on a stable install. It is specified by the
+    [OVOS-GUI-1](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md) spec
+    and implemented across these components:
 
-    - `ovos-plugin-manager` @ `gui` — `AbstractGUIPlugin`, `opm.gui_adapter` plugin type,
+    - `ovos-plugin-manager` — `AbstractGUIPlugin`, `opm.gui_adapter` plugin type,
       `OVOSGUIAdapterFactory`
-    - [ovos-gui#112](https://github.com/OpenVoiceOS/ovos-gui/pull/112) @ `feat/gui-rework-landing` — the router that dispatches to adapters
+    - `ovos-gui` — the router that dispatches to adapters
     - `ovos-gui-api-client` — the template-based `GUIInterface`
-    - [ovos-legacy-mycroft-gui-plugin#3](https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3) @ `feat/session-id-contract` — the Qt adapter
-    - [pyhtmx-gui-client#1](https://github.com/OpenVoiceOS/pyhtmx-gui-client/pull/1) @ `feat/gui-adapter` — the browser/HTMX adapter
+    - `ovos-legacy-mycroft-gui-plugin` — the Qt adapter
+    - `pyhtmx-gui-client` — the browser/HTMX adapter
 
     The per-call routing argument is **`session_id`**. Per OVOS-GUI-1, this is the sole
     routing key for the Python **adapter contract** — there is no separate site/room/location

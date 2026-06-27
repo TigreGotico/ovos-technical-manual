@@ -44,8 +44,7 @@
     Media catalogs are moving **out of skills and into plugins**: a new **MediaProvider** plugin
     type (`opm.media.provider` / `PluginTypes.MEDIA_PROVIDER`) that the OCP pipeline loads
     **in-process** and calls `search()` on directly, in place of today's
-    [OCP skills](ocp-skills.md). This is **upcoming, not released** — in flight in
-    [ovos-plugin-manager#405](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/405)
+    [OCP skills](ocp-skills.md). This first ships in **`ovos-plugin-manager 2.8.0a1`**
     (Phase 1 of the `ovos-media` migration). OCP skills remain the way to provide media for now.
 
 `ovos-media` is the standalone audio/video daemon for OpenVoiceOS. It is the **upcoming

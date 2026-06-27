@@ -6,11 +6,9 @@
     but they are **slated for deprecation**. The replacement is a dedicated **MediaProvider**
     plugin type (`opm.media.provider`) that the OCP pipeline will load **in-process** and call
     `search()` on directly — instead of broadcasting `ovos.common_play.query` over the bus to
-    skills — moving media catalogs out of skills and into plugins. This is **upcoming, not
-    released**: it is in flight in
-    [ovos-plugin-manager#405](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/405)
-    (Phase 1 of the `ovos-media` migration). Keep using OCP skills for now; this page will track
-    the migration as it lands.
+    skills — moving media catalogs out of skills and into plugins. This first ships in
+    **`ovos-plugin-manager 2.8.0a1`** (Phase 1 of the `ovos-media` migration). Keep using OCP
+    skills for now; this page will track the migration as it lands.
 
 !!! abstract "In a nutshell"
     OCP (OVOS Common Playback) is the part of OVOS that handles playing media, like music, podcasts, or radio. An OCP skill doesn't listen for "play X" itself; instead it acts as a source of media. When someone asks to play something, OVOS asks every OCP skill "can you find this?", each one answers with whatever it can offer and how good a match it thinks it is, and OVOS plays the best result. It's like asking several record shops for an album and going with whoever has the closest match. New terms are explained in the [Glossary](glossary.md).

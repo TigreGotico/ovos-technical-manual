@@ -81,8 +81,7 @@ current. The Qt shell ([ovos-shell](ovos-shell.md)) consumes these messages.
     Per OVOS-GUI-1 §6.9, the home/resting screen is a **render-backend concern, not a skill
     concern** — applications must not register a home or resting screen. The skill-side API
     below (`@resting_screen_handler`, `homescreen_app`, and the `IdleDisplaySkill` base class)
-    is therefore being **removed** from `ovos-workshop` (breaking change, in flight in
-    [ovos-workshop#421](https://github.com/OpenVoiceOS/ovos-workshop/pull/421)). The resting
+    is therefore being **removed** from `ovos-workshop` (a planned breaking change). The resting
     display moves into the [GUI plugin / render backend](gui-adapters.md). This still works on
     current releases; it is documented here for existing skills.
 

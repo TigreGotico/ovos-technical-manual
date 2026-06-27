@@ -28,8 +28,7 @@ lives in `ovos_bus_client.apis.gui.GUIInterface`; the skill wrapper is
 `ovos_workshop.skills.ovos.SkillGUI`, namespaced to your `skill_id`.
 
 !!! warning "Upcoming — unreleased"
-    [OpenVoiceOS/ovos-workshop#420](https://github.com/OpenVoiceOS/ovos-workshop/pull/420)
-    (`feat!: bind OVOSSkill.gui to ovos-gui-api-client`) rebinds `self.gui` to a
+    A planned breaking change rebinds `self.gui` to a
     `GUIInterface` from the standalone **`ovos-gui-api-client`** package (instead of
     `ovos_bus_client.apis.gui`) and drops the `ui_directories` constructor argument, since
     skills under the [GUI rework](gui-service.md) no longer ship QML. This is **not** on a

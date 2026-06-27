@@ -76,7 +76,7 @@ Every function takes an explicit `lang` (a BCP-47 code such as `"en"` or `"pt-br
 
 > 💡 If a language is not implemented for `pronounce_number` or `pronounce_ordinal` then [unicode-rbnf](https://github.com/rhasspy/unicode-rbnf) will be used as a fallback.
 
-> 🚧 **Upcoming:** Asturian (`ast`) support and a shared `RomanceNumberExtractor` base class are proposed in [ovos-number-parser#38](https://github.com/OpenVoiceOS/ovos-number-parser/pull/38).
+> 🚧 **Upcoming:** Asturian (`ast`) support and a shared `RomanceNumberExtractor` base class are planned for a future release.
 
 ## Installation
 

@@ -161,6 +161,5 @@ others miss. Tune `conf_high`/`conf_medium`/`conf_low` to control how aggressive
 is.
 
 !!! warning "Upcoming — unreleased"
-    A hierarchical two-stage prototype variant (domain-then-intent) is proposed in
-    [ovos-m2v-pipeline#36](https://github.com/OpenVoiceOS/ovos-m2v-pipeline/pull/36)
-    and is not yet on `dev`.
+    A hierarchical two-stage prototype variant (domain-then-intent) is in development
+    and not yet released.

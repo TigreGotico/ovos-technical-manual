@@ -283,9 +283,8 @@ A separate, drop-in Rust implementation exists as its own project for deployment
 **In plain terms:** on a stable install, run the default Python (Tornado) server; only reach for the Rust build if profiling shows the bus is a bottleneck.
 
 !!! warning "Upcoming — unreleased"
-    Pluggable high-performance backends are in flight via
-    [OpenVoiceOS/ovos-messagebus#51](https://github.com/OpenVoiceOS/ovos-messagebus/pull/51)
-    (branch `webrockets`). It keeps **Tornado** as the default reference server and adds two
+    Pluggable high-performance backends are in development. The work
+    keeps **Tornado** as the default reference server and adds two
     optional alternatives, benchmarked side by side with `benchmark/run_benchmark.py` at four
     load levels (5 / 20 / 50 / 100 concurrent clients):
 

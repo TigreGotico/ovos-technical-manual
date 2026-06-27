@@ -158,5 +158,5 @@ Avoid Padatious for complex conversational use cases, skills with overlapping in
 **Gotcha — training is asynchronous.** Padatious must train its model before it can match. On a cold start (or after installing a skill), matches will silently fail until training completes. Set `instant_train` to force synchronous training when you need deterministic behavior in tests.
 
 !!! warning "Upcoming — unreleased"
-    A second entry point, `DomainPadatiousPipeline`, which trains a separate model per skill domain to reduce cross-skill collisions, is proposed in [ovos-padatious-pipeline-plugin#69](https://github.com/OpenVoiceOS/ovos-padatious-pipeline-plugin/pull/69) and is not yet on `dev`.
+    A second entry point, `DomainPadatiousPipeline`, which trains a separate model per skill domain to reduce cross-skill collisions, is planned and not yet released.
 

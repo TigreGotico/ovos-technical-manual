@@ -146,7 +146,7 @@ There are **83** archived repositories. They are grouped by area below; each row
 | [ovos-skills-info](https://github.com/OpenVoiceOS/ovos-skills-info) | Skill information parser support skill | Removed — skill metadata folded into ovos-workshop |
 | [ovos-solver-YesNo-plugin](https://github.com/OpenVoiceOS/ovos-solver-YesNo-plugin) | — | [ovos-YesNo-plugin](https://github.com/OpenVoiceOS/ovos-YesNo-plugin) (needs ovos-plugin-manager>=2.4.0) |
 | [quiet.py](https://github.com/OpenVoiceOS/quiet.py) | Python Ctypes Bindings for libquiet | Removed — use [ovos-audio-transformer-plugin-ggwave](https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-ggwave) |
-| [skill-abort-test](https://github.com/OpenVoiceOS/skill-abort-test) | test skill for OpenVoiceOS/ovos_utils/pull/34 | Removed — internal test skill |
+| [skill-abort-test](https://github.com/OpenVoiceOS/skill-abort-test) | internal test skill for an `ovos_utils` change | Removed — internal test skill |
 | [skill-balena-wifi-setup](https://github.com/OpenVoiceOS/skill-balena-wifi-setup) | — | [ovos-PHAL-plugin-network-manager](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-network-manager) |
 | [skill-monkey-patch-tester](https://github.com/OpenVoiceOS/skill-monkey-patch-tester) | test monkey patches | Removed — internal test skill |
 | [skill-monkey-patcher](https://github.com/OpenVoiceOS/skill-monkey-patcher) | apply patches to mycroft-core at runtime | Removed — mycroft-core runtime patcher; no replacement |

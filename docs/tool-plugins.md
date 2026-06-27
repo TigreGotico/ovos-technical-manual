@@ -27,7 +27,7 @@ my-toolbox = "my_package:MyToolBox"
 
 ### Authoring a ToolBox plugin
 
-The full authoring guide with `AgentTool`, `ToolArguments`, and `ToolOutput` examples is embedded in the [Plugin Manager reference](plugin-manager.md) and mirrors the [OPM PR #340 docs](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/340).
+The full authoring guide with `AgentTool`, `ToolArguments`, and `ToolOutput` examples is embedded in the [Plugin Manager reference](plugin-manager.md) and mirrors the tool-plugin documentation introduced in **`ovos-plugin-manager 2.3.0a1`**.
 
 ---
 
