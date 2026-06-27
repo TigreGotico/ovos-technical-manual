@@ -3,6 +3,9 @@
 !!! abstract "In a nutshell"
     An "utterance" is simply the text of what you said, once the assistant has transcribed your speech into words. These plugins get to fix and tidy that text *before* the assistant tries to understand it — for example correcting misheard words, smoothing out the phrasing, or handling more than one language — so it matches your request more reliably. See [Transformer Plugins](transformer-plugins.md) and the [Glossary](glossary.md) for unfamiliar terms.
 
+!!! info "📐 Formal specification"
+    Utterance transformers are the **`utterance` chain** of **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md) §3.2** (a formal [architecture spec](architecture-specs.md)). The spec's post-STT, pre-intent injection point receives the **non-empty list of candidate transcriptions** (`utterances[0]` is the primary candidate, later indices are n-best alternatives), an optional `lang`, and the full `Message.context`; it returns a possibly rewritten list plus mutated `lang`/context. Returning an empty list signals "no plausible transcription"; returning empty **with** `canceled: true` + `cancel_reason` invokes utterance cancellation (§3.2, §8). **Ordering:** the spec runs the chain by **ascending** `priority` (lowest first); the current code runs it descending — the spec order is canonical.
+
 **Utterance Transformers** in OpenVoiceOS (OVOS) are plugins that process and modify user utterances immediately after speech-to-text ([STT](stt-plugins.md)) conversion but before intent recognition. They serve to enhance the accuracy and flexibility of the assistant by correcting errors, normalizing input, and handling multilingual scenarios.
 
 ---

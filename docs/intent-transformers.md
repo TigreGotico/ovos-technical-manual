@@ -3,6 +3,9 @@
 !!! abstract "In a nutshell"
     Once the assistant has figured out *what you want* (your "intent" — for example, "set a timer"), these plugins can add extra detail or tidy up that request before the matching feature actually runs. It's a chance to fill in or pull out the specifics — like spotting names, places, or numbers in what you said — in one shared place instead of repeating that work everywhere. See [Transformer Plugins](transformer-plugins.md) and the [Glossary](glossary.md) for unfamiliar terms.
 
+!!! info "📐 Formal specification"
+    Intent transformers are the **`intent` chain** of **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md) §3.4** (a formal [architecture spec](architecture-specs.md)). The spec's post-match, pre-dispatch injection point receives the `Match` a pipeline plugin produced ([OVOS-INTENT-3](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md) — `skill_id`, `intent_name`, `captures`/slots) and may **enrich `captures`** — it is the canonical home for slot/entity injection. It **MUST NOT** change `Match.skill_id` or `Match.intent_name` (that would re-route the handler); an orchestrator treats such a change as a shape violation and discards it. **Ordering:** the spec runs the chain by **ascending** `priority` — `priority` 1 runs **first**. The current OVOS code sorts **descending** (so `priority` 1 runs *last*, as described below); the spec order is the canonical one.
+
 **Intent Transformers** are a pluggable mechanism in OVOS that allow you to enrich or transform intent data **after** an intent is matched by an engine ([Padatious](padatious-pipeline.md), [Adapt](adapt-pipeline.md), etc.), but **before** it is passed to the skill handler.
 
 This is useful for:
@@ -20,7 +23,7 @@ This is useful for:
 
 Each transformer subclasses `IntentTransformer` (`ovos_plugin_manager.templates.transformers`), registers under the `opm.transformer.intent` entry-point group, and operates on the `IntentHandlerMatch` object returned by the matching pipeline. They are loaded and chained by `IntentTransformersService` in `ovos-core` (`ovos_core/transformers.py`).
 
-Transformers run sorted by `priority`, **highest first** — so a transformer with `priority` 1 runs *last* and gets the final say over `match_data`. This lets you reimplement entity logic once instead of in every skill.
+In the current code transformers run sorted by `priority`, **highest first** — so a transformer with `priority` 1 runs *last* and gets the final say over `match_data`. (OVOS-TRANSFORM-1 §4 specifies the reverse, ascending order; see the callout above — the spec is canonical.) This lets you reimplement entity logic once instead of in every skill.
 
 ---
 

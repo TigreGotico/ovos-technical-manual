@@ -3,6 +3,9 @@
 !!! abstract "In a nutshell"
     Skills keep their words in separate text files rather than buried in the program code. These "resource files" hold things like the phrases the assistant can say, the example sentences it listens for, and the keywords it recognizes — each language gets its own folder. This separation makes a skill easy to translate and tweak without touching the code. This page explains the folder layout and the kinds of files. See also [Statements](statements.md) for spoken replies and the [Glossary](glossary.md).
 
+!!! info "📐 Formal specification"
+    The locale folder layout and the plain-text resource formats are specified by **[OVOS-INTENT-2 — Locale Resource Formats](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md)** (a formal [architecture spec](architecture-specs.md)); the template grammar inside them is **[OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md)**. OVOS-INTENT-2 defines **six canonical roles** by extension: `.intent` and `.dialog` (slot-bearing — they may use `{name}` slots), `.entity`, `.voc`, and `.blacklist` (slot-free — expansion only), and `.prompt` (a whole-file language-model prompt with `{{name}}` substitution, **not** a template). Resources live under `locale/<lang>/` (BCP-47 tags, compared case-insensitively, searched recursively), resolved user → skill → core (§2.1). The `.rx`, `.list`, and `.word` files below are **framework extensions**, not OVOS-INTENT-2 roles — prefer `.entity`/`.voc`/`.blacklist` for portability.
+
 Skills load localized resources from a structured directory layout. Resources are loaded automatically at startup for every language in `native_langs` (`core_lang` + `secondary_langs`).
 
 ## Directory Layout
@@ -33,14 +36,16 @@ Legacy skills may use separate `dialog/`, `vocab/`, `regex/` subdirectories — 
 
 | Extension | Type | Description |
 |---|---|---|
-| `.dialog` | Dialog | Mustache-templated spoken responses (one per line, random selection) |
-| `.intent` | Intent | [Padatious](padatious-pipeline.md) training examples |
-| `.voc` | Vocabulary | [Adapt](adapt-pipeline.md) keyword definitions (one keyword per line, first is canonical) |
-| `.entity` | Entity | Adapt entity examples |
-| `.rx` | Regex | Adapt regex patterns |
-| `.list` | List | A flat list resource |
-| `.word` | Word | A single word |
-| `skill.json` | Metadata | `{"examples": ["...", "..."]}` for homescreen example utterances |
+| `.dialog` | Dialog | Spoken responses, one template per line, random selection (OVOS-INTENT-2 role; slot-bearing) |
+| `.intent` | Intent | [Padatious](padatious-pipeline.md) training examples (OVOS-INTENT-2 role; slot-bearing) |
+| `.voc` | Vocabulary | [Adapt](adapt-pipeline.md) keyword definitions, one per line, first is canonical (OVOS-INTENT-2 role; slot-free) |
+| `.entity` | Entity | Example values for a `{slot}` (OVOS-INTENT-2 role; slot-free) |
+| `.blacklist` | Blacklist | Phrases that suppress a paired `.intent` (OVOS-INTENT-2 role; slot-free) |
+| `.prompt` | Prompt | A whole-file language-model prompt with `{{name}}` substitution (OVOS-INTENT-2 role) |
+| `.rx` | Regex | Adapt regex patterns (**framework extension**, not an OVOS-INTENT-2 role) |
+| `.list` | List | A flat list resource (**framework extension**) |
+| `.word` | Word | A single word (**framework extension**) |
+| `skill.json` | Metadata | `{"examples": ["...", "..."]}` for homescreen example utterances (**framework extension**) |
 
 ## Dialog Files
 
