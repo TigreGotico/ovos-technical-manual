@@ -1841,9 +1841,16 @@
 <p class="admonition-title">In a nutshell</p>
 <p>People ask for the same thing in many different ways: "what's the weather?", "weather in Melbourne", or just "weather" all mean roughly the same. An <em>intent</em> is what the user is actually trying to do, and the part of OVOS that figures it out is the <em>intent parser</em>. This page explains how OVOS recognizes intents and pulls out the useful details (like a place or a date), and describes the two different styles you can use to define them. New terms are explained in the <a href="../glossary/">Glossary</a>.</p>
 </div>
-<blockquote>
-<p>Specification: <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-1.md">OVOS-INTENT-1</a> (Sentence Template Grammar), <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-2.md">OVOS-INTENT-2</a> (Locale Resource Formats), <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-3.md">OVOS-INTENT-3</a> (Intent Definition)</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>Intents are specified across the <strong>intent stack</strong> of the formal <a href="../architecture-specs/">architecture specs</a>:</p>
+<ul>
+<li><strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md">OVOS-INTENT-3 — Intent Definition</a></strong> — what an intent <em>is</em>: a skill-private binding from a natural-language command to <strong>one handler</strong>, defined by exactly one of two methods (<strong>keyword</strong> or <strong>template</strong>), identified by the qualified name <code>skill_id:intent_name</code>, producing a uniform match result (label + slots map).</li>
+<li><strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1 — Sentence Template Grammar</a></strong> — the <code>(a|b)</code> / <code>[optional]</code> / <code>{slot}</code> / <code>&lt;vocab&gt;</code> grammar that template intents and vocabularies are written in.</li>
+<li><strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md">OVOS-INTENT-4 — Intent &amp; Entity Registration</a></strong> — the broadcast, fire-and-forget bus messages (<code>ovos.intent.register.keyword</code> / <code>.template</code>) a skill emits to declare its intents.</li>
+</ul>
+<p>The on-disk file formats (<code>.intent</code>, <code>.voc</code>, <code>.entity</code>) are <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md">OVOS-INTENT-2 — Locale Resource Formats</a></strong>; see <a href="../resource-files/">Resource Files</a>. Where this page's engine-specific syntax diverges from the portable grammar, it is flagged inline and the spec is canonical.</p>
+</div>
 <p>A user can accomplish the same task by expressing their intent in multiple ways. The role of the intent parser is to
 extract from the user's speech key data elements that specify their intent in more detail. This data can then be passed
 to other services, such as Skills to help the user accomplish their intended task.</p>
@@ -1873,7 +1880,7 @@ intent parser is to determine what this intent is.</p>
   to give Julie yesterday's weather, particularly as Melbourne is renowned for having changeable weather.</p>
 </li>
 </ul>
-<p>OVOS provides two kinds of intent, each with its own strengths. The <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-3.md">OVOS-INTENT-3</a> specification calls them <strong>template intents</strong> and <strong>keyword intents</strong>; the two are not interoperable — an intent is defined by exactly one of the two methods.</p>
+<p>OVOS provides two kinds of intent, each with its own strengths. The <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md">OVOS-INTENT-3</a> specification calls them <strong>template intents</strong> and <strong>keyword intents</strong>; the two are not interoperable — an intent is defined by exactly one of the two methods.</p>
 <p><strong>Template intents</strong> (example based) are matched against whole phrases. These are generally more accurate, but require you to include sample phrases covering the breadth of ways a user might ask. They live in <code>.intent</code> files.</p>
 <p><strong>Keyword intents</strong> (rule based) look for specific required keywords. They are more flexible, but being rule based they can produce false matches; a badly designed keyword intent can throw the parser off. Their main advantage is tight integration with <a href="../context/">conversational context</a> for continuous dialogs. They are built from <code>.voc</code> files.</p>
 <p>The intent engines are loaded as pipeline plugins. The two default engines are:</p>
@@ -1921,7 +1928,7 @@ intent parser is to determine what this intent is.</p>
 <p>We strongly recommend you avoid using regex, it is very hard to make portable across languages, hard to translate and the reported confidence of the intents is not great.</p>
 <p>We suggest using template intents (<code>.intent</code> files) instead if you find yourself needing regex.</p>
 <blockquote>
-<p>Regex (<code>.rx</code>) is <strong>not</strong> a resource role in the <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-2.md">OVOS-INTENT-2</a> specification — it is an Adapt-specific extension. Prefer <code>.entity</code> slot constraints or template intents for portability.</p>
+<p>Regex (<code>.rx</code>) is <strong>not</strong> a resource role in the <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md">OVOS-INTENT-2</a> specification — it is an Adapt-specific extension. Prefer <code>.entity</code> slot constraints or template intents for portability.</p>
 </blockquote>
 <p>These files live in the Skill's <code>locale/&lt;lang&gt;/</code> directory. They can have one or more lines providing different ways an entity may be referenced. OVOS executes these lines in the order they appear and returns the first result as an entity to the Intent Handler.</p>
 <p>Let's consider a <code>type.rx</code> file to extract the type of potato we are interested in. Within this file we might include:</p>
@@ -2127,7 +2134,7 @@ intent parser is to determine what this intent is.</p>
 <p>Now, we can say things like "do you like greenish tomatoes?" and it will tag type as: <code>"greenish"</code>. However, if we say "do you like eating tomatoes?" - the phrase will not match as <code>"eating"</code> is not included in our <code>type.entity</code> file.</p>
 <h4 id="number-matching">Number matching<a class="headerlink" href="#number-matching" title="Permanent link">&para;</a></h4>
 <blockquote>
-<p><strong>Engine-specific:</strong> the <code>#</code> digit token and the <code>:0</code> unknown-token shown below are <strong>Padatious extensions</strong>. They are <strong>not</strong> part of the <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-1.md">OVOS-INTENT-1</a> Sentence Template Grammar (which has no digit token and no wildcard), so they are not portable to other intent engines. Use them only when you know your skill targets Padatious.</p>
+<p><strong>Engine-specific:</strong> the <code>#</code> digit token and the <code>:0</code> unknown-token shown below are <strong>Padatious extensions</strong>. They are <strong>not</strong> part of the <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1</a> Sentence Template Grammar (which has no digit token and no wildcard), so they are not portable to other intent engines. Use them only when you know your skill targets Padatious.</p>
 </blockquote>
 <p>Let's say you are writing an Intent to call a phone number. You can make it only match specific formats of numbers by writing out possible arrangements using <code>#</code> where a number would go. For example, with the following intent:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Call {number}.
@@ -2181,7 +2188,7 @@ intent parser is to determine what this intent is.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>(Order | Grab) some {food} (from {place} | )
 </span></code></pre></div>
 <blockquote>
-<p>The empty-branch trick <code>(from {place} | )</code> makes a segment optional. The portable <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-1.md">OVOS-INTENT-1</a> equivalent is the square-bracket optional <code>[from {place}]</code> — <code>[x]</code> is defined as exactly equivalent to <code>(x|)</code>. Prefer the bracket form when you want spec-conformant templates.</p>
+<p>The empty-branch trick <code>(from {place} | )</code> makes a segment optional. The portable <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1</a> equivalent is the square-bracket optional <code>[from {place}]</code> — <code>[x]</code> is defined as exactly equivalent to <code>(x|)</code>. Prefer the bracket form when you want spec-conformant templates.</p>
 </blockquote>
 <p>Nested parentheses are supported to create even more complex combinations, such as the following:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>(Look (at | for) | Find) {object}.

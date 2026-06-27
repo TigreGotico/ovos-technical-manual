@@ -1697,7 +1697,42 @@
 <p class="admonition-title">In a nutshell</p>
 <p>Normally each thing you say to the assistant is handled on its own. The Converse pipeline lets a skill stay "in the conversation" for a few turns, so it can ask a follow-up and understand your reply in context — much like a person who remembers what you were just talking about. For example, after a skill asks "which room?", it can keep listening so your answer "the kitchen" lands in the right place. See the <a href="../glossary/">Glossary</a> for terms, or <a href="../fallbacks/">Fallbacks</a> for what happens when nothing is actively listening.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>The converse plugin is specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/converse.md">OVOS-CONVERSE-1 — Active Handlers &amp; Interactive Response</a></strong>, built on <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a></strong>. It is the <em>imperative</em> complement to <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md">OVOS-CONTEXT-1 — Intent Context</a></strong> (the declarative gating primitive, see <a href="../context/">Follow up questions</a>). See the <a href="../architecture-specs/">spec index</a>.</p>
+</div>
 <p>The <strong>Converse Pipeline</strong> in <strong>OpenVoiceOS (OVOS)</strong> manages active conversational contexts between the assistant and skills. It allows skills to keep handling user input across multiple turns, enabling more natural, stateful conversations.</p>
+<div class="admonition note">
+<p class="admonition-title">Spec model vs. current code names</p>
+<p>OVOS-CONVERSE-1 frames converse as an <strong>ordinary pipeline plugin</strong>: it is <em>not</em> a special case in the orchestrator. During <code>match</code> it inspects two session fields and returns a <code>Match</code> on a <strong>reserved <code>intent_name</code></strong> (PIPELINE-1 §7.3) which the orchestrator then dispatches like any other intent — <code>&lt;skill_id&gt;:converse</code> for a converse claim, <code>&lt;skill_id&gt;:response</code> for delivery of a solicited reply. Because converse depends on session state ("is a skill still active?", "is someone awaiting a reply?"), it only works when placed <strong>before</strong> the intent engines in <code>session.pipeline</code>, where first-match-wins lets it intercept. Two name mappings between spec and current code:</p>
+<table>
+<thead>
+<tr>
+<th>OVOS-CONVERSE-1 (canonical)</th>
+<th>Current <code>ovos-core</code> code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>session.converse_handlers</code> — the recency-ordered eligibility list the plugin polls</td>
+<td><code>Session.active_skills</code></td>
+</tr>
+<tr>
+<td><code>session.response_mode</code> <code>{skill_id, expires_at}</code> — the single-shot response window for <code>get_response</code></td>
+<td>per-session <code>UtteranceState.RESPONSE</code> lock</td>
+</tr>
+<tr>
+<td>poll round-trip <code>&lt;skill_id&gt;.converse.ping</code> / <code>.pong</code> (non-dispatch, dotted form)</td>
+<td><code>{skill_id}.converse.ping</code> / <code>skill.converse.pong</code>, dispatch via <code>converse:skill</code> → <code>{skill_id}.converse.request</code></td>
+</tr>
+<tr>
+<td>reserved-name dispatch <code>&lt;skill_id&gt;:converse</code> / <code>&lt;skill_id&gt;:response</code></td>
+<td><code>converse:skill</code> handler</td>
+</tr>
+</tbody>
+</table>
+<p>The mechanics below describe the current code; the spec names are the target. Note the two lists are distinct in the spec: <code>converse_handlers</code> (converse eligibility) is drained independently of <code>active_handlers</code> (the stop cascade's recency record, PIPELINE-1 §7.1).</p>
+</div>
 <hr />
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>The <strong>Converse pipeline</strong> enables <strong>multi-turn conversations</strong> by prioritizing which skills are given the opportunity to handle an utterance through their <code>converse()</code> method before normal intent parsing occurs.</p>

@@ -1511,6 +1511,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p>This is another tool that figures out which skill should handle what you said. Instead of matching exact keywords or memorized examples, it compares the <em>meaning</em> of your words to the commands it knows — so it can still understand you when you phrase things differently than expected. Think of it as recognizing that "turn the music down" and "lower the volume" are asking for the same thing. It is meant to work alongside the keyword-based <a href="../adapt-pipeline/">Adapt</a> and example-based <a href="../padatious-pipeline/">Padatious</a> tools, not replace them. See the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>Model2Vec is a <strong>pipeline plugin</strong> under <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 — Utterance Lifecycle &amp; Pipeline</a></strong>. It serves the same <strong>template-intent</strong> role as Padatious in <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md">OVOS-INTENT-3 — Intent Definition §5</a></strong> — a classifier paired with a slot extractor (INTENT-3 §6.2) — only the matching strategy (static embeddings) differs; INTENT-3 §8 leaves that strategy unconstrained. Skill resources are written in the <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1 grammar</a></strong>. See the <a href="../architecture-specs/">spec index</a>.</p>
+</div>
 <p>The <strong>Model2Vec Intent Pipeline</strong> matches utterances to skill intents using
 <a href="https://github.com/MinishLab/model2vec">Model2Vec</a> static embeddings instead of
 deterministic parsers. Where Adapt looks for keywords and Padatious learns from

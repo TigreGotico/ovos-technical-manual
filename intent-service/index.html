@@ -621,6 +621,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../architecture-specs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formal Specifications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../life-of-an-utterance/" class="md-nav__link">
         
   
@@ -741,10 +762,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -755,8 +776,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_7">
             <span class="md-nav__icon md-icon"></span>
             Core Services
           </label>
@@ -1486,9 +1507,10 @@
 <p>The Intent Service is the part of OpenVoiceOS that figures out what you actually meant. Once the <a href="../speech-service/">Speech Service</a> has turned your words into text, this service reads that text and decides which skill should handle it — much like a receptionist hearing your request and directing you to the right desk. It tries a series of matchers in order and stops at the first one confident enough to respond. New to the terms? See the <a href="../glossary/">Glossary</a>.</p>
 </div>
 <p><strong>Module:</strong> <code>ovos_core.intent_services.service.IntentService</code> — <a href="https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py"><code>ovos_core/intent_services/service.py</code></a></p>
-<blockquote>
-<p>Specification: intent/entity registration follows <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-intent-4.md">OVOS-INTENT-4: Intent and Entity Registration Bus Contract</a>; pipeline ordering follows <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-pipeline-1.md">OVOS-PIPELINE-1</a>.</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>The utterance lifecycle, the <code>match(utterances, lang, session) → Match</code> contract, <strong>first-match-wins</strong> ordering, and the dispatch/handler-lifecycle events are specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 — Utterance Lifecycle &amp; Pipeline</a></strong>; what an intent <em>is</em> (keyword vs template) and the match-result shape by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md">OVOS-INTENT-3 — Intent Definition</a></strong>; and how skills declare intents/entities on the bus by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md">OVOS-INTENT-4 — Intent &amp; Entity Registration</a></strong>. See also the <a href="../architecture-specs/">spec index</a>. <code>IntentService</code> is the reference <strong>orchestrator</strong> of this lifecycle; the spec topic names below are canonical.</p>
+</div>
 <p><code>IntentService</code> is the component of <code>ovos-core</code> responsible for routing user utterances through the configured <strong>Intent Pipeline</strong> until a match is found.</p>
 <p><strong>In plain terms:</strong> this is the part that takes the words you said and figures out <em>which</em> skill should answer. It runs each matcher in your pipeline in order (e.g. stop, converse, padatious, adapt, …) and stops at the first one confident enough to handle the request.</p>
 <hr />
@@ -1507,20 +1529,21 @@
 </ul>
 </details>
 <h2 id="utterance-handling-flow">Utterance Handling Flow<a class="headerlink" href="#utterance-handling-flow" title="Permanent link">&para;</a></h2>
-<p>When a <code>recognizer_loop:utterance</code> message arrives on the bus:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>recognizer_loop:utterance
+<p>When an <code>ovos.utterance.handle</code> message (legacy: <code>recognizer_loop:utterance</code>) arrives on the bus — the lifecycle entry point of <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §9.1</a>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ovos.utterance.handle  (legacy: recognizer_loop:utterance)   §9.1
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  │
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  ├── UtteranceTransformersService.transform()   # may rewrite utterance text
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  ├── MetadataTransformersService.transform()    # may enrich context
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  ├── UtteranceTransformersService.transform()   # utterance-transformer chain   TRANSFORM-1 §3.2
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  ├── MetadataTransformersService.transform()    # metadata-transformer chain    TRANSFORM-1 §3.3
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  ├── disambiguate_lang()                        # pick the best language
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  ├── _validate_session()                        # get/create Session
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  └── for each pipeline stage (in order):
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        match_func(utterances, lang, message)
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>          ├── match found → _emit_match_message() → skill intent handler
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>          └── no match   → next stage
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>              (all stages fail) → send_complete_intent_failure()
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  └── for each pipeline plugin (in order, first-match-wins):    §6.2
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        match(utterances, lang, session) → Match | None         §4
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>          ├── match found → ovos.intent.matched (§9.2) → dispatch → handler trio (§8)
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>          └── no match   → next plugin
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>              (no plugin matched) → ovos.intent.unmatched (§9.3, legacy: complete_intent_failure)
 </span></code></pre></div>
+<p>Every lifecycle terminates with exactly one <code>ovos.utterance.handled</code> (§9.5), the universal end-marker, whether or not anything matched.</p>
 <h2 id="language-disambiguation">Language Disambiguation<a class="headerlink" href="#language-disambiguation" title="Permanent link">&para;</a></h2>
 <p>The language for an utterance is chosen based on a priority list from message context keys:</p>
 <ol>
@@ -1554,22 +1577,22 @@
 </li>
 </ul>
 <h2 id="intent-match-emission">Intent Match Emission<a class="headerlink" href="#intent-match-emission" title="Permanent link">&para;</a></h2>
-<p>When a pipeline stage returns a match:</p>
+<p>When a pipeline plugin returns a match:</p>
 <ol>
 <li>
-<p><code>IntentTransformersService.transform(match)</code> — post-process the match.</p>
+<p><code>IntentTransformersService.transform(match)</code> — the <strong>intent-transformer chain</strong> post-processes the match (OVOS-TRANSFORM-1 §3.4).</p>
 </li>
 <li>
-<p>Build a reply message with <code>match.match_type</code> as the message type.</p>
+<p>Emit <code>ovos.intent.matched</code> (§9.2) — a notification that a plugin claimed the utterance.</p>
 </li>
 <li>
-<p>Activate the skill in the session (<code>sess.activate_skill(skill_id)</code>).</p>
+<p>Build the dispatch message with <code>match.match_type</code> as the message type.</p>
 </li>
 <li>
-<p>Emit <code>{skill_id}.activate</code> for the skill's callback.</p>
+<p>Activate the skill in the session (<code>sess.activate_skill(skill_id)</code>) and emit <code>{skill_id}.activate</code> for the skill's callback.</p>
 </li>
 <li>
-<p>Emit the reply — the skill's intent handler receives it.</p>
+<p>Wrap the dispatch in the <strong>handler-lifecycle trio</strong> — the orchestrator (not the skill) emits <code>ovos.intent.handler.start</code>, then exactly one of <code>ovos.intent.handler.complete</code> / <code>ovos.intent.handler.error</code> (§8, legacy: <code>mycroft.skill.handler.*</code>). The skill's intent handler runs between them.</p>
 </li>
 </ol>
 <h2 id="intent-query-api">Intent Query API<a class="headerlink" href="#intent-query-api" title="Permanent link">&para;</a></h2>
@@ -1587,7 +1610,7 @@
 </thead>
 <tbody>
 <tr>
-<td><code>recognizer_loop:utterance</code></td>
+<td><code>ovos.utterance.handle</code> (legacy: <code>recognizer_loop:utterance</code>)</td>
 <td><code>handle_utterance</code></td>
 </tr>
 <tr>
@@ -1602,20 +1625,12 @@
 <td><code>clear_context</code></td>
 <td><code>handle_clear_context</code></td>
 </tr>
-<tr>
-<td><code>intent.service.intent.get</code></td>
-<td><code>handle_get_intent</code></td>
-</tr>
-<tr>
-<td><code>intent.service.skills.deactivate</code></td>
-<td><code>_handle_deactivate</code></td>
-</tr>
-<tr>
-<td><code>intent.service.pipelines.reload</code></td>
-<td><code>handle_reload_pipelines</code></td>
-</tr>
 </tbody>
 </table>
+<p>The <code>*_context</code> events mutate the per-session intent context (<code>session.intent_context</code>) specified by <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md">OVOS-CONTEXT-1</a> — see <a href="../session/">Session Aware Skills</a>.
+| <code>intent.service.intent.get</code> | <code>handle_get_intent</code> |
+| <code>intent.service.skills.deactivate</code> | <code>_handle_deactivate</code> |
+| <code>intent.service.pipelines.reload</code> | <code>handle_reload_pipelines</code> |</p>
 
 
 

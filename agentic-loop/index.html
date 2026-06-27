@@ -1405,6 +1405,17 @@
 <p class="admonition-title">In a nutshell</p>
 <p>Normally an AI answers in one shot. An "agentic loop" lets it work more like a person solving a problem: think a little, take an action (such as looking something up), see the result, then think again — repeating until it has a good answer. This page describes several ready-made styles of that step-by-step reasoning, each suited to different kinds of tasks. The "tools" it can reach for are described in <a href="../tool-plugins/">Tool Plugins</a>; see the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>These loops run <em>inside</em> a <strong>persona</strong>, and a persona is a formal pipeline
+role:
+<strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/persona.md">OVOS-PERSONA-1 — Persona Pipeline Plugin</a></strong>
+defines a persona as a <strong>complete conversational agent</strong>, summonable as a
+first-class pipeline stage. When the active persona (selected by
+<code>session.persona_id</code>) is reached, it claims the utterance and generates the
+response — exactly the slot the agentic brains on this page fill. For the
+full set see the <strong><a href="../architecture-specs/">spec index</a></strong>.</p>
+</div>
 <p><a href="https://github.com/OpenVoiceOS/ovos-agentic-loop">ovos-agentic-loop</a> implements eight agentic reasoning patterns as standard OPM <code>ChatEngine</code> plugins. Each pattern wires a configurable inner LLM brain with one or more <code>ToolBox</code> plugins to produce multi-step reasoning over OVOS personas.</p>
 <hr />
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>

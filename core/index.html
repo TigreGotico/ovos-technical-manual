@@ -621,6 +621,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../architecture-specs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formal Specifications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../life-of-an-utterance/" class="md-nav__link">
         
   
@@ -741,10 +762,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -755,8 +776,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_7">
             <span class="md-nav__icon md-icon"></span>
             Core Services
           </label>
@@ -1551,6 +1572,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p><code>ovos-core</code> is the "brain" of your assistant. It does not listen through the microphone or talk through the speaker — those are separate helpers — but it is the part in the middle that loads your skills, takes the words you said, decides which skill should answer, and hands back the reply. Think of it as the dispatcher in a control room: it does not do the talking or listening itself, it just routes each request to the right place. Everything it does travels over the <a href="../bus-service/">MessageBus</a>; see also the <a href="../glossary/">Glossary</a>.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p><code>ovos-core</code> is the reference <strong>orchestrator</strong> — the logical role that runs the pipeline, routes matches to handlers, and emits the handler-lifecycle events. That role is specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 — Utterance Lifecycle &amp; Pipeline</a></strong>; the transformer chains it hosts by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a></strong>; and the intent/entity registration it ingests by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md">OVOS-INTENT-4 — Intent &amp; Entity Registration</a></strong>. See also the <a href="../architecture-specs/">spec index</a>. The specs are implementation-agnostic: any conformant orchestrator can replace <code>ovos-core</code> and run the same skills.</p>
+</div>
 <p><code>ovos-core</code> is the central intelligence of OpenVoiceOS. It acts as the orchestrator, managing the lifecycle of skills, coordinating the intent pipeline, and ensuring smooth communication between all parts of the system.</p>
 <p><strong>In plain terms:</strong> <code>ovos-core</code> is the "brain" service. It does not capture audio or speak — those are separate services. Its job is to load your skills, take the transcribed text off the bus, decide which skill handles it, and hand off the reply. Everything it does flows over the <a href="../bus-service/">MessageBus</a>.</p>
 <h2 id="role-in-the-system">Role in the System<a class="headerlink" href="#role-in-the-system" title="Permanent link">&para;</a></h2>
@@ -1583,10 +1608,11 @@
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>      │     ├── [Skill Installer](skill-installer.md) – runtime pip install/uninstall
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>      │     └── Event Scheduler – timed bus events
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>      │
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>      ├── ovos-dinkum-listener  – STT / wake-word → recognizer_loop:utterance
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>      ├── ovos-audio            – TTS playback
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>      ├── ovos-gui              – GUI layer
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>      └── ovos-phal             – hardware/platform plugins
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>      ├── ovos-dinkum-listener  – STT / wake-word → ovos.utterance.handle
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>      │                            (legacy: recognizer_loop:utterance)
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>      ├── ovos-audio            – TTS playback
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>      ├── ovos-gui              – GUI layer
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>      └── ovos-phal             – hardware/platform plugins
 </span></code></pre></div>
 <h2 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h2>
 <p>For a deeper dive into each subsystem, refer to the following pages:</p>
@@ -1595,7 +1621,7 @@
 <h3 id="intent-service">Intent Service<a class="headerlink" href="#intent-service" title="Permanent link">&para;</a></h3>
 <p>Discover how utterances are processed and matched to skills. This section covers the utterance handling flow, language disambiguation, and the query API.</p>
 <h3 id="intent-pipeline">Intent Pipeline<a class="headerlink" href="#intent-pipeline" title="Permanent link">&para;</a></h3>
-<p>The pipeline is the sequence of matchers that OVOS uses to understand what the user wants. You can learn about specific matchers like <a href="../adapt-pipeline/">Adapt</a>, <a href="../padatious-pipeline/">Padatious</a>, and the <a href="../cq-pipeline/">Common Query</a> framework.</p>
+<p>The pipeline is the ordered sequence of <strong>pipeline plugins</strong> OVOS uses to understand what the user wants. Each plugin exposes a single <code>match(utterances, lang, session) → Match | None</code> contract and they are tried in order, <strong>first-match-wins</strong> — there is no cross-plugin confidence scoring (OVOS-PIPELINE-1 §4, §6.2). You can learn about specific matchers like <a href="../adapt-pipeline/">Adapt</a>, <a href="../padatious-pipeline/">Padatious</a>, and the <a href="../cq-pipeline/">Common Query</a> framework.</p>
 <h3 id="transformer-plugins">Transformer Plugins<a class="headerlink" href="#transformer-plugins" title="Permanent link">&para;</a></h3>
 <p>Transformers allow you to modify utterances, metadata, or intent matches as they move through the system.</p>
 <h3 id="skill-installer">Skill Installer<a class="headerlink" href="#skill-installer" title="Permanent link">&para;</a></h3>

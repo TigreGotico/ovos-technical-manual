@@ -1631,11 +1631,42 @@
 <p class="admonition-title">In a nutshell</p>
 <p>This is the part of OVOS that listens for "stop", "cancel", or the same word in your language and makes the assistant quit whatever it is doing — interrupting a spoken reply, ending a question, or halting a task a skill started. Because being able to stop is so essential to a voice assistant, OVOS treats it as a built-in, always-on feature rather than an optional add-on, and it works in any language that ships the right word list. For the wider system this fits into, see the <a href="../fallback-pipeline/">Fallback Pipeline</a> or the <a href="../glossary/">Glossary</a>.</p>
 </div>
-<blockquote>
-<p>Specification: <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-stop-1.md">OVOS-STOP-1: Stop Pipeline Plugin</a>.</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>The stop plugin is specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/stop-1.md">OVOS-STOP-1 — Stop Pipeline Plugin</a></strong>, built on <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a></strong>. See the <a href="../architecture-specs/">spec index</a>.</p>
+</div>
 <p>The <strong>stop pipeline</strong> is a core component of the Open Voice OS (OVOS) pipeline architecture. It defines the logic responsible for stopping ongoing interactions with active skills. This includes aborting responses, halting speech, and terminating background tasks that skills may be performing. </p>
-<p>Because stopping is a <strong>fundamental feature of a voice assistant</strong>, it is implemented as a <strong>dedicated pipeline plugin</strong>, not just a fallback or intent handler.</p>
+<p>Because stopping is a <strong>fundamental feature of a voice assistant</strong>, it is implemented as a <strong>dedicated pipeline plugin</strong>, not just a fallback or intent handler. STOP-1 is emphatic that stop is a <strong>pipeline plugin and not a skill</strong> — <code>skill-ovos-stop</code> is superseded. Stop only works because PIPELINE-1's first-match-wins lets a high-confidence stop stage placed <em>first</em> in <code>session.pipeline</code> (STOP-1 §7) intercept "stop" before any intent engine claims the bare word.</p>
+<div class="admonition note">
+<p class="admonition-title">Spec model and topic names</p>
+<p>STOP-1 distinguishes two outcomes, both via reserved <code>intent_name</code>s. A generic <strong>stop</strong> cascades to the <em>most recently active</em> handler: the plugin reads <code>session.active_handlers</code> (the recency record, PIPELINE-1 §7.1), pings them with <code>ovos.stop.ping</code>, collects <code>ovos.stop.pong</code> (<code>can_handle</code>), and returns a <code>Match</code> on the reserved <code>stop</code> name targeting the highest-<code>activated_at</code> positive responder — dispatched on <code>&lt;skill_id&gt;:stop</code>. When nothing is stoppable (or the user said "stop everything"), it returns a <strong><code>global_stop</code></strong> Match whose handler broadcasts <code>ovos.stop</code>, which every active component subscribes to. Name mappings between spec and current code:</p>
+<table>
+<thead>
+<tr>
+<th>OVOS-STOP-1 (canonical)</th>
+<th>Current <code>ovos-core</code> code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ovos.stop.ping</code> / <code>ovos.stop.pong</code></td>
+<td><code>{skill_id}.stop.ping</code> / <code>skill.stop.pong</code></td>
+</tr>
+<tr>
+<td><code>&lt;skill_id&gt;:stop</code> — targeted-stop dispatch (reserved name)</td>
+<td><code>stop:skill</code> → <code>{skill_id}.stop</code></td>
+</tr>
+<tr>
+<td><code>ovos.stop</code> — global-stop broadcast</td>
+<td><code>mycroft.stop</code></td>
+</tr>
+<tr>
+<td><code>session.active_handlers</code> — recency input to the cascade</td>
+<td><code>Session.active_skills</code></td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr />
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_core.intent_services.stop_service.StopService</code>

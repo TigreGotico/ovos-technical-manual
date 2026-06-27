@@ -1620,6 +1620,10 @@ devices, where the <a href="../ovos-installer/"><code>ovos-installer</code></a> 
 until the replacement lands. This page documents the legacy API for reference and Mark 2
 maintenance — voice should remain the primary interface.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>The <strong>forward</strong> model a skill targets is <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md">OVOS-GUI-1 — GUI Display Subsystem</a></strong> (a formal <a href="../architecture-specs/">architecture spec</a>). Under it, <code>self.gui</code> declares display intent by naming a template from the <strong>closed <code>SYSTEM_*</code> vocabulary</strong> (<code>SYSTEM_text</code>, <code>SYSTEM_image</code>, <code>SYSTEM_list</code>, <code>SYSTEM_weather</code>, <code>SYSTEM_confirm</code>, …) and pushing flat session-data; interchangeable <strong>render backends</strong> draw it, routed by <code>session_id</code>. Two rules matter for skill authors: a skill <strong>MUST NOT</strong> invent template names or ship its own home/resting screen (the resting display is owned entirely by the backend, §6.9), and image keys carry an <code>http(s)</code> URL or <code>data:</code> URI — <strong>never a local filesystem path</strong>. The <code>show_*</code> helpers below map onto these templates; the custom-<code>.qml</code> path is legacy and unsupported under OVOS-GUI-1. Where this page and the spec differ, the spec is the canonical target.</p>
+</div>
 <p>Many OVOS devices have a screen. A skill can drive that screen the same way it
 speaks: through a small Python API. You set some values, ask for a page to be
 shown, and any connected GUI client (Qt shell, web, terminal, ...) renders it.</p>

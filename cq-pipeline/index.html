@@ -1493,6 +1493,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p>When you ask a general-knowledge question like "who wrote Hamlet?", the Common Query pipeline asks <em>all</em> your installed knowledge skills (Wikipedia, Wolfram Alpha, and so on) the same question at once, gathers their answers, and reads back the best one. Think of it as a quiz host who puts the question to every contestant and then announces the strongest reply. It never makes up answers itself — every answer comes from a skill, so if you have no knowledge skills installed it simply stays quiet. See the <a href="../pipelines-overview/">Intent Pipeline overview</a> or the <a href="../glossary/">Glossary</a>.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>Common Query is specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/common-query.md">OVOS-COMMON-QUERY-1 — Common Query Pipeline Plugin</a></strong>, built on <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a></strong>. See the <a href="../architecture-specs/">spec index</a>.</p>
+</div>
 <p>The <strong>Common Query Pipeline Plugin</strong> answers general-knowledge questions. When an
 utterance looks like a question ("Who wrote Hamlet?", "How tall is Everest?"), it
 broadcasts the question to every installed <strong>CommonQuery skill</strong>, collects their
@@ -1523,6 +1527,36 @@ win first:</p>
 <p>Now install one or more CommonQuery skills (e.g. Wikipedia, Wolfram Alpha) and ask
 a question.</p>
 <hr />
+<div class="admonition note">
+<p class="admonition-title">Why it never blocks fallback (and spec topic names)</p>
+<p>Common Query is a <strong>scatter-gather contest</strong> that runs <em>entirely inside <code>match</code></em> (COMMON-QUERY-1 §2): it polls skills, collects full answers, ranks them, and only returns a <code>Match</code> if one clears the confidence threshold — otherwise it returns <code>None</code> and the orchestrator continues to fallback. The answer <em>is</em> the claim decision, so this is the spec's documented exception to PIPELINE-1 §4.4's "return fast" rule (§2.1). On a win it returns a <strong>self-addressed</strong> Match on the reserved <code>intent_name</code> <code>common_query</code> (PIPELINE-1 §7.3), dispatched on <code>&lt;pipeline_id&gt;:common_query</code>, and its own trivial handler speaks the selected answer. The spec topic names differ from the current code:</p>
+<table>
+<thead>
+<tr>
+<th>OVOS-COMMON-QUERY-1 (canonical)</th>
+<th>Current code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ovos.common_query.ping</code> / <code>.pong</code> — wants-to-answer poll</td>
+<td>discovery handshake (same names)</td>
+</tr>
+<tr>
+<td><code>&lt;skill_id&gt;:common_query</code> — full-answer request to a claiming skill</td>
+<td><code>question:query</code> broadcast</td>
+</tr>
+<tr>
+<td><code>&lt;skill_id&gt;.common_query.response</code> — a skill's answer + <code>conf</code></td>
+<td><code>question:query.response</code></td>
+</tr>
+<tr>
+<td><code>&lt;pipeline_id&gt;:common_query</code> — reserved-name handler dispatch</td>
+<td><code>question:action.&lt;skill_id&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <p>The matcher class is <code>CommonQAService</code> (a <code>PipelinePlugin</code>, so it exposes a single
 <code>match()</code> — hence the one <code>ovos-common-query-pipeline-plugin</code> ID, not high/medium/low tiers).</p>

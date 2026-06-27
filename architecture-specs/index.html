@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/architecture-overview/">
+        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/architecture-specs/">
       
       
-        <link rel="prev" href="../raspovos-troubleshooting/">
+        <link rel="prev" href="../architecture-overview/">
       
       
-        <link rel="next" href="../architecture-specs/">
+        <link rel="next" href="../life-of-an-utterance/">
       
       
       <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
@@ -22,7 +22,7 @@
     
     
       
-        <title>High-level Overview - OpenVoiceOS Technical Manual</title>
+        <title>Formal Specifications - OpenVoiceOS Technical Manual</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#architecture-overview" class="md-skip">
+        <a href="#formal-specifications" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              High-level Overview
+              Formal Specifications
             
           </span>
         </div>
@@ -259,7 +259,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+        <a href="../architecture-overview/" class="md-tabs__link">
           
   
   Core Architecture
@@ -597,6 +597,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    High-level Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -613,7 +634,7 @@
           
   
   <span class="md-ellipsis">
-    High-level Overview
+    Formal Specifications
   </span>
   
 
@@ -624,7 +645,7 @@
         
   
   <span class="md-ellipsis">
-    High-level Overview
+    Formal Specifications
   </span>
   
 
@@ -646,82 +667,64 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#high-level-flow" class="md-nav__link">
+  <a href="#the-voice-operating-system-model" class="md-nav__link">
     <span class="md-ellipsis">
-      High-Level Flow
+      The voice operating system model
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#component-map" class="md-nav__link">
+  <a href="#the-specifications" class="md-nav__link">
     <span class="md-ellipsis">
-      Component Map
+      The specifications
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#key-services" class="md-nav__link">
-    <span class="md-ellipsis">
-      Key Services
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Key Services">
+    <nav class="md-nav" aria-label="The specifications">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#messagebus" class="md-nav__link">
+  <a href="#intent-stack-what-a-skill-defines" class="md-nav__link">
     <span class="md-ellipsis">
-      MessageBus
+      Intent stack — what a skill defines
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#ovos-core" class="md-nav__link">
+  <a href="#bus-stack-how-components-talk" class="md-nav__link">
     <span class="md-ellipsis">
-      ovos-core
+      Bus stack — how components talk
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#speech-service" class="md-nav__link">
+  <a href="#orchestrator-stack-what-processes-utterances" class="md-nav__link">
     <span class="md-ellipsis">
-      Speech Service
+      Orchestrator stack — what processes utterances
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#audio-service" class="md-nav__link">
+  <a href="#io-stack-input-and-output-surfaces" class="md-nav__link">
     <span class="md-ellipsis">
-      Audio Service
+      I/O stack — input and output surfaces
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#gui-service" class="md-nav__link">
+  <a href="#media-stack-playback-and-transport" class="md-nav__link">
     <span class="md-ellipsis">
-      GUI Service
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phal-platform-hardware-abstraction-layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      PHAL (Platform &amp; Hardware Abstraction Layer)
+      Media stack — playback and transport
     </span>
   </a>
   
@@ -733,18 +736,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#modularity-and-plugins" class="md-nav__link">
+  <a href="#how-to-read-a-spec" class="md-nav__link">
     <span class="md-ellipsis">
-      Modularity and Plugins
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Further reading
+      How to read a spec
     </span>
   </a>
   
@@ -754,27 +748,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../architecture-specs/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Formal Specifications
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1267,82 +1240,64 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#high-level-flow" class="md-nav__link">
+  <a href="#the-voice-operating-system-model" class="md-nav__link">
     <span class="md-ellipsis">
-      High-Level Flow
+      The voice operating system model
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#component-map" class="md-nav__link">
+  <a href="#the-specifications" class="md-nav__link">
     <span class="md-ellipsis">
-      Component Map
+      The specifications
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#key-services" class="md-nav__link">
-    <span class="md-ellipsis">
-      Key Services
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Key Services">
+    <nav class="md-nav" aria-label="The specifications">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#messagebus" class="md-nav__link">
+  <a href="#intent-stack-what-a-skill-defines" class="md-nav__link">
     <span class="md-ellipsis">
-      MessageBus
+      Intent stack — what a skill defines
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#ovos-core" class="md-nav__link">
+  <a href="#bus-stack-how-components-talk" class="md-nav__link">
     <span class="md-ellipsis">
-      ovos-core
+      Bus stack — how components talk
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#speech-service" class="md-nav__link">
+  <a href="#orchestrator-stack-what-processes-utterances" class="md-nav__link">
     <span class="md-ellipsis">
-      Speech Service
+      Orchestrator stack — what processes utterances
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#audio-service" class="md-nav__link">
+  <a href="#io-stack-input-and-output-surfaces" class="md-nav__link">
     <span class="md-ellipsis">
-      Audio Service
+      I/O stack — input and output surfaces
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#gui-service" class="md-nav__link">
+  <a href="#media-stack-playback-and-transport" class="md-nav__link">
     <span class="md-ellipsis">
-      GUI Service
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phal-platform-hardware-abstraction-layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      PHAL (Platform &amp; Hardware Abstraction Layer)
+      Media stack — playback and transport
     </span>
   </a>
   
@@ -1354,18 +1309,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#modularity-and-plugins" class="md-nav__link">
+  <a href="#how-to-read-a-spec" class="md-nav__link">
     <span class="md-ellipsis">
-      Modularity and Plugins
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      Further reading
+      How to read a spec
     </span>
   </a>
   
@@ -1389,117 +1335,237 @@
   
 
 
-<h1 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h1>
+<h1 id="formal-specifications">Formal Specifications<a class="headerlink" href="#formal-specifications" title="Permanent link">&para;</a></h1>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
-<p>OpenVoiceOS is a voice assistant built from many small, independent parts rather than one big program. Think of it like a team where each member has one job — listening for the wake word, turning speech into text, figuring out what you asked, answering — and they all talk to each other over a shared channel. Because the parts are separate, you can run only the ones you need, replace any one with a different version, or even spread them across several devices. See the <a href="../glossary/">Glossary</a> for unfamiliar terms and the <a href="../bus-service/">Bus Service</a> for the shared channel they use to talk.</p>
+<p>OVOS is not only an implementation — its component contracts are written
+down as a set of <strong>formal, implementation-agnostic specifications</strong>. They
+define <em>exactly</em> how the parts talk to each other: the bus messages, the
+session, the intent pipeline, and each plugin role. If you are new, treat
+them as the authoritative "how it really works." If you are building
+plugins, skills, or a whole new orchestrator, they are the <strong>source of
+truth</strong> — where this manual or the current code diverges from a spec, the
+spec wins.</p>
 </div>
+<p>The specifications live in the
+<a href="https://github.com/OpenVoiceOS/architecture"><strong>OpenVoiceOS/architecture</strong></a>
+repository. They are <strong>prescriptive, not descriptive</strong>: they describe the
+intended architecture, not a transcript of any one codebase. That is what lets
+a skill written against the intent stack run on <em>any</em> conformant orchestrator,
+in any language, under any pipeline configuration — and what lets a second
+project adopt the same formats and bus contracts without buying into OVOS as a
+whole.</p>
+<p>Throughout this manual you will see a callout like this on the page for each
+subsystem:</p>
 <div class="admonition info">
 <p class="admonition-title">📐 Formal specification</p>
-<p>OVOS isn't only an implementation — the contracts between these parts are
-written down as <strong>formal, implementation-agnostic specifications</strong>. This
-page is the friendly tour; for the precise wire formats see the
-<strong><a href="../architecture-specs/">Formal Specifications</a></strong> index, which links every
-spec in the <a href="https://github.com/OpenVoiceOS/architecture">OpenVoiceOS/architecture</a>
-repository.</p>
+<p>This subsystem is specified by <strong><a href="https://github.com/OpenVoiceOS/architecture">OVOS-EXAMPLE-1 — Example</a></strong>.</p>
 </div>
-<p>OpenVoiceOS (OVOS) is best understood as a <strong>voice operating system</strong>, not a
-single voice-assistant program. A voice assistant is a <em>product</em> that answers
-questions; a voice OS is a <em>platform</em> — it defines the boundary between what you
-say and what runs, arbitrates which application handles each utterance, carries
-conversation state across turns, and gives third-party skills and plugins a
-stable contract to build against. Concretely that means independent services
-communicating over a common <strong><a href="../bus-service/">MessageBus</a></strong>: you can run only
-the components you need, swap any plugin for a different backend, and even
-spread services across several devices. The orchestrator's
-<code>match(utterances, lang, session) → Match</code> contract is, in effect, the
-system-call ABI of that OS — see the <a href="../architecture-specs/">Formal Specifications</a>.</p>
-<h2 id="high-level-flow">High-Level Flow<a class="headerlink" href="#high-level-flow" title="Permanent link">&para;</a></h2>
-<p><img alt="Full Flow" src="../img/Full%20flow.jpeg" /></p>
-<p>The diagram above illustrates how a user utterance moves through the system:</p>
-<ol>
-<li>
-<p><strong>Microphone Input</strong>: Captured by a microphone plugin.</p>
-</li>
-<li>
-<p><strong><a href="../wake-word-plugins/">Wake Word</a> Detection</strong>: The <code>ovos-dinkum-listener</code> (or similar) monitors the stream for the wake word.</p>
-</li>
-<li>
-<p><strong><a href="../stt-plugins/">Speech-to-Text</a> (<a href="../stt-plugins/">STT</a>)</strong>: Once the wake word is detected, the subsequent audio is sent to an STT engine.</p>
-</li>
-<li>
-<p><strong>MessageBus</strong>: The transcribed text is published to the bus as <code>ovos.utterance.handle</code> — the utterance entry point (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §9.1</a>; legacy name <code>recognizer_loop:utterance</code>).</p>
-</li>
-<li>
-<p><strong><a href="../intent-service/">Intent Service</a></strong>: the <strong>orchestrator</strong> (<code>ovos-core</code>) picks up the utterance and runs it through the <strong><a href="../pipelines-overview/">pipeline</a></strong> of matcher plugins — the first plugin to claim it wins (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>).</p>
-</li>
-<li>
-<p><strong><a href="../skill-design-guidelines/">Skill</a> Execution</strong>: If a match is found, the corresponding skill is triggered.</p>
-</li>
-<li>
-<p><strong>Response</strong>: The handler emits an <code>ovos.utterance.speak</code> message — the natural-language response (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §9.6</a>).</p>
-</li>
-<li>
-<p><strong><a href="../tts-plugins/">Text-to-Speech</a> (<a href="../tts-plugins/">TTS</a>)</strong>: <code>ovos-audio</code> converts the response text to audio and plays it.</p>
-</li>
-</ol>
+<p>Follow it to the precise wire format, field-by-field, with conformance
+requirements.</p>
 <hr />
-<h2 id="component-map">Component Map<a class="headerlink" href="#component-map" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ovos-messagebus  (WebSocket pub/sub)
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>      │
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>      ├── ovos-core
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>      │     ├── SkillManager          – loads/unloads skill plugins
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>      │     ├── IntentService         – routes utterances through the pipeline
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>      │     │     ├── UtteranceTransformersService
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>      │     │     ├── MetadataTransformersService
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>      │     │     ├── IntentTransformersService
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>      │     │     └── Pipeline plugins (Adapt, Padatious, Converse, Fallback, …)
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>      │     ├── SkillsStore           – runtime pip install/uninstall
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>      │     └── EventScheduler        – timed bus events
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>      │
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>      ├── ovos-dinkum-listener  – STT / wake-word → ovos.utterance.handle
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>      ├── ovos-audio            – TTS / sound playback (+ legacy media audioservice)
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>      ├── ovos-media            – standalone media-playback service (opt-in; replaces legacy audioservice)
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>      ├── ovos-gui              – GUI layer
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>      └── ovos-phal             – hardware/platform plugins
-</span></code></pre></div>
-<h2 id="key-services">Key Services<a class="headerlink" href="#key-services" title="Permanent link">&para;</a></h2>
-<h3 id="messagebus">MessageBus<a class="headerlink" href="#messagebus" title="Permanent link">&para;</a></h3>
-<p>The backbone of OVOS. All components communicate via this WebSocket-based bus. It ensures loose coupling and enables remote control and multi-device setups.</p>
-<h3 id="ovos-core">ovos-core<a class="headerlink" href="#ovos-core" title="Permanent link">&para;</a></h3>
-<p>The "brain" of the system. It manages the lifecycle of skills and coordinates intent matching through a sophisticated, multi-stage pipeline. In the formal model it is the <strong>orchestrator</strong>: the role that runs the <a href="../pipelines-overview/">pipeline</a> of matcher plugins, dispatches the winning match to a handler on <code>&lt;skill_id&gt;:&lt;intent_name&gt;</code>, and emits the handler-lifecycle events (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>).</p>
-<h3 id="speech-service">Speech Service<a class="headerlink" href="#speech-service" title="Permanent link">&para;</a></h3>
-<p>Handles audio capture, wake word detection, and STT. It is responsible for turning "sound" into "data".</p>
-<h3 id="audio-service">Audio Service<a class="headerlink" href="#audio-service" title="Permanent link">&para;</a></h3>
-<p>The output layer. It manages TTS generation and audio playback, ensuring that only one thing is speaking at a time and handling audio focus.</p>
-<h3 id="gui-service">GUI Service<a class="headerlink" href="#gui-service" title="Permanent link">&para;</a></h3>
-<p>Provides a visual interface for skills. It uses a specialized protocol to push <a href="../qt5-gui/">QML</a>-based or HTML-based views to a screen. ⚠️ The current ("legacy") <a href="../gui-service/">GUI Service</a> is <strong>deprecated</strong> — there is no generally usable OVOS GUI right now and a replacement is in progress; on Mark 2 the <a href="../ovos-installer/"><code>ovos-installer</code></a> keeps the legacy GUI running in the meantime.</p>
-<h3 id="phal-platform-hardware-abstraction-layer">PHAL (Platform &amp; Hardware Abstraction Layer)<a class="headerlink" href="#phal-platform-hardware-abstraction-layer" title="Permanent link">&para;</a></h3>
-<p>Handles hardware-specific tasks like volume control, battery monitoring, and connectivity management.</p>
+<h2 id="the-voice-operating-system-model">The voice operating system model<a class="headerlink" href="#the-voice-operating-system-model" title="Permanent link">&para;</a></h2>
+<p>The specifications are organized around one idea: OVOS is a <strong>voice operating
+system</strong>, not a voice assistant. A voice assistant is a product that answers
+questions; a voice OS is a <em>platform</em> that defines the boundary between user
+input and computation, arbitrates which application handles each utterance, and
+provides a stable ABI that arbitrary third-party applications run against
+without knowing anything about each other. The analogy to a general-purpose OS
+is direct:</p>
+<table>
+<thead>
+<tr>
+<th>OS concept</th>
+<th>Voice OS equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IPC / message passing</td>
+<td>The bus and the <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md">Message</a></strong> envelope</td>
+</tr>
+<tr>
+<td>Shared memory</td>
+<td>The <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md">Session</a></strong> carrier</td>
+</tr>
+<tr>
+<td>Process scheduler</td>
+<td><strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">Pipeline</a></strong> plugin ordering</td>
+</tr>
+<tr>
+<td>Loadable kernel modules</td>
+<td>Pipeline plugins and transformer plugins</td>
+</tr>
+<tr>
+<td>Process supervision</td>
+<td>The handler-lifecycle events</td>
+</tr>
+<tr>
+<td>System-call ABI</td>
+<td>The <code>match(utterances, lang, session) → Match</code> contract</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="modularity-and-plugins">Modularity and Plugins<a class="headerlink" href="#modularity-and-plugins" title="Permanent link">&para;</a></h2>
-<p>One of OVOS's greatest strengths is its plugin-based architecture. Almost every major function is a plugin:</p>
+<h2 id="the-specifications">The specifications<a class="headerlink" href="#the-specifications" title="Permanent link">&para;</a></h2>
+<h3 id="intent-stack-what-a-skill-defines">Intent stack — what a skill defines<a class="headerlink" href="#intent-stack-what-a-skill-defines" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Spec</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md"><strong>OVOS-INTENT-1</strong> — Sentence Template Grammar</a></td>
+<td>The <code>(a\|b)</code> / <code>[optional]</code> / <code>{slot}</code> / <code>&lt;vocab&gt;</code> grammar shared by <code>.intent</code>, <code>.voc</code>, <code>.dialog</code>, <code>.entity</code> resource files.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md"><strong>OVOS-INTENT-2</strong> — Locale Resource Formats</a></td>
+<td>The <code>locale/</code> folder layout and the plain-text resource file formats (<code>.intent</code>, <code>.dialog</code>, <code>.voc</code>, <code>.entity</code>, <code>.prompt</code>).</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md"><strong>OVOS-INTENT-3</strong> — Intent Definition</a></td>
+<td>What an intent <em>is</em> — keyword vs template definition, skill/intent identity, and the match-result shape.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md"><strong>OVOS-INTENT-4</strong> — Intent &amp; Entity Registration</a></td>
+<td>The broadcast bus messages a skill uses to declare its intents and entities, and the orchestrator's introspection manifest.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bus-stack-how-components-talk">Bus stack — how components talk<a class="headerlink" href="#bus-stack-how-components-talk" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Spec</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md"><strong>OVOS-MSG-1</strong> — Bus Message</a></td>
+<td>The JSON <code>{type, data, context}</code> envelope, <code>source</code>/<code>destination</code> routing, and the <code>forward</code> / <code>reply</code> / <code>response</code> derivations every message obeys.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md"><strong>OVOS-SESSION-1</strong> — Session Carrier Wire Shape</a></td>
+<td>The wire shape of the session — the per-conversation state that rides in every message — and the field registry other specs extend.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-2.md"><strong>OVOS-SESSION-2</strong> — Session Lifecycle &amp; State Ownership</a></td>
+<td>Who owns session state, when it may be mutated, the reserved <code>"default"</code> device session, and out-of-band sync.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/bridge-1.md"><strong>OVOS-BRIDGE-1</strong> — Bus Bridge &amp; Opaque Relay</a></td>
+<td>How a satellite / remote deployment relays messages and preserves sessions across a <a href="https://github.com/JarbasHiveMind">HiveMind</a> mesh.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="orchestrator-stack-what-processes-utterances">Orchestrator stack — what processes utterances<a class="headerlink" href="#orchestrator-stack-what-processes-utterances" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Spec</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md"><strong>OVOS-PIPELINE-1</strong> — Utterance Lifecycle &amp; Pipeline</a></td>
+<td>The foundational input/output spec: the <code>match(utterances, lang, session) → Match</code> contract, <strong>first-match-wins</strong> ordering, dispatch, and the handler-lifecycle events.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md"><strong>OVOS-TRANSFORM-1</strong> — Transformer Plugins</a></td>
+<td>The six ordered chains (audio / utterance / metadata / intent / dialog / tts) that enrich or rewrite artifacts at fixed points in the lifecycle.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md"><strong>OVOS-CONTEXT-1</strong> — Intent Context</a></td>
+<td>The decaying, per-session key/value store that <strong>gates</strong> which intents may match across conversational turns.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/converse.md"><strong>OVOS-CONVERSE-1</strong> — Active Handlers &amp; Interactive Response</a></td>
+<td>How a skill stays "active" to intercept follow-ups, and the response window that collects a single follow-up reply.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/stop-1.md"><strong>OVOS-STOP-1</strong> — Stop Pipeline Plugin</a></td>
+<td>How "stop" cascades to the most recently active handler, or triggers a global stop.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/persona.md"><strong>OVOS-PERSONA-1</strong> — Persona Pipeline Plugin</a></td>
+<td>A complete conversational agent (e.g. an LLM) as a first-class, summonable pipeline stage.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/fallback.md"><strong>OVOS-FALLBACK-1</strong> — Fallback Pipeline Plugin</a></td>
+<td>The priority-ordered handlers that catch utterances no earlier stage claimed.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/common-query.md"><strong>OVOS-COMMON-QUERY-1</strong> — Common Query Pipeline Plugin</a></td>
+<td>The scatter-gather question-answering contest across every skill that can answer.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="io-stack-input-and-output-surfaces">I/O stack — input and output surfaces<a class="headerlink" href="#io-stack-input-and-output-surfaces" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Spec</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md"><strong>OVOS-AUDIO-IN-1</strong> — Audio Input Service</a></td>
+<td>Capture → audio-transformer chain → STT → utterance, plus the listening-lifecycle signals.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-out.md"><strong>OVOS-AUDIO-1</strong> — Audio Output Service</a></td>
+<td>Dialog-transformer chain → TTS → tts-transformer chain → playback queue, plus remote-client rendering.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md"><strong>OVOS-GUI-1</strong> — GUI Display Subsystem</a></td>
+<td>The closed <code>SYSTEM_*</code> template vocabulary and the interchangeable render backends that draw it.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="media-stack-playback-and-transport">Media stack — playback and transport<a class="headerlink" href="#media-stack-playback-and-transport" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Spec</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ocp-1.md"><strong>OVOS-OCP-1</strong> — OVOS Common Playback</a></td>
+<td>The per-session <strong>virtual media player</strong> and its MPRIS-style search / play / pause / resume control surface.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="how-to-read-a-spec">How to read a spec<a class="headerlink" href="#how-to-read-a-spec" title="Permanent link">&para;</a></h2>
+<p>Each spec is a standalone document with a scope statement, the normative wire
+format, and a conformance section. The key words <strong>MUST</strong>, <strong>SHOULD</strong>, and
+<strong>MAY</strong> are used as in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a>.</p>
 <ul>
-<li>
-<p><strong>Microphone Plugins</strong>: ALSA, PyAudio, etc.</p>
-</li>
-<li>
-<p><strong>STT/TTS Plugins</strong>: Google, Whisper, Coqui, etc.</p>
-</li>
-<li>
-<p><strong>Wake Word Plugins</strong>: Precise, PocketSphinx, Snowboy, etc.</p>
-</li>
-<li>
-<p><strong>Intent Plugins</strong>: <a href="../adapt-pipeline/">Adapt</a>, <a href="../padatious-pipeline/">Padatious</a>, <a href="../cq-pipeline/">Common Query</a>, etc.</p>
-</li>
+<li><strong>Newcomers:</strong> read the scope and the worked examples; skip the conformance
+  tables until you need them. Start with
+  <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md">OVOS-MSG-1</a>
+  (the message), then
+  <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>
+  (how an utterance is handled).</li>
+<li><strong>Skill authors:</strong> OVOS-INTENT-1 → INTENT-2 → INTENT-3 cover everything you
+  declare; add INTENT-4 only if you need the registration wire format.</li>
+<li><strong>Plugin / orchestrator builders:</strong> the conformance sections are your test
+  checklist; the
+  <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/README.md">README registry</a>
+  lists every spec and its compatibility class.</li>
 </ul>
-<p>This allows OVOS to run on everything from a high-end server to a Raspberry Pi Zero.</p>
-<h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://blog.openvoiceos.org/posts/2025-11-25-gofai">Good Old-Fashioned AI: The Secret Ingredient in a Modern Voice Assistant</a> — OVOS blog</li>
-</ul>
-<hr />
-<p><em>Source code: <a href="https://github.com/OpenVoiceOS/ovos-core">OpenVoiceOS/ovos-core</a>.</em></p>
+<p>The repository also ships a non-normative
+<a href="https://github.com/OpenVoiceOS/architecture/tree/dev/appendix">appendix</a> with
+design rationale, comparisons to other voice systems, and the catalogue of
+deliberate divergences from current OVOS code.</p>
 
 
 

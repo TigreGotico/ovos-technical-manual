@@ -1347,6 +1347,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p>TTS stands for <em>Text-to-Speech</em>: this is the part that gives your assistant its voice, turning written replies into spoken audio you can hear. It is the opposite of dictation — instead of listening to you, it talks back. Different TTS plugins offer different voices and qualities, and some run on your own device while others use a cloud service. See the <a href="../glossary/">Glossary</a> for related terms.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>TTS sits inside the audio output service, specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-out.md">OVOS-AUDIO-1 — Audio Output Service</a></strong>: an <code>ovos.utterance.speak</code> response runs through the dialog-transformer chain → TTS → tts-transformer chain → playback queue. See the <a href="../architecture-specs/">spec index</a>.</p>
+</div>
 <p>TTS plugins are responsible for converting text into audio for playback.</p>
 <h2 id="tts">TTS<a class="headerlink" href="#tts" title="Permanent link">&para;</a></h2>
 <p>All OVOS TTS plugins need to define a class based on the TTS base class from <code>ovos_plugin_manager</code>.</p>

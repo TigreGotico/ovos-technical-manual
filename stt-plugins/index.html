@@ -1383,6 +1383,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p>STT stands for <em>Speech-to-Text</em>: this is the part that listens to your spoken words and writes them down as text the assistant can read. It is the same idea as the dictation feature on a phone. Different STT plugins offer different trade-offs in speed, accuracy, and whether they run on your own device or in the cloud, so you can pick the one that suits you. See the <a href="../glossary/">Glossary</a> for related terms.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>STT sits inside the audio input service, specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md">OVOS-AUDIO-IN-1 — Audio Input Service</a></strong>: capture → audio-transformer chain → STT → utterance. The transcript is emitted on <code>ovos.utterance.handle</code> (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §9.1</a>). See the <a href="../architecture-specs/">spec index</a>.</p>
+</div>
 <p>STT (Speech-to-Text) plugins convert spoken audio into text. They are the bridge
 between the listener and the intent pipeline.</p>
 <h2 id="using-an-stt-plugin">Using an STT plugin<a class="headerlink" href="#using-an-stt-plugin" title="Permanent link">&para;</a></h2>

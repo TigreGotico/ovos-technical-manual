@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/life-of-an-utterance/">
       
       
-        <link rel="prev" href="../architecture-overview/">
+        <link rel="prev" href="../architecture-specs/">
       
       
         <link rel="next" href="../bus-service/">
@@ -605,6 +605,27 @@
   
   <span class="md-ellipsis">
     High-level Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-specs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formal Specifications
   </span>
   
 
@@ -1307,9 +1328,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p>This page follows a single spoken command on its whole journey through OpenVoiceOS — from the instant sound reaches the microphone to the moment you hear a reply. Along the way the system notices the wake word, records what you say, turns it into text, works out what you meant, does the task, and speaks back. It's a guided tour of the assembly line that handles every voice command. New to the terms here? Start with the <a href="../glossary/">Glossary</a>, or see the <a href="../architecture-overview/">Architecture Overview</a> for the bigger picture.</p>
 </div>
-<blockquote>
-<p>Specification: <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-pipeline-1.md">OVOS-PIPELINE-1</a> (utterance lifecycle) and <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-msg-1.md">OVOS-MSG-1</a> (bus messages).</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>This whole journey is specified end-to-end: audio capture → STT → utterance by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md">OVOS-AUDIO-IN-1 — Audio Input Service</a></strong>; the utterance lifecycle, matching, and dispatch by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 — Utterance Lifecycle &amp; Pipeline</a></strong>; the enrichment/rewrite points along the way by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a></strong>; and dialog → TTS → playback by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-out.md">OVOS-AUDIO-1 — Audio Output Service</a></strong>. See also the <a href="../architecture-specs/">spec index</a>. Spec topic names are canonical below; the legacy name is noted once where current code still emits it.</p>
+</div>
 <p>This guide provides a technical, step-by-step walkthrough of how a voice command is processed by OpenVoiceOS, from the moment sound hits the microphone to the final spoken response.</p>
 <hr />
 <h2 id="1-capture-and-wake-word-detection">1. Capture and <a href="../wake-word-plugins/">Wake Word</a> Detection<a class="headerlink" href="#1-capture-and-wake-word-detection" title="Permanent link">&para;</a></h2>
@@ -1330,34 +1352,34 @@
 <hr />
 <h2 id="2-speech-to-text-stt">2. <a href="../stt-plugins/">Speech-to-Text</a> (<a href="../stt-plugins/">STT</a>)<a class="headerlink" href="#2-speech-to-text-stt" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> <code>ovos-dinkum-listener</code>
-<strong>Output:</strong> <code>recognizer_loop:utterance</code> (<a href="../bus-service/">MessageBus</a>)</p>
-<p>Once the user stops speaking (detected by the VAD plugin), the recorded audio buffer is sent to the <strong>STT Plugin</strong>.</p>
+<strong>Output:</strong> <code>ovos.utterance.handle</code> (legacy: <code>recognizer_loop:utterance</code>) (<a href="../bus-service/">MessageBus</a>)</p>
+<p>Once the user stops speaking (detected by the VAD plugin), the recorded audio buffer is sent to the <strong>STT Plugin</strong>. Capture is bracketed by the listening-lifecycle signals <code>ovos.listener.record.started</code> / <code>ovos.listener.record.ended</code> (OVOS-AUDIO-IN-1 §6; legacy: <code>recognizer_loop:record_begin</code> / <code>record_end</code>).</p>
 <ul>
 <li>
-<p>The STT engine (e.g., Whisper, Google, Vosk) transcribes the audio into text.</p>
+<p>The STT engine (e.g., Whisper, Google, Vosk) transcribes the audio into text. Before STT, the raw audio first passes through the <strong>audio-transformer chain</strong> (OVOS-TRANSFORM-1 §3.1).</p>
 </li>
 <li>
-<p>The listener emits a <code>recognizer_loop:utterance</code> message to the bus, containing the transcription in its <code>data</code> field.</p>
+<p>The listener emits an <code>ovos.utterance.handle</code> message — the lifecycle entry point of <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §9.1</a> — containing the transcription candidates in <code>data.utterances</code>.</p>
 </li>
 </ul>
 <hr />
 <h2 id="3-utterance-and-metadata-transformation">3. Utterance and Metadata Transformation<a class="headerlink" href="#3-utterance-and-metadata-transformation" title="Permanent link">&para;</a></h2>
-<p><strong>Service:</strong> <code>ovos-core</code> (<a href="../intent-service/">Intent Service</a>)
-<strong>Bus Event:</strong> <code>recognizer_loop:utterance</code></p>
-<p>The <code>IntentService</code> within <code>ovos-core</code> picks up the transcription. Before matching it to an intent, it passes it through the <strong><a href="../transformer-plugins/">Transformer</a> Pipeline</strong>:</p>
+<p><strong>Service:</strong> <code>ovos-core</code> (<a href="../intent-service/">Intent Service</a>) — the <strong>orchestrator</strong>
+<strong>Bus Event:</strong> <code>ovos.utterance.handle</code> (legacy: <code>recognizer_loop:utterance</code>)</p>
+<p>The <code>IntentService</code> within <code>ovos-core</code> picks up the transcription. Before matching it to an intent, it passes it through two of the six <a href="../transformer-plugins/">Transformer</a> chains (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1</a>):</p>
 <ul>
 <li>
-<p><strong>Utterance Transformers</strong>: These can normalize the text (e.g., "42" -&gt; "forty-two"), fix common STT errors, or expand abbreviations.</p>
+<p><strong>Utterance Transformers</strong> (§3.2): These can normalize the text (e.g., "42" -&gt; "forty-two"), fix common STT errors, or expand abbreviations.</p>
 </li>
 <li>
-<p><strong>Metadata Transformers</strong>: These can enrich the message context with information like the user's emotion or the current environmental noise level.</p>
+<p><strong>Metadata Transformers</strong> (§3.3): These can enrich the message context with information like the user's emotion or the current environmental noise level.</p>
 </li>
 </ul>
 <hr />
 <h2 id="4-intent-pipeline-matching">4. Intent Pipeline Matching<a class="headerlink" href="#4-intent-pipeline-matching" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> <code>ovos-core</code> (Intent Service)
 <strong>Process:</strong> Ordered evaluation of matchers.</p>
-<p>The (potentially modified) utterance is now evaluated against the <strong>Intent Pipeline</strong>. The pipeline is <strong>configurable</strong>, but the default order runs roughly as follows, each stage tried until one is confident enough to handle the request. Most stages run in high → medium → low confidence tiers interleaved through the list:</p>
+<p>The (potentially modified) utterance is now evaluated against the <strong>Intent Pipeline</strong>. The orchestrator calls each pipeline plugin's <code>match(utterances, lang, session)</code> in order and takes the <strong>first</strong> that returns a <code>Match</code> — <strong>first-match-wins</strong>, with no cross-plugin confidence scoring (OVOS-PIPELINE-1 §6.2). The pipeline is <strong>configurable</strong>; the default order runs roughly as follows. A single matcher (e.g. Adapt, Padatious) is often registered several times at decreasing internal-confidence tiers (high → medium → low), which is why those names appear interleaved through the list:</p>
 <ol>
 <li>
 <p><strong><a href="../stop-pipeline/">Stop</a></strong>: "stop" / "cancel" is checked first so the assistant can always be interrupted.</p>
@@ -1382,8 +1404,8 @@
 <hr />
 <h2 id="5-skill-execution">5. <a href="../skill-design-guidelines/">Skill</a> Execution<a class="headerlink" href="#5-skill-execution" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> A specific Skill (running in <code>ovos-core</code>)
-<strong>Bus Event:</strong> <code>{skill_id}.activate</code> and the specific intent message.</p>
-<p>Once a match is found, <code>ovos-core</code> emits a message specifically for the winning skill.</p>
+<strong>Bus Event:</strong> <code>ovos.intent.matched</code>, <code>{skill_id}.activate</code>, and the specific intent dispatch message.</p>
+<p>Once a match is found, the orchestrator post-processes it through the <strong>intent-transformer chain</strong> (OVOS-TRANSFORM-1 §3.4), emits <code>ovos.intent.matched</code> (§9.2), then dispatches to the winning skill — wrapping the call in the <strong>handler-lifecycle trio</strong> <code>ovos.intent.handler.start</code> → <code>…complete</code> / <code>…error</code> (§8; legacy: <code>mycroft.skill.handler.*</code>), emitted by the orchestrator, not the skill.</p>
 <ul>
 <li>
 <p>The skill's <strong>intent handler</strong> is triggered.</p>
@@ -1398,14 +1420,14 @@
 <hr />
 <h2 id="6-text-to-speech-tts">6. <a href="../tts-plugins/">Text-to-Speech</a> (<a href="../tts-plugins/">TTS</a>)<a class="headerlink" href="#6-text-to-speech-tts" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> <code>ovos-audio</code>
-<strong>Bus Event:</strong> <code>speak</code></p>
-<p>The skill emits a <code>speak</code> message containing the response text.</p>
+<strong>Bus Event:</strong> <code>ovos.utterance.speak</code> (legacy: <code>speak</code>)</p>
+<p>The skill emits an <code>ovos.utterance.speak</code> message containing the response text — the natural-language response exit point of the lifecycle (OVOS-PIPELINE-1 §9.6).</p>
 <ul>
 <li>
-<p>The <code>ovos-audio</code> service receives the <code>speak</code> message.</p>
+<p>The <code>ovos-audio</code> service receives the message and runs the text through the <strong>dialog-transformer chain</strong> (OVOS-TRANSFORM-1 §3.5) before synthesis.</p>
 </li>
 <li>
-<p>It sends the text to the <strong>TTS Plugin</strong> (e.g., Piper, Mimic, Coqui) to generate a WAV file.</p>
+<p>It sends the (transformed) text to the <strong>TTS Plugin</strong> (e.g., Piper, Mimic, Coqui) to generate a WAV file, then runs the audio through the <strong>tts-transformer chain</strong> (OVOS-TRANSFORM-1 §3.6). This dialog → TTS → tts-transformer → playback path is specified by <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-out.md">OVOS-AUDIO-1</a>.</p>
 </li>
 <li>
 <p>It also requests <strong>Visemes</strong> (for lip-sync) from a <strong>G2P Plugin</strong>.</p>
@@ -1426,7 +1448,7 @@
 <hr />
 <h2 id="8-session-wrap-up">8. <a href="../session/">Session</a> Wrap-up<a class="headerlink" href="#8-session-wrap-up" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> <code>ovos-core</code> (Session Manager)</p>
-<p>The conversation state is updated. If the skill requested a follow-up question (e.g., <code>expect_response=True</code>), the listener is reactivated immediately, and the cycle begins again at Step 1, but with the current <strong>Session</strong> context preserved.</p>
+<p>The lifecycle closes with exactly one <code>ovos.utterance.handled</code> event (OVOS-PIPELINE-1 §9.5) — the universal end-marker that fires whether an intent matched, a fallback answered, or nothing claimed the utterance. The conversation state is then updated. If the skill requested a follow-up question (e.g., <code>expect_response=True</code>), the listener is reactivated immediately, and the cycle begins again at Step 1, but with the current <strong>Session</strong> context preserved.</p>
 
 
 

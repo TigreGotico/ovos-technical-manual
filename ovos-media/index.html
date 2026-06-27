@@ -621,6 +621,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../architecture-specs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formal Specifications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../life-of-an-utterance/" class="md-nav__link">
         
   
@@ -741,10 +762,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -755,8 +776,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_7">
             <span class="md-nav__icon md-icon"></span>
             Core Services
           </label>
@@ -1880,6 +1901,20 @@
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
 <p><code>ovos-media</code> is the planned future replacement for how OVOS plays music, podcasts and videos. Today, stock installs still use the older audio backend; <code>ovos-media</code> is an opt-in, work-in-progress rewrite meant to handle audio, video and web playback more cleanly and to support several players at once. If you are not deliberately trying it out, you are not using it yet — this page describes where things are heading. See the <a href="../ocp-pipeline/">OCP Pipeline</a> for how playback requests are recognised, or the <a href="../glossary/">Glossary</a> for terms.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>Media playback is specified by two architecture documents:
+<strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ocp-1.md">OVOS-OCP-1 — OVOS Common Playback</a></strong>
+defines the per-session <strong>virtual media player</strong> — the single logical
+player every "play / pause / next / louder / stop" command targets, plus
+the MPRIS bridge to and from the host OS — while
+<strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-out.md">OVOS-AUDIO-1 — Audio Output Service</a></strong>
+defines the <strong>output service</strong> that actually renders queued audio. OCP-1
+fixes the <em>observable control surface</em>; how a URI becomes bytes on a
+speaker is a backend concern. <code>ovos-media</code> is the implementation moving
+toward that contract. For the full set see the
+<strong><a href="../architecture-specs/">spec index</a></strong>.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Upcoming — a refactor that is not the default yet</p>

@@ -1505,6 +1505,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p>Once the assistant has figured out <em>what you want</em> (your "intent" — for example, "set a timer"), these plugins can add extra detail or tidy up that request before the matching feature actually runs. It's a chance to fill in or pull out the specifics — like spotting names, places, or numbers in what you said — in one shared place instead of repeating that work everywhere. See <a href="../transformer-plugins/">Transformer Plugins</a> and the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>Intent transformers are the <strong><code>intent</code> chain</strong> of <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a> §3.4</strong> (a formal <a href="../architecture-specs/">architecture spec</a>). The spec's post-match, pre-dispatch injection point receives the <code>Match</code> a pipeline plugin produced (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md">OVOS-INTENT-3</a> — <code>skill_id</code>, <code>intent_name</code>, <code>captures</code>/slots) and may <strong>enrich <code>captures</code></strong> — it is the canonical home for slot/entity injection. It <strong>MUST NOT</strong> change <code>Match.skill_id</code> or <code>Match.intent_name</code> (that would re-route the handler); an orchestrator treats such a change as a shape violation and discards it. <strong>Ordering:</strong> the spec runs the chain by <strong>ascending</strong> <code>priority</code> — <code>priority</code> 1 runs <strong>first</strong>. The current OVOS code sorts <strong>descending</strong> (so <code>priority</code> 1 runs <em>last</em>, as described below); the spec order is the canonical one.</p>
+</div>
 <p><strong>Intent Transformers</strong> are a pluggable mechanism in OVOS that allow you to enrich or transform intent data <strong>after</strong> an intent is matched by an engine (<a href="../padatious-pipeline/">Padatious</a>, <a href="../adapt-pipeline/">Adapt</a>, etc.), but <strong>before</strong> it is passed to the skill handler.</p>
 <p>This is useful for:</p>
 <ul>
@@ -1522,7 +1526,7 @@
 </li>
 </ul>
 <p>Each transformer subclasses <code>IntentTransformer</code> (<code>ovos_plugin_manager.templates.transformers</code>), registers under the <code>opm.transformer.intent</code> entry-point group, and operates on the <code>IntentHandlerMatch</code> object returned by the matching pipeline. They are loaded and chained by <code>IntentTransformersService</code> in <code>ovos-core</code> (<code>ovos_core/transformers.py</code>).</p>
-<p>Transformers run sorted by <code>priority</code>, <strong>highest first</strong> — so a transformer with <code>priority</code> 1 runs <em>last</em> and gets the final say over <code>match_data</code>. This lets you reimplement entity logic once instead of in every skill.</p>
+<p>In the current code transformers run sorted by <code>priority</code>, <strong>highest first</strong> — so a transformer with <code>priority</code> 1 runs <em>last</em> and gets the final say over <code>match_data</code>. (OVOS-TRANSFORM-1 §4 specifies the reverse, ascending order; see the callout above — the spec is canonical.) This lets you reimplement entity logic once instead of in every skill.</p>
 <hr />
 <h2 id="default-transformers">Default Transformers<a class="headerlink" href="#default-transformers" title="Permanent link">&para;</a></h2>
 <p><code>ovos-core</code> declares these two plugins as dependencies, so a standard install ships with them present. Each one only <em>runs</em> when its plugin name is listed under <code>intent_transformers</code> in your config:</p>

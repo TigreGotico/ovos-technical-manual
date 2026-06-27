@@ -621,6 +621,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../architecture-specs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formal Specifications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../life-of-an-utterance/" class="md-nav__link">
         
   
@@ -1703,6 +1724,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p>A plugin is an add-on you can drop in to give OpenVoiceOS a new ability or swap how it does something — for example, a different way to turn speech into text. The Plugin Manager is the part that finds these add-ons once they're installed and loads them when needed, so you don't have to wire anything up by hand. Think of it like the app store and launcher for OVOS's interchangeable pieces: install one, and the system just discovers it. See the <a href="../glossary/">Glossary</a> for unfamiliar terms or the <a href="../architecture-overview/">Architecture Overview</a> for how plugins fit into the wider system.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>OPM is the <em>discovery and loading</em> mechanism; it is not itself a spec, but several plugin <strong>roles</strong> it loads are defined by the architecture specs and carry conformance obligations independent of OPM. In particular, <strong>pipeline plugins</strong> (entry point <code>opm.pipeline</code>) implement the <code>match(utterances, lang, session) → Match</code> contract and <strong>first-match-wins</strong> ordering of <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a></strong>, and the six <strong>transformer</strong> plugin types (<code>opm.transformer.*</code>) implement the six ordered chains of <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1</a></strong> (priority <strong>ascending</strong> — lower runs earlier). See the <a href="../architecture-specs/">spec index</a> for the full set of plugin-role specs.</p>
+</div>
 <p><img alt="image" src="https://github.com/OpenVoiceOS/ovos-plugin-manager/assets/33701864/8c939267-42fc-4377-bcdb-f7df65e73252" /></p>
 <p>The OVOS Plugin Manager (OPM) is the plugin discovery and loading infrastructure for the
 OVOS ecosystem. It standardizes the interface for plugins via Python package entry points,
@@ -1828,6 +1853,7 @@ The entry point group is the canonical identifier used in <code>setup.py</code> 
 Until it lands, the current GUI plugin type is <code>opm.gui</code> (<code>GUIExtension</code>).</p>
 </div>
 <h3 id="transformer-plugins">Transformer Plugins<a class="headerlink" href="#transformer-plugins" title="Permanent link">&para;</a></h3>
+<p>These six types are the six ordered chains of <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1</a>, each injected at a fixed point in the utterance lifecycle (audio → utterance → metadata → intent → dialog → tts) and run in <strong>ascending</strong> priority order.</p>
 <table>
 <thead>
 <tr>
@@ -1912,6 +1938,7 @@ Until it lands, the current GUI plugin type is <code>opm.gui</code> (<code>GUIEx
 </tbody>
 </table>
 <h3 id="intent-pipeline-plugins">Intent Pipeline Plugins<a class="headerlink" href="#intent-pipeline-plugins" title="Permanent link">&para;</a></h3>
+<p>A pipeline plugin is a matcher exposing <code>match(utterances, lang, session) → Match | None</code>; the orchestrator runs the configured set in order, <strong>first-match-wins</strong>, with no cross-plugin scoring (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>).</p>
 <table>
 <thead>
 <tr>

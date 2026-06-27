@@ -1399,6 +1399,18 @@ question (<code>ask_yesno</code>), and a multiple-choice question (<code>ask_sel
 microphone open and parses the answer for you. For the <em>design</em> side — when to ask versus
 just tell the user — see the <a href="../skill-design-guidelines/">Skill Design Guidelines</a>.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>Asking the user back is the spec's <strong>response mode</strong>, defined by
+<strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/converse.md">OVOS-CONVERSE-1 — Active Handlers and Interactive Response</a></strong>.
+When a handler enters response mode (it sets <code>session.response_mode</code>), the
+orchestrator suspends normal intent matching and routes the <em>next</em>
+utterance straight back to that handler as the awaited reply — the
+interactive-response window. The methods below (<code>get_response</code>,
+<code>ask_yesno</code>, <code>ask_selection</code>) are the skill-API surface over this one
+session-resident mechanism. For the full set see the
+<strong><a href="../architecture-specs/">spec index</a></strong>.</p>
+</div>
 <p>OVOS provides several built-in methods for engaging users in interactive conversations. These include asking open-ended questions, confirming yes/no responses, and offering multiple-choice selections — all handled in a natural, voice-first way.</p>
 <p>Here we look at how to implement the most common ways of asking the user for input. For more information on conversation design see
 the <a href="../skill-design-guidelines/">Skill Design Guidelines</a>.</p>

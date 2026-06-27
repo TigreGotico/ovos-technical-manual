@@ -1562,6 +1562,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p>Skills keep their words in separate text files rather than buried in the program code. These "resource files" hold things like the phrases the assistant can say, the example sentences it listens for, and the keywords it recognizes — each language gets its own folder. This separation makes a skill easy to translate and tweak without touching the code. This page explains the folder layout and the kinds of files. See also <a href="../statements/">Statements</a> for spoken replies and the <a href="../glossary/">Glossary</a>.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>The locale folder layout and the plain-text resource formats are specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md">OVOS-INTENT-2 — Locale Resource Formats</a></strong> (a formal <a href="../architecture-specs/">architecture spec</a>); the template grammar inside them is <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1</a></strong>. OVOS-INTENT-2 defines <strong>six canonical roles</strong> by extension: <code>.intent</code> and <code>.dialog</code> (slot-bearing — they may use <code>{name}</code> slots), <code>.entity</code>, <code>.voc</code>, and <code>.blacklist</code> (slot-free — expansion only), and <code>.prompt</code> (a whole-file language-model prompt with <code>{{name}}</code> substitution, <strong>not</strong> a template). Resources live under <code>locale/&lt;lang&gt;/</code> (BCP-47 tags, compared case-insensitively, searched recursively), resolved user → skill → core (§2.1). The <code>.rx</code>, <code>.list</code>, and <code>.word</code> files below are <strong>framework extensions</strong>, not OVOS-INTENT-2 roles — prefer <code>.entity</code>/<code>.voc</code>/<code>.blacklist</code> for portability.</p>
+</div>
 <p>Skills load localized resources from a structured directory layout. Resources are loaded automatically at startup for every language in <code>native_langs</code> (<code>core_lang</code> + <code>secondary_langs</code>).</p>
 <h2 id="directory-layout">Directory Layout<a class="headerlink" href="#directory-layout" title="Permanent link">&para;</a></h2>
 <p>The recommended layout uses a single <code>locale/</code> directory:</p>
@@ -1594,42 +1598,52 @@
 <tr>
 <td><code>.dialog</code></td>
 <td>Dialog</td>
-<td>Mustache-templated spoken responses (one per line, random selection)</td>
+<td>Spoken responses, one template per line, random selection (OVOS-INTENT-2 role; slot-bearing)</td>
 </tr>
 <tr>
 <td><code>.intent</code></td>
 <td>Intent</td>
-<td><a href="../padatious-pipeline/">Padatious</a> training examples</td>
+<td><a href="../padatious-pipeline/">Padatious</a> training examples (OVOS-INTENT-2 role; slot-bearing)</td>
 </tr>
 <tr>
 <td><code>.voc</code></td>
 <td>Vocabulary</td>
-<td><a href="../adapt-pipeline/">Adapt</a> keyword definitions (one keyword per line, first is canonical)</td>
+<td><a href="../adapt-pipeline/">Adapt</a> keyword definitions, one per line, first is canonical (OVOS-INTENT-2 role; slot-free)</td>
 </tr>
 <tr>
 <td><code>.entity</code></td>
 <td>Entity</td>
-<td>Adapt entity examples</td>
+<td>Example values for a <code>{slot}</code> (OVOS-INTENT-2 role; slot-free)</td>
+</tr>
+<tr>
+<td><code>.blacklist</code></td>
+<td>Blacklist</td>
+<td>Phrases that suppress a paired <code>.intent</code> (OVOS-INTENT-2 role; slot-free)</td>
+</tr>
+<tr>
+<td><code>.prompt</code></td>
+<td>Prompt</td>
+<td>A whole-file language-model prompt with <code>{{name}}</code> substitution (OVOS-INTENT-2 role)</td>
 </tr>
 <tr>
 <td><code>.rx</code></td>
 <td>Regex</td>
-<td>Adapt regex patterns</td>
+<td>Adapt regex patterns (<strong>framework extension</strong>, not an OVOS-INTENT-2 role)</td>
 </tr>
 <tr>
 <td><code>.list</code></td>
 <td>List</td>
-<td>A flat list resource</td>
+<td>A flat list resource (<strong>framework extension</strong>)</td>
 </tr>
 <tr>
 <td><code>.word</code></td>
 <td>Word</td>
-<td>A single word</td>
+<td>A single word (<strong>framework extension</strong>)</td>
 </tr>
 <tr>
 <td><code>skill.json</code></td>
 <td>Metadata</td>
-<td><code>{"examples": ["...", "..."]}</code> for homescreen example utterances</td>
+<td><code>{"examples": ["...", "..."]}</code> for homescreen example utterances (<strong>framework extension</strong>)</td>
 </tr>
 </tbody>
 </table>

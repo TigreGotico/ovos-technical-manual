@@ -1595,7 +1595,15 @@
 <p class="admonition-title">In a nutshell</p>
 <p>When you say something and none of your assistant's regular skills know how to respond, the fallback pipeline is the safety net that tries one last set of "catch-all" skills so the assistant still says something instead of going silent. Think of it as the help desk that gets your question only after everyone else has passed on it. It asks these backup skills in a set order until one of them handles the request. See the <a href="../converse-pipeline/">Converse Pipeline</a> for what runs before this, or the <a href="../glossary/">Glossary</a> for terms.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>The fallback plugin is specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/fallback.md">OVOS-FALLBACK-1 — Fallback Pipeline Plugin</a></strong>, built on <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a></strong>. See the <a href="../architecture-specs/">spec index</a>.</p>
+</div>
 <p>The <strong>Fallback Pipeline</strong> in <strong>OpenVoiceOS (OVOS)</strong> manages how fallback skills are queried when no primary skill handles a user's utterance. It coordinates multiple fallback handlers, ensuring the system gracefully attempts to respond even when regular intent matching fails.</p>
+<div class="admonition note">
+<p class="admonition-title">How the spec frames it</p>
+<p>A <strong>fallback skill</strong> declares no intent patterns; instead it receives the raw utterance at query time and decides for itself whether it can respond (FALLBACK-1 §2) — the appropriate pattern for open-domain QA, LLM completions, and any coverage that cannot be modelled as a grammar. The plugin builds an ordered handler pool from each skill's registered <code>priority</code> and the session preference <code>session.fallback_handlers</code>, queries pool members one at a time via <code>&lt;skill_id&gt;.fallback.ping</code> / <code>.pong</code> (the same dotted per-skill poll pattern converse uses), and returns a <code>Match</code> on the <strong>reserved <code>intent_name</code> <code>fallback</code></strong> (PIPELINE-1 §7.3) targeting the first willing skill — dispatched on <code>&lt;skill_id&gt;:fallback</code>. If the pool is exhausted it returns <code>None</code>, and the orchestrator emits <code>ovos.intent.unmatched</code>. The high/medium/low stages below are one fallback plugin loaded at several pipeline positions, each restricted to a <code>priority</code> range (FALLBACK-1 §8.2).</p>
+</div>
 <hr />
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_core.intent_services.fallback_service.FallbackService</code>

@@ -621,6 +621,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../architecture-specs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formal Specifications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../life-of-an-utterance/" class="md-nav__link">
         
   
@@ -1565,9 +1586,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p>The Message Bus is the shared channel that lets all the separate parts of OpenVoiceOS talk to one another. Picture a group radio frequency: whatever one part says is heard by everyone tuned in, and each part simply pays attention to the messages meant for it and ignores the rest. There's no traffic controller deciding who gets what — every message goes to everybody. It's how the listener, the brain, the audio, and the screen all stay in sync. See the <a href="../architecture-overview/">Architecture Overview</a> for how the pieces fit together, or the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
 </div>
-<blockquote>
-<p>Specification: the wire format is defined by <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ovos-msg-1.md">OVOS-MSG-1: Bus Message</a>. This page describes the reference implementation.</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>The <code>{type, data, context}</code> envelope, the <code>source</code>/<code>destination</code> routing keys, the <code>forward</code>/<code>reply</code>/<code>response</code> derivations, and the session carrier that rides in every message are all normative. See <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md">OVOS-MSG-1 — Bus Message</a></strong>, <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md">OVOS-SESSION-1 — Session Carrier</a></strong>, <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-2.md">OVOS-SESSION-2 — Session Lifecycle</a></strong>, and <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/bridge-1.md">OVOS-BRIDGE-1 — Bus Bridge &amp; Opaque Relay</a></strong> (how satellites relay messages across a <a href="../hivemind-agents/">HiveMind</a> mesh), plus the <a href="../architecture-specs/">spec index</a>. This page describes the reference implementation; where it diverges from the spec, the spec wins.</p>
+</div>
 <p>The <strong>Message Bus</strong> is the central nervous system of the OVOS platform. All services communicate by publishing and subscribing to typed <code>Message</code> objects through this central WebSocket broker.</p>
 <p><strong>In plain terms:</strong> every OVOS service (core, audio, listener, GUI) connects to one shared WebSocket. Whatever any service sends, every other service receives — there is no central router deciding who gets what. Services just listen for the message types they care about and ignore the rest.</p>
 <hr />
@@ -1753,21 +1775,23 @@ Messages larger than this cause Tornado to close the connection.</p>
 <hr />
 <h2 id="message-targeting-and-routing">Message Targeting and Routing<a class="headerlink" href="#message-targeting-and-routing" title="Permanent link">&para;</a></h2>
 <p>The bus itself performs no routing — every client receives every message. However, <code>context["source"]</code> and <code>context["destination"]</code> allow applications (notably HiveMind) to implement their own routing logic.</p>
-<p>The <code>Message</code> object provides:</p>
+<p>The <code>Message</code> object provides the three derivations defined in <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md">OVOS-MSG-1 §5</a> (the spec mandates the resulting message <em>shape</em>, not the method names):</p>
 <ul>
 <li>
-<p><code>.reply(msg_type, data)</code> — swap <code>source</code>↔<code>destination</code>, preserving context</p>
+<p><code>.reply(msg_type, data)</code> — swap <code>source</code>↔<code>destination</code>, preserving context (MSG-1 §5.2)</p>
 </li>
 <li>
-<p><code>.forward(msg_type, data)</code> — copy context verbatim under a new type</p>
+<p><code>.forward(msg_type, data)</code> — copy context verbatim under a new type (MSG-1 §5.1)</p>
 </li>
 <li>
-<p><code>.response(data)</code> — shorthand for <code>reply(self.msg_type + ".response", ...)</code></p>
+<p><code>.response(data)</code> — shorthand for <code>reply(self.msg_type + ".response", ...)</code> (MSG-1 §5.3)</p>
 </li>
 </ul>
+<p>There is <strong>no</strong> central correlation/in-reply-to mechanism: messages are fully async and self-contained, and an asker that wants to match a <code>.response</code> back to its request does so itself, keyed on the <code>session</code> (MSG-1 §5.4).</p>
 <hr />
 <h2 id="key-message-categories">Key Message Categories<a class="headerlink" href="#key-message-categories" title="Permanent link">&para;</a></h2>
 <h3 id="core-intent-pipeline">Core / Intent Pipeline<a class="headerlink" href="#core-intent-pipeline" title="Permanent link">&para;</a></h3>
+<p>Topic names below are the canonical spec names (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §9</a>); the legacy name is shown where current code still emits it (the spec topics are selected by the top-level <code>legacy_namespace: false</code> config).</p>
 <table>
 <thead>
 <tr>
@@ -1778,24 +1802,24 @@ Messages larger than this cause Tornado to close the connection.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>recognizer_loop:utterance</code></td>
+<td><code>ovos.utterance.handle</code> (legacy: <code>recognizer_loop:utterance</code>)</td>
 <td><code>ovos-dinkum-listener</code></td>
-<td><code>ovos-core</code></td>
+<td>the orchestrator (<code>ovos-core</code>)</td>
 </tr>
 <tr>
-<td><code>speak</code></td>
-<td><code>ovos-core</code> (skills)</td>
+<td><code>ovos.utterance.speak</code> (legacy: <code>speak</code>)</td>
+<td>handler / skill</td>
 <td><code>ovos-audio</code></td>
 </tr>
 <tr>
-<td><code>complete_intent_failure</code></td>
-<td><code>ovos-core</code></td>
-<td>fallback skills</td>
+<td><code>ovos.intent.unmatched</code> (legacy: <code>complete_intent_failure</code>)</td>
+<td>the orchestrator</td>
+<td>fallback handlers</td>
 </tr>
 <tr>
 <td><code>ovos.utterance.handled</code></td>
-<td><code>ovos-core</code></td>
-<td>GUI clients</td>
+<td>the orchestrator</td>
+<td>GUI clients (universal end-marker, §9.5)</td>
 </tr>
 </tbody>
 </table>

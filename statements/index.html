@@ -1577,6 +1577,17 @@
 <p class="admonition-title">In a nutshell</p>
 <p>A "statement" is simply something the assistant says out loud. Instead of writing the exact words inside the program, OVOS keeps them in plain-text "dialog" files — one phrase per line — so the same skill can speak any language and pick from several wordings to sound less robotic. This page walks through writing those reply files, slotting in details like a name or a number, and waiting for speech to finish. For the broader file layout see <a href="../resource-files/">Resource Files</a>; for term definitions see the <a href="../glossary/">Glossary</a>.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>The <code>.dialog</code> file is a formal resource format.
+<strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md">OVOS-INTENT-2 — Locale Resource Formats</a></strong>
+fixes the <code>locale/</code> folder layout and the plain-text format of <code>.dialog</code>
+(and its siblings <code>.intent</code>, <code>.voc</code>, <code>.entity</code>, <code>.prompt</code>), while
+<strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1 — Sentence Template Grammar</a></strong>
+defines the template grammar inside each line — including the <code>{variables}</code>
+(named slots) filled in by the caller before the text is spoken. For the
+full set see the <strong><a href="../architecture-specs/">spec index</a></strong>.</p>
+</div>
 <h2 id="speaking-a-statement">Speaking a statement<a class="headerlink" href="#speaking-a-statement" title="Permanent link">&para;</a></h2>
 <p>One of OVOS's most important core capabilities is to convert text to speech, that is, to speak a statement.</p>
 <p>Within a <a href="../skill-design-guidelines/">Skill</a>'s Intent handler, you may pass a string of text to OVOS and OVOS will speak it.  For example: <code>self.speak('this is my statement')</code>.  That's cool and fun to experiment with, but passing strings of text to Mycroft doesn't help to make Mycroft a multilingual product. Rather than hard-coded strings of text, OVOS has a design pattern for multilingualism.</p>

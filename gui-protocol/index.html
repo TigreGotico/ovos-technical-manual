@@ -1809,6 +1809,10 @@ built but is <strong>not yet ready</strong>. On <strong>Mark 2</strong> devices 
 <a href="../ovos-installer/"><code>ovos-installer</code></a> still sets up this legacy stack until the
 replacement lands. Kept for reference and Mark 2 maintenance.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>The <strong>forward</strong> model for the display subsystem is <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md">OVOS-GUI-1 — GUI Display Subsystem</a></strong> (a formal <a href="../architecture-specs/">architecture spec</a>). It replaces the legacy protocol on this page with a clean separation: an application declares <em>what</em> to show by naming a template from a <strong>closed <code>SYSTEM_*</code> vocabulary</strong> and pushing flat session-data, and interchangeable <strong>render backends (adapters)</strong> decide <em>how</em> to draw it — fanned out to every installed adapter. The wire messages stay <code>gui.value.set</code> / <code>gui.page.show</code> / <code>gui.clear.namespace</code>, but a <code>gui.page.show</code> whose first page is <strong>not</strong> a <code>SYSTEM_*</code> template is rejected (no more arbitrary QML), and a GUI message is routed <strong>solely by its <code>session_id</code></strong>. This page documents the legacy Qt-WebSocket protocol that the OVOS-GUI-1 adapter model supersedes; where they differ, the spec is the canonical target (see the "Upcoming" note at the foot of this page and <a href="../gui-adapters/">GUI Adapter Plugins</a>).</p>
+</div>
 <p>The <code>ovos-gui</code> service exposes two communication channels:</p>
 <ol>
 <li>

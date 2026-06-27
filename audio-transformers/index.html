@@ -1523,6 +1523,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p>Audio transformers clean up and inspect the sound from your microphone <em>before</em> the assistant tries to turn it into words. Like a sound engineer adjusting a recording, they can do things such as reduce background noise or detect which language is being spoken, which helps the assistant understand you more reliably. See <a href="../transformer-plugins/">Transformer Plugins</a> for the wider family and the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>Audio transformers are the <strong><code>audio</code> chain</strong> of <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a> §3.1</strong> (a formal <a href="../architecture-specs/">architecture spec</a>). The spec's pre-STT injection point takes a raw audio chunk plus an audio-format metadata object (sample rate, width, channels) and an optional <code>lang</code>, and returns a (possibly rewritten) chunk, updated metadata, and <code>lang</code> — the natural place to set <code>session.detected_lang</code> from acoustic features (§7.1). A transformer that changes the audio's physical format <strong>MUST</strong> update the metadata to match. <strong>Ordering:</strong> the spec runs the chain by <strong>ascending</strong> <code>priority</code> (lowest first); the current code runs it descending — the spec order is canonical.</p>
+</div>
 <p><strong>Audio Transformers</strong> in OpenVoiceOS (OVOS) are plugins designed to process raw audio input before it reaches the <a href="../stt-plugins/">Speech-to-Text</a> (<a href="../stt-plugins/">STT</a>) engine. They enable functionalities such as noise reduction, language detection, and data transmission over sound, thereby enhancing the accuracy and versatility of voice interactions.</p>
 <hr />
 <h2 id="processing-flow">Processing Flow<a class="headerlink" href="#processing-flow" title="Permanent link">&para;</a></h2>

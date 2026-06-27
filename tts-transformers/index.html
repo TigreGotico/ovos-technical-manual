@@ -1421,6 +1421,10 @@
 <p class="admonition-title">In a nutshell</p>
 <p>After the assistant has turned its reply into spoken audio, these plugins can touch up that <em>sound</em> before you hear it. Like adding effects in a music app, they can sharpen clarity, apply audio effects, or change the voice. See <a href="../tts-plugins/">TTS Plugins</a> for the voices themselves and the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>TTS transformers are the <strong><code>tts</code> chain</strong> of <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a> §3.6</strong> (a formal <a href="../architecture-specs/">architecture spec</a>). The spec's post-TTS, pre-playback injection point receives a path/handle to the synthesized audio, an optional <code>lang</code>, and the full <code>Message.context</code>; it may replace the audio with a transformed version (pitch, reverb, EQ, tempo, super-resolution, watermarking, earcons). It <strong>SHOULD NOT</strong> re-synthesize speech in a different language or with different content — translation and rewriting are <a href="../dialog-transformers/">dialog-transformer</a> concerns, done against the text before TTS. <strong>Ordering:</strong> the spec runs the chain by <strong>ascending</strong> <code>priority</code> (lowest first); the current code runs it descending — the spec order is canonical.</p>
+</div>
 <p><strong>TTS Transformers</strong> in OpenVoiceOS (OVOS) are plugins that process synthesized speech audio after the <a href="../tts-plugins/">Text-to-Speech</a> (TTS) engine generates it but before it's played back to the user. </p>
 <p>They enable post-processing of audio to apply effects, enhance clarity, voice clone or tailor the output to specific needs.</p>
 <hr />

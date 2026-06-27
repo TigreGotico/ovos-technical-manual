@@ -621,6 +621,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../architecture-specs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formal Specifications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../life-of-an-utterance/" class="md-nav__link">
         
   
@@ -741,10 +762,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -755,8 +776,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_3_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_7">
             <span class="md-nav__icon md-icon"></span>
             Core Services
           </label>
@@ -1471,6 +1492,19 @@ for new work</strong>.</p>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
 <p><code>ovos-gui</code> is the part of OpenVoiceOS that decides what shows up on a screen — text, images, a music player, or an idle home screen. Skills never draw to the display themselves; they send a request to this service, which keeps track of what each skill wants shown and passes it on to whatever screen is connected. Think of it as a stage manager that decides which scene is in front of the audience at any moment. To learn more, see the <a href="../homescreen/">Home Screen</a> and the <a href="../glossary/">Glossary</a>.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>The <strong>forward</strong> model for the display layer is
+<strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md">OVOS-GUI-1 — GUI Display Subsystem</a></strong>.
+It reframes the GUI as a <em>voice-OS peripheral</em>: an application declares
+<strong>what</strong> to show using a <strong>closed <code>SYSTEM_*</code> template vocabulary</strong>, and any
+number of interchangeable <strong>render backends</strong> decide <strong>how</strong> to draw it
+(pixels, a character grid, a synthesized face…), each routed solely by the
+message's <code>session_id</code>. The <code>ovos-gui</code> daemon described on this page is the
+current ("legacy") implementation; read GUI-1 for the target contract this
+subsystem is converging on. For the full set see the
+<strong><a href="../architecture-specs/">spec index</a></strong>.</p>
 </div>
 <p><code>ovos-gui</code> is the GUI orchestration daemon for OpenVoiceOS. It tracks display state and
 manages the <strong>namespace stack</strong> that determines what is currently visible on screen.</p>

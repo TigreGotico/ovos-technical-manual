@@ -1346,7 +1346,51 @@
 <p class="admonition-title">In a nutshell</p>
 <p>Normally each thing you say to your assistant is treated on its own, with no memory of the last sentence. Conversational context is the short-term memory that lets you ask a follow-up like "where's <em>he</em> from?" right after "how tall is John Cleese?" — the assistant remembers you were talking about Cleese and fills in the blank. Skill authors mark which details to remember, and that memory is kept separate for each ongoing conversation so different people or devices don't get mixed up. See <a href="../skill-design-guidelines/">Skill design guidelines</a> or the <a href="../glossary/">Glossary</a>.</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>Intent context is specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md">OVOS-CONTEXT-1 — Intent Context</a></strong>, the <em>declarative</em> gating primitive over <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a></strong> (its imperative complement is the converse plugin, <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/converse.md">OVOS-CONVERSE-1</a></strong>, see <a href="../converse-pipeline/">Converse Pipeline</a>). See the <a href="../architecture-specs/">spec index</a>.</p>
+</div>
 <p>Conversational context in Open Voice OS (OVOS) allows voice interactions to feel more natural by remembering parts of a conversation, like the subject being discussed. This is especially useful for follow-up questions where repeating context (like a person's name) would otherwise be necessary.</p>
+<div class="admonition note">
+<p class="admonition-title">The spec model: a decaying per-session store that <em>gates</em> matching</p>
+<p>In CONTEXT-1 terms, intent context is the field <strong><code>session.intent_context</code></strong> — a flat map of <strong>entries</strong>, each <code>{value, expires_at?, turns_remaining?}</code>. Every entry <strong>decays</strong>: the orchestrator prunes dead entries before each match round and decrements <code>turns_remaining</code> after it (CONTEXT-1 §4), so a confirmation flag set with <code>turns_remaining: 1</code> lives for exactly the next utterance. An intent <strong>gates</strong> on context by declaring <strong><code>requires_context</code></strong> (match only while a key is live) and/or <strong><code>excludes_context</code></strong> (match only while a key is absent) — these are normative across <em>every</em> intent engine (CONTEXT-1 §6/§6.1). Keys are <strong>scoped by shape</strong>: a bare key like <code>person</code> is <strong>shared</strong> (cross-skill); a prefixed key <code>&lt;skill_id&gt;:flag</code> is <strong>private</strong> to that owner. Bare-string <code>requires_context</code> entries default to <em>private</em> scope — the safe default — so a foreign skill's shared <code>person</code> can never accidentally satisfy a private gate (you must write <code>{key: person, scope: shared}</code> to read across skills).</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Four different things called 'context' — do not conflate them</p>
+<p>CONTEXT-1 §1.1 is explicit that the word <em>context</em> names four unrelated things:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>What it is</th>
+<th>JSON path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Message.context</code></td>
+<td>the bus-envelope metadata on every Message (routing keys, the <code>session</code> carrier)</td>
+<td><code>context</code></td>
+</tr>
+<tr>
+<td><code>session.intent_context</code></td>
+<td>the field <em>inside</em> the session that holds context entries</td>
+<td><code>context.session.intent_context</code></td>
+</tr>
+<tr>
+<td><strong>intent context</strong> (the term)</td>
+<td>the decaying key/value state itself — the entries in that field</td>
+<td>(entries of the above)</td>
+</tr>
+<tr>
+<td><code>Match.slots</code></td>
+<td>the slot map produced <em>at match time</em> for one dispatch</td>
+<td><code>data.slots</code></td>
+</tr>
+</tbody>
+</table>
+<p>This page is about the third (and the field that holds it). It is <em>not</em> <code>Message.context</code>, and a context entry is <em>not</em> a <code>Match.slot</code> — though CONTEXT-1 §7's context-supplied-slot rule is the bridge: when a <code>requires_context</code> key also names a slot, its value fills that slot if the utterance did not (this is exactly the "remember which person" mechanism below).</p>
+</div>
 <p>Currently, keyword-based conversational context is only consumed by the
 <a href="../adapt-pipeline/">Adapt</a> pipeline, not <a href="../padatious-pipeline/">Padatious</a>.</p>
 <p>Context lives on the per-conversation <a href="../session/">Session</a> (<code>Session.context</code>, an
@@ -1463,6 +1507,9 @@ Session context directly). The example below documents the intended behaviour.</
 </blockquote>
 <h2 id="using-context-to-enable-intents">Using context to enable <strong>Intents</strong><a class="headerlink" href="#using-context-to-enable-intents" title="Permanent link">&para;</a></h2>
 <p>To make sure certain <strong>Intents</strong> can't be triggered unless some previous stage in a conversation has occurred. Context can be used to create "bubbles" of available intent handlers.</p>
+<blockquote>
+<p>This is the <strong><code>requires_context</code></strong> gate of CONTEXT-1 §6 in action: <code>MilkContext</code> is a private flag (the <code>@adds_context</code> decorator stores it under the skill's own prefix), and an intent that <code>.require('MilkContext')</code> declares it as a precondition — so the <code>yes</code>/<code>no</code> intents are <em>invisible except in the narrow window</em> between the question and the reply, with no skill-side state machine. The complementary <code>excludes_context</code> gate (CONTEXT-1 §6.1) handles fire-once intents (e.g. "greet only once per session").</p>
+</blockquote>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>User: Hey Mycroft, bring me some Tea
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>OVOS: Of course, would you like Milk with that?
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>User: No

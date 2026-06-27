@@ -994,6 +994,13 @@
 
 <h1 id="glossary-of-terms">Glossary of Terms<a class="headerlink" href="#glossary-of-terms" title="Permanent link">&para;</a></h1>
 <p>This glossary defines common terms, acronyms, and concepts used throughout the OpenVoiceOS (OVOS) ecosystem. New to OVOS? Skim this first — most pages assume these words.</p>
+<div class="admonition info">
+<p class="admonition-title">📐 Formal specification</p>
+<p>Entries marked <strong>📐</strong> name part of the <strong>formal vocabulary</strong> of the OVOS
+architecture — concepts with a normative, implementation-agnostic
+definition. Each links to its authoritative spec; for the full set and how
+they fit together see the <strong><a href="../architecture-specs/">spec index</a></strong>.</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -1004,7 +1011,7 @@
 <tbody>
 <tr>
 <td><strong><a href="../adapt-pipeline/">Adapt</a></strong></td>
-<td>A keyword-based intent parser used for simple, high-confidence commands.</td>
+<td>A keyword-based intent parser used for simple, high-confidence commands. Its <code>.voc</code> keywords use the shared template grammar (📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1</a>).</td>
 </tr>
 <tr>
 <td><strong><a href="../agent-plugins/">Agent Engine</a></strong></td>
@@ -1024,7 +1031,7 @@
 </tr>
 <tr>
 <td><strong><a href="../ocp-pipeline/">Common Play</a> (<a href="../ocp-pipeline/">OCP</a>)</strong></td>
-<td>OpenVoiceOS Common Play — a framework and intent handler specialized in finding and playing media (music, video, podcasts).</td>
+<td>OpenVoiceOS Common Play — a framework and intent handler specialized in finding and playing media (music, video, podcasts). The per-session <em>virtual media player</em> it arbitrates is specified by 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/ocp-1.md">OVOS-OCP-1</a>.</td>
 </tr>
 <tr>
 <td><strong>Constraints file</strong></td>
@@ -1032,11 +1039,11 @@
 </tr>
 <tr>
 <td><strong><a href="../converse-pipeline/">Converse</a></strong></td>
-<td>A mechanism that allows skills to intercept utterances during an active session (continuous conversation).</td>
+<td>A mechanism that allows skills to intercept utterances during an active session (continuous conversation). Specified by 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/converse.md">OVOS-CONVERSE-1</a>.</td>
 </tr>
 <tr>
 <td><strong><a href="../statements/">Dialog</a></strong></td>
-<td>A <code>.dialog</code> file holding sentences <strong>OVOS speaks</strong> (often with <code>{variables}</code>). The output counterpart of an intent.</td>
+<td>A <code>.dialog</code> file holding sentences <strong>OVOS speaks</strong> (often with <code>{variables}</code>). The output counterpart of an intent. Its format is specified by 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md">OVOS-INTENT-2</a>, its grammar by 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1</a>.</td>
 </tr>
 <tr>
 <td><strong>Dinkum Listener</strong></td>
@@ -1064,7 +1071,11 @@
 </tr>
 <tr>
 <td><strong><a href="../fallback-pipeline/">Fallback</a></strong></td>
-<td>A stage in the intent pipeline where skills can attempt to handle utterances that weren't matched by high-priority parsers.</td>
+<td>A stage in the intent pipeline where skills can attempt to handle utterances that weren't matched by high-priority parsers. Specified by 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/fallback.md">OVOS-FALLBACK-1</a>.</td>
+</tr>
+<tr>
+<td><strong>📐 First-match-wins</strong></td>
+<td>The pipeline's arbitration model: the orchestrator walks the <strong>pipeline plugins</strong> in <code>session.pipeline</code> order and dispatches the <strong>first</strong> one that returns a <code>Match</code> — ordering is <em>policy</em>, and an earlier plugin gets first refusal on every utterance. This (not a confidence ranking) is what lets a stage such as <a href="../converse-pipeline/">Converse</a> intercept an utterance ahead of normal intent matching. 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>.</td>
 </tr>
 <tr>
 <td><strong>G2P (Grapheme-to-Phoneme)</strong></td>
@@ -1096,7 +1107,7 @@
 </tr>
 <tr>
 <td><strong><a href="../pipelines-overview/">Intent Pipeline</a></strong></td>
-<td>The ordered sequence of parsers and matchers used to resolve an utterance into an intent.</td>
+<td>The ordered sequence of parsers and matchers used to resolve an utterance into an intent. Specified by 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>.</td>
 </tr>
 <tr>
 <td><strong>IPA (International Phonetic Alphabet)</strong></td>
@@ -1113,6 +1124,10 @@
 <tr>
 <td><strong><a href="../mark1/">Mark 1</a> / <a href="../mark2/">Mark 2</a></strong></td>
 <td>Mycroft's reference hardware devices. The Mark 1 is a faceplate-only speaker; the Mark 2 is a Raspberry Pi 4 device with a touchscreen running the full OVOS GUI stack. Both are still supported.</td>
+</tr>
+<tr>
+<td><strong>📐 Match Contract</strong></td>
+<td>The single method every <strong>pipeline plugin</strong> exposes: <code>match(utterances, lang, session) → Match \| None</code>. It is the "system-call ABI" of the voice OS — the orchestrator knows nothing about a plugin except this signature. Returning a <code>Match</code> claims the utterance; returning <code>None</code> declines it. 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>.</td>
 </tr>
 <tr>
 <td><strong>Message</strong></td>
@@ -1139,6 +1154,10 @@
 <td>The library responsible for discovering and loading OVOS plugins.</td>
 </tr>
 <tr>
+<td><strong>📐 Orchestrator</strong></td>
+<td>The logical role that drives the <a href="../pipelines-overview/">intent pipeline</a>: it iterates the <strong>pipeline plugins</strong>, dispatches the winning <strong>Match</strong> to the owning handler on <code>&lt;skill_id&gt;:&lt;intent_name&gt;</code>, and emits the handler-lifecycle events (<code>ovos.intent.handler.start</code> / <code>.complete</code> / <code>.error</code>). In OVOS this role is filled by <a href="../core/">ovos-core</a>, but the spec is implementation-agnostic — any conformant orchestrator works. 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>.</td>
+</tr>
+<tr>
 <td><strong>OVOS (OpenVoiceOS)</strong></td>
 <td>The whole open-source, privacy-respecting voice assistant platform this manual documents.</td>
 </tr>
@@ -1163,6 +1182,10 @@
 <td>Platform &amp; Hardware Abstraction Layer; a service that handles low-level hardware interactions (volume, buttons, etc.).</td>
 </tr>
 <tr>
+<td><strong>📐 Pipeline Plugin</strong></td>
+<td>A matcher that exposes the <strong>match contract</strong> — <code>match(utterances, lang, session) → Match \| None</code>. The <strong>orchestrator</strong> iterates the installed pipeline plugins in <code>session.pipeline</code> order, <strong>first-match-wins</strong>; a plugin returns a <code>Match</code> to claim the utterance or <code>None</code> to pass. <a href="../adapt-pipeline/">Adapt</a>, <a href="../padatious-pipeline/">Padatious</a>, <a href="../converse-pipeline/">Converse</a>, <a href="../fallback-pipeline/">Fallback</a>, <a href="../ocp-pipeline/">OCP</a> and <a href="../personas/">Persona</a> are all pipeline plugins. 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>.</td>
+</tr>
+<tr>
 <td><strong>Plugin</strong></td>
 <td>A swappable building block (a <a href="../stt-plugins/">STT</a>, <a href="../tts-plugins/">TTS</a>, <a href="../wake-word-plugins/">wake word</a>, <a href="../vad-plugins/">VAD</a>… engine). Plugins change <em>how</em> OVOS works; <a href="../skill-design-guidelines/">skills</a> add <em>what</em> it can do.</td>
 </tr>
@@ -1179,12 +1202,20 @@
 <td>A stability track — <em>stable</em>, <em>testing</em>, or <em>alpha</em> — that controls how new the installed packages are. See <a href="../release-channels/">Release Channels</a>.</td>
 </tr>
 <tr>
+<td><strong>📐 Reserved <code>intent_name</code></strong></td>
+<td>A small set of intent names — <code>stop</code>, <code>converse</code>, <code>response</code>, <code>fallback</code>, <code>common_query</code> — that skills <strong>must not</strong> register, because the orchestrator dispatches them on <code>&lt;skill_id&gt;:&lt;intent_name&gt;</code> on behalf of a pipeline plugin (e.g. <a href="../converse-pipeline/">Converse</a> emits <code>response</code>, <strong>Stop</strong> emits <code>stop</code>). Each is leased to its owning spec. 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §7.3</a>.</td>
+</tr>
+<tr>
 <td><strong>Satellite</strong></td>
 <td>In <a href="../hivemind-agents/">HiveMind</a>, a lightweight device (e.g. a small Pi) that captures voice and forwards it to <code>hivemind-core</code>.</td>
 </tr>
 <tr>
 <td><strong><a href="../session/">Session</a></strong></td>
-<td>A data structure representing a specific user interaction or conversation state across multiple turns.</td>
+<td>A data structure representing a specific user interaction or conversation state across multiple turns. See <strong>Session (carrier)</strong> below; its wire shape is 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md">OVOS-SESSION-1</a>, its lifecycle 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-2.md">OVOS-SESSION-2</a>.</td>
+</tr>
+<tr>
+<td><strong>📐 Session (carrier)</strong></td>
+<td>The per-conversation JSON state that rides inside <code>Message.context.session</code> on <strong>every</strong> bus message — the voice OS's "shared memory". 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md">OVOS-SESSION-1</a> fixes its <em>wire shape</em> and the field registry other specs extend (e.g. <code>session.pipeline</code>, <code>session.response_mode</code>, <code>session.persona_id</code>); 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-2.md">OVOS-SESSION-2</a> fixes its <em>lifecycle</em> — who owns it, when it may be mutated, and the reserved <code>"default"</code> device session.</td>
 </tr>
 <tr>
 <td><strong><a href="../skill-design-guidelines/">Skill</a></strong></td>
@@ -1212,7 +1243,11 @@
 </tr>
 <tr>
 <td><strong><a href="../transformer-plugins/">Transformer</a></strong></td>
-<td>A plugin that modifies audio, text, or metadata as it moves through the pipeline.</td>
+<td>A plugin that modifies audio, text, or metadata as it moves through the pipeline. Specified by 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1</a>; see <strong>Transformer Chain</strong> below.</td>
+</tr>
+<tr>
+<td><strong>📐 Transformer Chain</strong></td>
+<td>One of <strong>six</strong> ordered chains — <em>audio</em>, <em>utterance</em>, <em>metadata</em>, <em>intent</em>, <em>dialog</em>, <em>tts</em> — that reshape an artifact at a fixed point in the utterance lifecycle. Unlike a <strong>pipeline plugin</strong> (which decides whether to claim an utterance), every transformer in a chain <strong>always runs</strong> at its injection point. 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1</a>.</td>
 </tr>
 <tr>
 <td><strong>TTS (<a href="../tts-plugins/">Text-to-Speech</a>)</strong></td>
@@ -1229,6 +1264,10 @@
 <tr>
 <td><strong>Visemes</strong></td>
 <td>Visual representations of phonemes used for lip-sync animations on a GUI.</td>
+</tr>
+<tr>
+<td><strong>📐 Voice Operating System</strong></td>
+<td>The framing the formal specs are built around: OVOS is a <strong>platform, not a product</strong>. Like a general-purpose OS, it defines the boundary between user input and computation, arbitrates which application handles each utterance, and exposes a stable ABI (the <strong>match contract</strong>) that third-party <a href="../skill-design-guidelines/">skills</a> and <a href="../plugin-manager/">plugins</a> run against without knowing about each other. See the <a href="../architecture-specs/">spec index</a> for the OS-concept ↔ voice-OS mapping. 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>.</td>
 </tr>
 <tr>
 <td><strong>Vocabulary (<code>.voc</code>)</strong></td>
