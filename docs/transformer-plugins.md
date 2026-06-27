@@ -3,9 +3,14 @@
 !!! abstract "In a nutshell"
     As your voice travels through the assistant — from raw sound, to written words, to a matched request, to the spoken reply — transformer plugins are optional helpers that can tidy or tweak the information at each step. Think of them as filters on an assembly line: one might clean up background noise, another might fix a misheard word before the system tries to understand it. They don't take over any step; they just polish what passes between steps. See the [Glossary](glossary.md) for related terms.
 
+!!! info "📐 Formal specification"
+    The transformer subsystem is specified by **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md)** (one of the formal [architecture specs](architecture-specs.md)). It defines **six ordered chains** — `audio`, `utterance`, `metadata`, `intent`, `dialog`, `tts` — that run at fixed points in the utterance lifecycle, the per-type input/output contract for each, the per-session ordering and denylist overrides, and the utterance-cancellation signal. A transformer is identified by its `(type, transformer_id)` pair. Where this manual or the current code diverges from the spec, the spec is canonical.
+
+    **Ordering — spec vs. current code.** OVOS-TRANSFORM-1 §4 orders each chain by **ascending** `priority`: a lower number runs **earlier**, the default is `50`, matching the "stages count up" reading. The **current OVOS code sorts descending** (highest first). This is a known divergence; the spec order (ascending) is the canonical one, and the per-chain pages below note the code's actual behaviour inline.
+
 Transformer plugins let you intercept and modify data as it flows through the OVOS pipeline. Each type is a small class with a `transform()` method that runs at a fixed stage — turning raw audio into cleaner audio, fixing transcribed text before intent matching, enriching a matched intent, or post-processing speech before playback.
 
-A transformer never *replaces* a stage; it sits between two stages and reshapes what passes through. Several plugins of the same type can be active at once — they run in sequence, sorted by `priority` (highest first), so each one builds on the output of the previous.
+A transformer never *replaces* a stage; it sits between two stages and reshapes what passes through. Several plugins of the same type can be active at once — they run in sequence so each one builds on the output of the previous. The current code sorts them by `priority` **highest first**; the canonical OVOS-TRANSFORM-1 order is the reverse (ascending — lowest first), as flagged in the callout above.
 
 ## Transformer Types
 

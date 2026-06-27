@@ -3,6 +3,9 @@
 !!! abstract "In a nutshell"
     A fallback skill is a catch-all that only gets a turn when no regular skill understood what you said. It is where you put things like "sorry, I didn't catch that", a web search, or a large language model that should answer only when nothing more specific did. Each fallback has a priority number so you can decide which ones try first, with broad "I don't understand" handlers going last. To see how this fits into the bigger picture, read the [Fallback Pipeline](fallback-pipeline.md), or the [Glossary](glossary.md) for terms.
 
+!!! info "📐 Formal specification"
+    Fallback handling is specified by **[OVOS-FALLBACK-1 — Fallback Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/fallback.md)** (a formal [architecture spec](architecture-specs.md)). A skill declares itself a fallback handler by emitting `ovos.fallback.register` with a `skill_id` and integer `priority`; the fallback **pipeline plugin** builds a pool ordered by **ascending** priority (**lower number runs earlier** — matching this page), then queries each skill in turn via a `<skill_id>.fallback.ping` / `.pong` round-trip, asking `can_handle?`, and dispatches to the **first willing** skill on `<skill_id>:fallback`. The spec recommends a catch-all skill registered at the highest number (e.g. `100`) so every utterance gets a response; the §3.3 tiers (`0–49` high / `50–74` medium / `75–100` low confidence) inform where to register.
+
 A **Fallback** skill is the last line of defense: it is only consulted when no intent matched the utterance. This is where you put a catch-all ("I didn't understand"), an LLM, a web search, or any handler that should run *only* when nothing more specific did.
 
 ## Order of precedence
