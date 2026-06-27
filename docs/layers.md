@@ -3,7 +3,11 @@
 !!! abstract "In a nutshell"
     Normally a skill listens for all of its commands at once. Intent Layers let a skill turn commands on and off as a conversation progresses, so only the choices that make sense right now are available — much like a "choose your own adventure" book where each page unlocks the next set of options. This is handy for step-by-step flows, games, or anything that should react differently depending on what the user just did. For the broader picture, see the [Glossary](glossary.md).
 
-> **WARNING**: Skills using these features might not play well with [HiveMind](https://jarbashivemind.github.io/HiveMind-community-docs/) due to shared state across satellites
+!!! info "📐 Formal specification"
+    `IntentLayer` gating is implemented through the session's **intent context** — each layer is a session context token its intents require. The mechanism is specified by **[OVOS-CONTEXT-1 — Intent Context](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md)** (see [Context](context.md) and the [spec index](architecture-specs.md)).
+
+!!! tip "`IntentLayers` are now per-session"
+    Since **ovos-workshop 9.0.0**, `IntentLayer` state lives in the **session**, so layered skills are concurrency-safe across [HiveMind](https://jarbashivemind.github.io/HiveMind-community-docs/) satellites — two satellites can be in different layers at the same time. (The lower-level `enable_intent` / `disable_intent` calls in the next section still change the **global** intent set, so prefer layers for per-session flows.)
 
 ## Managing Intents
 
@@ -37,7 +41,7 @@ class RotatingIntentsSkill(OVOSSkill):
 
 ```
 
-> **NOTE**: Intent states are currently shared across Sessions
+> **NOTE**: `enable_intent` / `disable_intent` change the **global** intent set — these states are shared across [Sessions](session.md). For per-session gating, use [Intent Layers](#decorators) (which gate via intent context) instead.
 
 
 ## State Machines
@@ -170,7 +174,7 @@ Slightly more complex than the previous example, we may want to offer several "f
 
 An excerpt from the game to illustrate usage of `IntentLayer` decorators
 
-> **NOTE**: IntentLayers do not yet support [Session](session.md), in this example all [voice satellites](https://jarbashivemind.github.io/HiveMind-community-docs/07_voicesat/) would join the game
+> **NOTE**: Since **ovos-workshop 9.0.0**, `IntentLayers` are **per-session** — gated via [intent context](context.md) ([OVOS-CONTEXT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md)), so each [voice satellite](https://jarbashivemind.github.io/HiveMind-community-docs/07_voicesat/) keeps its own layer state and they no longer all join the same game.
 
 ```python
 from ovos_workshop.decorators.layers import layer_intent, enables_layer, \

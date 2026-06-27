@@ -3,6 +3,9 @@
 !!! abstract "In a nutshell"
     An "intent" is a thing a user can ask the assistant to do. "Intent layers" let a skill switch groups of these on and off depending on what's happening — for example, only listening for "north," "south," "attack" while a game is actually being played, then turning them off again. It's like having different sets of buttons appear only when they make sense. The second half of this page covers "permissions" — rules for which skills are even allowed to join in. For more on intents see [Intents](intents.md); for term definitions see the [Glossary](glossary.md).
 
+!!! info "📐 Formal specification"
+    Intent layers are a thin convenience over **intent context**: each layer is a session context token that gates its intents. The underlying mechanism is specified by **[OVOS-CONTEXT-1 — Intent Context](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md)** — see [Context](context.md) and the [spec index](architecture-specs.md).
+
 ---
 
 ## Intent Layers
@@ -13,7 +16,10 @@ Intent layers let a skill enable or disable groups of intents at runtime. This i
 
 ### Concept
 
-A skill can define multiple named "layers", each containing a set of intents. Only the intents belonging to the currently active layer(s) are enabled at any time. The skill starts with no layers active — the global (non-layered) intents are always active.
+A skill can define multiple named "layers", each containing a set of intents. Only the intents belonging to the currently active layer(s) are matchable at any time. The skill starts with no layers active — the global (non-layered) intents are always active.
+
+!!! abstract "How it works — per-session, via intent context"
+    A layer does **not** globally detach and re-attach intents. Each layer maps to a synthetic [intent-context](context.md) token (`layer_<name>`), and every intent in the layer additionally **requires** that context ([OVOS-CONTEXT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md)). Activating a layer sets the context on the session (`set_context`); deactivating removes it (`remove_context`). The intents stay registered for the skill's lifetime — only their *required context* comes and goes, which keeps the intent service stable (no detach/attach churn). Because the gate lives in the **session**, layer state is **per-session and concurrency-safe**: two callers (for example two [HiveMind](https://jarbashivemind.github.io/HiveMind-community-docs/) satellites) can be in different layers at the same time. The decorator and `IntentLayers` API below is unchanged — this is an implementation refactor introduced in **ovos-workshop 9.0.0**.
 
 ### Layer Decorators
 
