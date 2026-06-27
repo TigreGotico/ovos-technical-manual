@@ -104,10 +104,11 @@ nav:
           - Reference: config-reference.md
           - Locations: locations-ref.md
       - Core Services:
-          - ovos-core: core.md
-          - Skill Manager: skill-manager.md
-          - Intent Service: intent-service.md
-          - Skill Installer: skill-installer.md
+          - ovos-core:
+              - Overview: core.md
+              - Skill Manager: skill-manager.md
+              - Intent Service: intent-service.md
+              - Skill Installer: skill-installer.md
           - Speech Service: speech-service.md
           - Audio Service: audio-service.md
           - Media Service (ovos-media): ovos-media.md
