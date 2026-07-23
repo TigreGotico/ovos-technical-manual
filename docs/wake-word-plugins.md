@@ -11,7 +11,10 @@ OVOS supports different wake word detection plugins, each with its own strengths
 
 The default OVOS plugins are:
 
-- **[ovos-ww-plugin-precise-onnx](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx)**: The default model-based plugin, using a trained Precise model exported to ONNX to detect wake words.
+- **[ovos-ww-plugin-precise-lite](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite)**: The default model-based plugin, running a trained Precise wake-word model exported to TFLite. The bundled default `mycroft.conf` sets this up for `hey_mycroft`, with a fallback chain to `ovos-ww-plugin-precise` (classic Precise), then `ovos-ww-plugin-vosk`, then `ovos-ww-plugin-pocketsphinx` if a plugin further up the chain is not installed.
+
+
+- **[ovos-ww-plugin-precise-onnx](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx)**: Runs the same family of Precise models exported to ONNX instead of TFLite — a drop-in alternative for deployments that prefer the ONNX runtime.
 
 
 - **[ovos-ww-plugin-vosk](https://github.com/OpenVoiceOS/ovos-ww-plugin-vosk)**: A text-based plugin leveraging Vosk, which lets you define a wake word without training a model. This is useful during the initial stages of data collection.
@@ -29,8 +32,8 @@ The `hotwords` section in your `mycroft.conf` allows you to configure the wakewo
 ```json
 "hotwords": {
   "hey_mycroft": {
-    "module": "ovos-ww-plugin-precise-onnx",
-    "model": "https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.onnx",
+    "module": "ovos-ww-plugin-precise-lite",
+    "model": "https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite",
     "trigger_level": 3,
     "sensitivity": 0.5,
     "listen": true
@@ -112,10 +115,10 @@ class MyWWPlugin(HotWordEngine):
 |--------|-------------|
 | [ovos-ww-plugin-openWakeWord](#ovos-ww-plugin-openwakeword) | Wake-word detection using the open-source openWakeWord neural models. |
 | [ovos-ww-plugin-vosk](#ovos-ww-plugin-vosk) | Mycroft wake word plugin for [Vosk](https://alphacephei.com/vosk/) |
-| [ovos-ww-plugin-precise-onnx](#ovos-ww-plugin-precise-onnx) | ONNX-exported Precise wake word model (current default). |
-| [ovos-ww-plugin-wakewordlab](https://github.com/OpenVoiceOS/ovos-ww-plugin-wakewordlab) | Compact (~240 KB) neural wake-word models with a Silero VAD pre-filter (`.wkw`/`.onnx`). |
-| [ovos-ww-plugin-wakeforge](https://github.com/OpenVoiceOS/ovos-ww-plugin-wakeforge) | Runs custom wake-word models trained with [wakeforge](https://github.com/TigreGotico/wakeforge) — train a detector from a single phrase, export a two-file model. |
-| [ovos-ww-plugin-server](https://github.com/OpenVoiceOS/ovos-ww-plugin-server) | Remote wake-word detection: streams audio to an [ovos-ww-server](https://github.com/OpenVoiceOS/ovos-ww-server) instance (offload detection from a thin satellite). |
+| [ovos-ww-plugin-precise-onnx](#ovos-ww-plugin-precise-onnx) | ONNX-exported Precise wake word model, an alternative to the TFLite-based default. |
+| [ovos-ww-plugin-wakewordlab](https://github.com/OpenVoiceOS/ovos-ww-plugin-wakewordlab) | Compact (~240 KB) neural wake-word models with a Silero VAD pre-filter (`.wkw`/`.onnx`). **Not yet on PyPI** — install from source. |
+| [ovos-ww-plugin-wakeforge](https://github.com/OpenVoiceOS/ovos-ww-plugin-wakeforge) | Runs custom wake-word models trained with [wakeforge](https://github.com/TigreGotico/wakeforge) — train a detector from a single phrase, export a two-file model. **Not yet on PyPI** — install from source. |
+| [ovos-ww-plugin-server](https://github.com/OpenVoiceOS/ovos-ww-plugin-server) | Remote wake-word detection: streams audio to an [ovos-ww-server](https://github.com/OpenVoiceOS/ovos-ww-server) instance (offload detection from a thin satellite). **Not yet on PyPI** — install from source. |
 
 ## ovos-ww-plugin-openWakeWord
 
@@ -155,7 +158,7 @@ class MyWWPlugin(HotWordEngine):
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx)
 
 
-- **Description**: Runs Precise wake word models exported to ONNX. Current default wake word plugin.
+- **Description**: Runs Precise wake word models exported to ONNX, an alternative to `ovos-ww-plugin-precise-lite` for deployments that prefer the ONNX runtime.
 
 ### Default Configuration
 

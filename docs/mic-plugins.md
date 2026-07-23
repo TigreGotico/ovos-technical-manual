@@ -41,8 +41,8 @@ pip install ovos-microphone-plugin-<name>
 | [ovos-microphone-plugin-pyaudio](https://github.com/OpenVoiceOS/ovos-microphone-plugin-pyaudio) | Uses the [PyAudio](https://people.csail.mit.edu/hubert/pyaudio/) PortAudio bindings directly (no `speech_recognition` dependency). Good cross-platform general-purpose plugin. | Linux, macOS, Windows |
 | [ovos-microphone-plugin-sounddevice](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice) | Built on [python-sounddevice](https://github.com/spatialaudio/python-sounddevice). Offers cross-platform support. | Linux, macOS, Windows |
 | [ovos-microphone-plugin-files](https://github.com/OpenVoiceOS/ovos-microphone-plugin-files) | Uses audio files as input instead of a live microphone—ideal for testing and debugging. | Linux, macOS, Windows |
-| [ovos-microphone-plugin-arecord](https://github.com/OVOSHatchery/ovos-microphone-plugin-arecord) | Wraps `arecord` using subprocess calls. Simple and effective on systems with ALSA. | Linux |
-| [ovos-microphone-plugin-socket](https://github.com/OVOSHatchery/ovos-microphone-plugin-socket) | Receives audio over a socket connection. Useful for remote microphone setups. | Linux, macOS, Windows |
+| [ovos-microphone-plugin-arecord](https://github.com/OVOSHatchery/ovos-microphone-plugin-arecord) | Wraps `arecord` using subprocess calls. Simple and effective on systems with ALSA. **Hatchery-only** — not published to PyPI, install from source if you need it. | Linux |
+| [ovos-microphone-plugin-socket](https://github.com/OVOSHatchery/ovos-microphone-plugin-socket) | Receives audio over a socket connection. Useful for remote microphone setups. **Hatchery-only** — not published to PyPI, install from source if you need it. | Linux, macOS, Windows |
 
 ## Technical Explanation
 

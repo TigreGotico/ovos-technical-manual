@@ -1,20 +1,23 @@
 # OCP Skills
 
-!!! warning "Getting deprecated — OCP skills are being phased out"
+!!! warning "OCP skills are giving way to MediaProvider plugins"
     OCP **skills** (media-provider skills built on `OVOSCommonPlaybackSkill` /
-    [`@ocp_search`](#search-results)) are how media search works **today** and still work,
-    but they are **slated for deprecation**. The replacement is a dedicated **MediaProvider**
-    plugin type (`opm.media.provider`) that the OCP pipeline will load **in-process** and call
-    `search()` on directly — instead of broadcasting `ovos.common_play.query` over the bus to
-    skills — moving media catalogs out of skills and into plugins. This first ships in
-    **`ovos-plugin-manager 2.8.0a1`** (Phase 1 of the `ovos-media` migration). Keep using OCP
-    skills for now; this page will track the migration as it lands.
+    [`@ocp_search`](#search-results)) still work and remain fully supported, but a
+    plugin-based alternative now exists alongside them: a dedicated **MediaProvider**
+    plugin type (`opm.media.provider`, loaded via `ovos-plugin-manager`) that the
+    [`ovos-media`](ovos-media.md) player loads **in-process** and calls `search()` on
+    directly, instead of broadcasting a query over the bus to skills. This moves media
+    catalogs out of skills and into plugins for anyone adopting `ovos-media`. Both models
+    are documented; new integrations that don't need the full skill lifecycle (intents,
+    settings UI, converse) should prefer a MediaProvider plugin, but writing an OCP skill
+    is still the simpler path and is not going away for setups still on the legacy audio
+    service.
 
 !!! abstract "In a nutshell"
     OCP (OVOS Common Playback) is the part of OVOS that handles playing media, like music, podcasts, or radio. An OCP skill doesn't listen for "play X" itself; instead it acts as a source of media. When someone asks to play something, OVOS asks every OCP skill "can you find this?", each one answers with whatever it can offer and how good a match it thinks it is, and OVOS plays the best result. It's like asking several record shops for an album and going with whoever has the closest match. New terms are explained in the [Glossary](glossary.md).
 
 !!! info "📐 Formal specification"
-    OCP is specified by **[OVOS-OCP-1 — OVOS Common Playback: the Virtual Media Player](https://github.com/OpenVoiceOS/architecture/blob/dev/ocp-1.md)** (a formal [architecture spec](architecture-specs.md)). The spec defines a single **per-session Virtual Media Player**: one arbitration point that owns the session's now-playing track, queue, and transport state, addressed over the `ovos.common_play.*` bus surface with an MPRIS-style control set (play / search / pause / resume / next / previous / seek / stop) and a three-axis state model (`PlayerState`, `MediaState`, loop/shuffle). It can even be bridged to host-OS MPRIS players so voice controls media OVOS did not start. This page covers the **provider** side — the `@ocp_search` skills that feed candidate media *into* that player; the player and its control surface are the spec's subject. Note both this provider model and OVOS-OCP-1's player are current; the [`ovos-media`](ovos-media.md) refactor (see the deprecation banner above) moves providers from skills to `opm.media.provider` plugins.
+    OCP is specified by **[OVOS-OCP-1 — OVOS Common Playback: the Virtual Media Player](https://github.com/OpenVoiceOS/architecture/blob/dev/ocp-1.md)** (a formal [architecture spec](architecture-specs.md)). The spec defines a single **per-session Virtual Media Player**: one arbitration point that owns the session's now-playing track, queue, and transport state, addressed over the `ovos.common_play.*` bus surface with an MPRIS-style control set (play / search / pause / resume / next / previous / seek / stop) and a three-axis state model (`PlayerState`, `MediaState`, loop/shuffle). It can even be bridged to host-OS MPRIS players so voice controls media OVOS did not start. This page covers the **provider** side — the `@ocp_search` skills that feed candidate media *into* that player; the player and its control surface are the spec's subject. Note both this provider model and OVOS-OCP-1's player are current; the [`ovos-media`](ovos-media.md) refactor (see the note above) adds `opm.media.provider` plugins as an alternative to skill-based providers.
 
 OCP (OVOS Common Playback) skills are built from the `OVOSCommonPlaybackSkill` class.
 
