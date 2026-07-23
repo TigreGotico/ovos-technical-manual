@@ -140,3 +140,8 @@ class MySkill(OVOSSkill):
 
 ```
 
+---
+
+Didn't find your question here? Ask in the
+[skills channel on OVOS Chat](https://matrix.to/#/#openvoiceos-skills:matrix.org).
+

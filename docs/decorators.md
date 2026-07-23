@@ -530,4 +530,20 @@ def handle_confirm(self, message):
 
 ---
 
+## Coming from mycroft-core
+
+!!! note "Renamed / merged decorators"
+    mycroft-core split intent registration into two separate decorators:
+    `@intent_handler` for Adapt intents and a second `@intent_file_handler`
+    for Padatious `.intent` files. In `ovos-workshop`, **`@intent_file_handler`
+    no longer exists** — both cases are handled by the single
+    [`@intent_handler`](#intent_handler) shown above, which accepts either an
+    `.intent` filename (Padatious) or an `IntentBuilder` (Adapt). If you are
+    porting an old skill, replace every `@intent_file_handler("x.intent")`
+    with `@intent_handler("x.intent")`. See
+    [Migrating from Mycroft](migrating-from-mycroft.md) for the full list of
+    changes.
+
+---
+
 *Source code: [OpenVoiceOS/ovos-workshop](https://github.com/OpenVoiceOS/ovos-workshop).*

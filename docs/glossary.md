@@ -30,6 +30,7 @@ This glossary defines common terms, acronyms, and concepts used throughout the O
 | **G2P (Grapheme-to-Phoneme)** | The process of converting written text into phonetic representations for pronunciation. See [G2P plugins](g2p-plugins.md). |
 | **GUI Service** | The component (`ovos-gui`) that manages visual displays and [QML](qt5-gui.md)/HTML interfaces. ⚠️ The current ("legacy") GUI is [deprecated](gui-service.md) — there is no usable OVOS GUI right now; a replacement is in progress. |
 | **Headless** | A device with no monitor or keyboard (e.g. a Raspberry Pi you control over SSH). OVOS runs happily headless. |
+| **home.mycroft.ai** | The old Mycroft AI cloud account/backend portal used for device pairing, remote skill settings, and STT. OVOS has no equivalent — it is **backendless** by design, with no account or pairing step required. See [Deprecated & Archived Repositories](deprecated-repos.md) and [Migrating from Mycroft](migrating-from-mycroft.md). |
 | **[HiveMind](hivemind-agents.md)** | A protocol and ecosystem for connecting "satellites" (limited hardware) to a central OVOS server. |
 | **`hivemind-core`** | In [HiveMind](hivemind-agents.md), the central server that satellites and clients connect to for the heavy work (skills, [STT](stt-plugins.md)/[TTS](tts-plugins.md), LLM). |
 | **Intent** | The identified goal or request of a user's utterance (e.g., "WeatherIntent"). |
