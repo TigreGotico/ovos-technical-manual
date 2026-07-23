@@ -1,49 +1,56 @@
 # License
 
-We have a universal donor policy, our code should be able to be used anywhere by anyone, no ifs or conditions attached.
+!!! abstract "In a nutshell"
+    OVOS follows a **universal donor** licensing policy: the code should be usable by anyone,
+    anywhere, with no strings attached. In practice that means permissive licenses (mostly
+    Apache 2.0 or BSD) for all core components, with a short, explicitly documented list of
+    exceptions where a dependency forces a stricter license on one specific plugin.
 
-OVOS is predominately Apache2 or BSD licensed. There are only a few exceptions to this, which are all licensed under other compatible open source licenses.
+Under the universal donor policy, OVOS code should be usable anywhere by anyone, with no
+conditions attached. OVOS is predominately Apache 2.0 or BSD licensed; there are only a few
+exceptions, and each is listed below.
 
-Individual plugins or skills may have their own license, for example mimic3 is AGPL, so we can not change the license of our plugin.
+Individual plugins or skills may carry their own license when they wrap a dependency that
+requires it — for example a TTS plugin that wraps an AGPL-licensed engine cannot itself be
+relicensed under a more permissive term. Core components are kept fully free; any code whose
+license cannot be controlled lives in an optional plugin instead, flagged as such.
 
-We are committed to maintain all core components fully free, any code that we have no control over the license will live in an optional plugin and be flagged as such.
+This also means avoiding LGPL code, for the reasons explained in
+[this discussion of the GPL classpath exception](https://softwareengineering.stackexchange.com/questions/119436/what-does-gpl-with-classpath-exception-mean-in-practice/326325#326325).
 
-This includes avoiding LGPL code for reasons explained [here](https://softwareengineering.stackexchange.com/questions/119436/what-does-gpl-with-classpath-exception-mean-in-practice/326325#326325).
+## Policy properties
 
-Our license policy has the following properties:
+The license policy has the following properties:
 
--  It gives you, the user of the software, complete and unrestrained access to the software, such that you may inspect, modify, and redistribute your changes
+- It gives the user of the software complete and unrestrained access, such that they may
+  inspect, modify, and redistribute their changes:
+    - **Inspection** — anyone may inspect the software for security vulnerabilities.
+    - **Modification** — anyone may modify the software to fix issues or add features.
+    - **Redistribution** — anyone may redistribute the software on their own terms.
+- It is compatible with GPL licenses — projects licensed as GPL can be distributed with OVOS.
+- It allows incorporating GPL-incompatible free software, such as CDDL-licensed code.
 
+The policy does not restrict what software may run *on* OVOS. Thanks to the plugin
+architecture, even traditionally tightly-coupled components such as drivers can be
+distributed separately, so plugin maintainers are free to choose whatever license fits their
+own project.
 
-    - Inspection - Anyone may inspect the software for security vulnerabilities
+---
 
+## Notable licensing exceptions
 
-    - Modification - Anyone may modify the software to fix issues or add features
+The repositories below do not follow the universal donor policy; check their licenses are
+compatible with your use case before depending on them.
 
-
-    - Redistribution - Anyone may redistribute the software on their terms
-
-
-- It is compatible with GPL licenses - Projects licensed as GPL can be distributed with OVOS
-
-
-- It allows for the incorporation of GPL-incompatible free software, such as software that is CDDL licensed
-
-The license does not restrict the software that may run on OVOS, however -- and thanks to the plugin architecture, even traditionally tightly-coupled components such as drivers can be distributed separately, so maintainers are free to choose whatever license they like for their projects.
-
-
-### Notable licensing exceptions
-
-The following repositories do not respect our universal donor policy, please ensure their licenses are compatible before you use them
-
-| Repository                                                                                  | License   | Reason                                                                                                     |
-|---------------------------------------------------------------------------------------------|-----------|------------------------------------------------------------------------------------------------------------|
-| [ovos-intent-plugin-padatious](https://github.com/OpenVoiceOS/ovos-intent-plugin-padatious) | Apache2.0 | [padatious](https://github.com/MycroftAI/padatious) license might not be valid, depends on libfann2 (LGPL) |
-| [ovos-tts-plugin-mimic3](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3)             | AGPL      | depends on [mimic3](https://github.com/MycroftAI/mimic3) (AGPL)   |
-| [ovos-tts-plugin-espeakng](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakng)         | GPL       | depends on [espeak-ng](https://github.com/espeak-ng) (GPL)    |
-| [ovos-g2p-plugin-espeak](https://github.com/OpenVoiceOS/ovos-g2p-plugin-espeak)             | GPL       | depends on [espeak-phonemizer](https://github.com/rhasspy/espeak-phonemizer) (GPL)  |
-| [ovos-tts-plugin-SAM](https://github.com/OpenVoiceOS/ovos-tts-plugin-SAM)                   | ?         | reverse engineered abandonware              |
+| Repository | License | Reason |
+|---|---|---|
+| [ovos-intent-plugin-padatious](https://github.com/OpenVoiceOS/ovos-intent-plugin-padatious) | Apache-2.0 | [padatious](https://github.com/MycroftAI/padatious) depends on `libfann2` (LGPL); its own license status is uncertain as a result |
+| [ovos-tts-plugin-mimic3](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3) | AGPL | depends on [mimic3](https://github.com/MycroftAI/mimic3) (AGPL). This plugin is **archived**; see [Deprecated & Archived Repositories](deprecated-repos.md) for the current replacement |
+| [ovos-tts-plugin-espeakNG](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG) | GPL | depends on [espeak-ng](https://github.com/espeak-ng/espeak-ng) (GPL) |
+| [ovos-g2p-plugin-espeak](https://github.com/OpenVoiceOS/ovos-g2p-plugin-espeak) | GPL | depends on [espeak-phonemizer](https://github.com/rhasspy/espeak-phonemizer) (GPL) |
+| [ovos-tts-plugin-SAM](https://github.com/OpenVoiceOS/ovos-tts-plugin-SAM) | Unclear | reverse-engineered abandonware with no clear upstream license |
 
 ## Further reading
 
 - [Why OpenVoiceOS Uses Permissive Licenses](https://blog.openvoiceos.org/posts/2023-02-28-permissive-licenses) — OVOS blog
+- [Deprecated & Archived Repositories](deprecated-repos.md) — current replacements for archived plugins

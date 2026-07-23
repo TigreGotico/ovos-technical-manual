@@ -132,7 +132,7 @@ Located in `scripts/`. Checked out by the reusable workflows at run time — not
 | `remove_alpha.py` | `update_alpha(version_file)` | Set `VERSION_ALPHA = 0` (declare stable) |
 | `get_version.py` | `get_version(version_file)` | Read and print current version string |
 | `check_downstream.py` | `get_downstream(package_name)` | Report reverse dependencies using `pipdeptree` |
-| `update_pr_comment.py` | `find_ovos_comment` / `insert_or_replace_section` | Find-or-create and update sections of the shared OVOS PR Checks comment |
+| `update_pr_comment.py` | `find_ovos_comments` / `insert_or_replace_section` | Find-or-create and update sections of the shared OVOS PR Checks comment |
 | `check_skill.py` | `run_checks(repo_root, ...)` | Skill locale / `skill.json` analysis |
 | `check_release.py` | `run_checks(version_file, ...)` | Predict next version from PR labels/title |
 | `check_opm.py` | `check_opm(plugin_type, entry_point, ...)` | OPM plugin detection, interface validation, import timing |

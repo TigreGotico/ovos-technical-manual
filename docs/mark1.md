@@ -134,7 +134,7 @@ The library includes base classes for creating dynamic animations, such as cellu
 
 ```python
 from ovos_mark1.faceplate.cellular_automaton import Rule110
-from ovos_bus_client.utils import get_mycroft_bus
+from ovos_bus_client.util import get_mycroft_bus
 from time import sleep
 
 bus = get_mycroft_bus()

@@ -6,7 +6,7 @@
 !!! warning "These repositories are archived"
     The repositories below are **archived** in the [OpenVoiceOS GitHub organization](https://github.com/OpenVoiceOS) — they are read-only and no longer maintained. They are listed here so you can recognise them and find the current replacement. Do **not** start new work against them.
 
-There are **83** archived repositories. They are grouped by area below; each row gives the reason and the current replacement where one exists.
+There are roughly **84** archived repositories (the exact count drifts as more get archived). They are grouped by area below; each row gives the reason and the current replacement where one exists.
 
 
 ## Backend services (removed architecture) (5)
@@ -104,7 +104,7 @@ There are **83** archived repositories. They are grouped by area below; each row
 | [ovos-media-plugin-qt5](https://github.com/OpenVoiceOS/ovos-media-plugin-qt5) | default GUI implementation for OCP framework | GUI rework (ovos-gui adapters) |
 | [ovos-shell](https://github.com/OpenVoiceOS/ovos-shell) | — | GUI rework — [pyhtmx-gui-client](https://github.com/OpenVoiceOS/pyhtmx-gui-client) |
 
-## Core, libraries & tooling (8)
+## Core, libraries & tooling (9)
 
 *Old metapackages/utilities, merged elsewhere or retired.*
 
@@ -117,6 +117,7 @@ There are **83** archived repositories. They are grouped by area below; each row
 | [ovos-translations](https://github.com/OpenVoiceOS/ovos-translations) | — | [ovos-localize](https://github.com/OpenVoiceOS/ovos-localize) |
 | [ovos_skill_installer](https://github.com/OpenVoiceOS/ovos_skill_installer) | A package extraction tool for Python | ovos-core / ovos-workshop |
 | [ovos_skill_manager](https://github.com/OpenVoiceOS/ovos_skill_manager) | skill installer for OVOS | ovos-core / ovos-workshop |
+| [ovos-lingua-franca](https://github.com/OpenVoiceOS/ovos-lingua-franca) | Mycroft's multilingual text parsing and formatting library | Split into focused libraries — [ovos-date-parser](https://github.com/OpenVoiceOS/ovos-date-parser), [ovos-number-parser](https://github.com/OpenVoiceOS/ovos-number-parser), and the other `ovos-*-parser` packages |
 | [zzz-old-ovos-utils](https://github.com/OpenVoiceOS/zzz-old-ovos-utils) | collection of simple utilities for use across the mycroft ecosystem | [ovos-utils](https://github.com/OpenVoiceOS/ovos-utils) |
 
 ## Datasets, lists & images (8)
@@ -125,7 +126,7 @@ There are **83** archived repositories. They are grouped by area below; each row
 
 | Repository | What it was | Replacement / status |
 |---|---|---|
-| [ZZZ-raspOVOS](https://github.com/OpenVoiceOS/ZZZ-raspOVOS) | Run ovos ontop of RaspberryPiOS | raspOVOS (itself now deprecated) |
+| [ZZZ-raspOVOS](https://github.com/OpenVoiceOS/ZZZ-raspOVOS) | Run ovos ontop of RaspberryPiOS | [raspOVOS](https://github.com/OpenVoiceOS/raspOVOS) — the current, actively maintained image |
 | [awesome-ocp-skills](https://github.com/OpenVoiceOS/awesome-ocp-skills) | Media skills for OCP, music, movies, radio, audiobooks and more! | [OVOS-skills-store](https://github.com/OpenVoiceOS/OVOS-skills-store) |
 | [awesome-ovos-plugins](https://github.com/OpenVoiceOS/awesome-ovos-plugins) | List of ovos-plugin-manager plugins and projects | [OVOS-skills-store](https://github.com/OpenVoiceOS/OVOS-skills-store) |
 | [big-tts-cache](https://github.com/OpenVoiceOS/big-tts-cache) | cached utterances from the defunct mimic2 TTS from Mycroft AI | Removed (mimic2 retired) |

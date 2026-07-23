@@ -123,9 +123,9 @@ both standard and Raspberry-Pi-5 variants, and separate **rev6 vs rev10** handli
 board versions. The TAS5806 **amplifier** is initialised separately at boot rather than inside
 the module.
 
-It is actively used (the installer builds it on every Mark 2 setup) and has received fixes for
-recent kernels. Historically it derives from earlier community XMOS-loader code, adapted for OVOS
-by Peter Steenbergen (j1nx).
+It is actively used (the installer builds it on every Mark 2 setup) and is kept working against
+current kernel versions. Historically it derives from earlier community XMOS-loader code, adapted
+for OVOS by Peter Steenbergen (j1nx).
 
 ---
 

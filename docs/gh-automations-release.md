@@ -8,8 +8,6 @@ All OVOS packages follow a rolling release model with three channels: **alpha**,
 
 ---
 
----
-
 ## Branches (per-repo)
 
 Every OVOS package repo uses the following branch structure:
