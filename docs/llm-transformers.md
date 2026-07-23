@@ -101,23 +101,39 @@ implementations:
 
 ## Stacking Transformers
 
-Multiple transformers can be active simultaneously. Priority controls order:
+Multiple transformers of the same type can be active simultaneously; each configured entry under
+`dialog_transformers` runs in turn, **higher `priority` first**, each one's output feeding into
+the next. For example, running a cheap local pass to strip markdown/jargon before an expensive
+cloud model adds personality on top:
 
 ```json
 {
   "dialog_transformers": {
+    "ovos-dialog-transformer-gguf-plugin": {
+      "model": "/path/to/model.gguf",
+      "rewrite_prompt": "Remove all markdown and technical jargon; keep it plain and short.",
+      "n_gpu_layers": 20,
+      "priority": 60
+    },
     "ovos-dialog-transformer-openai-plugin": {
-      "key": "sk-...", "model": "gpt-4o-mini",
-      "rewrite_prompt": "Rewrite for TTS.",
-      "priority": 50
+      "api_url": "https://api.openai.com/v1",
+      "key": "sk-...",
+      "model": "gpt-4o-mini",
+      "rewrite_prompt": "Rewrite in the style of a grumpy old pirate.",
+      "priority": 40
     }
   }
 }
 
 ```
 
-Utterance transformers run first (highest priority first), cleaning or validating ASR output
-before intent matching. The dialog transformer rewrites skill responses (priority 50) before TTS.
+With this configuration, a skill's dialog is rewritten twice before TTS: first the GGUF
+transformer (`priority: 60`) runs locally to clean the raw text, then its output is passed to
+the OpenAI transformer (`priority: 40`) to apply the character voice. If either call fails, it
+falls back to passing its input through unchanged, so the chain degrades gracefully.
+
+Utterance transformers work the same way but run before intent matching (cleaning or validating
+ASR output), with higher priority also running first.
 
 ---
 

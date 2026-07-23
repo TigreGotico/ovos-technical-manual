@@ -107,7 +107,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-openai-plugin](https://github.com/OpenVoiceOS/ovos-openai-plugin)
 
 
-- **Description**: Leverages the [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to provide `ovos-solver-openai-plugin` (a chat engine for use in an [ovos-persona](personas.md)), `ovos-dialog-transformer-openai-plugin` (rewrites OVOS dialogs just before TTS runs), and `ovos-summarizer-openai-plugin` (summarizes text for consumption by other plugins/skills).
+- **Description**: An OpenAI-compatible engine family — chat, dialog-rewriting, and summarization — usable with any OpenAI-compatible endpoint. See [OpenAI Plugin](openai-plugin.md) for the full entry-point table, config keys, and examples.
 
 ---
 

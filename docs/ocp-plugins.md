@@ -6,11 +6,11 @@
 | Plugin | Description |
 |--------|-------------|
 | [ovos-ocp-files-plugin](#ovos-ocp-files-plugin) | Lets OCP play local files (`file://` URIs) and reads their audio tags/metadata so the player can show a title and artist |
-| [ovos-ocp-news-plugin](#ovos-ocp-news-plugin) | allows OCP to play urls for some news providers, this plugin will extract the real stream at playback time |
-| [ovos-ocp-bandcamp-plugin](#ovos-ocp-bandcamp-plugin) | allows OCP to play bandcamp urls, streams will be extracted at playback time |
-| [ovos-ocp-rss-plugin](#ovos-ocp-rss-plugin) | allows OCP to play rss feeds, the plugin will extract the first playable stream |
-| [ovos-ocp-youtube-plugin](#ovos-ocp-youtube-plugin) | allows OCP to play youtube urls |
-| [ovos-ocp-m3u-plugin](#ovos-ocp-m3u-plugin) | allows OCP to play .pls and .m3u urls as playlists |
+| [ovos-ocp-news-plugin](#ovos-ocp-news-plugin) | Extracts the real stream for a known set of spoken-news provider URLs at playback time |
+| [ovos-ocp-bandcamp-plugin](#ovos-ocp-bandcamp-plugin) | Scrapes Bandcamp pages via `py-bandcamp` to extract the real audio stream |
+| [ovos-ocp-rss-plugin](#ovos-ocp-rss-plugin) | Parses an RSS/podcast feed and extracts the newest audio enclosure as the playable stream |
+| [ovos-ocp-youtube-plugin](#ovos-ocp-youtube-plugin) | Resolves YouTube/YouTube Music URLs via a selectable `yt-dlp`/pytube/Invidious/webview backend |
+| [ovos-ocp-m3u-plugin](#ovos-ocp-m3u-plugin) | Downloads a `.pls`/`.m3u` playlist and extracts the first playable stream URL inside it |
 | [ovos-media-classifier](#ovos-media-classifier) | ⚠️ experimental — pluggable media-intent classifier that routes a request to the right `MediaProvider`s |
 
 ## ovos-ocp-files-plugin
@@ -29,7 +29,12 @@
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-ocp-news-plugin](https://github.com/OpenVoiceOS/ovos-ocp-news-plugin)
 
 
-- **Description**: allows OCP to play urls for some news providers, this plugin will extract the real stream at playback time
+- **Description**: A stream extractor for spoken-news providers. It registers the stream
+  extractor id (SEI) `news`, so any result URI of the form `news//<url>` is routed to it; it
+  also recognizes a hardcoded table of known news-provider URLs directly (`URL_MAPPINGS`) so
+  skills can hand it a raw provider URL without the `news//` prefix. At playback time it looks
+  the URL up in that table and calls the matching extractor function to resolve the real,
+  playable stream.
 
 ---
 
@@ -38,7 +43,10 @@
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-ocp-bandcamp-plugin](https://github.com/OpenVoiceOS/ovos-ocp-bandcamp-plugin)
 
 
-- **Description**: allows OCP to play bandcamp urls, streams will be extracted at playback time
+- **Description**: A stream extractor for [Bandcamp](https://bandcamp.com) pages, registering
+  the SEI `bandcamp`. It recognizes both `bandcamp//<url>` results and any bare URL containing
+  `bandcamp.`, then delegates the actual page scraping to the `py-bandcamp` library
+  (`get_stream_data`) to pull out the real audio stream URL and track metadata.
 
 ---
 
@@ -47,7 +55,11 @@
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-ocp-rss-plugin](https://github.com/OpenVoiceOS/ovos-ocp-rss-plugin)
 
 
-- **Description**: allows OCP to play rss feeds, the plugin will extract the first playable stream
+- **Description**: A stream extractor for RSS/podcast feeds, registering the SEI `rss`. Given a
+  `rss//<feed-url>` (or bare feed URL), it parses the feed with `feedparser`, takes the most
+  recent entry, and returns the first enclosure link whose MIME type contains `audio` — along
+  with that entry's title, publish timestamp, and duration when the feed provides them. It only
+  ever surfaces the newest playable item in the feed, not the whole episode list.
 
 ---
 
@@ -56,7 +68,12 @@
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-ocp-youtube-plugin](https://github.com/OpenVoiceOS/ovos-ocp-youtube-plugin)
 
 
-- **Description**: allows OCP to play youtube urls
+- **Description**: A stream extractor for YouTube and YouTube Music links. Unlike the other
+  extractors on this page, it is a small router over multiple interchangeable backends —
+  `youtube-dl`/`yt-dlp`, `pytube`, an Invidious mirror, or a webview fallback — selectable via
+  the `youtube_backend` / `ydl_backend` / `invidious_host` settings, since any single scraping
+  approach tends to break whenever YouTube changes its page format. It also has a dedicated path
+  for resolving a channel's current live stream.
 
 ---
 
@@ -65,7 +82,10 @@
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-ocp-m3u-plugin](https://github.com/OpenVoiceOS/ovos-ocp-m3u-plugin)
 
 
-- **Description**: allows OCP to play .pls and .m3u urls as playlists
+- **Description**: A stream extractor for `.m3u` and `.pls` playlist URLs, registering the SEIs
+  `m3u` and `pls`. These playlist formats aren't understood by the GUI player directly, so the
+  plugin downloads the playlist file itself and returns the first line that looks like an
+  `http` stream URL as the actual playable URI.
 
 ---
 

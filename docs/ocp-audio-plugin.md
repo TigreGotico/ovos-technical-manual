@@ -163,6 +163,23 @@ To switch to `ovos-media`: set **`"enable_old_audioservice": false`** in `mycrof
 the `ovos-media` daemon. See the [ovos-media](ovos-media.md) page for the full setup and the list
 of player plugins.
 
+The full switch touches two config keys — turning the legacy audio service's OCP backend off, and
+making sure the OCP intent pipeline (which both backends share) is still enabled in `ovos-core`:
+
+```json
+{
+  "enable_old_audioservice": false,
+  "intents": {
+    "pipeline": [
+      "ovos-ocp-pipeline-plugin-high",
+      "...",
+      "ovos-ocp-pipeline-plugin-medium",
+      "..."
+    ]
+  }
+}
+```
+
 !!! note "Don't run both at once"
     `enable_old_audioservice: true` (OCP) and a running `ovos-media` daemon both want to own
     media playback. Pick one. When `ovos-media` is in use, the OCP backend config above does

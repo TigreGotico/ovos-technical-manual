@@ -110,7 +110,11 @@ the container method is not supported there.) That role:
 
 !!! info "LED ring support is incomplete via the installer"
     The installer brings up audio, fan, touchscreen and buttons, but **LED-ring support on the
-    Mark 2 is currently incomplete** in the ovos-installer path.
+    Mark 2 is currently incomplete** in the ovos-installer path. One option in the meantime is
+    Neon's [`neon-phal-plugin-linear_led`](https://github.com/NeonGeckoCom/neon-phal-plugin-linear_led)
+    (see the [Neon packages table](#neon-mark-2-packages-official-but-separate) below), which
+    already drives the ring's listening/speaking/muted/error animations — keeping in mind the
+    warning above about not mixing Neon and OVOS packages on the same system.
 
 ---
 

@@ -187,6 +187,22 @@ python -m ovos_translate_server.mcp_server \
 
 It defaults to host `127.0.0.1` and port `9687` (note: different default host/port from the HTTP server's `0.0.0.0:9686`). The `FastMCP` instance can also be embedded into an existing FastAPI app.
 
+It exposes two tools: `translate(text, target_lang, source_lang=None)` (returns the translated
+string; omit `source_lang` to auto-detect) and `detect_language(text)` (returns a BCP-47 tag). A
+minimal MCP client call to `translate` looks like:
+
+```json
+{
+  "name": "translate",
+  "arguments": {
+    "text": "Hello, how are you?",
+    "target_lang": "pt"
+  }
+}
+```
+
+which returns a plain-string result such as `"Olá, como você está?"`.
+
 ---
 
 ## How It Wraps OVOS Translation Plugins

@@ -235,14 +235,7 @@ Plugin configuration is read from `mycroft.conf["tts"][<plugin-name>]`.
     to public community-run TTS servers rather than failing. Set `host` to your own
     [tts-server](tts-server.md) instance for anything other than a quick test.
 
-!!! warning "Community servers are best-effort demos"
-    Public community-run OVOS servers are **best-effort, not optimized, and come with no
-    uptime guarantee** — they exist purely to make onboarding and demos easy, and may slow
-    down, rate-limit, or disappear at any time. Relying on one for real use will make your
-    OVOS assistant slow and unreliable. Offline [TTS plugins](tts-plugins.md) exist for every
-    supported voice — the official recommendation is to self-host your own server or run a
-    fully offline TTS plugin as the bridge's `--plugin-name`, not to depend on a public one
-    long-term.
+--8<-- "snippets/community-servers.md"
 
 ### Wyoming message flow
 

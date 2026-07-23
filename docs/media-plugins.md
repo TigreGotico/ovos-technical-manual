@@ -2,9 +2,10 @@
 
 !!! abstract "In a nutshell"
     These plugins are the **playback backends** that actually push audio/video to your
-    speakers or screen (VLC, MPV, Chromecast, Spotify…). OVOS is mid-migration between two
-    playback systems, and a single plugin **package is meant to ship a version for both** —
-    see [Media playback: legacy vs. ovos-media](ovos-media.md).
+    speakers or screen (VLC, MPV, Chromecast, Spotify…). OVOS is mid-migration between the
+    legacy audio-service backend and the upcoming [`ovos-media`](ovos-media.md) daemon, and a
+    single plugin **package is meant to ship a version for both** — see
+    [Media playback: legacy vs. ovos-media](ovos-media.md).
 
 ## Two interfaces, one package
 

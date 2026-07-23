@@ -80,6 +80,11 @@ class MyRingLed(AbstractLed):
         self.fill((0, 0, 0))
 ```
 
+For a full, real-hardware reference implementation, see
+[`ovos-PHAL-plugin-dotstar`](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-dotstar) — it wraps
+a DotStar (APA102) LED strip's SPI driver in an `AbstractLed` subclass and the surrounding PHAL
+plugin/validator boilerplate.
+
 `AbstractLed` also ships a `scale_brightness(color_val, bright_val)` static helper for dimming,
 and the library's `eval_color()` helper (in `ovos_hardware_helpers.led`) turns a color name,
 hex string, or RGB tuple into a normalized color object using

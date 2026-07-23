@@ -13,6 +13,31 @@ uses: OpenVoiceOS/gh-automations/.github/workflows/<name>.yml@dev
 
 > **Ref:** Always use `@dev`.
 
+**Workflows on this page:**
+
+- [`publish-alpha.yml`](#publish-alphayml)
+- [`publish-stable.yml`](#publish-stableyml)
+- [`build-tests.yml`](#build-testsyml)
+- [`opm-check.yml`](#opm-checkyml)
+- [`ovoscope.yml`](#ovoscopeyml)
+- [`coverage.yml`](#coverageyml)
+- [`coverage-pages.yml` (deprecated)](#coverage-pagesyml-deprecated)
+- [`license-check.yml`](#license-checkyml)
+- [`pip-audit.yml`](#pip-audityml)
+- [`release-preview.yml`](#release-previewyml)
+- [`repo-health.yml`](#repo-healthyml)
+- [`skill-check.yml`](#skill-checkyml)
+- [`downstream-check.yml`](#downstream-checkyml)
+- [`python-support.yml` (deprecated)](#python-supportyml-deprecated)
+- [`lint.yml`](#lintyml)
+- [`type-check.yml`](#type-checkyml)
+- [`docs-check.yml`](#docs-checkyml)
+- [`locale-check.yml`](#locale-checkyml)
+- [`spec-lint.yml`](#spec-lintyml)
+- [`intent-case-tests.yml`](#intent-case-testsyml)
+- [`tts-intelligibility.yml`](#tts-intelligibilityyml)
+- [`notify-matrix.yml`](#notify-matrixyml)
+
 ---
 
 ## `publish-alpha.yml`

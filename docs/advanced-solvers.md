@@ -258,15 +258,15 @@ Provided by any installed `opm.agents.chat.multimodal` plugin.
 The legacy `opm.solver.*` entry points are deprecated and will be removed in the next major
 release. Migrate existing plugins to the corresponding `opm.agents.*` types.
 
-| Deprecated entry point | Replacement |
-|---|---|
-| `opm.solver.question` (`QuestionSolver`) | `opm.agents.chat` (`ChatEngine`) |
-| `opm.solver.chat` (`ChatMessageSolver`) | `opm.agents.chat` (`ChatEngine`) |
-| `opm.solver.summarization` (`TldrSolver`) | `opm.agents.summarizer` (`SummarizerEngine`) |
-| `opm.solver.reading_comprehension` (`EvidenceSolver`) | `opm.agents.extractive_qa` (`ExtractiveQAEngine`) |
-| `opm.solver.multiple_choice` (`MultipleChoiceSolver`) | `opm.agents.reranker` (`ReRankerEngine`) |
-| `opm.solver.entailment` (`EntailmentSolver`) | `opm.agents.nli` (`NaturalLanguageInferenceEngine`) |
-| `opm.coreference` | `opm.agents.coref` |
+| Deprecated entry point | Replacement | Why |
+|---|---|---|
+| `opm.solver.question` (`QuestionSolver`) | `opm.agents.chat` (`ChatEngine`) | Single-turn Q&A folds into the general chat contract; no need for a separate type. |
+| `opm.solver.chat` (`ChatMessageSolver`) | `opm.agents.chat` (`ChatEngine`) | Same engine type as above — the two deprecated solvers converge on one replacement. |
+| `opm.solver.summarization` (`TldrSolver`) | `opm.agents.summarizer` (`SummarizerEngine`) | Renamed for clarity; behavior is otherwise equivalent. |
+| `opm.solver.reading_comprehension` (`EvidenceSolver`) | `opm.agents.extractive_qa` (`ExtractiveQAEngine`) | Renamed to match the standard NLP task name (extractive QA over evidence). |
+| `opm.solver.multiple_choice` (`MultipleChoiceSolver`) | `opm.agents.reranker` (`ReRankerEngine`) | Choosing among options is really scoring/ranking candidates, so it moved under the reranker contract. |
+| `opm.solver.entailment` (`EntailmentSolver`) | `opm.agents.nli` (`NaturalLanguageInferenceEngine`) | Renamed to the standard NLI task name; entailment is one of NLI's three labels. |
+| `opm.coreference` | `opm.agents.coref` | Moved under the unified `opm.agents.*` namespace alongside the other engine types. |
 
 The deprecated classes remain in `ovos_plugin_manager.templates.solvers` and are still loaded
 by `PersonaService` and `QuestionSolversService` for backwards compatibility — but no new

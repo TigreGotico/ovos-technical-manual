@@ -107,7 +107,7 @@ Native endpoints:
 | Endpoint       | Method | Description                                                |
 | -------------- | ------ | ---------------------------------------------------------- |
 | `/status`      | GET    | Returns `{status, plugin, lang_plugin}`.                  |
-| `/stt`         | POST   | Raw audio bytes in the body (query: `lang`, `sample_rate`, `sample_width`) → plain‑text transcript. With `lang=auto`, language is detected first. |
+| `/stt`         | POST   | Raw audio bytes in the body (query: `lang`, `sample_rate` default `16000`, `sample_width` default `2`) → plain‑text transcript. With `lang=auto`, language is detected first. |
 | `/lang_detect` | POST   | Raw audio bytes (query: `valid_langs`) → JSON `{ "lang": "en", "conf": 0.83 }`. |
 | `/utcp`        | GET    | UTCP tool-discovery manual (JSON).                        |
 | `/docs`        | GET    | Interactive FastAPI OpenAPI docs.                         |

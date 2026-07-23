@@ -19,6 +19,23 @@ homescreens, and asking the active one to display itself (`homescreen.manager.*`
 does **not** push clock/weather/widget data over the bus; a homescreen skill fetches or computes
 whatever data it wants to show on its own.
 
+## End-to-end resting-screen flow
+
+```mermaid
+sequenceDiagram
+    participant Skill as Homescreen skill
+    participant GUI as ovos-gui (HomescreenManager)
+    participant Shell as GUI client (ovos-shell / Qt)
+
+    Skill->>GUI: register as candidate homescreen
+    Note over GUI: namespace stack becomes empty (no active skill display)
+    GUI->>Skill: ask configured idle_display_skill to display itself
+    Skill->>Skill: @resting_screen_handler builds page data
+    Skill->>GUI: gui.show_page (idle page + session data)
+    GUI->>Shell: forward page + data over the GUI protocol
+    Shell->>Shell: render idle/resting page (clock, weather, widgets)
+```
+
 ## Configuration
 
 Select a homescreen skill in `mycroft.conf` (or via [ovos-shell](ovos-shell.md)):
@@ -77,8 +94,7 @@ Select a homescreen skill in `mycroft.conf` (or via [ovos-shell](ovos-shell.md))
     below (`@resting_screen_handler`, `homescreen_app`, and the `IdleDisplaySkill` base class)
     is therefore being **removed** from `ovos-workshop` (a planned breaking change). The resting
     display moves into the [GUI plugin / render backend](gui-adapters.md). This still works on
-    current releases; it is documented here for existing skills. Tracked in
-    [ovos-workshop#421](https://github.com/OpenVoiceOS/ovos-workshop/pull/421).
+    current releases; it is documented here for existing skills.
 
 The resting face API provides skill authors the ability to extend their skills to supply their own customized IDLE screens that will be displayed when there is no activity on the screen.
 

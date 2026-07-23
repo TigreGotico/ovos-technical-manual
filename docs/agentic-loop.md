@@ -15,6 +15,25 @@
 
 [ovos-agentic-loop](https://github.com/OpenVoiceOS/ovos-agentic-loop) implements eight agentic reasoning patterns as standard OPM `ChatEngine` plugins. Each pattern wires a configurable inner LLM brain with one or more `ToolBox` plugins to produce multi-step reasoning over OVOS personas.
 
+!!! tip "Which loop should I pick?"
+    - Just need the model to use a tool and answer? Start with **`ovos-react-loop`** — it's the
+      general-purpose default, and every other loop is a variation for a specific need.
+    - Your model's API supports native `tool_calls` (most modern hosted LLMs)? Use
+      **`ovos-native-toolcall-loop`** instead — same job, less prompt overhead, and it falls
+      back to the ReAct text loop automatically if the model doesn't support it.
+    - Multi-step task where doing the steps in the wrong order matters (e.g. booking a trip)?
+      Use **`ovos-plan-execute-loop`** to plan up front, then execute.
+    - The model's first attempt is often wrong and could improve on a second pass? Use
+      **`ovos-reflexion-loop`** (self-critique + retry) or **`ovos-critic-loop`** (verify factual
+      claims specifically).
+    - The question is really several smaller questions bundled together ("who directed the movie
+      that won best picture the year X was born?")? Use **`ovos-self-ask-loop`**.
+    - Pure reasoning with no tools involved (math, logic puzzles)? Use
+      **`ovos-chain-of-thought-loop`**.
+    - Open-ended exploration where several candidate solution paths are worth comparing before
+      committing? Use **`ovos-tree-of-thoughts-loop`** — the most expensive option, reserve it
+      for problems where a single reasoning path is unreliable.
+
 ---
 
 ## Installation

@@ -277,34 +277,15 @@ cross-instance bridging, not local routing. For secure remote access see
 
 ---
 
-## Summary
+## Related pages
 
-| Component | Role |
-|---|---|
-| `ChatEngine` / `ReRankerEngine` / etc. | Low-level OPM agent engine plugins (`opm.agents.*`) |
-| Persona JSON | Named agent identity: ordered engine list + per-engine config |
-| `PersonaService` | Pipeline plugin: loads personas, routes utterances, manages sessions |
-| `BasicShortTermMemory` | Default in-memory session history manager |
-| `ovos-persona-server` | Expose a persona via OpenAI-compatible HTTP API |
-
-Cross-references:
-
-- [Agent Plugins](agent-plugins.md) — full engine-type reference with config examples
-
-
-- [OpenAI Plugin](openai-plugin.md) — OpenAI-compatible engine implementations and translation plugins
-
-
-- [GGUF Plugin](gguf-plugin.md) — fully offline local GGUF engine implementations
-
-
-- [HiveMind Agents](hivemind-agents.md) — remote satellite-to-persona connections
-
-
-- [Persona Pipeline](persona-pipeline.md) — detailed pipeline matching logic
-
-
-- [Persona Server](persona-server.md) — expose a persona via OpenAI-compatible HTTP API
+- [Agent Plugins](agent-plugins.md) — full engine-type (`opm.agents.*`) reference with config examples.
+- [OpenAI Plugin](openai-plugin.md) — OpenAI-compatible engine implementations and translation plugins.
+- [GGUF Plugin](gguf-plugin.md) — fully offline local GGUF engine implementations.
+- [Persona Memory](persona-memory.md) — the `opm.agents.memory` backends, in depth.
+- [HiveMind Agents](hivemind-agents.md) — remote satellite-to-persona connections.
+- [Persona Pipeline](persona-pipeline.md) — detailed pipeline matching logic.
+- [Persona Server](persona-server.md) — expose a persona via an OpenAI-compatible HTTP API.
 
 ## Further reading
 
