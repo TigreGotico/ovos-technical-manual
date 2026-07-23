@@ -2108,7 +2108,7 @@
 <hr />
 <h2 id="intent-decorators">Intent Decorators<a class="headerlink" href="#intent-decorators" title="Permanent link">&para;</a></h2>
 <h3 id="intent_handler"><code>@intent_handler</code><a class="headerlink" href="#intent_handler" title="Permanent link">&para;</a></h3>
-<p><code>intent_handler</code> — <code>ovos_workshop/decorators/__init__.py:57</code></p>
+<p><code>intent_handler</code> — <code>ovos_workshop/decorators/__init__.py</code></p>
 <p>Register a method as a <a href="../padatious-pipeline/">Padatious</a> (<code>.intent</code> file) or <a href="../adapt-pipeline/">Adapt</a> (<code>IntentBuilder</code>) intent handler.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">intent_handler</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.intents</span> <span class="kn">import</span> <span class="n">IntentBuilder</span>
@@ -2128,7 +2128,7 @@
 <p>A method can have multiple <code>@intent_handler</code> decorators to handle multiple intents with the same function.</p>
 <hr />
 <h3 id="conversational_intent"><code>@conversational_intent</code><a class="headerlink" href="#conversational_intent" title="Permanent link">&para;</a></h3>
-<p><code>conversational_intent</code> — <code>ovos_workshop/decorators/__init__.py:134</code></p>
+<p><code>conversational_intent</code> — <code>ovos_workshop/decorators/__init__.py</code></p>
 <p>Register a Padatious <code>.intent</code> file as a converse-only matcher. Only active when the skill is in converse mode. Requires the skill to extend <code>ConversationalSkill</code>.</p>
 <blockquote>
 <p><strong>Note:</strong> Only Padatious intents are supported, not Adapt.</p>
@@ -2140,7 +2140,7 @@
 </span></code></pre></div>
 <hr />
 <h3 id="fallback_handler"><code>@fallback_handler</code><a class="headerlink" href="#fallback_handler" title="Permanent link">&para;</a></h3>
-<p><code>fallback_handler</code> — <code>ovos_workshop/decorators/__init__.py:150</code></p>
+<p><code>fallback_handler</code> — <code>ovos_workshop/decorators/__init__.py</code></p>
 <p>Register a method as a fallback handler with a given priority (0–100, lower = higher priority).</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">fallback_handler</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
@@ -2151,7 +2151,7 @@
 </span></code></pre></div>
 <hr />
 <h3 id="common_query"><code>@common_query</code><a class="headerlink" href="#common_query" title="Permanent link">&para;</a></h3>
-<p><code>common_query</code> — <code>ovos_workshop/decorators/__init__.py:111</code></p>
+<p><code>common_query</code> — <code>ovos_workshop/decorators/__init__.py</code></p>
 <p>Register a method as a CommonQuery handler. The method must return <code>(answer, confidence)</code> or <code>None</code>.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">common_query</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
@@ -2165,7 +2165,7 @@
 <hr />
 <h2 id="converse-decorators">Converse Decorators<a class="headerlink" href="#converse-decorators" title="Permanent link">&para;</a></h2>
 <h3 id="converse_handler"><code>@converse_handler</code><a class="headerlink" href="#converse_handler" title="Permanent link">&para;</a></h3>
-<p><code>converse_handler</code> — <code>ovos_workshop/decorators/__init__.py:125</code></p>
+<p><code>converse_handler</code> — <code>ovos_workshop/decorators/__init__.py</code></p>
 <p>Alias a method as the skill's <code>converse</code> handler instead of overriding <code>converse()</code> directly.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">converse_handler</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
@@ -2175,8 +2175,8 @@
 </span></code></pre></div>
 <hr />
 <h2 id="context-decorators">Context Decorators<a class="headerlink" href="#context-decorators" title="Permanent link">&para;</a></h2>
-<p><code>adds_context</code> — <code>ovos_workshop/decorators/__init__.py:16</code>
-<code>removes_context</code> — <code>ovos_workshop/decorators/__init__.py:37</code></p>
+<p><code>adds_context</code> — <code>ovos_workshop/decorators/__init__.py</code>
+<code>removes_context</code> — <code>ovos_workshop/decorators/__init__.py</code></p>
 <p>These run <strong>after</strong> the decorated method completes.</p>
 <h3 id="adds_context"><code>@adds_context</code><a class="headerlink" href="#adds_context" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">adds_context</span>
@@ -2195,9 +2195,9 @@
 <hr />
 <h2 id="killable-abortable-decorators">Killable / Abortable Decorators<a class="headerlink" href="#killable-abortable-decorators" title="Permanent link">&para;</a></h2>
 <h3 id="exception-classes">Exception Classes<a class="headerlink" href="#exception-classes" title="Permanent link">&para;</a></h3>
-<p><code>AbortEvent</code> — <code>ovos_workshop/decorators/killable.py:12</code>
-<code>AbortIntent</code> — <code>ovos_workshop/decorators/killable.py:16</code>
-<code>AbortQuestion</code> — <code>ovos_workshop/decorators/killable.py:20</code></p>
+<p><code>AbortEvent</code> — <code>ovos_workshop/decorators/killable.py</code>
+<code>AbortIntent</code> — <code>ovos_workshop/decorators/killable.py</code>
+<code>AbortQuestion</code> — <code>ovos_workshop/decorators/killable.py</code></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">class</span> <span class="nc">AbortEvent</span><span class="p">(</span><span class="ne">StopIteration</span><span class="p">):</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class — abort any bus event handler.&quot;&quot;&quot;</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
@@ -2221,7 +2221,7 @@
 </span></code></pre></div>
 <hr />
 <h3 id="killable_intent"><code>@killable_intent</code><a class="headerlink" href="#killable_intent" title="Permanent link">&para;</a></h3>
-<p><code>killable_intent</code> — <code>ovos_workshop/decorators/killable.py:24</code></p>
+<p><code>killable_intent</code> — <code>ovos_workshop/decorators/killable.py</code></p>
 <p>Mark an intent handler that can be interrupted mid-execution. Spawns the handler in a daemon thread. When the kill message arrives:</p>
 <ol>
 <li>
@@ -2293,7 +2293,7 @@
 </span></code></pre></div>
 <hr />
 <h3 id="killable_event"><code>@killable_event</code><a class="headerlink" href="#killable_event" title="Permanent link">&para;</a></h3>
-<p><code>killable_event</code> — <code>ovos_workshop/decorators/killable.py:40</code></p>
+<p><code>killable_event</code> — <code>ovos_workshop/decorators/killable.py</code></p>
 <p>Like <code>@killable_intent</code> but for any bus event handler. Does <strong>not</strong> react to stop messages or call <code>skill.stop()</code> by default.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.killable</span> <span class="kn">import</span> <span class="n">killable_event</span><span class="p">,</span> <span class="n">AbortEvent</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
@@ -2315,7 +2315,7 @@
 <h2 id="intent-layer-decorators">Intent Layer Decorators<a class="headerlink" href="#intent-layer-decorators" title="Permanent link">&para;</a></h2>
 <p>Intent layers let you enable or disable groups of intents at runtime, implementing modal/state-based flows.</p>
 <h3 id="layer_intent"><code>@layer_intent</code><a class="headerlink" href="#layer_intent" title="Permanent link">&para;</a></h3>
-<p><code>layer_intent</code> — <code>ovos_workshop/decorators/layers.py:159</code></p>
+<p><code>layer_intent</code> — <code>ovos_workshop/decorators/layers.py</code></p>
 <p>Register an intent handler that belongs to a named layer. The intent is disabled until the layer is activated.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.layers</span> <span class="kn">import</span> <span class="n">layer_intent</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.intents</span> <span class="kn">import</span> <span class="n">IntentBuilder</span>
@@ -2325,8 +2325,8 @@
 </span></code></pre></div>
 <hr />
 <h3 id="enables_layer-disables_layer"><code>@enables_layer</code> / <code>@disables_layer</code><a class="headerlink" href="#enables_layer-disables_layer" title="Permanent link">&para;</a></h3>
-<p><code>enables_layer</code> — <code>ovos_workshop/decorators/layers.py:66</code>
-<code>disables_layer</code> — <code>ovos_workshop/decorators/layers.py:85</code></p>
+<p><code>enables_layer</code> — <code>ovos_workshop/decorators/layers.py</code>
+<code>disables_layer</code> — <code>ovos_workshop/decorators/layers.py</code></p>
 <p>Activate or deactivate a named intent layer <strong>after</strong> the decorated method runs.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.layers</span> <span class="kn">import</span> <span class="n">enables_layer</span><span class="p">,</span> <span class="n">disables_layer</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
@@ -2340,7 +2340,7 @@
 </span></code></pre></div>
 <hr />
 <h3 id="replaces_layer"><code>@replaces_layer</code><a class="headerlink" href="#replaces_layer" title="Permanent link">&para;</a></h3>
-<p><code>replaces_layer</code> — <code>ovos_workshop/decorators/layers.py:104</code></p>
+<p><code>replaces_layer</code> — <code>ovos_workshop/decorators/layers.py</code></p>
 <p>Replace the intent list of a named layer after the method runs.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.layers</span> <span class="kn">import</span> <span class="n">replaces_layer</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
@@ -2349,7 +2349,7 @@
 </span></code></pre></div>
 <hr />
 <h3 id="removes_layer"><code>@removes_layer</code><a class="headerlink" href="#removes_layer" title="Permanent link">&para;</a></h3>
-<p><code>removes_layer</code> — <code>ovos_workshop/decorators/layers.py:123</code></p>
+<p><code>removes_layer</code> — <code>ovos_workshop/decorators/layers.py</code></p>
 <p>Remove a named layer entirely (and disable its intents) after the method runs.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.layers</span> <span class="kn">import</span> <span class="n">removes_layer</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
@@ -2358,7 +2358,7 @@
 </span></code></pre></div>
 <hr />
 <h3 id="resets_layers"><code>@resets_layers</code><a class="headerlink" href="#resets_layers" title="Permanent link">&para;</a></h3>
-<p><code>resets_layers</code> — <code>ovos_workshop/decorators/layers.py:142</code></p>
+<p><code>resets_layers</code> — <code>ovos_workshop/decorators/layers.py</code></p>
 <p>Disable <strong>all</strong> intent layers after the method runs.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.layers</span> <span class="kn">import</span> <span class="n">resets_layers</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
@@ -2369,7 +2369,7 @@
 <hr />
 <h2 id="gui-homescreen-decorators">GUI / Homescreen Decorators<a class="headerlink" href="#gui-homescreen-decorators" title="Permanent link">&para;</a></h2>
 <h3 id="homescreen_app"><code>@homescreen_app</code><a class="headerlink" href="#homescreen_app" title="Permanent link">&para;</a></h3>
-<p><code>homescreen_app</code> — <code>ovos_workshop/decorators/__init__.py:166</code></p>
+<p><code>homescreen_app</code> — <code>ovos_workshop/decorators/__init__.py</code></p>
 <p>Register a method as a homescreen app launcher. The icon file must be inside the <code>gui/</code> subfolder of the skill.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">homescreen_app</span>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
@@ -2380,7 +2380,7 @@
 <hr />
 <h2 id="api-decorator">API Decorator<a class="headerlink" href="#api-decorator" title="Permanent link">&para;</a></h2>
 <h3 id="skill_api_method"><code>@skill_api_method</code><a class="headerlink" href="#skill_api_method" title="Permanent link">&para;</a></h3>
-<p><code>skill_api_method</code> — <code>ovos_workshop/decorators/__init__.py:94</code></p>
+<p><code>skill_api_method</code> — <code>ovos_workshop/decorators/__init__.py</code></p>
 <p>Expose a method over the bus so other skills or applications can call it via <code>SkillApi</code>. See <a href="../ovos-skill/">skill-api.md</a> for the full RPC documentation.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">skill_api_method</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
@@ -2408,43 +2408,43 @@
 <td><code>@ocp_search()</code></td>
 <td><code>is_ocp_search_handler</code></td>
 <td>Search for playable content; yield/return <code>MediaEntry</code> results.</td>
-<td><code>ocp.py:5</code></td>
+<td><code>ocp.py</code></td>
 </tr>
 <tr>
 <td><code>@ocp_play()</code></td>
 <td><code>is_ocp_playback_handler</code></td>
 <td>Handle a play request (start playback).</td>
-<td><code>ocp.py:34</code></td>
+<td><code>ocp.py</code></td>
 </tr>
 <tr>
 <td><code>@ocp_pause()</code></td>
 <td><code>is_ocp_pause_handler</code></td>
 <td>Handle a pause request.</td>
-<td><code>ocp.py:82</code></td>
+<td><code>ocp.py</code></td>
 </tr>
 <tr>
 <td><code>@ocp_resume()</code></td>
 <td><code>is_ocp_resume_handler</code></td>
 <td>Handle a resume request.</td>
-<td><code>ocp.py:98</code></td>
+<td><code>ocp.py</code></td>
 </tr>
 <tr>
 <td><code>@ocp_next()</code></td>
 <td><code>is_ocp_next_handler</code></td>
 <td>Handle skip-forward.</td>
-<td><code>ocp.py:66</code></td>
+<td><code>ocp.py</code></td>
 </tr>
 <tr>
 <td><code>@ocp_previous()</code></td>
 <td><code>is_ocp_prev_handler</code></td>
 <td>Handle skip-backward.</td>
-<td><code>ocp.py:50</code></td>
+<td><code>ocp.py</code></td>
 </tr>
 <tr>
 <td><code>@ocp_featured_media()</code></td>
 <td><code>is_ocp_featured_handler</code></td>
 <td>Provide featured/recommended media for the OCP GUI.</td>
-<td><code>ocp.py:114</code></td>
+<td><code>ocp.py</code></td>
 </tr>
 </tbody>
 </table>

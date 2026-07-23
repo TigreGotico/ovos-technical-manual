@@ -1439,8 +1439,14 @@
 <p>See <a href="../lang-support/">Language Support</a> instead — this page is internals: how <code>ovos-core</code>
 picks a language for a given utterance internally, not how to configure one.</p>
 </div>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>Every utterance carries a language tag (on the message <code>context</code>), and <code>ovos-core</code> resolves
+it from the most trustworthy source available — falling back to your configured default —
+before it tries to match an intent. If you only ever use one language, the default <code>lang</code> in
+<code>mycroft.conf</code> is all that matters and you can skip the details below.</p>
+</div>
 <p>OpenVoiceOS is designed to be multi-language from the ground up. This page explains the technical logic used by <code>ovos-core</code> to determine which language should be used for a given user utterance.</p>
-<p><strong>In one sentence:</strong> every utterance carries a language tag (on the message <code>context</code>), and <code>ovos-core</code> resolves it from the most trustworthy source available — falling back to your configured default — before it tries to match an intent. If you only ever use one language, the default <code>lang</code> in <code>mycroft.conf</code> is all that matters and you can skip the details below.</p>
 <hr />
 <h2 id="the-disambiguation-logic">The Disambiguation Logic<a class="headerlink" href="#the-disambiguation-logic" title="Permanent link">&para;</a></h2>
 <p>When a <code>recognizer_loop:utterance</code> message arrives on the <a href="../bus-service/">messagebus</a>, <code>ovos-core</code> (specifically the <code>IntentService</code>) runs a disambiguation routine to decide which language to use for intent matching.</p>
