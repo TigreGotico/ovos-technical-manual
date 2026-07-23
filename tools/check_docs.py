@@ -54,6 +54,7 @@ def load_allowlist() -> dict:
         import yaml  # type: ignore
         with open(ALLOWLIST_PATH) as f:
             data = yaml.safe_load(f) or {}
+        data = {k: (v or []) for k, v in data.items()}
     except Exception:
         data = _naive_yaml_parse(ALLOWLIST_PATH.read_text())
     data.setdefault("json", [])

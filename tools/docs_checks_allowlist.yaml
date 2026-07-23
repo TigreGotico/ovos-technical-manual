@@ -5,19 +5,8 @@
 # and, where the underlying issue is real rather than a checker limitation,
 # a TODO pointing at who/what should resolve it.
 
-json:
-  - file: docs/config-reference.md
-    reason: >
-      docs/config-reference.md is owned by another agent in this batch (do
-      not edit). Its ```json fences are config-merge fragments (e.g.
-      `"stt": {...}` shown on its own, not wrapped in the surrounding
-      mycroft.conf object), which the checker would otherwise flag as
-      invalid JSON. Elsewhere in docs/ this exact pattern is fixed by
-      retagging the fence `jsonc` (which check_docs.py accepts leniently:
-      strips comments/trailing commas, then parses standalone or wrapped in
-      `{ }` as a fragment) - TODO(content-owner): apply the same retag here
-      once this file is available to edit.
-# All other json fences in docs/ now either parse strictly as `json`, or are
+json: []
+# All json fences in docs/ now either parse strictly as `json`, or are
 # config-merge fragments/have comments and are tagged `jsonc`, which
 # check_docs.py parses leniently: comments/trailing commas stripped, then
 # accepted standalone or wrapped in `{ }` as a fragment.

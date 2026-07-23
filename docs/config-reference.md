@@ -25,7 +25,7 @@ OVOS uses a layered configuration system, typically stored in `mycroft.conf`.
 
 The `intents.pipeline` defines the order in which matchers are evaluated.
 
-```json
+```jsonc
 "intents": {
   "pipeline": [
     "ovos-stop-pipeline-plugin-high",
@@ -75,7 +75,7 @@ All of these live under the top-level `listener` key:
 
 The microphone plugin is nested under `listener.microphone`:
 
-```json
+```jsonc
 "listener": {
   "microphone": {
     "module": "ovos-microphone-plugin-alsa"
@@ -108,7 +108,7 @@ itself — a separate concern from the `speech_begin`/`silence_end` timing above
 
 ### STT (Speech-to-Text)
 
-```json
+```jsonc
 "stt": {
   "module": "ovos-stt-plugin-server",
   "fallback_module": ""
@@ -118,7 +118,7 @@ itself — a separate concern from the `speech_begin`/`silence_end` timing above
 
 ### TTS (Text-to-Speech)
 
-```json
+```jsonc
 "tts": {
   "module": "ovos-tts-plugin-server",
   "ovos-tts-plugin-mimic": {
