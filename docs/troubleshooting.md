@@ -282,7 +282,7 @@ ovos-say-to "some phrase that does nothing" && ovos-logs show -l skills
 Every request ends with exactly one `ovos.utterance.handled` event, whether an intent matched or
 not — its absence means the intent service itself crashed or hung; its presence with no matched
 intent means every pipeline plugin genuinely rejected the utterance (usually a vocabulary/training
-data problem in the target skill, not a bug). See [Intent Layers](intent-layers.md) and the
+data problem in the target skill, not a bug). See [Intent Layers](layers.md) and the
 [Pipelines Overview](pipelines-overview.md) for how to add or reorder matchers.
 
 In `ovos-busmon`, filter by `ovos.intent.matched` (see which skill/intent name claimed it) or by

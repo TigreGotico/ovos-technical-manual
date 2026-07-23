@@ -89,29 +89,25 @@ nav:
       - Introduction: index.md
       - Glossary: glossary.md
   - Get Started:
-      - ovos-installer: ovos-installer.md
-      - Make it yours: personalize.md
+      - Install with ovos-installer: ovos-installer.md
       - Manual & Advanced Install: release-channels.md
-      - Fun stuff to try: showcase.md
-      - Skill Examples: skill-examples.md
-      - Accessibility: accessibility.md
-      - Coming from Mycroft: migrating-from-mycroft.md
       - RaspOVOS image:
           - RaspOVOS: install-raspovos.md
           - RaspOVOS Troubleshooting: raspovos-troubleshooting.md
-  - Tutorials:
-      - Your First Skill: first-skill.md
-      - Testing Your Skill: testing-your-skill.md
-      - Skill Cookbook: skill-cookbook.md
+      - Make it yours: personalize.md
+      - Fun stuff to try: showcase.md
+      - What can I say? (Skills): skill-examples.md
+      - Accessibility: accessibility.md
+      - Coming from Mycroft: migrating-from-mycroft.md
   - Help & Troubleshooting:
       - It's not behaving: everyday-help.md
-      - Troubleshooting: troubleshooting.md
+      - Troubleshooting & Debugging: troubleshooting.md
       - Skill Dev F.A.Q.: skill-dev-faq.md
   - Concepts:
       - High-level Overview: architecture-overview.md
+      - Life of an Utterance: life-of-an-utterance.md
       - Formal Specifications: architecture-specs.md
       - Specification Tooling: spec-tooling.md
-      - Life of an Utterance: life-of-an-utterance.md
       - MessageBus Service: bus-service.md
       - Plugin Manager: plugin-manager.md
       - Composable Deployments: composable-deployments.md
@@ -148,10 +144,6 @@ nav:
           - Padacioso (literal): padacioso.md
           - Nebulento (fuzzy): nebulento.md
           - Palavreado (keyword): palavreado.md
-      - Logic & Concepts:
-          - Asking the User: prompts.md
-          - Context: context.md
-          - Intent Layers: layers.md
       - Transformers:
           - Overview: transformer-plugins.md
           - Utterance: utterance-transformers.md
@@ -173,13 +165,20 @@ nav:
           - Colors: color-parser.md
           - Quebra Frases: quebra-frases.md
   - Skill Development:
+      - Tutorials:
+          - Your First Skill: first-skill.md
+          - Testing Your Skill: testing-your-skill.md
+          - Skill Cookbook: skill-cookbook.md
       - Guides:
           - Design Guidelines: skill-design-guidelines.md
           - Best Practices: skill-best-practices.md
           - Anatomy of a Skill: skill-structure.md
       - Logic & Intents:
           - Intent Design: intents.md
-          - Intent Layers: intent-layers.md
+          - Asking the User: prompts.md
+          - Context: context.md
+          - Intent Layers: layers.md
+          - Permissions & Activation Control: intent-layers.md
           - Continuous Conversation: converse.md
           - Context & Sessions: session.md
           - Dialog & Statements: statements.md
@@ -196,13 +195,13 @@ nav:
           - Filesystem: skill-filesystem.md
           - Resource Files: resource-files.md
           - GUI Support (legacy): skill-gui.md
-          - Runtime Requirements: skill-runtime-requirements.md
+          - Runtime Requirements (deprecated): skill-runtime-requirements.md
       - Advanced Skill Types:
           - Fallback Skills: fallbacks.md
           - Common Query Skills: common-query.md
           - Media Skills (OCP): ocp-skills.md
           - Universal Skills: universal-skills.md
-      - Testing Skills (ovoscope): ovoscope-overview.md
+      - Testing Reference (ovoscope): ovoscope-overview.md
   - Plugin Ecosystem:
       - Index & Overview: plugins-index.md
       - Plugin Arena (benchmarks): plugin-arena.md
@@ -214,15 +213,16 @@ nav:
           - STT: stt-plugins.md
           - TTS: tts-plugins.md
           - G2P: g2p-plugins.md
-      - Media & GUI:
+      - Media Playback:
           - OCP Audio Plugin (legacy default): ocp-audio-plugin.md
           - OCP Extractors: ocp-plugins.md
-          - Media Playback: media-plugins.md
+          - Media Playback Plugins: media-plugins.md
+      - GUI (legacy & upcoming):
           - GUI Protocol (legacy): gui-protocol.md
           - OVOS Shell (legacy): ovos-shell.md
-          - GUI Adapters (rework — upcoming): gui-adapters.md
           - Qt5 GUI (legacy): qt5-gui.md
           - Home Screen (legacy): homescreen.md
+          - GUI Adapters (upcoming): gui-adapters.md
   - AI Agents & Personas:
       - Personas:
           - Personas & PersonaService: personas.md
@@ -239,9 +239,8 @@ nav:
           - OpenAI-compatible: openai-plugin.md
           - GGUF / Local LLM: gguf-plugin.md
           - LLM Transformers: llm-transformers.md
-  - Privacy & Security:
+  - Production & Security:
       - Privacy & Security: privacy-security.md
-  - Production & Hardware:
       - Production Operations: production-operations.md
       - Hardware Integrators: hardware-integrators.md
       - Self-hosting Servers:
@@ -253,9 +252,9 @@ nav:
       - Home Assistant & Wyoming: wyoming-bridges.md
   - Reference:
       - OVOS Repository Index: ecosystem-index.md
+      - Bus Events Reference: bus-events.md
       - Command-line Tools: cli-tools.md
       - Core Libraries: core-libraries.md
-      - Bus Events Reference: bus-events.md
       - Tools:
           - ovos-docs-viewer: docs-viewer.md
           - gh-automations: gh-automations-overview.md
