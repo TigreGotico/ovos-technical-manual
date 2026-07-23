@@ -47,7 +47,7 @@ SKILL_ID = "ovos-skill-hello-world.openvoiceos"
 
 def test_hello_world():
     session = Session("test-1")
-    session.pipeline = ["ovos-adapt-pipeline-plugin-high"]
+    session.pipeline = ["ovos-padatious-pipeline-plugin"]
     utterance = Message(
         "recognizer_loop:utterance",
         {"utterances": ["hello world"], "lang": "en-US"},

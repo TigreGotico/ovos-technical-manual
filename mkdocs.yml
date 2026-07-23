@@ -251,6 +251,3 @@ nav:
 
 extra_css:
   - css/extra.css
-
-extra_javascript:
-  - javascripts/analytics.js

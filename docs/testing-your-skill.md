@@ -231,14 +231,12 @@ ovoscope run test/fixtures/hello.json -v
     `expected_messages` list in a pytest test (as in Steps 2–4), or use `ovoscope diff` with the
     default (context-skipping) comparison rather than `--include-context` when comparing fixtures.
 
-!!! warning "`ovoscope record` from the command line"
-    The `ovoscope record` subcommand is meant to do the same capture directly from the shell —
+!!! tip "`ovoscope record` from the command line"
+    The `ovoscope record` subcommand does the same capture directly from the shell —
     `ovoscope record --skill-id my-first.youruser --utterance "hello" --output test/fixtures/hello.json`
-    — without writing any Python. At the time of writing, the installed `ovoscope` release raises a
-    `TypeError` from that command's in-process path before it can save anything (`SkillManager.__init__()
-    got an unexpected keyword argument 'pipeline'`), so the Python snippet above is the reliable way
-    to record a fixture today. If `ovoscope record` works cleanly for your installed version, use it
-    directly — it's the more convenient path.
+    — without writing any Python. Both routes produce the same fixture format; use whichever fits
+    your workflow. The Python API is handy when you want to tweak the `Session` (language,
+    pipeline list) before recording.
 
 ## Step 6 — Wire it into CI
 
