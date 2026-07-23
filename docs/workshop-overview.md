@@ -71,16 +71,15 @@ OVOSSkill                             ovos_workshop/skills/ovos.py
 | [skill-classes.md](skill-classes.md) | `OVOSSkill`, `FallbackSkill`, `OVOSCommonPlaybackSkill`, `ActiveSkill`, `OVOSGameSkill`, `ConversationalGameSkill`, `UniversalSkill`, `UniversalFallback` | Full class reference and when to use each |
 | [ovos-skill.md](ovos-skill.md) | `OVOSSkill` | Base class: intent registration, settings, resources, GUI, lifecycle |
 | [decorators.md](decorators.md) | `intent_handler`, `killable_intent`, `ocp_search`, `layer_intent`, `skill_api_method` | All intent and utility decorators with source citations |
-| [app.md](workshop-overview.md) | `OVOSAbstractApplication` | Skill-like app that runs without the intent service |
-| [game-skill.md](workshop-overview.md) | `OVOSGameSkill`, `ConversationalGameSkill` | [OCP](ocp-pipeline.md)-integrated game loop with converse and auto-save |
-| [auto-translatable.md](workshop-overview.md) | `UniversalSkill`, `UniversalFallback` | Auto-translate input/output for any language |
-| [skill-api.md](ovos-skill.md) | `SkillApi`, `skill_api_method` | Inter-skill RPC over the [MessageBus](bus-service.md) |
-| [filesystem.md](skill-filesystem.md) | `FileSystemAccess` | Sandboxed, XDG-compliant file storage for skills |
+| [skill-classes.md#ovosabstractapplication](skill-classes.md#ovosabstractapplication) | `OVOSAbstractApplication` | Skill-like app that runs without the intent service |
+| [skill-classes.md#ovosgameskill](skill-classes.md#ovosgameskill) | `OVOSGameSkill`, `ConversationalGameSkill` | [OCP](ocp-pipeline.md)-integrated game loop with converse and auto-save |
+| [skill-classes.md#universalskill](skill-classes.md#universalskill) | `UniversalSkill`, `UniversalFallback` | Auto-translate input/output for any language |
+| [ovos-skill.md](ovos-skill.md) | `SkillApi`, `skill_api_method` | Inter-skill RPC over the [MessageBus](bus-service.md) |
+| [skill-filesystem.md](skill-filesystem.md) | `FileSystemAccess` | Sandboxed, XDG-compliant file storage for skills |
 | [resource-files.md](resource-files.md) | `SkillResources` | Locale, dialog, vocab, regex, and other resource files |
-| [settings.md](skill-settings.md) | `JsonStorage`, `PrivateSettings` | Skill settings — persistence, change callbacks, file watching |
+| [skill-settings.md](skill-settings.md) | `JsonStorage`, `PrivateSettings` | Skill settings — persistence, change callbacks, file watching |
 | [intent-layers.md](intent-layers.md) | `IntentLayers` | Enable/disable intent sets at runtime |
-| [skill-launcher.md](workshop-overview.md) | `SkillLoader`, `PluginSkillLoader` | Loading skills as plugins or in standalone mode |
-| [permissions.md](workshop-overview.md) | `ConverseMode`, `FallbackMode` | [Converse](converse-pipeline.md) and fallback permission modes |
+| [skill-classes.md#pluginskillloader](skill-classes.md#pluginskillloader) | `SkillLoader`, `PluginSkillLoader` | Loading skills as plugins or in standalone mode |
 
 ---
 
@@ -103,7 +102,7 @@ Skills interact with the bus through `self.bus`. Use `self.add_event()` to subsc
 
 ### Settings
 
-Skills store persistent configuration in `~/.config/ovos/skills/<skill_id>/settings.json`. Access via `self.settings`:
+Skills store persistent configuration in `$XDG_CONFIG_HOME/<base_folder>/skills/<skill_id>/settings.json` (`<base_folder>` defaults to `mycroft`, see [Skill Settings](skill-settings.md#storage-location)). Access via `self.settings`:
 
 ```python
 volume = self.settings.get("volume", 50)

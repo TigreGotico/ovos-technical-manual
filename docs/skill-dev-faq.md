@@ -111,7 +111,9 @@ class MySkill(OVOSSkill):
         # Insert logic to process the data
         
     def send_file(self, my_file_path):
-        send_binary_file_message(my_file_path)
+        # pass self.bus explicitly — otherwise a brand new bus connection is
+        # opened and closed just for this one message
+        send_binary_file_message(my_file_path, bus=self.bus)
 
 ```
 
@@ -127,7 +129,9 @@ class MySkill(OVOSSkill):
         self.add_event("mycroft.binary.data", self.receive_binary)
     
     def send_data(self, binary_data):
-        send_binary_data_message(binary_data)
+        # pass self.bus explicitly — otherwise a brand new bus connection is
+        # opened and closed just for this one message
+        send_binary_data_message(binary_data, bus=self.bus)
 
     def receive_binary(self, message):
         print("Receiving binary data")
