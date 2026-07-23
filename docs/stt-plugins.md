@@ -311,6 +311,12 @@ separately-licensed model, that is called out under "model".
 
 ```
 
+Leaving `urls` unset falls back to public community-run STT servers rather than failing — see
+[stt-server](stt-server.md#companion-plugin) for a self-hosted alternative, or pick a fully
+offline engine from the table above.
+
+--8<-- "snippets/community-servers.md"
+
 ---
 
 ## ovos-stt-http-server

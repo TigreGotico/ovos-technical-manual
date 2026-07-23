@@ -129,14 +129,7 @@ Language is taken from `cfg["lang"]` if present, otherwise from `mycroft.conf["l
     to public community-run STT servers rather than failing. Set `urls` to your own
     [stt-server](stt-server.md) instance for anything other than a quick test.
 
-!!! warning "Community servers are best-effort demos"
-    Public community-run OVOS servers are **best-effort, not optimized, and come with no
-    uptime guarantee** — they exist purely to make onboarding and demos easy, and may slow
-    down, rate-limit, or disappear at any time. Relying on one for real use will make your
-    OVOS assistant slow and unreliable. Offline [STT plugins](stt-plugins.md) exist for every
-    supported engine — the official recommendation is to self-host your own server or run a
-    fully offline STT plugin as the bridge's `--plugin-name`, not to depend on a public one
-    long-term.
+--8<-- "snippets/community-servers.md"
 
 ### Wyoming message flow
 

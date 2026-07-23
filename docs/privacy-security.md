@@ -41,6 +41,8 @@ guessing.
     the server plugins at a server you run yourself
     (see [`stt-server`](stt-server.md) / [`tts-server`](tts-server.md)).
 
+--8<-- "snippets/community-servers.md"
+
 !!! tip "depends on selected profile"
     A `server` or `satellite` install ([composable deployments](composable-deployments.md))
     changes which of these components even run on this particular device — the

@@ -8,7 +8,9 @@
 
 `ovos-translate-server` wraps any OVOS translation plugin and language-detection plugin and exposes them as a FastAPI HTTP service (served by `uvicorn`). It is the standard way to make OVOS language plugins available to remote clients or to use them as a microservice in a Docker-based deployment.
 
-The companion client plugin `ovos-translate-server-plugin` can point an OVOS device at this server so that translation and language detection are offloaded from the device.
+The companion client plugin `ovos-translate-server-plugin` can point an OVOS device at this server so that translation and language detection are offloaded from the device. Left unconfigured, that client plugin falls back to a built-in list of public community-run servers rather than failing (see [Translation Plugins](translation-plugins.md)) — set it to your own server, deployed as taught below, for anything beyond a quick test.
+
+--8<-- "snippets/community-servers.md"
 
 ---
 

@@ -362,6 +362,12 @@ separately-licensed model or a paid cloud service, that is called out under "mod
 
 ```
 
+That default `host` is a public community-run Piper server, not an address on your network — see
+[tts-server](tts-server.md#companion-plugin) to self-host, or pick a fully offline voice from the
+table above.
+
+--8<-- "snippets/community-servers.md"
+
 ---
 
 ## ovos-tts-plugin-coqui
