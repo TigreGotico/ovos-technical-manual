@@ -1,0 +1,61 @@
+name: Docs Checks
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  links-and-json:
+    name: Links + JSON fences
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Check links and JSON fences
+        run: |
+          python3 tools/check_docs.py links
+          python3 tools/check_docs.py json
+
+  python-imports-and-signatures:
+    name: Python imports + signatures
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install a minimal OVOS stack (alpha channel)
+        env:
+          PIP_CONSTRAINT: https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-alpha.txt
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install --pre \
+            ovos-core \
+            ovos-workshop \
+            ovos-bus-client \
+            ovos-plugin-manager \
+            ovos-config \
+            ovos-utils \
+            ovos-number-parser \
+            ovos-date-parser \
+            ovos-color-parser \
+            quebra-frases \
+            padacioso
+
+      - name: Check python imports and signatures
+        env:
+          PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+        run: |
+          python3 tools/check_docs.py python-imports
+          python3 tools/check_docs.py signatures
