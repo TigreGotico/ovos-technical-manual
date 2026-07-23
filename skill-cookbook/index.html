@@ -1976,6 +1976,12 @@ pattern below, which works regardless.</p>
 </ul>
 <hr />
 <h2 id="4-continuous-conversation-multi-turn-dialog-with-converse-and-get_response">4. Continuous conversation: multi-turn dialog with <code>converse</code> and <code>get_response</code><a class="headerlink" href="#4-continuous-conversation-multi-turn-dialog-with-converse-and-get_response" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Testing multi-turn flows over the bus</p>
+<p>When driving this recipe from a test or script, re-fetch the live session before each
+follow-up utterance — reusing a stale serialized <code>Session</code> erases the activation from
+turn 1. See <a href="../testing-your-skill/#multi-turn-tests-always-re-pull-the-session">Testing Your Skill</a>.</p>
+</div>
 <p><strong>When you'd want this:</strong> the interaction needs more than one exchange — booking a table means asking for a time, a party size, and a name in sequence, or reacting to whatever the user says next without them repeating the skill's name.</p>
 <p>There are two complementary tools for this:</p>
 <ul>
