@@ -33,10 +33,10 @@
     - `PlaybackService.run()` — [`ovos_audio/service.py`](https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/service.py) — Main service thread; registers the `speak` handler and drives the [TTS](tts-plugins.md) queue.
 
 
-    - `PlaybackThread.run()` — [`ovos_audio/playback.py:163`](https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/playback.py) — logic for playing back the synthesized audio chunks.
+    - `PlaybackThread.run()` — [`ovos_audio/playback.py`](https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/playback.py) — logic for playing back the synthesized audio chunks.
 
 
-    - `AudioService.play()` — [`ovos_audio/audio.py:395`](https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/audio.py) — routes media playback to the correct backend by URI scheme (MPV, VLC, etc.).
+    - `AudioService.play()` — [`ovos_audio/audio.py`](https://github.com/OpenVoiceOS/ovos-audio/blob/dev/ovos_audio/audio.py) — routes media playback to the correct backend by URI scheme (MPV, VLC, etc.).
     
     ---
     
@@ -84,7 +84,7 @@ Settings for the audio service are located in the `tts` and `Audio` sections of 
   "tts": {
     "module": "ovos-tts-plugin-server",
     "ovos-tts-plugin-server": {
-      "url": "https://tts.openvoiceos.org"
+      "host": "https://pipertts.ziggyai.online"
     }
   },
   "Audio": {

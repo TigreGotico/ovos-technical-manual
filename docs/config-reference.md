@@ -11,11 +11,12 @@ This page provides a comprehensive reference for the core configuration options 
 
 | Key | Default | Description |
 |---|---|---|
-| `lang` | `"en-US"` | Primary BCP-47 language code for STT and TTS. |
+| `lang` | `"en-us"` | Primary BCP-47 language code for STT and TTS. |
 | `secondary_langs` | `[]` | Extra languages whose resource files are loaded; intents are only matched when the utterance is tagged with that lang at STT. |
 | `system_unit` | `"metric"` | Measurement units (`metric` or `imperial`). |
 | `temperature_unit`| `"celsius"`| Temperature units (`celsius` or `fahrenheit`). |
 | `date_format` | `"MDY"` | Date format for display and parsing. |
+| `time_format` | `"half"` | Clock format for display (`half` = 12-hour, `full` = 24-hour). |
 | `confirm_listening`| `true` | Play a beep when the system starts listening. |
 
 ---
@@ -60,19 +61,25 @@ The `intents.pipeline` defines the order in which matchers are evaluated.
 
 ## 3. Listener & Microphone
 
+All of these live under the top-level `listener` key:
+
 | Key | Default | Description |
 |---|---|---|
-| `sample_rate` | `16000` | Audio sampling rate in Hz. |
-| `fake_barge_in` | `true` | Mute output during recording. |
-| `recording_timeout`| `10.0` | Max seconds for a single recording. |
-| `remove_silence` | `true` | Strip leading/trailing silence before sending audio to STT. |
-| `wake_word` | `"hey_mycroft"` | Default hotword (matches an entry under `hotwords`). |
+| `listener.sample_rate` | `16000` | Audio sampling rate in Hz. |
+| `listener.fake_barge_in` | `true` | Mute output during recording. |
+| `listener.recording_timeout`| `10.0` | Max seconds for a single recording. |
+| `listener.remove_silence` | `true` | Strip leading/trailing silence before sending audio to STT. |
+| `listener.wake_word` | `"hey_mycroft"` | Default hotword (matches an entry under `hotwords`). |
 
 ### Microphone Plugin
 
+The microphone plugin is nested under `listener.microphone`:
+
 ```json
-"microphone": {
-  "module": "ovos-microphone-plugin-alsa"
+"listener": {
+  "microphone": {
+    "module": "ovos-microphone-plugin-alsa"
+  }
 }
 
 ```
@@ -81,11 +88,19 @@ The `intents.pipeline` defines the order in which matchers are evaluated.
 
 ## 4. Speech Activity (VAD)
 
+The timing thresholds actually read by `ovos-dinkum-listener` to decide when a command
+starts and ends are top-level `listener` keys (not nested under `VAD`):
+
 | Key | Default | Description |
 |---|---|---|
-| `silence_method` | `"vad_and_ratio"` | VAD strategy (`VAD_ONLY`, `ALL`, etc.). |
-| `speech_seconds` | `0.1` | Seconds of speech to trigger command start. |
-| `silence_seconds`| `0.5` | Seconds of silence to trigger command end. |
+| `listener.speech_begin` | `0.3` | Seconds of detected speech before a command is considered started. |
+| `listener.silence_end` | `0.7` | Seconds of silence before a command is considered ended. |
+
+The shipped config also carries a `listener.VAD` block (`silence_method`, `speech_seconds`,
+`silence_seconds`, plus a per-VAD-plugin `module`/fallback chain such as
+`ovos-vad-plugin-silero` → `ovos-vad-plugin-precise` → `ovos-vad-plugin-webrtcvad` →
+`ovos-vad-plugin-noise`) used to select and configure the [VAD plugin](vad-plugins.md)
+itself — a separate concern from the `speech_begin`/`silence_end` timing above.
 
 ---
 

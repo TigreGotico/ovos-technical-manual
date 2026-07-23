@@ -225,7 +225,7 @@ There is **no** central correlation/in-reply-to mechanism: messages are fully as
 
 ### Core / Intent Pipeline
 
-Topic names below are the canonical spec names ([OVOS-PIPELINE-1 §9](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)); the legacy name is shown where current code still emits it (the spec topics are selected by the top-level `legacy_namespace: false` config).
+Topic names below are the canonical spec names ([OVOS-PIPELINE-1 §9](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)); the legacy name is shown where current code still emits it. Both names are usable on the wire — see [Namespace migration](#namespace-migration) below for how `ovos-bus-client` bridges the two.
 
 | Message type | Publisher | Consumers |
 |---|---|---|
@@ -343,7 +343,7 @@ A separate, drop-in Rust implementation exists as its own project for deployment
     - **Rust** — the [`ovos-rust-messagebus`](https://github.com/OscillateLabsLLC/ovos-rust-messagebus)
       v1.1.2 server, run in place of the Python process.
 
-    Throughput vs the Tornado baseline from the PR's measurements:
+    Throughput vs the Tornado baseline, measured with the included benchmark script:
 
     | Load | webrockets | Rust |
     |---|---|---|

@@ -178,8 +178,10 @@ config["lang"] = "fr-fr"   # stored in the in-memory __patch layer
 
 ```
 
-The patch is applied/cleared via the bus handlers below — there is no public
-`patch()`/`patch_reset()` instance API.
+The patch is applied/cleared via `Configuration.patch(message)` and
+`Configuration.patch_clear(message)` — both are `@staticmethod`s that take a bus
+`Message` (they read `message.data["config"]`), not a plain dict, so in practice they
+are driven by the bus handlers below rather than called directly.
 
 ---
 
@@ -362,22 +364,19 @@ Automatically configure language, [STT](stt-plugins.md), and [TTS](tts-plugins.m
 
 ```bash
 ovos-config autoconfigure -l en-us --offline --female
-ovos-config autoconfigure -l de-de --online --male -p rpi4
-ovos-config autoconfigure -l fr-fr --gpu --female
+ovos-config autoconfigure -l de-de --online --male
 
 ```
 
 | Option | Description |
 |---|---|
-| `-l LANG` | BCP-47 language code (required) |
-| `-p PLATFORM` | `rpi3`, `rpi4`, `rpi5`, `linux`, `mac`, `termux` |
-| `--hybrid` | Offline TTS + online STT (default) |
-| `--online` | Online STT and TTS |
-| `--offline` | Offline STT and TTS |
-| `--gpu` | GPU-optimised offline plugins |
-| `--male` / `--female` | Default voice gender |
+| `-l, --lang LANG` | BCP-47 language code (required) |
+| `-hy, --hybrid` | Offline TTS + online STT (default when neither `--online` nor `--offline` is given) |
+| `-on, --online` | Online STT and TTS |
+| `-off, --offline` | Offline STT and TTS |
+| `-m, --male` / `-f, --female` | Default voice gender (if neither is given, TTS configuration is skipped) |
 
-The `autoconfigure` command uses language-specific STT models and platform-optimized intent pipelines.
+`--online`/`--offline` and `--male`/`--female` are each mutually exclusive pairs.
 
 ### `telemetry`
 

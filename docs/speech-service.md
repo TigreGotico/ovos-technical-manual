@@ -14,13 +14,13 @@ A third, even more minimal option is `mycroft-classic-listener` — the original
 
 ??? abstract "Technical Reference"
 
-    - `OVOSDinkumVoiceService` — [`ovos_dinkum_listener/service.py:98`](https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py) — the service `Thread`; `run()` (`:381`) connects to the bus and drives the voice loop.
+    - `OVOSDinkumVoiceService` — [`ovos_dinkum_listener/service.py`](https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py) — the service `Thread`; `run()` connects to the bus and drives the voice loop.
 
 
-    - `DinkumVoiceLoop.run()` — [`ovos_dinkum_listener/voice_loop/voice_loop.py:275`](https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/voice_loop/voice_loop.py) — the per-chunk state machine that drives [VAD](vad-plugins.md), [Wake Word](wake-word-plugins.md) and [STT](stt-plugins.md) via per-state handlers (`_detect_ww`, `_wait_cmd`, `_in_cmd`, …).
+    - `DinkumVoiceLoop.run()` — [`ovos_dinkum_listener/voice_loop/voice_loop.py`](https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/voice_loop/voice_loop.py) — the per-chunk state machine that drives [VAD](vad-plugins.md), [Wake Word](wake-word-plugins.md) and [STT](stt-plugins.md) via per-state handlers.
 
 
-    - `OVOSDinkumVoiceService._stt_text()` — [`ovos_dinkum_listener/service.py:765`](https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py) — emits the utterance message after [STT](stt-plugins.md) returns text: `recognizer_loop:utterance` by default, or `ovos.utterance.handle` when the top-level `legacy_namespace` config is `false`.
+    - `OVOSDinkumVoiceService._stt_text()` — [`ovos_dinkum_listener/service.py`](https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py) — emits the utterance message after [STT](stt-plugins.md) returns text: the listener itself emits `recognizer_loop:utterance`; `ovos-bus-client`'s automatic namespace bridge (see [Bus Service](bus-service.md#namespace-migration)) mirrors it to `ovos.utterance.handle` for consumers on the spec topic.
     
     ---
     
@@ -74,7 +74,7 @@ Source: `ovos_dinkum_listener/voice_loop/voice_loop.py:36` (`ListeningState`) an
 The listener publishes its activity on the OVOS [MessageBus](bus-service.md). The most
 useful events for downstream services:
 
-Canonical (spec) names are shown first, with the legacy name current code still emits in parentheses. The `ovos.listener.*` and `ovos.utterance.handle` names come from [OVOS-AUDIO-IN-1 §5–§6](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md); they become the wire names when the top-level `legacy_namespace: false` config is set.
+Canonical (spec) names are shown first, with the legacy name current code still emits in parentheses. The `ovos.listener.*` and `ovos.utterance.handle` names come from [OVOS-AUDIO-IN-1 §5–§6](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md); `ovos-dinkum-listener` itself still emits only the legacy names, and `ovos-bus-client`'s automatic namespace bridge (see [Bus Service](bus-service.md#namespace-migration)) mirrors them onto the spec topics by default.
 
 | Message | Payload | Meaning |
 |---|---|---|
@@ -91,10 +91,11 @@ The full table lives in the bus-message spec (`message_spec/dinkum.md`).
 
 !!! note "Gotcha — utterance namespace"
 
-    By default the transcribed command is published as `recognizer_loop:utterance`.
-    Setting the top-level `legacy_namespace: false` config switches **all** utterance
-    entry points to the spec topic `ovos.utterance.handle` instead — make sure your
-    pipeline subscribes to the matching topic.
+    The listener publishes the transcribed command as `recognizer_loop:utterance`.
+    `ovos-bus-client`'s namespace bridge (on by default) also mirrors it onto
+    `ovos.utterance.handle`, so subscribers can use either topic name — see
+    [Bus Service — Namespace migration](bus-service.md#namespace-migration) for how
+    to turn that bridging off once every consumer speaks the spec namespace.
 
 ## Configuration
 
