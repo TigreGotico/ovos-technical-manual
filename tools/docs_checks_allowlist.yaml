@@ -12,6 +12,13 @@ json: []
 # accepted standalone or wrapped in `{ }` as a fragment.
 
 python_imports:
+  - module: ovos_stt_plugin_vosk
+    reason: >
+      docs/stt-plugins.md's standalone example imports VoskKaldiSTT from the
+      optional ovos-stt-plugin-vosk package. Verified correct against the
+      installed plugin (VoskKaldiSTT/VoskKaldiStreamingSTT exist); the plugin
+      pulls the large vosk wheel and is intentionally not in the minimal CI
+      python-imports install set.
   - module: ovos_mark1
     reason: >
       docs/mark1.md documents the optional `ovos-mark1-utils` PyPI package
