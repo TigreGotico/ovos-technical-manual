@@ -59,7 +59,7 @@ class LanguageTranslator:
         """Languages this backend supports (may be empty if unknown/dynamic)."""
 ```
 
-> **Gotcha (advanced):** `available_languages` is a `classproperty` and several real plugins return an empty set when the backend's language list is dynamic or unknown (e.g. the server and Google plugins). Don't assume it is populated.
+> **Gotcha (advanced):** `available_languages` is a `classproperty` and several real plugins return an empty set when the backend's language list is dynamic or unknown (e.g. `ovos-translate-plugin-server` and `ovos-google-translate-plugin`). Don't assume it is populated.
 
 ## Creating Your Own Plugin
 

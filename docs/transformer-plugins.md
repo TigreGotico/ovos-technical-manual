@@ -8,7 +8,7 @@
 
     **Ordering.** OVOS-TRANSFORM-1 §4 orders each chain by **ascending** `priority`: a lower number runs **earlier**, the default is `50`. The current OVOS code follows this: a plugin with `priority=1` runs first, and later plugins see and may override its output. A legacy descending order is still available as an explicit opt-in (`sort_ascending=False`) for deployments that depend on the old behavior.
 
-Transformer plugins let you intercept and modify data as it flows through the OVOS pipeline. Each type is a small class with a `transform()` method that runs at a fixed stage — turning raw audio into cleaner audio, fixing transcribed text before intent matching, enriching a matched intent, or post-processing speech before playback.
+Transformer plugins let you intercept and modify data as it flows through the transformer chain. Each type is a small class with a `transform()` method that runs at a fixed stage — turning raw audio into cleaner audio, fixing transcribed text before intent matching, enriching a matched intent, or post-processing speech before playback.
 
 A transformer never *replaces* a stage; it sits between two stages and reshapes what passes through. Several plugins of the same type can be active at once — they run in sequence, lowest `priority` first, so each one builds on the output of the previous.
 

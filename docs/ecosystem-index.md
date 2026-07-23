@@ -373,28 +373,28 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 ## Solver / Agent plugins (8)
 
 **[ovos-a2a-agent-plugin](https://github.com/OpenVoiceOS/ovos-a2a-agent-plugin)**
-:   An OVOS ChatEngine plugin that lets an ovos-persona delegate its reasoning to any external agent that speaks the Agent2Agent (A2A) protocol. Used by ovos-persona and the common-query / solver pipelines to answer free-form questions or drive agentic behavior.
+:   An OVOS ChatEngine plugin that lets an ovos-persona delegate its reasoning to any external agent that speaks the Agent2Agent (A2A) protocol. Used by ovos-persona and the Common Query/fallback pipelines (via Agent Engines) to answer free-form questions or drive agentic behavior.
 
 **[ovos-agentic-loop](https://github.com/OpenVoiceOS/ovos-agentic-loop)**
-:   Agent-loop ChatEngine plugins for OVOS. Implements seven agentic reasoning patterns (ReAct, Plan-and-Execute, Reflexion, Self-Ask, Chain-of-Thought, CRITIC, Tree-of-Thoughts), five built-in toolboxes, SKILL.md integration, and AGENTS.md context management — all as standard OPM plugins. Used by ovos-persona and the common-query / solver pipelines to answer free-form questions or drive agentic behavior.
+:   Agent-loop ChatEngine plugins for OVOS. Implements seven agentic reasoning patterns (ReAct, Plan-and-Execute, Reflexion, Self-Ask, Chain-of-Thought, CRITIC, Tree-of-Thoughts), five built-in toolboxes, SKILL.md integration, and AGENTS.md context management — all as standard OPM plugins. Used by ovos-persona and the Common Query/fallback pipelines (via Agent Engines) to answer free-form questions or drive agentic behavior.
 
 **[ovos-memory-plugins](https://github.com/OpenVoiceOS/ovos-memory-plugins)**
-:   Give your OpenVoiceOS persona a memory. Used by ovos-persona and the common-query / solver pipelines to answer free-form questions or drive agentic behavior.
+:   Give your OpenVoiceOS persona a memory. Used by ovos-persona and the Common Query/fallback pipelines (via Agent Engines) to answer free-form questions or drive agentic behavior.
 
 **[ovos-persona](https://github.com/OpenVoiceOS/ovos-persona)**
-:   The PersonaPipeline brings multi-persona management to OpenVoiceOS (OVOS), enabling interactive conversations with virtual assistants. 🎙️ With personas, you can customize how queries are handled by assigning specific solvers to each persona. Used by ovos-persona and the common-query / solver pipelines to answer free-form questions or drive agentic behavior.
+:   The PersonaPipeline brings multi-persona management to OpenVoiceOS (OVOS), enabling interactive conversations with virtual assistants. 🎙️ With personas, you can customize how queries are handled by assigning specific solvers to each persona. Used by ovos-persona and the Common Query/fallback pipelines (via Agent Engines) to answer free-form questions or drive agentic behavior.
 
 **[ovos-persona-server](https://github.com/OpenVoiceOS/ovos-persona-server)**
-:   A single HTTP server that exposes one OVOS Persona as eight concurrent API surfaces — so any LLM client (OpenAI SDK, LangChain, Ollama tools, Anthropic SDK, Google Gemini SDK, Cohere SDK, HuggingFace TGI client, AWS Bedrock client, or any A2A agent) can talk to your OVOS persona without changes. Used by ovos-persona and the common-query / solver pipelines to answer free-form questions or drive agentic behavior.
+:   A single HTTP server that exposes one OVOS Persona as eight concurrent API surfaces — so any LLM client (OpenAI SDK, LangChain, Ollama tools, Anthropic SDK, Google Gemini SDK, Cohere SDK, HuggingFace TGI client, AWS Bedrock client, or any A2A agent) can talk to your OVOS persona without changes. Used by ovos-persona and the Common Query/fallback pipelines (via Agent Engines) to answer free-form questions or drive agentic behavior.
 
 **[ovos-solver-failure-plugin](https://github.com/OpenVoiceOS/ovos-solver-failure-plugin)**
-:   Extreme fallback, just complains it does not have a brain. Used by ovos-persona and the common-query / solver pipelines to answer free-form questions or drive agentic behavior.
+:   Extreme fallback, just complains it does not have a brain. Used by ovos-persona and the Common Query/fallback pipelines (via Agent Engines) to answer free-form questions or drive agentic behavior.
 
 **[ovos-solver-plugin-aiml](https://github.com/OpenVoiceOS/ovos-solver-plugin-aiml)**
-:   Give Mycroft some sass with AIML! Used by ovos-persona and the common-query / solver pipelines to answer free-form questions or drive agentic behavior.
+:   A rule-based chatbot answer engine for OVOS, using AIML pattern matching. Used by ovos-persona and the Common Query/fallback pipelines (via Agent Engines) to answer free-form questions or drive agentic behavior.
 
 **[ovos-solver-plugin-rivescript](https://github.com/OpenVoiceOS/ovos-solver-plugin-rivescript)**
-:   Give Mycroft some sass with Rivescript! Used by ovos-persona and the common-query / solver pipelines to answer free-form questions or drive agentic behavior.
+:   A rule-based chatbot answer engine for OVOS, using RiveScript pattern matching. Used by ovos-persona and the Common Query/fallback pipelines (via Agent Engines) to answer free-form questions or drive agentic behavior.
 
 
 ## PHAL plugins (18)

@@ -1,7 +1,7 @@
 # Agent Plugins
 
 !!! abstract "In a nutshell"
-    Agent plugins are the swappable "brains" your assistant can use to do thinking work: holding a conversation, answering a factual question, summarizing a document, picking the best of several answers, remembering what was said earlier, or figuring out who "she" refers to. You don't run them yourself — you list the ones you want in a [persona](personas.md), and OVOS loads them. Think of it like choosing which apps to install on a phone, except the "apps" are different reasoning skills. See [Agents & Personas](personas.md) or the [Glossary](glossary.md) for related terms.
+    Agent plugins are the swappable "brains" your assistant can use to do thinking work: holding a conversation, answering a factual question, summarizing a document, picking the best of several answers, remembering what was said earlier, or figuring out who "she" refers to. You don't run them yourself — you list the ones you want in a [persona](personas.md), and OVOS loads them. Think of it like choosing which browser extensions to install, except each "extension" is a different reasoning skill. See [Agents & Personas](personas.md) or the [Glossary](glossary.md) for related terms.
 
 **For beginners:** agent plugins are the installable building blocks that let a persona think,
 answer, rank, summarize, remember, or resolve pronouns. You don't call them directly — you list
@@ -49,7 +49,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 | Plugin | Description |
 |--------|-------------|
 | [ovos-qdrant-embeddings-plugin](#ovos-qdrant-embeddings-plugin) | The `QdrantEmbeddingsDB` plugin integrates with the [qdrant](https://qdrant.tech/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using qdrant's capabilities. |
-| [ovos-solver-plugin-aiml](#ovos-solver-plugin-aiml) | Give Mycroft some sass with AIML! |
+| [ovos-solver-plugin-aiml](#ovos-solver-plugin-aiml) | A rule-based chatbot answer engine for OVOS, using AIML pattern matching. |
 | [ovos-persona](#ovos-persona) | The **`PersonaPipeline`** brings multi-persona management to OpenVoiceOS (OVOS), enabling interactive conversations with virtual assistants. 🎙️ With personas, you can customize how queries are handled by assigning specific solvers to each persona. |
 | [ovos-openai-plugin](#ovos-openai-plugin) | Leverages the [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to provide a chat engine, a dialog-rewriting transformer, and a summarizer, all pointed at any OpenAI-compatible endpoint. |
 | [ovos-messagebus-chat-plugin](#ovos-messagebus-chat-plugin) | `OVOSMessagebusChatAgent` — a `ChatEngine` (`opm.agents.chat`, entry point `ovos-messagebus`) that proxies each turn through a connected OVOS messagebus pipeline. |
@@ -61,7 +61,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 | [ovos-solver-failure-plugin](#ovos-solver-failure-plugin) | Extreme fallback, just complains it does not have a brain |
 | [ovos-gguf-plugin](#ovos-gguf-plugin) | Unified GGUF wrapper — chat, summarization, dialog rewriting, translation, language detection, and text embeddings, all backed by quantized GGUF models via `llama-cpp-python`. |
 | [ovos-persona-server](#ovos-persona-server) | Standalone server that exposes an OVOS persona over an HTTP API. |
-| [ovos-solver-plugin-rivescript](#ovos-solver-plugin-rivescript) | Give Mycroft some sass with Rivescript! |
+| [ovos-solver-plugin-rivescript](#ovos-solver-plugin-rivescript) | A rule-based chatbot answer engine for OVOS, using RiveScript pattern matching. |
 
 ## ovos-qdrant-embeddings-plugin
 
@@ -89,7 +89,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-solver-plugin-aiml](https://github.com/OpenVoiceOS/ovos-solver-plugin-aiml)
 
 
-- **Description**: Give Mycroft some sass with AIML!
+- **Description**: A rule-based chatbot answer engine for OVOS, using AIML pattern matching.
 
 ---
 
@@ -210,6 +210,6 @@ Per-collection metadata defaults `hnsw:space` to `cosine` when not specified.
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-solver-plugin-rivescript](https://github.com/OpenVoiceOS/ovos-solver-plugin-rivescript)
 
 
-- **Description**: Give Mycroft some sass with Rivescript!
+- **Description**: A rule-based chatbot answer engine for OVOS, using RiveScript pattern matching.
 
 ---

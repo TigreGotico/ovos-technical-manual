@@ -1,7 +1,7 @@
 # Intent Design
 
 !!! abstract "In a nutshell"
-    People ask for the same thing in many different ways: "what's the weather?", "weather in Melbourne", or just "weather" all mean roughly the same. An *intent* is what the user is actually trying to do, and the part of OVOS that figures it out is the *intent parser*. This page explains how OVOS recognizes intents and pulls out the useful details (like a place or a date), and describes the two different styles you can use to define them. New terms are explained in the [Glossary](glossary.md).
+    People ask for the same thing in many different ways: "what's the weather?", "weather in Melbourne", or just "weather" all mean roughly the same. An *intent* is what the user is actually trying to do, and the part of OVOS that figures it out is a *pipeline plugin* (older docs call this an "intent parser" or "intent engine" — see the [Glossary](glossary.md)). This page explains how OVOS recognizes intents and pulls out the useful details (like a place or a date), and describes the two different styles you can use to define them. New terms are explained in the [Glossary](glossary.md).
 
 !!! info "📐 Formal specification"
     Intents are specified across the **intent stack** of the formal [architecture specs](architecture-specs.md):
@@ -12,7 +12,7 @@
 
     The on-disk file formats (`.intent`, `.voc`, `.entity`) are **[OVOS-INTENT-2 — Locale Resource Formats](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md)**; see [Resource Files](resource-files.md). Where this page's engine-specific syntax diverges from the portable grammar, it is flagged inline and the spec is canonical.
 
-A user can accomplish the same task by expressing their intent in multiple ways. The role of the intent parser is to
+A user can accomplish the same task by expressing their intent in multiple ways. The role of the matching pipeline plugin is to
 extract from the user's speech key data elements that specify their intent in more detail. This data can then be passed
 to other services, such as Skills to help the user accomplish their intended task.
 
@@ -25,8 +25,7 @@ _Example_: Julie wants to know about today's weather in her current location, wh
 > "hey mycroft, weather"
 
 Even though these are three different expressions, for most of us they probably have roughly the same meaning. In each
-case we would assume the user expects OVOS to respond with today's weather for their current location. The role of an
-intent parser is to determine what this intent is.
+case we would assume the user expects OVOS to respond with today's weather for their current location. The role of the matching pipeline plugin is to determine what this intent is.
 
 In the example above, we might extract data elements like:
 
@@ -48,7 +47,7 @@ OVOS provides two kinds of intent, each with its own strengths. The [OVOS-INTENT
 
 **Keyword intents** (rule based) look for specific required keywords. They are more flexible, but being rule based they can produce false matches; a badly designed keyword intent can throw the parser off. Their main advantage is tight integration with [conversational context](context.md) for continuous dialogs. They are built from `.voc` files.
 
-The intent engines are loaded as pipeline plugins. The two default engines are:
+Padatious and Adapt are the two default pipeline plugins that match intents:
 
 - **[Padatious](padatious-pipeline.md)** — a lightweight neural network trained on whole phrases (template intents).
 
@@ -62,13 +61,13 @@ We will now look at each in more detail, including how to use them in a [Skill](
 
 ## Keyword Intents
 
-Keyword based intent parsers determine user intent based on a list of keywords or entities contained within a user's utterance.
+Keyword-based pipeline plugins determine user intent based on a list of keywords or entities contained within a user's utterance.
 
 ### Defining keywords and entities
 
 #### Vocab (.voc) Files
 
-Vocab files define keywords that the intent parser will look for in a Users utterance to determine their intent.
+Vocab files define keywords that the pipeline plugin will look for in a Users utterance to determine their intent.
 
 These files live in the Skill's `locale/<lang>/` directory (e.g. `locale/en-us/Potato.voc`). They can have one or more lines listing synonyms or terms with the same meaning in the context of this Skill. OVOS will match _any_ of these keywords with the Intent.
 
@@ -291,11 +290,11 @@ Example based parsers have a number of key benefits over other intent parsing te
 * Disambiguation between intents is easier
 
 
-* Harder to create a bad intent that throws the intent parser off
+* Harder to create a bad intent that throws the pipeline plugin off
 
 ### Creating Intents
 
-Most example based intent parsers use a series of example sentences to train a machine learning model to identify an intent. Regex can also be used behind the scenes for example to extract entities
+Most example-based pipeline plugins use a series of example sentences to train a machine learning model to identify an intent. Regex can also be used behind the scenes for example to extract entities
 
 The examples are stored in a Skill's `locale/<lang>/` directory, in files ending in the file extension `.intent`. For example, if you were to create a _tomato_ Skill to respond to questions about a _tomato_, you would create the file
 
@@ -374,7 +373,7 @@ Now, we can say things like "do you like greenish tomatoes?" and it will tag typ
 
 #### Number matching
 
-> **Engine-specific:** the `#` digit token and the `:0` unknown-token shown below are **Padatious extensions**. They are **not** part of the [OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md) Sentence Template Grammar (which has no digit token and no wildcard), so they are not portable to other intent engines. Use them only when you know your skill targets Padatious.
+> **Engine-specific:** the `#` digit token and the `:0` unknown-token shown below are **Padatious extensions**. They are **not** part of the [OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md) Sentence Template Grammar (which has no digit token and no wildcard), so they are not portable to other pipeline plugins. Use them only when you know your skill targets Padatious.
 
 Let's say you are writing an Intent to call a phone number. You can make it only match specific formats of numbers by writing out possible arrangements using `#` where a number would go. For example, with the following intent:
 

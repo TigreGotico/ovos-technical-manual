@@ -6,7 +6,9 @@ This glossary defines common terms, acronyms, and concepts used throughout the O
     Entries marked **📐** name part of the **formal vocabulary** of the OVOS
     architecture — concepts with a normative, implementation-agnostic
     definition. Each links to its authoritative spec; for the full set and how
-    they fit together see the **[spec index](architecture-specs.md)**.
+    they fit together see the **[spec index](architecture-specs.md)**. You can
+    safely skip these on a first read — they matter once you're checking a
+    component for spec conformance, not for everyday use.
 
 | Term | Definition |
 |---|---|
@@ -26,7 +28,7 @@ This glossary defines common terms, acronyms, and concepts used throughout the O
 | **Entry point** | A line in a package's `pyproject.toml` / `setup.py` that advertises a plugin or skill class to OVOS, so [OPM](plugin-manager.md) can discover it (e.g. under `opm.stt` or `opm.skill`). |
 | **Extras** | Optional install bundles in brackets, e.g. `ovos-core[mycroft]`, that pull in predefined groups of components. See [Installation](release-channels.md). |
 | **[Fallback](fallback-pipeline.md)** | A stage in the intent pipeline where skills can attempt to handle utterances that weren't matched by high-priority parsers. Specified by 📐 [OVOS-FALLBACK-1](https://github.com/OpenVoiceOS/architecture/blob/dev/fallback.md). |
-| **📐 First-match-wins** | The pipeline's arbitration model: the orchestrator walks the **pipeline plugins** in `session.pipeline` order and dispatches the **first** one that returns a `Match` — ordering is *policy*, and an earlier plugin gets first refusal on every utterance. This (not a confidence ranking) is what lets a stage such as [Converse](converse-pipeline.md) intercept an utterance ahead of normal intent matching. 📐 [OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md). |
+| **📐 First-match-wins** | The pipeline's arbitration model: the orchestrator walks the **pipeline plugins** in `session.pipeline` order and dispatches the **first** one that returns a `Match` — ordering is *policy*, and an earlier plugin gets to answer before any later plugin is asked. This (not a confidence ranking) is what lets a stage such as [Converse](converse-pipeline.md) intercept an utterance ahead of normal intent matching. 📐 [OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md). |
 | **G2P (Grapheme-to-Phoneme)** | The process of converting written text into phonetic representations for pronunciation. See [G2P plugins](g2p-plugins.md). |
 | **GUI Service** | The component (`ovos-gui`) that manages visual displays and [QML](qt5-gui.md)/HTML interfaces. ⚠️ The current ("legacy") GUI is [deprecated](gui-service.md) — there is no usable OVOS GUI right now; a replacement is in progress. |
 | **Headless** | A device with no monitor or keyboard (e.g. a Raspberry Pi you control over SSH). OVOS runs happily headless. |
@@ -80,3 +82,15 @@ This glossary defines common terms, acronyms, and concepts used throughout the O
 | **[Wake Word](wake-word-plugins.md)** | The specific phrase (e.g., "Hey Mycroft") that triggers the listener to start recording. |
 | **[Wyoming](wyoming-bridges.md)** | A simple voice protocol (from the Home Assistant world) that OVOS can bridge to and from. |
 | **XDG** | The freedesktop standard for *where* config / data / cache files live (`~/.config`, `~/.local/share`, …). OVOS follows it, so your settings aren't scattered. |
+
+## Deprecated & alias terms
+
+Older docs, code comments, and community posts sometimes use terms that have since been replaced.
+These still mean the same thing — you don't need to update anything working, but prefer the
+current name in new writing:
+
+| Old term | Current term |
+|---|---|
+| Solver | [Agent Engine](agent-plugins.md) |
+| Intent engine / intent parser | [Pipeline plugin](pipelines-overview.md) |
+| Hotword / wakeword (as a standalone term) | [Wake Word](wake-word-plugins.md) — note this stays as written inside real identifiers, such as the `wakeword` config keys and the `recognizer_loop:wakeword` bus message. |

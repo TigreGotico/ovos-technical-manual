@@ -1,7 +1,7 @@
 # Plugins Index
 
 !!! abstract "In a nutshell"
-    OpenVoiceOS is built from interchangeable building blocks called *plugins* — small add-ons that each handle one job, like turning speech into text or text into speech. This works much like apps on a phone: you can mix and match the pieces you want and swap them out later. This page is a map of every plugin **type**, each linking to its catalog of available plugins. See the [Glossary](glossary.md) for related terms, or the [Plugin Manager](plugin-manager.md) for how they are discovered and loaded.
+    OpenVoiceOS is built from interchangeable building blocks called *plugins* — small add-ons that each handle one job, like turning speech into text or text into speech. This works much like browser extensions: you can mix and match the pieces you want and swap them out later. This page is a map of every plugin **type**, each linking to its catalog of available plugins. See the [Glossary](glossary.md) for related terms, or the [Plugin Manager](plugin-manager.md) for how they are discovered and loaded.
 
 Every plugin registers under an **entry-point group** (the `opm.*` name below) so the
 [Plugin Manager](plugin-manager.md) can find it. Pick a type to see the available plugins,
