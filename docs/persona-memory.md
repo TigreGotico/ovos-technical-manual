@@ -84,13 +84,11 @@ A persona selects exactly **one** backend — but that one may be `ovos-memory-p
 
 | | longterm | local-rag | lexical | recency | entity | composite |
 |---|---|---|---|---|---|---|
-| Entry point | `…-longterm` | `…-local-rag` | `…-lexical` | `…-recency` | `…-entity` | `…-composite` |
 | Recall style | rolling **summary** | **semantic** top-k | **keyword** (BM25) | recent window | durable **facts** | **ensemble** of members |
-| External service | chat endpoint | none | none | none | chat endpoint | members' |
-| Extra deps | none | embeddings + vector DB | **none** (stdlib) | **none** | none | members' |
-| Runs fully offline | if LLM is local | yes | yes | yes | if LLM is local | if members do |
-| Persistence | JSON / SQLite | vector DB | SQLite | optional JSON | JSON | members' |
 | Best for | gist of long chats | exact semantic recall | exact-term recall | plain short-term | user preferences | hybrid / combine all |
+
+Full details for each — external service, extra dependencies, offline behavior, persistence, config
+keys — are in the [per-backend sections](#backends) below.
 
 Rules of thumb:
 

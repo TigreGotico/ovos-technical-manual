@@ -148,6 +148,12 @@ a plain background image; the actual homescreen is provided by a skill (default
 The `OVOSPlugin.Configuration` QML singleton reads and writes `~/.config/OvosTheme`
 (standard KConfig format).
 
+!!! tip "Start here"
+    Most users only ever touch the `[ColorScheme]` group — `primaryColor`, `secondaryColor`,
+    `textColor`, and `themeStyle` — either directly in this file or through the quick-settings
+    panel. The `[SelectedScheme]` keys are managed automatically and rarely need to be edited
+    by hand.
+
 ```ini
 [ColorScheme]
 primaryColor=#313131

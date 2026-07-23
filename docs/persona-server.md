@@ -116,6 +116,18 @@ resp = client.chat.completions.create(
 print(resp.choices[0].message.content)
 ```
 
+!!! tip "Verify it worked"
+    A working call prints a punchline-shaped string, e.g.:
+
+    ```text
+    Why don't scientists trust atoms? Because they make up everything!
+    ```
+
+    If instead you get a connection error, double-check the server is actually running on that
+    host/port (`ovos-persona-server --persona ... --port 8337`) and that the URL includes the
+    `/openai/v1` prefix. An empty or error-shaped `content` usually means the persona's `solvers`
+    failed to answer — check the server logs and the solver's own config (API key, model name).
+
 ---
 
 ## Ollama-Compatible Use

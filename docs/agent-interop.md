@@ -198,6 +198,19 @@ Add to a persona JSON:
 
 A background asyncio event loop keeps sessions alive between tool calls. Each server's JSON Schema is translated to a Pydantic model at discovery time so the LLM receives the actual input schema.
 
+!!! warning "`ovos-tool-adapters` and the Persona Server's own MCP/UTCP bridge do not currently compose"
+    Both `MCPToolBox` and `UTCPToolBox` (from `ovos-tool-adapters`) and the Persona Server's tool
+    surface (`/tools/manual`, `/mcp`) are `ToolBox` plugins under the same `opm.agents.toolbox`
+    entry-point group — so it's natural to expect installing `ovos-tool-adapters` alongside
+    `ovos-persona-server` would also expose the bridged external tools through the Persona
+    Server's own MCP/UTCP endpoints. In the current source, it does not: the Persona Server
+    discovers every installed `ToolBox` plugin and instantiates each one with only
+    `cls(toolbox_id=name)`, but `MCPToolBox`/`UTCPToolBox` require a `config` dict (transport,
+    command/args or URL) to know which external server to connect to — their constructors do not
+    accept a bare `toolbox_id` keyword. Instantiation fails and the plugin is silently skipped
+    with a warning. Bridged MCP/UTCP tools are therefore only reachable from inside the agentic
+    loop (via a persona's `toolboxes` config), not through the Persona Server's own bridge.
+
 ## Further reading
 
 - [Building an Open and Interoperable Voice Ecosystem (MCP / UTCP / A2A)](https://blog.openvoiceos.org/posts/2025-10-24-protocol_interoperability) — OVOS blog

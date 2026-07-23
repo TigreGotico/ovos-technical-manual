@@ -359,35 +359,13 @@ print(lang)  # "en"
 
 ---
 
-## Full mycroft.conf Example
+## Combining sections into one mycroft.conf
 
-```json
-{
-  "dialog_transformers": {
-    "ovos-dialog-transformer-openai-plugin": {
-      "api_url": "https://api.openai.com/v1",
-      "key": "sk-...",
-      "model": "gpt-4o-mini",
-      "rewrite_prompt": "Rewrite for natural spoken delivery. Remove markdown."
-    }
-  },
-  "language": {
-    "detection_module": "ovos-lang-detect-openai-plugin",
-    "translation_module": "ovos-translate-openai-plugin",
-    "ovos-lang-detect-openai-plugin": {
-      "api_url": "https://api.openai.com/v1",
-      "key": "sk-...",
-      "model": "gpt-4o-mini"
-    },
-    "ovos-translate-openai-plugin": {
-      "api_url": "https://api.openai.com/v1",
-      "key": "sk-...",
-      "model": "gpt-4o-mini"
-    }
-  }
-}
-
-```
+The [dialog transformer](#dialog-transformer-opmtransformerdialog), [language detector](#language-detector-opmlangdetect),
+and [translator](#translator-opmlangtranslate) sections above each show their own `mycroft.conf`
+block in isolation; in practice they just sit side by side under their own top-level keys
+(`dialog_transformers`, `language`) — there's nothing to merge, only to place each block from
+above under its matching top-level key in the same file.
 
 ---
 

@@ -3,20 +3,12 @@
 !!! abstract "In a nutshell"
     This page is for developers and describes the **new, not-yet-finished** way OVOS will draw things on a screen — the planned replacement for the old, deprecated GUI. The idea: instead of OVOS talking to one kind of screen directly, it sends a generic "show this weather card" message and small plugins called **adapters** translate that into whatever the actual display is (a touchscreen, a web browser, even a terminal). Several adapters can run at once, so the same content shows on multiple screens. This is upcoming work, not the everyday path today — see the [GUI Protocol](gui-protocol.md) for the current legacy screen and the [Glossary](glossary.md) for terms.
 
-!!! info "This is the GUI replacement, still in progress"
+!!! warning "Nothing on this page is built or released yet"
     This page documents the **in-progress replacement** for the deprecated
-    [legacy GUI](gui-service.md). It is **not yet usable**. Until it ships, there is no
-    generally usable OVOS GUI; **Mark 2** devices keep a screen via the legacy stack that the
-    [`ovos-installer`](ovos-installer.md) sets up.
-
-!!! warning "Upcoming — unreleased"
-    This whole page describes the **GUI-rendering rework**, which is **not yet released**.
-    Nothing here is available on a stable install, and the pieces are at different stages.
-    Tracked in [ovos-plugin-manager#377](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/377) (`AbstractGUIPlugin`),
-    [ovos-gui#112](https://github.com/OpenVoiceOS/ovos-gui/pull/112) (adapter/template rework landing),
-    [ovos-gui#117](https://github.com/OpenVoiceOS/ovos-gui/pull/117) (OVOS-GUI-1 service conformance),
-    [ovos-bus-client#238](https://github.com/OpenVoiceOS/ovos-bus-client/pull/238) (GUI-1-conformant wire shapes), and
-    [ovos-legacy-mycroft-gui-plugin#3](https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3) (adapter conforms to the session_id-only contract):
+    [legacy GUI](gui-service.md), and none of it is usable on a stable install today. Until it
+    ships, there is no generally usable OVOS GUI; **Mark 2** devices keep a screen via the
+    legacy stack that the [`ovos-installer`](ovos-installer.md) sets up. The pieces are at
+    different stages:
 
     - `ovos-gui-api-client` — a template-based `GUIInterface` already exists and works today.
     - `ovos-legacy-mycroft-gui-plugin` and `ovos-gui-plugin-pyhtmx` (repo `pyhtmx-gui-client`)
@@ -24,7 +16,8 @@
       subclass registered under `opm.gui_adapter`) — but that base class does not exist yet in
       any released `ovos-plugin-manager`, and `ovos-gui` does not yet contain the router that
       would dispatch events to these adapters. These plugins are therefore built ahead of their
-      own dependency.
+      own dependency, and the router mentioned elsewhere on this page (connection status,
+      `handle_show_*` dispatch) is not yet built either.
     - The formal contract is specified by
       [OVOS-GUI-1](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md), an
       [architecture spec](architecture-specs.md). The spec deliberately leaves the exact

@@ -25,7 +25,39 @@ my-toolbox = "my_package:MyToolBox"
 
 ### Authoring a ToolBox plugin
 
-The full authoring guide with `AgentTool`, `ToolArguments`, and `ToolOutput` examples is embedded in the [Plugin Manager reference](plugin-manager.md) and mirrors the tool-plugin documentation introduced in **`ovos-plugin-manager 2.3.0a1`**.
+A minimal `ToolBox` implementing a single `add` tool:
+
+```python
+from typing import List
+from ovos_plugin_manager.templates.agent_tools import ToolBox, AgentTool, ToolArguments, ToolOutput
+
+class AddArgs(ToolArguments):
+    a: float
+    b: float
+
+class AddResult(ToolOutput):
+    sum: float
+
+def add(args: AddArgs) -> AddResult:
+    return AddResult(sum=args.a + args.b)
+
+class MathToolBox(ToolBox):
+    def discover_tools(self) -> List[AgentTool]:
+        return [
+            AgentTool(
+                name="add",
+                description="Add two numbers together.",
+                argument_schema=AddArgs,
+                output_schema=AddResult,
+                tool_call=add,
+            )
+        ]
+```
+
+`ToolBox.__init__` calls `discover_tools()` immediately to populate `self.tools`, and `bind(bus)`
+registers the messagebus handlers described below. The full authoring guide with more
+`AgentTool`, `ToolArguments`, and `ToolOutput` examples is embedded in the
+[Plugin Manager reference](plugin-manager.md).
 
 ---
 

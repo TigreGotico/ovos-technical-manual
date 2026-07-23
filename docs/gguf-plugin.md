@@ -60,11 +60,20 @@ it is treated as a Hub repo id and loaded with `Llama.from_pretrained(repo_id=..
 ```json
 {
   "model": "microsoft/Phi-3-mini-4k-instruct-gguf",
-  "remote_filename": "*Q4_K_M.gguf",
+  "remote_filename": "*q4.gguf",
   "n_gpu_layers": 0
 }
 
 ```
+
+!!! note "First run downloads the model"
+    The first time a Hub `model` is used, `Llama.from_pretrained` downloads the matching GGUF
+    file from Hugging Face and caches it locally (subsequent runs are instant). For the example
+    above, the quantized file (`Phi-3-mini-4k-instruct-q4.gguf`) is about **2.2 GiB**; expect
+    anywhere from under a minute to several minutes depending on your internet connection.
+    Larger models (7B+) commonly run several GiB and take proportionally longer. The download
+    only happens once per file, and no data is sent anywhere afterward — inference is fully
+    offline.
 
 ### Local file configuration
 
@@ -91,7 +100,7 @@ Multi-turn conversational LLM using a local GGUF model. Implements `continue_cha
 {
   "ovos-chat-gguf-plugin": {
     "model": "microsoft/Phi-3-mini-4k-instruct-gguf",
-    "remote_filename": "*Q4_K_M.gguf",
+    "remote_filename": "*q4.gguf",
     "n_gpu_layers": 0,
     "system_prompt": "You are a helpful assistant."
   }
@@ -107,7 +116,7 @@ Multi-turn conversational LLM using a local GGUF model. Implements `continue_cha
   "handlers": ["ovos-chat-gguf-plugin"],
   "ovos-chat-gguf-plugin": {
     "model": "microsoft/Phi-3-mini-4k-instruct-gguf",
-    "remote_filename": "*Q4_K_M.gguf",
+    "remote_filename": "*q4.gguf",
     "n_gpu_layers": 0,
     "system_prompt": "You are a concise, helpful voice assistant."
   }

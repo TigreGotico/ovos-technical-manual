@@ -25,7 +25,7 @@
 
 ## Introduction to QML
 
-The reference GUI client implementation is based on the QML user interface markup language that gives you complete freedom to create in-depth innovative interactions without boundaries or provide you with simple templates within the GUI framework that allow minimalistic display of text and images based on your skill development specifics and preferences.
+The reference GUI client implementation is based on the QML user interface markup language, which gives skill authors complete freedom to create in-depth, innovative interactions without boundaries, or to use simple templates within the GUI framework for minimalistic display of text and images, depending on the skill's needs.
 
 QML user interface markup language is a declarative language built on top of Qt's existing strengths designed to describe the user interface of a program: both what it looks like, and how it behaves. QML provides modules that consist of sophisticated set of graphical and behavioral building elements.
 
@@ -42,7 +42,7 @@ A collection of resources to familiarize you with QML and Kirigami Framework.
 
 A QML module provides versioned types and JavaScript resources in a type namespace which may be used by clients who import the module. Modules make use of the QML versioning system which allows modules to be independently updated. More in-depth information about QML modules can be found here [Qt QML Modules Documentation](http://doc.qt.io/qt-5/qtqml-modules-topic.html)
 
-In the code snippet example below we will look at importing some of the common modules that provide the components required to get started with our Visual User Interface.
+The code snippet example below imports some of the common modules that provide the components required to get started with a visual user interface. Every other QML example on this page starts from this same import block (dropping `org.kde.lottie` when Lottie animations aren't used); later snippets only show what changes below the imports.
 
 ```qml
 import QtQuick 2.4
@@ -115,11 +115,7 @@ Mycroft.Delegate {
 Example of using Mycroft.ScrollableDelegate
 
 ```qml
-import QtQuick 2.4
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.4
-import org.kde.kirigami 2.4 as Kirigami
-import Mycroft 1.0 as Mycroft
+// standard imports (QtQuick, QtQuick.Controls, QtQuick.Layouts, Kirigami, Mycroft — see the imports block above)
 
 Mycroft.ScrollableDelegate{
     id: root
@@ -174,7 +170,7 @@ Mycroft.ScrollableDelegate{
 
 ## QML Design Guidelines
 
-Before we dive deeper into the Design Guidelines, lets look at some concepts that a GUI developer should learn about:
+Before diving deeper into the Design Guidelines, here are some concepts a GUI developer should learn about:
 
 ### Units & Theming
 
@@ -190,7 +186,7 @@ height: Mycroft.Units.gridUnit // 16px Tall
 
 #### Theming:
 
-OVOS Shell uses a custom Kirigami Platform Theme plugin to provide global theming to all our skills and user interfaces, which also allows our GUI's to be fully compatible with the system themes on platforms that are not running the OVOS Shell.
+OVOS Shell uses a custom Kirigami Platform Theme plugin to provide global theming to all skills and user interfaces, which also allows OVOS GUIs to be fully compatible with the system themes on platforms that are not running the OVOS Shell.
 
 Kirigami Theme and Color Scheme guide is extensive and can be found [here](https://develop.kde.org/docs/use/kirigami/style-colors/)
 
@@ -213,7 +209,7 @@ __Let's look at this image and qml example below, this is a representation of th
 1. When designing your first QML file, it is important to note the red triangles in the above image, these triangles represent the margin from the screen edge the GUI needs to be designed within, these margins ensure your GUI content does not overlap with features like edge lighting and menus in the platforms that support it like OVOS-Shell
 
 
-2. The content items and components all utilize the selected color scheme, where black is the primary background color, red is our accent color and white is our contrasting text color
+2. The content items and components all utilize the selected color scheme, where black is the primary background color, red is the accent color and white is the contrasting text color
 
 __Let's look at this in QML:__
 
@@ -233,7 +229,7 @@ Mycroft.Delegate {
         // Setting margins that need to be left for the screen edges
         anchors.margins: Mycroft.Units.gridUnit * 2
         
-        //Setting a background dim using our primary theme / background color on top of our skillBackgroundSource image for better readability and contrast
+        //Setting a background dim using the primary theme / background color on top of the skillBackgroundSource image for better readability and contrast
         color: Qt.rgba(Kirigami.Theme.backgroundColor.r, Kirigami.Theme.backgroundColor.g, Kirigami.Theme.backgroundColor.b, 0.3)
         
         Kirigami.Heading {
@@ -249,8 +245,8 @@ Mycroft.Delegate {
         
         PieChart {
             anchors.centerIn: parent
-            pieColorMinor: Kirigami.Theme.backgroundColor // As in the image above the minor area of the pie chart uses our primary color
-            pieColorMid: Kirigami.Theme.highlightColor // As in the image above the middle area is assigned the highlight or our accent color
+            pieColorMinor: Kirigami.Theme.backgroundColor // As in the image above the minor area of the pie chart uses the primary color
+            pieColorMid: Kirigami.Theme.highlightColor // As in the image above the middle area is assigned the highlight or accent color
             pieColorMajor: Kirigami.Theme.textColor // As in the image above the major area is assigned the text color
         }
     }
@@ -260,7 +256,7 @@ Mycroft.Delegate {
 
 ### QML Delegate Multi Platform and Screen Guidelines
 
-OVOS Skill GUIs are designed to be multi-platform and screen friendly, to support this we always try to support both Horizontal and Vertical display's. Let's look at an example and a general approach to writing multi resolution friendly UI's
+OVOS Skill GUIs are designed to be multi-platform and screen friendly, supporting both horizontal and vertical displays. Below is an example and a general approach to writing multi-resolution-friendly UIs:
 
 __Let's look at these images below that represent a Delegate as seen in a Horizontal screen:__
 ![](https://mycroft.blue-systems.com/display-2.png)
@@ -296,7 +292,7 @@ Mycroft.Delegate {
         // Setting margins that need to be left for the screen edges
         anchors.margins: Mycroft.Units.gridUnit * 2
         
-        //Setting a background dim using our primary theme / background color on top of our skillBackgroundSource image for better readability and contrast
+        //Setting a background dim using the primary theme / background color on top of the skillBackgroundSource image for better readability and contrast
         color: Qt.rgba(Kirigami.Theme.backgroundColor.r, Kirigami.Theme.backgroundColor.g, Kirigami.Theme.backgroundColor.b, 0.3)
         
         Kirigami.Heading {
@@ -308,7 +304,7 @@ Mycroft.Delegate {
         
         GridLayout {
             id: examplesGridView
-            // Checking if we are in horizontal mode, we should display two columns to display the items in the image above, or if we are in vertical mode, we should display a single column only
+            // When in horizontal mode, display two columns as in the image above; in vertical mode, display a single column
             columns: root.horizontalMode ? 2 : 1 
             
             Repeater {
@@ -333,11 +329,7 @@ You can use the `LottieAnimation` item just like any other `QtQuick` element, su
 **QML Example**
 
 ```qml
-import QtQuick 2.4
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.4
-import org.kde.kirigami 2.4 as Kirigami
-import Mycroft 1.0 as Mycroft
+// standard imports (QtQuick, QtQuick.Controls, QtQuick.Layouts, Kirigami, Mycroft — see the imports block above)
 import org.kde.lottie 1.0
 
 Mycroft.Delegate {
@@ -360,11 +352,7 @@ Contains an image that will slowly scroll in order to be shown completely
 **QML Example**
 
 ```qml
-import QtQuick 2.4
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.4
-import org.kde.kirigami 2.4 as Kirigami
-import Mycroft 1.0 as Mycroft
+// standard imports (QtQuick, QtQuick.Controls, QtQuick.Layouts, Kirigami, Mycroft — see the imports block above)
 
 Mycroft.Delegate {
      background: Mycroft.SlidingImage {
@@ -383,11 +371,7 @@ Takes a long text and breaks it down into pages that can be horizontally swiped
 **QML Example**
 
 ```qml
-import QtQuick 2.4
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.4
-import org.kde.kirigami 2.4 as Kirigami
-import Mycroft 1.0 as Mycroft
+// standard imports (QtQuick, QtQuick.Controls, QtQuick.Layouts, Kirigami, Mycroft — see the imports block above)
 
 Mycroft.Delegate {
      Mycroft.PaginatedText {
@@ -417,11 +401,7 @@ self.gui.show_page("foodplaces.qml")
 **QML Example**
 
 ```qml
-import QtQuick 2.4
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.4
-import org.kde.kirigami 2.4 as Kirigami
-import Mycroft 1.0 as Mycroft
+// standard imports (QtQuick, QtQuick.Controls, QtQuick.Layouts, Kirigami, Mycroft — see the imports block above)
 
 Mycroft.Delegate{
     id: root
@@ -505,11 +485,7 @@ Mycroft.Delegate{
 **QML Example**
 
 ```qml
-import QtQuick 2.4
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.4
-import org.kde.kirigami 2.4 as Kirigami
-import Mycroft 1.0 as Mycroft
+// standard imports (QtQuick, QtQuick.Controls, QtQuick.Layouts, Kirigami, Mycroft — see the imports block above)
 
 Mycroft.ProportionalDelegate {
     id: root
@@ -540,11 +516,7 @@ Slideshow component lets you insert a slideshow with your custom delegate in any
 **QML Example**
 
 ```qml
-import QtQuick 2.4
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.4
-import org.kde.kirigami 2.4 as Kirigami
-import Mycroft 1.0 as Mycroft
+// standard imports (QtQuick, QtQuick.Controls, QtQuick.Layouts, Kirigami, Mycroft — see the imports block above)
 
 Mycroft.Delegate {
     id: root
@@ -607,11 +579,7 @@ Mycroft GUI API provides an Event Handling Protocol between the skill and QML di
 **QML Example**
 
 ```qml
-import QtQuick 2.4
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.4
-import org.kde.kirigami 2.4 as Kirigami
-import Mycroft 1.0 as Mycroft
+// standard imports (QtQuick, QtQuick.Controls, QtQuick.Layouts, Kirigami, Mycroft — see the imports block above)
 
 Mycroft.Delegate {
     id: root
@@ -645,11 +613,7 @@ Mycroft.Delegate {
 **QML Example**
 
 ```qml
-import QtQuick 2.4
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.4
-import org.kde.kirigami 2.4 as Kirigami
-import Mycroft 1.0 as Mycroft
+// standard imports (QtQuick, QtQuick.Controls, QtQuick.Layouts, Kirigami, Mycroft — see the imports block above)
 
 Mycroft.Delegate {
     id: root
@@ -692,11 +656,7 @@ def handle_idle(self, message):
 **QML Example**
 
 ```qml
-import QtQuick 2.4
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.4
-import org.kde.kirigami 2.4 as Kirigami
-import Mycroft 1.0 as Mycroft
+// standard imports (QtQuick, QtQuick.Controls, QtQuick.Layouts, Kirigami, Mycroft — see the imports block above)
 
 Mycroft.Delegate {
     id: root
@@ -711,4 +671,10 @@ Mycroft.Delegate {
 
 ```
 
+## Related pages
+
+- [GUI Adapters](gui-adapters.md) — the in-progress replacement architecture for this legacy Qt5 client.
+- [ovos-shell](ovos-shell.md) — the shell application that hosts and manages GUI clients on a device.
+- [Screens on OVOS Today](gui-status.md) — the current, honest state of GUI support across OVOS.
+- [GUI Service](gui-service.md) — the bus-facing service that mediates between skills and GUI clients.
 

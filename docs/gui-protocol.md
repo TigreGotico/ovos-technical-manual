@@ -539,24 +539,14 @@ User swipes / taps on Qt:
 !!! warning "Upcoming — unreleased"
     In the GUI-rework, specified by the
     [OVOS-GUI-1](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md) spec
-    (see [GUI Service](gui-service.md)) the bus contract changes. Tracked in
-    [ovos-gui#112](https://github.com/OpenVoiceOS/ovos-gui/pull/112),
-    [ovos-gui#117](https://github.com/OpenVoiceOS/ovos-gui/pull/117), and
-    [ovos-bus-client#238](https://github.com/OpenVoiceOS/ovos-bus-client/pull/238):
+    (see [GUI Service](gui-service.md)), the bus contract changes:
 
-    - `gui.page.show` is expected to accept **only** `SYSTEM_*` template names; a
-      `page_names[0]` that does not start with `SYSTEM_` would be rejected by the
-      current `handle_show_page()` handler (custom QML is no longer supported).
-    - Instead of mirroring to Qt clients directly, `NamespaceManager` would fan each
-      template event out to every loaded `opm.gui_adapter` plugin (see
-      [GUI Adapter Plugins](gui-adapters.md)); the Qt WebSocket protocol becomes one such
-      adapter, provided by `ovos-legacy-mycroft-gui-plugin`.
-    - Forwarded status events would go to adapters instead of straight to Qt clients.
-    - `gui.namespace.removed` / `gui.namespace.displayed` are expected to keep being emitted;
-      whether the `gui.page.delete` / `gui.page.delete.all` handlers survive the rework is not
-      yet decided.
+    - `gui.page.show` will accept **only** `SYSTEM_*` template names — custom QML pages are no
+      longer supported.
+    - Instead of mirroring to Qt clients directly, template events fan out to every loaded
+      `opm.gui_adapter` plugin (see [GUI Adapter Plugins](gui-adapters.md)); the Qt WebSocket
+      protocol on this page becomes one such adapter.
 
-    None of this is implemented in `ovos-gui` yet — the OVOS-GUI-1 spec leaves the adapter
-    entry-point name and method signatures **non-normative**; see
+    None of this is implemented in `ovos-gui` yet — see
     [GUI Adapter Plugins](gui-adapters.md) for what the adapter plugins being built ahead of
     this rework have already settled on.
