@@ -1,0 +1,77 @@
+name: Docs Freshness
+
+# Keeps the generated reference pages (docs/gh-automations-workflows.md,
+# docs/config-reference.md, docs/cli-tools.md) in sync with their sources of
+# truth. Re-runs tools/gen_reference.py and, if anything drifted, opens (or
+# updates) a pull request with the regenerated content — it never pushes to
+# master/dev directly.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"  # weekly, Monday 06:00 UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ovos-technical-manual
+        uses: actions/checkout@v4
+
+      - name: Checkout gh-automations (dev)
+        uses: actions/checkout@v4
+        with:
+          repository: OpenVoiceOS/gh-automations
+          ref: dev
+          path: _gh-automations
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install generator dependencies
+        run: |
+          pip install pyyaml ovos-config ovos-utils
+
+      - name: Regenerate reference pages
+        run: |
+          python3 tools/gen_reference.py workflows --repo-path _gh-automations
+          python3 tools/gen_reference.py config
+          python3 tools/gen_reference.py cli
+        # A minimal OVOS install has none of the console scripts on PATH, so
+        # `cli` safely no-ops on every command it can't find rather than failing.
+
+      - name: Check for drift
+        id: diff
+        run: |
+          if git diff --quiet -- docs/gh-automations-workflows.md docs/config-reference.md docs/cli-tools.md; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open or update pull request
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "docs: regenerate reference pages from source"
+          title: "docs: regenerate reference pages (drift detected)"
+          body: |
+            Automated run of `tools/gen_reference.py` found the generated
+            sections of the reference pages out of sync with their sources
+            (gh-automations reusable workflows, the bundled mycroft.conf, and
+            installed CLI `--help` output).
+
+            Review the diff before merging — generated tables should read
+            correctly, and no hand-written prose outside the
+            `<!-- BEGIN/END GENERATED -->` markers should have changed.
+          branch: docs-freshness/regenerate
+          delete-branch: true
+          add-paths: |
+            docs/gh-automations-workflows.md
+            docs/config-reference.md
+            docs/cli-tools.md
