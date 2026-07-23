@@ -1530,8 +1530,6 @@ Loaders always construct a toolbox with exactly <code>cls(config=cfg, bus=bus)</
 <code>toolbox_id</code> themselves. An adapter that fronts several external servers with one class
 (the MCP and UTCP adapters, for example) simply exposes <code>toolbox_id</code> in its own signature
 and forwards it, so each instance keeps a distinct bus topic.</p>
-<p>Per-plugin settings come from the <code>opm.agents.toolbox.config</code> entry-point group, exactly as
-for STT, TTS and VAD plugins, and are handed to the constructor as <code>config</code>.</p>
 <p><code>ToolBox.__init__</code> calls <code>discover_tools()</code> immediately to populate <code>self.tools</code>, and <code>bind(bus)</code>
 registers the messagebus handlers described below. The full authoring guide with more
 <code>AgentTool</code>, <code>ToolArguments</code>, and <code>ToolOutput</code> examples is embedded in the
