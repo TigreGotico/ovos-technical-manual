@@ -28,6 +28,7 @@ sequenceDiagram
     participant Shell as GUI client (ovos-shell / Qt)
 
     Skill->>GUI: register as candidate homescreen
+    Note over GUI: precondition: skill_id must match the configured idle_display_skill,<br/>otherwise it is registered but never asked to display
     Note over GUI: namespace stack becomes empty (no active skill display)
     GUI->>Skill: ask configured idle_display_skill to display itself
     Skill->>Skill: @resting_screen_handler builds page data

@@ -202,7 +202,7 @@
 - Feb 2023 - [ovos-solver-plugin-aiml](https://github.com/OpenVoiceOS/ovos-solver-plugin-aiml) released
 - Feb 2023 - [ovos-solver-plugin-rivescript](https://github.com/OpenVoiceOS/ovos-solver-plugin-rivescript) released
 - Feb 2023 - [skill-ovos-somafm](https://github.com/OpenVoiceOS/skill-ovos-somafm) transferred from @JarbasAl to OVOS
-- Feb 2023 - MycroftAI partners up with NeonAI to maintain mycroft-core(?)
+- ??? 2023 - MycroftAI partners up with NeonAI to maintain mycroft-core
 - Mar 2023 - Mimic3 TTS public servers become default OVOS voice (alan pope)
 - Mar 2023 - `ovos-core` version **0.0.7** released
 - Mar 2023 - [Fundraiser to form OpenVoiceOS](https://www.gofundme.com/f/openvoiceos) V.z.w. (Dutch: "Vereninging zonder winstoogmerk") completed in a couple days

@@ -178,7 +178,7 @@ nav:
           - Asking the User: prompts.md
           - Context: context.md
           - Intent Layers: layers.md
-          - Permissions & Activation Control: intent-layers.md
+          - Permissions & Activation Control: permissions.md
           - Continuous Conversation: converse.md
           - Context & Sessions: session.md
           - Dialog & Statements: statements.md

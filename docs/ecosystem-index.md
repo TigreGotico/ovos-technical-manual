@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     OVOS is a large ecosystem of small, focused repositories — core services, plus hundreds of swappable [plugins](plugins-index.md) and [skills](skill-design-guidelines.md). This page is the map: every **public** repository in the [OpenVoiceOS GitHub organization](https://github.com/OpenVoiceOS), grouped by what it does. For each one: why it exists, what it does, and which part of the stack consumes it. Archived repositories are omitted here — see [Deprecated & Legacy Repositories](deprecated-repos.md).
 
-There are roughly **260** public, actively-maintained repositories in the [`OpenVoiceOS`](https://github.com/OpenVoiceOS) organization (the exact count drifts as repos are added or archived). Browse them by category below; click any name to open it on GitHub. Entries marked ⚠️ are experimental or pre-release — read the repository's own README before adopting them.
+There are roughly **280** public, non-archived repositories in the [`OpenVoiceOS`](https://github.com/OpenVoiceOS) organization (the exact count drifts as repos are added or archived — check `gh repo list OpenVoiceOS --no-archived` for the current figure). Browse them by category below; click any name to open it on GitHub. Entries marked ⚠️ are experimental or pre-release — read the repository's own README before adopting them.
 
 > Generated from the live organization repository list. If a repository is missing here it is either archived, private, or newly created — check the [organization page](https://github.com/OpenVoiceOS) for the authoritative list.
 

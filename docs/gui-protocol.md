@@ -281,6 +281,14 @@ All messages are JSON objects sent over the WebSocket connection at `ws://localh
 
 The Qt client then opens a WebSocket connection to `ws://localhost:18181`.
 
+!!! example "Try it: connect a raw WebSocket client to 18181"
+    You don't need a Qt client to see this handshake happen. With `ovos-gui` running and the
+    legacy adapter installed, connect any WebSocket client to `ws://localhost:18181` (for
+    example `websocat ws://localhost:18181` or a short `websockets` Python script) and trigger
+    a skill that shows a GUI page. You should observe the server immediately replay
+    `mycroft.session.list.insert` and `mycroft.gui.list.insert` messages for the active
+    namespace — this is `GUIWebsocketHandler.synchronize()` bringing your new client up to date.
+
 When a client connects, `GUIWebsocketHandler.synchronize()` replays the full current state:
 
 1. Re-sends `mycroft.session.list.insert` for every namespace in the active stack (in order).

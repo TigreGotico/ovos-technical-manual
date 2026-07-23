@@ -63,6 +63,8 @@ The class extends `AbstractGUIPlugin` from `ovos_plugin_manager.templates.gui`.
 ## `AbstractGUIPlugin`
 
 ```python
+# NOTE: this import fails today — AbstractGUIPlugin does not exist in any released
+# ovos-plugin-manager yet (see the warning above). This is a forward-looking example.
 from ovos_plugin_manager.templates.gui import AbstractGUIPlugin
 
 class MyGUIPlugin(AbstractGUIPlugin):

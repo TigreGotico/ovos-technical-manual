@@ -91,6 +91,8 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 
 - **Description**: A rule-based chatbot answer engine for OVOS, using AIML pattern matching.
 
+- **Config**: `"enable_tx"` (bool, default `false`) — auto-translate the utterance to English before matching AIML patterns.
+
 ---
 
 ## ovos-persona
@@ -128,6 +130,8 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 
 - **Description**: Answers factual questions by querying Wikipedia.
 
+- **Config**: `"extractive_qa"` — module name of the `ExtractiveQAEngine` plugin used to pull the exact answering passage out of a Wikipedia summary.
+
 ---
 
 ## ovos-chromadb-embeddings-plugin
@@ -158,6 +162,8 @@ Per-collection metadata defaults `hnsw:space` to `cosine` when not specified.
 
 - **Description**: Answers computational and factual questions via the Wolfram Alpha API.
 
+- **Config**: `"appid"` — your own Wolfram Alpha AppID (falls back to a shared demo key if unset).
+
 ---
 
 ## ovos-ddg-solver-plugin
@@ -166,6 +172,8 @@ Per-collection metadata defaults `hnsw:space` to `cosine` when not specified.
 
 
 - **Description**: Answers questions using DuckDuckGo instant-answer results.
+
+- **Config**: `"keyword_extractor"` — module name of the keyword-extraction plugin used to pull search terms out of the question (defaults to `ovos-rake-keyword-extractor`).
 
 ---
 
@@ -176,6 +184,8 @@ Per-collection metadata defaults `hnsw:space` to `cosine` when not specified.
 
 - **Description**: A simple tool to indicate whether a user answered "yes" or "no" to a yes/no prompt.
 
+- **Config**: no config keys — it works out of the box with no settings to tune.
+
 ---
 
 ## ovos-solver-failure-plugin
@@ -184,6 +194,8 @@ Per-collection metadata defaults `hnsw:space` to `cosine` when not specified.
 
 
 - **Description**: Extreme fallback, just complains it does not have a brain
+
+- **Config**: no config keys — it works out of the box with no settings to tune.
 
 ---
 
@@ -211,5 +223,7 @@ Per-collection metadata defaults `hnsw:space` to `cosine` when not specified.
 
 
 - **Description**: A rule-based chatbot answer engine for OVOS, using RiveScript pattern matching.
+
+- **Config**: `"lang"` — language code used to pick the bundled RiveScript brain (defaults to `en-us`).
 
 ---

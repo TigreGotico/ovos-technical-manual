@@ -19,57 +19,45 @@ A non-exhaustive list of skills available for OpenVoiceOS, these might be availa
 
 [:material-github: OpenVoiceOS/ovos-skill-alerts](https://github.com/OpenVoiceOS/ovos-skill-alerts) · `pip install ovos-skill-alerts`
 
-A skill to manage alarms, timers, reminders, events and todos and optionally sync them with a CalDAV service.
+A skill to manage alarms, timers, reminders, events and todos and optionally sync them with a CalDAV service. Handy if you want a hands-free alarm clock, kitchen timer, or todo list that survives a reboot and can sync with an external calendar.
 
 **Usage examples:**
 
 - What are my reminders?
 
-
 - Cancel all reminders.
-
 
 - When is my next alarm?
 
-
 - Schedule a tennis event for 2 PM on friday spanning 2 hours.
-
 
 - What did I miss?
 
-
 - remind me to take out the trash every Thursday and Sunday at 7 PM.
-
 
 - Start a bread timer for 30 minutes.
 
-
 - Did I miss anything?
 
-
 - Set an alarm for 8 AM.
-
 
 - Set a daily alarm for 8 AM.
 
 -------
 
-
 ## Commands
 
 [:material-github: OpenVoiceOS/ovos-skill-cmd](https://github.com/OpenVoiceOS/ovos-skill-cmd) · `pip install ovos-skill-cmd`
 
-Allows you to execute shell scripts and system commands via voice.
+Allows you to execute shell scripts and system commands via voice. Useful for headless boxes where you want a voice shortcut to a maintenance script instead of SSHing in.
 
 **Usage examples:**
 
 - run script ___
 
-
 - launch command ___
 
 -------
-
 
 ## Confucius Quotes
 
@@ -81,17 +69,13 @@ Quotes from Confucius
 
 - Quote from Confucius
 
-
 - When did Confucius die
 
-
 - When was Confucius born
-
 
 - Who is Confucius
 
 -------
-
 
 ## Today in History
 
@@ -103,20 +87,15 @@ Provides historical events for today or any other calendar day using information
 
 - who died today in history?
 
-
 - who was born today in history?
-
 
 - What historical events happened on June 16th?
 
-
 - Tell me about events in history on December 12th
-
 
 - What happened today in history?
 
 -------
-
 
 ## Dictation
 
@@ -128,11 +107,9 @@ continuously transcribes user speech to text file while enabled
 
 - start dictation
 
-
 - end dictation
 
 -------
-
 
 ## IP Address
 
@@ -144,20 +121,15 @@ Network connection information
 
 - What's your IP address?
 
-
 - What's your network address?
-
 
 - Tell me your network address
 
-
 - What network are you connected to?
-
 
 - Tell me your IP address
 
 -------
-
 
 ## ISS Location
 
@@ -169,20 +141,15 @@ Track the location of the ISS
 
 - When is the ISS passing over
 
-
 - Where is the ISS
-
 
 - Tell me about the ISS
 
-
 - how many persons on board of the space station
-
 
 - Who is on board of the space station?
 
 -------
-
 
 ## Movie Master
 
@@ -194,35 +161,25 @@ Find information about movies, actors, and production details. Easily find infor
 
 - What are popular movies playing now?
 
-
 - Tell me about the movie _______
-
 
 - What genres does the flick _______ belong to?
 
-
 - Who plays in the movie _______?
-
 
 - How long is the movie _______?
 
-
 - Look for information on the movie _______.
-
 
 - Do you have info on the film _______?
 
-
 - What is the movie _______ about?
 
-
 - What are the highest rated movies out?
-
 
 - When was the movie _______ made?
 
 -------
-
 
 ## Number Facts
 
@@ -234,26 +191,19 @@ Facts about numbers
 
 - random number trivia
 
-
 - trivia about next week
-
 
 - trivia about tomorrow
 
-
 - fact about number 666
-
 
 - fact about yesterday
 
-
 - curiosity about year 1992
-
 
 - math fact about number 7
 
 -------
-
 
 ## Personal
 
@@ -265,17 +215,13 @@ Learn history and personality of the assistant. Ask about the 'birth' and parent
 
 - Where were you born?
 
-
 - What are you?
 
-
 - When were you created?
-
 
 - Who made you?
 
 -------
-
 
 ## PyRadios
 
@@ -287,11 +233,9 @@ a client for the client for the Radio Browser API
 
 - play tsf jazz on pyradios
 
-
 - play tsf jazz radio
 
 -------
-
 
 ## Speedtest
 
@@ -305,7 +249,6 @@ runs an internet bandwidth test using speedtest.net
 
 -------
 
-
 ## WikiHow
 
 [:material-github: OpenVoiceOS/ovos-skill-wikihow](https://github.com/OpenVoiceOS/ovos-skill-wikihow) · `pip install ovos-skill-wikihow`
@@ -316,11 +259,9 @@ How to do nearly everything.
 
 - how do i get my dog to stop barking
 
-
 - how to boil an egg
 
 -------
-
 
 ## Audio Recording
 
@@ -332,20 +273,15 @@ Record and manage audio clips directly from your assistant.
 
 - new recording named {name}
 
-
 - start recording
-
 
 - start a recording called {name}
 
-
 - start a new audio recording called {name}
-
 
 - begin recording
 
 -------
-
 
 ## Boot Finished
 
@@ -361,14 +297,11 @@ otherwise tell startup finished.
 
 - Disable ready notifications.
 
-
 - Is the system ready?
-
 
 - Enable ready notifications.
 
 -------
-
 
 ## Date & Time
 
@@ -380,26 +313,19 @@ Get the current time, date, or information about specific calendar days.
 
 - What time is it?
 
-
 - Tell me the day of the week
-
 
 - What day is Memorial Day 2020?
 
-
 - What's the date?
-
 
 - Show me the time
 
-
 - How many days until July 4th
-
 
 - What time is it in Paris?
 
 -------
-
 
 ## DuckDuckGo
 
@@ -411,14 +337,11 @@ Use DuckDuckGo to answer questions.
 
 - ask the duck about the big bang
 
-
 - when was stephen hawking born
-
 
 - who is elon musk
 
 -------
-
 
 ## Hello World
 
@@ -430,14 +353,11 @@ Introductory [Skill](skill-design-guidelines.md) so that Skill Authors can see h
 
 - Hello world
 
-
 - Thank you
-
 
 - How are you?
 
 -------
-
 
 ## Dad Jokes
 
@@ -449,26 +369,19 @@ Brighten your day with dad humor. Laughter is not guaranteed, but eye rolls are 
 
 - Can you tell jokes?
 
-
 - Make me laugh.
-
 
 - Do you know any Chuck Norris jokes?
 
-
 - Tell me a joke about dentists.
-
 
 - Say a joke.
 
-
 - Tell me a joke.
-
 
 - Do you know any jokes?
 
 -------
-
 
 ## Local Media
 
@@ -480,35 +393,25 @@ Local Media File Browser For OpenVoiceOS
 
 - open my file browser
 
-
 - show my file browser
-
 
 - show my usb drive
 
-
 - start usb browser app
-
 
 - show my usb
 
-
 - show file browser app
-
 
 - show file browser
 
-
 - open usb
 
-
 - start usb browser
-
 
 - open my usb
 
 -------
-
 
 ## Naptime
 
@@ -523,14 +426,11 @@ configured stand-up word) to bring it back.
 
 - Nap time
 
-
 - Wake up
-
 
 - Go to sleep
 
 -------
-
 
 ## News
 
@@ -542,23 +442,17 @@ News streams from around the globe.
 
 - play npr news
 
-
 - play news in spanish
-
 
 - play euronews
 
-
 - play the news
 
-
 - play portuguese news
-
 
 - play catalan news
 
 -------
-
 
 ## Parrot
 
@@ -570,35 +464,25 @@ Turn OpenVoiceOS into a echoing parrot! Make OVOS repeat whatever you want.
 
 - Tell me what I just said.
 
-
 - say Goodnight, Gracie
-
 
 - speak I can say anything you'd like!
 
-
 - start parrot
-
 
 - repeat Once upon a midnight dreary, while I pondered, weak and weary, Over many a quaint and curious volume of forgotten lore
 
-
 - Repeat what you just said
-
 
 - What did I just say?
 
-
 - Can you repeat that?
 
-
 - stop parrot
-
 
 - Repeat that
 
 -------
-
 
 ## SomaFM
 
@@ -610,14 +494,11 @@ Listen to a variety of commercial-free internet radio stations from SomaFM.
 
 - play soma fm radio
 
-
 - play metal detector
-
 
 - play secret agent
 
 -------
-
 
 ## Spelling
 
@@ -629,17 +510,13 @@ Provides the spelling of words and phrases upon request.
 
 - How do you spell bureacracy?
 
-
 - How do you spell aardvark?
 
-
 - Spell omnipotence
-
 
 - Spell succotash
 
 -------
-
 
 ## Volume
 
@@ -651,35 +528,25 @@ Control the volume of OVOS with verbal commands
 
 - unmute volume
 
-
 - volume low
-
 
 - mute audio
 
-
 - volume to high level
-
 
 - reset volume
 
-
 - volume to high
-
 
 - volume level low
 
-
 - toggle audio
 
-
 - low volume
-
 
 - set volume to maximum
 
 -------
-
 
 ## Weather
 
@@ -691,35 +558,25 @@ Get weather conditions, forecasts, expected precipitation and more! You can also
 
 - What's the temperature in Paris tomorrow in Celsius?
 
-
 - When will it rain next?
-
 
 - What's the high temperature tomorrow
 
-
 - Is it going to snow in Baltimore?
-
 
 - what is the weather like?
 
-
 - How windy is it?
-
 
 - What is the weather this weekend?
 
-
 - What is the weather in Houston?
 
-
 - Will it be cold on Tuesday
-
 
 - What's the temperature?
 
 -------
-
 
 ## Wikipedia
 
@@ -731,26 +588,19 @@ Query Wikipedia for answers to all your questions. Get just a summary, or ask fo
 
 - Search for chocolate
 
-
 - More information
-
 
 - Tell me about beans
 
-
 - Tell me More
-
 
 - Tell me about the Pembroke Welsh Corgi
 
-
 - Check Wikipedia for beans
-
 
 - Tell me about Elon Musk
 
 -------
-
 
 ## Wolfie (Wolfram Alpha)
 
@@ -762,23 +612,17 @@ Use Wolfram Alpha for general knowledge questions.
 
 - How tall is Mount Everest?
 
-
 - What's 18 times 4?
-
 
 - How many inches in a meter?
 
-
 - What is Madonna's real name?
 
-
 - When was The Rocky Horror Picture Show released?
-
 
 - ask the wolf what is the speed of light
 
 -------
-
 
 ## Wordnet
 
@@ -789,7 +633,6 @@ Use Wordnet to answer dictionary-like questions.
 **Usage examples:**
 
 - what is the definition of ...
-
 
 - what is the antonym of ...
 

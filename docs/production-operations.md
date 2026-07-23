@@ -119,9 +119,10 @@ voice pipeline can actually hear and answer you yet.
 !!! note "Requires the boot-finished skill to be installed"
     `mycroft.ready` is emitted by a skill, not by `ovos-core` itself. It is pulled in by the
     `skills-audio` [extra](release-channels.md#what-are-ovos-extras)
-    (`ovos-core[skills-audio]`) and is installed by default on most full setups, but a
-    from-scratch, headless, or minimal install must include it explicitly for the readiness
-    probe below to ever get a response.
+    (`ovos-core[skills-audio]`, which pins `ovos-skill-boot-finished>=0.4.8` in `ovos-core`'s
+    own `pyproject.toml`) and is installed by default on most full setups, but a from-scratch,
+    headless, or minimal install must include it explicitly for the readiness probe below to
+    ever get a response.
 
 A minimal readiness probe using [`ovos-bus-client`](bus-service.md):
 

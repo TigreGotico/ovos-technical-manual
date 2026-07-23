@@ -217,11 +217,13 @@ The `Configuration` QML singleton (`OVOSPlugin.Configuration`) is implemented in
 
 Display settings panel:
 
-![](https://github.com/OpenVoiceOS/ovos_assets/raw/master/Images/shell_settings.gif)
+![Animated demo of the ovos-shell display settings panel](https://github.com/OpenVoiceOS/ovos_assets/raw/master/Images/shell_settings.gif)
 
 Color theme editor:
 
-![](https://github.com/OpenVoiceOS/ovos_assets/raw/master/Images/shell_theme.gif)
+![Animated demo of the ovos-shell color theme editor](https://github.com/OpenVoiceOS/ovos_assets/raw/master/Images/shell_theme.gif)
+
+*(Both GIFs are hosted in the [OpenVoiceOS/ovos_assets](https://github.com/OpenVoiceOS/ovos_assets) repo and verified reachable.)*
 
 ---
 

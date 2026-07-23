@@ -243,6 +243,9 @@ Mycroft.Delegate {
             color: Kirigami.Theme.textColor
         }
         
+        // NOTE: PieChart is a placeholder for illustration only — it is not a real
+        // Kirigami/QML component shipped with ovos-gui. Substitute your own custom
+        // QML item (or a real charting component) with equivalent color properties.
         PieChart {
             anchors.centerIn: parent
             pieColorMinor: Kirigami.Theme.backgroundColor // As in the image above the minor area of the pie chart uses the primary color
@@ -307,6 +310,9 @@ Mycroft.Delegate {
             // When in horizontal mode, display two columns as in the image above; in vertical mode, display a single column
             columns: root.horizontalMode ? 2 : 1 
             
+            // NOTE: ExamplesDelegate is a placeholder name for illustration only —
+            // it is not a real component shipped with ovos-gui. Replace it with your
+            // own delegate item (e.g. a custom Rectangle/Item defined in the same file).
             Repeater {
                 model: examplesModel
                 delegates: ExamplesDelegate {
