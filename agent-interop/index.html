@@ -1847,12 +1847,11 @@
 surface (<code>/tools/manual</code>, <code>/mcp</code>) are <code>ToolBox</code> plugins under the same <code>opm.agents.toolbox</code>
 entry-point group, so installing <code>ovos-tool-adapters</code> alongside <code>ovos-persona-server</code> also
 exposes the bridged external tools through the Persona Server's own MCP/UTCP endpoints.
-Every shipped <code>ToolBox</code> implementation (<code>DuckDuckGoToolbox</code>, <code>WikipediaToolbox</code>, <code>MCPToolBox</code>,
-<code>UTCPToolBox</code>, ...) takes a single optional <code>config</code> dict and derives its own <code>toolbox_id</code>
-internally, rather than the literal <code>toolbox_id</code> keyword declared by the abstract <code>ToolBox</code>
-template — the Persona Server tries the no-argument/config-based convention first, since it
-matches every real-world plugin, and only falls back to the template's <code>toolbox_id</code> kwarg for
-a class that still inherits the base <code>__init__</code> unchanged.</p>
+Every <code>ToolBox</code> implementation (<code>DuckDuckGoToolbox</code>, <code>WikipediaToolbox</code>, <code>MCPToolBox</code>,
+<code>UTCPToolBox</code>, ...) declares its <code>toolbox_id</code> as a class attribute and takes
+<code>(config=None, bus=None)</code>, so the Persona Server constructs each one with a single
+<code>cls(config=cfg, bus=bus)</code> call. See <a href="../tool-plugins/">Agent Tool Plugins</a> for the
+full contract.</p>
 </div>
 <h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>
