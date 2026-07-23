@@ -27,6 +27,8 @@ family, adding the other is a **TODO**.
 | [ovos-media-plugin-mplayer](#ovos-media-plugin-mplayer) | MPlayer (audio + video) | ✅ both |
 | [ovos-media-plugin-simple](#ovos-media-plugin-simple) | minimal/default audio | ✅ both |
 | [ovos-audio-plugin-mpv](#ovos-audio-plugin-mpv) | MPV (audio + video) | ✅ both |
+| [ovos-media-plugin-ffplay](#ovos-media-plugin-ffplay) | ffplay (audio) | ✅ both |
+| [ovos-media-plugin-cli](#ovos-media-plugin-cli) | generic CLI-command player (audio) | ✅ both |
 | [ovos-plugin-vlc](#ovos-plugin-vlc) | VLC | old audio service only (legacy) — use ovos-media-plugin-vlc for ovos-media |
 | [ovos-audio-plugin-simple](#ovos-audio-plugin-simple) | minimal audio | old audio service only — ⚠️ ovos ≤ 0.0.7 |
 
@@ -125,5 +127,33 @@ The [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) below is not a playback ba
 - **Description**: MPV audio/video playback. Ships entry points for both
   [ovos-media](https://github.com/OpenVoiceOS/ovos-media) (`opm.media.audio` / `opm.media.video`)
   and the old audio service (`mycroft.plugin.audioservice`, type `ovos_mpv`).
+
+---
+
+## ovos-media-plugin-ffplay
+
+- **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-ffplay](https://github.com/OpenVoiceOS/ovos-media-plugin-ffplay)
+
+
+- **Description**: ffplay-based audio playback backend. Ships entry points for both
+  [ovos-media](https://github.com/OpenVoiceOS/ovos-media) (`opm.media.audio`, class
+  `FFPlayOCPAudioService`) and the old audio service (`mycroft.plugin.audioservice`, type
+  `ovos_ffplay`). Direct programmatic access is available via `FFPlayAudioPlayer`.
+
+---
+
+## ovos-media-plugin-cli
+
+- **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-cli](https://github.com/OpenVoiceOS/ovos-media-plugin-cli)
+
+
+- **Description**: Generic command-line playback backend — shells out to any CLI media
+  player. With an explicit `command` set (e.g. `"mpv --no-terminal"`, `"ffplay -nodisp
+  -autoexit"`), it appends the track URI as the final argument; with no `command` set it
+  auto-detects the best available player for the platform (`sox`/`play` preferred, then
+  `mpg123`/`paplay`/`aplay` on Linux, `afplay` on macOS). Pause/resume use process signals
+  (`SIGSTOP`/`SIGCONT`). Ships entry points for both ovos-media (`opm.media.audio`, class
+  `CLIAudioService`) and the old audio service (`mycroft.plugin.audioservice`, type
+  `ovos_cli`).
 
 ---

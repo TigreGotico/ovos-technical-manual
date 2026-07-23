@@ -11,6 +11,7 @@
 | [ovos-ocp-rss-plugin](#ovos-ocp-rss-plugin) | allows OCP to play rss feeds, the plugin will extract the first playable stream |
 | [ovos-ocp-youtube-plugin](#ovos-ocp-youtube-plugin) | allows OCP to play youtube urls |
 | [ovos-ocp-m3u-plugin](#ovos-ocp-m3u-plugin) | allows OCP to play .pls and .m3u urls as playlists |
+| [ovos-media-classifier](#ovos-media-classifier) | ⚠️ experimental — pluggable media-intent classifier that routes a request to the right `MediaProvider`s |
 
 ## ovos-ocp-files-plugin
 
@@ -65,6 +66,21 @@
 
 
 - **Description**: allows OCP to play .pls and .m3u urls as playlists
+
+---
+
+## ovos-media-classifier
+
+- **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-classifier](https://github.com/OpenVoiceOS/ovos-media-classifier)
+
+
+- **Description**: ⚠️ **Experimental — work in progress, not yet deployed in OpenVoiceOS.**
+  A self-describing, pluggable media-intent classifier: given a spoken request, it decides
+  whether it is a media request at all and, if so, classifies it along several axes at once
+  (media type, playback modality, structure, explicitness, tags, qualifiers) so OCP can route
+  it to the right `MediaProvider`s and apply content policy. It is a router, not a
+  resolver — it does not turn a title into a playable stream, the OCP stream-extractor
+  plugins on this page do that.
 
 ---
 

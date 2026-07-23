@@ -103,6 +103,7 @@ pipeline. They expose the same high/medium/low confidence tiers as Adapt/Padatio
 | [Nebulento](nebulento.md) | Fuzzy / typo-tolerant template matcher (rapidfuzz); no training step. Listens on the same `padatious:register_intent` bus events, plus a hierarchical variant. |
 | [Palavreado](palavreado.md) | Dead-simple keyword matcher; an [Adapt](adapt-pipeline.md) drop-in that responds to the same `register_vocab`/`register_intent` events (zero-change skill swap). |
 | [Hierarchical KNN](knn-pipeline.md) | Embedding-based two-stage k-NN matcher (Granite embeddings + FAISS); a heavier semantic alternative to [Model2Vec](m2v-pipeline.md) (~560 MB footprint, AVX2, 11 languages). |
+| [`ovos-markov-pipeline-plugin`](https://github.com/OpenVoiceOS/ovos-markov-pipeline-plugin) | Markov-chain perplexity ensemble: trains one word-level Markov chain per intent from example utterances and picks the intent whose model has the lowest perplexity for the utterance. Lightweight, GPU-free, and trains in milliseconds — a practical baseline for small skill sets. |
 | [`ovos-hivemind-pipeline-plugin`](hivemind-agents.md#as-an-intent-pipeline-stage) | Delegates the utterance to a remote [HiveMind](hivemind-agents.md) agent — a catch-all "ask a smarter OVOS" stage. |
 
 ---

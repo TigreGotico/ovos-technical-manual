@@ -121,6 +121,25 @@ Replace `"plugin_name"` with the identifier of the desired plugin and provide an
 
 ---
 
+### **OVOS AudioSR TTS Transformer**
+
+Engine-agnostic ONNX audio super-resolution transformer (`opm.transformer.tts`) that upscales
+**any** TTS engine's output to 48 kHz just before playback, rather than being tied to one voice
+or engine. It wraps [`audiosronnx`](https://github.com/TigreGotico/audiosronnx) (pure ONNX, no
+Torch at runtime) and picks between `novasr` (default), `lavasr`, and `hifiganbwe` engines via
+config; if audio is already 48 kHz, or the model/weights are unavailable, it returns the
+original audio unchanged so synthesis never breaks.
+
+```json
+"tts_transformers": {
+  "ovos-tts-transformer-audiosr": {"engine": "novasr"}
+}
+```
+
+* **Source**: [ovos-tts-transformer-audiosr](https://github.com/OpenVoiceOS/ovos-tts-transformer-audiosr)
+
+---
+
 ## Creating Custom TTS Transformers
 
 To develop your own TTS Transformer:

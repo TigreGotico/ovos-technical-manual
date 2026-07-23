@@ -119,6 +119,43 @@ For more information, visit the [GitHub repository](https://github.com/OpenVoice
 
 For more information, visit the [GitHub repository](https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-speechbrain-langdetect).
 
+### **OVOS Band-pass Audio Transformer**
+
+* **Purpose**: Attenuates energy outside a configurable pass-band on the captured speech audio before STT, removing non-phonetic noise (low-frequency rumble, high-frequency hiss) without touching the speech formants.
+
+
+* **Features**:
+
+
+    * Defaults to the 300–3400 Hz telephone speech band.
+
+
+    * Configurable Butterworth filter order and sample rate; band edges are clamped below Nyquist so an aggressive band on a low sample rate degrades gracefully instead of failing.
+
+
+* **Installation**:
+
+```bash
+  pip install ovos-audio-transformer-plugin-bandpass
+
+```
+
+* **Configuration Example**:
+
+```json
+  "audio_transformers": {
+    "ovos-audio-transformer-plugin-bandpass": {
+      "low_hz": 300,
+      "high_hz": 3400,
+      "order": 4,
+      "sample_rate": 16000
+    }
+  }
+
+```
+
+For more information, visit the [GitHub repository](https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-bandpass).
+
 ---
 
 ## Creating Custom Audio Transformers
