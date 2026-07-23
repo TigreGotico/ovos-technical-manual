@@ -1690,10 +1690,11 @@ family, adding the other is a <strong>TODO</strong>.</p>
 </li>
 </ul>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-media-classifier<span class="w">          </span><span class="c1"># keyword backend only</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-media-classifier<span class="o">[</span>ner<span class="o">]</span><span class="w">     </span><span class="c1"># + AhocorasickMediaClassifier</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-media-classifier<span class="o">[</span>ner<span class="o">]</span><span class="w">     </span><span class="c1"># adds the Aho-Corasick NER backend</span>
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_media_classifier</span> <span class="kn">import</span> <span class="n">KeywordMediaClassifier</span><span class="p">,</span> <span class="n">AhocorasickMediaClassifier</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_media_classifier</span> <span class="kn">import</span> <span class="n">KeywordMediaClassifier</span><span class="p">,</span> <span class="n">load_media_classifier</span>
 </span></code></pre></div>
+<p>The <code>[ner]</code> extra adds <code>AhocorasickMediaClassifier</code> (in <code>ovos_media_classifier.ahocorasick</code>), a gazetteer/entity-list backend built on Aho-Corasick matching.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code>[ner]</code> extra's "NER" is exact entity-list matching, not statistical named-entity
