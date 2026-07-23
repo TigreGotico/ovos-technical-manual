@@ -245,7 +245,7 @@ class PotatoSkill(OVOSSkill):
 
 ```
 
-You can [download this entire Potato Skill from Github](https://github.com/krisgesling/dev-ex-adapt-intents-skill/blob/master/\_\_init\_\_.py), or see another Keyword Intent handler example in the [Hello World Skill](https://github.com/MycroftAI/skill-hello-world/blob/f3eb89be6d80e1834637a64566c707d05fb8e3fa/\_\_init\_\_.py#L37)
+See [Skill Examples](skill-examples.md) for real, working skills that use keyword intents this way.
 
 
 ### Common Problems
@@ -531,7 +531,7 @@ class TomatoSkill(OVOSSkill):
 
 ```
 
-See a Padatious intent handler example in the [Hello World Skill](https://github.com/MycroftAI/skill-hello-world/blob/67a972792a07da7e3406bf7f94acd54aa2674829/__init__.py#L42)
+See [Your First Skill](first-skill.md) for a complete, minimal example of a template-intent skill from scratch.
 
 ### Common Problems
 

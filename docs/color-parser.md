@@ -31,10 +31,13 @@ A secondary use-case is scientific: the library supports the full electromagneti
 |--------|---------------|
 | `ovos_color_parser/__init__.py` | Convenience re-exports of the most common model classes and matching functions (a subset — see the API reference for what each submodule exposes) |
 | `ovos_color_parser/models.py` | Dataclasses for all color spaces plus pre-built spectral palettes and language vocabulary objects |
-| `ovos_color_parser/matching.py` | Aho-Corasick automaton-based color name lookup, adjective adjustment, `ColorMatcher` class, utility functions |
+| `ovos_color_parser/matching.py` | Color name lookup, adjective adjustment, `ColorMatcher` class, utility functions |
+| `ovos_color_parser/core/` | Internal building blocks: `distance.py` (in-house CIEDE2000 implementation), `gamut.py` (`GamutPolicy` for out-of-gamut handling), `space.py` (color-space math) |
+| `ovos_color_parser/match/automaton.py` | `SubstringMatcher` — an in-house substring-matching automaton used for color-name lookup (no external Aho-Corasick dependency) |
+| `ovos_color_parser/vocab/` | Vocabulary loading helpers for the per-language resource files |
 | `ovos_color_parser/res/<lang>/` | Per-language JSON word-lists (`*.json`) and object-color mappings (`object_colors.json`) and adjective descriptors (`color_descriptors.json`) |
 
-Dependencies: `ahocorasick`, `colorspacious` (for CIEDE2000 color distance), `ovos-utils` (fuzzy matching via `MatchStrategy`).
+Dependencies: `ovos-utils` (fuzzy matching via `MatchStrategy`). Color-name matching and CIEDE2000 distance are implemented in-house — no third-party `ahocorasick` or `colorspacious` dependency.
 
 ---
 
@@ -59,7 +62,7 @@ The `HueRange` dataclass bridges the hue angle (0–360°) to the physical wavel
 
 `color_from_description()` runs four steps:
 
-1. **Exact / Aho-Corasick lookup** — loads a language-specific Aho-Corasick automaton from the per-language JSON word lists. The automaton is built once per language and cached thread-safely in `ColorMatcher._color_automatons`.
+1. **Exact / substring lookup** — loads a language-specific `SubstringMatcher` automaton (`ovos_color_parser.match.automaton`) built from the per-language JSON word lists. The automaton is built once per language and cached thread-safely in `ColorMatcher._color_automatons`.
 
 
 2. **Fuzzy fallback** — when `fuzzy=True`, iterates all color names with `fuzzy_match()` using `TOKEN_SET_RATIO` pre-screening and the requested `MatchStrategy`.
@@ -121,28 +124,28 @@ Type aliases exported from `models.py`:
 
 | Function | Signature | Returns | Description |
 |----------|-----------|---------|-------------|
-| `color_from_description` | `(description: str, lang: str = "en", strategy: MatchStrategy = DAMERAU_LEVENSHTEIN_SIMILARITY, cast_to_palette: bool = False, fuzzy: bool = True) -> Optional[sRGBAColor]` | `sRGBAColor` or `None` | Main entry point. Resolves a natural-language description to an RGB color. Returns `None` if no color candidates are found. When `cast_to_palette=True`, snaps the result to the nearest matched candidate instead of returning an averaged value. |
+| `color_from_description` | `(description: str, lang: str = "en", strategy: MatchStrategy = DAMERAU_LEVENSHTEIN_SIMILARITY, cast_to_palette: bool = False, fuzzy: bool = True, gamut: GamutPolicy = GamutPolicy.CLAMP) -> Optional[sRGBAColor]` | `sRGBAColor` or `None` | Main entry point. Resolves a natural-language description to an RGB color. Returns `None` if no color candidates are found. When `cast_to_palette=True`, snaps the result to the nearest matched candidate instead of returning an averaged value. `gamut` (from `ovos_color_parser.core.gamut`) controls how out-of-gamut values are handled. |
 | `color_distance` | `(color_a: Color, color_b: Color) -> float` | `float` | CIEDE2000 perceptual distance between two colors in sRGB-255 space. Lower is more similar. Uses `colorspacious.deltaE`. |
 | `closest_color` | `(color: Color, color_opts: List[Color]) -> Color` | `Color` | Returns the element of `color_opts` with the smallest `color_distance` to `color`. |
 | `average_colors` | `(colors: List[Color], weights: Optional[List[float]] = None) -> HLSColor` | `HLSColor` | Weighted average of a list of colors. Hue is averaged using circular mean (atan2) to avoid wrap-around errors. Returns an `HLSColor`. |
 | `convert_K_to_RGB` | `(colour_temperature: int) -> sRGBAColor` | `sRGBAColor` | Converts a color temperature in Kelvin (1 000–40 000 K) to an sRGB color. Algorithm by Tanner Helland. |
 | `get_contrasting_black_or_white` | `(hex_code: str) -> sRGBAColor` | `sRGBAColor` | Returns black or white, whichever provides the best contrast against the input hex color, using the YIQ luma formula. |
 | `palette_from_description` | `(description: str, lang: str = "en", strategy: MatchStrategy = ...) -> sRGBAColorPalette` | `sRGBAColorPalette` | Returns all candidate colors matched from a description (fuzzy, no adjective adjustment). Useful for UI palette suggestions. |
-| `lookup_name` | `(color: Color, lang: str = "en") -> str` | `str` | Reverse-lookup: given a color object, find its name in the language word list. Raises `ValueError` if the hex code has no named entry. |
+| `lookup_name` | `(color: Color, lang: str = "en", namespace: Optional[str] = None, nearest: bool = False) -> str` | `str` | Reverse-lookup: given a color object, find its name in the language word list. `nearest=True` falls back to the closest known name instead of requiring an exact hex match. Raises `ValueError` if the hex code has no named entry and `nearest=False`. |
 | `rgb_to_cmyk` | `(r, g, b, cmyk_scale=100, rgb_scale=255) -> Tuple[float, float, float, float]` | `(c, m, y, k)` | Convert sRGB to CMYK. |
 | `cmyk_to_rgb` | `(c, m, y, k, cmyk_scale=100, rgb_scale=255) -> Tuple[int, int, int]` | `(r, g, b)` | Convert CMYK to sRGB. |
-| `is_hex_code_valid` | `(hex_code: str) -> bool` | `bool` | Validate a hex color string (must be 6 hex digits, with or without leading `#`). |
+| `is_hex_code_valid` | `(hex_code: str) -> bool` | `bool` | Validate a hex color string (must be 3 or 6 hex digits, with or without leading `#`). |
 
-### `ColorMatcher` class (`ovos_color_parser/matching.py:58`)
+### `ColorMatcher` class (`ovos_color_parser/matching.py`)
 
 Thread-safe class that owns the Aho-Corasick automata. Automata are class-level dicts (`_color_automatons`, `_object_automatons`) keyed by language code and built lazily.
 
 | Method | Signature | Description |
 |--------|-----------|-------------|
-| `load_color_automaton` | `(cls, lang: str) -> ahocorasick.Automaton` | Build (or return cached) Aho-Corasick automaton from all non-descriptor JSON word lists for `lang`. |
-| `load_object_automaton` | `(cls, lang: str) -> ahocorasick.Automaton` | Build (or return cached) automaton from `object_colors.json` for `lang`. |
-| `match_color_automaton` | `(cls, description: str, lang: str, strategy: MatchStrategy, fuzzy: bool) -> zip(candidates, weights)` | Match description against color name database. Returns zip of `(HLSColor, float)` tuples. |
-| `match_object_automaton` | `(cls, description: str, lang: str, strategy: MatchStrategy) -> zip(candidates, weights)` | Match description against object-color database. |
+| `load_color_automaton` | `(cls, lang: str) -> SubstringMatcher` | Build (or return cached) substring-matching automaton from all non-descriptor JSON word lists for `lang`. |
+| `load_object_automaton` | `(cls, lang: str) -> SubstringMatcher` | Build (or return cached) automaton from `object_colors.json` for `lang`. |
+| `match_color_automaton` | `(description: str, lang: str = "en", strategy: MatchStrategy = DAMERAU_LEVENSHTEIN_SIMILARITY, fuzzy: bool = False) -> List[Tuple[HLSColor, float]]` | Match description against color name database. |
+| `match_object_automaton` | `(description: str, lang: str = "en", strategy: MatchStrategy = DAMERAU_LEVENSHTEIN_SIMILARITY) -> List[Tuple[HLSColor, float]]` | Match description against object-color database. |
 | `match_automaton` | `(automaton, description) -> List[str]` | Low-level: iterate the automaton over a normalized description and return hex strings. |
 
 ---
@@ -167,11 +170,11 @@ from ovos_color_parser import color_from_description
 
 # Averaged across all "red" entries in the database
 averaged = color_from_description("Red")
-print(averaged.hex_str)   # "#D21B1B"
+print(averaged.hex_str)   # "#B84D54"
 
 # Snapped to the nearest exact palette entry
 snapped = color_from_description("Red", cast_to_palette=True)
-print(snapped.hex_str)    # "#CE202B"  (Fire engine red)
+print(snapped.hex_str)    # "#B9484E"  ("Dusty Red")
 
 ```
 
@@ -182,7 +185,7 @@ from ovos_color_parser import color_distance, color_from_description
 
 a = color_from_description("green")
 b = color_from_description("purple")
-print(color_distance(a, b))   # ~64.97
+print(color_distance(a, b))   # ~62.64
 
 ```
 
@@ -198,7 +201,7 @@ palette = sRGBAColorPalette(colors=[
 ])
 
 result = closest_color(sRGBAColor(r=0, g=200, b=200), palette.colors)
-print(result.name)   # "Cyan"
+print(result.name)   # "Turquoise"
 
 ```
 
@@ -208,10 +211,10 @@ print(result.name)   # "Cyan"
 from ovos_color_parser import convert_K_to_RGB
 
 warm_white = convert_K_to_RGB(2700)
-print(warm_white.hex_str)   # "#FF9329" (approximate warm incandescent)
+print(warm_white.hex_str)   # "#FFA657" (approximate warm incandescent)
 
 daylight = convert_K_to_RGB(6500)
-print(daylight.hex_str)     # "#FFE8D5" (approximate daylight)
+print(daylight.hex_str)     # "#FFFEFA" (approximate daylight)
 
 ```
 
@@ -231,24 +234,25 @@ print(contrast.hex_str)   # "#FFFFFF"
 ```python
 from ovos_color_parser import sRGBAColor
 
-rgb = sRGBAColor(r=255, g=165, b=0, name="Orange")
+rgb = sRGBAColor(r=255, g=0, b=0, name="Red")
 hls = rgb.as_hls
 hsv = rgb.as_hsv
 spectral = rgb.as_spectral_color
 
-print(hls.h, hls.l, hls.s)
-print(hsv.h, hsv.s, hsv.v)
-print(spectral.wavelen)        # approximate wavelength in nm
+print(hls.h, hls.l, hls.s)     # 0 0.5 1
+print(hsv.h, hsv.s, hsv.v)     # 0 1.0 1.0
+print(spectral.wavelen)        # 610 (approximate wavelength in nm)
 
 ```
+
+!!! warning "Known gotcha (verified against `dev`)"
+    `as_spectral_color` can raise `ValueError: Hue is out of the defined spectral color palette.` for hues that fall in the gaps between the `ISCCNBSSpectralColorTerms` bands (for example, a pure-orange hue around 39° falls between the "Yellow" and "Yellow-Green" bands). Not every RGB color has a defined spectral mapping.
 
 ---
 
 ## Language support
 
-Language-keyed resources live in `ovos_color_parser/res/<lang>/`. At lookup time the loader takes the primary subtag of the requested `lang` (e.g. `color_from_description(..., lang="en-US")` looks for `res/en`).
-
-> ⚠️ **Known gotcha (verified against `dev`):** most resource directories are currently named with full locale codes (`en-US`, `de-DE`, `es-ES`, `pt-BR`, ...), while the loader strips to the primary subtag and looks for `res/en`, `res/de`, etc. Because those bare-subtag directories do not exist, passing those languages raises `FileNotFoundError`. The directory whose name *is* a primary subtag (`res/it`) is the one that resolves cleanly. Pin to the exact resource layout of the version you install and test your target language before relying on it. Track fixes in the [ovos-color-parser issues](https://github.com/OpenVoiceOS/ovos-color-parser/issues).
+Language-keyed resources live in `ovos_color_parser/res/<locale>/`, named with full locale codes (`en-US`, `de-DE`, `es-ES`, `pt-BR`, ...). The loader resolves either a bare primary subtag (`"es"`) or a full locale tag (`"es-ES"`) to the matching resource directory, so both forms work when calling `color_from_description`, `lookup_name`, and related functions.
 
 Each language directory may contain:
 
@@ -258,7 +262,7 @@ Each language directory may contain:
 | `object_colors.json` | Map of `"#RRGGBB"` → `"object name"` (e.g. sky, grass, ocean) |
 | `color_descriptors.json` | Adjective lists keyed by `very_high_saturation`, `high_saturation`, `low_saturation`, `very_low_saturation`, `very_high_brightness`, `high_brightness`, `low_brightness`, `very_low_brightness`, `very_high_opacity`, `high_opacity`, `low_opacity`, `very_low_opacity`, `very_high_temperature`, `high_temperature`, `low_temperature`, `very_low_temperature` |
 
-English (`en`) ships approximately 6 000 hex-to-name entries aggregated from X11, web colors, Crayola, XKCD, and other named color standards.
+English (`en`) ships over 15 000 hex-to-name entries across its bundled catalogs — the primary word list alone (`colors.json`) has about 6 200 entries, and it's joined by X11/web colors, Crayola, XKCD, Wikipedia's color list, Pantone, RAL, and other named color standards.
 
 ---
 

@@ -191,15 +191,15 @@ from ovos_workshop.permissions import ConverseActivationMode
 | `WHITELIST` | Only explicitly whitelisted skills may self-activate |
 | `BLACKLIST` | All skills except blacklisted ones may self-activate |
 
-Configure in `mycroft.conf`:
+Configure in `mycroft.conf`. `WHITELIST`/`BLACKLIST` here reuse the same
+`converse_whitelist`/`converse_blacklist` lists shown above — there is no separate
+activation-specific list:
 
 ```json
 {
   "skills": {
     "converse": {
-      "converse_activation": "accept_all",
-      "converse_activation_whitelist": [],
-      "converse_activation_blacklist": []
+      "converse_activation": "accept_all"
     }
   }
 }
@@ -248,6 +248,12 @@ blacklist_skill("my-unwanted-skill-id")
 whitelist_skill("my-unwanted-skill-id")
 
 ```
+
+!!! note
+    These functions manage a separate, broader kill-switch: `skills.blacklisted_skills` in
+    `mycroft.conf`. A skill listed there is prevented from loading at all — it is unrelated
+    to the `converse_blacklist`/`fallback_blacklist` keys above, which only restrict
+    participation in converse/fallback while the skill still loads normally.
 
 These functions directly modify `mycroft.conf` and take effect on the next skill manager reload.
 
