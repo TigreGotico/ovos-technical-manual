@@ -99,6 +99,7 @@ nav:
       - What can I say? (Skills): skill-examples.md
       - Accessibility: accessibility.md
       - Coming from Mycroft: migrating-from-mycroft.md
+      - Coming from Alexa: coming-from-alexa.md
   - Help & Troubleshooting:
       - It's not behaving: everyday-help.md
       - Troubleshooting & Debugging: troubleshooting.md
@@ -242,14 +243,15 @@ nav:
   - Production & Security:
       - Privacy & Security: privacy-security.md
       - Production Operations: production-operations.md
-      - Hardware Integrators: hardware-integrators.md
       - Self-hosting Servers:
           - STT Server: stt-server.md
           - TTS Server: tts-server.md
           - Translate Server: translate-server.md
           - Server Compatibility Layers: server-compat-layers.md
       - HiveMind: hivemind-agents.md
-      - Home Assistant & Wyoming: wyoming-bridges.md
+      - Home Assistant:
+          - Overview: home-assistant.md
+          - Wyoming Bridges (OVOS engines for HA): wyoming-bridges.md
   - Reference:
       - OVOS Repository Index: ecosystem-index.md
       - Bus Events Reference: bus-events.md
@@ -261,6 +263,7 @@ nav:
           - gh-automations Release: gh-automations-release.md
           - gh-automations Workflows: gh-automations-workflows.md
       - Hardware:
+          - Hardware Integrators: hardware-integrators.md
           - i2c Sound & Audio Setup: i2c-sound.md
           - Mark 1: mark1.md
           - Mark 2: mark2.md
@@ -268,6 +271,7 @@ nav:
           - Timeline: timeline.md
           - Deprecated & Archived Repos: deprecated-repos.md
           - License: license.md
+      - Contributing: contributing.md
 
 extra_css:
   - css/extra.css

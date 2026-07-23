@@ -261,10 +261,13 @@ INFO - adapt_high match (en-us): IntentMatch(...)
 DEBUG - final intent match: {...}
 ```
 
-`adapt_high` here is one entry of the configurable `intents.pipeline` list (default order:
-`stop_high`, `converse`, `ocp_high`, `padatious_high`, `adapt_high`, `ocp_medium`, `fallback_high`,
-`stop_medium`, `adapt_medium`, `adapt_low`, `common_qa`, `fallback_medium`, `fallback_low` — see
-[Pipelines Overview](pipelines-overview.md)). If nothing matches, every matcher in that list logs a
+`adapt_high` here is one entry of the configurable `intents.pipeline` list. The bundled default
+pipeline (see [Pipelines Overview](pipelines-overview.md)) uses the canonical plugin IDs, in this
+order:
+
+--8<-- "snippets/default-pipeline.md"
+
+If nothing matches, every matcher in that list logs a
 miss (as `no match from <bound method ...>`, naming the matcher's Python function) before the
 utterance falls through to the next stage, and eventually to nothing:
 

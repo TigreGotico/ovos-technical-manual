@@ -23,6 +23,8 @@ manual rather than a patchwork.
   purely for casing, since that breaks every incoming anchor link.
 - Headings describe what the reader will learn or do, not just a component name — prefer "Adding
   a fallback handler" over "Handlers".
+- Headings must not embed links — a heading is plain text, never `## [Some Page](some-page.md)`.
+  If the heading needs to reference another page, say so in the body text right below it instead.
 
 ## Admonitions
 
@@ -31,12 +33,11 @@ consistent meaning, not interchangeably:
 
 | Admonition | Use it for |
 |---|---|
-| `!!! abstract "In a nutshell"` | The page-opening summary — what this is and why the reader should care, in plain language. Every page has exactly one, near the top. |
-| `!!! info` | Background/context the reader can skip if they already know it (e.g. a formal spec pointer). |
-| `!!! note` | An edge case or exception to the main explanation. |
+| `!!! abstract "In a nutshell"` | The page-opening summary — what this is and why the reader should care, in plain language. Expected on narrative pages (tutorials, concept pages, guides); optional on short reference/index pages where a one-line intro already does the job. |
+| `!!! note` | The canonical choice for background, context, or an edge case the reader can skip if they already know it (e.g. a formal spec pointer, an exception to the main explanation). Prefer `note` over `info` for new content — `info` is a legacy alias from before this convention settled; don't introduce new `info` admonitions for context that's genuinely trivial, and feel free to fold an existing trivial `info` into `note` when you're already touching that section (no mass find-and-replace pass). |
 | `!!! tip` | A shortcut, a recommended default, or a faster path than the one just described. |
-| `!!! warning` | A risk of breaking something or a foot-gun, short of a security concern. |
-| `!!! danger` | A security-relevant risk (data exposure, RCE-adjacent, credentials). |
+| `!!! warning` | A breaking change, a risky or destructive config option, or a foot-gun — short of a security concern. |
+| `!!! danger` | Data loss or a security-relevant risk (data exposure, RCE-adjacent, credentials). |
 | `??? example` / `??? abstract` (collapsible) | Reference material that is useful but would otherwise push the main flow down the page — tables of exhaustive options, deep API listings. |
 
 ## Code fences
@@ -120,7 +121,8 @@ Two shapes cover almost everything in this manual:
 ## Adding a new page
 
 1. Open with the nutshell box: 2-4 plain-language sentences — what this is, why the reader should
-   care — before any jargon.
+   care — before any jargon. This is expected on narrative pages; short reference or index pages
+   may skip it if a one-line intro already covers the same ground.
 2. Progressively deepen from there; keep the technical depth, just layer it with admonitions
    instead of front-loading it.
 3. Add the page to the nav in `mkdocs.yml` — every page must be reachable from navigation.
