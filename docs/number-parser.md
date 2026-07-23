@@ -50,7 +50,8 @@ Every function takes an explicit `lang` (a BCP-47 code such as `"en"` or `"pt-br
 
 | Language Code           | Pronounce Number | Pronounce Ordinal | Extract Number | numbers_to_digits |
 |-------------------------|------------------|-------------------|----------------|-------------------|
-| `en` (English)          | ✅               | 🚧                | ✅             | 🚧                |
+| `en` (English)          | ✅               | 🚧                | ✅             | ✅                |
+| `kab` (Kabyle)          | ✅               | ✅                | ✅             | ✅                |
 | `az` (Azerbaijani)      | ✅               | 🚧                | ✅             | 🚧                |
 | `ca` (Catalan)          | ✅                | ✅                 | ✅              | 🚧                 |
 | `gl` (Galician)         | ✅                | ✅                | ✅              |  ✅                  |
@@ -283,10 +284,32 @@ numbers_to_digits("set a timer for twenty five minutes", "en")
 ```
 
 ```python
-def numbers_to_digits(utterance: str, lang: str, scale: Optional[Scale] = None) -> str: ...
+def numbers_to_digits(utterance: str, lang: str, scale: Optional[Scale] = None, *,
+                       ordinals: bool = False, fractions: bool = True,
+                       scale_words: bool = True) -> str: ...
 ```
 
-`scale` (`Scale.LONG` / `Scale.SHORT`, from `ovos_number_parser.util`) only matters for `pt`/`mwl`. Hand-written rewriting exists for `gl`, `de`, `pt`, `mwl`, `ru`, and `uk` (marked ✅ in the table above); every other language that `extract_number` supports gets a generic word-span replacement instead (marked 🚧) — it works but is less precise about compound numerals than a hand-written implementation. A language `extract_number` does not support at all is left unchanged rather than raising.
+`scale` (`Scale.LONG` / `Scale.SHORT`, from `ovos_number_parser.util`) only matters for `pt`/`mwl`. Hand-written rewriting exists for `gl`, `de`, `pt`, `mwl`, `ru`, `uk`, `en`, and `kab` (marked ✅ in the table above); every other language that `extract_number` supports gets a generic word-span replacement instead (marked 🚧) — it works but is less precise about compound numerals than a hand-written implementation. A language `extract_number` does not support at all is left unchanged rather than raising.
+
+Three keyword-only flags tune what counts as a convertible number. Each defaults to the behavior `numbers_to_digits` has always had, so existing callers see no change:
+
+| Flag | Default | Effect when flipped |
+| --- | --- | --- |
+| `ordinals` | `False` | `True` also reads ordinal words as values: `"the twenty fifth"` → `"the 25"`. Left off, an ordinal word stays a word. |
+| `fractions` | `True` | `False` keeps a *bare* fraction word untouched: `"half past nine"` → `"half past 9"`. A fraction inside a larger quantity still converts either way: `"two and a half hours"` → `"2.5 hours"`. |
+| `scale_words` | `True` | `False` converts only the count and leaves the scale word alone: `"sixty six million years ago"` → `"66 million years ago"`. |
+
+```python
+>>> numbers_to_digits("a quarter to five", "en", fractions=False)
+'a quarter to 5'
+>>> numbers_to_digits("sixty six million years ago", "en", scale_words=False)
+'66 million years ago'
+```
+
+Not every language has vocabulary for a flag to suppress — a language whose parser never converted fraction or scale words in the first place already leaves that word untouched, so the flag has nothing to do. `ordinals` applies uniformly everywhere.
+
+!!! note
+    Kabyle (`kab`) has two coexisting numeral systems: everyday loan-word counting (Arabic-derived above ten, e.g. `waḥed u ɛecrin` = 21) used for pronunciation, and a formalized pan-Amazigh proposal (invariable tens, descending magnitudes, no connectors) that extraction also recognizes. `kab` counts only up to 9999 and has no scale or fraction vocabulary, so the `scale_words`/`fractions` flags have nothing to suppress there; `ordinals` still applies.
 
 ### Pronounce a Fraction
 

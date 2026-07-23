@@ -242,4 +242,5 @@ satellites or untrusted networks.
 ## Further reading
 
 - [HiveMind community docs](https://jarbashivemind.github.io/HiveMind-community-docs/)
+- [A real use case with OVOS and Hivemind](https://blog.openvoiceos.org/posts/2025-07-25-A-real-use-case-with-OVOS-and-Hivemind) — OVOS blog
 - [OVOS & HiveMind in the Manufacturing Industry](https://blog.openvoiceos.org/posts/2026-01-14-OVOS-hivemind-industry) — OVOS blog

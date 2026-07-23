@@ -58,6 +58,21 @@ The editor has three columns:
 You can also use the **auto-translate** button to get a machine-translation starting
 point, then fix it up — much faster than starting from a blank box.
 
+!!! note "Some languages skip machine translation on purpose"
+    For a small set of "human-first" languages — Kabyle (`kab`) is the first — there is
+    little to no reliable machine-translation signal, so the auto-translate button is
+    hidden rather than risk anchoring you to a plausible-looking but wrong first draft.
+    You translate straight from the English source instead; everything else about the
+    editor works the same.
+
+The editor also supports right-to-left languages (Arabic, Hebrew, Persian, Urdu, and
+others written right-to-left): the translation box switches direction automatically,
+and variable placeholders like `{location}` are kept readable even inside RTL text.
+
+You can work through a whole file — or several files across different skills — in one
+sitting and submit them together as a single batch; OVOS Localize groups your changes
+by target repository and opens one pull request per repository.
+
 ## Step 3 — Submit
 
 When you're happy with a file, click **Submit**. OVOS Localize files your work for you

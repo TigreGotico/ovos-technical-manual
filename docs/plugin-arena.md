@@ -107,6 +107,13 @@ Modality-specific fields (kept inline or in `extras`):
 
 ---
 
+## Registry Validation, Scoring, and Provenance
+
+- **Registry validation** — `arena/cli.py validate-registry` strictly validates every competitor/dataset JSON file under `registry/` and exits non-zero on the first error, so a malformed registry entry is caught in CI (a dedicated `validate_registry` job runs it) before it can silently break assembly.
+- **Canonical WER normalization** — STT scoring passes both the reference and the hypothesis text through a single, versioned normalization convention (`arena.metrics.normalize_transcript`, tracked as `WER_NORMALIZER_VERSION`) before tokenizing: Unicode NFKC normalization, casefolding, punctuation stripped down to letters/digits/whitespace, and every run of digits spelled out digit-by-digit ("123" → "one two three") so numeral formatting differences between runners do not skew the score. `row_wer` prefers recomputing from raw reference/prediction text over a stored precomputed WER, falling back to the stored value only when raw text is unavailable.
+- **Version-blend guard** — if a competitor's rows span more than one `plugin_version`, the board build logs a warning rather than silently averaging scores across versions.
+- **Reproducible predictions provenance** — `assemble` pins every HuggingFace predictions source to an immutable commit SHA (the dataset registry entry's `predictions_revision` when set, else `--revision`) and records the resolved mapping on each benchmark board (`predictions_revisions`) and in the top-level index, so a third party can re-fetch the exact predictions that produced any published score.
+
 ## Related Pages
 
 - [STT Plugins](stt-plugins.md)

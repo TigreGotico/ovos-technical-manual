@@ -241,6 +241,9 @@ separately-licensed model, that is called out under "model".
 
 ```
 
+!!! tip "Donating wake-word samples"
+    The listener can optionally upload wake-word audio samples to an open-data server to help improve detection accuracy — opt-in and off by default. See [Privacy & Security](privacy-security.md#opt-in-wake-word-and-stt-sample-donation).
+
 ---
 
 ## Further reading
