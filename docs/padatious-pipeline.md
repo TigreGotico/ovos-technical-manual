@@ -51,11 +51,13 @@ Each stage runs at a different point in the pipeline and applies a different con
 Configure Padatious thresholds in your `mycroft.conf` under `intents` → `padatious`. The defaults are:
 
 ```json
-"intents": {
-  "padatious": {
-    "conf_high": 0.95,
-    "conf_med": 0.8,
-    "conf_low": 0.5
+{
+  "intents": {
+    "padatious": {
+      "conf_high": 0.95,
+      "conf_med": 0.8,
+      "conf_low": 0.5
+    }
   }
 }
 ```
@@ -70,6 +72,8 @@ Other useful config keys read by the plugin:
 | `stem` | `false` | Apply Snowball stemming to examples and utterances |
 | `disable_padaos` | `false` | Disable the bundled regex fast-path and use only the neural matcher |
 | `intent_cache` | XDG data dir | Where trained intent models are cached |
+| `domain_engine` | `false` | Train a separate model per skill domain instead of one flat model |
+| `instant_train` | `false` | Retrain synchronously on every registration instead of batching |
 
 ---
 
@@ -157,6 +161,5 @@ Avoid Padatious for complex conversational use cases, skills with overlapping in
 
 **Gotcha — training is asynchronous.** Padatious must train its model before it can match. On a cold start (or after installing a skill), matches will silently fail until training completes. Set `instant_train` to force synchronous training when you need deterministic behavior in tests.
 
-!!! warning "Upcoming — unreleased"
-    A second entry point, `DomainPadatiousPipeline`, which trains a separate model per skill domain to reduce cross-skill collisions, is planned and not yet released.
+**Per-domain training.** Setting `domain_engine: true` in the plugin's config trains a separate model per skill domain (using the same `ovos-padatious-pipeline-plugin` entry point) instead of one flat model across all skills, reducing cross-skill collisions at the cost of extra memory.
 

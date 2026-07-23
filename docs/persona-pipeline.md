@@ -52,7 +52,7 @@ Insert the tier IDs you need into your `mycroft.conf` under the `intents.pipelin
 
 ## Configuration
 
-```json
+```jsonc
 {
   "intents": {
     "persona": {
@@ -62,11 +62,10 @@ Insert the tier IDs you need into your `mycroft.conf` under the `intents.pipelin
       "personas_path": "~/.config/ovos_persona"
     },
     "pipeline": [
-      // Depending on strategy, insert plugin here
+      // depending on strategy, insert the persona stage(s) here — see below
     ]
   }
 }
-
 ```
 
 ### `persona` section options:
@@ -91,15 +90,16 @@ Insert the tier IDs you need into your `mycroft.conf` under the `intents.pipelin
 In this mode, **personas override** all skills. The persona handles every utterance unless explicitly deactivated.
 
 ```jsonc
-"pipeline": [
-  "ovos-persona-pipeline-plugin-high",
-  "ovos-stop-pipeline-plugin-high",
-  "ovos-converse-pipeline-plugin",
-  "ovos-padatious-pipeline-plugin-high",
-  "ovos-adapt-pipeline-plugin-high",
-  ...
-]
-
+{
+  "pipeline": [
+    "ovos-persona-pipeline-plugin-high",
+    "ovos-stop-pipeline-plugin-high",
+    "ovos-converse-pipeline-plugin",
+    "ovos-padatious-pipeline-plugin-high",
+    "ovos-adapt-pipeline-plugin-high"
+    // ...remaining stages as needed
+  ]
+}
 ```
 
 - Best for immersive chatbot experiences
@@ -114,16 +114,17 @@ In this mode, **personas override** all skills. The persona handles every uttera
 Only unmatched or low-confidence utterances are routed to the persona.
 
 ```jsonc
-"pipeline": [
-  "ovos-stop-pipeline-plugin-high",
-  "ovos-converse-pipeline-plugin",
-  "ovos-padatious-pipeline-plugin-high",
-  "ovos-adapt-pipeline-plugin-high",
-  "ovos-persona-pipeline-plugin-high",
-  "ovos-fallback-pipeline-plugin-medium",
-  ...
-]
-
+{
+  "pipeline": [
+    "ovos-stop-pipeline-plugin-high",
+    "ovos-converse-pipeline-plugin",
+    "ovos-padatious-pipeline-plugin-high",
+    "ovos-adapt-pipeline-plugin-high",
+    "ovos-persona-pipeline-plugin-high",
+    "ovos-fallback-pipeline-plugin-medium"
+    // ...remaining stages as needed
+  ]
+}
 ```
 
 - Preserves traditional voice assistant behavior
@@ -138,13 +139,14 @@ Only unmatched or low-confidence utterances are routed to the persona.
 Even when no persona is active, this mode allows the pipeline to fall back to a **default persona** for unmatched utterances.
 
 ```jsonc
-"pipeline": [
-  ...
-  "ovos-fallback-pipeline-plugin-medium",
-  "ovos-persona-pipeline-plugin-low",
-  "ovos-fallback-pipeline-plugin-low"
-]
-
+{
+  "pipeline": [
+    // ...earlier stages as needed
+    "ovos-fallback-pipeline-plugin-medium",
+    "ovos-persona-pipeline-plugin-low",
+    "ovos-fallback-pipeline-plugin-low"
+  ]
+}
 ```
 
 - Replaces `skill-ovos-fallback-chatgpt`

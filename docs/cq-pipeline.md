@@ -104,7 +104,7 @@ back to the older `intents.common_query` key.
 |-----|---------|-------------|
 | `min_self_confidence` | `0.5` | Minimum confidence a skill must self-report to be considered. |
 | `min_reranker_score` | `0.2` | Minimum reranker score to accept a reranked answer. |
-| `reranker` | — | An installed `opm.agents.reranker` plugin used to reorder candidate answers. See [Agent Plugins](agent-plugins.md). |
+| `reranker` | `ovos-flashrank-reranker-plugin` | An installed `opm.agents.reranker` plugin name used to reorder candidate answers, if installed. See [Agent Plugins](agent-plugins.md). |
 | `ignore_skill_scores` | `true` | When a reranker is loaded, trust its order over the skills' self-scores. |
 | `min_response_wait` | `1` | Seconds to wait before evaluating responses. |
 | `max_response_wait` | `4` | Hard cap (seconds) on gathering responses, regardless of extensions. |
@@ -112,6 +112,12 @@ back to the older `intents.common_query` key.
 
 The reranker is optional. Without one, selection falls back to the skills'
 self-reported confidences.
+
+!!! note "Shipped defaults differ slightly"
+    The bundled `mycroft.conf` ships an `intents.common_query` section that
+    overrides some of the library defaults above: `max_response_wait: 6`,
+    `extension_time: 3`, and `reranker: "ovos-choice-solver-bm25"` (instead of
+    the library's own fallback of `ovos-flashrank-reranker-plugin`).
 
 ---
 
