@@ -2042,7 +2042,7 @@ intent parser is to determine what this intent is.</p>
 </span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>        <span class="k">else</span><span class="p">:</span>
 </span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">speak_dialog</span><span class="p">(</span><span class="s1">&#39;like.potato.generic&#39;</span><span class="p">)</span>
 </span></code></pre></div>
-<p>You can <a href="https://github.com/krisgesling/dev-ex-adapt-intents-skill/blob/master/__init__.py">download this entire Potato Skill from Github</a>, or see another Keyword Intent handler example in the <a href="https://github.com/MycroftAI/skill-hello-world/blob/f3eb89be6d80e1834637a64566c707d05fb8e3fa/__init__.py#L37">Hello World Skill</a></p>
+<p>See <a href="../skill-examples/">Skill Examples</a> for real, working skills that use keyword intents this way.</p>
 <h3 id="common-problems">Common Problems<a class="headerlink" href="#common-problems" title="Permanent link">&para;</a></h3>
 <h4 id="more-vocab">More vocab!<a class="headerlink" href="#more-vocab" title="Permanent link">&para;</a></h4>
 <p>One of the most common mistakes when getting started with Skills is that the vocab file doesn't include all the keywords or terms that a User might use to trigger the intent. It is important to map out your Skill and test the interactions with others to see how they might ask questions differently.</p>
@@ -2231,7 +2231,7 @@ intent parser is to determine what this intent is.</p>
 </span><span id="__span-23-19"><a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a>        <span class="k">else</span><span class="p">:</span>
 </span><span id="__span-23-20"><a id="__codelineno-23-20" name="__codelineno-23-20" href="#__codelineno-23-20"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">speak_dialog</span><span class="p">(</span><span class="s1">&#39;like.tomato.generic&#39;</span><span class="p">)</span>
 </span></code></pre></div>
-<p>See a Padatious intent handler example in the <a href="https://github.com/MycroftAI/skill-hello-world/blob/67a972792a07da7e3406bf7f94acd54aa2674829/__init__.py#L42">Hello World Skill</a></p>
+<p>See <a href="../first-skill/">Your First Skill</a> for a complete, minimal example of a template-intent skill from scratch.</p>
 <h3 id="common-problems_1">Common Problems<a class="headerlink" href="#common-problems_1" title="Permanent link">&para;</a></h3>
 <h4 id="i-am-unable-to-match-against-the-utterance-string_1">I am unable to match against the utterance string<a class="headerlink" href="#i-am-unable-to-match-against-the-utterance-string_1" title="Permanent link">&para;</a></h4>
 <p>The utterance string received from the speech-to-text engine is received all lowercase. As such any string matching you are trying to do should also be converted to lowercase. For example:</p>

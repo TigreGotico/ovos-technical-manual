@@ -1459,13 +1459,11 @@ not a single global store — so concurrent users/devices keep separate context.
 <p>The context is limited by the keywords provided by the <strong>current</strong> Skill. </p>
 <p>There is also <code>self.set_cross_skill_context</code> / <code>self.remove_cross_skill_context</code>, intended
 to share a keyword with <strong>other</strong> Skills as well.</p>
-<div class="admonition warning">
-<p class="admonition-title">Cross-skill context is not wired up</p>
-<p><code>set_cross_skill_context</code> emits the <code>mycroft.skill.set_cross_context</code> bus message,
-but no consumer for it currently exists in <code>ovos-core</code>, so on current releases it is
-effectively a no-op. Prefer per-skill <code>set_context</code> (or inject shared values into the
-Session context directly). The example below documents the intended behaviour.</p>
-</div>
+<p><code>set_cross_skill_context</code> emits the <code>mycroft.skill.set_cross_context</code> bus
+message; every loaded <code>OVOSSkill</code> subscribes to it (and to the matching
+<code>mycroft.skill.remove_cross_context</code>) and re-applies the keyword under its
+own namespace, which is how it becomes visible to other skills' context
+gates.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    <span class="nd">@intent_handler</span><span class="p">(</span><span class="n">IntentBuilder</span><span class="p">()</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">PythonPerson</span><span class="p">)</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">WhereFrom</span><span class="p">))</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">def</span> <span class="nf">handle_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        <span class="c1"># PythonPerson can be any of the Monty Python members</span>

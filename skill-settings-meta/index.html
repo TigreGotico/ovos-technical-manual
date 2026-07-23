@@ -1694,7 +1694,7 @@ When present, it lives in the root directory of the Skill and follows the struct
 <p>A <code>settingsmeta</code> file does nothing on its own — it is only meaningful to a tool that reads it (a
 community settings editor like the one above), which then presents the described fields to the user.</p>
 <h3 id="example-settingsmeta-file">Example settingsmeta file<a class="headerlink" href="#example-settingsmeta-file" title="Permanent link">&para;</a></h3>
-<p>To see it in action, lets look at a simple example from the <a href="https://github.com/MycroftAI/skill-date-time">Date-Time Skill</a>. First using the JSON syntax as a <code>settingsmeta.json</code> file:</p>
+<p>To see it in action, here is a simple example, similar to what a legacy date-and-time skill might ship. First using the JSON syntax as a <code>settingsmeta.json</code> file:</p>
 <div class="language-javascript highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s2">&quot;skillMetadata&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="s2">&quot;sections&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
@@ -1725,14 +1725,14 @@ community settings editor like the one above), which then presents the described
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">            </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Show digital clock when idle</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
 </span></code></pre></div>
-<p>Notice that the value of <code>false</code> is surrounded by "quotation marks". This is because OVOS expects a string of <code>"true"</code> or <code>"false"</code> rather than a Boolean.</p>
+<p>Notice that the checkbox's value, <code>"true"</code>, is a quoted string rather than a bare YAML/JSON boolean. This is intentional — the format expects the literal string <code>"true"</code> or <code>"false"</code>, not a real boolean.</p>
 <p>Both of these files would result in the same settings block.</p>
 <p>It is up to your personal preference which syntax you choose.</p>
 <h3 id="structure-of-the-settingsmeta-file">Structure of the settingsmeta file<a class="headerlink" href="#structure-of-the-settingsmeta-file" title="Permanent link">&para;</a></h3>
 <p>Whilst the syntax differs, the structure of these two filetypes is the same. This starts at the top level of the file by defining a <code>skillMetadata</code> object. This object must contain one or more <code>sections</code> elements.</p>
 <h4 id="sections">Sections<a class="headerlink" href="#sections" title="Permanent link">&para;</a></h4>
 <p>Each section represents a group of settings that logically sit together. This enables us to display the settings more clearly in the web interface for users.</p>
-<p>In the simple example above we have just one section. However, the <a href="https://github.com/forslund/spotify-skill/blob/19.08/settingsmeta.json">Spotify Skill settings</a> contains two sections. The first is for Spotify Account authentication, and the second section contains settings to define your default playback device.</p>
+<p>In the simple example above we have just one section. A skill that needs more configuration might use several — for example, one section for account authentication and a separate section for playback preferences.</p>
 <p>Each section must contain a <code>name</code> attribute that is used as the heading for that section, and an Array of <code>fields</code>.</p>
 <h4 id="fields">Fields<a class="headerlink" href="#fields" title="Permanent link">&para;</a></h4>
 <p>Each section has one or more <code>fields</code>. Each field is a setting available to the user. Each field takes four properties:</p>

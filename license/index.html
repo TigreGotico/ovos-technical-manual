@@ -1181,6 +1181,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#policy-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Policy properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notable-licensing-exceptions" class="md-nav__link">
     <span class="md-ellipsis">
       Notable licensing exceptions
@@ -1249,6 +1258,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#policy-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Policy properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notable-licensing-exceptions" class="md-nav__link">
     <span class="md-ellipsis">
       Notable licensing exceptions
@@ -1285,37 +1303,43 @@
 
 
 <h1 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h1>
-<p>We have a universal donor policy, our code should be able to be used anywhere by anyone, no ifs or conditions attached.</p>
-<p>OVOS is predominately Apache2 or BSD licensed. There are only a few exceptions to this, which are all licensed under other compatible open source licenses.</p>
-<p>Individual plugins or skills may have their own license, for example mimic3 is AGPL, so we can not change the license of our plugin.</p>
-<p>We are committed to maintain all core components fully free, any code that we have no control over the license will live in an optional plugin and be flagged as such.</p>
-<p>This includes avoiding LGPL code for reasons explained <a href="https://softwareengineering.stackexchange.com/questions/119436/what-does-gpl-with-classpath-exception-mean-in-practice/326325#326325">here</a>.</p>
-<p>Our license policy has the following properties:</p>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>OVOS follows a <strong>universal donor</strong> licensing policy: the code should be usable by anyone,
+anywhere, with no strings attached. In practice that means permissive licenses (mostly
+Apache 2.0 or BSD) for all core components, with a short, explicitly documented list of
+exceptions where a dependency forces a stricter license on one specific plugin.</p>
+</div>
+<p>Under the universal donor policy, OVOS code should be usable anywhere by anyone, with no
+conditions attached. OVOS is predominately Apache 2.0 or BSD licensed; there are only a few
+exceptions, and each is listed below.</p>
+<p>Individual plugins or skills may carry their own license when they wrap a dependency that
+requires it — for example a TTS plugin that wraps an AGPL-licensed engine cannot itself be
+relicensed under a more permissive term. Core components are kept fully free; any code whose
+license cannot be controlled lives in an optional plugin instead, flagged as such.</p>
+<p>This also means avoiding LGPL code, for the reasons explained in
+<a href="https://softwareengineering.stackexchange.com/questions/119436/what-does-gpl-with-classpath-exception-mean-in-practice/326325#326325">this discussion of the GPL classpath exception</a>.</p>
+<h2 id="policy-properties">Policy properties<a class="headerlink" href="#policy-properties" title="Permanent link">&para;</a></h2>
+<p>The license policy has the following properties:</p>
 <ul>
-<li>
-<p>It gives you, the user of the software, complete and unrestrained access to the software, such that you may inspect, modify, and redistribute your changes</p>
-<ul>
-<li>
-<p>Inspection - Anyone may inspect the software for security vulnerabilities</p>
-</li>
-<li>
-<p>Modification - Anyone may modify the software to fix issues or add features</p>
-</li>
-<li>
-<p>Redistribution - Anyone may redistribute the software on their terms</p>
-</li>
+<li>It gives the user of the software complete and unrestrained access, such that they may
+  inspect, modify, and redistribute their changes:<ul>
+<li><strong>Inspection</strong> — anyone may inspect the software for security vulnerabilities.</li>
+<li><strong>Modification</strong> — anyone may modify the software to fix issues or add features.</li>
+<li><strong>Redistribution</strong> — anyone may redistribute the software on their own terms.</li>
 </ul>
 </li>
-<li>
-<p>It is compatible with GPL licenses - Projects licensed as GPL can be distributed with OVOS</p>
-</li>
-<li>
-<p>It allows for the incorporation of GPL-incompatible free software, such as software that is CDDL licensed</p>
-</li>
+<li>It is compatible with GPL licenses — projects licensed as GPL can be distributed with OVOS.</li>
+<li>It allows incorporating GPL-incompatible free software, such as CDDL-licensed code.</li>
 </ul>
-<p>The license does not restrict the software that may run on OVOS, however -- and thanks to the plugin architecture, even traditionally tightly-coupled components such as drivers can be distributed separately, so maintainers are free to choose whatever license they like for their projects.</p>
-<h3 id="notable-licensing-exceptions">Notable licensing exceptions<a class="headerlink" href="#notable-licensing-exceptions" title="Permanent link">&para;</a></h3>
-<p>The following repositories do not respect our universal donor policy, please ensure their licenses are compatible before you use them</p>
+<p>The policy does not restrict what software may run <em>on</em> OVOS. Thanks to the plugin
+architecture, even traditionally tightly-coupled components such as drivers can be
+distributed separately, so plugin maintainers are free to choose whatever license fits their
+own project.</p>
+<hr />
+<h2 id="notable-licensing-exceptions">Notable licensing exceptions<a class="headerlink" href="#notable-licensing-exceptions" title="Permanent link">&para;</a></h2>
+<p>The repositories below do not follow the universal donor policy; check their licenses are
+compatible with your use case before depending on them.</p>
 <table>
 <thead>
 <tr>
@@ -1327,18 +1351,18 @@
 <tbody>
 <tr>
 <td><a href="https://github.com/OpenVoiceOS/ovos-intent-plugin-padatious">ovos-intent-plugin-padatious</a></td>
-<td>Apache2.0</td>
-<td><a href="https://github.com/MycroftAI/padatious">padatious</a> license might not be valid, depends on libfann2 (LGPL)</td>
+<td>Apache-2.0</td>
+<td><a href="https://github.com/MycroftAI/padatious">padatious</a> depends on <code>libfann2</code> (LGPL); its own license status is uncertain as a result</td>
 </tr>
 <tr>
 <td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3">ovos-tts-plugin-mimic3</a></td>
 <td>AGPL</td>
-<td>depends on <a href="https://github.com/MycroftAI/mimic3">mimic3</a> (AGPL)</td>
+<td>depends on <a href="https://github.com/MycroftAI/mimic3">mimic3</a> (AGPL). This plugin is <strong>archived</strong>; see <a href="../deprecated-repos/">Deprecated &amp; Archived Repositories</a> for the current replacement</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakng">ovos-tts-plugin-espeakng</a></td>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG">ovos-tts-plugin-espeakNG</a></td>
 <td>GPL</td>
-<td>depends on <a href="https://github.com/espeak-ng">espeak-ng</a> (GPL)</td>
+<td>depends on <a href="https://github.com/espeak-ng/espeak-ng">espeak-ng</a> (GPL)</td>
 </tr>
 <tr>
 <td><a href="https://github.com/OpenVoiceOS/ovos-g2p-plugin-espeak">ovos-g2p-plugin-espeak</a></td>
@@ -1347,14 +1371,15 @@
 </tr>
 <tr>
 <td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-SAM">ovos-tts-plugin-SAM</a></td>
-<td>?</td>
-<td>reverse engineered abandonware</td>
+<td>Unclear</td>
+<td>reverse-engineered abandonware with no clear upstream license</td>
 </tr>
 </tbody>
 </table>
 <h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://blog.openvoiceos.org/posts/2023-02-28-permissive-licenses">Why OpenVoiceOS Uses Permissive Licenses</a> — OVOS blog</li>
+<li><a href="../deprecated-repos/">Deprecated &amp; Archived Repositories</a> — current replacements for archived plugins</li>
 </ul>
 
 

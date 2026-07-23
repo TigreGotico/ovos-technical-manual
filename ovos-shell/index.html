@@ -1091,9 +1091,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#statusindicator" class="md-nav__link">
+  <a href="#statusindicator-listeneranimation" class="md-nav__link">
     <span class="md-ellipsis">
-      StatusIndicator
+      StatusIndicator / ListenerAnimation
     </span>
   </a>
   
@@ -1488,9 +1488,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#statusindicator" class="md-nav__link">
+  <a href="#statusindicator-listeneranimation" class="md-nav__link">
     <span class="md-ellipsis">
-      StatusIndicator
+      StatusIndicator / ListenerAnimation
     </span>
   </a>
   
@@ -1727,13 +1727,16 @@ but never replace voice.</p>
 <p>Uses <code>OVOSPlugin.Configuration</code> for reading current device state</p>
 </li>
 </ul>
-<h3 id="statusindicator"><code>StatusIndicator</code><a class="headerlink" href="#statusindicator" title="Permanent link">&para;</a></h3>
+<h3 id="statusindicator-listeneranimation"><code>StatusIndicator</code> / <code>ListenerAnimation</code><a class="headerlink" href="#statusindicator-listeneranimation" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>Subscribes to OVOS status events (<code>recognizer_loop:wakeword</code>, <code>recognizer_loop:record_begin</code>, etc.)</p>
+<p><code>StatusIndicator</code> reacts to <code>ovos.wifi.setup.started</code> / <code>ovos.wifi.setup.completed</code> /
+  <code>ovos.shell.status.ok</code> to show pairing/Wi-Fi setup and general status.</p>
 </li>
 <li>
-<p>Drives the listening animation</p>
+<p><code>ListenerAnimation</code> drives the listening animation, reacting to
+  <code>recognizer_loop:wakeword</code> (show), <code>recognizer_loop:record_end</code> (hide),
+  <code>mycroft.mic.listen</code> (show), and <code>mycroft.speech.recognition.unknown</code> (hide).</p>
 </li>
 </ul>
 <hr />
@@ -1883,18 +1886,19 @@ should also be installed for a fully functional shell:</p>
 <p><code>ovos-PHAL-plugin-network-manager</code></p>
 </li>
 <li>
-<p><code>ovos-PHAL-plugin-gui-network-client</code></p>
-</li>
-<li>
-<p><code>ovos-PHAL-plugin-wifi-setup</code></p>
-</li>
-<li>
 <p><code>ovos-PHAL-plugin-alsa</code></p>
 </li>
 <li>
 <p><code>ovos-PHAL-plugin-system</code></p>
 </li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Some companion repos are archived</p>
+<p><code>ovos-gui-plugin-shell-companion</code>, <code>ovos-PHAL-plugin-gui-network-client</code>, and
+<code>ovos-PHAL-plugin-wifi-setup</code> are <strong>archived</strong> repositories. They may still work on an
+existing Mark 2 install, but treat them as unmaintained rather than as an install
+recommendation for new setups.</p>
+</div>
 <hr />
 <h2 id="building">Building<a class="headerlink" href="#building" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
@@ -1906,9 +1910,10 @@ should also be installed for a fully functional shell:</p>
 <code>ovos-shell</code>.</p>
 <hr />
 <h2 id="qt-version-policy">Qt Version Policy<a class="headerlink" href="#qt-version-policy" title="Permanent link">&para;</a></h2>
-<p>This repository targets <strong>Qt5</strong>. A separate <code>ovos-shell-qt6</code> repository will target Qt6.
-Both link against their respective <code>mycroft-gui</code> library versions. Do not introduce
-Qt6-only API into this repository.</p>
+<p>This repository targets <strong>Qt5</strong> and links against <code>mycroft-gui-qt5</code>. Do not introduce
+Qt6-only API into this repository; a <code>mycroft-gui-qt6</code> client is developed as its own
+project (see the <a href="../gui-adapters/">GUI Adapter Plugins</a> rework) rather than as a fork of
+<code>ovos-shell</code> itself.</p>
 
 
 

@@ -1635,7 +1635,7 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 </tr>
 <tr>
 <td><a href="#ovos-openai-plugin">ovos-openai-plugin</a></td>
-<td>Leverages <a href="https://platform.openai.com/docs/api-reference/completions/create">OpenAI Completions API</a> to provide the following ovos plugins:</td>
+<td>Leverages the <a href="https://platform.openai.com/docs/api-reference/completions/create">OpenAI Completions API</a> to provide a chat engine, a dialog-rewriting transformer, and a summarizer, all pointed at any OpenAI-compatible endpoint.</td>
 </tr>
 <tr>
 <td><a href="#ovos-messagebus-chat-plugin">ovos-messagebus-chat-plugin</a></td>
@@ -1667,7 +1667,7 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 </tr>
 <tr>
 <td><a href="#ovos-gguf-plugin">ovos-gguf-plugin</a></td>
-<td><code>GGUFSolver</code> is a question-answering module that utilizes GGUF models to provide responses to user queries. This solver</td>
+<td>Unified GGUF wrapper — chat, summarization, dialog rewriting, translation, language detection, and text embeddings, all backed by quantized GGUF models via <code>llama-cpp-python</code>.</td>
 </tr>
 <tr>
 <td><a href="#ovos-persona-server">ovos-persona-server</a></td>
@@ -1757,7 +1757,7 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-openai-plugin">https://github.com/OpenVoiceOS/ovos-openai-plugin</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: Leverages <a href="https://platform.openai.com/docs/api-reference/completions/create">OpenAI Completions API</a> to provide the following ovos plugins:</p>
+<p><strong>Description</strong>: Leverages the <a href="https://platform.openai.com/docs/api-reference/completions/create">OpenAI Completions API</a> to provide <code>ovos-solver-openai-plugin</code> (a chat engine for use in an <a href="../personas/">ovos-persona</a>), <code>ovos-dialog-transformer-openai-plugin</code> (rewrites OVOS dialogs just before TTS runs), and <code>ovos-summarizer-openai-plugin</code> (summarizes text for consumption by other plugins/skills).</p>
 </li>
 </ul>
 <hr />
@@ -1873,7 +1873,7 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-gguf-plugin">https://github.com/OpenVoiceOS/ovos-gguf-plugin</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: <code>GGUFSolver</code> is a question-answering module that utilizes GGUF models to provide responses to user queries. This solver</p>
+<p><strong>Description</strong>: A unified GGUF wrapper providing chat, summarization, dialog rewriting, translation, language detection, and text-embedding engines, all backed by quantized GGUF models loaded through <code>llama-cpp-python</code>. See <a href="../gguf-plugin/">GGUF Plugin</a> for the full entry-point table.</p>
 </li>
 </ul>
 <hr />

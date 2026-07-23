@@ -1980,11 +1980,11 @@ namespace), so the UI can react to listening/speaking state:</p>
 <td>Wake word detected</td>
 </tr>
 <tr>
-<td><code>recognizer_loop:record_begin</code></td>
+<td><code>ovos.listener.record.started</code></td>
 <td>Microphone opened</td>
 </tr>
 <tr>
-<td><code>recognizer_loop:record_end</code></td>
+<td><code>ovos.listener.record.ended</code></td>
 <td>Microphone closed</td>
 </tr>
 <tr>
@@ -2008,7 +2008,7 @@ namespace), so the UI can react to listening/speaking state:</p>
 <td>Audio playback ended</td>
 </tr>
 <tr>
-<td><code>recognizer_loop:sleep</code></td>
+<td><code>ovos.listener.sleep</code></td>
 <td>Device going to sleep</td>
 </tr>
 <tr>
@@ -2016,7 +2016,7 @@ namespace), so the UI can react to listening/speaking state:</p>
 <td>Device waking up</td>
 </tr>
 <tr>
-<td><code>mycroft.awoken</code></td>
+<td><code>ovos.listener.awoken</code></td>
 <td>Wake-up acknowledged</td>
 </tr>
 <tr>
@@ -2028,6 +2028,10 @@ namespace), so the UI can react to listening/speaking state:</p>
 <td>A skill handler completed</td>
 </tr>
 <tr>
+<td><code>complete_intent_failure</code></td>
+<td>No intent/fallback matched the utterance</td>
+</tr>
+<tr>
 <td><code>ovos.utterance.handled</code></td>
 <td>Intent matched and handled</td>
 </tr>
@@ -2037,6 +2041,19 @@ namespace), so the UI can react to listening/speaking state:</p>
 </tr>
 </tbody>
 </table>
+<p><code>NamespaceManager</code> also forwards a set of legacy <code>enclosure.eyes.*</code> / <code>enclosure.mouth.*</code> /
+<code>enclosure.weather.display</code> messages, kept for <a href="../mark1/">Mark 1</a>-style enclosure animations.</p>
+<div class="admonition note">
+<p class="admonition-title">Producer/consumer split for <code>enclosure.*</code></p>
+<p>The <code>enclosure.*</code> protocol has two independent halves in separate packages: <code>EnclosureAPI</code>
+(the skill-facing producer that emits <code>enclosure.*</code>, in <code>ovos-gui-api-client</code> alongside
+<code>GUIInterface</code>) and <code>EnclosureProtocolListener</code> (the consumer mix-in that wires those
+messages to overridable no-op handlers, in
+<a href="https://github.com/OpenVoiceOS/ovos-ui-enclosure-protocol"><code>ovos-ui-enclosure-protocol</code></a>).
+A hardware enclosure plugin inherits <code>EnclosureProtocolListener</code> to receive the commands;
+<a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk1"><code>ovos-PHAL-plugin-mk1</code></a> is the
+reference listener implementation.</p>
+</div>
 <hr />
 <h2 id="qt-websocket-protocol-legacy-adapter">Qt WebSocket Protocol (Legacy Adapter)<a class="headerlink" href="#qt-websocket-protocol-legacy-adapter" title="Permanent link">&para;</a></h2>
 <blockquote>
@@ -2246,21 +2263,27 @@ as normal bus events.</p>
 <p class="admonition-title">Upcoming — unreleased</p>
 <p>In the GUI-rework, specified by the
 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md">OVOS-GUI-1</a> spec
-(see <a href="../gui-service/">GUI Service</a>) the bus contract changes:</p>
+(see <a href="../gui-service/">GUI Service</a>) the bus contract changes. Tracked in
+<a href="https://github.com/OpenVoiceOS/ovos-gui/pull/112">ovos-gui#112</a>,
+<a href="https://github.com/OpenVoiceOS/ovos-gui/pull/117">ovos-gui#117</a>, and
+<a href="https://github.com/OpenVoiceOS/ovos-bus-client/pull/238">ovos-bus-client#238</a>:</p>
 <ul>
-<li><code>gui.page.show</code> accepts <strong>only</strong> <code>SYSTEM_*</code> template names; if <code>page_names[0]</code> does
-  not start with <code>SYSTEM_</code>, <code>handle_show_page()</code> logs an error and drops the request
-  (custom QML is no longer supported).</li>
-<li>Instead of mirroring to Qt clients directly, <code>NamespaceManager</code> calls
-  <code>adapter.dispatch_template(template, skill_id, data, session_id)</code> on every loaded
-  <code>opm.gui_adapter</code> plugin; the Qt WebSocket protocol moves into the
-  <code>ovos-legacy-mycroft-gui-plugin</code> adapter.</li>
-<li>Forwarded status events go to adapters via
-  <code>adapter.on_status_event(event_name, data, session_id)</code> rather than straight to Qt clients.</li>
-<li><code>gui.namespace.removed</code> / <code>gui.namespace.displayed</code> are still emitted; the
-  <code>gui.page.delete</code> / <code>gui.page.delete.all</code> handlers are removed.</li>
+<li><code>gui.page.show</code> is expected to accept <strong>only</strong> <code>SYSTEM_*</code> template names; a
+  <code>page_names[0]</code> that does not start with <code>SYSTEM_</code> would be rejected by the
+  current <code>handle_show_page()</code> handler (custom QML is no longer supported).</li>
+<li>Instead of mirroring to Qt clients directly, <code>NamespaceManager</code> would fan each
+  template event out to every loaded <code>opm.gui_adapter</code> plugin (see
+  <a href="../gui-adapters/">GUI Adapter Plugins</a>); the Qt WebSocket protocol becomes one such
+  adapter, provided by <code>ovos-legacy-mycroft-gui-plugin</code>.</li>
+<li>Forwarded status events would go to adapters instead of straight to Qt clients.</li>
+<li><code>gui.namespace.removed</code> / <code>gui.namespace.displayed</code> are expected to keep being emitted;
+  whether the <code>gui.page.delete</code> / <code>gui.page.delete.all</code> handlers survive the rework is not
+  yet decided.</li>
 </ul>
-<p>See <a href="../gui-adapters/">GUI Adapter Plugins</a> for the adapter-side API.</p>
+<p>None of this is implemented in <code>ovos-gui</code> yet — the OVOS-GUI-1 spec leaves the adapter
+entry-point name and method signatures <strong>non-normative</strong>; see
+<a href="../gui-adapters/">GUI Adapter Plugins</a> for what the adapter plugins being built ahead of
+this rework have already settled on.</p>
 </div>
 
 

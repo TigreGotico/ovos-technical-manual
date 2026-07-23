@@ -1077,6 +1077,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ovos-media-plugin-ffplay" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-media-plugin-ffplay
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ovos-media-plugin-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-media-plugin-cli
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1453,6 +1471,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ovos-media-plugin-ffplay" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-media-plugin-ffplay
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ovos-media-plugin-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-media-plugin-cli
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1512,27 +1548,37 @@ family, adding the other is a <strong>TODO</strong>.</p>
 <tr>
 <td><a href="#ovos-media-plugin-vlc">ovos-media-plugin-vlc</a></td>
 <td>headless VLC (audio + video)</td>
-<td>ovos-media only — <em>old audio service: TODO</em></td>
+<td>✅ both</td>
 </tr>
 <tr>
 <td><a href="#ovos-media-plugin-mplayer">ovos-media-plugin-mplayer</a></td>
 <td>MPlayer (audio + video)</td>
-<td>ovos-media only — <em>old audio service: TODO</em></td>
+<td>✅ both</td>
 </tr>
 <tr>
 <td><a href="#ovos-media-plugin-simple">ovos-media-plugin-simple</a></td>
 <td>minimal/default audio</td>
-<td>ovos-media only — <em>old audio service: TODO</em></td>
+<td>✅ both</td>
+</tr>
+<tr>
+<td><a href="#ovos-audio-plugin-mpv">ovos-audio-plugin-mpv</a></td>
+<td>MPV (audio + video)</td>
+<td>✅ both</td>
+</tr>
+<tr>
+<td><a href="#ovos-media-plugin-ffplay">ovos-media-plugin-ffplay</a></td>
+<td>ffplay (audio)</td>
+<td>✅ both</td>
+</tr>
+<tr>
+<td><a href="#ovos-media-plugin-cli">ovos-media-plugin-cli</a></td>
+<td>generic CLI-command player (audio)</td>
+<td>✅ both</td>
 </tr>
 <tr>
 <td><a href="#ovos-plugin-vlc">ovos-plugin-vlc</a></td>
 <td>VLC</td>
 <td>old audio service only (legacy) — use ovos-media-plugin-vlc for ovos-media</td>
-</tr>
-<tr>
-<td><a href="#ovos-audio-plugin-mpv">ovos-audio-plugin-mpv</a></td>
-<td>MPV</td>
-<td>old audio service only (legacy)</td>
 </tr>
 <tr>
 <td><a href="#ovos-audio-plugin-simple">ovos-audio-plugin-simple</a></td>
@@ -1560,7 +1606,11 @@ family, adding the other is a <strong>TODO</strong>.</p>
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-media-plugin-vlc">https://github.com/OpenVoiceOS/ovos-media-plugin-vlc</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: Headless VLC audio/video playback. Currently ships the <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a> version (<code>opm.media.audio</code> / <code>opm.media.video</code>) only; an old-audio-service version is a TODO (use <a href="#ovos-plugin-vlc">ovos-plugin-vlc</a> on the old audio service for now).</p>
+<p><strong>Description</strong>: Headless VLC audio/video playback. Ships entry points for both
+  <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a> (<code>opm.media.audio</code> / <code>opm.media.video</code>,
+  classes <code>VLCOCPAudioService</code> / <code>VLCOCPVideoService</code>) and the old audio service
+  (<code>mycroft.plugin.audioservice</code>, type <code>ovos_vlc</code>). The older, old-audio-service-only
+  <a href="#ovos-plugin-vlc">ovos-plugin-vlc</a> still exists as a separate package.</p>
 </li>
 </ul>
 <hr />
@@ -1590,7 +1640,10 @@ family, adding the other is a <strong>TODO</strong>.</p>
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-media-plugin-simple">https://github.com/OpenVoiceOS/ovos-media-plugin-simple</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: Minimal/default audio playback for <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a> (<code>opm.media.audio</code>). An old-audio-service version is a TODO.</p>
+<p><strong>Description</strong>: Minimal/default audio playback (import name <code>ovos_media_plugin_cli</code>). Ships
+  entry points for both <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a>
+  (<code>opm.media.audio</code>, class <code>CLIAudioService</code>) and the old audio service
+  (<code>mycroft.plugin.audioservice</code>, type <code>ovos_cli</code>).</p>
 </li>
 </ul>
 <hr />
@@ -1620,17 +1673,52 @@ family, adding the other is a <strong>TODO</strong>.</p>
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-media-plugin-mplayer">https://github.com/OpenVoiceOS/ovos-media-plugin-mplayer</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: MPlayer audio/video playback for <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a> (<code>opm.media.audio</code> / <code>opm.media.video</code>). An old-audio-service version is a TODO.</p>
+<p><strong>Description</strong>: MPlayer audio/video playback. Ships entry points for both
+  <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a> (<code>opm.media.audio</code> / <code>opm.media.video</code>)
+  and the old audio service (<code>mycroft.plugin.audioservice</code>, type <code>ovos_mplayer</code>).</p>
 </li>
 </ul>
 <hr />
 <h2 id="ovos-audio-plugin-mpv">ovos-audio-plugin-mpv<a class="headerlink" href="#ovos-audio-plugin-mpv" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-audio-plugin-mpv">https://github.com/OpenVoiceOS/ovos-audio-plugin-mpv</a></p>
+<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-media-plugin-mpv">https://github.com/OpenVoiceOS/ovos-media-plugin-mpv</a>
+  (the repo lives under this name; the PyPI package is still published as <code>ovos-audio-plugin-mpv</code>).</p>
 </li>
 <li>
-<p><strong>Description</strong>: MPV <code>AudioBackend</code> for the <strong>old audio service</strong> (<code>mycroft.plugin.audioservice</code>).</p>
+<p><strong>Description</strong>: MPV audio/video playback. Ships entry points for both
+  <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a> (<code>opm.media.audio</code> / <code>opm.media.video</code>)
+  and the old audio service (<code>mycroft.plugin.audioservice</code>, type <code>ovos_mpv</code>).</p>
+</li>
+</ul>
+<hr />
+<h2 id="ovos-media-plugin-ffplay">ovos-media-plugin-ffplay<a class="headerlink" href="#ovos-media-plugin-ffplay" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-media-plugin-ffplay">https://github.com/OpenVoiceOS/ovos-media-plugin-ffplay</a></p>
+</li>
+<li>
+<p><strong>Description</strong>: ffplay-based audio playback backend. Ships entry points for both
+  <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a> (<code>opm.media.audio</code>, class
+  <code>FFPlayOCPAudioService</code>) and the old audio service (<code>mycroft.plugin.audioservice</code>, type
+  <code>ovos_ffplay</code>). Direct programmatic access is available via <code>FFPlayAudioPlayer</code>.</p>
+</li>
+</ul>
+<hr />
+<h2 id="ovos-media-plugin-cli">ovos-media-plugin-cli<a class="headerlink" href="#ovos-media-plugin-cli" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-media-plugin-cli">https://github.com/OpenVoiceOS/ovos-media-plugin-cli</a></p>
+</li>
+<li>
+<p><strong>Description</strong>: Generic command-line playback backend — shells out to any CLI media
+  player. With an explicit <code>command</code> set (e.g. <code>"mpv --no-terminal"</code>, <code>"ffplay -nodisp
+  -autoexit"</code>), it appends the track URI as the final argument; with no <code>command</code> set it
+  auto-detects the best available player for the platform (<code>sox</code>/<code>play</code> preferred, then
+  <code>mpg123</code>/<code>paplay</code>/<code>aplay</code> on Linux, <code>afplay</code> on macOS). Pause/resume use process signals
+  (<code>SIGSTOP</code>/<code>SIGCONT</code>). Ships entry points for both ovos-media (<code>opm.media.audio</code>, class
+  <code>CLIAudioService</code>) and the old audio service (<code>mycroft.plugin.audioservice</code>, type
+  <code>ovos_cli</code>).</p>
 </li>
 </ul>
 <hr />

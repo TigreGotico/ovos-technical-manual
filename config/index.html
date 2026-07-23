@@ -1933,8 +1933,10 @@ ignored. Nested keys use <code>:</code> as the separator (e.g. <code>"listener:s
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="p">()</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">config</span><span class="p">[</span><span class="s2">&quot;lang&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;fr-fr&quot;</span>   <span class="c1"># stored in the in-memory __patch layer</span>
 </span></code></pre></div>
-<p>The patch is applied/cleared via the bus handlers below — there is no public
-<code>patch()</code>/<code>patch_reset()</code> instance API.</p>
+<p>The patch is applied/cleared via <code>Configuration.patch(message)</code> and
+<code>Configuration.patch_clear(message)</code> — both are <code>@staticmethod</code>s that take a bus
+<code>Message</code> (they read <code>message.data["config"]</code>), not a plain dict, so in practice they
+are driven by the bus handlers below rather than called directly.</p>
 <hr />
 <h2 id="bus-integration">Bus Integration<a class="headerlink" href="#bus-integration" title="Permanent link">&para;</a></h2>
 <p><code>Configuration.set_config_update_handlers(bus)</code> registers the following listeners:</p>
@@ -2168,8 +2170,7 @@ ignored. Nested keys use <code>:</code> as the separator (e.g. <code>"listener:s
 <h3 id="autoconfigure"><code>autoconfigure</code><a class="headerlink" href="#autoconfigure" title="Permanent link">&para;</a></h3>
 <p>Automatically configure language, <a href="../stt-plugins/">STT</a>, and <a href="../tts-plugins/">TTS</a> from a language code:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>en-us<span class="w"> </span>--offline<span class="w"> </span>--female
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>de-de<span class="w"> </span>--online<span class="w"> </span>--male<span class="w"> </span>-p<span class="w"> </span>rpi4
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>fr-fr<span class="w"> </span>--gpu<span class="w"> </span>--female
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>de-de<span class="w"> </span>--online<span class="w"> </span>--male
 </span></code></pre></div>
 <table>
 <thead>
@@ -2180,36 +2181,28 @@ ignored. Nested keys use <code>:</code> as the separator (e.g. <code>"listener:s
 </thead>
 <tbody>
 <tr>
-<td><code>-l LANG</code></td>
+<td><code>-l, --lang LANG</code></td>
 <td>BCP-47 language code (required)</td>
 </tr>
 <tr>
-<td><code>-p PLATFORM</code></td>
-<td><code>rpi3</code>, <code>rpi4</code>, <code>rpi5</code>, <code>linux</code>, <code>mac</code>, <code>termux</code></td>
+<td><code>-hy, --hybrid</code></td>
+<td>Offline TTS + online STT (default when neither <code>--online</code> nor <code>--offline</code> is given)</td>
 </tr>
 <tr>
-<td><code>--hybrid</code></td>
-<td>Offline TTS + online STT (default)</td>
-</tr>
-<tr>
-<td><code>--online</code></td>
+<td><code>-on, --online</code></td>
 <td>Online STT and TTS</td>
 </tr>
 <tr>
-<td><code>--offline</code></td>
+<td><code>-off, --offline</code></td>
 <td>Offline STT and TTS</td>
 </tr>
 <tr>
-<td><code>--gpu</code></td>
-<td>GPU-optimised offline plugins</td>
-</tr>
-<tr>
-<td><code>--male</code> / <code>--female</code></td>
-<td>Default voice gender</td>
+<td><code>-m, --male</code> / <code>-f, --female</code></td>
+<td>Default voice gender (if neither is given, TTS configuration is skipped)</td>
 </tr>
 </tbody>
 </table>
-<p>The <code>autoconfigure</code> command uses language-specific STT models and platform-optimized intent pipelines.</p>
+<p><code>--online</code>/<code>--offline</code> and <code>--male</code>/<code>--female</code> are each mutually exclusive pairs.</p>
 <h3 id="telemetry"><code>telemetry</code><a class="headerlink" href="#telemetry" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ovos-config<span class="w"> </span>telemetry<span class="w"> </span>--enable<span class="w">    </span><span class="c1"># opt in to intent telemetry upload</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>ovos-config<span class="w"> </span>telemetry<span class="w"> </span>--disable<span class="w">   </span><span class="c1"># opt out</span>

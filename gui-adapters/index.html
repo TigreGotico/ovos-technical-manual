@@ -1498,29 +1498,37 @@ generally usable OVOS GUI; <strong>Mark 2</strong> devices keep a screen via the
 <div class="admonition warning">
 <p class="admonition-title">Upcoming — unreleased</p>
 <p>This whole page describes the <strong>GUI-rendering rework</strong>, which is <strong>not yet released</strong>.
-Nothing here is available on a stable install. It is specified by the
-<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md">OVOS-GUI-1</a> spec
-and implemented across these components:</p>
+Nothing here is available on a stable install, and the pieces are at different stages.
+Tracked in <a href="https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/377">ovos-plugin-manager#377</a> (<code>AbstractGUIPlugin</code>),
+<a href="https://github.com/OpenVoiceOS/ovos-gui/pull/112">ovos-gui#112</a> (adapter/template rework landing),
+<a href="https://github.com/OpenVoiceOS/ovos-gui/pull/117">ovos-gui#117</a> (OVOS-GUI-1 service conformance),
+<a href="https://github.com/OpenVoiceOS/ovos-bus-client/pull/238">ovos-bus-client#238</a> (GUI-1-conformant wire shapes), and
+<a href="https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3">ovos-legacy-mycroft-gui-plugin#3</a> (adapter conforms to the session_id-only contract):</p>
 <ul>
-<li><code>ovos-plugin-manager</code> — <code>AbstractGUIPlugin</code>, <code>opm.gui_adapter</code> plugin type,
-  <code>OVOSGUIAdapterFactory</code></li>
-<li><code>ovos-gui</code> — the router that dispatches to adapters</li>
-<li><code>ovos-gui-api-client</code> — the template-based <code>GUIInterface</code></li>
-<li><code>ovos-legacy-mycroft-gui-plugin</code> — the Qt adapter</li>
-<li><code>pyhtmx-gui-client</code> — the browser/HTMX adapter</li>
+<li><code>ovos-gui-api-client</code> — a template-based <code>GUIInterface</code> already exists and works today.</li>
+<li><code>ovos-legacy-mycroft-gui-plugin</code> and <code>ovos-gui-plugin-pyhtmx</code> (repo <code>pyhtmx-gui-client</code>)
+  already implement the adapter-side contract described below (an <code>AbstractGUIPlugin</code>
+  subclass registered under <code>opm.gui_adapter</code>) — but that base class does not exist yet in
+  any released <code>ovos-plugin-manager</code>, and <code>ovos-gui</code> does not yet contain the router that
+  would dispatch events to these adapters. These plugins are therefore built ahead of their
+  own dependency.</li>
+<li>The formal contract is specified by
+  <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md">OVOS-GUI-1</a>, an
+  <a href="../architecture-specs/">architecture spec</a>. The spec deliberately leaves the exact
+  entry-point group name and method signatures <strong>non-normative</strong> — it gives them only as an
+  illustrative example. The names below (<code>AbstractGUIPlugin</code>, <code>handle_show_*</code>,
+  <code>opm.gui_adapter</code>) are what the real adapter plugins linked above have already
+  standardized on, which is why this page uses them.</li>
 </ul>
-<p>The per-call routing argument is <strong><code>session_id</code></strong>. Per OVOS-GUI-1, this is the sole
-routing key for the Python <strong>adapter contract</strong> — there is no separate site/room/location
-dimension; a shared/multi-room screen is expressed by its clients sharing one <code>session_id</code>.
-The landing PRs rename the earlier <code>site_id</code> parameter to <code>session_id</code> throughout the
-adapter contract.</p>
+<p>Per OVOS-GUI-1, the sole per-event routing key for the adapter contract is <strong><code>session_id</code></strong>
+— there is no separate site/room/location dimension; a shared/multi-room screen is expressed
+by its clients sharing one <code>session_id</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Client-side <code>site_id</code> still exists (in flux)</p>
-<p>The Qt6 client rework branch (<code>mycroft-gui-qt6</code> <code>feat/gui-protocol-rework</code>) still ships
-a separate <strong><code>site_id</code></strong> dimension (<code>--site-id</code> flag, <code>MYCROFT_SITE_ID</code> env var,
-<code>site_id_sync_mode</code> in ovos-gui) for multi-site setups. So at the <em>client</em> layer
-site_id is not yet gone, even though the OVOS-GUI-1 <em>adapter contract</em> collapses
-routing to <code>session_id</code>. This is unreleased and the two layers may still be reconciled.</p>
+<p>The Qt6 client rework branch (<code>mycroft-gui-qt6</code>) still ships a separate <strong><code>site_id</code></strong>
+dimension (<code>--site-id</code> flag, <code>MYCROFT_SITE_ID</code> env var) for multi-site setups. So at the
+<em>client</em> layer site_id is not yet gone, even though the OVOS-GUI-1 <em>adapter contract</em>
+collapses routing to <code>session_id</code>. The two layers may still be reconciled.</p>
 </div>
 </div>
 <p>In the rework, <code>ovos-gui</code> no longer renders or talks to Qt clients directly. It becomes a
@@ -1673,6 +1681,21 @@ id, default <code>"default"</code>). All default to no-ops, so partial implement
 <td><code>SYSTEM_face</code></td>
 <td><code>sleeping</code></td>
 </tr>
+<tr>
+<td><code>handle_show_ocp_now_playing</code></td>
+<td><code>SYSTEM_ocp_now_playing</code></td>
+<td>media fields</td>
+</tr>
+<tr>
+<td><code>handle_show_ocp_search</code></td>
+<td><code>SYSTEM_ocp_search</code></td>
+<td>search-result fields</td>
+</tr>
+<tr>
+<td><code>handle_show_ocp_playlist</code></td>
+<td><code>SYSTEM_ocp_playlist</code></td>
+<td>playlist fields</td>
+</tr>
 </tbody>
 </table>
 <h3 id="lifecycle-hooks">Lifecycle hooks<a class="headerlink" href="#lifecycle-hooks" title="Permanent link">&para;</a></h3>
@@ -1692,14 +1715,16 @@ id, default <code>"default"</code>). All default to no-ops, so partial implement
 </span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Called for system status events (wakeword, utterance handled, etc.).&quot;&quot;&quot;</span>
 </span></code></pre></div>
 <h3 id="dispatch">Dispatch<a class="headerlink" href="#dispatch" title="Permanent link">&para;</a></h3>
-<p>The router calls <code>adapter.dispatch_template(template, skill_id, data, ...)</code>, which maps the
-<code>SYSTEM_*</code> template to the matching <code>handle_show_*</code> method. Adapters normally override the
-individual <code>handle_show_*</code> methods rather than <code>dispatch_template</code> itself.</p>
+<p>The (not-yet-built) router is expected to map each <code>SYSTEM_*</code> template name to the matching
+<code>handle_show_*</code> method — the naming convention <code>handle_show_&lt;template suffix&gt;</code> is already fixed
+by the adapter plugins that implement this contract today. An adapter overrides only the
+individual <code>handle_show_*</code> methods it cares about; unimplemented ones default to no-ops.</p>
 <h3 id="connection-status">Connection status<a class="headerlink" href="#connection-status" title="Permanent link">&para;</a></h3>
-<p>Optionally provide <code>any_client_connected() -&gt; bool</code> to participate in <code>gui.status.request</code>
-responses. It is <strong>not</strong> part of the <code>AbstractGUIPlugin</code> base class — the router calls it by
-duck-typing (<code>getattr(adapter, "any_client_connected", lambda: False)()</code>), so define it only if
-your adapter tracks client connections:</p>
+<p>The legacy <a href="../gui-protocol/"><code>gui.status.request</code></a> bus message already exists today and answers
+whether any display is connected. An adapter is expected to optionally provide an
+<code>any_client_connected() -&gt; bool</code> method so a future router can fold it into that response; since
+the base class and router are not yet built, treat the exact hook-up (duck-typing or otherwise)
+as illustrative:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span> <span class="nf">any_client_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_my_connected_clients</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
 </span></code></pre></div>
@@ -1707,7 +1732,8 @@ your adapter tracks client connections:</p>
 <table>
 <thead>
 <tr>
-<th>Package</th>
+<th>Repo</th>
+<th>PyPI package</th>
 <th>Entry-point name</th>
 <th>Class</th>
 <th>Description</th>
@@ -1716,6 +1742,7 @@ your adapter tracks client connections:</p>
 <tbody>
 <tr>
 <td><code>ovos-legacy-mycroft-gui-plugin</code></td>
+<td><code>ovos-legacy-mycroft-gui-plugin</code></td>
 <td><code>ovos-legacy-mycroft-gui</code></td>
 <td><code>LegacyMycoftGuiPlugin</code></td>
 <td>Tornado WebSocket → Qt / mycroft-gui clients; also runs <code>HomescreenManager</code></td>
@@ -1723,8 +1750,9 @@ your adapter tracks client connections:</p>
 <tr>
 <td><code>pyhtmx-gui-client</code></td>
 <td><code>ovos-gui-plugin-pyhtmx</code></td>
-<td>HTMX adapter</td>
-<td>FastAPI / SSE → browser (HTMX)</td>
+<td><code>ovos-gui-plugin-pyhtmx</code></td>
+<td><code>PyHTMXGUIPlugin</code></td>
+<td>Browser adapter (HTMX)</td>
 </tr>
 </tbody>
 </table>
@@ -1750,8 +1778,10 @@ your adapter tracks client connections:</p>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="s2">&quot;my-terminal-gui&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_package:TerminalGUIPlugin&quot;</span>
 </span></code></pre></div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<p>Adapter configuration lives under <code>gui.adapters.&lt;entry-point-name&gt;</code> in <code>mycroft.conf</code> and
-is passed as the <code>config</code> dict to the adapter's <code>__init__</code>:</p>
+<p>Adapter configuration is expected to live under a <code>gui.adapters.&lt;entry-point-name&gt;</code> key in
+<a href="../config/"><code>mycroft.conf</code></a>, following the existing <code>get_plugin_config()</code> convention used by
+other OPM plugin types, and to be passed as the <code>config</code> dict to the adapter's <code>__init__</code>. This
+exact key path is not yet fixed by any released code — treat it as illustrative:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;gui&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&quot;adapters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -1768,9 +1798,9 @@ is passed as the <code>config</code> dict to the adapter's <code>__init__</code>
 to both:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>self.gui.show_weather(…)
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>       ↓
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>NamespaceManager._dispatch_template_to_adapters(&quot;SYSTEM_weather&quot;, skill_id, data, session_id)
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>ovos-gui router, fanned out to every installed opm.gui_adapter plugin
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>       ├──→ LegacyMycoftGuiPlugin.handle_show_weather(…)   → Qt client
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>       └──→ pyhtmx adapter.handle_show_weather(…)           → browser
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>       └──→ PyHTMXGUIPlugin.handle_show_weather(…)          → browser
 </span></code></pre></div>
 <p>Both displays update simultaneously and independently.</p>
 

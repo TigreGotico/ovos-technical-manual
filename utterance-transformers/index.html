@@ -976,14 +976,20 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
+    <nav class="md-nav" aria-label="Creating Custom Utterance Transformers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ovos-transcription-validator-plugin" class="md-nav__link">
     <span class="md-ellipsis">
-      Further reading
+      OVOS Transcription Validator Plugin
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1459,14 +1465,20 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
+    <nav class="md-nav" aria-label="Creating Custom Utterance Transformers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ovos-transcription-validator-plugin" class="md-nav__link">
     <span class="md-ellipsis">
-      Further reading
+      OVOS Transcription Validator Plugin
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1495,7 +1507,7 @@
 </div>
 <div class="admonition info">
 <p class="admonition-title">📐 Formal specification</p>
-<p>Utterance transformers are the <strong><code>utterance</code> chain</strong> of <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a> §3.2</strong> (a formal <a href="../architecture-specs/">architecture spec</a>). The spec's post-STT, pre-intent injection point receives the <strong>non-empty list of candidate transcriptions</strong> (<code>utterances[0]</code> is the primary candidate, later indices are n-best alternatives), an optional <code>lang</code>, and the full <code>Message.context</code>; it returns a possibly rewritten list plus mutated <code>lang</code>/context. Returning an empty list signals "no plausible transcription"; returning empty <strong>with</strong> <code>canceled: true</code> + <code>cancel_reason</code> invokes utterance cancellation (§3.2, §8). <strong>Ordering:</strong> the spec runs the chain by <strong>ascending</strong> <code>priority</code> (lowest first); the current code runs it descending — the spec order is canonical.</p>
+<p>Utterance transformers are the <strong><code>utterance</code> chain</strong> of <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a> §3.2</strong> (a formal <a href="../architecture-specs/">architecture spec</a>). The spec's post-STT, pre-intent injection point receives the <strong>non-empty list of candidate transcriptions</strong> (<code>utterances[0]</code> is the primary candidate, later indices are n-best alternatives), an optional <code>lang</code>, and the full <code>Message.context</code>; it returns a possibly rewritten list plus mutated <code>lang</code>/context. Returning an empty list signals "no plausible transcription"; returning empty <strong>with</strong> <code>canceled: true</code> + <code>cancel_reason</code> invokes utterance cancellation (§3.2, §8). <strong>Ordering:</strong> the chain runs by <strong>ascending</strong> <code>priority</code> (lowest first), matching the spec.</p>
 </div>
 <p><strong>Utterance Transformers</strong> in OpenVoiceOS (OVOS) are plugins that process and modify user utterances immediately after speech-to-text (<a href="../stt-plugins/">STT</a>) conversion but before intent recognition. They serve to enhance the accuracy and flexibility of the assistant by correcting errors, normalizing input, and handling multilingual scenarios.</p>
 <hr />
@@ -1515,7 +1527,7 @@
 <p>Utterance transformers register under the <code>opm.transformer.text</code> entry-point group and subclass <code>UtteranceTransformer</code> from <code>ovos_plugin_manager.templates.transformers</code>. They are loaded and chained by <code>UtteranceTransformersService</code> in <code>ovos-core</code>.</p>
 <hr />
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<p>A transformer is only loaded if its plugin name appears under the <code>utterance_transformers</code> section of your <code>mycroft.conf</code>; an empty <code>{}</code> is enough to enable it. Set <code>"active": false</code> to load-skip it. When several are active they run sorted by <code>priority</code> (highest first), each operating on the output of the previous.</p>
+<p>A transformer is only loaded if its plugin name appears under the <code>utterance_transformers</code> section of your <code>mycroft.conf</code>; an empty <code>{}</code> is enough to enable it. Set <code>"active": false</code> to load-skip it. When several are active they run sorted by <code>priority</code> (lowest first), each operating on the output of the previous.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&quot;utterance_transformers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;plugin_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">// plugin-specific configuration</span>
@@ -1714,9 +1726,31 @@ After installation, add your transformer to the <code>mycroft.conf</code>:</p>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w"> </span><span class="nt">&quot;my-custom-transformer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">}</span>
 </span></code></pre></div>
-<h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<h3 id="ovos-transcription-validator-plugin"><strong>OVOS Transcription Validator Plugin</strong><a class="headerlink" href="#ovos-transcription-validator-plugin" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="https://blog.openvoiceos.org/posts/2025-07-22-ovos-transcription-validator-plugin">Meet the OVOS Transcription Validator Plugin</a> — OVOS blog</li>
+<li><strong>Purpose</strong>: Uses an OpenAI-compatible LLM to judge whether an STT transcription is a
+  plausible utterance at all, filtering out garbled or nonsensical speech-to-text output
+  before it reaches intent matching.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This plugin makes a network call per utterance (to the configured LLM endpoint), so
+it trades latency for robustness against noisy STT.</p>
+</div>
+<ul>
+<li><strong>Installation</strong>:</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-transcription-validator-plugin
+</span></code></pre></div>
+<ul>
+<li><strong>Configuration</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">&quot;utterance_transformers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">&quot;ovos-transcription-validator-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Source</strong>: <a href="https://github.com/OpenVoiceOS/ovos-transcription-validator-plugin">GitHub Repository</a></li>
 </ul>
 
 

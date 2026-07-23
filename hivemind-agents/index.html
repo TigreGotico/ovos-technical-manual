@@ -1340,7 +1340,7 @@
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
 <p>OpenVoiceOS runs <strong>local-first</strong>, but sometimes you want one capable machine to do the
-thinking and a fleet of small devices ("satellites") to do the listening and speaking — or
+thinking and several small devices ("satellites") to do the listening and speaking — or
 you want to reach your assistant securely from off-device. <strong>HiveMind</strong> is the companion
 project that makes that possible: it exposes an OVOS install (or a single persona) over an
 authenticated, encrypted protocol that satellites and clients connect to.</p>
@@ -1451,7 +1451,7 @@ key holding its config.</p>
 <p>HiveMind is <strong>deny-by-default</strong>: a client may only do what it has been explicitly granted.
 <code>hivemind-core</code> exposes admin CLI commands to manage this, including:</p>
 <ul>
-<li><code>add-client</code> / <code>list-clients</code> / <code>revoke</code> — manage who may connect.</li>
+<li><code>add-client</code> / <code>list-clients</code> / <code>delete-client</code> — manage who may connect.</li>
 <li><code>allow-msg</code> / <code>blacklist-msg</code> — whitelist or block specific bus message types per client.</li>
 <li><code>make-admin</code> / <code>revoke-admin</code>, <code>allow-escalate</code> / <code>allow-propagate</code> — elevate or restrict a client.</li>
 <li><code>blacklist-skill</code> / <code>blacklist-intent</code> — stop a client from reaching specific skills/intents.</li>

@@ -1583,11 +1583,22 @@
 <p>Settings provide per-skill persistent key-value storage backed by a JSON file. They allow users to configure and personalize skill behaviour — changing defaults, providing API keys, or adjusting integration preferences.</p>
 <hr />
 <h2 id="storage-location">Storage Location<a class="headerlink" href="#storage-location" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>~/.config/ovos/skills/&lt;skill_id&gt;/settings.json
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$XDG_CONFIG_HOME/&lt;base_folder&gt;/skills/&lt;skill_id&gt;/settings.json
 </span></code></pre></div>
+<p><code>&lt;base_folder&gt;</code> defaults to <code>mycroft</code> for backwards-compatibility, but a
+system-wide <code>ovos.conf</code> (or the <code>OVOS_CONFIG_BASE_FOLDER</code> environment
+variable) can rename it — commonly to <code>OpenVoiceOS</code>. On most Linux
+installs <code>XDG_CONFIG_HOME</code> is <code>~/.config</code>, so the effective default is
+<code>~/.config/mycroft/skills/&lt;skill_id&gt;/settings.json</code>.</p>
 <p>For <code>OVOSAbstractApplication</code>:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>~/.config/ovos/apps/&lt;skill_id&gt;/settings.json
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$XDG_CONFIG_HOME/&lt;base_folder&gt;/apps/&lt;skill_id&gt;/settings.json
 </span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Never hardcode this path in a skill — use <code>self.settings_path</code> (or
+<code>self.file_system</code> for other files) so it always resolves correctly
+regardless of how the running system is configured.</p>
+</div>
 <hr />
 <h2 id="accessing-settings">Accessing Settings<a class="headerlink" href="#accessing-settings" title="Permanent link">&para;</a></h2>
 <p><code>self.settings</code> is a <code>JsonStorage</code> dict-like object. Read and write it like a normal dict:</p>

@@ -1464,7 +1464,7 @@
 <p><strong>What you get in 30 seconds:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_lang_parser</span> <span class="kn">import</span> <span class="n">extract_langcode</span><span class="p">,</span> <span class="n">pronounce_lang</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">extract_langcode</span><span class="p">(</span><span class="s2">&quot;switch to Spanish please&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">)</span>   <span class="c1"># (&quot;es&quot;, 0.95)  -&gt; (code, confidence)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">extract_langcode</span><span class="p">(</span><span class="s2">&quot;switch to Spanish please&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">)</span>   <span class="c1"># (&quot;es&quot;, 1.0)  -&gt; (code, confidence)</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">pronounce_lang</span><span class="p">(</span><span class="s2">&quot;fr&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">)</span>                            <span class="c1"># &quot;French&quot;</span>
 </span></code></pre></div>
 <p>When a user says "switch to French", you need the BCP-47 code <code>"fr"</code>; when speaking a language back to the user you need its localized name. This library covers both directions.</p>
@@ -1500,15 +1500,17 @@
 <ol>
 <li>Uses <code>langcodes.closest_match(lang, LANGS)</code> to tolerate BCP-47 variants (e.g. <code>"en-US"</code> matches <code>"en"</code>). Raises <code>ValueError</code> if distance &gt; 10.</li>
 <li>Opens <code>res/&lt;closest_lang&gt;/langs.json</code>.</li>
-<li>Expands bracket templates (e.g. <code>"[Español|Castellano]"</code> → <code>["Español", "Castellano"]</code>) using <code>ovos_utils.bracket_expansion.expand_template</code>.</li>
+<li>Expands any alternative-name templates (e.g. <code>"(Español|Castellano)"</code> → <code>["Español", "Castellano"]</code>) using <code>ovos_utils.bracket_expansion.expand_template</code>.</li>
 <li>Returns a flat <code>dict</code> of <code>spoken_name → bcp47_code</code> for all known languages in that UI language.</li>
 </ol>
-<p>The <code>langs.json</code> format maps BCP-47 codes to one or more spoken names:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>expand_template</code> is deprecated in favor of <code>ovos_spec_tools.expand</code>, which the current implementation now delegates to internally. The template syntax is <code>(a|b)</code> for alternatives, not square brackets.</p>
+</div>
+<p>The <code>langs.json</code> format maps BCP-47 codes to one or more spoken names, either as a plain string, a JSON list, or a <code>(alt1|alt2)</code> template string. For example, <code>res/de/langs.json</code> (German UI names) lists Catalan as:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;en&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;English&quot;</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;es&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[Spanish|Español|Castellano]&quot;</span><span class="p">,</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;fr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;French&quot;</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;ca&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Katalanisch&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Valencianisch&quot;</span><span class="p">]</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">}</span>
 </span></code></pre></div>
 <hr />
 <h2 id="api-reference">API reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
@@ -1601,7 +1603,7 @@
 <hr />
 <h2 id="language-resource-files">Language resource files<a class="headerlink" href="#language-resource-files" title="Permanent link">&para;</a></h2>
 <p>Resources live in <code>ovos_lang_parser/res/&lt;lang&gt;/langs.json</code>. Each file is written in the UI language indicated by the directory name and lists language names as they would be spoken by a user of that UI language.</p>
-<p>The bracket template syntax <code>"[Name1|Name2]"</code> is expanded to a list of valid spoken forms, allowing for multiple correct names (e.g., both "Spanish" and "Castilian" map to <code>"es"</code> in English).</p>
+<p>A code can list multiple valid spoken forms — as a JSON list, or as a <code>"(Name1|Name2)"</code> alternation string that gets expanded — allowing for synonyms (e.g. German lists both "Katalanisch" and "Valencianisch" for <code>"ca"</code>).</p>
 <hr />
 <h2 id="cross-references">Cross-references<a class="headerlink" href="#cross-references" title="Permanent link">&para;</a></h2>
 <table>

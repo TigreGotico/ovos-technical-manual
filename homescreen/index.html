@@ -1099,16 +1099,7 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#homescreen-bus-messages" class="md-nav__link">
-    <span class="md-ellipsis">
-      Homescreen bus messages
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Homescreen bus messages">
+    <nav class="md-nav" aria-label="Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1340,16 +1331,7 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#homescreen-bus-messages" class="md-nav__link">
-    <span class="md-ellipsis">
-      Homescreen bus messages
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Homescreen bus messages">
+    <nav class="md-nav" aria-label="Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1429,15 +1411,12 @@ replacement lands. Kept for reference and Mark 2 maintenance.</p>
 weather, widgets, and so on. It is an ordinary <strong>skill</strong> that registers a <em>resting screen</em>;
 when the <a href="../gui-service/">GUI</a> namespace stack is empty, the configured homescreen skill is
 asked to display its idle page.</p>
-<p><code>ovos-gui</code> tracks the configured homescreen via its <code>HomescreenManager</code>
-(<code>ovos_gui/homescreen.py</code>) and shows it when nothing else is on screen.</p>
-<div class="admonition note">
-<p class="admonition-title">Where HomescreenManager lives (legacy vs. rework)</p>
-<p>On the current (legacy) stack the <code>HomescreenManager</code> lives in <code>ovos-gui</code>. In the
-<a href="../gui-adapters/">GUI rework</a> it <strong>moves into the legacy Qt adapter</strong>
-(<code>ovos-legacy-mycroft-gui-plugin</code>, <code>ovos_legacy_mycroft_gui/homescreen.py</code>), which takes
-over the homescreen data/widget coordination. The bus contract is the same either way.</p>
-</div>
+<p>On the current (legacy) stack, <code>ovos-gui</code> tracks the configured homescreen via its
+<code>HomescreenManager</code> (<code>ovos_gui/homescreen.py</code>). Today that manager only handles <strong>skill
+selection and lifecycle</strong> — which homescreen skill is active, registering/removing candidate
+homescreens, and asking the active one to display itself (<code>homescreen.manager.*</code> messages). It
+does <strong>not</strong> push clock/weather/widget data over the bus; a homescreen skill fetches or computes
+whatever data it wants to show on its own.</p>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>Select a homescreen skill in <code>mycroft.conf</code> (or via <a href="../ovos-shell/">ovos-shell</a>):</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
@@ -1446,12 +1425,14 @@ over the homescreen data/widget coordination. The bus contract is the same eithe
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
 </span></code></pre></div>
-<h2 id="homescreen-bus-messages">Homescreen bus messages<a class="headerlink" href="#homescreen-bus-messages" title="Permanent link">&para;</a></h2>
-<p>So a display can render a live idle screen without depending on any skill, the
-<code>HomescreenManager</code> coordinates homescreen data and widget state over the bus. It emits
-<code>homescreen.data.*</code> and <code>homescreen.widget.*</code> messages at fixed intervals (or in
-response to other events), and consumes registration/lifecycle events to keep that data
-current. The Qt shell (<a href="../ovos-shell/">ovos-shell</a>) consumes these messages.</p>
+<div class="admonition warning">
+<p class="admonition-title">Upcoming — live homescreen-data bus messages</p>
+<p>The <code>homescreen.data.*</code> / <code>homescreen.widget.*</code> messages below <strong>do not exist on the
+current (legacy) stack</strong>. They are implemented in the <strong>not-yet-released</strong>
+<code>ovos-legacy-mycroft-gui-plugin</code> (<code>ovos_legacy_mycroft_gui/homescreen.py</code>), the
+<a href="../gui-adapters/">GUI-adapter</a> that takes over homescreen data/widget coordination in the
+rework — so a display can render a live idle screen without depending on a skill polling
+its own data. They are documented here as a preview of that plugin's contract.</p>
 <h3 id="homescreendata"><code>homescreen.data.*</code><a class="headerlink" href="#homescreendata" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1485,7 +1466,7 @@ current. The Qt shell (<a href="../ovos-shell/">ovos-shell</a>) consumes these m
 <tr>
 <td><code>homescreen.data.apps</code></td>
 <td>when a skill registers/unregisters an app</td>
-<td><code>applications_model</code> (list of <code>{name, thumbnail, action}</code>)</td>
+<td><code>applications_model</code></td>
 </tr>
 <tr>
 <td><code>homescreen.data.examples</code></td>
@@ -1549,6 +1530,7 @@ current. The Qt shell (<a href="../ovos-shell/">ovos-shell</a>) consumes these m
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="resting-faces">Resting Faces<a class="headerlink" href="#resting-faces" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Upcoming — the skill-side resting-screen API is being removed</p>
@@ -1557,7 +1539,8 @@ concern</strong> — applications must not register a home or resting screen. Th
 below (<code>@resting_screen_handler</code>, <code>homescreen_app</code>, and the <code>IdleDisplaySkill</code> base class)
 is therefore being <strong>removed</strong> from <code>ovos-workshop</code> (a planned breaking change). The resting
 display moves into the <a href="../gui-adapters/">GUI plugin / render backend</a>. This still works on
-current releases; it is documented here for existing skills.</p>
+current releases; it is documented here for existing skills. Tracked in
+<a href="https://github.com/OpenVoiceOS/ovos-workshop/pull/421">ovos-workshop#421</a>.</p>
 </div>
 <p>The resting face API provides skill authors the ability to extend their skills to supply their own customized IDLE screens that will be displayed when there is no activity on the screen.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>import requests

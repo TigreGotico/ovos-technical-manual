@@ -1676,10 +1676,15 @@ precise parser would have nailed. The usual setup is to place
 confidence) so exact matches win first and Model2Vec catches the paraphrases the
 others miss. Tune <code>conf_high</code>/<code>conf_medium</code>/<code>conf_low</code> to control how aggressive it
 is.</p>
-<div class="admonition warning">
-<p class="admonition-title">Upcoming — unreleased</p>
-<p>A hierarchical two-stage prototype variant (domain-then-intent) is in development
-and not yet released.</p>
+<div class="admonition note">
+<p class="admonition-title">Hierarchical and domain variants</p>
+<p>Besides the flat classifier and prototype plugins above, the same package also
+ships <code>ovos-m2v-hierarchical-prototype-pipeline</code>
+(<code>Model2VecHierarchicalPrototypePipeline</code>), <code>ovos-m2v-hierarchical-intent-pipeline</code>
+(<code>Model2VecHierarchicalIntentPipeline</code>), and <code>ovos-m2v-domain-intent-pipeline</code>
+(<code>Model2VecDomainIntentPipeline</code>) entry points. These run a two-stage match
+(domain/skill first, then intent within it) to cut down on cross-skill
+collisions when many skills are loaded; none are enabled by default.</p>
 </div>
 
 

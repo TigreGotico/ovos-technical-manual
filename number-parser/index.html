@@ -1580,35 +1580,35 @@
 <td>✅</td>
 <td>🚧</td>
 <td>✅</td>
-<td>✅</td>
+<td>🚧</td>
 </tr>
 <tr>
 <td><code>az</code> (Azerbaijani)</td>
 <td>✅</td>
 <td>🚧</td>
 <td>✅</td>
-<td>✅</td>
+<td>🚧</td>
 </tr>
 <tr>
 <td><code>ca</code> (Catalan)</td>
 <td>✅</td>
-<td>🚧</td>
+<td>✅</td>
 <td>✅</td>
 <td>🚧</td>
 </tr>
 <tr>
 <td><code>gl</code> (Galician)</td>
 <td>✅</td>
-<td>❌</td>
 <td>✅</td>
-<td>🚧</td>
+<td>✅</td>
+<td>✅</td>
 </tr>
 <tr>
 <td><code>cs</code> (Czech)</td>
 <td>✅</td>
+<td>✅</td>
+<td>✅</td>
 <td>🚧</td>
-<td>✅</td>
-<td>✅</td>
 </tr>
 <tr>
 <td><code>da</code> (Danish)</td>
@@ -1634,37 +1634,37 @@
 <tr>
 <td><code>eu</code> (Euskara / Basque)</td>
 <td>✅</td>
-<td>❌</td>
 <td>✅</td>
-<td>❌</td>
+<td>✅</td>
+<td>🚧</td>
 </tr>
 <tr>
 <td><code>fa</code> (Farsi / Persian)</td>
 <td>✅</td>
-<td>🚧</td>
 <td>✅</td>
-<td>❌</td>
+<td>✅</td>
+<td>🚧</td>
 </tr>
 <tr>
 <td><code>fr</code> (French)</td>
 <td>✅</td>
 <td>🚧</td>
 <td>✅</td>
-<td>❌</td>
+<td>🚧</td>
 </tr>
 <tr>
 <td><code>hu</code> (Hungarian)</td>
 <td>✅</td>
 <td>✅</td>
-<td>❌</td>
-<td>❌</td>
+<td>✅</td>
+<td>🚧</td>
 </tr>
 <tr>
 <td><code>it</code> (Italian)</td>
 <td>✅</td>
 <td>🚧</td>
 <td>✅</td>
-<td>❌</td>
+<td>🚧</td>
 </tr>
 <tr>
 <td><code>mwl</code> (Mirandese)</td>
@@ -1678,21 +1678,21 @@
 <td>✅</td>
 <td>✅</td>
 <td>✅</td>
-<td>✅</td>
+<td>🚧</td>
 </tr>
 <tr>
 <td><code>pl</code> (Polish)</td>
 <td>✅</td>
+<td>✅</td>
+<td>✅</td>
 <td>🚧</td>
-<td>✅</td>
-<td>✅</td>
 </tr>
 <tr>
 <td><code>pt</code> (Portuguese)</td>
 <td>✅</td>
 <td>✅</td>
 <td>✅</td>
-<td>🚧</td>
+<td>✅</td>
 </tr>
 <tr>
 <td><code>ru</code> (Russian)</td>
@@ -1706,19 +1706,19 @@
 <td>✅</td>
 <td>✅</td>
 <td>✅</td>
-<td>❌</td>
+<td>🚧</td>
 </tr>
 <tr>
 <td><code>sl</code> (Slovenian)</td>
 <td>✅</td>
+<td>✅</td>
+<td>✅</td>
 <td>🚧</td>
-<td>❌</td>
-<td>❌</td>
 </tr>
 <tr>
 <td><code>uk</code> (Ukrainian)</td>
 <td>✅</td>
-<td>🚧</td>
+<td>✅</td>
 <td>✅</td>
 <td>✅</td>
 </tr>
@@ -1726,8 +1726,11 @@
 </table>
 <blockquote>
 <p>💡 If a language is not implemented for <code>pronounce_number</code> or <code>pronounce_ordinal</code> then <a href="https://github.com/rhasspy/unicode-rbnf">unicode-rbnf</a> will be used as a fallback.</p>
-<p>🚧 <strong>Upcoming:</strong> Asturian (<code>ast</code>) support and a shared <code>RomanceNumberExtractor</code> base class are planned for a future release.</p>
 </blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Several Romance languages (<code>ast</code>, <code>an</code>, <code>oc</code>, <code>fr</code>, <code>it</code>, <code>ca</code>, <code>es</code>, <code>gl</code>, <code>pt</code>, <code>mwl</code>, <code>ro</code>) share a common <code>RomanceNumberExtractor</code>/<code>NumberVocabulary</code> engine internally, so their extraction logic stays consistent across languages that inflect numbers similarly.</p>
+</div>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>To install OVOS Number Parser, use:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-number-parser
@@ -1735,32 +1738,34 @@
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <h3 id="pronounce-a-number">Pronounce a Number<a class="headerlink" href="#pronounce-a-number" title="Permanent link">&para;</a></h3>
 <p>Convert a number to its spoken equivalent.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span> <span class="nf">pronounce_number</span><span class="p">(</span><span class="n">number</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">places</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">short_scale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span> <span class="nf">pronounce_number</span><span class="p">(</span><span class="n">number</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">places</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">short_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>                     <span class="n">scientific</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ordinals</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                     <span class="n">digits</span><span class="p">:</span> <span class="n">DigitPronunciation</span> <span class="o">=</span> <span class="n">DigitPronunciation</span><span class="o">.</span><span class="n">FULL_NUMBER</span><span class="p">,</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                     <span class="n">gender</span><span class="p">:</span> <span class="n">GrammaticalGender</span> <span class="o">=</span> <span class="n">GrammaticalGender</span><span class="o">.</span><span class="n">MASCULINE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="sd">    Convert a number to its spoken equivalent.</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="sd">    Args:</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="sd">        number: The number to pronounce.</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="sd">        lang (str): A BCP-47 language code.</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="sd">        places (int): Number of decimal places to express. Default is 3.</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="sd">        short_scale (bool): Use short (True) or long scale (False) for large numbers.</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="sd">        scientific (bool): Pronounce in scientific notation if True.</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="sd">        ordinals (bool): Pronounce as an ordinal if True.</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="sd">        digits (DigitPronunciation): Digit-reading style (e.g. read digit-by-digit). Honored by pt/mwl.</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="sd">        gender (GrammaticalGender): Grammatical gender for languages that inflect numbers. Honored by pt/mwl.</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="sd">    Returns:</span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="sd">        str: The pronounced number.</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="sd">    Raises:</span>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="sd">        NotImplementedError: if the language has neither an implementation nor a unicode-rbnf fallback.</span>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                     <span class="n">digits</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DigitPronunciation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                     <span class="n">gender</span><span class="p">:</span> <span class="n">GrammaticalGender</span> <span class="o">=</span> <span class="n">GrammaticalGender</span><span class="o">.</span><span class="n">MASCULINE</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                     <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Scale</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="sd">    Convert a number to its spoken equivalent.</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="sd">    Args:</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="sd">        number: The number to pronounce.</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="sd">        lang (str): A BCP-47 language code.</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="sd">        places (int): Number of decimal places to express. Default is 3.</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="sd">        short_scale (bool): Use short (True) or long scale (False) for large numbers. Defaults to `True` when left `None`.</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="sd">        scientific (bool): Pronounce in scientific notation if True.</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="sd">        ordinals (bool): Pronounce as an ordinal if True.</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="sd">        digits (DigitPronunciation): Digit-reading style (e.g. read digit-by-digit). Honored by pt/mwl.</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="sd">        gender (GrammaticalGender): Grammatical gender for languages that inflect numbers. Honored by pt/mwl.</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="sd">        scale (Scale): Alternate way to select short/long scale. Honored by pt/mwl.</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="sd">    Returns:</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="sd">        str: The pronounced number.</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="sd">    Raises:</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="sd">        NotImplementedError: if the language has neither an implementation nor a unicode-rbnf fallback.</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="sd">    &quot;&quot;&quot;</span>
 </span></code></pre></div>
 <blockquote>
-<p>Most language backends only consume <code>number</code>, <code>places</code>, <code>short_scale</code>, <code>scientific</code>, and <code>ordinals</code>. The <code>digits</code> and <code>gender</code> arguments (and <code>DigitPronunciation</code>/<code>GrammaticalGender</code>, importable from <code>ovos_number_parser.util</code>) currently only affect Portuguese (<code>pt</code>) and Mirandese (<code>mwl</code>).</p>
+<p>Most language backends only consume <code>number</code>, <code>places</code>, <code>short_scale</code>, <code>scientific</code>, and <code>ordinals</code>. The <code>digits</code>, <code>gender</code>, and <code>scale</code> arguments (and <code>DigitPronunciation</code>/<code>GrammaticalGender</code>/<code>Scale</code>, importable from <code>ovos_number_parser.util</code>) currently only affect Portuguese (<code>pt</code>) and Mirandese (<code>mwl</code>).</p>
 </blockquote>
 <p><strong>Example Usage:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_number_parser</span> <span class="kn">import</span> <span class="n">pronounce_number</span>
@@ -1771,25 +1776,26 @@
 </span></code></pre></div>
 <h3 id="pronounce-an-ordinal">Pronounce an Ordinal<a class="headerlink" href="#pronounce-an-ordinal" title="Permanent link">&para;</a></h3>
 <p>Convert a number to its ordinal spoken equivalent.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span> <span class="nf">pronounce_ordinal</span><span class="p">(</span><span class="n">number</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">short_scale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>                      <span class="n">gender</span><span class="p">:</span> <span class="n">GrammaticalGender</span> <span class="o">=</span> <span class="n">GrammaticalGender</span><span class="o">.</span><span class="n">MASCULINE</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="sd">    Convert an ordinal number to its spoken equivalent.</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="sd">    Args:</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="sd">        number: The number to pronounce.</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="sd">        lang (str): A BCP-47 language code.</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="sd">        short_scale (bool): Use short (True) or long scale (False) for large numbers.</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="sd">        gender (GrammaticalGender): Grammatical gender (honored by pt/mwl).</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="sd">    Returns:</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="sd">        str: The pronounced ordinal number.</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="sd">    Raises:</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="sd">        NotImplementedError: if the language has neither an implementation nor a unicode-rbnf fallback.</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="sd">    &quot;&quot;&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span> <span class="nf">pronounce_ordinal</span><span class="p">(</span><span class="n">number</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">short_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>                      <span class="n">gender</span><span class="p">:</span> <span class="n">GrammaticalGender</span> <span class="o">=</span> <span class="n">GrammaticalGender</span><span class="o">.</span><span class="n">MASCULINE</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>                      <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Scale</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="sd">    Convert an ordinal number to its spoken equivalent.</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="sd">    Args:</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="sd">        number: The number to pronounce.</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="sd">        lang (str): A BCP-47 language code.</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="sd">        short_scale (bool): Use short (True) or long scale (False) for large numbers.</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="sd">        gender (GrammaticalGender): Grammatical gender (honored by pt/mwl).</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="sd">    Returns:</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="sd">        str: The pronounced ordinal number.</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="sd">    Raises:</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="sd">        NotImplementedError: if the language has neither an implementation nor a unicode-rbnf fallback.</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="sd">    &quot;&quot;&quot;</span>
 </span></code></pre></div>
-<p>Hand-written ordinal pronunciation exists for <code>da</code>, <code>de</code>, <code>hu</code>, <code>nl</code>, <code>sv</code>, <code>pt</code>, and <code>mwl</code>; all other languages route through the unicode-rbnf fallback.</p>
+<p>Hand-written ordinal pronunciation exists for most languages in the support table above; a handful (<code>en</code>, <code>az</code>, <code>es</code>, <code>fr</code>, <code>it</code>, among others) route through the unicode-rbnf fallback instead.</p>
 <p><strong>Example Usage:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">ovos_number_parser</span> <span class="kn">import</span> <span class="n">pronounce_ordinal</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
@@ -1799,19 +1805,20 @@
 </span></code></pre></div>
 <h3 id="extract-a-number">Extract a Number<a class="headerlink" href="#extract-a-number" title="Permanent link">&para;</a></h3>
 <p>Extract a number from a given text string.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span> <span class="nf">extract_number</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">short_scale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ordinals</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="sd">    Extract a number from text.</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="sd">    Args:</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="sd">        text (str): The string to extract a number from.</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="sd">        lang (str): A BCP-47 language code.</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="sd">        short_scale (bool): Use short scale if True, long scale if False.</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="sd">        ordinals (bool): Consider ordinal numbers.</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="sd">    Returns:</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="sd">        int, float, or False: The extracted number, or False if no number found.</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="sd">    &quot;&quot;&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span> <span class="nf">extract_number</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">short_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ordinals</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>                    <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Scale</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="sd">    Extract a number from text.</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="sd">    Args:</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="sd">        text (str): The string to extract a number from.</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="sd">        lang (str): A BCP-47 language code.</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="sd">        short_scale (bool): Use short scale if True, long scale if False.</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="sd">        ordinals (bool): Consider ordinal numbers.</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="sd">    Returns:</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="sd">        int, float, or False: The extracted number, or False if no number found.</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="sd">    &quot;&quot;&quot;</span>
 </span></code></pre></div>
 <p><strong>Example Usage:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">ovos_number_parser</span> <span class="kn">import</span> <span class="n">extract_number</span>
@@ -1822,18 +1829,19 @@
 </span></code></pre></div>
 <h3 id="check-for-fractional-numbers">Check for Fractional Numbers<a class="headerlink" href="#check-for-fractional-numbers" title="Permanent link">&para;</a></h3>
 <p>Identify if the text contains a fractional number.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span> <span class="nf">is_fractional</span><span class="p">(</span><span class="n">input_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">short_scale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="sd">    Check if the text is a fraction.</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="sd">    Args:</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="sd">        input_str (str): The string to check if fractional.</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="sd">        lang (str): A BCP-47 language code.</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="sd">        short_scale (bool): Use short scale if True, long scale if False.</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="sd">    Returns:</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="sd">        bool or float: False if not a fraction, otherwise the fraction as a float.</span>
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="sd">    &quot;&quot;&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span> <span class="nf">is_fractional</span><span class="p">(</span><span class="n">input_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">short_scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>                   <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Scale</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="sd">    Check if the text is a fraction.</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="sd">    Args:</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="sd">        input_str (str): The string to check if fractional.</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="sd">        lang (str): A BCP-47 language code.</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="sd">        short_scale (bool): Use short scale if True, long scale if False.</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="sd">    Returns:</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="sd">        bool or float: False if not a fraction, otherwise the fraction as a float.</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="sd">    &quot;&quot;&quot;</span>
 </span></code></pre></div>
 <p><strong>Example Usage:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span> <span class="nn">ovos_number_parser</span> <span class="kn">import</span> <span class="n">is_fractional</span>
@@ -1864,7 +1872,7 @@
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># 3</span>
 </span></code></pre></div>
 <blockquote>
-<p><code>is_ordinal</code> is only implemented for <code>en</code>, <code>de</code>, <code>da</code>, <code>pt</code>, and <code>mwl</code>; other languages raise <code>NotImplementedError</code>.</p>
+<p><code>is_ordinal</code> has hand-written detection for most languages in the support table above and a generic fallback for the rest, so it rarely raises <code>NotImplementedError</code> in practice.</p>
 </blockquote>
 <h3 id="words-to-digits">Words to Digits<a class="headerlink" href="#words-to-digits" title="Permanent link">&para;</a></h3>
 <p>Rewrite spelled-out numbers inside a sentence as digits, leaving the rest of the text intact.</p>
@@ -1873,16 +1881,16 @@
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">numbers_to_digits</span><span class="p">(</span><span class="s2">&quot;set a timer for twenty five minutes&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">)</span>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># &quot;set a timer for 25 minutes&quot;</span>
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">def</span> <span class="nf">numbers_to_digits</span><span class="p">(</span><span class="n">utterance</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">Scale</span> <span class="o">=</span> <span class="n">Scale</span><span class="o">.</span><span class="n">LONG</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">def</span> <span class="nf">numbers_to_digits</span><span class="p">(</span><span class="n">utterance</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Scale</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
 </span></code></pre></div>
-<p><code>scale</code> (<code>Scale.LONG</code> / <code>Scale.SHORT</code>, from <code>ovos_number_parser.util</code>) only matters for <code>pt</code>/<code>mwl</code>. Supported languages: <code>az</code>, <code>ca</code>, <code>gl</code>, <code>cs</code>, <code>da</code>, <code>de</code>, <code>en</code>, <code>es</code>, <code>nl</code>, <code>pl</code>, <code>pt</code>, <code>mwl</code>, <code>ru</code>, <code>uk</code>. Unsupported languages raise <code>NotImplementedError</code>.</p>
+<p><code>scale</code> (<code>Scale.LONG</code> / <code>Scale.SHORT</code>, from <code>ovos_number_parser.util</code>) only matters for <code>pt</code>/<code>mwl</code>. Hand-written rewriting exists for <code>gl</code>, <code>de</code>, <code>pt</code>, <code>mwl</code>, <code>ru</code>, and <code>uk</code> (marked ✅ in the table above); every other language that <code>extract_number</code> supports gets a generic word-span replacement instead (marked 🚧) — it works but is less precise about compound numerals than a hand-written implementation. A language <code>extract_number</code> does not support at all is left unchanged rather than raising.</p>
 <h3 id="pronounce-a-fraction">Pronounce a Fraction<a class="headerlink" href="#pronounce-a-fraction" title="Permanent link">&para;</a></h3>
 <p>Speak a fraction string such as <code>"3/2"</code>. Only Portuguese (<code>pt</code>) and Mirandese (<code>mwl</code>) are implemented; any other language raises <code>NotImplementedError</code>.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span> <span class="nn">ovos_number_parser</span> <span class="kn">import</span> <span class="n">pronounce_fraction</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">pronounce_fraction</span><span class="p">(</span><span class="s2">&quot;3/2&quot;</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">)</span>   <span class="c1"># &quot;três meios&quot;</span>
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">def</span> <span class="nf">pronounce_fraction</span><span class="p">(</span><span class="n">fraction_word</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">Scale</span> <span class="o">=</span> <span class="n">Scale</span><span class="o">.</span><span class="n">LONG</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">def</span> <span class="nf">pronounce_fraction</span><span class="p">(</span><span class="n">fraction_word</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Scale</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
 </span></code></pre></div>
 <h2 id="related-projects">Related Projects<a class="headerlink" href="#related-projects" title="Permanent link">&para;</a></h2>
 <ul>

@@ -1867,16 +1867,16 @@ activating it — call <code>self.intent_layers.activate_layer("my_layer")</code
 </tr>
 </tbody>
 </table>
-<p>Configure in <code>mycroft.conf</code>:</p>
+<p>Configure in <code>mycroft.conf</code>. <code>WHITELIST</code>/<code>BLACKLIST</code> here reuse the same
+<code>converse_whitelist</code>/<code>converse_blacklist</code> lists shown above — there is no separate
+activation-specific list:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;skills&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="nt">&quot;converse&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">      </span><span class="nt">&quot;converse_activation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accept_all&quot;</span><span class="p">,</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">      </span><span class="nt">&quot;converse_activation_whitelist&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">      </span><span class="nt">&quot;converse_activation_blacklist&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="p">}</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">      </span><span class="nt">&quot;converse_activation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;accept_all&quot;</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="fallbackmode">FallbackMode<a class="headerlink" href="#fallbackmode" title="Permanent link">&para;</a></h3>
 <p>Controls which skills may register as fallback handlers.</p>
@@ -1924,6 +1924,13 @@ activating it — call <code>self.intent_layers.activate_layer("my_layer")</code
 </span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="c1"># Remove from the blacklist</span>
 </span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">whitelist_skill</span><span class="p">(</span><span class="s2">&quot;my-unwanted-skill-id&quot;</span><span class="p">)</span>
 </span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These functions manage a separate, broader kill-switch: <code>skills.blacklisted_skills</code> in
+<code>mycroft.conf</code>. A skill listed there is prevented from loading at all — it is unrelated
+to the <code>converse_blacklist</code>/<code>fallback_blacklist</code> keys above, which only restrict
+participation in converse/fallback while the skill still loads normally.</p>
+</div>
 <p>These functions directly modify <code>mycroft.conf</code> and take effect on the next skill manager reload.</p>
 <hr />
 <h2 id="related-pages">Related Pages<a class="headerlink" href="#related-pages" title="Permanent link">&para;</a></h2>

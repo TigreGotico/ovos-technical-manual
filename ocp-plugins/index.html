@@ -1020,6 +1020,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ovos-media-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-media-classifier
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1381,6 +1390,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ovos-media-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-media-classifier
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1414,7 +1432,7 @@
 <tbody>
 <tr>
 <td><a href="#ovos-ocp-files-plugin">ovos-ocp-files-plugin</a></td>
-<td>Please see the original repo</td>
+<td>Lets OCP play local files (<code>file://</code> URIs) and reads their audio tags/metadata so the player can show a title and artist</td>
 </tr>
 <tr>
 <td><a href="#ovos-ocp-news-plugin">ovos-ocp-news-plugin</a></td>
@@ -1436,6 +1454,10 @@
 <td><a href="#ovos-ocp-m3u-plugin">ovos-ocp-m3u-plugin</a></td>
 <td>allows OCP to play .pls and .m3u urls as playlists</td>
 </tr>
+<tr>
+<td><a href="#ovos-media-classifier">ovos-media-classifier</a></td>
+<td>⚠️ experimental — pluggable media-intent classifier that routes a request to the right <code>MediaProvider</code>s</td>
+</tr>
 </tbody>
 </table>
 <h2 id="ovos-ocp-files-plugin">ovos-ocp-files-plugin<a class="headerlink" href="#ovos-ocp-files-plugin" title="Permanent link">&para;</a></h2>
@@ -1444,7 +1466,9 @@
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-ocp-files-plugin">https://github.com/OpenVoiceOS/ovos-ocp-files-plugin</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: Please see the original repo</p>
+<p><strong>Description</strong>: A stream extractor that lets OCP play local files (<code>file://</code> URIs, or plain
+  paths on disk) and reads their embedded audio tags (title, artist, album) so the player can
+  display them. It bundles a fork of the <code>audio-metadata</code> tag-reading library.</p>
 </li>
 </ul>
 <hr />
@@ -1495,6 +1519,22 @@
 </li>
 <li>
 <p><strong>Description</strong>: allows OCP to play .pls and .m3u urls as playlists</p>
+</li>
+</ul>
+<hr />
+<h2 id="ovos-media-classifier">ovos-media-classifier<a class="headerlink" href="#ovos-media-classifier" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-media-classifier">https://github.com/OpenVoiceOS/ovos-media-classifier</a></p>
+</li>
+<li>
+<p><strong>Description</strong>: ⚠️ <strong>Experimental — work in progress, not yet deployed in OpenVoiceOS.</strong>
+  A self-describing, pluggable media-intent classifier: given a spoken request, it decides
+  whether it is a media request at all and, if so, classifies it along several axes at once
+  (media type, playback modality, structure, explicitness, tags, qualifiers) so OCP can route
+  it to the right <code>MediaProvider</code>s and apply content policy. It is a router, not a
+  resolver — it does not turn a title into a playable stream, the OCP stream-extractor
+  plugins on this page do that.</p>
 </li>
 </ul>
 <hr />

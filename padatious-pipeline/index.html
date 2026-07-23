@@ -1585,13 +1585,15 @@
 <hr />
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>Configure Padatious thresholds in your <code>mycroft.conf</code> under <code>intents</code> → <code>padatious</code>. The defaults are:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;padatious&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;conf_high&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.95</span><span class="p">,</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">&quot;conf_med&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">&quot;conf_low&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;padatious&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="nt">&quot;conf_high&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.95</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">&quot;conf_med&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">      </span><span class="nt">&quot;conf_low&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>These thresholds gate which matcher stage accepts a given result.</p>
 <p>Other useful config keys read by the plugin:</p>
@@ -1623,6 +1625,16 @@
 <td><code>intent_cache</code></td>
 <td>XDG data dir</td>
 <td>Where trained intent models are cached</td>
+</tr>
+<tr>
+<td><code>domain_engine</code></td>
+<td><code>false</code></td>
+<td>Train a separate model per skill domain instead of one flat model</td>
+</tr>
+<tr>
+<td><code>instant_train</code></td>
+<td><code>false</code></td>
+<td>Retrain synchronously on every registration instead of batching</td>
 </tr>
 </tbody>
 </table>
@@ -1686,10 +1698,7 @@
 <p><code>PadatiousPipeline</code> subclasses <code>ConfidenceMatcherPipeline</code>, exposing <code>match_high</code>, <code>match_medium</code>, and <code>match_low</code>. The <code>_high</code>/<code>_medium</code>/<code>_low</code> pipeline IDs are derived from that single plugin at runtime by the plugin manager — they are not separate entry points.</p>
 <p><strong>Files.</strong> Skills register <code>.intent</code> files (example sentences) and <code>.entity</code> files (entity value lists). Registration happens over the bus via <code>padatious:register_intent</code> and <code>padatious:register_entity</code>; training is triggered by <code>mycroft.skills.train</code> and announced with <code>mycroft.skills.trained</code>.</p>
 <p><strong>Gotcha — training is asynchronous.</strong> Padatious must train its model before it can match. On a cold start (or after installing a skill), matches will silently fail until training completes. Set <code>instant_train</code> to force synchronous training when you need deterministic behavior in tests.</p>
-<div class="admonition warning">
-<p class="admonition-title">Upcoming — unreleased</p>
-<p>A second entry point, <code>DomainPadatiousPipeline</code>, which trains a separate model per skill domain to reduce cross-skill collisions, is planned and not yet released.</p>
-</div>
+<p><strong>Per-domain training.</strong> Setting <code>domain_engine: true</code> in the plugin's config trains a separate model per skill domain (using the same <code>ovos-padatious-pipeline-plugin</code> entry point) instead of one flat model across all skills, reducing cross-skill collisions at the cost of extra memory.</p>
 
 
 

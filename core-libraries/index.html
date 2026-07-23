@@ -1045,6 +1045,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#kw-template-matcher" class="md-nav__link">
+    <span class="md-ellipsis">
+      kw-template-matcher
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1270,6 +1279,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#kw-template-matcher" class="md-nav__link">
+    <span class="md-ellipsis">
+      kw-template-matcher
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1349,6 +1367,15 @@ helpers, and skill lifecycle. Covered in the manual under <a href="../workshop-o
 <a href="../config/">Configuration</a>.</p>
 <ul>
 <li>Source: <a href="https://github.com/OpenVoiceOS/ovos-config">OpenVoiceOS/ovos-config</a></li>
+</ul>
+<h2 id="kw-template-matcher"><code>kw-template-matcher</code><a class="headerlink" href="#kw-template-matcher" title="Permanent link">&para;</a></h2>
+<p>A standalone template-expansion and fuzzy-matching utility for prototyping NLU grammars:
+expands templates with optional phrases (<code>[optional]</code>), alternatives (<code>(choice1|choice2)</code>), and
+slots (<code>{slot_name}</code>), then fuzzy-matches free text against the expansions (via <code>rapidfuzz</code> /
+<code>simplematch</code>) with slot extraction. It is not wired into an OPM entry point — use it as a
+library when hand-authoring or prototyping matching rules.</p>
+<ul>
+<li>Source: <a href="https://github.com/OpenVoiceOS/kw-template-matcher">OpenVoiceOS/kw-template-matcher</a></li>
 </ul>
 <hr />
 <p>For the full list of OVOS repositories — plugins, skills, tools, and more — see the

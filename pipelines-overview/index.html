@@ -1374,7 +1374,16 @@
 <p><strong>Pipeline IDs vs. plugins.</strong> The IDs you list in your <code>pipeline</code> config (like <code>ovos-adapt-pipeline-plugin-high</code>) are not separate plugins. A confidence-aware plugin registers a single OPM entry point (e.g. <code>ovos-adapt-pipeline-plugin</code>), and OVOS derives the <code>-high</code>/<code>-medium</code>/<code>-low</code> matcher stages from it at runtime. Plugins that match at only one confidence level (such as <code>ovos-converse-pipeline-plugin</code> or <code>ovos-common-query-pipeline-plugin</code>) expose a single bare ID. The older short names (<code>adapt_high</code>, <code>common_qa</code>, …) are <strong>deprecated aliases</strong>: ovos-core rewrites them to the canonical plugin IDs via the <code>_PIPELINE_MIGRATION_MAP</code>, so existing configs keep working, but new configs should use the canonical names shown below.</p>
 <hr />
 <h2 id="available-pipeline-components">Available Pipeline Components<a class="headerlink" href="#available-pipeline-components" title="Permanent link">&para;</a></h2>
-<p>Below is a list of available pipeline components, categorized by their confidence levels and functionalities. The <strong>Pipeline ID</strong> column shows the canonical name you put in your <code>pipeline</code> config; these are the names the default config ships with. The <strong>Legacy alias</strong> column shows the older short name that still works (ovos-core rewrites it to the canonical ID at load time) but should not be used in new configs.</p>
+<p>Below is a list of available pipeline components, categorized by their confidence levels and functionalities. The <strong>Pipeline ID</strong> column shows the canonical name to put in your <code>pipeline</code> config going forward. The <strong>Legacy alias</strong> column shows the older short name — this is actually what the bundled default config still ships with (ovos-core rewrites it to the canonical ID at load time), but new configs should use the canonical names.</p>
+<div class="admonition note">
+<p class="admonition-title">The bundled default pipeline</p>
+<p>The default <code>pipeline</code> list shipped in <code>mycroft.conf</code> currently uses the legacy short names:
+<code>stop_high</code>, <code>converse</code>, <code>ocp_high</code>, <code>padatious_high</code>, <code>adapt_high</code>, <code>ocp_medium</code>,
+<code>fallback_high</code>, <code>stop_medium</code>, <code>adapt_medium</code>, <code>adapt_low</code>, <code>common_qa</code>, <code>fallback_medium</code>,
+<code>fallback_low</code> — in that order. Note that Padatious/Adapt's medium and low tiers, Model2Vec,
+Persona, and the <code>-low</code> tiers of stop/padatious are <strong>not</strong> in the default list; you add them
+yourself if you want them.</p>
+</div>
 <h3 id="high-confidence-components">High Confidence Components<a class="headerlink" href="#high-confidence-components" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1550,6 +1559,10 @@ pipeline. They expose the same high/medium/low confidence tiers as Adapt/Padatio
 <td>Embedding-based two-stage k-NN matcher (Granite embeddings + FAISS); a heavier semantic alternative to <a href="../m2v-pipeline/">Model2Vec</a> (~560 MB footprint, AVX2, 11 languages).</td>
 </tr>
 <tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-markov-pipeline-plugin"><code>ovos-markov-pipeline-plugin</code></a></td>
+<td>Markov-chain perplexity ensemble: trains one word-level Markov chain per intent from example utterances and picks the intent whose model has the lowest perplexity for the utterance. Lightweight, GPU-free, and trains in milliseconds — a practical baseline for small skill sets.</td>
+</tr>
+<tr>
 <td><a href="../hivemind-agents/#as-an-intent-pipeline-stage"><code>ovos-hivemind-pipeline-plugin</code></a></td>
 <td>Delegates the utterance to a remote <a href="../hivemind-agents/">HiveMind</a> agent — a catch-all "ask a smarter OVOS" stage.</td>
 </tr>
@@ -1558,31 +1571,33 @@ pipeline. They expose the same high/medium/low confidence tiers as Adapt/Padatio
 <hr />
 <h2 id="customizing-the-pipeline">Customizing the Pipeline<a class="headerlink" href="#customizing-the-pipeline" title="Permanent link">&para;</a></h2>
 <p>OVOS allows users to customize the intent pipeline through configuration files. Users can enable or disable specific components, adjust their order, and set confidence thresholds.</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">  </span><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nt">&quot;ovos-adapt-pipeline-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">      </span><span class="nt">&quot;conf_high&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">      </span><span class="nt">&quot;conf_med&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">      </span><span class="nt">&quot;conf_low&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="p">},</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">&quot;persona&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">      </span><span class="nt">&quot;handle_fallback&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">      </span><span class="nt">&quot;default_persona&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Remote Llama&quot;</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="p">},</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">&quot;pipeline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">      </span><span class="s2">&quot;ovos-stop-pipeline-plugin-high&quot;</span><span class="p">,</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">      </span><span class="s2">&quot;ovos-converse-pipeline-plugin&quot;</span><span class="p">,</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">      </span><span class="s2">&quot;ovos-ocp-pipeline-plugin-high&quot;</span><span class="p">,</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">      </span><span class="s2">&quot;ovos-padatious-pipeline-plugin-high&quot;</span><span class="p">,</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">      </span><span class="s2">&quot;ovos-adapt-pipeline-plugin-high&quot;</span><span class="p">,</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">      </span><span class="s2">&quot;ovos-m2v-pipeline-high&quot;</span><span class="p">,</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">      </span><span class="s2">&quot;ovos-ocp-pipeline-plugin-medium&quot;</span><span class="p">,</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">      </span><span class="s2">&quot;ovos-fallback-pipeline-plugin-high&quot;</span><span class="p">,</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">      </span><span class="s2">&quot;ovos-stop-pipeline-plugin-medium&quot;</span><span class="p">,</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">      </span><span class="s2">&quot;ovos-adapt-pipeline-plugin-medium&quot;</span><span class="p">,</span>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">      </span><span class="s2">&quot;ovos-fallback-pipeline-plugin-medium&quot;</span><span class="p">,</span>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">      </span><span class="s2">&quot;ovos-fallback-pipeline-plugin-low&quot;</span>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="p">]</span>
-</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">  </span><span class="p">},</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;ovos-adapt-pipeline-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">      </span><span class="nt">&quot;conf_high&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">      </span><span class="nt">&quot;conf_med&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">      </span><span class="nt">&quot;conf_low&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">&quot;persona&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">      </span><span class="nt">&quot;handle_fallback&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">      </span><span class="nt">&quot;default_persona&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Remote Llama&quot;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nt">&quot;pipeline&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">      </span><span class="s2">&quot;ovos-stop-pipeline-plugin-high&quot;</span><span class="p">,</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">      </span><span class="s2">&quot;ovos-converse-pipeline-plugin&quot;</span><span class="p">,</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">      </span><span class="s2">&quot;ovos-ocp-pipeline-plugin-high&quot;</span><span class="p">,</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">      </span><span class="s2">&quot;ovos-padatious-pipeline-plugin-high&quot;</span><span class="p">,</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">      </span><span class="s2">&quot;ovos-adapt-pipeline-plugin-high&quot;</span><span class="p">,</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">      </span><span class="s2">&quot;ovos-m2v-pipeline-high&quot;</span><span class="p">,</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">      </span><span class="s2">&quot;ovos-ocp-pipeline-plugin-medium&quot;</span><span class="p">,</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">      </span><span class="s2">&quot;ovos-fallback-pipeline-plugin-high&quot;</span><span class="p">,</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">      </span><span class="s2">&quot;ovos-stop-pipeline-plugin-medium&quot;</span><span class="p">,</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">      </span><span class="s2">&quot;ovos-adapt-pipeline-plugin-medium&quot;</span><span class="p">,</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">      </span><span class="s2">&quot;ovos-fallback-pipeline-plugin-medium&quot;</span><span class="p">,</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">      </span><span class="s2">&quot;ovos-fallback-pipeline-plugin-low&quot;</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="p">}</span>
 </span></code></pre></div>
 <hr />
 <h1 id="pipeline-plugins-reference">Pipeline Plugins Reference<a class="headerlink" href="#pipeline-plugins-reference" title="Permanent link">&para;</a></h1>

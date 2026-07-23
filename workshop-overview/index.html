@@ -1662,27 +1662,27 @@
 <td>All intent and utility decorators with source citations</td>
 </tr>
 <tr>
-<td><a href="./">app.md</a></td>
+<td><a href="../skill-classes/#ovosabstractapplication">skill-classes.md#ovosabstractapplication</a></td>
 <td><code>OVOSAbstractApplication</code></td>
 <td>Skill-like app that runs without the intent service</td>
 </tr>
 <tr>
-<td><a href="./">game-skill.md</a></td>
+<td><a href="../skill-classes/#ovosgameskill">skill-classes.md#ovosgameskill</a></td>
 <td><code>OVOSGameSkill</code>, <code>ConversationalGameSkill</code></td>
 <td><a href="../ocp-pipeline/">OCP</a>-integrated game loop with converse and auto-save</td>
 </tr>
 <tr>
-<td><a href="./">auto-translatable.md</a></td>
+<td><a href="../skill-classes/#universalskill">skill-classes.md#universalskill</a></td>
 <td><code>UniversalSkill</code>, <code>UniversalFallback</code></td>
 <td>Auto-translate input/output for any language</td>
 </tr>
 <tr>
-<td><a href="../ovos-skill/">skill-api.md</a></td>
+<td><a href="../ovos-skill/">ovos-skill.md</a></td>
 <td><code>SkillApi</code>, <code>skill_api_method</code></td>
 <td>Inter-skill RPC over the <a href="../bus-service/">MessageBus</a></td>
 </tr>
 <tr>
-<td><a href="../skill-filesystem/">filesystem.md</a></td>
+<td><a href="../skill-filesystem/">skill-filesystem.md</a></td>
 <td><code>FileSystemAccess</code></td>
 <td>Sandboxed, XDG-compliant file storage for skills</td>
 </tr>
@@ -1692,7 +1692,7 @@
 <td>Locale, dialog, vocab, regex, and other resource files</td>
 </tr>
 <tr>
-<td><a href="../skill-settings/">settings.md</a></td>
+<td><a href="../skill-settings/">skill-settings.md</a></td>
 <td><code>JsonStorage</code>, <code>PrivateSettings</code></td>
 <td>Skill settings — persistence, change callbacks, file watching</td>
 </tr>
@@ -1702,14 +1702,9 @@
 <td>Enable/disable intent sets at runtime</td>
 </tr>
 <tr>
-<td><a href="./">skill-launcher.md</a></td>
+<td><a href="../skill-classes/#skill-launcher">skill-classes.md#skill-launcher</a></td>
 <td><code>SkillLoader</code>, <code>PluginSkillLoader</code></td>
 <td>Loading skills as plugins or in standalone mode</td>
-</tr>
-<tr>
-<td><a href="./">permissions.md</a></td>
-<td><code>ConverseMode</code>, <code>FallbackMode</code></td>
-<td><a href="../converse-pipeline/">Converse</a> and fallback permission modes</td>
 </tr>
 </tbody>
 </table>
@@ -1725,7 +1720,7 @@
 </span></code></pre></div>
 <p>Skills interact with the bus through <code>self.bus</code>. Use <code>self.add_event()</code> to subscribe and <code>self.bus.emit()</code> to publish.</p>
 <h3 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">&para;</a></h3>
-<p>Skills store persistent configuration in <code>~/.config/ovos/skills/&lt;skill_id&gt;/settings.json</code>. Access via <code>self.settings</code>:</p>
+<p>Skills store persistent configuration in <code>$XDG_CONFIG_HOME/&lt;base_folder&gt;/skills/&lt;skill_id&gt;/settings.json</code> (<code>&lt;base_folder&gt;</code> defaults to <code>mycroft</code>, see <a href="../skill-settings/#storage-location">Skill Settings</a>). Access via <code>self.settings</code>:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">volume</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;volume&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;volume&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">80</span>
 </span></code></pre></div>

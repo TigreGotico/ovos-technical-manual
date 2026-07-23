@@ -1510,6 +1510,14 @@
 <td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-lux">ovos-tts-plugin-lux</a></td>
 <td>LuxTTS — zipvoice-based voice-cloning TTS (48 kHz, en-US).</td>
 </tr>
+<tr>
+<td><a href="#ovos-tts-plugin-phoonnx">ovos-tts-plugin-phoonnx</a></td>
+<td>Built into <a href="https://pypi.org/project/phoonnx">phoonnx</a>, OVOS's own ONNX-based multilingual neural TTS engine — the default choice for fully offline synthesis, with automatic model fetching.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-omnivoice">ovos-tts-plugin-omnivoice</a></td>
+<td>Wraps <a href="https://github.com/k2-fsa/OmniVoice">OmniVoice</a>, a massively multilingual (600+ languages) zero-shot TTS model with <code>auto</code>, voice-design (<code>instruct</code>), and voice-cloning (<code>ref_audio</code>) modes. ⚠️ No packaged release yet — install from source.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="ovos-tts-server">ovos-tts-server<a class="headerlink" href="#ovos-tts-server" title="Permanent link">&para;</a></h2>
@@ -1744,6 +1752,27 @@
 <p><strong>Description</strong>: SVOX Pico lightweight offline text-to-speech.</p>
 </li>
 </ul>
+<hr />
+<h2 id="ovos-tts-plugin-phoonnx">ovos-tts-plugin-phoonnx<a class="headerlink" href="#ovos-tts-plugin-phoonnx" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/phoonnx">https://github.com/OpenVoiceOS/phoonnx</a></p>
+</li>
+<li>
+<p><strong>Description</strong>: OVOS's own multilingual, ONNX-based neural TTS engine, distributed as part of the <code>phoonnx</code> package. Registering the plugin only requires <code>pip install phoonnx</code> — model files are fetched and cached automatically the first time a voice is used.</p>
+</li>
+</ul>
+<h3 id="default-configuration_9">Default Configuration<a class="headerlink" href="#default-configuration_9" title="Permanent link">&para;</a></h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="w">  </span><span class="nt">&quot;tts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-tts-plugin-phoonnx&quot;</span><span class="p">,</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="nt">&quot;ovos-tts-plugin-phoonnx&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">      </span><span class="nt">&quot;voice&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OpenVoiceOS/phoonnx_pt-PT_miro_tugaphone&quot;</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">  </span><span class="p">}</span>
+</span></code></pre></div>
+<blockquote>
+<p>If <code>"voice"</code> is omitted, the plugin picks the first bundled model that supports the configured language.</p>
+</blockquote>
 <hr />
 <h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>

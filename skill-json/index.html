@@ -1600,12 +1600,19 @@
 </span></code></pre></div>
 <hr />
 <h2 id="field-reference">Field Reference<a class="headerlink" href="#field-reference" title="Permanent link">&para;</a></h2>
+<p>None of these fields are enforced by <code>ovos-workshop</code> at runtime — only
+<code>examples</code> is actually read (it is registered with the homescreen so it can
+show sample phrases for the skill). Everything else is a convention followed
+by skill-store and CI tooling. Ecosystem lint tooling (the <code>check_skill.py</code>
+compliance check used in CI) treats <code>skill_id</code>, <code>name</code>, <code>description</code>,
+<code>examples</code>, and <code>tags</code> as the fields it expects to be present; treat the rest
+as recommended, not mandatory.</p>
 <table>
 <thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
-<th>Required</th>
+<th>Recommended</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -1625,7 +1632,7 @@
 <tr>
 <td><code>package_name</code></td>
 <td>string</td>
-<td>✅ Yes</td>
+<td>❌ Optional</td>
 <td>Python package name (e.g., for PyPI installs).</td>
 </tr>
 <tr>
@@ -1667,47 +1674,46 @@
 <tr>
 <td><code>name</code></td>
 <td>string</td>
-<td>❌ Optional</td>
-<td>User-facing skill name.</td>
+<td>✅ Yes</td>
+<td>User-facing skill name (some skills use <code>title</code> instead or as well).</td>
 </tr>
 <tr>
 <td><code>description</code></td>
 <td>string</td>
-<td>❌ Optional</td>
+<td>✅ Yes</td>
 <td>Short, one-line summary of the skill.</td>
 </tr>
 <tr>
 <td><code>examples</code></td>
 <td>list</td>
-<td>❌ Optional</td>
-<td>Example utterances your skill handles.</td>
+<td>✅ Yes</td>
+<td>Example utterances your skill handles — the only field <code>ovos-workshop</code> actually reads, to register with the homescreen.</td>
 </tr>
 <tr>
 <td><code>tags</code></td>
 <td>list</td>
-<td>❌ Optional</td>
+<td>✅ Yes</td>
 <td>Keywords for searchability.</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In practice, real-world <code>skill.json</code> files vary quite a bit — some use
+<code>title</code> instead of <code>name</code>, and older, auto-generated <code>skill.json</code> files
+(from the legacy skills-manager tooling) carry many more fields
+(<code>version</code>, <code>url</code>, <code>requirements</code>, <code>platforms</code>, and more). Stick to the
+fields above for new skills; anything extra is ignored by <code>ovos-workshop</code>.</p>
+</div>
 <hr />
 <h2 id="language-support">Language Support<a class="headerlink" href="#language-support" title="Permanent link">&para;</a></h2>
 <p>To support multiple languages, place a <code>skill.json</code> file in each corresponding <code>locale/&lt;lang&gt;</code> folder. Fields like <code>name</code>, <code>description</code>, <code>examples</code>, and <code>tags</code> can be translated for that locale.</p>
 <hr />
 <h2 id="installation-behavior">Installation Behavior<a class="headerlink" href="#installation-behavior" title="Permanent link">&para;</a></h2>
-<p>When installing a skill, OVOS will try the following methods in order:</p>
-<ol>
-<li>
-<p><code>pip_spec</code> (if present)</p>
-</li>
-<li>
-<p><code>package_name</code> (from PyPI)</p>
-</li>
-<li>
-<p><code>source</code> (from Git)</p>
-</li>
-</ol>
-<p>At least <strong>one valid installation path is required</strong>.</p>
+<p><code>pip_spec</code>, <code>package_name</code>, and <code>source</code> are hints for skill-installer /
+skill-store tooling about where to fetch a skill from — <code>ovos-workshop</code>
+itself does not install skills or read these fields. Provide at least one
+so external installers have somewhere to pull the skill from.</p>
 <hr />
 <h2 id="packaging-the-opmskill-entry-point">Packaging: the <code>opm.skill</code> Entry Point<a class="headerlink" href="#packaging-the-opmskill-entry-point" title="Permanent link">&para;</a></h2>
 <p><code>skill.json</code> describes a skill for discovery and display, but it is not how OVOS <em>loads</em> an installed skill. A pip-installed skill is found through the <code>opm.skill</code> entry-point group (singular) declared in its <code>pyproject.toml</code> / <code>setup.py</code>:</p>

@@ -1703,7 +1703,11 @@ released</strong> and not present on any published package. It is specified by t
 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md">OVOS-GUI-1</a> spec
 and implemented in <code>ovos-gui</code>, with adapters in
 <code>ovos-legacy-mycroft-gui-plugin</code> and <code>pyhtmx-gui-client</code>.
-Do not rely on any of this on a stable install.</p>
+Do not rely on any of this on a stable install. Tracked in
+<a href="https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/377">ovos-plugin-manager#377</a>,
+<a href="https://github.com/OpenVoiceOS/ovos-gui/pull/112">ovos-gui#112</a>,
+<a href="https://github.com/OpenVoiceOS/ovos-gui/pull/117">ovos-gui#117</a>, and
+<a href="https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3">ovos-legacy-mycroft-gui-plugin#3</a>.</p>
 <p><strong>What changes.</strong> Per OVOS-GUI-1, <code>ovos-gui</code> becomes a <strong>pure state-and-dispatch hub</strong>:
 it runs <strong>no WebSocket server</strong> and renders nothing. It loads every installed
 <strong>GUI adapter plugin</strong> (<code>opm.gui_adapter</code> entry-point group) via

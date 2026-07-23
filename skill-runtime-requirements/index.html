@@ -1101,9 +1101,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-customize-ready_settings-in-your-configuration" class="md-nav__link">
+  <a href="#step-1-customize-ready_settings-boot-finished-skill" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 1: Customize ready_settings (in your configuration)
+      Step 1: Customize ready_settings (boot-finished skill)
     </span>
   </a>
   
@@ -1233,9 +1233,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-gui-internet-skill-unloads-without-gui" class="md-nav__link">
+  <a href="#4-gui-internet-skill" class="md-nav__link">
     <span class="md-ellipsis">
-      4. GUI + Internet Skill (Unloads without GUI)
+      4. GUI + Internet Skill
     </span>
   </a>
   
@@ -1553,9 +1553,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-customize-ready_settings-in-your-configuration" class="md-nav__link">
+  <a href="#step-1-customize-ready_settings-boot-finished-skill" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 1: Customize ready_settings (in your configuration)
+      Step 1: Customize ready_settings (boot-finished skill)
     </span>
   </a>
   
@@ -1685,9 +1685,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-gui-internet-skill-unloads-without-gui" class="md-nav__link">
+  <a href="#4-gui-internet-skill" class="md-nav__link">
     <span class="md-ellipsis">
-      4. GUI + Internet Skill (Unloads without GUI)
+      4. GUI + Internet Skill
     </span>
   </a>
   
@@ -1734,8 +1734,12 @@
 <p>This guide covers how to control when OVOS declares readiness, how dynamic skill loading works, and how developers can use <code>RuntimeRequirements</code> to specify resource dependencies for their skills.</p>
 <hr />
 <h2 id="usage-guide">Usage Guide<a class="headerlink" href="#usage-guide" title="Permanent link">&para;</a></h2>
-<h3 id="step-1-customize-ready_settings-in-your-configuration">Step 1: Customize <code>ready_settings</code> (in your configuration)<a class="headerlink" href="#step-1-customize-ready_settings-in-your-configuration" title="Permanent link">&para;</a></h3>
-<p>You can specify what the system must wait for before emitting the <code>mycroft.ready</code> message:</p>
+<h3 id="step-1-customize-ready_settings-boot-finished-skill">Step 1: Customize <code>ready_settings</code> (boot-finished skill)<a class="headerlink" href="#step-1-customize-ready_settings-boot-finished-skill" title="Permanent link">&para;</a></h3>
+<p>The <code>mycroft.ready</code> message — signalling that the device has finished booting — is
+not emitted by <code>ovos-core</code> itself. It comes from the <code>ovos-skill-boot-finished</code>
+skill, which polls the other services and emits <code>mycroft.ready</code> once they all
+report ready. Configure what it waits for through <strong>that skill's own settings</strong>
+(<code>ready_settings</code>), not a global core config key:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;ready_settings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="s2">&quot;skills&quot;</span><span class="p">,</span>
@@ -1746,9 +1750,14 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="p">]</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>In this example, the <code>ready_settings</code> are configured to wait for network and internet connectivity before emitting
-the <code>'mycroft.ready'</code> message. Each setup can customize these settings based on their needs, a offline install won't
-want internet skills, a server wont want a audio stack etc.</p>
+<p>This is the skill's <code>settings.json</code> (see <a href="../skill-settings/">Skill Settings</a>),
+not <code>mycroft.conf</code>. In this example, boot-finished is configured to wait for
+network and internet connectivity, plus the audio and speech services, before
+emitting <code>mycroft.ready</code>. Each setup can customize this list based on its
+needs — an offline install won't want to wait on internet-dependent skills, a
+headless server won't want to wait on an audio stack, etc. If <code>ready_settings</code>
+is not set, the skill defaults to waiting for <code>skills</code> plus every currently
+installed skill_id.</p>
 <h3 id="step-2-define-runtimerequirements-in-your-skill">Step 2: Define <code>RuntimeRequirements</code> in your skill<a class="headerlink" href="#step-2-define-runtimerequirements-in-your-skill" title="Permanent link">&para;</a></h3>
 <p>Use the <code>runtime_requirements</code> class property to control when and how your skill should load based on system resources like internet, network, or GUI.</p>
 <p>Example:</p>
@@ -1767,44 +1776,46 @@ want internet skills, a server wont want a audio stack etc.</p>
 <hr />
 <h2 id="technical-explanation">Technical Explanation<a class="headerlink" href="#technical-explanation" title="Permanent link">&para;</a></h2>
 <h3 id="ready_settings"><code>ready_settings</code><a class="headerlink" href="#ready_settings" title="Permanent link">&para;</a></h3>
-<p>The <code>ready_settings</code> config controls when OVOS emits <code>mycroft.ready</code>, which signals that the system is ready for use. Each entry in this list waits for a different component:</p>
+<p><code>ready_settings</code> is a setting on the <code>ovos-skill-boot-finished</code> skill; it controls when that skill emits <code>mycroft.ready</code>, which signals that the system is ready for use. Each entry in the list waits for a different component:</p>
 <ul>
 <li>
-<p><strong>"skills"</strong> – Waits for offline skills to load.</p>
+<p><strong>"skills"</strong> – Waits for <code>ovos-core</code> to report ready.</p>
 </li>
 <li>
-<p><strong>"network_skills"</strong> – Waits for the system to detect a network connection (<code>mycroft.network.connected</code>).</p>
+<p><strong>"network_skills"</strong> / <strong>"network"</strong> – Waits for the system to detect a network connection (<code>mycroft.network.connected</code>).</p>
 </li>
 <li>
-<p><strong>"internet_skills"</strong> – Waits for an internet connection (<code>mycroft.internet.connected</code>).</p>
+<p><strong>"internet_skills"</strong> / <strong>"internet"</strong> – Waits for an internet connection (<code>mycroft.internet.connected</code>).</p>
 </li>
 <li>
-<p><strong>"setup"</strong> – Waits for an external setup process (e.g., pairing or configuration).</p>
+<p><strong>"gui_connected"</strong> – Waits for a GUI client to connect over the GUI socket.</p>
 </li>
 <li>
-<p><strong>"audio"</strong> – Waits for the audio playback and capture systems to be initialized.</p>
+<p><strong>"voice"</strong> – Waits for <code>ovos-dinkum-listener</code> to report ready.</p>
 </li>
 <li>
-<p><strong>"speech"</strong> – Waits for the <a href="../stt-plugins/">STT</a> (speech-to-text) engine to be ready.</p>
+<p><strong>"audio"</strong> – Waits for <code>ovos-audio</code> to report ready.</p>
 </li>
 <li>
-<p><strong>{skill_id}</strong> - Waits for a specific skill to be available</p>
+<p><strong>"gui"</strong> – Waits for the <code>ovos-gui</code> websocket to report ready.</p>
+</li>
+<li>
+<p><strong>"PHAL"</strong> – Waits for PHAL to report ready.</p>
+</li>
+<li>
+<p><strong>{skill_id}</strong> – Waits for a specific skill to be available.</p>
 </li>
 </ul>
+<p>Any other name is treated generically: the skill waits for a <code>mycroft.&lt;name&gt;.is_ready</code> response, so third-party services can plug into the same mechanism.</p>
 <blockquote>
-<p>⚠️ <strong>Note</strong>: By default, OVOS only waits for offline skills. Unlike Mycroft-core, OVOS supports dynamic loading, so timing can impact skills that depend on the <code>mycroft.ready</code> message.</p>
+<p>⚠️ <strong>Note</strong>: If <code>ready_settings</code> is not configured, the skill defaults to
+waiting for <code>skills</code> plus every currently installed skill_id. Because OVOS
+supports dynamic skill loading (skills can load and unload after startup),
+timing can impact anything that depends on the <code>mycroft.ready</code> message.</p>
 </blockquote>
 <hr />
 <h2 id="dynamic-loading-and-unloading">Dynamic Loading and Unloading<a class="headerlink" href="#dynamic-loading-and-unloading" title="Permanent link">&para;</a></h2>
-<p>Since <code>ovos-core 0.0.8</code>, dynamic skill management improves system performance and reliability by:</p>
-<ul>
-<li>
-<p><strong>Only loading skills when their requirements are met.</strong></p>
-</li>
-<li>
-<p><strong>Unloading skills when they become unusable due to lost resources.</strong></p>
-</li>
-</ul>
+<p><code>ovos-core</code>'s dynamic skill management improves system performance and reliability by <strong>only loading skills once their requirements are met</strong> — a skill with <code>internet_before_load=True</code> simply is not instantiated until the internet connection event fires, and likewise for <code>network_before_load</code> and <code>gui_before_load</code>.</p>
 <h3 id="benefits">Benefits:<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
@@ -1814,18 +1825,23 @@ want internet skills, a server wont want a audio stack etc.</p>
 <p>Avoids unnecessary skill activations.</p>
 </li>
 <li>
-<p>Simplifies skill logic (e.g., no need to check for connectivity manually).</p>
+<p>Simplifies skill logic (e.g., no need to check for connectivity manually before doing network I/O in <code>initialize()</code>).</p>
 </li>
 </ul>
 <p>Skills are loaded only when their specific requirements are met. This optimization prevents unnecessary loading, conserving system resources and ensuring a more efficient skill environment.</p>
-<p><strong>Reducing Unintended Activations</strong></p>
-<p>Dynamic unloading of skills based on specific conditions significantly reduces the chance of unintentional activations. In scenarios where required conditions are not met, skills are gracefully unloaded, enhancing the user experience by avoiding unintended skill triggers.</p>
-<p>This approach aligns with resource-conscious design, providing a more responsive and reliable voice assistant environment. Developers can focus on skill functionality, knowing that OVOS efficiently manages skill loading and unloading based on runtime requirements.</p>
+<p><code>requires_internet</code>, <code>requires_network</code>, and <code>requires_gui</code> describe both
+sides of the skill's lifecycle: the <strong>before-load</strong> gate (deferring load
+until the resource is available) and the matching <strong>unload</strong> behavior once
+the skill is running. When a required resource disappears, <code>ovos-core</code>'s
+<code>SkillManager</code> unloads the skill (<code>_unload_on_internet_disconnect</code>,
+<code>_unload_on_network_disconnect</code>, <code>_unload_on_gui_disconnect</code>), unless the
+skill has declared the corresponding <code>no_*_fallback</code> flag to keep running
+without it.</p>
 <hr />
 <h2 id="runtimerequirements-classproperty">RuntimeRequirements (<code>@classproperty</code>)<a class="headerlink" href="#runtimerequirements-classproperty" title="Permanent link">&para;</a></h2>
-<p>Also introduced in <code>ovos-core 0.0.8</code>, the <code>RuntimeRequirements</code> class property allows skill developers to declare when a skill should be loaded or unloaded based on runtime conditions.</p>
+<p>The <code>RuntimeRequirements</code> class property allows skill developers to declare when a skill should be loaded or unloaded based on runtime conditions.</p>
 <blockquote>
-<p>⚠️ Replaces the deprecated <code>"priority_skills"</code> config.</p>
+<p>⚠️ Replaces the older, now-removed <code>"priority_skills"</code> config option.</p>
 </blockquote>
 <h3 id="key-fields">Key fields:<a class="headerlink" href="#key-fields" title="Permanent link">&para;</a></h3>
 <table>
@@ -1842,11 +1858,11 @@ want internet skills, a server wont want a audio stack etc.</p>
 </tr>
 <tr>
 <td><code>requires_internet</code></td>
-<td>Unload if internet is lost (unless fallback enabled)</td>
+<td>Declares the skill needs internet to work (unloaded if internet is lost, unless <code>no_internet_fallback</code> is set)</td>
 </tr>
 <tr>
 <td><code>no_internet_fallback</code></td>
-<td>If true, do <strong>not</strong> unload when internet is lost</td>
+<td>Declares the skill can keep working without internet</td>
 </tr>
 <tr>
 <td><code>network_before_load</code></td>
@@ -1854,7 +1870,7 @@ want internet skills, a server wont want a audio stack etc.</p>
 </tr>
 <tr>
 <td><code>requires_network</code></td>
-<td>Unload if network is lost (unless fallback enabled)</td>
+<td>Declares the skill needs network to work (unloaded if network is lost, unless <code>no_network_fallback</code> is set)</td>
 </tr>
 <tr>
 <td><code>gui_before_load</code></td>
@@ -1862,11 +1878,11 @@ want internet skills, a server wont want a audio stack etc.</p>
 </tr>
 <tr>
 <td><code>requires_gui</code></td>
-<td>Unload if GUI is lost (unless fallback enabled)</td>
+<td>Declares the skill needs a GUI to work (unloaded if the GUI is lost, unless <code>no_gui_fallback</code> is set)</td>
 </tr>
 <tr>
 <td><code>no_gui_fallback</code></td>
-<td>If true, do <strong>not</strong> unload when GUI is lost</td>
+<td>Declares the skill can keep working without a GUI</td>
 </tr>
 </tbody>
 </table>
@@ -1901,8 +1917,7 @@ Loads immediately, runs without internet or network.</p>
 <p>In this example, an online search skill with a local cache is defined. The skill requires internet connectivity during
 both loading and runtime. If the internet is not available, the skill won't load. Once loaded, the skill continues to
 require internet connectivity.</p>
-<p>However, our skill keeps a cache of previous results; therefore, it declares it can handle internet outages and will not
-be unloaded when the internet goes down.</p>
+<p>Our skill keeps a cache of previous results, so it declares it can handle internet outages via <code>no_internet_fallback=True</code> — this keeps the skill loaded (rather than unloaded) if internet later goes away.</p>
 <p><div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_utils</span> <span class="kn">import</span> <span class="n">classproperty</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span> <span class="nn">ovos_utils.process_utils</span> <span class="kn">import</span> <span class="n">RuntimeRequirements</span>
@@ -1922,7 +1937,7 @@ be unloaded when the internet goes down.</p>
 </span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>        <span class="o">...</span>  <span class="c1"># do something that requires internet connectivity</span>
 </span></code></pre></div>
-Loads only when internet is available. Stays loaded even if internet is lost, using a cached fallback.</p>
+Loads only when internet is available.</p>
 <hr />
 <h3 id="3-lan-controlled-iot-skill">3. LAN-Controlled IOT Skill<a class="headerlink" href="#3-lan-controlled-iot-skill" title="Permanent link">&para;</a></h3>
 <p>Consider a skill that should only load once we have a network connection.
@@ -1930,7 +1945,7 @@ By specifying that requirement, we can ensure that the skill is only loaded once
 safe to utilize network resources on initialization.</p>
 <p>In this example, an IOT skill controlling devices via LAN is defined. The skill requires network connectivity during
 loading, and if the network is not available, it won't load.</p>
-<p>Once loaded, the skill continues to require network connectivity and will unload if the network is lost.</p>
+<p><code>no_network_fallback=False</code> states the skill cannot cope without network, so it will be unloaded if network connectivity is lost.</p>
 <p><div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_utils</span> <span class="kn">import</span> <span class="n">classproperty</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">from</span> <span class="nn">ovos_utils.process_utils</span> <span class="kn">import</span> <span class="n">RuntimeRequirements</span>
@@ -1949,15 +1964,12 @@ loading, and if the network is not available, it won't load.</p>
 </span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>        <span class="o">...</span>  <span class="c1"># do something that needs LAN connectivity</span>
 </span></code></pre></div>
-Loads when the local network is connected. Unloads if the network is lost.</p>
+Loads when the local network is connected.</p>
 <hr />
-<h3 id="4-gui-internet-skill-unloads-without-gui">4. GUI + Internet Skill (Unloads without GUI)<a class="headerlink" href="#4-gui-internet-skill-unloads-without-gui" title="Permanent link">&para;</a></h3>
-<p>Consider a skill with both graphical user interface (GUI) and internet dependencies is defined.</p>
-<p>The skill requires both GUI availability and internet connectivity during loading.</p>
-<p>If either the GUI or the internet is not available, the skill won't load. Once loaded, the skill continues to require
-both GUI availability, but internet connectivity is optional.</p>
-<p>If the user asks "show me the picture of the day" and we have both internet and a GUI, our skill will match the intent.</p>
-<p>If we do not have internet but have a GUI, the skill will still operate, using a cached picture. If no GUI is available then the skill will unload regardless of internet status</p>
+<h3 id="4-gui-internet-skill">4. GUI + Internet Skill<a class="headerlink" href="#4-gui-internet-skill" title="Permanent link">&para;</a></h3>
+<p>Consider a skill with both graphical user interface (GUI) and internet dependencies.</p>
+<p>The skill requires both GUI availability and internet connectivity during loading — if either is not available, the skill won't load.</p>
+<p>If the user asks "show me the picture of the day" and we have both internet and a GUI, our skill will match the intent. If we do not have internet but have a GUI, the skill can still operate using a cached picture — that's what <code>no_internet_fallback=True</code> communicates: the skill stays loaded rather than being unloaded when internet later disappears.</p>
 <p><div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">ovos_utils</span> <span class="kn">import</span> <span class="n">classproperty</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kn">from</span> <span class="nn">ovos_utils.process_utils</span> <span class="kn">import</span> <span class="n">RuntimeRequirements</span>
@@ -1979,7 +1991,7 @@ both GUI availability, but internet connectivity is optional.</p>
 </span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>        <span class="o">...</span>  <span class="c1"># do something that requires both GUI and internet connectivity</span>
 </span></code></pre></div>
-Requires GUI and internet to load. Will stay loaded if internet is lost (e.g., to show a cached picture), but unloads if GUI becomes unavailable.</p>
+Requires both GUI and internet to load.</p>
 <hr />
 <h2 id="tips-and-caveats">Tips and Caveats<a class="headerlink" href="#tips-and-caveats" title="Permanent link">&para;</a></h2>
 <ul>

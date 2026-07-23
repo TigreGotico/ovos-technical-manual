@@ -1908,8 +1908,9 @@ hardware capabilities required by its plugins.</p>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">bus</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">skill_id</span><span class="o">=</span><span class="s2">&quot;PHAL.admin&quot;</span><span class="p">,</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="o">...</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">)</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="c1"># same on_ready / on_error / on_stopping / on_started / on_alive / watchdog</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="c1"># hooks as PHAL above</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">)</span>
 </span></code></pre></div>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Typically run via systemd as root</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sudo<span class="w"> </span>ovos_PHAL_admin
@@ -2007,7 +2008,7 @@ Skills and the core pipeline never run as root.</p>
 <p>The abstract base classes that hardware PHAL plugins implement —
 <code>AbstractLed</code>, <code>AbstractFan</code>, and <code>AbstractSwitches</code> (plus a suite of ready-made
 LED animations) — live in the
-<a href="https://github.com/OpenVoiceOS/ovos_hardware_helpers"><code>ovos-hardware-helpers</code></a>
+<a href="https://github.com/OpenVoiceOS/ovos-hardware-helpers"><code>ovos-hardware-helpers</code></a>
 library; subclass them there when writing a hardware PHAL plugin.</p>
 </div>
 <h3 id="validator">Validator<a class="headerlink" href="#validator" title="Permanent link">&para;</a></h3>
@@ -2177,7 +2178,7 @@ skill as a voice frontend.</p>
 </tr>
 <tr>
 <td><a href="#ovos-phal-plugin-dotstar">ovos-PHAL-plugin-dotstar</a></td>
-<td><strong>Compatible with</strong></td>
+<td>Dotstar/APA102 LED ring driver for Respeaker mic HATs and the Adafruit Voice Bonnet</td>
 </tr>
 <tr>
 <td><a href="#ovos-phal-plugin-wallpaper-manager">ovos-PHAL-plugin-wallpaper-manager</a></td>
@@ -2197,7 +2198,7 @@ skill as a voice frontend.</p>
 </tr>
 <tr>
 <td><a href="#ovos-phal-plugin-mk2-v6-fan-control">ovos-PHAL-plugin-mk2-v6-fan-control</a></td>
-<td><strong>Compatible with</strong></td>
+<td>Fan control for the Mycroft Mark 2 dev kit</td>
 </tr>
 <tr>
 <td><a href="#ovos-phal-plugin-gpsd">ovos-PHAL-plugin-gpsd</a></td>
@@ -2221,7 +2222,7 @@ skill as a voice frontend.</p>
 </tr>
 <tr>
 <td><a href="#ovos-phal-plugin-oauth">ovos-PHAL-plugin-oauth</a></td>
-<td>Stable</td>
+<td>Handles OAuth authentication flows for OVOS skills and services</td>
 </tr>
 <tr>
 <td><a href="#ovos-phal-plugin-system">ovos-PHAL-plugin-system</a></td>
@@ -2249,7 +2250,7 @@ skill as a voice frontend.</p>
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-dotstar">https://github.com/OpenVoiceOS/ovos-PHAL-plugin-dotstar</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: <strong>Compatible with</strong></p>
+<p><strong>Description</strong>: Dotstar/APA102 LED ring driver, compatible with the Respeaker 2/4/6/8-mic i2c HATs and the Adafruit Voice Bonnet</p>
 </li>
 </ul>
 <hr />
@@ -2299,7 +2300,7 @@ skill as a voice frontend.</p>
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk2-v6-fan-control">https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk2-v6-fan-control</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: <strong>Compatible with</strong></p>
+<p><strong>Description</strong>: Fan control for the Mycroft Mark 2 dev kit</p>
 </li>
 </ul>
 <hr />

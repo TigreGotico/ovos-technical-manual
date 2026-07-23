@@ -1614,8 +1614,8 @@ back to the older <code>intents.common_query</code> key.</p>
 </tr>
 <tr>
 <td><code>reranker</code></td>
-<td>—</td>
-<td>An installed <code>opm.agents.reranker</code> plugin used to reorder candidate answers. See <a href="../agent-plugins/">Agent Plugins</a>.</td>
+<td><code>ovos-flashrank-reranker-plugin</code></td>
+<td>An installed <code>opm.agents.reranker</code> plugin name used to reorder candidate answers, if installed. See <a href="../agent-plugins/">Agent Plugins</a>.</td>
 </tr>
 <tr>
 <td><code>ignore_skill_scores</code></td>
@@ -1641,6 +1641,13 @@ back to the older <code>intents.common_query</code> key.</p>
 </table>
 <p>The reranker is optional. Without one, selection falls back to the skills'
 self-reported confidences.</p>
+<div class="admonition note">
+<p class="admonition-title">Shipped defaults differ slightly</p>
+<p>The bundled <code>mycroft.conf</code> ships an <code>intents.common_query</code> section that
+overrides some of the library defaults above: <code>max_response_wait: 6</code>,
+<code>extension_time: 3</code>, and <code>reranker: "ovos-choice-solver-bm25"</code> (instead of
+the library's own fallback of <code>ovos-flashrank-reranker-plugin</code>).</p>
+</div>
 <hr />
 <h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h2>
 <ul>

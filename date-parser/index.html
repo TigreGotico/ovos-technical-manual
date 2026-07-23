@@ -1466,7 +1466,7 @@
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">extract_datetime</span><span class="p">(</span><span class="s2">&quot;remind me next friday at 3pm&quot;</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># (datetime(...), &quot;remind me&quot;)    -&gt; parsed datetime + leftover text</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># [datetime(...), &quot;remind me&quot;]    -&gt; parsed datetime + leftover text, as a 2-item list</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">nice_time</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>   <span class="c1"># &quot;three o&#39;clock&quot;</span>
 </span></code></pre></div>
@@ -1555,11 +1555,11 @@ time expressions.</p>
 <tr>
 <td>gl</td>
 <td>✅</td>
-<td>🚧</td>
+<td>✅</td>
 </tr>
 <tr>
 <td>eu</td>
-<td>❌</td>
+<td>✅</td>
 <td>✅</td>
 </tr>
 <tr>
@@ -1569,17 +1569,17 @@ time expressions.</p>
 </tr>
 <tr>
 <td>fr</td>
-<td>❌</td>
+<td>✅</td>
 <td>✅</td>
 </tr>
 <tr>
 <td>hu</td>
-<td>❌</td>
-<td>🚧</td>
+<td>✅</td>
+<td>✅</td>
 </tr>
 <tr>
 <td>it</td>
-<td>❌</td>
+<td>✅</td>
 <td>✅</td>
 </tr>
 <tr>
@@ -1604,6 +1604,11 @@ time expressions.</p>
 </tr>
 <tr>
 <td>sv</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>sl</td>
 <td>✅</td>
 <td>✅</td>
 </tr>
@@ -1655,7 +1660,7 @@ time expressions.</p>
 <p>| pt       | ✅                                                                                                                        | ✅           | 🚧                   | ✅               | </p>
 <p>| ru       | ✅                                                                                                                        | ✅           | 🚧                   | ✅               | </p>
 <p>| sv       | ✅                                                                                                                        | ✅           | 🚧                   | ✅               |
-| sl       | ✅                                                                                                                        | ❌           | 🚧                   | ✅               |
+| sl       | ✅                                                                                                                        | ✅           | 🚧                   | ✅               |
 | uk       | ✅                                                                                                                        | ✅           | 🚧                   | ✅               | </p>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <h3 id="date-and-time-extraction">Date and Time Extraction<a class="headerlink" href="#date-and-time-extraction" title="Permanent link">&para;</a></h3>
@@ -1664,24 +1669,32 @@ returns both the datetime object and any remaining text.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_date_parser</span> <span class="kn">import</span> <span class="n">extract_datetime</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">result</span> <span class="o">=</span> <span class="n">extract_datetime</span><span class="p">(</span><span class="s2">&quot;Meet me next Friday at 3pm&quot;</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># (datetime object, &quot;at 3pm&quot;)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># [datetime object, &quot;meet me&quot;]</span>
 </span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>extract_datetime</code> returns a 2-item <code>list</code> — <code>[datetime, leftover_text]</code> — not a tuple, and the leftover text is lowercased.</p>
+</div>
 <h3 id="duration-extraction">Duration Extraction<a class="headerlink" href="#duration-extraction" title="Permanent link">&para;</a></h3>
 <p>Identify duration phrases in text and convert them into a <code>timedelta</code> object. This can parse common human-friendly
 duration expressions like "30 minutes" or "two and a half hours."</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_date_parser</span> <span class="kn">import</span> <span class="n">extract_duration</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">duration</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">extract_duration</span><span class="p">(</span><span class="s2">&quot;It will take about 2 hours and 30 minutes&quot;</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">duration</span><span class="p">)</span>  <span class="c1"># timedelta object</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">remainder</span><span class="p">)</span>  <span class="c1"># &quot;about&quot;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">duration</span><span class="p">)</span>   <span class="c1"># timedelta(hours=2, minutes=30)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">remainder</span><span class="p">)</span>  <span class="c1"># &quot;It will take about and&quot;</span>
 </span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The remainder keeps whatever surrounds the extracted duration phrase verbatim — connective words like "and" that sat between the matched number groups are not cleaned up.</p>
+</div>
 <h3 id="formatting-time">Formatting Time<a class="headerlink" href="#formatting-time" title="Permanent link">&para;</a></h3>
 <p>Generate a natural-sounding time format suitable for voice or display in different languages, allowing customization for
 speech or written text.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_date_parser</span> <span class="kn">import</span> <span class="n">nice_time</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">formatted_time</span> <span class="o">=</span> <span class="n">nice_time</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="n">speech</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_24hour</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">formatted_time</span><span class="p">)</span>  <span class="c1"># &quot;three o&#39;clock&quot;</span>
 </span></code></pre></div>
@@ -1691,10 +1704,10 @@ speech or written text.</p>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">relative_time</span> <span class="o">=</span> <span class="n">nice_relative_time</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">relative_time</span><span class="p">)</span>  <span class="c1"># &quot;1 day&quot;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">relative_time</span><span class="p">)</span>  <span class="c1"># &quot;twenty four hours&quot;</span>
 </span></code></pre></div>
 <blockquote>
-<p>The generic implementation returns counts like <code>"25 seconds"</code>, <code>"2 hours"</code>, or <code>"1 day"</code> (it does not produce words like "tomorrow"). Basque (<code>eu</code>) is the only language with a dedicated <code>nice_relative_time</code> implementation; everything else uses the generic one.</p>
+<p>The generic implementation speaks the rounded difference as words — <code>"two hours"</code>, <code>"twenty four hours"</code>, <code>"seven days"</code> — using <code>pronounce_number</code> under the hood (it does not produce words like "tomorrow"). Basque (<code>eu</code>) is the only language with a dedicated <code>nice_relative_time</code> implementation; everything else uses the generic one.</p>
 </blockquote>
 <h2 id="related-projects">Related Projects<a class="headerlink" href="#related-projects" title="Permanent link">&para;</a></h2>
 <ul>

@@ -1913,7 +1913,7 @@
 <p>Bind bus (<code>bind</code>)</p>
 </li>
 <li>
-<p>Init GUI</p>
+<p>Init GUI (skipped if a <code>gui</code> object was already passed to the constructor)</p>
 </li>
 <li>
 <p>Load resource files (<code>load_data_files</code>)</p>
@@ -1937,6 +1937,8 @@
 <p>Set status to <code>ready</code></p>
 </li>
 </ol>
+<p>See <a href="../ovos-skill/#startup-sequence-_startup">OVOSSkill</a> for the full sequence
+including <code>skill.json</code> homescreen registration.</p>
 <h3 id="key-properties">Key Properties<a class="headerlink" href="#key-properties" title="Permanent link">&para;</a></h3>
 <p><strong><a href="../session/">Session</a>-aware (read from current Session):</strong></p>
 <table>
@@ -2049,16 +2051,17 @@
 <p><code>get_response</code> suspends the converse channel for this skill until the user responds or a timeout is hit.</p>
 <h3 id="runtimerequirements">RuntimeRequirements<a class="headerlink" href="#runtimerequirements" title="Permanent link">&para;</a></h3>
 <p>Override the class property to declare connectivity needs:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.process_utils</span> <span class="kn">import</span> <span class="n">RuntimeRequirements</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nd">@classproperty</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">def</span> <span class="nf">runtime_requirements</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="k">return</span> <span class="n">RuntimeRequirements</span><span class="p">(</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="n">internet_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="n">network_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>        <span class="n">requires_internet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="n">requires_network</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_utils</span> <span class="kn">import</span> <span class="n">classproperty</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span> <span class="nn">ovos_utils.process_utils</span> <span class="kn">import</span> <span class="n">RuntimeRequirements</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nd">@classproperty</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">def</span> <span class="nf">runtime_requirements</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="k">return</span> <span class="n">RuntimeRequirements</span><span class="p">(</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="n">internet_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>        <span class="n">network_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="n">requires_internet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        <span class="n">requires_network</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="p">)</span>
 </span></code></pre></div>
 <p>Used by <code>SkillManager</code> to defer loading until requirements are met.</p>
 <hr />
@@ -2116,26 +2119,26 @@
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;I don&#39;t know, but I tried.&quot;</span><span class="p">)</span>
 </span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        <span class="k">return</span> <span class="kc">True</span>   <span class="c1"># consumed — stop checking other fallbacks</span>
 </span></code></pre></div>
-<p>Priority determines stage:</p>
+<p>Priority determines which pipeline stage checks the fallback first (lower runs earlier):</p>
 <table>
 <thead>
 <tr>
 <th>Range</th>
-<th>Stage</th>
+<th>Pipeline stage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>0–4</td>
-<td><code>ovos-fallback-pipeline-plugin-high</code></td>
+<td><code>fallback_high</code></td>
 </tr>
 <tr>
 <td>5–89</td>
-<td><code>ovos-fallback-pipeline-plugin-medium</code></td>
+<td><code>fallback_medium</code></td>
 </tr>
 <tr>
 <td>90–100</td>
-<td><code>ovos-fallback-pipeline-plugin-low</code></td>
+<td><code>fallback_low</code></td>
 </tr>
 </tbody>
 </table>
@@ -2162,7 +2165,7 @@ the highest-confidence answer.</p>
 <div class="admonition note">
 <p class="admonition-title">Under the hood</p>
 <p>On startup <code>OVOSSkill</code> scans for a method tagged by <code>@common_query</code>
-(<code>ovos.py:920</code>) and wires up the CommonQuery ping/answer bus handlers
+(<code>ovos.py:946</code>) and wires up the CommonQuery ping/answer bus handlers
 automatically — only one such handler per skill is supported.</p>
 </div>
 <hr />

@@ -799,9 +799,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#additional-configuration-and-known-issues" class="md-nav__link">
+  <a href="#post-install-tuning" class="md-nav__link">
     <span class="md-ellipsis">
-      Additional Configuration and Known Issues
+      Post-install tuning
     </span>
   </a>
   
@@ -1460,9 +1460,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#additional-configuration-and-known-issues" class="md-nav__link">
+  <a href="#post-install-tuning" class="md-nav__link">
     <span class="md-ellipsis">
-      Additional Configuration and Known Issues
+      Post-install tuning
     </span>
   </a>
   
@@ -1748,9 +1748,8 @@ run the <code>ovos-installer</code> on Raspberry Pi OS instead.</p>
 <p><img alt="image" src="https://gist.github.com/user-attachments/assets/acbc71ed-46aa-4084-8f4c-82c6a2a19d49" /></p>
 <p>You’re officially part of the Open Voice OS community! 🎤✨</p>
 <hr />
-<h2 id="additional-configuration-and-known-issues">Additional Configuration and Known Issues<a class="headerlink" href="#additional-configuration-and-known-issues" title="Permanent link">&para;</a></h2>
-<p>Depending on your language you probably want to change the default plugins, the ovos-installer is not perfect and might not always select the best defaults</p>
-<p>It is recommend that you run <code>ovos-config autoconfigure --help</code> after the initial install</p>
+<h2 id="post-install-tuning">Post-install tuning<a class="headerlink" href="#post-install-tuning" title="Permanent link">&para;</a></h2>
+<p>The installer picks sensible defaults, but the best speech plugins vary by language and hardware. After the initial install, review the selected plugins and run <code>ovos-config autoconfigure --help</code> to see the language-aware reconfiguration options.</p>
 <p><a href="https://asciinema.org/a/710295"><img alt="asciicast" src="https://asciinema.org/a/710295.svg" /></a></p>
 <hr />
 <h2 id="non-interactive-scenario-install">Non-interactive (scenario) install<a class="headerlink" href="#non-interactive-scenario-install" title="Permanent link">&para;</a></h2>
@@ -1767,6 +1766,7 @@ containers on a Raspberry Pi with default skills):</p>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nt">extra_skills</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nt">raspberry_pi_tuning</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nt">share_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nt">share_usage_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </span></code></pre></div>
 <p>Key options:</p>
 <table>
@@ -1777,6 +1777,10 @@ containers on a Raspberry Pi with default skills):</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>uninstall</code></td>
+<td><code>true</code> to uninstall instead of install</td>
+</tr>
 <tr>
 <td><code>method</code></td>
 <td><code>containers</code> (Docker) or <code>virtualenv</code> (Python virtual environment)</td>
@@ -1801,8 +1805,15 @@ containers on a Raspberry Pi with default skills):</p>
 <td><code>share_telemetry</code></td>
 <td>Allow sharing anonymous usage statistics</td>
 </tr>
+<tr>
+<td><code>share_usage_telemetry</code></td>
+<td>Allow sharing anonymous <em>usage</em> statistics (separate from install-time telemetry above)</td>
+</tr>
 </tbody>
 </table>
+<p>All of <code>uninstall</code>, <code>method</code>, <code>channel</code>, <code>profile</code>, <code>features</code>, <code>raspberry_pi_tuning</code>,
+<code>share_telemetry</code>, and <code>share_usage_telemetry</code> are <strong>required</strong> — the installer
+refuses an incomplete scenario file.</p>
 <p>Ready-made example scenarios live in the
 <a href="https://github.com/OpenVoiceOS/ovos-installer/tree/main/scenarios"><code>scenarios/</code></a>
 directory of the repository.</p>

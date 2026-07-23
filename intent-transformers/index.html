@@ -1507,7 +1507,7 @@
 </div>
 <div class="admonition info">
 <p class="admonition-title">📐 Formal specification</p>
-<p>Intent transformers are the <strong><code>intent</code> chain</strong> of <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a> §3.4</strong> (a formal <a href="../architecture-specs/">architecture spec</a>). The spec's post-match, pre-dispatch injection point receives the <code>Match</code> a pipeline plugin produced (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md">OVOS-INTENT-3</a> — <code>skill_id</code>, <code>intent_name</code>, <code>captures</code>/slots) and may <strong>enrich <code>captures</code></strong> — it is the canonical home for slot/entity injection. It <strong>MUST NOT</strong> change <code>Match.skill_id</code> or <code>Match.intent_name</code> (that would re-route the handler); an orchestrator treats such a change as a shape violation and discards it. <strong>Ordering:</strong> the spec runs the chain by <strong>ascending</strong> <code>priority</code> — <code>priority</code> 1 runs <strong>first</strong>. The current OVOS code sorts <strong>descending</strong> (so <code>priority</code> 1 runs <em>last</em>, as described below); the spec order is the canonical one.</p>
+<p>Intent transformers are the <strong><code>intent</code> chain</strong> of <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a> §3.4</strong> (a formal <a href="../architecture-specs/">architecture spec</a>). The spec's post-match, pre-dispatch injection point receives the <code>Match</code> a pipeline plugin produced (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md">OVOS-INTENT-3</a> — <code>skill_id</code>, <code>intent_name</code>, <code>captures</code>/slots) and may <strong>enrich <code>captures</code></strong> — it is the canonical home for slot/entity injection. It <strong>MUST NOT</strong> change <code>Match.skill_id</code> or <code>Match.intent_name</code> (that would re-route the handler); an orchestrator treats such a change as a shape violation and discards it. <strong>Ordering:</strong> the chain runs by <strong>ascending</strong> <code>priority</code> — <code>priority</code> 1 runs <strong>first</strong>, matching the spec.</p>
 </div>
 <p><strong>Intent Transformers</strong> are a pluggable mechanism in OVOS that allow you to enrich or transform intent data <strong>after</strong> an intent is matched by an engine (<a href="../padatious-pipeline/">Padatious</a>, <a href="../adapt-pipeline/">Adapt</a>, etc.), but <strong>before</strong> it is passed to the skill handler.</p>
 <p>This is useful for:</p>
@@ -1526,7 +1526,7 @@
 </li>
 </ul>
 <p>Each transformer subclasses <code>IntentTransformer</code> (<code>ovos_plugin_manager.templates.transformers</code>), registers under the <code>opm.transformer.intent</code> entry-point group, and operates on the <code>IntentHandlerMatch</code> object returned by the matching pipeline. They are loaded and chained by <code>IntentTransformersService</code> in <code>ovos-core</code> (<code>ovos_core/transformers.py</code>).</p>
-<p>In the current code transformers run sorted by <code>priority</code>, <strong>highest first</strong> — so a transformer with <code>priority</code> 1 runs <em>last</em> and gets the final say over <code>match_data</code>. (OVOS-TRANSFORM-1 §4 specifies the reverse, ascending order; see the callout above — the spec is canonical.) This lets you reimplement entity logic once instead of in every skill.</p>
+<p>Transformers run sorted by <code>priority</code>, <strong>lowest first</strong> — so a transformer with <code>priority</code> 1 runs <em>first</em>, and later transformers see and may build on its output, per OVOS-TRANSFORM-1 §4. This lets you reimplement entity logic once instead of in every skill.</p>
 <hr />
 <h2 id="default-transformers">Default Transformers<a class="headerlink" href="#default-transformers" title="Permanent link">&para;</a></h2>
 <p><code>ovos-core</code> declares these two plugins as dependencies, so a standard install ships with them present. Each one only <em>runs</em> when its plugin name is listed under <code>intent_transformers</code> in your config:</p>
@@ -1554,7 +1554,7 @@
 </tr>
 </tbody>
 </table>
-<p>A transformer is loaded only if its plugin name appears under <code>intent_transformers</code>; set <code>"active": false</code> to skip it. (Note: <code>ahocorasick-ner</code> runs before <code>keyword-template-matcher</code>, since 5 &gt; 1.)</p>
+<p>A transformer is loaded only if its plugin name appears under <code>intent_transformers</code>; set <code>"active": false</code> to skip it. (Note: <code>keyword-template-matcher</code> runs before <code>ahocorasick-ner</code>, since 1 &lt; 5.)</p>
 <hr />
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>To enable or disable specific transformers, modify your <code>mycroft.conf</code>:</p>
@@ -1578,7 +1578,7 @@
 <p>The <code>IntentService</code> passes that match to <code>IntentTransformersService.transform(match)</code>.</p>
 </li>
 <li>
-<p>Each registered transformer plugin runs its <code>transform()</code> method in priority order (highest first), each receiving the match returned by the previous one.</p>
+<p>Each registered transformer plugin runs its <code>transform()</code> method in priority order (lowest first), each receiving the match returned by the previous one.</p>
 </li>
 <li>
 <p>Extracted entities are injected into the intent's <code>match_data</code>.</p>
@@ -1629,7 +1629,7 @@
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.transformer.intent&quot;</span><span class="k">]</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">my-transformer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_module:MyCustomTransformer&quot;</span>
 </span></code></pre></div>
-<p>Unlike utterance transformers, intent transformers get the message bus attached (<code>bind(bus)</code>) when loaded, so <code>self.bus</code> is available inside <code>transform()</code>.</p>
+<p>Like other transformer types, intent transformers get the message bus attached (<code>bind(bus)</code>) when loaded, so <code>self.bus</code> is available inside <code>transform()</code>.</p>
 <hr />
 <p><em>Source code: <a href="https://github.com/OpenVoiceOS/ovos-core">OpenVoiceOS/ovos-core</a>.</em></p>
 

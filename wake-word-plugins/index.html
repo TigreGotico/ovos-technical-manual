@@ -1419,7 +1419,10 @@
 <p>The default OVOS plugins are:</p>
 <ul>
 <li>
-<p><strong><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx">ovos-ww-plugin-precise-onnx</a></strong>: The default model-based plugin, using a trained Precise model exported to ONNX to detect wake words.</p>
+<p><strong><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite">ovos-ww-plugin-precise-lite</a></strong>: The default model-based plugin, running a trained Precise wake-word model exported to TFLite. The bundled default <code>mycroft.conf</code> sets this up for <code>hey_mycroft</code>, with a fallback chain to <code>ovos-ww-plugin-precise</code> (classic Precise), then <code>ovos-ww-plugin-vosk</code>, then <code>ovos-ww-plugin-pocketsphinx</code> if a plugin further up the chain is not installed.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx">ovos-ww-plugin-precise-onnx</a></strong>: Runs the same family of Precise models exported to ONNX instead of TFLite — a drop-in alternative for deployments that prefer the ONNX runtime.</p>
 </li>
 <li>
 <p><strong><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-vosk">ovos-ww-plugin-vosk</a></strong>: A text-based plugin leveraging Vosk, which lets you define a wake word without training a model. This is useful during the initial stages of data collection.</p>
@@ -1435,8 +1438,8 @@ without model training.</p>
 <p>The <code>hotwords</code> section in your <code>mycroft.conf</code> allows you to configure the wakeword detection parameters for each plugin. For instance:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&quot;hotwords&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;hey_mycroft&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-ww-plugin-precise-onnx&quot;</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.onnx&quot;</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-ww-plugin-precise-lite&quot;</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite&quot;</span><span class="p">,</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">&quot;trigger_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">&quot;sensitivity&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">&quot;listen&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
@@ -1523,19 +1526,19 @@ without model training.</p>
 </tr>
 <tr>
 <td><a href="#ovos-ww-plugin-precise-onnx">ovos-ww-plugin-precise-onnx</a></td>
-<td>ONNX-exported Precise wake word model (current default).</td>
+<td>ONNX-exported Precise wake word model, an alternative to the TFLite-based default.</td>
 </tr>
 <tr>
 <td><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-wakewordlab">ovos-ww-plugin-wakewordlab</a></td>
-<td>Compact (~240 KB) neural wake-word models with a Silero VAD pre-filter (<code>.wkw</code>/<code>.onnx</code>).</td>
+<td>Compact (~240 KB) neural wake-word models with a Silero VAD pre-filter (<code>.wkw</code>/<code>.onnx</code>). <strong>Not yet on PyPI</strong> — install from source.</td>
 </tr>
 <tr>
 <td><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-wakeforge">ovos-ww-plugin-wakeforge</a></td>
-<td>Runs custom wake-word models trained with <a href="https://github.com/TigreGotico/wakeforge">wakeforge</a> — train a detector from a single phrase, export a two-file model.</td>
+<td>Runs custom wake-word models trained with <a href="https://github.com/TigreGotico/wakeforge">wakeforge</a> — train a detector from a single phrase, export a two-file model. <strong>Not yet on PyPI</strong> — install from source.</td>
 </tr>
 <tr>
 <td><a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-server">ovos-ww-plugin-server</a></td>
-<td>Remote wake-word detection: streams audio to an <a href="https://github.com/OpenVoiceOS/ovos-ww-server">ovos-ww-server</a> instance (offload detection from a thin satellite).</td>
+<td>Remote wake-word detection: streams audio to an <a href="https://github.com/OpenVoiceOS/ovos-ww-server">ovos-ww-server</a> instance (offload detection from a thin satellite). <strong>Not yet on PyPI</strong> — install from source.</td>
 </tr>
 </tbody>
 </table>
@@ -1576,7 +1579,7 @@ without model training.</p>
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx">https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: Runs Precise wake word models exported to ONNX. Current default wake word plugin.</p>
+<p><strong>Description</strong>: Runs Precise wake word models exported to ONNX, an alternative to <code>ovos-ww-plugin-precise-lite</code> for deployments that prefer the ONNX runtime.</p>
 </li>
 </ul>
 <h3 id="default-configuration_1">Default Configuration<a class="headerlink" href="#default-configuration_1" title="Permanent link">&para;</a></h3>

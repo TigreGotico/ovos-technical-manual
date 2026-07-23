@@ -1232,9 +1232,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#decorator-stacking-order-matters" class="md-nav__link">
+  <a href="#combining-decorators" class="md-nav__link">
     <span class="md-ellipsis">
-      Decorator Stacking Order Matters
+      Combining Decorators
     </span>
   </a>
   
@@ -1921,9 +1921,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#decorator-stacking-order-matters" class="md-nav__link">
+  <a href="#combining-decorators" class="md-nav__link">
     <span class="md-ellipsis">
-      Decorator Stacking Order Matters
+      Combining Decorators
     </span>
   </a>
   
@@ -2194,7 +2194,7 @@
 <h2 id="intent-layer-decorators">Intent Layer Decorators<a class="headerlink" href="#intent-layer-decorators" title="Permanent link">&para;</a></h2>
 <p>Intent layers let you enable or disable groups of intents at runtime, implementing modal/state-based flows.</p>
 <h3 id="layer_intent"><code>@layer_intent</code><a class="headerlink" href="#layer_intent" title="Permanent link">&para;</a></h3>
-<p><code>layer_intent</code> — <code>ovos_workshop/decorators/layers.py:128</code></p>
+<p><code>layer_intent</code> — <code>ovos_workshop/decorators/layers.py:159</code></p>
 <p>Register an intent handler that belongs to a named layer. The intent is disabled until the layer is activated.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.layers</span> <span class="kn">import</span> <span class="n">layer_intent</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.intents</span> <span class="kn">import</span> <span class="n">IntentBuilder</span>
@@ -2204,8 +2204,8 @@
 </span></code></pre></div>
 <hr />
 <h3 id="enables_layer-disables_layer"><code>@enables_layer</code> / <code>@disables_layer</code><a class="headerlink" href="#enables_layer-disables_layer" title="Permanent link">&para;</a></h3>
-<p><code>enables_layer</code> — <code>ovos_workshop/decorators/layers.py:33</code>
-<code>disables_layer</code> — <code>ovos_workshop/decorators/layers.py:52</code></p>
+<p><code>enables_layer</code> — <code>ovos_workshop/decorators/layers.py:66</code>
+<code>disables_layer</code> — <code>ovos_workshop/decorators/layers.py:85</code></p>
 <p>Activate or deactivate a named intent layer <strong>after</strong> the decorated method runs.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.layers</span> <span class="kn">import</span> <span class="n">enables_layer</span><span class="p">,</span> <span class="n">disables_layer</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
@@ -2219,7 +2219,7 @@
 </span></code></pre></div>
 <hr />
 <h3 id="replaces_layer"><code>@replaces_layer</code><a class="headerlink" href="#replaces_layer" title="Permanent link">&para;</a></h3>
-<p><code>replaces_layer</code> — <code>ovos_workshop/decorators/layers.py:71</code></p>
+<p><code>replaces_layer</code> — <code>ovos_workshop/decorators/layers.py:104</code></p>
 <p>Replace the intent list of a named layer after the method runs.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.layers</span> <span class="kn">import</span> <span class="n">replaces_layer</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
@@ -2228,7 +2228,7 @@
 </span></code></pre></div>
 <hr />
 <h3 id="removes_layer"><code>@removes_layer</code><a class="headerlink" href="#removes_layer" title="Permanent link">&para;</a></h3>
-<p><code>removes_layer</code> — <code>ovos_workshop/decorators/layers.py:91</code></p>
+<p><code>removes_layer</code> — <code>ovos_workshop/decorators/layers.py:123</code></p>
 <p>Remove a named layer entirely (and disable its intents) after the method runs.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.layers</span> <span class="kn">import</span> <span class="n">removes_layer</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
@@ -2237,7 +2237,7 @@
 </span></code></pre></div>
 <hr />
 <h3 id="resets_layers"><code>@resets_layers</code><a class="headerlink" href="#resets_layers" title="Permanent link">&para;</a></h3>
-<p><code>resets_layers</code> — <code>ovos_workshop/decorators/layers.py:110</code></p>
+<p><code>resets_layers</code> — <code>ovos_workshop/decorators/layers.py:142</code></p>
 <p>Disable <strong>all</strong> intent layers after the method runs.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators.layers</span> <span class="kn">import</span> <span class="n">resets_layers</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
@@ -2357,31 +2357,43 @@
 </span><span id="__span-20-28"><a id="__codelineno-20-28" name="__codelineno-20-28" href="#__codelineno-20-28"></a>        <span class="k">return</span> <span class="n">pl</span>
 </span></code></pre></div>
 <hr />
-<h2 id="decorator-stacking-order-matters">Decorator Stacking Order Matters<a class="headerlink" href="#decorator-stacking-order-matters" title="Permanent link">&para;</a></h2>
-<p>When stacking multiple decorators, Python applies them <strong>bottom-up</strong> (innermost first). The <code>@intent_handler</code> and <code>@killable_intent</code> decorators both wrap the function, so the order affects which wrapper is outermost:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># CORRECT: @killable_intent wraps the already-tagged intent handler.</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="c1"># The intent is registered first, then wrapped for killability.</span>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nd">@killable_intent</span><span class="p">(</span><span class="n">react_to_stop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="nd">@intent_handler</span><span class="p">(</span><span class="s2">&quot;long_task.intent&quot;</span><span class="p">)</span>
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="k">def</span> <span class="nf">handle_long_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="o">...</span>
-</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>
-</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="c1"># WRONG: @intent_handler would wrap the killable wrapper,</span>
-</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>
-</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="c1"># and the `intents` attribute set by @intent_handler would be lost.</span>
-</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="nd">@intent_handler</span><span class="p">(</span><span class="s2">&quot;long_task.intent&quot;</span><span class="p">)</span>
-</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="nd">@killable_intent</span><span class="p">(</span><span class="n">react_to_stop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="k">def</span> <span class="nf">handle_long_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>    <span class="o">...</span>  <span class="c1"># ← intent registration silently fails</span>
+<h2 id="combining-decorators">Combining Decorators<a class="headerlink" href="#combining-decorators" title="Permanent link">&para;</a></h2>
+<p>Python applies stacked decorators <strong>bottom-up</strong> (innermost first). Whether
+order matters depends on what each decorator does to the function:</p>
+<ul>
+<li><code>@intent_handler</code>, <code>@fallback_handler</code>, <code>@common_query</code>, <code>@conversational_intent</code>,
+  <code>@homescreen_app</code>, and <code>@skill_api_method</code> are pure <strong>tags</strong> — they set an
+  attribute on the function object and return it unchanged, without wrapping
+  it. Because of this, stacking one of these with a wrapping decorator (like
+  <code>@killable_intent</code> or <code>@adds_context</code>) works in <strong>either order</strong>: the tag
+  ends up on whatever object is on top by the time it runs, and
+  <code>functools.wraps</code> propagates it if another wrapper is added afterwards.</li>
+</ul>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Both of these register the intent correctly — order does not matter here,</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="c1"># because @intent_handler never wraps the function.</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nd">@killable_intent</span><span class="p">(</span><span class="n">react_to_stop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nd">@intent_handler</span><span class="p">(</span><span class="s2">&quot;long_task.intent&quot;</span><span class="p">)</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="k">def</span> <span class="nf">handle_long_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="o">...</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="nd">@intent_handler</span><span class="p">(</span><span class="s2">&quot;long_task.intent&quot;</span><span class="p">)</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="nd">@killable_intent</span><span class="p">(</span><span class="n">react_to_stop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="k">def</span> <span class="nf">handle_long_task</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>    <span class="o">...</span>
 </span></code></pre></div>
-<p>Similarly, context decorators (<code>@adds_context</code>, <code>@removes_context</code>) should be the <strong>outermost</strong> decorator when combined with <code>@intent_handler</code>, because they run after the function body:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nd">@adds_context</span><span class="p">(</span><span class="s2">&quot;ConfirmContext&quot;</span><span class="p">)</span>
+<ul>
+<li><code>@adds_context</code>, <code>@removes_context</code>, <code>@killable_intent</code>, <code>@killable_event</code>,
+  and the intent-layer decorators (<code>@enables_layer</code>, <code>@disables_layer</code>, etc.)
+  <strong>do</strong> wrap the function — they run code before and/or after calling it.
+  When you stack two <em>wrapping</em> decorators together, the order changes what
+  actually executes and when, so make sure the one that should run
+  last (e.g. <code>@adds_context</code>, which fires after the handler body returns) is
+  the outermost:</li>
+</ul>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nd">@adds_context</span><span class="p">(</span><span class="s2">&quot;ConfirmContext&quot;</span><span class="p">)</span>   <span class="c1"># runs after handle_confirm() returns</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nd">@intent_handler</span><span class="p">(</span><span class="s2">&quot;confirm_order.intent&quot;</span><span class="p">)</span>
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="k">def</span> <span class="nf">handle_confirm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
 </span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;Order confirmed.&quot;</span><span class="p">)</span>
-</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>
-</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="c1"># Context is added AFTER handle_confirm() returns.</span>
 </span></code></pre></div>
 <hr />
 <p><em>Source code: <a href="https://github.com/OpenVoiceOS/ovos-workshop">OpenVoiceOS/ovos-workshop</a>.</em></p>

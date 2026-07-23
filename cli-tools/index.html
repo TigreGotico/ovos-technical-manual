@@ -1300,16 +1300,16 @@ version-correct options.</p>
 <td>Print the merged configuration as a table.</td>
 </tr>
 <tr>
-<td><code>ovos-config get &lt;path&gt;</code></td>
-<td>Read a single value at a dotted config path.</td>
+<td><code>ovos-config get -k &lt;key&gt;</code></td>
+<td>Read the value(s) at a key or key path (e.g. <code>-k /tts/module</code>); a loose key name lists every match.</td>
 </tr>
 <tr>
-<td><code>ovos-config set &lt;path&gt; &lt;value&gt;</code></td>
-<td>Write a value into the user (or system) config.</td>
+<td><code>ovos-config set -k &lt;key&gt; -v &lt;value&gt;</code></td>
+<td>Write a value into the user configuration; omit <code>-v</code> to be prompted (useful when the key is ambiguous).</td>
 </tr>
 <tr>
 <td><code>ovos-config autoconfigure -l &lt;lang&gt;</code></td>
-<td>Pick sensible default STT/TTS/wake-word plugins for a language and platform. Flags include <code>--platform {rpi3,rpi4,rpi5,linux,mac,termux}</code>, <code>--online</code> / <code>--offline</code> / <code>--hybrid</code>, <code>--gpu</code>, and <code>--male</code> / <code>--female</code>.</td>
+<td>Pick sensible default STT/TTS plugins for a language. <code>--lang</code>/<code>-l</code> is required; select <code>--online</code>/<code>-on</code>, <code>--offline</code>/<code>-off</code>, or <code>--hybrid</code>/<code>-hy</code> (offline TTS + online STT — the default when none is given), and optionally <code>--male</code>/<code>-m</code> or <code>--female</code>/<code>-f</code> for the TTS voice (TTS is left unconfigured if neither is passed).</td>
 </tr>
 <tr>
 <td><code>ovos-config telemetry --enable</code> / <code>--disable</code></td>

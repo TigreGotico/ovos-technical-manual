@@ -842,18 +842,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#supported-languages-and-optimizations" class="md-nav__link">
+  <a href="#supported-languages" class="md-nav__link">
     <span class="md-ellipsis">
-      Supported Languages and Optimizations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#platform-specific-optimizations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Platform-Specific Optimizations
+      Supported Languages
     </span>
   </a>
   
@@ -1447,18 +1438,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#supported-languages-and-optimizations" class="md-nav__link">
+  <a href="#supported-languages" class="md-nav__link">
     <span class="md-ellipsis">
-      Supported Languages and Optimizations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#platform-specific-optimizations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Platform-Specific Optimizations
+      Supported Languages
     </span>
   </a>
   
@@ -1669,10 +1651,10 @@ skill data (hosted statically, refreshed daily), under <code>data/datasets/</cod
 </ul>
 <hr />
 <h2 id="auto-configuration">Auto-Configuration<a class="headerlink" href="#auto-configuration" title="Permanent link">&para;</a></h2>
-<p>The fastest way to get a working setup for your language is <code>ovos-config autoconfigure</code>. It writes recommended STT and TTS plugin settings (and, with <code>--platform</code>, an intent-pipeline preset) into your user config:</p>
+<p>The fastest way to get a working setup for your language is <code>ovos-config autoconfigure</code>. It writes recommended STT and TTS plugin settings into your user config:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>en-us<span class="w"> </span>--offline<span class="w"> </span>--female
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>de-de<span class="w"> </span>--online<span class="w"> </span>--male<span class="w"> </span>-p<span class="w"> </span>rpi4
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>fr-fr<span class="w"> </span>--gpu<span class="w"> </span>--female
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>de-de<span class="w"> </span>--online<span class="w"> </span>--male
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>fr-fr<span class="w"> </span>--hybrid<span class="w"> </span>--female
 </span></code></pre></div>
 <p>The recommendations are data-driven: they come from per-language <code>*.conf</code> files bundled in <code>ovos-config</code> (<code>recommends/</code>), so the exact models depend on your installed version. See <a href="../config/"><code>ovos-config</code></a> for full options.</p>
 <h3 id="flags">Flags<a class="headerlink" href="#flags" title="Permanent link">&para;</a></h3>
@@ -1697,185 +1679,132 @@ skill data (hosted statically, refreshed daily), under <code>data/datasets/</cod
 <td>Online (public-server) STT + TTS.</td>
 </tr>
 <tr>
-<td><em>(neither)</em></td>
-<td><strong>Defaults to hybrid</strong> — offline TTS with online STT. A warning is printed.</td>
+<td><code>--hybrid</code> / <code>-hy</code></td>
+<td>Offline TTS with online STT.</td>
 </tr>
 <tr>
-<td><code>--gpu</code> / <code>-g</code></td>
-<td>GPU STT. Implies <code>--offline</code>; cannot be combined with <code>--online</code>, hybrid, or an <code>rpi*</code> platform.</td>
+<td><em>(none of the three)</em></td>
+<td><strong>Defaults to hybrid.</strong></td>
 </tr>
 <tr>
 <td><code>--male</code> / <code>-m</code>, <code>--female</code> / <code>-f</code></td>
 <td>Pick a voice. Pass exactly one. If you pass <strong>neither</strong>, TTS configuration is skipped.</td>
 </tr>
-<tr>
-<td><code>-p</code>, <code>--platform</code></td>
-<td>Apply a platform preset (see below).</td>
-</tr>
 </tbody>
 </table>
 <p>After writing the config it lists the installed STT/TTS plugins and warns about any recommended plugin you still need to <code>pip install</code>.</p>
-<h3 id="supported-languages-and-optimizations">Supported Languages and Optimizations<a class="headerlink" href="#supported-languages-and-optimizations" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Upcoming</p>
+<p>A <code>--gpu</code> flag (GPU-accelerated offline STT) and a <code>--platform</code> flag (hardware-tuned
+intent-pipeline presets for <code>rpi3</code>/<code>rpi4</code>/<code>rpi5</code>/<code>linux</code>/<code>mac</code>/<code>termux</code>) are in
+development for a future <code>ovos-config</code> release. <code>--gpu</code> is tracked in
+<a href="https://github.com/OpenVoiceOS/ovos-config/pull/274">ovos-config#274</a>.</p>
+</div>
+<h3 id="supported-languages">Supported Languages<a class="headerlink" href="#supported-languages" title="Permanent link">&para;</a></h3>
 <blockquote>
-<p>The table below is a snapshot of the bundled recommendations. The authoritative list is whatever <code>recommends/base/*.conf</code> files ship in your installed <code>ovos-config</code> (currently also includes <strong>en-AU</strong>).</p>
+<p>The table below is a snapshot of the bundled recommendations. The authoritative list is whatever <code>recommends/base/*.conf</code>, <code>recommends/offline_stt/*.conf</code>, and related files ship in your installed <code>ovos-config</code>.</p>
 </blockquote>
 <table>
 <thead>
 <tr>
 <th>Language</th>
 <th>Offline STT</th>
-<th>Offline STT (Fallback)</th>
 <th>Offline TTS (Male)</th>
 <th>Offline TTS (Female)</th>
-<th>GPU STT</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>en-US</strong></td>
-<td><code>ovos-stt-plugin-citrinet</code> (en)</td>
-<td><code>faster-whisper-base.en</code></td>
-<td>—</td>
-<td>—</td>
-<td><code>whisper-large-v3-turbo</code></td>
+<td><code>ovos-stt-plugin-fasterwhisper</code> (<code>small.en</code>)</td>
+<td><code>ovos-tts-plugin-piper</code> (ryan-low)</td>
+<td><code>ovos-tts-plugin-piper</code> (amy-low)</td>
 </tr>
 <tr>
 <td><strong>en-GB</strong></td>
 <td>—</td>
-<td><code>faster-whisper-base</code></td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
+<td><code>ovos-tts-plugin-piper</code> (alan-low)</td>
+<td><code>ovos-tts-plugin-piper</code> (alba-medium)</td>
 </tr>
 <tr>
 <td><strong>de-DE</strong></td>
 <td><code>ovos-stt-plugin-citrinet</code> (de)</td>
-<td><code>faster-whisper-base</code></td>
-<td>—</td>
-<td>—</td>
-<td><code>whisper-large-v3-turbo</code></td>
+<td><code>ovos-tts-plugin-piper</code> (thorsten-low)</td>
+<td><code>ovos-tts-plugin-piper</code> (ramona-low)</td>
 </tr>
 <tr>
 <td><strong>fr-FR</strong></td>
 <td><code>ovos-stt-plugin-citrinet</code> (fr)</td>
-<td><code>faster-whisper-base</code></td>
-<td>—</td>
-<td>—</td>
-<td><code>whisper-large-v3-turbo</code></td>
+<td><code>ovos-tts-plugin-piper</code> (gilles-low)</td>
+<td><code>ovos-tts-plugin-piper</code> (siwis-low)</td>
 </tr>
 <tr>
 <td><strong>es-ES</strong></td>
-<td><code>ovos-stt-plugin-citrinet</code> (es)</td>
-<td><code>Jarbas/faster-whisper-base-es-cv13</code></td>
-<td>—</td>
-<td>—</td>
-<td><code>Jarbas/faster-whisper-base-es-cv13</code></td>
+<td><code>ovos-stt-plugin-fasterwhisper-zuazo</code> (es, base)</td>
+<td><code>ovos-tts-plugin-piper</code> (carlfm-x_low)</td>
+<td><code>ovos-tts-plugin-ahotts</code></td>
 </tr>
 <tr>
 <td><strong>it-IT</strong></td>
 <td><code>ovos-stt-plugin-citrinet</code> (it)</td>
-<td><code>faster-whisper-base</code></td>
-<td>—</td>
-<td>—</td>
-<td><code>whisper-large-v3-turbo</code></td>
+<td><code>ovos-tts-plugin-piper</code> (riccardo-x_low)</td>
+<td><code>ovos-tts-plugin-piper</code> (paola-medium)</td>
 </tr>
 <tr>
 <td><strong>nl-NL</strong></td>
 <td><code>ovos-stt-plugin-citrinet</code> (nl)</td>
-<td><code>faster-whisper-base</code></td>
-<td>—</td>
-<td>—</td>
-<td><code>whisper-large-v3-turbo</code></td>
+<td><code>ovos-tts-plugin-piper</code> (ronnie-medium)</td>
+<td><code>ovos-tts-plugin-piper</code> (nathalie-medium)</td>
 </tr>
 <tr>
 <td><strong>pt-PT</strong></td>
-<td><code>ovos-stt-plugin-citrinet</code> (pt)</td>
-<td><code>faster-whisper-base</code></td>
+<td><code>ovos-stt-plugin-fasterwhisper</code> (custom model)</td>
+<td><code>ovos-tts-plugin-piper</code> (tugão-medium)</td>
 <td>—</td>
-<td>—</td>
-<td><code>whisper-large-v3-turbo</code></td>
 </tr>
 <tr>
 <td><strong>pt-BR</strong></td>
 <td>—</td>
-<td><code>faster-whisper-base</code></td>
+<td><code>ovos-tts-plugin-piper</code> (faber-medium)</td>
 <td>—</td>
-<td>—</td>
-<td><code>whisper-large-v3-turbo</code></td>
 </tr>
 <tr>
 <td><strong>ca-ES</strong></td>
 <td><code>ovos-stt-plugin-citrinet</code> (ca)</td>
-<td><code>Jarbas/faster-whisper-base-ca-cv13</code></td>
-<td><code>matxa</code> (grau)</td>
-<td><code>matxa</code> (elia)</td>
-<td><code>projecte-aina/faster-whisper-large-v3-ca-3catparla</code></td>
+<td><code>ovos-tts-plugin-matxa-multispeaker-cat</code> (grau)</td>
+<td><code>ovos-tts-plugin-matxa-multispeaker-cat</code> (elia)</td>
 </tr>
 <tr>
 <td><strong>gl-ES</strong></td>
-<td>—</td>
-<td><code>Jarbas/faster-whisper-base-gl-cv13</code></td>
-<td><code>cotovia</code> (iago)</td>
-<td><code>nos</code> (celtia)</td>
-<td><code>Jarbas/faster-whisper-large-v2-gl-cv13</code></td>
+<td><code>ovos-stt-plugin-fasterwhisper-zuazo</code> (gl, base)</td>
+<td><code>ovos-tts-plugin-cotovia</code> (iago)</td>
+<td><code>ovos-tts-plugin-nos</code> (celtia)</td>
 </tr>
 <tr>
 <td><strong>eu-ES</strong></td>
-<td><code>ovos-stt-plugin-HiTZ</code></td>
-<td><code>Jarbas/faster-whisper-base-eu-cv16</code></td>
+<td><code>ovos-stt-plugin-fasterwhisper-zuazo</code> (eu, base)</td>
 <td>—</td>
-<td>—</td>
-<td><code>ovos-stt-plugin-HiTZ</code></td>
+<td><code>ovos-tts-plugin-ahotts</code></td>
 </tr>
 <tr>
 <td><strong>da-DK</strong></td>
+<td><code>ovos-stt-plugin-fasterwhisper</code> (small)</td>
+<td><code>ovos-tts-plugin-piper</code> (nst_talesyntese-medium)</td>
 <td>—</td>
-<td><code>faster-whisper-base</code></td>
-<td>—</td>
-<td>—</td>
-<td><code>whisper-large-v3-turbo</code></td>
 </tr>
 <tr>
-<td><strong>ar-SA</strong></td>
-<td>—</td>
-<td>—</td>
+<td><strong>en-AU</strong></td>
 <td>—</td>
 <td>—</td>
 <td>—</td>
 </tr>
 </tbody>
 </table>
-<h3 id="platform-specific-optimizations">Platform-Specific Optimizations<a class="headerlink" href="#platform-specific-optimizations" title="Permanent link">&para;</a></h3>
-<p>The <code>--platform</code> option merges a preset that tunes the intent pipeline for the target hardware. The available presets are <code>rpi3</code>, <code>rpi4</code>, <code>rpi5</code>, <code>linux</code>, <code>mac</code>, and <code>termux</code>:</p>
-<table>
-<thead>
-<tr>
-<th>Platform</th>
-<th>Pipeline Features</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>rpi3</strong></td>
-<td>Simplified pipeline, GUI disabled</td>
-</tr>
-<tr>
-<td><strong>rpi4</strong> / <strong>rpi5</strong></td>
-<td>Full pipeline with the model2vec intent matcher (<code>Jarbas/ovos-model2vec-intents-LaBSE</code>)</td>
-</tr>
-<tr>
-<td><strong>linux</strong> / <strong>mac</strong></td>
-<td>Full desktop pipeline with the model2vec intent matcher</td>
-</tr>
-<tr>
-<td><strong>termux</strong></td>
-<td>Android/Termux preset</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p><code>--gpu</code> is rejected for <code>rpi*</code> platforms.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Where a cell shows "—", the bundled recommendations don't cover that combination yet;
+<code>autoconfigure</code> will skip that part of the configuration and tell you so.</p>
+</div>
 <hr />
 <h2 id="how-to-improve-language-support">How to Improve Language Support<a class="headerlink" href="#how-to-improve-language-support" title="Permanent link">&para;</a></h2>
 <h3 id="1-contribute-translations">1. <strong>Contribute Translations</strong><a class="headerlink" href="#1-contribute-translations" title="Permanent link">&para;</a></h3>

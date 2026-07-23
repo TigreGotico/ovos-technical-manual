@@ -1491,13 +1491,13 @@
 <summary>Technical Reference</summary>
 <ul>
 <li>
-<p><code>OVOSDinkumVoiceService</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py"><code>ovos_dinkum_listener/service.py:98</code></a> — the service <code>Thread</code>; <code>run()</code> (<code>:381</code>) connects to the bus and drives the voice loop.</p>
+<p><code>OVOSDinkumVoiceService</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py"><code>ovos_dinkum_listener/service.py</code></a> — the service <code>Thread</code>; <code>run()</code> connects to the bus and drives the voice loop.</p>
 </li>
 <li>
-<p><code>DinkumVoiceLoop.run()</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/voice_loop/voice_loop.py"><code>ovos_dinkum_listener/voice_loop/voice_loop.py:275</code></a> — the per-chunk state machine that drives <a href="../vad-plugins/">VAD</a>, <a href="../wake-word-plugins/">Wake Word</a> and <a href="../stt-plugins/">STT</a> via per-state handlers (<code>_detect_ww</code>, <code>_wait_cmd</code>, <code>_in_cmd</code>, …).</p>
+<p><code>DinkumVoiceLoop.run()</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/voice_loop/voice_loop.py"><code>ovos_dinkum_listener/voice_loop/voice_loop.py</code></a> — the per-chunk state machine that drives <a href="../vad-plugins/">VAD</a>, <a href="../wake-word-plugins/">Wake Word</a> and <a href="../stt-plugins/">STT</a> via per-state handlers.</p>
 </li>
 <li>
-<p><code>OVOSDinkumVoiceService._stt_text()</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py"><code>ovos_dinkum_listener/service.py:765</code></a> — emits the utterance message after <a href="../stt-plugins/">STT</a> returns text: <code>recognizer_loop:utterance</code> by default, or <code>ovos.utterance.handle</code> when the top-level <code>legacy_namespace</code> config is <code>false</code>.</p>
+<p><code>OVOSDinkumVoiceService._stt_text()</code> — <a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/blob/dev/ovos_dinkum_listener/service.py"><code>ovos_dinkum_listener/service.py</code></a> — emits the utterance message after <a href="../stt-plugins/">STT</a> returns text: the listener itself emits <code>recognizer_loop:utterance</code>; <code>ovos-bus-client</code>'s automatic namespace bridge (see <a href="../bus-service/#namespace-migration">Bus Service</a>) mirrors it to <code>ovos.utterance.handle</code> for consumers on the spec topic.</p>
 </li>
 </ul>
 <hr />
@@ -1545,7 +1545,7 @@ advances chunk by chunk:</p>
 <h2 id="bus-events">Bus Events<a class="headerlink" href="#bus-events" title="Permanent link">&para;</a></h2>
 <p>The listener publishes its activity on the OVOS <a href="../bus-service/">MessageBus</a>. The most
 useful events for downstream services:</p>
-<p>Canonical (spec) names are shown first, with the legacy name current code still emits in parentheses. The <code>ovos.listener.*</code> and <code>ovos.utterance.handle</code> names come from <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md">OVOS-AUDIO-IN-1 §5–§6</a>; they become the wire names when the top-level <code>legacy_namespace: false</code> config is set.</p>
+<p>Canonical (spec) names are shown first, with the legacy name current code still emits in parentheses. The <code>ovos.listener.*</code> and <code>ovos.utterance.handle</code> names come from <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md">OVOS-AUDIO-IN-1 §5–§6</a>; <code>ovos-dinkum-listener</code> itself still emits only the legacy names, and <code>ovos-bus-client</code>'s automatic namespace bridge (see <a href="../bus-service/#namespace-migration">Bus Service</a>) mirrors them onto the spec topics by default.</p>
 <table>
 <thead>
 <tr>
@@ -1592,10 +1592,11 @@ useful events for downstream services:</p>
 The full table lives in the bus-message spec (<code>message_spec/dinkum.md</code>).</p>
 <div class="admonition note">
 <p class="admonition-title">Gotcha — utterance namespace</p>
-<p>By default the transcribed command is published as <code>recognizer_loop:utterance</code>.
-Setting the top-level <code>legacy_namespace: false</code> config switches <strong>all</strong> utterance
-entry points to the spec topic <code>ovos.utterance.handle</code> instead — make sure your
-pipeline subscribes to the matching topic.</p>
+<p>The listener publishes the transcribed command as <code>recognizer_loop:utterance</code>.
+<code>ovos-bus-client</code>'s namespace bridge (on by default) also mirrors it onto
+<code>ovos.utterance.handle</code>, so subscribers can use either topic name — see
+<a href="../bus-service/#namespace-migration">Bus Service — Namespace migration</a> for how
+to turn that bridging off once every consumer speaks the spec namespace.</p>
 </div>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>The speech service is configured in the <code>listener</code>, <code>hotwords</code>, and <code>stt</code> sections of <code>mycroft.conf</code>.</p>

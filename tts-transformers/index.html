@@ -1021,6 +1021,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ovos-audiosr-tts-transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      OVOS AudioSR TTS Transformer
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1384,6 +1393,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#ovos-audiosr-tts-transformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      OVOS AudioSR TTS Transformer
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1423,7 +1441,7 @@
 </div>
 <div class="admonition info">
 <p class="admonition-title">📐 Formal specification</p>
-<p>TTS transformers are the <strong><code>tts</code> chain</strong> of <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a> §3.6</strong> (a formal <a href="../architecture-specs/">architecture spec</a>). The spec's post-TTS, pre-playback injection point receives a path/handle to the synthesized audio, an optional <code>lang</code>, and the full <code>Message.context</code>; it may replace the audio with a transformed version (pitch, reverb, EQ, tempo, super-resolution, watermarking, earcons). It <strong>SHOULD NOT</strong> re-synthesize speech in a different language or with different content — translation and rewriting are <a href="../dialog-transformers/">dialog-transformer</a> concerns, done against the text before TTS. <strong>Ordering:</strong> the spec runs the chain by <strong>ascending</strong> <code>priority</code> (lowest first); the current code runs it descending — the spec order is canonical.</p>
+<p>TTS transformers are the <strong><code>tts</code> chain</strong> of <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a> §3.6</strong> (a formal <a href="../architecture-specs/">architecture spec</a>). The spec's post-TTS, pre-playback injection point receives a path/handle to the synthesized audio, an optional <code>lang</code>, and the full <code>Message.context</code>; it may replace the audio with a transformed version (pitch, reverb, EQ, tempo, super-resolution, watermarking, earcons). It <strong>SHOULD NOT</strong> re-synthesize speech in a different language or with different content — translation and rewriting are <a href="../dialog-transformers/">dialog-transformer</a> concerns, done against the text before TTS. <strong>Ordering:</strong> the chain runs by <strong>ascending</strong> <code>priority</code> (lowest first), matching the spec.</p>
 </div>
 <p><strong>TTS Transformers</strong> in OpenVoiceOS (OVOS) are plugins that process synthesized speech audio after the <a href="../tts-plugins/">Text-to-Speech</a> (TTS) engine generates it but before it's played back to the user. </p>
 <p>They enable post-processing of audio to apply effects, enhance clarity, voice clone or tailor the output to specific needs.</p>
@@ -1448,7 +1466,7 @@
 </li>
 </ol>
 <p>TTS Transformers operate in step 4, allowing for dynamic audio enhancements without altering the original TTS output.</p>
-<p>They run inside the <strong>ovos-audio</strong> service, in the playback path: once the TTS engine has written a wav file, each loaded transformer's <code>transform(wav_file, context)</code> is called and is expected to return the path to the (possibly new) wav file to play. Transformers run in <strong>descending priority</strong> order (higher <code>priority</code> first), each receiving the previous one's output path.</p>
+<p>They run inside the <strong>ovos-audio</strong> service, in the playback path: once the TTS engine has written a wav file, each loaded transformer's <code>transform(wav_file, context)</code> is called and is expected to return the path to the (possibly new) wav file to play. Transformers run in <strong>ascending priority</strong> order (lower <code>priority</code> first), each receiving the previous one's output path.</p>
 <hr />
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>To enable TTS Transformers, add them to your <code>mycroft.conf</code> under the <code>tts_transformers</code> section:</p>
@@ -1528,34 +1546,49 @@
 </ul>
 </div>
 <hr />
+<h3 id="ovos-audiosr-tts-transformer"><strong>OVOS AudioSR TTS Transformer</strong><a class="headerlink" href="#ovos-audiosr-tts-transformer" title="Permanent link">&para;</a></h3>
+<p>Engine-agnostic ONNX audio super-resolution transformer (<code>opm.transformer.tts</code>) that upscales
+<strong>any</strong> TTS engine's output to 48 kHz just before playback, rather than being tied to one voice
+or engine. It wraps <a href="https://github.com/TigreGotico/audiosronnx"><code>audiosronnx</code></a> (pure ONNX, no
+Torch at runtime) and picks between <code>novasr</code> (default), <code>lavasr</code>, and <code>hifiganbwe</code> engines via
+config; if audio is already 48 kHz, or the model/weights are unavailable, it returns the
+original audio unchanged so synthesis never breaks.</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">&quot;tts_transformers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;ovos-tts-transformer-audiosr&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;engine&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;novasr&quot;</span><span class="p">}</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Source</strong>: <a href="https://github.com/OpenVoiceOS/ovos-tts-transformer-audiosr">ovos-tts-transformer-audiosr</a></li>
+</ul>
+<hr />
 <h2 id="creating-custom-tts-transformers">Creating Custom TTS Transformers<a class="headerlink" href="#creating-custom-tts-transformers" title="Permanent link">&para;</a></h2>
 <p>To develop your own TTS Transformer:</p>
 <p><strong>Create a Python Class</strong>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.transformers</span> <span class="kn">import</span> <span class="n">TTSTransformer</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">class</span> <span class="nc">MyCustomTTSTransformer</span><span class="p">(</span><span class="n">TTSTransformer</span><span class="p">):</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my-custom-tts-transformer&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wav_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Transform passed wav_file and return path to transformed file&quot;&quot;&quot;</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="c1"># Apply custom audio processing to wav_file, write the result,</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="c1"># and return the path to the file that should be played</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>        <span class="n">modified_wav_file</span> <span class="o">=</span> <span class="n">wav_file</span>  <span class="c1"># replace with your processed file path</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        <span class="k">return</span> <span class="n">modified_wav_file</span><span class="p">,</span> <span class="n">context</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.transformers</span> <span class="kn">import</span> <span class="n">TTSTransformer</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">class</span> <span class="nc">MyCustomTTSTransformer</span><span class="p">(</span><span class="n">TTSTransformer</span><span class="p">):</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my-custom-tts-transformer&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wav_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Transform passed wav_file and return path to transformed file&quot;&quot;&quot;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="c1"># Apply custom audio processing to wav_file, write the result,</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="c1"># and return the path to the file that should be played</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="n">modified_wav_file</span> <span class="o">=</span> <span class="n">wav_file</span>  <span class="c1"># replace with your processed file path</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="k">return</span> <span class="n">modified_wav_file</span><span class="p">,</span> <span class="n">context</span>
 </span></code></pre></div>
 <p><strong>Register as a Plugin</strong>:
 Expose the class under the <code>opm.transformer.tts</code> entry-point group in your <code>pyproject.toml</code>:</p>
-<div class="language-toml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.transformer.tts&quot;</span><span class="k">]</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="s2">&quot;my-custom-tts-transformer&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_module:MyCustomTTSTransformer&quot;</span>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.transformer.tts&quot;</span><span class="k">]</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="s2">&quot;my-custom-tts-transformer&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_module:MyCustomTTSTransformer&quot;</span>
 </span></code></pre></div>
 <p><strong>Install and Configure</strong>:
 After installation, add your transformer to the <code>mycroft.conf</code>:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&quot;tts_transformers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w"> </span><span class="nt">&quot;my-custom-tts-transformer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">&quot;tts_transformers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w"> </span><span class="nt">&quot;my-custom-tts-transformer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">}</span>
 </span></code></pre></div>
 <hr />
 <p>By leveraging TTS Transformers, you can enhance the auditory experience of your OVOS assistant, tailoring speech output to better suit your preferences or application requirements.</p>

@@ -1528,7 +1528,7 @@
 <tbody>
 <tr>
 <td><code>lang</code></td>
-<td><code>"en-US"</code></td>
+<td><code>"en-us"</code></td>
 <td>Primary BCP-47 language code for STT and TTS.</td>
 </tr>
 <tr>
@@ -1550,6 +1550,11 @@
 <td><code>date_format</code></td>
 <td><code>"MDY"</code></td>
 <td>Date format for display and parsing.</td>
+</tr>
+<tr>
+<td><code>time_format</code></td>
+<td><code>"half"</code></td>
+<td>Clock format for display (<code>half</code> = 12-hour, <code>full</code> = 24-hour).</td>
 </tr>
 <tr>
 <td><code>confirm_listening</code></td>
@@ -1596,6 +1601,7 @@
 </ul>
 <hr />
 <h2 id="3-listener-microphone">3. Listener &amp; Microphone<a class="headerlink" href="#3-listener-microphone" title="Permanent link">&para;</a></h2>
+<p>All of these live under the top-level <code>listener</code> key:</p>
 <table>
 <thead>
 <tr>
@@ -1606,39 +1612,44 @@
 </thead>
 <tbody>
 <tr>
-<td><code>sample_rate</code></td>
+<td><code>listener.sample_rate</code></td>
 <td><code>16000</code></td>
 <td>Audio sampling rate in Hz.</td>
 </tr>
 <tr>
-<td><code>fake_barge_in</code></td>
+<td><code>listener.fake_barge_in</code></td>
 <td><code>true</code></td>
 <td>Mute output during recording.</td>
 </tr>
 <tr>
-<td><code>recording_timeout</code></td>
+<td><code>listener.recording_timeout</code></td>
 <td><code>10.0</code></td>
 <td>Max seconds for a single recording.</td>
 </tr>
 <tr>
-<td><code>remove_silence</code></td>
+<td><code>listener.remove_silence</code></td>
 <td><code>true</code></td>
 <td>Strip leading/trailing silence before sending audio to STT.</td>
 </tr>
 <tr>
-<td><code>wake_word</code></td>
+<td><code>listener.wake_word</code></td>
 <td><code>"hey_mycroft"</code></td>
 <td>Default hotword (matches an entry under <code>hotwords</code>).</td>
 </tr>
 </tbody>
 </table>
 <h3 id="microphone-plugin">Microphone Plugin<a class="headerlink" href="#microphone-plugin" title="Permanent link">&para;</a></h3>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&quot;microphone&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-microphone-plugin-alsa&quot;</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">}</span>
+<p>The microphone plugin is nested under <code>listener.microphone</code>:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&quot;listener&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;microphone&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;module&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ovos-microphone-plugin-alsa&quot;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <hr />
 <h2 id="4-speech-activity-vad">4. Speech Activity (VAD)<a class="headerlink" href="#4-speech-activity-vad" title="Permanent link">&para;</a></h2>
+<p>The timing thresholds actually read by <code>ovos-dinkum-listener</code> to decide when a command
+starts and ends are top-level <code>listener</code> keys (not nested under <code>VAD</code>):</p>
 <table>
 <thead>
 <tr>
@@ -1649,22 +1660,22 @@
 </thead>
 <tbody>
 <tr>
-<td><code>silence_method</code></td>
-<td><code>"vad_and_ratio"</code></td>
-<td>VAD strategy (<code>VAD_ONLY</code>, <code>ALL</code>, etc.).</td>
+<td><code>listener.speech_begin</code></td>
+<td><code>0.3</code></td>
+<td>Seconds of detected speech before a command is considered started.</td>
 </tr>
 <tr>
-<td><code>speech_seconds</code></td>
-<td><code>0.1</code></td>
-<td>Seconds of speech to trigger command start.</td>
-</tr>
-<tr>
-<td><code>silence_seconds</code></td>
-<td><code>0.5</code></td>
-<td>Seconds of silence to trigger command end.</td>
+<td><code>listener.silence_end</code></td>
+<td><code>0.7</code></td>
+<td>Seconds of silence before a command is considered ended.</td>
 </tr>
 </tbody>
 </table>
+<p>The shipped config also carries a <code>listener.VAD</code> block (<code>silence_method</code>, <code>speech_seconds</code>,
+<code>silence_seconds</code>, plus a per-VAD-plugin <code>module</code>/fallback chain such as
+<code>ovos-vad-plugin-silero</code> → <code>ovos-vad-plugin-precise</code> → <code>ovos-vad-plugin-webrtcvad</code> →
+<code>ovos-vad-plugin-noise</code>) used to select and configure the <a href="../vad-plugins/">VAD plugin</a>
+itself — a separate concern from the <code>speech_begin</code>/<code>silence_end</code> timing above.</p>
 <hr />
 <h2 id="5-plugin-selection">5. Plugin Selection<a class="headerlink" href="#5-plugin-selection" title="Permanent link">&para;</a></h2>
 <h3 id="stt-speech-to-text">STT (Speech-to-Text)<a class="headerlink" href="#stt-speech-to-text" title="Permanent link">&para;</a></h3>
