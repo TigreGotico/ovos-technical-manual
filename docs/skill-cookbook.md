@@ -246,6 +246,11 @@ class ExchangeRateSkill(OVOSSkill):
 
 ## 4. Continuous conversation: multi-turn dialog with `converse` and `get_response`
 
+!!! warning "Testing multi-turn flows over the bus"
+    When driving this recipe from a test or script, re-fetch the live session before each
+    follow-up utterance — reusing a stale serialized `Session` erases the activation from
+    turn 1. See [Testing Your Skill](testing-your-skill.md#multi-turn-tests-always-re-pull-the-session).
+
 **When you'd want this:** the interaction needs more than one exchange — booking a table means asking for a time, a party size, and a name in sequence, or reacting to whatever the user says next without them repeating the skill's name.
 
 There are two complementary tools for this:

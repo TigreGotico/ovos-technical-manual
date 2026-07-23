@@ -238,6 +238,29 @@ ovoscope run test/fixtures/hello.json -v
     your workflow. The Python API is handy when you want to tweak the `Session` (language,
     pipeline list) before recording.
 
+## Multi-turn tests: always re-pull the session
+
+Session state (which skills are active for [converse](converse.md), context, pipeline order)
+travels **inside each message** and the server folds it back with last-writer-wins semantics.
+If a test builds one `Session` object and reuses it (or an old `.serialize()` snapshot) across
+several injected utterances, every later message re-stamps the stale snapshot and silently
+undoes whatever the previous turn changed — a skill activated in turn 1 will not get its
+`converse()` called in turn 2.
+
+Re-fetch the live session right before building each follow-up message:
+
+```python
+from ovos_bus_client.session import SessionManager
+
+# turn 1
+bus.emit(make_utterance_message("book a table", session=my_session))
+# ... wait for the reply ...
+
+# turn 2 — never reuse `my_session`; pull the updated singleton instead
+live = SessionManager.sessions[my_session.session_id]
+bus.emit(make_utterance_message("yes", session=live))
+```
+
 ## Step 6 — Wire it into CI
 
 Add a workflow that runs the test suite on every pull request:
