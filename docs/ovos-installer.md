@@ -54,7 +54,7 @@ sudo apt install -y git curl
 
 ### 📥 4. Run the OVOS Installer
 
-Now you're ready to kick off the installation process:
+Now you're ready to start the installation process:
 
 ```bash
 sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/OpenVoiceOS/ovos-installer/main/installer.sh)"
@@ -109,7 +109,7 @@ Navigation:
 
 ### 🌍 Language Selection
 
-The first screen lets you select your preferred language for the installer's own text (not the assistant's spoken language, which is chosen later). Follow the on-screen instructions; use arrow keys and space to pick.
+The first screen lets you select your preferred language for the installer's own text — not the assistant's spoken language. See [Language Support](lang-support.md) for how the assistant's language is actually chosen: setting the global `lang` key is enough on its own (STT/TTS/plugins follow it automatically), and `ovos-config autoconfigure` optionally swaps in the recommended plugins/voices for that language. Follow the on-screen instructions; use arrow keys and space to pick.
 
 ![image](https://gist.github.com/user-attachments/assets/61f9e089-1d54-49e9-8d4a-d5e1f6028ee2)
 
@@ -291,12 +291,15 @@ community metrics endpoint to your installed `mycroft.conf`. That makes the
 basis — every time it processes a voice command, not just during setup. If
 you want data collection to stop once installation is over, decline this
 prompt (declining the first, install-time prompt is not enough on its own).
+The `open_data` key in the bundled `mycroft.conf` itself is commented
+"EXCLUSIVELY OPT-IN" — the choice always remains yours, whether made here in
+the installer or later by hand.
 
 ---
 
 ### 🧙‍♂️ Sit Back and Relax
 
-The installation begins! This can take some time, so why not grab a coffee (or maybe a cupcake)? ☕🧁
+The installation begins! This can take some time — take a short break while it runs. ☕🧁
 
 Here is a demo of how the process should go if everything works as intended.
 The recording shows a full run of the wizard on a fresh machine, from launching

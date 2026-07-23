@@ -155,5 +155,6 @@ There is no secrets manager or encryption layer.
 - [ ] For remote/multi-room setups, use [HiveMind](hivemind-agents.md) instead
       of exposing the bus directly.
 
-Found an actual vulnerability rather than a documentation gap? See
-[reporting a vulnerability](https://github.com/TigreGotico/ovos-technical-manual/blob/master/SECURITY.md).
+Found an actual vulnerability rather than a documentation gap? Use the affected
+repository's Security tab → **Report a vulnerability** on
+[github.com/OpenVoiceOS](https://github.com/OpenVoiceOS) to report it privately.

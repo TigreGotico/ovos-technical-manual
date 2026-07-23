@@ -52,6 +52,8 @@ class ReminderSkill(OVOSSkill):
         self.speak_dialog("reminder_set", {"minutes": minutes})
 
     def handle_reminder_due(self, message):
+        # self.play_audio(self.find_resource("chime.mp3", "snd")) would play a
+        # sound file instead of/before speaking — see self.play_audio
         self.speak_dialog("reminder_due", {"text": message.data["text"]})
         pending = self.settings.get("pending_reminders", {})
         pending.pop(message.data["name"], None)
@@ -87,7 +89,7 @@ Reminder: {text}
 
 - `self.schedule_event(handler, when, data=None, name=None)` — `when` accepts a
   `datetime.datetime` (absolute) or an `int`/`float` (seconds from now). `name` is
-  the handle you cancel or update by later. Full signature and semantics: [Decorators & Scheduling](decorators.md).
+  the handle you cancel or update by later. Full signature and semantics: [Scheduling Events](ovos-skill.md#scheduling-events).
 - `self.cancel_scheduled_event(name)` / `self.update_scheduled_event(name, data)` — manage an existing timer by name.
 - For a recurring alarm (not a one-shot reminder) use `self.schedule_repeating_event(handler, when, frequency, name=...)` instead — same page.
 - `self.settings` is a `JsonStorage` (dict-like) backed by `settings.json`; `self.settings.store()` writes it to disk immediately. See [Skill Settings](skill-settings.md) for the storage location and lifecycle.

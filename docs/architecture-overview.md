@@ -28,26 +28,12 @@ stable interface without knowing about each other — see the
 The diagram above illustrates how a user utterance moves through the system:
 
 1. **Microphone Input**: Captured by a microphone plugin.
-
-
 2. **[Wake Word](wake-word-plugins.md) Detection**: The `ovos-dinkum-listener` (or similar) monitors the stream for the wake word.
-
-
 3. **[Speech-to-Text](stt-plugins.md) ([STT](stt-plugins.md))**: Once the wake word is detected, the subsequent audio is sent to an STT engine.
-
-
 4. **messagebus**: The transcribed text is published to the bus as `ovos.utterance.handle` — the utterance entry point ([OVOS-PIPELINE-1 §9.1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md); legacy name `recognizer_loop:utterance`).
-
-
 5. **[Intent Service](intent-service.md)**: the **orchestrator** (`ovos-core`) picks up the utterance and runs it through the **[pipeline](pipelines-overview.md)** of matcher plugins — the first plugin to claim it wins ([OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)).
-
-
 6. **[Skill](skill-design-guidelines.md) Execution**: If a match is found, the corresponding skill is triggered.
-
-
 7. **Response**: The handler emits an `ovos.utterance.speak` message — the natural-language response ([OVOS-PIPELINE-1 §9.6](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)).
-
-
 8. **[Text-to-Speech](tts-plugins.md) ([TTS](tts-plugins.md))**: `ovos-audio` converts the response text to audio and plays it.
 
 ---
@@ -107,18 +93,13 @@ Handles hardware-specific tasks like volume control, battery monitoring, and con
 
 ## Modularity and Plugins
 
-One of OVOS's greatest strengths is its plugin-based architecture. Almost every major function is a plugin:
+One of OVOS's greatest strengths is its plugin-based architecture. Almost every major function is a plugin, and the manual keeps a maintained catalog for each category:
 
-- **Microphone Plugins**: ALSA, PyAudio, etc.
-
-
-- **STT/TTS Plugins**: Google, Whisper, Coqui, etc.
-
-
-- **Wake Word Plugins**: Precise, PocketSphinx, Snowboy, etc.
-
-
-- **Intent Plugins**: [Adapt](adapt-pipeline.md), [Padatious](padatious-pipeline.md), [Common Query](cq-pipeline.md), etc.
+- **Microphone Plugins**: see the [Microphone Plugins catalog](mic-plugins.md).
+- **STT Plugins**: see the [STT Plugins catalog](stt-plugins.md).
+- **TTS Plugins**: see the [TTS Plugins catalog](tts-plugins.md).
+- **Wake Word Plugins**: see the [Wake Word Plugins catalog](wake-word-plugins.md).
+- **Intent Plugins**: [Adapt](adapt-pipeline.md), [Padatious](padatious-pipeline.md), [Common Query](cq-pipeline.md), and the rest of the [pipeline overview](pipelines-overview.md).
 
 This allows OVOS to run on everything from a high-end server to a Raspberry Pi Zero.
 

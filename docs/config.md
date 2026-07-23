@@ -33,19 +33,25 @@ So to switch to a German voice you only need:
 ```
 
 dropped into `~/.config/mycroft/mycroft.conf`. Dicts are deep-merged, so this leaves
-every other setting untouched.
+every other setting untouched. This alone is enough: STT, TTS, and every other
+language-aware plugin follow the global `lang` automatically. A per-plugin `lang`
+setting only *overrides* that default for one plugin (e.g. to keep a second voice
+speaking another language); `ovos-config autoconfigure` (below) is a convenience
+that additionally swaps in the recommended plugins/voices for a language — it is
+not required just to switch languages. See [Language Support](lang-support.md) for
+the full picture.
 
 ---
 
 ## Config Layer Stack
 
-Layers are merged in this priority order (highest wins):
+Layers are merged in this order — later layers override earlier ones:
 
 ```text
-MycroftDefaultConfig   (bundled mycroft.conf — read-only)
+MycroftDefaultConfig   (bundled mycroft.conf — read-only to OVOS itself; admins edit the file)
 RemoteConf             (~/.config/mycroft/web_cache.json)
-OvosDistributionConfig (/usr/share/mycroft/mycroft.conf — read-only)
-MycroftSystemConfig    (/etc/mycroft/mycroft.conf — read-only)
+OvosDistributionConfig (/usr/share/mycroft/mycroft.conf — read-only to OVOS itself; admins edit the file)
+MycroftSystemConfig    (/etc/mycroft/mycroft.conf — read-only to OVOS itself; admins edit the file)
 MycroftUserConfig      (~/.config/mycroft/mycroft.conf — XDG user config)
 __patch                (in-memory overlay applied last)
 

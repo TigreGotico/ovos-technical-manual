@@ -30,11 +30,9 @@ OVOS supports different wake word detection plugins, each with its own strengths
 
 The default OVOS plugins are:
 
-- **[ovos-ww-plugin-precise-lite](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite)**: The default model-based plugin, running a trained Precise wake-word model exported to TFLite. The bundled default `mycroft.conf` sets this up for `hey_mycroft`, with a fallback chain to `ovos-ww-plugin-precise` (classic Precise), then `ovos-ww-plugin-vosk`, then `ovos-ww-plugin-pocketsphinx` if a plugin further up the chain is not installed.
+- **[ovos-ww-plugin-precise-lite](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite)**: The plugin the bundled default `mycroft.conf` still ships for `hey_mycroft`, running a trained Precise wake-word model exported to TFLite, with a fallback chain to `ovos-ww-plugin-precise` (classic Precise), then `ovos-ww-plugin-vosk`, then `ovos-ww-plugin-pocketsphinx` if a plugin further up the chain is not installed. The plugin repository itself is archived (legacy lineage); it keeps working as installed, but `ovos-ww-plugin-precise-onnx` is the maintained successor for new setups.
 
-
-- **[ovos-ww-plugin-precise-onnx](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx)**: Runs the same family of Precise models exported to ONNX instead of TFLite — a drop-in alternative for deployments that prefer the ONNX runtime.
-
+- **[ovos-ww-plugin-precise-onnx](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx)**: Runs the same family of Precise models exported to ONNX instead of TFLite — the actively maintained successor to `ovos-ww-plugin-precise-lite`, and the recommended choice for new deployments that want a model-based Precise wake word.
 
 - **[ovos-ww-plugin-vosk](https://github.com/OpenVoiceOS/ovos-ww-plugin-vosk)**: A text-based plugin leveraging Vosk, which lets you define a wake word without training a model. This is useful during the initial stages of data collection.
 

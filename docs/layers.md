@@ -137,8 +137,8 @@ class KonamiCodeSkill(OVOSSkill):
         self.intent_layers.deactivate_layer("B")
         self.acknowledge()
 
-    def handle_a_intent(self, message):        
-        self.play_audio("power_up.mp3")
+    def handle_a_intent(self, message):
+        self.play_audio(self.find_resource("power_up.mp3", "snd"))
         self.reset()
 
     def stop(self):

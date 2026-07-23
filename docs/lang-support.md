@@ -9,6 +9,20 @@ OpenVoiceOS (OVOS) aims to support multiple languages across its components, inc
 
 Related pages: [Language Selection](lang-selection.md) (how OVOS picks a language per utterance), [Customizing Language Resources](lang-customization.md) (override/translate skill text), and [Bidirectional Translation](bidirectional-translation.md) (use a single-language skill in any language).
 
+!!! note "How language selection works"
+    Setting the global `lang` key in [`mycroft.conf`](config.md) is sufficient on its own to
+    switch the assistant's language: STT, TTS, and every other language-aware plugin follow
+    the global `lang` automatically. A per-plugin `lang` setting exists only to *override*
+    that default for one plugin (e.g. running a second voice in another language).
+    `ovos-config autoconfigure` (below) is a convenience that additionally picks the
+    *recommended* plugins/voices for a language (offline/online, gender) — it optionally
+    swaps in better defaults, it is not required just to switch languages.
+
+!!! note "Language codes are case-insensitive"
+    OVOS normalizes language codes internally (e.g. `en-us`, `EN-US`, and `en_US` all become
+    `en-US`), so it doesn't matter which case you type them in on the command line or in
+    `mycroft.conf`. This manual writes codes in lower-case (`en-us`) by convention.
+
 ---
 
 While the OVOS installer allows users to select a preferred language, **selecting a language does not guarantee full support across all subsystems**. True multilingual support requires dedicated:
@@ -138,9 +152,14 @@ The fastest way to get a working setup for your language is `ovos-config autocon
 
 ```bash
 ovos-config autoconfigure -l en-us --offline --female
-ovos-config autoconfigure -l de-de --online --male
+ovos-config autoconfigure -l de-de --offline --male
 ovos-config autoconfigure -l fr-fr --hybrid --female
 ```
+
+!!! note
+    These three commands illustrate the three *modes* (`--offline`/`--online`/`--hybrid`),
+    not a per-language recommendation — check the [Supported Languages](#supported-languages)
+    table below for what's actually bundled for a given language before picking a mode.
 
 The recommendations are data-driven: they come from per-language `*.conf` files bundled in `ovos-config` (`recommends/`), so the exact models depend on your installed version. See [`ovos-config`](config.md) for full options.
 
@@ -292,7 +311,7 @@ Explore public benchmark tools for evaluating model performance:
 
 ---
 
-##  Tips for Contributors
+## Tips for Contributors
 
 - Translators: Use [OVOS Localize](https://openvoiceos.github.io/ovos-localize/)'s side-by-side editor — it shows the skill code behind each phrase — to keep intent logic intact.
 

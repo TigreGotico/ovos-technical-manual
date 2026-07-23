@@ -144,6 +144,19 @@ self.speak_dialog("my.dialog", data={"name": "Alice"})  # Mustache templating
 
 ```
 
+### Playing audio files
+
+```python
+self.play_audio(self.find_resource("chime.mp3", "snd"))
+```
+
+`play_audio(filename, instant=False, wait=False)` queues (or, with `instant=True`,
+immediately plays) an audio file through `ovos-audio`. `filename` must be a path to a real
+file on disk or a URI — `play_audio` does **not** search skill resource directories for you,
+so resolve the path yourself first, typically with `self.find_resource(name, "snd")` (looking
+up `<skill>/snd/<name>` or a locale-specific variant). Pass `wait=True` to block until playback
+finishes or a 30-second default timeout elapses, or `wait=<seconds>` for a custom timeout.
+
 ## Getting User Input
 
 ```python
@@ -184,6 +197,43 @@ self.set_context("MyContext", "value")
 self.remove_context("MyContext")
 
 ```
+
+## Scheduling Events
+
+Skills can ask the [`event_scheduler`](#infrastructure) to call a handler at a future time,
+once or repeatedly:
+
+```python
+import datetime
+
+# once, 60 seconds from now
+self.schedule_event(self.handle_timeout, 60, name="my-timeout")
+
+# once, at a specific point in time
+self.schedule_event(self.handle_timeout, datetime.datetime.now() + datetime.timedelta(hours=1),
+                    name="my-timeout")
+
+# repeating every 30 minutes, starting 30 minutes from now
+self.schedule_repeating_event(self.handle_tick, None, 60 * 30, name="my-tick")
+
+# cancel a scheduled event by name
+self.cancel_scheduled_event("my-tick")
+
+```
+
+- **`schedule_event(handler, when, data=None, name=None, context=None)`**: single-shot.
+  `when` is either a `datetime` (interpreted in the system timezone) or a number of seconds
+  from now.
+- **`schedule_repeating_event(handler, when, frequency, data=None, name=None, context=None)`**:
+  repeating. `frequency` is the interval **in seconds** between calls. `when=None` fires the
+  first call `frequency` seconds from now; pass a `datetime`/number to control the first firing
+  explicitly.
+- Both accept an optional `name` used to reference/cancel the event later with
+  `cancel_scheduled_event(name)`. Reusing a `name` for `schedule_event` does **not** warn or
+  replace a previously scheduled event of the same name — use unique names, or cancel the old
+  one first.
+- Scheduled events are persisted by the [`EventScheduler`](bus-service.md) so they survive an
+  `ovos-core` restart; they are not tied to the skill instance staying in memory.
 
 ## Public Skill API
 
