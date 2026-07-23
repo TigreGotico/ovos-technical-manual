@@ -13,8 +13,6 @@
 
 Open Voice OS (OVOS) is a **modular voice assistant platform** that lets you install only the components you need. Whether you're building a lightweight voice interface or a full-featured smart assistant, OVOS gives you flexibility through modular packages and optional feature sets called **extras**.
 
-To manage updates and ensure system stability, OVOS uses **release channels** and **constraints files** (explained above), allowing users to pin versions based on their desired stability level.
-
 ---
 
 ## Installation Methods
@@ -43,11 +41,7 @@ These channels are managed via the [constraints files](https://pip.pypa.io/en/st
 ### 1. Stable Channel (Production-Ready)
 
 - ✅ Bug fixes only
-
-
 - 🚫 No new features or breaking changes
-
-
 - ✅ Recommended for production or everyday use
 
 ```bash
@@ -58,11 +52,7 @@ uv pip install ovos-core[mycroft] -c https://raw.githubusercontent.com/OpenVoice
 ### 2. Testing Channel (Feature Updates)
 
 - ✅ Bug fixes and new features
-
-
 - ⚠️ Not as thoroughly tested as stable
-
-
 - 🧪 Best for early adopters or development environments
 
 ```bash
@@ -73,11 +63,7 @@ uv pip install ovos-core[mycroft] -c https://raw.githubusercontent.com/OpenVoice
 ### 3. Alpha Channel (Bleeding Edge)
 
 - 🔬 Experimental features
-
-
 - ⚠️ May include breaking changes
-
-
 - 🧪 Not suitable for production use
 
 ```bash
@@ -120,20 +106,10 @@ uv pip install ovos-core[mycroft] --pre -c https://raw.githubusercontent.com/Ope
 Rather than using a full distro, you can manually pick which components to install:
 
 - [`ovos-messagebus`](https://github.com/OpenVoiceOS/ovos-messagebus) – internal messaging between services
-
-
 - [`ovos-core`](https://github.com/OpenVoiceOS/ovos-core) – skill handling
-
-
 - [`ovos-audio`](https://github.com/OpenVoiceOS/ovos-audio) – text-to-speech ([TTS](tts-plugins.md)), audio playback
-
-
 - [`ovos-dinkum-listener`](https://github.com/OpenVoiceOS/ovos-dinkum-listener) – wake word, voice activation
-
-
 - [`ovos-gui`](https://github.com/OpenVoiceOS/ovos-gui) – GUI integration (⚠️ the legacy [GUI](gui-service.md) is deprecated and not usable right now; a replacement is in progress — you can omit this on most setups)
-
-
 - [`ovos-PHAL`](https://github.com/OpenVoiceOS/ovos-PHAL) – hardware abstraction layer
 
 This is useful if you're building something like a **Hivemind node** or **headless device**, where you might not need audio output or a GUI.
@@ -176,11 +152,7 @@ pip install ovos-core[mycroft,plugins,skills-essential]
 ## Technical Notes
 
 - OVOS is **fully modularized**, with each major service in its own repository, so you install only what you need.
-
-
 - All packages follow [Semantic Versioning (SemVer)](https://semver.org/), so you can rely on versioning to understand stability and compatibility.
-
-
 - Constraints files are a **stable standard** for pinning system versions since the [ovos-releases 1.0.0](https://github.com/OpenVoiceOS/ovos-releases) milestone.
 
 ---
@@ -210,14 +182,8 @@ for the same pattern applied across a fleet of devices rather than one machine.
 ## ⚠️ Tips & Caveats
 
 - Using `--pre` installs pre-releases across all dependencies, not just OVOS-specific ones — so use with caution.
-
-
 - You can mix and match extras based on your hardware or use case, e.g., omit GUI skills on a headless server.
-
-
 - When using constraints files, make sure all packages are pinned — it avoids installing incompatible versions.
-
-
 - After installing you need to launch the individual ovos services, either manually or by creating a systemd service
 
 ---
@@ -225,13 +191,7 @@ for the same pattern applied across a fleet of devices rather than one machine.
 ## See Also
 
 - [OVOS Releases repo](https://github.com/OpenVoiceOS/ovos-releases)
-
-
 - [Constraints files explanation (pip docs)](https://pip.pypa.io/en/stable/user_guide/#constraints-files)
-
-
 - [Semantic Versioning](https://semver.org/)
-
-
 - [OVOS Component Repos](https://github.com/OpenVoiceOS)
 

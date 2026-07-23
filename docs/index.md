@@ -33,8 +33,9 @@ how it hears, thinks, and speaks, or teach it brand-new abilities.
 
     Get a working voice assistant on your device.
 
-    [:octicons-arrow-right-24: Installation options](release-channels.md) ·
-    [ovos-installer](ovos-installer.md) ·
+    [:octicons-arrow-right-24: ovos-installer](ovos-installer.md) ·
+    [Make it yours](personalize.md) ·
+    [Advanced / manual install](release-channels.md) ·
     [Skill examples](skill-examples.md)
 
 -   :material-school: __I want to build a skill__

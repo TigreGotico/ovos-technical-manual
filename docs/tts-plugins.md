@@ -8,6 +8,28 @@
 
 TTS plugins are responsible for converting text into audio for playback.
 
+## Change your voice
+
+1. Browse [voices_demo](https://github.com/OpenVoiceOS/voices_demo) for audio samples of the
+   available TTS voices, or check a plugin's own catalog entry below for what it offers.
+2. Open `~/.config/mycroft/mycroft.conf` (create it if it doesn't exist) and set the `tts`
+   section's `module` to the plugin you want, plus any plugin-specific settings (voice name,
+   speaker id, etc.):
+   ```json
+   {
+     "tts": {
+       "module": "ovos-tts-plugin-piper",
+       "ovos-tts-plugin-piper": { "voice": "en_US-amy-low" }
+     }
+   }
+   ```
+3. Save the file — it's JSONC (comments allowed) — and restart OVOS for the change to take effect.
+
+!!! tip
+    Don't want to hand-pick a plugin and voice yourself? `ovos-config autoconfigure -l <lang> ...`
+    picks a recommended offline/online voice for your language automatically — see
+    [Language Support](lang-support.md#auto-configuration).
+
 ## TTS
 
 All OVOS TTS plugins need to define a class based on the TTS base class from `ovos_plugin_manager`.

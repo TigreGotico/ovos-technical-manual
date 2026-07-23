@@ -88,12 +88,9 @@ nav:
   - Home:
       - Introduction: index.md
       - Glossary: glossary.md
-  - Help & Troubleshooting:
-      - It's not behaving: everyday-help.md
-      - Troubleshooting: troubleshooting.md
-      - Skill Dev F.A.Q.: skill-dev-faq.md
   - Get Started:
       - ovos-installer: ovos-installer.md
+      - Make it yours: personalize.md
       - Manual & Advanced Install: release-channels.md
       - Fun stuff to try: showcase.md
       - Skill Examples: skill-examples.md
@@ -106,6 +103,10 @@ nav:
       - Your First Skill: first-skill.md
       - Testing Your Skill: testing-your-skill.md
       - Skill Cookbook: skill-cookbook.md
+  - Help & Troubleshooting:
+      - It's not behaving: everyday-help.md
+      - Troubleshooting: troubleshooting.md
+      - Skill Dev F.A.Q.: skill-dev-faq.md
   - Concepts:
       - High-level Overview: architecture-overview.md
       - Formal Specifications: architecture-specs.md
@@ -254,6 +255,7 @@ nav:
       - OVOS Repository Index: ecosystem-index.md
       - Command-line Tools: cli-tools.md
       - Core Libraries: core-libraries.md
+      - Bus Events Reference: bus-events.md
       - Tools:
           - ovos-docs-viewer: docs-viewer.md
           - gh-automations: gh-automations-overview.md

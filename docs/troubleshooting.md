@@ -10,8 +10,40 @@
 
 Every stage below can be checked two ways: **tail a log file** (works everywhere, including headless
 boxes over SSH), or **watch the bus live** with `ovos-busmon` (works anywhere a browser can reach the
-device, and shows every stage in one place instead of six log files). Read the next section first —
-it is the fastest way to answer "which stage swallowed my utterance?" in one shot.
+device, and shows every stage in one place instead of six log files). Start with the logs — they
+need no extra install — then reach for `ovos-busmon` when you want everything in one filterable view.
+
+---
+
+## Where the logs live
+
+OVOS runs several independent services (listener, intent/skills, audio, messagebus, GUI), and each
+one writes its **own** log file, named after the service. By default they land under the XDG state
+directory — on a typical Linux install that is:
+
+```text
+~/.local/state/mycroft/
+├── audio.log     # ovos-audio — TTS + playback
+├── bus.log       # ovos-messagebus
+├── skills.log    # ovos-core — intent matching + skill execution
+└── voice.log     # ovos-dinkum-listener — mic, wake word, STT
+```
+
+The directory can be overridden per-service via the `logs.path` config key (or `logging.<service>.
+logs.path` for a per-service override); see [Turning up log detail](#turning-up-log-detail) below.
+Each service also logs to `stdout`, so if it runs under systemd or Docker, `journalctl` /
+`docker logs` shows the same lines.
+
+`ovos-logs` (shipped by `ovos-utils`) is the quickest way to read them without hunting for the path:
+
+```bash
+ovos-logs show -l skills      # page through skills.log with `less`
+ovos-logs list --error        # every ERROR line across all logs
+ovos-logs slice --start "1-1-2024 09:00"   # a time-bounded slice
+```
+
+See the [Command-line Tools](cli-tools.md#reading-the-logs-ovos-logs) page for the full flag
+reference.
 
 ---
 
@@ -85,38 +117,6 @@ and sets `OVOS_BUS_HOST=host.docker.internal` so it can reach a bus running on t
 
 Each stage further down cites the exact message type to filter on, so this same walkthrough can be
 repeated stage-by-stage instead of glancing at the whole stream at once.
-
----
-
-## Where the logs live
-
-OVOS runs several independent services (listener, intent/skills, audio, messagebus, GUI), and each
-one writes its **own** log file, named after the service. By default they land under the XDG state
-directory — on a typical Linux install that is:
-
-```text
-~/.local/state/mycroft/
-├── audio.log     # ovos-audio — TTS + playback
-├── bus.log       # ovos-messagebus
-├── skills.log    # ovos-core — intent matching + skill execution
-└── voice.log     # ovos-dinkum-listener — mic, wake word, STT
-```
-
-The directory can be overridden per-service via the `logs.path` config key (or `logging.<service>.
-logs.path` for a per-service override); see [Turning up log detail](#turning-up-log-detail) below.
-Each service also logs to `stdout`, so if it runs under systemd or Docker, `journalctl` /
-`docker logs` shows the same lines.
-
-`ovos-logs` (shipped by `ovos-utils`) is the quickest way to read them without hunting for the path:
-
-```bash
-ovos-logs show -l skills      # page through skills.log with `less`
-ovos-logs list --error        # every ERROR line across all logs
-ovos-logs slice --start "1-1-2024 09:00"   # a time-bounded slice
-```
-
-See the [Command-line Tools](cli-tools.md#reading-the-logs-ovos-logs) page for the full flag
-reference.
 
 ---
 

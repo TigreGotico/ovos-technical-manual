@@ -99,3 +99,11 @@ Settings for the audio service are located in the `tts` and `Audio` sections of 
 }
 
 ```
+
+---
+
+## Related Pages
+
+- [Bus Events Reference](bus-events.md#tts-audio-playback) — TTS/audio message types alongside the rest of the utterance lifecycle
+- [TTS Plugins](tts-plugins.md) — the plugins this service loads
+- [Bus Service](bus-service.md) — the messagebus itself

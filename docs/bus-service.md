@@ -153,7 +153,7 @@ Subscription filtering is handled entirely in the client library (`ovos-bus-clie
     
     ```python
     config.get("websocket", {}).get("max_msg_size", 10) * 1024 * 1024
-```
+    ```
     
     The shipped `mycroft.conf` sets `max_msg_size` to 25, so the effective default is
     25 MB (the code's hardcoded fallback of 10 only applies if the key is absent).
@@ -434,12 +434,9 @@ subscribes like any other client and prints each message as it is broadcast.
 
 ## Related Pages
 
+- [Bus Events Reference](bus-events.md) — a consolidated table of message types by domain
 - [Bus Client](core-libraries.md#ovos-bus-client) — `MessageBusClient`, `Message`, `Session` Python API
-
-
 - [Bus Session](session.md) — `Session`, `SessionManager`, `IntentContextManager`
-
-
 - [ovos-core](core.md) — Intent service, skill manager
 
 
