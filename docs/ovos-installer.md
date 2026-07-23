@@ -235,11 +235,9 @@ You’re officially part of the Open Voice OS community! 🎤✨
 
 ---
 
-## Additional Configuration and Known Issues
+## Post-install tuning
 
-Depending on your language you probably want to change the default plugins, the ovos-installer is not perfect and might not always select the best defaults
-
-It is recommend that you run `ovos-config autoconfigure --help` after the initial install
+The installer picks sensible defaults, but the best speech plugins vary by language and hardware. After the initial install, review the selected plugins and run `ovos-config autoconfigure --help` to see the language-aware reconfiguration options.
 
 
 [![asciicast](https://asciinema.org/a/710295.svg)](https://asciinema.org/a/710295)

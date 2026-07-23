@@ -566,7 +566,7 @@ jobs:
 
 ```
 
-### Known issues
+### Behavior notes
 
 - `pr_comment` only fires on `pull_request` events — job summary is written for all events.
 
