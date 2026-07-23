@@ -1,5 +1,10 @@
 # Mycroft Mark 2 Hardware
 
+!!! tip "Looking for a device to buy or flash today?"
+    Don't start here. The Mark 2 is discontinued, best-effort legacy hardware with rough edges —
+    see [RaspOVOS](install-raspovos.md) for the turnkey image that's the closest thing to a
+    ready-to-buy-and-flash OVOS device today.
+
 !!! abstract "In a nutshell"
     The **Mark 2** is Mycroft's second smart-speaker — a Raspberry Pi 4 with a touchscreen and a
     custom audio board (the **SJ201** HAT). Unlike the faceplate-only [Mark 1](mark1.md), it runs

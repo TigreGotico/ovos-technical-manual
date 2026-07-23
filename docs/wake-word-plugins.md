@@ -21,9 +21,10 @@ Wake Word plugins allow Open Voice OS to detect specific words or sounds, typica
    }
    ```
 3. Save the file — it's JSON (comments are allowed, `mycroft.conf` is parsed as JSONC).
-4. Restart OVOS for the change to take effect — however your deployment starts the services; the
-   common case on a systemd install is `systemctl --user restart ovos.service` (or the equivalent
-   restart for your container/service manager if you're not using systemd).
+4. Restart OVOS for the change to take effect:
+
+--8<-- "snippets/restart-ovos.md"
+
 5. Say the new phrase — the assistant now wakes on it instead of "hey mycroft".
 
 ## Available Plugins
@@ -39,6 +40,16 @@ for new setups. Vosk offers the fastest setup for an arbitrary wake phrase witho
 > Specification: wake-word detection is one of the deployer-defined capture mechanisms that trigger the audio-input service (referenced in [OVOS-AUDIO-IN-1 §5.1](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md) as the source of a `request_lang` hint).
 
 ## Wake Word Configuration
+
+!!! tip "Too many false alarms, or not hearing you at all?"
+    - **It wakes up on its own too often (false alarms)?** Raise `trigger_level` (fewer false
+      positives, but needs a longer, more sustained match) — or lower `sensitivity`.
+    - **It doesn't hear you when you say the wake word?** Raise `sensitivity` (each chunk of
+      audio is easier to trigger) — or lower `trigger_level`.
+
+    Both live under `hotwords.<name>` in `mycroft.conf`, next to each other — nudge one at a
+    time and test before changing the other. The full technical breakdown of what each number
+    actually does is below.
 
 The `hotwords` section in your `mycroft.conf` allows you to configure the wake word detection parameters for each plugin. For instance:
 
@@ -65,7 +76,7 @@ The `hotwords` section in your `mycroft.conf` allows you to configure the wake w
 
 - **Precision and Sensitivity**: Adjust the `sensitivity` and `trigger_level` settings carefully. Too high a sensitivity can lead to false positives, while too low may miss detection.
 
-### `sensitivity` vs `trigger_level`
+### `sensitivity` vs `trigger_level` — the technical breakdown
 
 These two settings work together in the model-based Precise plugins (`ovos-ww-plugin-precise-lite`, `ovos-ww-plugin-precise-onnx`):
 

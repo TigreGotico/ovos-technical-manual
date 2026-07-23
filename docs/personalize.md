@@ -7,12 +7,36 @@
     This page is a quick-reference for all three; each section links to the full page with
     more detail and more options.
 
+!!! tip "Want to do this by voice instead of editing files?"
+    Everything below needs opening a text file and a restart. If you'd rather change your wake
+    word, voice, or volume by *talking* to your assistant, see
+    [What can I say?](skill-examples.md) and [It's Not Working — Quick Fixes](everyday-help.md)
+    for what's already possible hands-free (e.g. volume) versus what still needs a config edit
+    (wake word, voice, language).
+
 All the settings below live in your personal config file at
 **`~/.config/mycroft/mycroft.conf`** (create it if it doesn't exist yet — see
 [Configuration Management](config.md) for how the layering works). It's JSON with comments
-allowed (JSONC). After editing, restart OVOS (however your deployment starts its services —
-re-run `ovos-core`, or restart the relevant systemd/container unit) for the change to take
-effect.
+allowed (JSONC). Open it with any text editor, for example:
+
+```bash
+nano ~/.config/mycroft/mycroft.conf
+```
+
+Before restarting, double-check the file still parses — a stray missing comma or bracket will
+stop it from loading. Because `mycroft.conf` allows `//` comments, plain `json.tool` will
+reject it even when it's fine — use the same comment-aware loader OVOS itself uses:
+
+```bash
+python3 -c "from ovos_utils.json_helper import load_commented_json; load_commented_json('$HOME/.config/mycroft/mycroft.conf'); print('OK')"
+```
+
+This prints `OK` if the file is valid, or a `JSONDecodeError` with a line/column pointing at the
+mistake if it isn't. You can also confirm a specific value actually took effect after restarting
+with `ovos-config show --section <name>` (see [Configuration Management](config.md#cli-reference)
+for the full CLI). Once the file parses cleanly, apply the change:
+
+--8<-- "snippets/restart-ovos.md"
 
 ## Change your wake word
 

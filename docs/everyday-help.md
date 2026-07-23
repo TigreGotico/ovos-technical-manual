@@ -11,6 +11,24 @@
 
 ---
 
+## First, check the basics
+
+Before anything else, these four things cause most "it's just not working" moments and take
+seconds to check — no terminal, no config file:
+
+- **Is it muted?** Look for a mute light/icon, or ask *"are you muted?"* — if it can't hear you
+  to answer, check the physical mute switch/button if your device has one.
+- **Is the volume up?** Ask *"what's the volume?"* — a spoken answer means the speaker path
+  works.
+- **Is it powered on?** A dead device won't react to anything — check the power light/cable
+  before assuming a software problem.
+- **Is it connected to the network?** Most skills (weather, radio, trivia) need internet access;
+  check your router or the device's Wi-Fi indicator/settings screen if answers about the outside
+  world consistently fail while purely local things (time, volume) still work.
+
+If all four check out and something's still wrong, the sections below cover the specific
+symptom.
+
 ## "It's not listening to me"
 
 - **Say the wake word clearly, with a short pause after it.** OVOS listens for a wake word (by
@@ -24,7 +42,9 @@
 - **The wake word keeps missing or keeps false-triggering.** This is a sensitivity setting, not a
   hardware fault — see [Wake Word Plugins](wake-word-plugins.md#wake-word-configuration) for how to
   adjust `sensitivity` and `trigger_level` in `mycroft.conf`, and pick a less noise-prone wake word
-  if needed.
+  if needed. Unlike the fixes above, this one needs opening a text config file, not just talking
+  to the assistant — see [Make It Yours](personalize.md) for the general edit-and-restart
+  routine.
 
 ## "It's not talking back to me" / "It's muted"
 

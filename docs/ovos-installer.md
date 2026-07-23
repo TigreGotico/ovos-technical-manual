@@ -3,9 +3,20 @@
 !!! abstract "In a nutshell"
     This is the friendly, guided way to get OVOS onto your machine. You run a single command, then a menu-driven wizard walks you through a few choices (your language, where to install, which features you want) and does the rest for you. It works the same on a Raspberry Pi or an everyday Linux laptop, and is the recommended way to install — no programming required. Scripting a fleet instead? See the [non-interactive scenario install](#non-interactive-scenario-install), which skips the wizard entirely. See the [Glossary](glossary.md) for unfamiliar terms.
 
-!!! tip "Privacy first?"
-    See [Privacy & Security](privacy-security.md) for what a default install
-    actually sends over the network, and how to change it, before you start.
+!!! warning "Read this before you start: what a default install sends over the network"
+    A default OVOS install talks to public, community-run servers for speech-to-text and
+    text-to-speech unless you change it — and the installer asks you to opt into two separate
+    telemetry reports along the way. See [Privacy & Security](privacy-security.md) for exactly
+    what that means, and the [telemetry section below](#anonymous-telemetry) for what each
+    prompt does. **If you're unsure, decline both telemetry prompts** — nothing else about the
+    install depends on them.
+
+!!! note "This runs over SSH in a terminal, not an app"
+    There's no phone app or setup wizard with a graphical pairing flow — you type commands into
+    a terminal, usually over SSH into a headless device. If you've never used SSH before, budget
+    some extra time to get comfortable with it, or consider the
+    [RaspOVOS](install-raspovos.md) image instead, which boots straight into a working assistant
+    with no SSH step required.
 
 Welcome to the quick-start guide for installing Open Voice OS (OVOS) using the official `ovos-installer`! This guide is suitable for **Raspberry Pi** and **desktop/server** Linux environments. Whether you're running this on a headless Raspberry Pi or your everyday laptop, the steps are mostly the same — only the way you connect to the device differs.
 
@@ -22,10 +33,13 @@ Welcome to the quick-start guide for installing Open Voice OS (OVOS) using the o
 
 ### ✅ 1. Connect to Your Device *(if remote)*
 
-If you're installing on a headless device (like a Raspberry Pi), connect via SSH:
+If you're installing on a headless device (like a Raspberry Pi), you first need its IP address
+or hostname. Try `raspberrypi.local` (the default mDNS hostname on a fresh Raspberry Pi OS
+install), or look up the device's IP in your router's connected-devices list if that doesn't
+resolve. Then connect via SSH:
 
 ```bash
-ssh -l your-username <your-device-ip>
+ssh -l your-username <your-device-ip-or-raspberrypi.local>
 
 ```
 
@@ -244,6 +258,10 @@ This is your last chance to cancel the process.
 ---
 
 ### 📊 Anonymous Telemetry
+
+!!! tip "TL;DR: if you're unsure, decline both"
+    Declining both prompts changes nothing about how OVOS works — it only stops these two
+    reports from being sent. There is no functional downside to declining.
 
 There are actually **two separate opt-in prompts** here, and they are easy to
 mix up — see [Privacy & Security](privacy-security.md#install-time-telemetry-vs-ongoing-usage-telemetry)
