@@ -67,7 +67,10 @@ usage: ovos-tts-server [-h] [--engine ENGINE] [--port PORT] [--host HOST] [--cac
 options:
   -h, --help            show this help message and exit
   --engine ENGINE       tts plugin to be used
-  --port PORT           port number (default: 9666)
+  --port PORT           port number (default: 9666, not 8080 -- the companion plugin
+                        defaults to /v2/synthesize on this port; if you point an old
+                        client at the legacy /synthesize/{utterance} path, set
+                        "v2": false in its config)
   --host HOST           host (default: 0.0.0.0)
   --cache               save every synth to disk
   --lang LANG           language code that overrides the plugin's configured language;
@@ -245,14 +248,11 @@ Pre-built containers are also available via the [ovos-docker-tts](https://github
 repository.
 
 !!! note "Upcoming — Docker Compose"
-    A default Docker Compose setup and custom-container documentation are in progress
-    ([ovos-tts-server#101](https://github.com/OpenVoiceOS/ovos-tts-server/pull/101)).
+    A default Docker Compose setup and custom-container documentation are **Upcoming**.
 
 ---
 
 ## Tips & Caveats
-
-- **Default port is 9666, not 8080.** The companion plugin defaults to `/v2/synthesize`; if you point an old client at the legacy `/synthesize/{utterance}` path, set `"v2": false` in its config.
 
 - **Audio Formats**: By default, outputs WAV (PCM). If you need MP3 or OGG, wrap with an external converter or check
   plugin support.

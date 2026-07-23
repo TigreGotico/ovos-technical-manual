@@ -5,6 +5,19 @@
 
 Each OVOS service server exposes vendor-prefixed routers so existing clients and integrations can connect without modification. Every router accepts the vendor's original request format and translates it to the native OVOS plugin call.
 
+!!! warning "A compatible wire format does not guarantee identical capabilities"
+    Mimicking a vendor's request/response shape does not always mean the *behavior* underneath
+    matches, especially around streaming. For example, the TTS server's ElevenLabs
+    `stream-input` WebSocket router accepts text incrementally and sends audio back in frames,
+    exactly like the real ElevenLabs protocol — but underneath, each buffered chunk of text is
+    still synthesized with one ordinary, blocking call to the configured OVOS TTS plugin, and
+    only the resulting complete audio is sliced into fixed-size frames afterward. Most OVOS TTS
+    plugins do not support true incremental (word-by-word) synthesis, so the first audio frame
+    is not available until that chunk has finished generating in full — clients built around the
+    real API's low first-byte latency may not see the same latency here. Check the specific
+    router and the underlying plugin's capabilities before assuming parity beyond the wire
+    format.
+
 ---
 
 ## Pattern

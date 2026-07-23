@@ -71,6 +71,22 @@ hivemind-client set-identity    # stores the access key / host for this node
 After `set-identity`, clients (and the [solver](#using-hivemind-as-a-solver) below) can connect
 without being handed connection details each time.
 
+**4. Verify the satellite actually connected.** Run this on the client after `set-identity`:
+
+```bash
+hivemind-client test-identity
+```
+
+On success it prints:
+
+```text
+== Identity successfully connected to HiveMind!
+```
+
+If it hangs or errors instead, double-check the server is running (`hivemind-core listen`) and
+reachable on the configured host/port, and that the access key matches one printed by
+`hivemind-core add-client`.
+
 ---
 
 ## Choosing the agent: full OVOS vs a single persona

@@ -248,6 +248,22 @@ pinned version on its own.
     confirm the readiness probe and a couple of real voice interactions succeed, then repeat
     the same `uv pip install -c ...` command across the rest of the fleet.
 
+!!! warning "Detecting a partially-failed rollback"
+    `--force-reinstall` can itself be interrupted (network drop, disk full, `Ctrl-C`) partway
+    through reinstalling the packages listed in the frozen file, leaving some packages back at
+    the old pinned version and others still on the newer one. Compare the current environment
+    against the frozen file to check:
+
+    ```bash
+    diff <(uv pip freeze | sort) <(sort /etc/ovos/known-good-2026-07-01.txt)
+    ```
+
+    Any line in the diff is a package whose installed version does not match the known-good
+    snapshot — re-run the `--force-reinstall` rollback command to finish the job before
+    restarting the service. `uv pip check` is also worth running after either an upgrade or a
+    rollback: it reports any dependency resolution left inconsistent (declared requirements no
+    longer satisfied by what's installed), which a partial rollback commonly causes.
+
 ---
 
 ## One config for many devices: the system config layer
