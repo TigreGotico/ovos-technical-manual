@@ -23,11 +23,11 @@ family, adding the other is a **TODO**.
 |---|---|---|
 | [ovos-media-plugin-spotify](#ovos-media-plugin-spotify) | Spotify Connect | ✅ both (old audio service + ovos-media) |
 | [ovos-media-plugin-chromecast](#ovos-media-plugin-chromecast) | Chromecast (audio + video) | ✅ both |
-| [ovos-media-plugin-vlc](#ovos-media-plugin-vlc) | headless VLC (audio + video) | ovos-media only — *old audio service: TODO* |
-| [ovos-media-plugin-mplayer](#ovos-media-plugin-mplayer) | MPlayer (audio + video) | ovos-media only — *old audio service: TODO* |
-| [ovos-media-plugin-simple](#ovos-media-plugin-simple) | minimal/default audio | ovos-media only — *old audio service: TODO* |
+| [ovos-media-plugin-vlc](#ovos-media-plugin-vlc) | headless VLC (audio + video) | ✅ both |
+| [ovos-media-plugin-mplayer](#ovos-media-plugin-mplayer) | MPlayer (audio + video) | ✅ both |
+| [ovos-media-plugin-simple](#ovos-media-plugin-simple) | minimal/default audio | ✅ both |
+| [ovos-audio-plugin-mpv](#ovos-audio-plugin-mpv) | MPV (audio + video) | ✅ both |
 | [ovos-plugin-vlc](#ovos-plugin-vlc) | VLC | old audio service only (legacy) — use ovos-media-plugin-vlc for ovos-media |
-| [ovos-audio-plugin-mpv](#ovos-audio-plugin-mpv) | MPV | old audio service only (legacy) |
 | [ovos-audio-plugin-simple](#ovos-audio-plugin-simple) | minimal audio | old audio service only — ⚠️ ovos ≤ 0.0.7 |
 
 The [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) below is not a playback backend — it is the
@@ -49,7 +49,11 @@ The [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) below is not a playback ba
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-vlc](https://github.com/OpenVoiceOS/ovos-media-plugin-vlc)
 
 
-- **Description**: Headless VLC audio/video playback. Currently ships the [ovos-media](https://github.com/OpenVoiceOS/ovos-media) version (`opm.media.audio` / `opm.media.video`) only; an old-audio-service version is a TODO (use [ovos-plugin-vlc](#ovos-plugin-vlc) on the old audio service for now).
+- **Description**: Headless VLC audio/video playback. Ships entry points for both
+  [ovos-media](https://github.com/OpenVoiceOS/ovos-media) (`opm.media.audio` / `opm.media.video`,
+  classes `VLCOCPAudioService` / `VLCOCPVideoService`) and the old audio service
+  (`mycroft.plugin.audioservice`, type `ovos_vlc`). The older, old-audio-service-only
+  [ovos-plugin-vlc](#ovos-plugin-vlc) still exists as a separate package.
 
 ---
 
@@ -76,7 +80,10 @@ The [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) below is not a playback ba
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-simple](https://github.com/OpenVoiceOS/ovos-media-plugin-simple)
 
 
-- **Description**: Minimal/default audio playback for [ovos-media](https://github.com/OpenVoiceOS/ovos-media) (`opm.media.audio`). An old-audio-service version is a TODO.
+- **Description**: Minimal/default audio playback (import name `ovos_media_plugin_cli`). Ships
+  entry points for both [ovos-media](https://github.com/OpenVoiceOS/ovos-media)
+  (`opm.media.audio`, class `CLIAudioService`) and the old audio service
+  (`mycroft.plugin.audioservice`, type `ovos_cli`).
 
 ---
 
@@ -103,15 +110,20 @@ The [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) below is not a playback ba
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-mplayer](https://github.com/OpenVoiceOS/ovos-media-plugin-mplayer)
 
 
-- **Description**: MPlayer audio/video playback for [ovos-media](https://github.com/OpenVoiceOS/ovos-media) (`opm.media.audio` / `opm.media.video`). An old-audio-service version is a TODO.
+- **Description**: MPlayer audio/video playback. Ships entry points for both
+  [ovos-media](https://github.com/OpenVoiceOS/ovos-media) (`opm.media.audio` / `opm.media.video`)
+  and the old audio service (`mycroft.plugin.audioservice`, type `ovos_mplayer`).
 
 ---
 
 ## ovos-audio-plugin-mpv
 
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-audio-plugin-mpv](https://github.com/OpenVoiceOS/ovos-audio-plugin-mpv)
+- **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-mpv](https://github.com/OpenVoiceOS/ovos-media-plugin-mpv)
+  (the repo lives under this name; the PyPI package is still published as `ovos-audio-plugin-mpv`).
 
 
-- **Description**: MPV `AudioBackend` for the **old audio service** (`mycroft.plugin.audioservice`).
+- **Description**: MPV audio/video playback. Ships entry points for both
+  [ovos-media](https://github.com/OpenVoiceOS/ovos-media) (`opm.media.audio` / `opm.media.video`)
+  and the old audio service (`mycroft.plugin.audioservice`, type `ovos_mpv`).
 
 ---

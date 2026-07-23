@@ -112,12 +112,15 @@ Image {
 
 - Uses `OVOSPlugin.Configuration` for reading current device state
 
-### `StatusIndicator`
+### `StatusIndicator` / `ListenerAnimation`
 
-- Subscribes to OVOS status events (`recognizer_loop:wakeword`, `recognizer_loop:record_begin`, etc.)
+- `StatusIndicator` reacts to `ovos.wifi.setup.started` / `ovos.wifi.setup.completed` /
+  `ovos.shell.status.ok` to show pairing/Wi-Fi setup and general status.
 
 
-- Drives the listening animation
+- `ListenerAnimation` drives the listening animation, reacting to
+  `recognizer_loop:wakeword` (show), `recognizer_loop:record_end` (hide),
+  `mycroft.mic.listen` (show), and `mycroft.speech.recognition.unknown` (hide).
 
 ---
 
@@ -251,16 +254,16 @@ should also be installed for a fully functional shell:
 - `ovos-PHAL-plugin-network-manager`
 
 
-- `ovos-PHAL-plugin-gui-network-client`
-
-
-- `ovos-PHAL-plugin-wifi-setup`
-
-
 - `ovos-PHAL-plugin-alsa`
 
 
 - `ovos-PHAL-plugin-system`
+
+!!! note "Some companion repos are archived"
+    `ovos-gui-plugin-shell-companion`, `ovos-PHAL-plugin-gui-network-client`, and
+    `ovos-PHAL-plugin-wifi-setup` are **archived** repositories. They may still work on an
+    existing Mark 2 install, but treat them as unmaintained rather than as an install
+    recommendation for new setups.
 
 ---
 
@@ -281,6 +284,7 @@ The `Mycroft 1.0` QML module (from `mycroft-gui-qt5`) must be installed before b
 
 ## Qt Version Policy
 
-This repository targets **Qt5**. A separate `ovos-shell-qt6` repository will target Qt6.
-Both link against their respective `mycroft-gui` library versions. Do not introduce
-Qt6-only API into this repository.
+This repository targets **Qt5** and links against `mycroft-gui-qt5`. Do not introduce
+Qt6-only API into this repository; a `mycroft-gui-qt6` client is developed as its own
+project (see the [GUI Adapter Plugins](gui-adapters.md) rework) rather than as a fork of
+`ovos-shell` itself.

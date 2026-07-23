@@ -11,29 +11,32 @@
 
 !!! warning "Upcoming — unreleased"
     This whole page describes the **GUI-rendering rework**, which is **not yet released**.
-    Nothing here is available on a stable install. It is specified by the
-    [OVOS-GUI-1](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md) spec
-    and implemented across these components:
+    Nothing here is available on a stable install, and the pieces are at different stages:
 
-    - `ovos-plugin-manager` — `AbstractGUIPlugin`, `opm.gui_adapter` plugin type,
-      `OVOSGUIAdapterFactory`
-    - `ovos-gui` — the router that dispatches to adapters
-    - `ovos-gui-api-client` — the template-based `GUIInterface`
-    - `ovos-legacy-mycroft-gui-plugin` — the Qt adapter
-    - `pyhtmx-gui-client` — the browser/HTMX adapter
+    - `ovos-gui-api-client` — a template-based `GUIInterface` already exists and works today.
+    - `ovos-legacy-mycroft-gui-plugin` and `ovos-gui-plugin-pyhtmx` (repo `pyhtmx-gui-client`)
+      already implement the adapter-side contract described below (an `AbstractGUIPlugin`
+      subclass registered under `opm.gui_adapter`) — but that base class does not exist yet in
+      any released `ovos-plugin-manager`, and `ovos-gui` does not yet contain the router that
+      would dispatch events to these adapters. These plugins are therefore built ahead of their
+      own dependency.
+    - The formal contract is specified by
+      [OVOS-GUI-1](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md), an
+      [architecture spec](architecture-specs.md). The spec deliberately leaves the exact
+      entry-point group name and method signatures **non-normative** — it gives them only as an
+      illustrative example. The names below (`AbstractGUIPlugin`, `handle_show_*`,
+      `opm.gui_adapter`) are what the real adapter plugins linked above have already
+      standardized on, which is why this page uses them.
 
-    The per-call routing argument is **`session_id`**. Per OVOS-GUI-1, this is the sole
-    routing key for the Python **adapter contract** — there is no separate site/room/location
-    dimension; a shared/multi-room screen is expressed by its clients sharing one `session_id`.
-    The landing PRs rename the earlier `site_id` parameter to `session_id` throughout the
-    adapter contract.
+    Per OVOS-GUI-1, the sole per-event routing key for the adapter contract is **`session_id`**
+    — there is no separate site/room/location dimension; a shared/multi-room screen is expressed
+    by its clients sharing one `session_id`.
 
     !!! note "Client-side `site_id` still exists (in flux)"
-        The Qt6 client rework branch (`mycroft-gui-qt6` `feat/gui-protocol-rework`) still ships
-        a separate **`site_id`** dimension (`--site-id` flag, `MYCROFT_SITE_ID` env var,
-        `site_id_sync_mode` in ovos-gui) for multi-site setups. So at the *client* layer
-        site_id is not yet gone, even though the OVOS-GUI-1 *adapter contract* collapses
-        routing to `session_id`. This is unreleased and the two layers may still be reconciled.
+        The Qt6 client rework branch (`mycroft-gui-qt6`) still ships a separate **`site_id`**
+        dimension (`--site-id` flag, `MYCROFT_SITE_ID` env var) for multi-site setups. So at the
+        *client* layer site_id is not yet gone, even though the OVOS-GUI-1 *adapter contract*
+        collapses routing to `session_id`. The two layers may still be reconciled.
 
 In the rework, `ovos-gui` no longer renders or talks to Qt clients directly. It becomes a
 router that dispatches each display event to every installed **GUI adapter plugin**. Each
@@ -100,6 +103,9 @@ id, default `"default"`). All default to no-ops, so partial implementations are 
 | `handle_show_confirm` | `SYSTEM_confirm` | `question` |
 | `handle_show_select` | `SYSTEM_select` | `prompt`, `items` |
 | `handle_show_face` | `SYSTEM_face` | `sleeping` |
+| `handle_show_ocp_now_playing` | `SYSTEM_ocp_now_playing` | media fields |
+| `handle_show_ocp_search` | `SYSTEM_ocp_search` | search-result fields |
+| `handle_show_ocp_playlist` | `SYSTEM_ocp_playlist` | playlist fields |
 
 ### Lifecycle hooks
 
@@ -122,16 +128,18 @@ def on_status_event(self, event_name: str, data: dict, session_id: str = "defaul
 
 ### Dispatch
 
-The router calls `adapter.dispatch_template(template, skill_id, data, ...)`, which maps the
-`SYSTEM_*` template to the matching `handle_show_*` method. Adapters normally override the
-individual `handle_show_*` methods rather than `dispatch_template` itself.
+The (not-yet-built) router is expected to map each `SYSTEM_*` template name to the matching
+`handle_show_*` method — the naming convention `handle_show_<template suffix>` is already fixed
+by the adapter plugins that implement this contract today. An adapter overrides only the
+individual `handle_show_*` methods it cares about; unimplemented ones default to no-ops.
 
 ### Connection status
 
-Optionally provide `any_client_connected() -> bool` to participate in `gui.status.request`
-responses. It is **not** part of the `AbstractGUIPlugin` base class — the router calls it by
-duck-typing (`getattr(adapter, "any_client_connected", lambda: False)()`), so define it only if
-your adapter tracks client connections:
+The legacy [`gui.status.request`](gui-protocol.md) bus message already exists today and answers
+whether any display is connected. An adapter is expected to optionally provide an
+`any_client_connected() -> bool` method so a future router can fold it into that response; since
+the base class and router are not yet built, treat the exact hook-up (duck-typing or otherwise)
+as illustrative:
 
 ```python
 def any_client_connected(self) -> bool:
@@ -140,10 +148,10 @@ def any_client_connected(self) -> bool:
 
 ## Built-in adapters
 
-| Package | Entry-point name | Class | Description |
-|---|---|---|---|
-| `ovos-legacy-mycroft-gui-plugin` | `ovos-legacy-mycroft-gui` | `LegacyMycoftGuiPlugin` | Tornado WebSocket → Qt / mycroft-gui clients; also runs `HomescreenManager` |
-| `pyhtmx-gui-client` | `ovos-gui-plugin-pyhtmx` | HTMX adapter | FastAPI / SSE → browser (HTMX) |
+| Repo | PyPI package | Entry-point name | Class | Description |
+|---|---|---|---|---|
+| `ovos-legacy-mycroft-gui-plugin` | `ovos-legacy-mycroft-gui-plugin` | `ovos-legacy-mycroft-gui` | `LegacyMycoftGuiPlugin` | Tornado WebSocket → Qt / mycroft-gui clients; also runs `HomescreenManager` |
+| `pyhtmx-gui-client` | `ovos-gui-plugin-pyhtmx` | `ovos-gui-plugin-pyhtmx` | `PyHTMXGUIPlugin` | Browser adapter (HTMX) |
 
 ## Writing a custom adapter
 
@@ -174,8 +182,10 @@ Register in `pyproject.toml`:
 
 ## Configuration
 
-Adapter configuration lives under `gui.adapters.<entry-point-name>` in `mycroft.conf` and
-is passed as the `config` dict to the adapter's `__init__`:
+Adapter configuration is expected to live under a `gui.adapters.<entry-point-name>` key in
+[`mycroft.conf`](config.md), following the existing `get_plugin_config()` convention used by
+other OPM plugin types, and to be passed as the `config` dict to the adapter's `__init__`. This
+exact key path is not yet fixed by any released code — treat it as illustrative:
 
 ```json
 {
@@ -198,9 +208,9 @@ to both:
 ```
 self.gui.show_weather(…)
        ↓
-NamespaceManager._dispatch_template_to_adapters("SYSTEM_weather", skill_id, data, session_id)
+ovos-gui router, fanned out to every installed opm.gui_adapter plugin
        ├──→ LegacyMycoftGuiPlugin.handle_show_weather(…)   → Qt client
-       └──→ pyhtmx adapter.handle_show_weather(…)           → browser
+       └──→ PyHTMXGUIPlugin.handle_show_weather(…)          → browser
 ```
 
 Both displays update simultaneously and independently.
