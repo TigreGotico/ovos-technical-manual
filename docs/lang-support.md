@@ -233,7 +233,9 @@ phrasing is covered.
 
 | Language | Offline STT | Offline TTS | Number parser | Date parser |
 |----------|:---:|:---:|:---:|:---:|
-| en (US/GB/AU) | ✅ (US only) | ✅ | ✅ | ✅ |
+| en-US | ✅ | ✅ | ✅ | ✅ |
+| en-GB | ❌ | ✅ | ✅ | ✅ |
+| en-AU | ❌ | ❌ | ✅ | ✅ |
 | de-DE | ✅ | ✅ | ✅ | ✅ |
 | fr-FR | ✅ | ✅ | ✅ | ✅ |
 | es-ES | ✅ | ✅ | ✅ | ✅ |

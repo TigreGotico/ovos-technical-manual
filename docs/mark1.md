@@ -108,8 +108,11 @@ The `Eyes` API also exposes `set_hue` / `set_saturation` / `set_luminance` and t
 
 You can define icons using a simple string grid:
 
+Each icon is 32 columns wide by 8 rows tall — `X` is a lit pixel, space is unlit:
+
 ```python
 from ovos_mark1.faceplate import BlackScreen
+
 
 class MusicIcon(BlackScreen):
     str_grid = """
@@ -122,10 +125,10 @@ XXXXXXXXXXXXX  XX  XXXXXXXXXXXXX
 XXXXXXXXXXXX   X   XXXXXXXXXXXXX
 XXXXXXXXXXXXX XXX XXXXXXXXXXXXXX
 """
-    
-icon = MusicIcon()
-icon.display()  # show in mark1
 
+
+icon = MusicIcon()  # connects to the bus via get_mycroft_bus() if none is passed
+icon.display()      # push the grid to the Mark 1 faceplate over the bus
 ```
 
 ### Faceplate Animations

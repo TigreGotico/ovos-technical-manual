@@ -52,22 +52,13 @@ ovos-messagebus  (WebSocket pub/sub)
 
 ## Key Components
 
-For a deeper dive into each subsystem, refer to the following pages:
+For a deeper dive into each subsystem:
 
-### Skill Manager
-Learn how `ovos-core` finds, loads, and manages the lifecycle of your skills. It also handles connectivity gating, ensuring skills are only loaded when their requirements (like internet access) are met.
-
-### Intent Service
-Discover how utterances are processed and matched to skills. This section covers the utterance handling flow, language disambiguation, and the query API.
-
-### Intent Pipeline
-The pipeline is the ordered sequence of **pipeline plugins** OVOS uses to understand what the user wants. Each plugin exposes a single `match(utterances, lang, session) → Match | None` contract and they are tried in order, **first-match-wins** — there is no cross-plugin confidence scoring (OVOS-PIPELINE-1 §4, §6.2). You can learn about specific matchers like [Adapt](adapt-pipeline.md), [Padatious](padatious-pipeline.md), and the [Common Query](cq-pipeline.md) framework.
-
-### Transformer Plugins
-Transformers allow you to modify utterances, metadata, or intent matches as they move through the system.
-
-### Skill Installer
-The built-in system for installing and managing skills and Python packages dynamically at runtime.
+- **[Skill Manager](skill-manager.md)** — finds, loads, and manages skill lifecycles, including connectivity gating (skills only load once requirements like internet access are met).
+- **[Intent Service](intent-service.md)** — the utterance handling flow, language disambiguation, and the query API.
+- **Intent Pipeline** — the ordered sequence of **pipeline plugins** that decide what the user wants; each exposes a single `match(utterances, lang, session) → Match | None` contract and they run **first-match-wins**, with no cross-plugin confidence scoring (OVOS-PIPELINE-1 §4, §6.2). See [Adapt](adapt-pipeline.md), [Padatious](padatious-pipeline.md), and [Common Query](cq-pipeline.md).
+- **Transformer Plugins** — modify utterances, metadata, or intent matches as they move through the pipeline.
+- **[Skill Installer](skill-installer.md)** — installs and manages skills and Python packages dynamically at runtime.
 
 ---
 

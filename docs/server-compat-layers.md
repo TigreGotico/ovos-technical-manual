@@ -34,7 +34,7 @@ All compat routers are always loaded; no feature flag is needed.
 
 ## STT Server Compat Routes
 
-`pip install ovos-stt-http-server`
+`pip install ovos-stt-http-server` — routers implemented in `ovos_stt_http_server.routers`.
 
 | Prefix | Vendor |
 |--------|--------|
@@ -60,7 +60,7 @@ All compat routers are always loaded; no feature flag is needed.
 
 ## TTS Server Compat Routes
 
-`pip install ovos-tts-server`
+`pip install ovos-tts-server` — routers implemented in `ovos_tts_server.routers`.
 
 | Prefix | Vendor |
 |--------|--------|
@@ -79,7 +79,7 @@ All compat routers are always loaded; no feature flag is needed.
 
 ## Translate Server Compat Routes
 
-`pip install ovos-translate-server`
+`pip install ovos-translate-server` — routers implemented in `ovos_translate_server.routers`.
 
 | Prefix | Vendor |
 |--------|--------|
@@ -95,7 +95,10 @@ All compat routers are always loaded; no feature flag is needed.
 
 ## Persona Server Compat Routes
 
-`pip install ovos-persona-server`
+`pip install ovos-persona-server` — each vendor router lives in its own module in
+`ovos_persona_server` (e.g. `anthropic.py`, `gemini.py`, `cohere.py`, `ollama.py`,
+`huggingface_tgi.py`, `aws_bedrock.py`); the deprecated bare-`/v1` routes live in
+`deprecated_routers.py`.
 
 The persona server baseline is an OpenAI-compatible chat API at **`/openai/v1/chat/completions`**. (The unprefixed `/v1/...` path is also mounted but is **deprecated legacy** — it returns a `Deprecation` header; a bare-root base URL 404s, so always include the `/openai/v1` prefix.) Additional vendor routers are layered on top:
 

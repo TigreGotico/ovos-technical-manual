@@ -189,96 +189,96 @@ Usage examples:
 
 If you want to revert OVOS to a blank state you can use `ovos-reset-brain` to remove ALL skills
 
+??? example "Full `ovos-reset-brain` transcript"
+    ```bash
+    (ovos) ovos@raspOVOS:~ $ ovos-reset-brain 
+    [INFO] Starting OpenVoiceOS skill uninstallation process...
+    WARNING: This will uninstall all installed skills. Do you want to continue? (y/n): y
+    Using Python 3.11.2 environment at: .venvs/ovos
+    [INFO] The following skills will be uninstalled:
 
-```bash
-(ovos) ovos@raspOVOS:~ $ ovos-reset-brain 
-[INFO] Starting OpenVoiceOS skill uninstallation process...
-WARNING: This will uninstall all installed skills. Do you want to continue? (y/n): y
-Using Python 3.11.2 environment at: .venvs/ovos
-[INFO] The following skills will be uninstalled:
+    - ovos-skill-alerts
+    - ovos-skill-audio-recording
+    - ovos-skill-boot-finished
+    - ovos-skill-camera
+    - ovos-skill-cmd
+    - ovos-skill-confucius-quotes
+    - ovos-skill-date-time
+    - ovos-skill-days-in-history
+    - ovos-skill-dictation
+    - ovos-skill-fallback-unknown
+    - ovos-skill-example-quotes
+    - ovos-skill-hello-world
+    - ovos-skill-icanhazdadjokes
+    - ovos-skill-ip
+    - ovos-skill-iss-location
+    - ovos-skill-laugh
+    - ovos-skill-local-media
+    - ovos-skill-moviemaster
+    - ovos-skill-naptime
+    - ovos-skill-number-facts
+    - ovos-skill-parrot
+    - ovos-skill-personal
+    - ovos-skill-pyradios
+    - ovos-skill-randomness
+    - ovos-skill-somafm
+    - ovos-skill-speedtest
+    - ovos-skill-spelling
+    - ovos-skill-spotify
+    - ovos-skill-volume
+    - ovos-skill-weather
+    - ovos-skill-wikihow
+    - ovos-skill-wikipedia
+    - skill-ddg
+    - skill-news
+    - skill-ovos-fallback-chatgpt
+    - skill-wolfie
+    - skill-wordnet
+    [INFO] Uninstalling skills...
+    Using Python 3.11.2 environment at: .venvs/ovos
+    Uninstalled 37 packages in 513ms
 
-- ovos-skill-alerts
-- ovos-skill-audio-recording
-- ovos-skill-boot-finished
-- ovos-skill-camera
-- ovos-skill-cmd
-- ovos-skill-confucius-quotes
-- ovos-skill-date-time
-- ovos-skill-days-in-history
-- ovos-skill-dictation
-- ovos-skill-fallback-unknown
-- ovos-skill-example-quotes
-- ovos-skill-hello-world
-- ovos-skill-icanhazdadjokes
-- ovos-skill-ip
-- ovos-skill-iss-location
-- ovos-skill-laugh
-- ovos-skill-local-media
-- ovos-skill-moviemaster
-- ovos-skill-naptime
-- ovos-skill-number-facts
-- ovos-skill-parrot
-- ovos-skill-personal
-- ovos-skill-pyradios
-- ovos-skill-randomness
-- ovos-skill-somafm
-- ovos-skill-speedtest
-- ovos-skill-spelling
-- ovos-skill-spotify
-- ovos-skill-volume
-- ovos-skill-weather
-- ovos-skill-wikihow
-- ovos-skill-wikipedia
-- skill-ddg
-- skill-news
-- skill-ovos-fallback-chatgpt
-- skill-wolfie
-- skill-wordnet
-[INFO] Uninstalling skills...
-Using Python 3.11.2 environment at: .venvs/ovos
-Uninstalled 37 packages in 513ms
+     - ovos-skill-alerts==0.1.15
+     - ovos-skill-audio-recording==0.2.5a5
+     - ovos-skill-boot-finished==0.4.9
+     - ovos-skill-camera==1.0.3a4
+     - ovos-skill-cmd==0.2.8
+     - ovos-skill-confucius-quotes==0.1.11a1
+     - ovos-skill-date-time==0.4.6
+     - ovos-skill-days-in-history==0.3.9
+     - ovos-skill-dictation==0.2.10
+     - ovos-skill-fallback-unknown==0.1.6a2
+     - ovos-skill-example-quotes==0.0.1
+     - ovos-skill-hello-world==0.1.11a4
+     - ovos-skill-icanhazdadjokes==0.3.2
+     - ovos-skill-ip==0.2.7a1
+     - ovos-skill-iss-location==0.2.10
+     - ovos-skill-laugh==0.2.1a3
+     - ovos-skill-local-media==0.2.9
+     - ovos-skill-moviemaster==0.0.8a4
+     - ovos-skill-naptime==0.3.12a1
+     - ovos-skill-number-facts==0.1.10
+     - ovos-skill-parrot==0.1.14
+     - ovos-skill-personal==0.1.9
+     - ovos-skill-pyradios==0.1.5a1
+     - ovos-skill-randomness==0.1.2a1
+     - ovos-skill-somafm==0.1.5
+     - ovos-skill-speedtest==0.3.3a4
+     - ovos-skill-spelling==0.2.6a3
+     - ovos-skill-spotify==0.1.9
+     - ovos-skill-volume==0.1.13a2
+     - ovos-skill-weather==0.1.14
+     - ovos-skill-wikihow==0.2.14
+     - ovos-skill-wikipedia==0.6.0a1
+     - skill-ddg==0.1.15
+     - skill-news==0.1.12
+     - skill-ovos-fallback-chatgpt==0.1.12
+     - skill-wolfie==0.3.0
+     - skill-wordnet==0.1.1
+    [SUCCESS] All skills have been uninstalled successfully.
+    [WARNING] Note: This operation only deletes the skills. Configuration files and pipeline plugins (which still influence intent matching) are NOT affected by this action.
 
- - ovos-skill-alerts==0.1.15
- - ovos-skill-audio-recording==0.2.5a5
- - ovos-skill-boot-finished==0.4.9
- - ovos-skill-camera==1.0.3a4
- - ovos-skill-cmd==0.2.8
- - ovos-skill-confucius-quotes==0.1.11a1
- - ovos-skill-date-time==0.4.6
- - ovos-skill-days-in-history==0.3.9
- - ovos-skill-dictation==0.2.10
- - ovos-skill-fallback-unknown==0.1.6a2
- - ovos-skill-example-quotes==0.0.1
- - ovos-skill-hello-world==0.1.11a4
- - ovos-skill-icanhazdadjokes==0.3.2
- - ovos-skill-ip==0.2.7a1
- - ovos-skill-iss-location==0.2.10
- - ovos-skill-laugh==0.2.1a3
- - ovos-skill-local-media==0.2.9
- - ovos-skill-moviemaster==0.0.8a4
- - ovos-skill-naptime==0.3.12a1
- - ovos-skill-number-facts==0.1.10
- - ovos-skill-parrot==0.1.14
- - ovos-skill-personal==0.1.9
- - ovos-skill-pyradios==0.1.5a1
- - ovos-skill-randomness==0.1.2a1
- - ovos-skill-somafm==0.1.5
- - ovos-skill-speedtest==0.3.3a4
- - ovos-skill-spelling==0.2.6a3
- - ovos-skill-spotify==0.1.9
- - ovos-skill-volume==0.1.13a2
- - ovos-skill-weather==0.1.14
- - ovos-skill-wikihow==0.2.14
- - ovos-skill-wikipedia==0.6.0a1
- - skill-ddg==0.1.15
- - skill-news==0.1.12
- - skill-ovos-fallback-chatgpt==0.1.12
- - skill-wolfie==0.3.0
- - skill-wordnet==0.1.1
-[SUCCESS] All skills have been uninstalled successfully.
-[WARNING] Note: This operation only deletes the skills. Configuration files and pipeline plugins (which still influence intent matching) are NOT affected by this action.
-
-```
+    ```
 
 ## Wake Word Issues
 
@@ -492,93 +492,93 @@ Fri 17 Jan 11:42:48 WET 2025 - ALSA default card set to: 3
     - Run `wpctl status` to check the available outputs as seen by `pipewire`.
     - The default sinks will be marked with `*`
 - You can inspect a sink by its number with `wpctl inspect $SINK_ID`
-  
 
-```bash
-(ovos) ovos@raspOVOS:~ $ wpctl status
-PipeWire 'pipewire-0' [1.2.4, ovos@raspOVOS, cookie:3349583741]
-└─ Clients:
+??? example "Full `wpctl status` / `wpctl inspect` transcript"
+    ```bash
+    (ovos) ovos@raspOVOS:~ $ wpctl status
+    PipeWire 'pipewire-0' [1.2.4, ovos@raspOVOS, cookie:3349583741]
+    └─ Clients:
 
-   33. WirePlumber                         [1.2.4, ovos@raspOVOS, pid:695]
-
-
-   34. WirePlumber [export]                [1.2.4, ovos@raspOVOS, pid:695]
+       33. WirePlumber                         [1.2.4, ovos@raspOVOS, pid:695]
 
 
-   47. PipeWire ALSA [librespot]           [1.2.4, ovos@raspOVOS, pid:702]
+       34. WirePlumber [export]                [1.2.4, ovos@raspOVOS, pid:695]
 
 
-   67. PipeWire ALSA [python3.11]          [1.2.4, ovos@raspOVOS, pid:691]
+       47. PipeWire ALSA [librespot]           [1.2.4, ovos@raspOVOS, pid:702]
 
 
-   75. PipeWire ALSA [python3.11]          [1.2.4, ovos@raspOVOS, pid:699]
+       67. PipeWire ALSA [python3.11]          [1.2.4, ovos@raspOVOS, pid:691]
 
 
-   83. PipeWire ALSA [python3.11]          [1.2.4, ovos@raspOVOS, pid:700]
+       75. PipeWire ALSA [python3.11]          [1.2.4, ovos@raspOVOS, pid:699]
 
 
-   84. wpctl                               [1.2.4, ovos@raspOVOS, pid:1710]
-
-Audio
-├─ Devices:
-│      42. Built-in Audio                      [alsa]
-│      43. Built-in Audio                      [alsa]
-│      44. Built-in Audio                      [alsa]
-│  
-├─ Sinks:
-│  *   36. Built-in Audio Stereo               [vol: 0.40]
-│      45. Built-in Audio Stereo               [vol: 0.85]
-│      46. Built-in Audio Digital Stereo (HDMI) [vol: 0.40]
-│  
-├─ Sink endpoints:
-│  
-├─ Sources:
-│  *   37. Built-in Audio Stereo               [vol: 1.00]
-│  
-├─ Source endpoints:
-│  
-└─ Streams:
-
-   48. PipeWire ALSA [librespot]                                   
+       83. PipeWire ALSA [python3.11]          [1.2.4, ovos@raspOVOS, pid:700]
 
 
-        63. output_FL       > WM8731 HiFi wm8731-hifi-0:playback_FL	[active]
+       84. wpctl                               [1.2.4, ovos@raspOVOS, pid:1710]
+
+    Audio
+    ├─ Devices:
+    │      42. Built-in Audio                      [alsa]
+    │      43. Built-in Audio                      [alsa]
+    │      44. Built-in Audio                      [alsa]
+    │  
+    ├─ Sinks:
+    │  *   36. Built-in Audio Stereo               [vol: 0.40]
+    │      45. Built-in Audio Stereo               [vol: 0.85]
+    │      46. Built-in Audio Digital Stereo (HDMI) [vol: 0.40]
+    │  
+    ├─ Sink endpoints:
+    │  
+    ├─ Sources:
+    │  *   37. Built-in Audio Stereo               [vol: 1.00]
+    │  
+    ├─ Source endpoints:
+    │  
+    └─ Streams:
+
+       48. PipeWire ALSA [librespot]                                   
 
 
-        64. output_FR       > WM8731 HiFi wm8731-hifi-0:playback_FR	[active]
+            63. output_FL       > WM8731 HiFi wm8731-hifi-0:playback_FL	[active]
 
 
-   68. PipeWire ALSA [python3.11]                                  
+            64. output_FR       > WM8731 HiFi wm8731-hifi-0:playback_FR	[active]
 
 
-        69. input_FL        < WM8731 HiFi wm8731-hifi-0:capture_FL	[active]
+       68. PipeWire ALSA [python3.11]                                  
 
 
-        70. monitor_FL     
+            69. input_FL        < WM8731 HiFi wm8731-hifi-0:capture_FL	[active]
 
 
-        71. input_FR        < WM8731 HiFi wm8731-hifi-0:capture_FR	[active]
+            70. monitor_FL     
 
 
-        72. monitor_FR              
-     
-(ovos) ovos@raspOVOS:~ $ wpctl inspect 36
-id 36, type PipeWire:Interface:Node
-   alsa.card = "2"
-   alsa.card_name = "snd_rpi_proto"
-   alsa.class = "generic"
-   alsa.device = "0"
-   alsa.driver_name = "snd_soc_rpi_proto"
-   alsa.id = "sndrpiproto"
-   alsa.long_card_name = "snd_rpi_proto"
-   alsa.name = "WM8731 HiFi wm8731-hifi-0"
-   alsa.resolution_bits = "16"
-   alsa.subclass = "generic-mix"
-   alsa.subdevice = "0"
-   alsa.subdevice_name = "subdevice #0"
-   ...
+            71. input_FR        < WM8731 HiFi wm8731-hifi-0:capture_FR	[active]
 
-```
+
+            72. monitor_FR              
+         
+    (ovos) ovos@raspOVOS:~ $ wpctl inspect 36
+    id 36, type PipeWire:Interface:Node
+       alsa.card = "2"
+       alsa.card_name = "snd_rpi_proto"
+       alsa.class = "generic"
+       alsa.device = "0"
+       alsa.driver_name = "snd_soc_rpi_proto"
+       alsa.id = "sndrpiproto"
+       alsa.long_card_name = "snd_rpi_proto"
+       alsa.name = "WM8731 HiFi wm8731-hifi-0"
+       alsa.resolution_bits = "16"
+       alsa.subclass = "generic-mix"
+       alsa.subdevice = "0"
+       alsa.subdevice_name = "subdevice #0"
+       ...
+
+    ```
 
 - **Test Audio:**
     - Record a short test file with `arecord -f test.wav`.

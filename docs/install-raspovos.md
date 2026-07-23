@@ -63,11 +63,11 @@ Raspberry Pi boards are notoriously **picky about power supplies**. Insufficient
         - **Choose Storage:** Select your SD card or USB drive.
 
 
-![image](https://github.com/user-attachments/assets/92458289-a3c3-4c7b-afc8-126881445f9f)
+![Raspberry Pi Imager "Choose Device" screen listing supported Pi models](https://github.com/user-attachments/assets/92458289-a3c3-4c7b-afc8-126881445f9f)
 
-![image](https://github.com/user-attachments/assets/36a83d0a-ebc2-4095-94ba-604ad78b5452)
+![Raspberry Pi Imager "Choose OS" screen with "Use custom" selected to pick the RaspOVOS image file](https://github.com/user-attachments/assets/36a83d0a-ebc2-4095-94ba-604ad78b5452)
 
-![image](https://github.com/user-attachments/assets/47c92497-d1a2-4f2d-90be-189806736c0d)
+![Raspberry Pi Imager "Choose Storage" screen listing the target SD card or USB drive](https://github.com/user-attachments/assets/47c92497-d1a2-4f2d-90be-189806736c0d)
 
 3. **Advanced Configuration Options**
 
@@ -80,9 +80,9 @@ Raspberry Pi boards are notoriously **picky about power supplies**. Insufficient
 
    **Important:** **Do NOT change the default username** (`ovos`), as it is required for the system to function properly.
 
-![image](https://github.com/user-attachments/assets/9509ea57-ae46-4c0b-b9e9-97935579d207)
+![Raspberry Pi Imager "Edit Settings" general tab: hostname, username, password, and Wi-Fi fields](https://github.com/user-attachments/assets/9509ea57-ae46-4c0b-b9e9-97935579d207)
 
-![image](https://github.com/user-attachments/assets/252af1a0-54dc-4450-aa4a-eb0f0a4d139f)
+![Raspberry Pi Imager "Edit Settings" services/locale tab: SSH and keyboard layout options](https://github.com/user-attachments/assets/252af1a0-54dc-4450-aa4a-eb0f0a4d139f)
 
 4. **Write the Image**
 
@@ -156,14 +156,14 @@ gives no on-screen confirmation, so treat it as a fallback, not the primary path
 3. Place the transmitting device near the Raspberry Pi microphone.
 
 
-4. If successful, you'll hear an acknowledgment tone.
+4. If successful, the **RaspOVOS device** (not the transmitting phone/laptop) plays an acknowledgment tone.
 
 
-    - If decoding fails or credentials are incorrect, you'll hear an error tone.
+    - If decoding fails or credentials are incorrect, the RaspOVOS device plays an error tone instead.
 
 🚧 **Note:** ggwave is a **work-in-progress** feature and does not have any dialogs or provide on-screen feedback. 🚧
 
-![image](https://github.com/user-attachments/assets/ce2857b1-b93f-4092-99f3-43f555e04920)
+![ggwave Wi-Fi setup web page with SSID/password fields and a "transmit" button](https://github.com/user-attachments/assets/ce2857b1-b93f-4092-99f3-43f555e04920)
 
 ---
 

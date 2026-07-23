@@ -141,18 +141,21 @@ OVOS uses Python extras (e.g., `[mycroft]`) to let you install predefined groups
 | `skills-media`       | [OCP](ocp-pipeline.md) (OpenVoiceOS [Common Play](ocp-pipeline.md)) media playback skills                    |
 | `skills-desktop`     | Desktop environment integrations                                       |
 
+Extras and a release channel are independent choices — combine them in one command by
+adding both the bracketed extras and a `-c` constraints file:
+
 ### Full Installation Example
 
 ```bash
-pip install ovos-core[mycroft,lgpl,plugins,skills-essential,skills-audio,skills-gui,skills-internet,skills-media,skills-desktop]
-
+uv pip install "ovos-core[mycroft,lgpl,plugins,skills-essential,skills-audio,skills-gui,skills-internet,skills-media,skills-desktop]" \
+    -c https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-stable.txt
 ```
 
 ### Minimal Installation Example
 
 ```bash
-pip install ovos-core[mycroft,plugins,skills-essential]
-
+uv pip install "ovos-core[mycroft,plugins,skills-essential]" \
+    -c https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-stable.txt
 ```
 
 

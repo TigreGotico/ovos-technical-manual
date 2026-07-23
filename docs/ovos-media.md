@@ -308,6 +308,11 @@ current player state):
 
 ## MPRIS Integration
 
+!!! note "This is `ovos-media`'s support, not the stock-install default"
+    MPRIS integration only exists when you're running `ovos-media` as the playback backend
+    (`enable_old_audioservice: false`). The default `ovos-audio` old-audioservice backend does
+    not provide it.
+
 OCP integrates with MPRIS, allowing OCP to control and be controlled by external players.
 Via MPRIS (and KDEConnect), OCP can display data from external players and control playback
 in connected devices.

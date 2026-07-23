@@ -36,6 +36,11 @@ specifically reusing an i2c HAT or the SJ201 board design.
 
 ## Writing your own hardware driver: `AbstractLed` / `AbstractSwitches`
 
+!!! note "Illustrative skeletons"
+    The `MyRingLed` and switch examples below are illustrative skeletons, not complete,
+    copy-pasteable drivers — real hardware needs the actual bus/SPI/GPIO calls for your board
+    filled in where the example stops short.
+
 Custom LEDs and buttons are the two things almost every maker adds. Rather than writing your
 own bus-message plumbing, subclass the abstract base classes in
 [`ovos-hardware-helpers`](https://github.com/OpenVoiceOS/ovos-hardware-helpers) and wrap the

@@ -80,6 +80,14 @@ options:
 
 ```
 
+!!! example "A worked multi-flag invocation"
+    Serve a specific engine, override its language to European Portuguese, and cache every
+    synthesis to disk for later inspection:
+
+    ```bash
+    ovos-tts-server --engine ovos-tts-plugin-phoonnx --cache --lang pt-pt
+    ```
+
 ---
 
 ## Technical Explanation

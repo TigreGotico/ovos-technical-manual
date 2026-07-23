@@ -152,4 +152,13 @@ ASR output), with higher priority also running first.
 
 ---
 
-*Source code: [OpenVoiceOS/ovos-core](https://github.com/OpenVoiceOS/ovos-core).*
+!!! note "Where this code actually lives"
+    `ovos-core` only defines the `opm.transformer.text` / `opm.transformer.dialog` entry-point
+    contracts and calls into whatever is installed — it does not implement any transformer
+    itself. The LLM-backed implementations documented on this page live in their own plugin
+    repos: [`ovos-openai-plugin`](https://github.com/OpenVoiceOS/ovos-openai-plugin) and
+    [`ovos-gguf-plugin`](https://github.com/OpenVoiceOS/ovos-gguf-plugin).
+
+*Source code: [OpenVoiceOS/ovos-core](https://github.com/OpenVoiceOS/ovos-core) (transformer contract) ·
+[OpenVoiceOS/ovos-openai-plugin](https://github.com/OpenVoiceOS/ovos-openai-plugin) ·
+[OpenVoiceOS/ovos-gguf-plugin](https://github.com/OpenVoiceOS/ovos-gguf-plugin) (implementations).*
