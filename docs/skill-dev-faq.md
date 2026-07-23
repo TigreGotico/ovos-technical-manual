@@ -1,147 +1,205 @@
 # Developer FAQ
 
 !!! abstract "In a nutshell"
-    Short answers to specific "how do I…?" questions that come up while writing a skill. Skim
-    it when you hit one of these; it assumes you've already built a basic skill (start with
-    [Your First Skill](first-skill.md) if not). If you don't write skills, you can skip this page.
-
-## How do I know if a screen / GUI client is available?
-
-`ovos_utils.gui` exposes helper functions to query GUI availability. Use these to decide whether to show a page or fall back to voice-only behavior.
-
-```python
-from ovos_utils.gui import can_display, is_gui_installed, is_gui_connected
-from ovos_workshop.skills import OVOSSkill
-from ovos_workshop.decorators import intent_handler
-
-
-class MySkill(OVOSSkill):
-
-    @intent_handler("gui.status.intent")
-    def handle_status_intent(self, message):
-        print("device has a screen:", can_display())
-        print("mycroft-gui installed:", is_gui_installed())
-        print("gui client connected:", is_gui_connected(self.bus))
-        if is_gui_connected(self.bus):
-            self.gui.show_text("Hello from the GUI!")
-        else:
-            self.speak("I have nothing to show, no screen is connected")
-```
-
-> The legacy `GUITracker` class has been **removed** from `ovos_utils.gui`. Use the standalone `can_display()`, `is_gui_installed()`, and `is_gui_connected(bus)` functions instead. To react to GUI lifecycle events, listen to the relevant `gui.*` messagebus messages with `self.add_event(...)`.
-
-## How do I stop an intent mid execution?
-
-Sometimes you want to abort a running intent immediately, the stop method may not be enough in some circumstances
-we provide a `killable_intent` decorator in `ovos_workshop` that can be used to abort a running intent immediately
-
-a common use case is for GUI interfaces where the same action may be done by voice or clicking buttons, in this case you may need to abort a running `get_response` loop
-
-```python
-from ovos_workshop.skills import OVOSSkill
-from ovos_workshop.decorators import killable_intent, intent_handler
-from time import sleep
-
-
-class Test(OVOSSkill):
-    """
-    send "mycroft.skills.abort_question" and confirm only get_response is aborted
-    send "mycroft.skills.abort_execution" and confirm the full intent is aborted, except intent3
-    send "my.own.abort.msg" and confirm intent3 is aborted
-    say "stop" and confirm all intents are aborted
-    """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.my_special_var = "default"
-
-    def handle_intent_aborted(self):
-        self.speak("I am dead")
-        # handle any cleanup the skill might need, since intent was killed
-        # at an arbitrary place of code execution some variables etc. might
-        # end up in unexpected states
-        self.my_special_var = "default"
-
-    @killable_intent(callback=handle_intent_aborted)
-    @intent_handler("test.intent")
-    def handle_test_abort_intent(self, message):
-        self.my_special_var = "changed"
-        while True:
-            sleep(1)
-            self.speak("still here")
-
-    @intent_handler("test2.intent")
-    @killable_intent(callback=handle_intent_aborted)
-    def handle_test_get_response_intent(self, message):
-        self.my_special_var = "CHANGED"
-        ans = self.get_response("question", num_retries=99999)
-        self.log.debug("get_response returned: " + str(ans))
-        if ans is None:
-            self.speak("question aborted")
-
-    @killable_intent(msg="my.own.abort.msg", callback=handle_intent_aborted)
-    @intent_handler("test3.intent")
-    def handle_test_msg_intent(self, message):
-        if self.my_special_var != "default":
-            self.speak("someone forgot to cleanup")
-        while True:
-            sleep(1)
-            self.speak("you can't abort me")
-
-```
-
-## How do I send files over the bus?
-
-Sometimes you may want to send files or binary data over the messagebus, `ovos_utils` provides some tools to make this easy
-
-Sending a file
-
-```python
-from ovos_bus_client.util import send_binary_file_message, decode_binary_message
-from ovos_workshop.skills import OVOSSkill
-
-
-class MySkill(OVOSSkill): 
-    def initialize(self):
-        self.add_event("mycroft.binary.file", self.receive_file)
-    
-    def receive_file(self, message):
-        print("Receiving file")
-        path = message.data["path"]  # file path, extract filename if needed
-        binary_data = decode_binary_message(message)
-        # Insert logic to process the data
-        
-    def send_file(self, my_file_path):
-        # pass self.bus explicitly — otherwise a brand new bus connection is
-        # opened and closed just for this one message
-        send_binary_file_message(my_file_path, bus=self.bus)
-
-```
-
-Sending binary data directly
-
-```python
-from ovos_bus_client.util import send_binary_data_message, decode_binary_message
-from ovos_workshop.skills import OVOSSkill
-
-
-class MySkill(OVOSSkill):
-    def initialize(self):
-        self.add_event("mycroft.binary.data", self.receive_binary)
-    
-    def send_data(self, binary_data):
-        # pass self.bus explicitly — otherwise a brand new bus connection is
-        # opened and closed just for this one message
-        send_binary_data_message(binary_data, bus=self.bus)
-
-    def receive_binary(self, message):
-        print("Receiving binary data")
-        binary_data = decode_binary_message(message)
-         # Insert logic to process the data
-
-```
+    Short, direct answers to the questions that come up most often while building an OVOS skill —
+    mined from real questions asked in the community and from the sticking points people hit while
+    working through this manual. Each answer routes you to the full page for the depth you need; skim
+    this page when you hit one of these, then dive into the linked page. It assumes you've already
+    built a basic skill — start with [Your First Skill](first-skill.md) if not.
 
 ---
 
-Didn't find your question here? Ask in the
-[skills channel on OVOS Chat](https://matrix.to/#/#openvoiceos-skills:matrix.org).
+## Getting started and the inner dev loop
 
+### My utterance doesn't do anything — where do I even start looking?
+
+Work through it stage by stage: is the messagebus up, did the mic/wake word fire, did STT produce
+text, did a pipeline stage match, did the handler raise, did TTS speak. Each stage has an exact log
+line to grep for and a bus message to filter on. Start by injecting the text directly, skipping the
+mic entirely:
+
+```bash
+ovos-say-to "what time is it"
+```
+
+→ full story: [Troubleshooting & Debugging](troubleshooting.md)
+
+### How do I test a skill without talking into a microphone?
+
+Three options, cheapest first: `ovos-say-to "some phrase"` injects a `recognizer_loop:utterance`
+message as if STT had already produced it; `ovos-busmon` gives you a browser view of every bus
+message live, including a button to inject arbitrary messages yourself; and
+[`ovoscope`](ovoscope-overview.md) runs a real in-process assistant (`MiniCroft`) with no audio
+hardware at all, so you can write pytest assertions instead of speaking out loud every time.
+
+→ full story: [Test Your Skill](testing-your-skill.md), [Troubleshooting](troubleshooting.md#stage-3-did-stt-produce-text)
+
+### How do I restart just my skill while I'm iterating on it, without restarting all of OVOS?
+
+Use `ovos-skill-launcher`, shipped by `ovos-workshop`. It connects to a running bus, loads (or
+reloads) one skill by ID, and stays attached so you can edit-and-rerun without touching the rest of
+the stack:
+
+```bash
+ovos-skill-launcher my-first.youruser /path/to/ovos-skill-my-first
+```
+
+Pass just the `skill_id` if the skill is already discoverable on the standard skill directories;
+pass a second argument to point at an arbitrary local path instead.
+
+→ full story: [Command-line Tools](cli-tools.md)
+
+### Why isn't my skill loading at all?
+
+Almost always one of two things: the `opm.skill` entry point in `pyproject.toml` doesn't match what
+OVOS is looking for, or the package failed to import. Check `skills.log` for your `skill_id` right
+after startup — a traceback there names the exact import problem. If nothing about your skill
+appears in the log at all, `pip show <your-package>` to confirm it actually installed, then confirm
+the entry point:
+
+```toml
+[project.entry-points."opm.skill"]
+"my-first.youruser" = "ovos_skill_my_first:MyFirstSkill"
+```
+
+The left-hand side (`<skill-name>.<author>`) becomes the `skill_id`; the right-hand side is
+`package:ClassName`. `find_skill_plugins()` in `ovos-plugin-manager` enumerates this exact group —
+a typo here means the skill is invisible, not broken.
+
+→ full story: [Your First Skill](first-skill.md#step-5-make-it-installable), [Skill Manager](skill-manager.md)
+
+---
+
+## Why isn't it doing what I expect
+
+### Why doesn't my phrase match my intent?
+
+`ovos-core` logs every pipeline stage it tries, in order, and each one logs a miss if it doesn't
+claim the utterance:
+
+```text
+DEBUG - no match from <bound method ...PadatiousPipeline.match_high ...>
+DEBUG - no match from <bound method ...AdaptPipeline.match_high ...>
+```
+
+Reproduce it deterministically with `ovos-say-to "the exact phrase"`, then grep `skills.log` for
+that text. If every matcher rejects it, it's a training-data problem in your intent files (missing
+sample phrase, wrong vocab), not a bug in the pipeline — add the phrasing to your `.intent`/`.voc`
+file and retrain.
+
+→ full story: [Troubleshooting — Stage 4](troubleshooting.md#stage-4-which-pipeline-stage-matched-or-didnt), [Pipelines Overview](pipelines-overview.md)
+
+### Should my skill use Adapt or Padatious for intent matching?
+
+Padatious is the better default for most skills: it's a trained neural matcher that generalizes
+across paraphrasing and localizes easily to other languages. Reach for Adapt instead only for a
+personal/private skill where you need strict, predictable command-and-control matching in a single
+language you fully control.
+
+→ full story: [Adapt Pipeline](adapt-pipeline.md#when-to-use-adapt-in-ovos), [Padatious Pipeline](padatious-pipeline.md#when-to-use)
+
+### My skill needs a follow-up question — how do multi-turn conversations work?
+
+Two different mechanisms depending on the shape of the follow-up. If you're waiting for the answer
+to a specific question you just asked, call `self.get_response(...)` — it blocks and returns the
+next utterance (or `None` on timeout). If instead you want your skill to keep intercepting *any*
+follow-up for a while after it last acted ("yes", "no", "the red one"), implement `converse()` —
+but that requires subclassing `ConversationalSkill`, not the plain `OVOSSkill`:
+
+```python
+from ovos_workshop.skills.converse import ConversationalSkill
+
+class MySkill(ConversationalSkill):
+    def converse(self, message):
+        if "yes" in message.data["utterances"][0]:
+            self.speak("Great!")
+            return True
+        return False
+```
+
+→ full story: [Converse](converse.md)
+
+---
+
+## Language, settings, and where things live
+
+### How do I make my skill speak in more than one language?
+
+Put per-language `.intent`/`.voc`/dialog files under `locale/<lang>/`, and a translated `skill.json`
+in the same folder if you want a localized store listing. Padatious intents localize with the least
+friction since they're trained from example phrases rather than hand-written grammar rules.
+
+→ full story: [Skill Structure](skill-structure.md), [Language Support](lang-support.md), [Skill Metadata File](skill-json.md#language-support)
+
+### Where do my skill's settings and files actually live on disk?
+
+Settings live at `~/.config/ovos/skills/<skill_id>/settings.json` (a `FileWatcher` on that path
+fires `ovos.skills.settings_changed` whenever it changes). Persistent skill data belongs under
+`self.file_system`, not a path you build yourself — it resolves to
+`$XDG_DATA_HOME/mycroft/filesystem/<skill_id>/` and survives skill reinstalls.
+
+```python
+self.settings.get("my_key", "default")   # read
+self.settings["my_key"] = "value"        # write — auto-saved on shutdown
+with self.file_system.open("cache.json", "w") as f:
+    ...
+```
+
+→ full story: [Skill Settings](skill-settings.md), [Filesystem Access](skill-filesystem.md), [Locations](locations-ref.md)
+
+---
+
+## Dependencies, packaging, and sharing
+
+### Where do my skill's Python dependencies go — `skill.json` or `pyproject.toml`?
+
+`pyproject.toml`'s `dependencies` list is what actually gets installed by `pip` — that's the real
+dependency mechanism. `skill.json` only carries `extra_plugins`, for companion OVOS plugins (a TTS
+voice, a G2P engine) your skill expects to be present but doesn't import as a Python dependency;
+`ovos-workshop` never reads `skill.json` to install anything.
+
+→ full story: [Skill Metadata File](skill-json.md#installation-behavior)
+
+### How do I share or publish my skill?
+
+Push it to a GitHub repository (`source` in `skill.json` should point there); optionally publish it
+to PyPI too and set `package_name` so people can `pip install` it directly. A skill without a PyPI
+release is still installable straight from git via `pip_spec`. From there, list it on the
+[OVOS Skill store](https://store.openvoiceos.org) — the store reads `name`, `description`,
+`examples`, `tags`, `icon`, and `images` from `skill.json` to build the listing card.
+
+→ full story: [Skill Metadata File — Sharing your skill](skill-json.md#sharing-your-skill)
+
+---
+
+## Using AI/LLMs from a skill
+
+### Can I use an LLM inside my skill?
+
+Yes, two ways. If you just want conversational fallback behavior for your whole assistant, that's
+what a [persona](personas.md) is for — no skill code needed. If you specifically want your skill's
+own handler to call an LLM (to phrase a reply, summarize something, classify an answer), load an
+agent engine plugin directly and call it like any other object:
+
+```python
+from ovos_plugin_manager.agents import load_chat_plugin
+
+engine_cls = load_chat_plugin("ovos-openai-plugin")  # or ovos-gguf-plugin, etc.
+engine = engine_cls(config={...})
+reply = engine.get_response("summarize this in one sentence: ...")
+```
+
+`get_response(utterance, session_id="default", lang=None, units=None) -> str` is the same method
+every `ChatEngine` implements, regardless of backend, so swapping providers doesn't touch your
+skill's logic.
+
+→ full story: [Agent Plugins](agent-plugins.md), [Specialized Agent Engine Types](advanced-solvers.md), [Personas](personas.md)
+
+---
+
+## Still stuck?
+
+Ask in the **[skills channel on OVOS Chat](https://matrix.to/#/#openvoiceos-skills:matrix.org)**, or
+post a longer question on the **[Open Conversational AI forum](https://community.openconversational.ai/)**.
+Include a log excerpt or `ovos-busmon` export for the stage where the trail goes cold — see
+[Troubleshooting](troubleshooting.md#where-to-ask-for-help).
