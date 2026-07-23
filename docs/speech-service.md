@@ -120,3 +120,6 @@ The speech service is configured in the `listener`, `hotwords`, and `stt` sectio
 }
 
 ```
+
+!!! tip "Donating wake-word and STT samples"
+    `ovos-dinkum-listener` can optionally upload the wake-word and utterance audio it captures to an open-data server, purely to help improve wake-word/STT plugins. It is opt-in and off by default — nothing is uploaded until `open_data.ww_urls` / `open_data.stt_urls` is configured. See [Privacy & Security](privacy-security.md#opt-in-wake-word-and-stt-sample-donation) and [`open_data.*` config keys](config-reference.md#all-keys-generated).

@@ -178,7 +178,10 @@ itself — a separate concern from the `speech_begin`/`silence_end` timing above
 | `date_format` | `"MDY"` | Date format for display and parsing. |
 | `confirm_listening` | `true` | Play a beep when the system starts listening. |
 | `open_data.intent_urls` | `[]` | Opt-in list of open-data servers to help improve the intent pipeline by sharing anonymized match data. A dashboard for contributed data is at https://opendata.tigregotico.pt. |
-| `open_data.ww_urls`, `open_data.stt_urls` | — | **Upcoming**: documentation for opt-in wake-word and STT open-data endpoints, mirroring `intent_urls` above, is in progress ([ovos-config#278](https://github.com/OpenVoiceOS/ovos-config/pull/278)). |
+| `open_data.ww_urls` | `[]` | Opt-in list of open-data servers that receive wake-word audio samples captured by the listener, to help improve wake-word detection. |
+| `open_data.stt_urls` | `[]` | Opt-in list of open-data servers that receive transcribed utterance audio samples, to help improve STT accuracy. |
+| `open_data.user_agent` | — | Optional `User-Agent` string sent with open-data uploads. |
+| `open_data.api_key` | `null` | Optional API key, sent as an `X-API-Key` header, for open-data servers that require one. |
 | `sounds.start_listening` | `"snd/start_listening.wav"` |  |
 | `sounds.end_listening` | `"snd/end_listening.wav"` |  |
 | `sounds.acknowledge` | `"snd/acknowledge.mp3"` |  |

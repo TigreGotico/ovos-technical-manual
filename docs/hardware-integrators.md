@@ -214,3 +214,7 @@ extra your device can degrade gracefully without, not a hard dependency for laun
 - [i2c Sound & Audio Setup](i2c-sound.md) — Raspberry Pi HAT-specific audio bring-up
 - [Mycroft Mark 2 Hardware](mark2.md) — a worked example of a full custom-board bring-up
 - [Production Operations](production-operations.md) — fleet management once your hardware exists
+
+## Further reading
+
+- [Running HiveMind Player on ArkOS with the R36S](https://blog.openvoiceos.org/posts/2025-10-11-r36s) — OVOS blog

@@ -15,6 +15,10 @@ A playback plugin can implement **two separate entry-point families**:
   [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) / "old audio service", the shipped default).
 - **[`ovos-media`](ovos-media.md)** — `opm.media.{audio,video,web}` (the upcoming daemon).
 
+Media *classifiers* are a separate concern from playback backends: they recognize the
+media intent and entities (artist, title, station, …) in an utterance before a stream is
+resolved and played. See [ovos-media-classifier](#ovos-media-classifier) below.
+
 These two families are **separate** (different entry-point groups and base classes), **but a
 plugin package is meant to ship a version for *both*** — so a single `pip install` gives you a
 backend that works whichever playback system you run. Where a package currently ships only one
@@ -133,5 +137,40 @@ The [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) below is not a playback ba
   (`SIGSTOP`/`SIGCONT`). Ships entry points for both ovos-media (`opm.media.audio`, class
   `CLIAudioService`) and the old audio service (`mycroft.plugin.audioservice`, type
   `ovos_cli`).
+
+---
+
+## ovos-media-classifier
+
+- **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-classifier](https://github.com/OpenVoiceOS/ovos-media-classifier)
+
+
+- **Description**: Classifies an utterance's media intent and extracts entities (artist,
+  title, station, …) ahead of stream resolution. Several backends are available depending on
+  installed extras — `KeywordMediaClassifier` (bundled locale keyword lists) is the always-available
+  default, with `EmbeddingMediaClassifier`, `HybridMediaClassifier`, `OnnxMediaClassifier`, an
+  Aho-Corasick exact-entity-list matcher (`AhocorasickMediaClassifier`, `[ner]` extra), and a
+  `metadatarr`-backed classifier (`MetadatarrMediaClassifier`) as optional upgrades. Every backend
+  is importable from the top-level package; the optional ones resolve lazily so their extras are
+  only touched when actually used.
+
+```bash
+pip install ovos-media-classifier          # keyword backend only
+pip install ovos-media-classifier[ner]     # + AhocorasickMediaClassifier
+```
+
+```python
+from ovos_media_classifier import KeywordMediaClassifier, AhocorasickMediaClassifier
+```
+
+!!! note
+    The `[ner]` extra's "NER" is exact entity-list matching, not statistical named-entity
+    recognition: `AhocorasickMediaClassifier` compiles the configured entity lists (your actual
+    library — artists, titles, stations) into an Aho-Corasick automaton and matches verbatim; no
+    model guesses spans.
+
+The keyword backend self-registers under the `opm.media.classifier` entry-point group this
+package defines, so it doubles as the reference plugin exercising both OPM discovery and the
+external-plugin path.
 
 ---

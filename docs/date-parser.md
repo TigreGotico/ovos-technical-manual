@@ -137,12 +137,12 @@ from ovos_date_parser import extract_duration
 
 duration, remainder = extract_duration("It will take about 2 hours and 30 minutes", lang="en")
 print(duration)   # timedelta(hours=2, minutes=30)
-print(remainder)  # "It will take about and"
+print(remainder)  # "It will take about"
 
 ```
 
 !!! note
-    The remainder keeps whatever surrounds the extracted duration phrase verbatim — connective words like "and" that sat between the matched number groups are not cleaned up.
+    The remainder keeps whatever surrounds the extracted duration phrase verbatim, but a connective word ("and" in English, "y" in Spanish) or comma left stranded *between two consumed number groups* is stripped along with them. A connector that still joins unconsumed text on either side is left alone: `extract_duration("two hours and rest and relax", lang="en")` returns remainder `"and rest and relax"`.
 
 ### Formatting Time
 
@@ -173,6 +173,36 @@ print(relative_time)  # "twenty four hours"
 ```
 
 > The generic implementation speaks the rounded difference as words — `"two hours"`, `"twenty four hours"`, `"seven days"` — using `pronounce_number` internally (it does not produce words like "tomorrow"). Basque (`eu`) is the only language with a dedicated `nice_relative_time` implementation; everything else uses the generic one.
+
+### Spans, not just instants
+
+A date phrase often refers to a *stretch* of time rather than a single instant — "July 2026" is a whole month, "the 1980s" a whole decade. `extract_timespan` returns that stretch as a **`DateSpan`**: a half-open `[start, end)` interval whose endpoints are **`AstroDate`** objects — datetime-like points that are not capped at years 1–9999, so BC dates and far-future dates work too. The span's *width carries its precision*.
+
+`nice_span` is the inverse: give it a `DateSpan` and it picks the label that matches the width — a one-day span reads as a date, a month-wide span as a month, a decade as "the 1980s", a century as "the 19th century". For English this round-trips: what `nice_span` writes, `extract_timespan` reads back.
+
+```python
+from ovos_date_parser import extract_timespan, nice_span
+
+span, _ = extract_timespan("the 19th century", "en")
+print(span.start, "..", span.end)   # 1800-01-01 .. 1900-01-01
+print(nice_span(span, "en"))        # 'the 19th century'
+```
+
+The `nice_*` datetime formatters also accept an `AstroDate` directly — it is projected to a regular `datetime` when it fits, so extracted points can be formatted without unwrapping them first:
+
+```python
+from ovos_date_parser import nice_date, nice_time
+from ovos_date_parser.astrodate import AstroDate
+
+when = AstroDate(2026, 7, 21, 15, 30)
+nice_date(when, lang="en")   # "tuesday, july twenty-first, twenty twenty six"
+nice_time(when, lang="en")   # "half past three"
+```
+
+`nice_span` gives a sensible label in every formatting language, but the round-trip guarantee (label back through `extract_timespan` to the same span) currently holds for English only; matching span grammars for other languages live in the `chronologia` reckoning core the package builds on.
+
+!!! note
+    English also gains historical calendar and era vocabulary — Julian/holocene/anno-mundi style era references, regnal and Roman-numeral year forms, and richer date-range parsing — as part of this declarative datetime engine. Other languages keep their existing scanners.
 
 ## Related Projects
 
