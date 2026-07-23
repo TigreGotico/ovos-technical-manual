@@ -1,0 +1,2093 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/composable-deployments/">
+      
+      
+        <link rel="prev" href="../plugin-manager/">
+      
+      
+        <link rel="next" href="../config/">
+      
+      
+      <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>Composable Deployments - OpenVoiceOS Technical Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#composable-deployments-ovos-as-a-library" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenVoiceOS Technical Manual" class="md-header__button md-logo" aria-label="OpenVoiceOS Technical Manual" data-md-component="logo">
+      
+  <img src="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenVoiceOS Technical Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Composable Deployments
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TigreGotico/ovos-technical-manual" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TigreGotico/ovos-technical-manual
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../everyday-help/" class="md-tabs__link">
+          
+  
+  Help & Troubleshooting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ovos-installer/" class="md-tabs__link">
+          
+  
+  Get Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../first-skill/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../architecture-overview/" class="md-tabs__link">
+          
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../pipelines-overview/" class="md-tabs__link">
+          
+  
+  Intent Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../lang-support/" class="md-tabs__link">
+          
+  
+  Language Support
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../skill-design-guidelines/" class="md-tabs__link">
+          
+  
+  Skill Development
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../plugins-index/" class="md-tabs__link">
+          
+  
+  Plugin Ecosystem
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../personas/" class="md-tabs__link">
+          
+  
+  AI Agents & Personas
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../privacy-security/" class="md-tabs__link">
+          
+  
+  Privacy & Security
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../production-operations/" class="md-tabs__link">
+          
+  
+  Production & Hardware
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ecosystem-index/" class="md-tabs__link">
+          
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenVoiceOS Technical Manual" class="md-nav__button md-logo" aria-label="OpenVoiceOS Technical Manual" data-md-component="logo">
+      
+  <img src="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true" alt="logo">
+
+    </a>
+    OpenVoiceOS Technical Manual
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TigreGotico/ovos-technical-manual" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TigreGotico/ovos-technical-manual
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href=".." class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../everyday-help/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Help & Troubleshooting
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../ovos-installer/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Get Started
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../first-skill/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    High-level Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-specs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formal Specifications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spec-tooling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Specification Tooling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../life-of-an-utterance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Life of an Utterance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bus-service/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MessageBus Service
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin-manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugin Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Composable Deployments
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Composable Deployments
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      The principle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-standard-split-one-console-script-per-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      The standard split: one console script per service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The standard split: one console script per service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pointing-services-at-a-shared-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pointing services at a shared bus
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standalone-skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standalone skills
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#library-reuse-outside-ovos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Library reuse outside OVOS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers-one-service-per-box" class="md-nav__link">
+    <span class="md-ellipsis">
+      Containers: one service per box
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example topology
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caveats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Caveats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plugins-must-be-installed-where-they-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugins must be installed where they load
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-is-per-process-not-shared" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration is per-process, not shared
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-skew-is-a-real-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version skew is a real risk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#latency-and-network-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Latency and network reality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defaults-assume-localhost" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defaults assume localhost
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../config/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../core/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Core Services
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../pipelines-overview/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Intent Pipeline
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../lang-support/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Language Support
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../skill-design-guidelines/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Skill Development
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../plugins-index/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Plugin Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../personas/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    AI Agents & Personas
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../privacy-security/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Privacy & Security
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../production-operations/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Production & Hardware
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../ecosystem-index/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-principle" class="md-nav__link">
+    <span class="md-ellipsis">
+      The principle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-standard-split-one-console-script-per-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      The standard split: one console script per service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The standard split: one console script per service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pointing-services-at-a-shared-bus" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pointing services at a shared bus
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standalone-skills" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standalone skills
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#library-reuse-outside-ovos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Library reuse outside OVOS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers-one-service-per-box" class="md-nav__link">
+    <span class="md-ellipsis">
+      Containers: one service per box
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example topology
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caveats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Caveats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plugins-must-be-installed-where-they-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugins must be installed where they load
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-is-per-process-not-shared" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration is per-process, not shared
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-skew-is-a-real-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version skew is a real risk
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#latency-and-network-reality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Latency and network reality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defaults-assume-localhost" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defaults assume localhost
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="composable-deployments-ovos-as-a-library">Composable Deployments: OVOS as a Library<a class="headerlink" href="#composable-deployments-ovos-as-a-library" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>OVOS ships as a "batteries-included" assistant you can install with one command, but under
+the hood it is really a set of small, independent Python packages that happen to agree on a
+common protocol — the <a href="../bus-service/">messagebus</a>. Because of that, nothing forces you to run
+"all of OVOS" as one blob: you can start a single service on its own machine, load a single
+skill as its own process, or <code>pip install</code> a speech plugin into a completely unrelated Python
+project and call it directly, with no bus and no assistant around it at all. This page is
+about that second use case — OVOS the <strong>library</strong>, not OVOS the <strong>product</strong>.</p>
+</div>
+<h2 id="the-principle">The principle<a class="headerlink" href="#the-principle" title="Permanent link">&para;</a></h2>
+<p>Every OVOS service — the bus, the voice pipeline, the audio player, the hardware abstraction
+layer, the GUI — is an ordinary long-running Python process. They do not call each other's
+functions or share memory; they exchange JSON <a href="../bus-service/"><code>Message</code></a> objects over a
+WebSocket. Anything that can open that WebSocket and speak the same message types is a first-class
+participant, whether it is <code>ovos-core</code> itself, a HiveMind satellite, a shell script, or a Node.js
+prototype. This is what makes the two deployment styles below equally valid:</p>
+<table>
+<thead>
+<tr>
+<th>Style</th>
+<th>What you get</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Batteries-included install</strong></td>
+<td><code>ovos-core</code> metapackage pulls in the bus, listener, audio, PHAL and GUI services and a process manager starts them all on one host</td>
+<td>A voice appliance, <a href="../install-raspovos/">raspOVOS</a>, a desktop assistant</td>
+</tr>
+<tr>
+<td><strong>À la carte library use</strong></td>
+<td>You install and import only the pieces you need — one service, one skill, or a single plugin as a bare Python object</td>
+<td>Distributed/embedded deployments, custom apps, testing one component in isolation</td>
+</tr>
+</tbody>
+</table>
+<p>Nothing in the code enforces the first style; it is a packaging convenience (<code>ovos-core</code> is a
+metapackage), not an architectural requirement. The <a href="../architecture-overview/">Architecture Overview</a>
+covers how these services cooperate at runtime; this page covers how to run them apart.</p>
+<h2 id="the-standard-split-one-console-script-per-service">The standard split: one console script per service<a class="headerlink" href="#the-standard-split-one-console-script-per-service" title="Permanent link">&para;</a></h2>
+<p>Each core service is its own PyPI package with its own console-script entry point. Installing a
+package makes the script available on <code>PATH</code>; running it starts that one process and nothing else.</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Package</th>
+<th>Console script</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>messagebus</td>
+<td><code>ovos-messagebus</code></td>
+<td><code>ovos-messagebus</code></td>
+<td>The WebSocket hub every other process connects to</td>
+</tr>
+<tr>
+<td>Core / orchestrator</td>
+<td><code>ovos-core</code></td>
+<td><code>ovos-core</code></td>
+<td>Pipeline matching, skill loading, intent dispatch</td>
+</tr>
+<tr>
+<td>Voice pipeline</td>
+<td><code>ovos-dinkum-listener</code></td>
+<td><code>ovos-dinkum-listener</code></td>
+<td>Wake word, VAD, STT, produces <code>recognizer_loop:utterance</code></td>
+</tr>
+<tr>
+<td>Audio playback</td>
+<td><code>ovos-audio</code></td>
+<td><code>ovos-audio</code></td>
+<td>TTS synthesis and playback, <code>speak</code> handling</td>
+</tr>
+<tr>
+<td>Hardware abstraction</td>
+<td><code>ovos-PHAL</code></td>
+<td><code>ovos_PHAL</code> (underscore)</td>
+<td>Battery, network, LEDs, and other device-specific integrations</td>
+</tr>
+<tr>
+<td>PHAL admin actions</td>
+<td><code>ovos-PHAL</code></td>
+<td><code>ovos_PHAL_admin</code></td>
+<td>Privileged system actions (shutdown/reboot) run as a separate process</td>
+</tr>
+<tr>
+<td>GUI protocol server</td>
+<td><code>ovos-gui</code></td>
+<td><code>ovos-gui-service</code></td>
+<td>Serves the <a href="../gui-protocol/">GUI protocol</a> to display clients</td>
+</tr>
+<tr>
+<td>Standalone intent matching</td>
+<td><code>ovos-core</code></td>
+<td><code>ovos-intent-service</code></td>
+<td>Pipeline matching without the rest of core's skill orchestration</td>
+</tr>
+<tr>
+<td>Standalone skill installer</td>
+<td><code>ovos-core</code></td>
+<td><code>ovos-skill-installer</code></td>
+<td>Installs skills without a running <code>ovos-core</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Names are exact</p>
+<p>The console scripts are not all named consistently with their package — notably <code>ovos-PHAL</code>
+installs <code>ovos_PHAL</code> and <code>ovos_PHAL_admin</code> with underscores, and the GUI service script is
+<code>ovos-gui-service</code>, not <code>ovos-gui</code>. Check <code>pip show -f &lt;package&gt;</code> if a script is not found.</p>
+</div>
+<h3 id="pointing-services-at-a-shared-bus">Pointing services at a shared bus<a class="headerlink" href="#pointing-services-at-a-shared-bus" title="Permanent link">&para;</a></h3>
+<p>Every process reads the <code>websocket</code> block from its own <a href="../config/">configuration</a> to find the
+bus:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>{
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  &quot;websocket&quot;: {
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    &quot;host&quot;: &quot;127.0.0.1&quot;,   // change to the bus host&#39;s LAN address/hostname
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    &quot;port&quot;: 8181,
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    &quot;route&quot;: &quot;/core&quot;,
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    &quot;ssl&quot;: false
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  }
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>}
+</span></code></pre></div>
+<p>The default is <code>127.0.0.1</code> — <strong>every service assumes the bus is local unless you say otherwise</strong>.
+To split services across hosts or containers, run <code>ovos-messagebus</code> on one host, then set
+<code>websocket.host</code> to that host's address in the configuration of every other service. No other
+wiring is needed: a listener on one machine, <code>ovos-core</code> on a second, and <code>ovos-audio</code> on a third
+will cooperate exactly as if they were on the same box, as long as each can reach the bus's
+<code>host:port</code>. The <a href="../gui-service/">GUI service</a> has its own analogous <code>gui_websocket</code> block, since
+display clients connect over a second WebSocket.</p>
+<div class="admonition warning">
+<p class="admonition-title">Localhost by default, everywhere</p>
+<p><code>websocket.host</code> (bus), <code>gui_websocket.host</code> (GUI protocol, default <code>0.0.0.0</code>, still same-host
+unless routed), and most PHAL plugin bindings default to loopback or same-host assumptions.
+Distributing services is supported but is a deliberate config change, not the out-of-the-box
+behavior — see <a href="#caveats">Caveats</a> below.</p>
+</div>
+<h2 id="standalone-skills">Standalone skills<a class="headerlink" href="#standalone-skills" title="Permanent link">&para;</a></h2>
+<p>A skill does not need a running <code>ovos-core</code> to execute — <code>ovos-workshop</code> ships a launcher that
+loads exactly one skill and connects it to a bus on its own:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ovos-skill-launcher<span class="w"> </span><span class="o">{</span>skill_id<span class="o">}</span><span class="w"> </span><span class="o">[</span>path/to/skill/directory<span class="o">]</span>
+</span></code></pre></div>
+<p>This is the <code>ovos-skill-launcher</code> console script, backed by <code>ovos_workshop.skill_launcher.SkillContainer</code>.
+If you omit the directory it searches the standard skill directories for a folder matching
+<code>skill_id</code>; if you pass one explicitly it loads from there, which is convenient for developing a
+skill straight out of a git checkout.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skill_launcher</span> <span class="kn">import</span> <span class="n">SkillContainer</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">skill</span> <span class="o">=</span> <span class="n">SkillContainer</span><span class="p">(</span><span class="n">skill_id</span><span class="o">=</span><span class="s2">&quot;my-skill.openvoiceos&quot;</span><span class="p">,</span> <span class="n">skill_directory</span><span class="o">=</span><span class="s2">&quot;./my-skill&quot;</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">skill</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  <span class="c1"># connects to the bus (websocket config) and loads only this skill</span>
+</span></code></pre></div>
+<p>Because this is a normal Python process that only needs a reachable bus, it enables:</p>
+<ul>
+<li><strong>Developing one skill against a remote device</strong> — run the skill on a laptop, point its
+  <code>websocket.host</code> at a Raspberry Pi running the rest of the stack, and iterate without touching
+  the device.</li>
+<li><strong>Resource isolation</strong> — a heavyweight skill (e.g. one embedding a local LLM) runs in its own
+  process with its own memory ceiling, instead of sharing <code>ovos-core</code>'s process.</li>
+<li><strong>Per-skill containers</strong> — package a single skill and <code>ovos-skill-launcher</code> into a minimal
+  container image, so a skill can be deployed, scaled, or restarted independently of the rest of
+  the assistant.</li>
+</ul>
+<h2 id="library-reuse-outside-ovos">Library reuse outside OVOS<a class="headerlink" href="#library-reuse-outside-ovos" title="Permanent link">&para;</a></h2>
+<p>The pattern goes further than "one service, one process" — the packages underneath each service
+are ordinary importable libraries with no hard dependency on a bus being present.</p>
+<p><strong>HiveMind satellites import audio/listener internals directly.</strong> <code>hivemind-mic-satellite</code> (a
+<a href="../hivemind-agents/">HiveMind</a> client, not an OVOS-org package) depends on <code>ovos-audio</code> and
+<code>ovos-plugin-manager</code> and imports their classes directly instead of talking to a running
+<code>ovos-audio</code> process:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_audio.audio</span> <span class="kn">import</span> <span class="n">AudioService</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">ovos_audio.playback</span> <span class="kn">import</span> <span class="n">PlaybackThread</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.microphone</span> <span class="kn">import</span> <span class="n">OVOSMicrophoneFactory</span><span class="p">,</span> <span class="n">Microphone</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.vad</span> <span class="kn">import</span> <span class="n">OVOSVADFactory</span><span class="p">,</span> <span class="n">VADEngine</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="kn">from</span> <span class="nn">ovos_PHAL.service</span> <span class="kn">import</span> <span class="n">PHAL</span>
+</span></code></pre></div>
+<p>It reuses the audio-playback and microphone/VAD machinery as plain Python classes inside its own
+process, then relays results to the hive over its own protocol — no <code>ovos-audio</code> process is ever
+started.</p>
+<p><strong>OPM plugins run as plain libraries, with no bus at all.</strong> The OpenVoiceOS Plugin Manager
+(<code>ovos-plugin-manager</code>, "OPM") factories construct STT/TTS/VAD engines from configuration; nothing
+about the returned object requires a bus:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.vad</span> <span class="kn">import</span> <span class="n">OVOSVADFactory</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">vad</span> <span class="o">=</span> <span class="n">OVOSVADFactory</span><span class="o">.</span><span class="n">create</span><span class="p">({</span><span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;ovos-vad-plugin-noise&quot;</span><span class="p">})</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">audio</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1600</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int16&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">vad</span><span class="o">.</span><span class="n">is_silence</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span>  <span class="c1"># -&gt; False, plain function call, no messagebus involved</span>
+</span></code></pre></div>
+<p>The same applies to <code>OVOSSTTFactory.create(config)</code> and <code>OVOSTTSFactory.create(config)</code> — both
+return an engine object you call directly (<code>.execute(audio)</code>, <code>.get_tts(text, path)</code>) in a script,
+a notebook, or a completely unrelated application that has nothing to do with voice assistants.</p>
+<p><strong><code>ovos-bus-client</code> and <code>ovos-utils</code> are building blocks in their own right.</strong> <code>ovos-bus-client</code>
+supplies <code>MessageBusClient</code>/<code>Message</code> (and the <code>ovos-listen</code>/<code>ovos-speak</code>/<code>ovos-say-to</code> CLI tools,
+see <a href="../cli-tools/">CLI Tools</a>) for anything that wants to talk <em>to</em> an existing OVOS bus without
+being a skill or a service. <code>ovos-utils</code> supplies logging, audio I/O helpers, and — notably —
+<code>ovos_utils.fakebus.FakeBus</code>, an in-memory stand-in used to exercise skill/plugin code in tests
+without any network socket at all. See <a href="../core-libraries/">Core Libraries</a> for the full map of
+these packages and their upstream docs.</p>
+<h2 id="containers-one-service-per-box">Containers: one service per box<a class="headerlink" href="#containers-one-service-per-box" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/OpenVoiceOS/ovos-docker"><code>ovos-docker</code></a> mirrors the same split at the
+container level: it ships one Dockerfile/image per service (<code>messagebus</code>, <code>core</code>, <code>listener</code>,
+<code>audio</code>, <code>phal</code>, <code>phal-admin</code>, <code>gui</code>, <code>gui-websocket</code>, <code>skills</code>) plus compose files that wire them
+together over a shared network. Because each image only installs the one service's package, they
+can be scheduled independently — scaled, restarted, or placed on different hosts — as long as
+<code>websocket.host</code> in each container's configuration resolves to the bus container.</p>
+<p>The same idea shows up as standalone servers for individual speech components, packaged as their
+own containers/services rather than as OVOS services at all:</p>
+<table>
+<thead>
+<tr>
+<th>Server</th>
+<th>What it exposes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ovos-stt-server</code></td>
+<td>An HTTP/WebSocket wrapper around an STT plugin — POST audio, get text back</td>
+</tr>
+<tr>
+<td><code>ovos-tts-server</code></td>
+<td>An HTTP wrapper around a TTS plugin — POST text, get audio back</td>
+</tr>
+<tr>
+<td><code>ovos-translate-server</code></td>
+<td>An HTTP wrapper around a machine-translation plugin</td>
+</tr>
+</tbody>
+</table>
+<p>These have no bus dependency and no notion of "skills" or "sessions" — they are thin HTTP
+front-ends over the same OPM factories shown above, useful when another application (OVOS or not)
+just needs a speech primitive over the network.</p>
+<h2 id="example-topology">Example topology<a class="headerlink" href="#example-topology" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    subgraph "Host A — bus"
+        BUS[ovos-messagebus]
+    end
+    subgraph "Host B — voice pipeline"
+        LISTENER[ovos-dinkum-listener&lt;br/&gt;+ STT plugin]
+        AUDIO[ovos-audio&lt;br/&gt;+ TTS plugin]
+    end
+    subgraph "Host C — brain"
+        CORE[ovos-core&lt;br/&gt;+ skills]
+        SKILL[ovos-skill-launcher&lt;br/&gt;my-skill, isolated]
+    end
+    subgraph "Host D — device I/O"
+        PHAL[ovos_PHAL]
+        GUI[ovos-gui-service]
+    end
+    subgraph "Off-network"
+        HIVE[hivemind-core]
+        SAT[hivemind-mic-satellite&lt;br/&gt;imports ovos-audio directly]
+    end
+
+    LISTENER &lt;-- websocket.host=A --&gt; BUS
+    AUDIO &lt;-- websocket.host=A --&gt; BUS
+    CORE &lt;-- websocket.host=A --&gt; BUS
+    SKILL &lt;-- websocket.host=A --&gt; BUS
+    PHAL &lt;-- websocket.host=A --&gt; BUS
+    GUI &lt;-- websocket.host=A --&gt; BUS
+    HIVE &lt;-- websocket.host=A --&gt; BUS
+    SAT -. HiveMind protocol .-&gt; HIVE</code></pre>
+<h2 id="caveats">Caveats<a class="headerlink" href="#caveats" title="Permanent link">&para;</a></h2>
+<p>Splitting services this way is fully supported, but it moves responsibilities that a single-host
+install hides for you. These are the most common sources of confusion.</p>
+<h3 id="plugins-must-be-installed-where-they-load">Plugins must be installed where they load<a class="headerlink" href="#plugins-must-be-installed-where-they-load" title="Permanent link">&para;</a></h3>
+<p>A plugin is only usable by the process that imports it. Installing an STT plugin next to
+<code>ovos-core</code> does nothing if it is <code>ovos-dinkum-listener</code> that needs it.</p>
+<table>
+<thead>
+<tr>
+<th>Plugin type</th>
+<th>Loaded by</th>
+<th>Must be installed in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STT</td>
+<td><code>ovos-dinkum-listener</code></td>
+<td>The listener's environment/container</td>
+</tr>
+<tr>
+<td>TTS</td>
+<td><code>ovos-audio</code></td>
+<td>The audio service's environment/container</td>
+</tr>
+<tr>
+<td>VAD, wake word, microphone</td>
+<td><code>ovos-dinkum-listener</code></td>
+<td>The listener's environment/container</td>
+</tr>
+<tr>
+<td>Pipeline (intent matching), skills</td>
+<td><code>ovos-core</code></td>
+<td>The core's environment/container</td>
+</tr>
+<tr>
+<td>PHAL plugins</td>
+<td><code>ovos_PHAL</code></td>
+<td>The PHAL service's environment/container</td>
+</tr>
+<tr>
+<td>GUI adapters</td>
+<td><code>ovos-gui-service</code></td>
+<td>The GUI service's environment/container</td>
+</tr>
+</tbody>
+</table>
+<p>There is no cross-process plugin discovery — each service resolves plugins from its <strong>own</strong>
+Python environment's entry points at startup.</p>
+<h3 id="configuration-is-per-process-not-shared">Configuration is per-process, not shared<a class="headerlink" href="#configuration-is-per-process-not-shared" title="Permanent link">&para;</a></h3>
+<p>Each process reads its own <code>mycroft.conf</code> from its own <a href="../config/">XDG config path</a>
+(<code>$XDG_CONFIG_HOME/mycroft</code> — inside a container that is the container's filesystem, not the
+host's). Splitting services means keeping the relevant keys <strong>consistent by hand</strong> across every
+process's configuration — a <code>websocket.host</code> mismatch, or a listener that doesn't know which STT
+module <code>ovos-core</code> expects it to have already run, will silently misbehave rather than error
+loudly.</p>
+<h3 id="version-skew-is-a-real-risk">Version skew is a real risk<a class="headerlink" href="#version-skew-is-a-real-risk" title="Permanent link">&para;</a></h3>
+<p>Every process talks over the same bus protocol independently — there is no central version
+negotiation. Mismatched major versions across <code>ovos-bus-client</code>, <code>ovos-core</code>, <code>ovos-audio</code>, and
+<code>ovos-dinkum-listener</code> can produce message shapes one side doesn't expect. Keep versions aligned
+across a deployment, and check each package's changelog before upgrading only one service.</p>
+<h3 id="latency-and-network-reality">Latency and network reality<a class="headerlink" href="#latency-and-network-reality" title="Permanent link">&para;</a></h3>
+<p>A single-host install exchanges messages over loopback, effectively free. Splitting services
+across hosts puts real network latency and reliability on the critical path of every utterance —
+wake word detection, STT, intent matching, and TTS all round-trip through the bus. A slow or
+lossy link between the listener and the bus is felt as sluggish or dropped voice interactions, not
+as an error message.</p>
+<h3 id="defaults-assume-localhost">Defaults assume localhost<a class="headerlink" href="#defaults-assume-localhost" title="Permanent link">&para;</a></h3>
+<p><code>websocket.host</code> (<code>127.0.0.1</code>), and most PHAL device-integration plugins, assume everything they
+talk to is on the same machine. Treat every default as loopback-only until you have explicitly
+verified the config for a given deployment — the services will start and look healthy on separate
+hosts with the defaults untouched, they simply will not be able to reach each other.</p>
+<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../architecture-overview/">Architecture Overview</a> — how the services cooperate on a single host</li>
+<li><a href="../bus-service/">Bus Service</a> — the protocol all of this rests on</li>
+<li><a href="../core-libraries/">Core Libraries</a> — what each shared package provides</li>
+<li><a href="../config/">Config</a> — how configuration files are located and merged</li>
+<li><a href="../hivemind-agents/">Remote Agents with HiveMind</a> — a concrete distributed deployment built on these building blocks</li>
+<li><a href="../install-raspovos/">Install raspOVOS</a> — the batteries-included counterpart</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.top", "navigation.tracking", "navigation.instant", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>

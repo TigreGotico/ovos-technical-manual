@@ -5,6 +5,10 @@
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/accessibility/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/adapt-pipeline/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
@@ -58,6 +62,10 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/common-query/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/composable-deployments/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
@@ -121,6 +129,10 @@
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/everyday-help/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/fallback-pipeline/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
@@ -166,6 +178,14 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/gui-service/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/gui-status/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/hardware-integrators/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
@@ -258,6 +278,10 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/mic-plugins/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/migrating-from-mycroft/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
@@ -361,6 +385,14 @@
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/privacy-security/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/production-operations/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/prompts/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
@@ -393,11 +425,19 @@
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/showcase/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/skill-best-practices/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/skill-classes/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/skill-cookbook/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
@@ -477,6 +517,10 @@
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/testing-your-skill/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/timeline/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
@@ -494,6 +538,10 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/translation-plugins/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/troubleshooting/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
@@ -534,6 +582,14 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/wyoming-bridges/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/snippets/community-servers/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/snippets/default-pipeline/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
 </urlset>

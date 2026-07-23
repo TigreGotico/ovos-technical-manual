@@ -1,0 +1,1967 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/troubleshooting/">
+      
+      
+        <link rel="prev" href="../everyday-help/">
+      
+      
+        <link rel="next" href="../skill-dev-faq/">
+      
+      
+      <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>Troubleshooting - OpenVoiceOS Technical Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#troubleshooting-debugging" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="OpenVoiceOS Technical Manual" class="md-header__button md-logo" aria-label="OpenVoiceOS Technical Manual" data-md-component="logo">
+      
+  <img src="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenVoiceOS Technical Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Troubleshooting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="grey" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/TigreGotico/ovos-technical-manual" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TigreGotico/ovos-technical-manual
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../everyday-help/" class="md-tabs__link">
+          
+  
+  Help & Troubleshooting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ovos-installer/" class="md-tabs__link">
+          
+  
+  Get Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../first-skill/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../architecture-overview/" class="md-tabs__link">
+          
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../pipelines-overview/" class="md-tabs__link">
+          
+  
+  Intent Pipeline
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../lang-support/" class="md-tabs__link">
+          
+  
+  Language Support
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../skill-design-guidelines/" class="md-tabs__link">
+          
+  
+  Skill Development
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../plugins-index/" class="md-tabs__link">
+          
+  
+  Plugin Ecosystem
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../personas/" class="md-tabs__link">
+          
+  
+  AI Agents & Personas
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../privacy-security/" class="md-tabs__link">
+          
+  
+  Privacy & Security
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../production-operations/" class="md-tabs__link">
+          
+  
+  Production & Hardware
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ecosystem-index/" class="md-tabs__link">
+          
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="OpenVoiceOS Technical Manual" class="md-nav__button md-logo" aria-label="OpenVoiceOS Technical Manual" data-md-component="logo">
+      
+  <img src="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true" alt="logo">
+
+    </a>
+    OpenVoiceOS Technical Manual
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/TigreGotico/ovos-technical-manual" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    TigreGotico/ovos-technical-manual
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href=".." class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Help & Troubleshooting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Help & Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../everyday-help/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    It's not behaving
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#watch-the-bus-while-you-speak-ovos-busmon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Watch the bus while you speak — ovos-busmon
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Watch the bus while you speak — ovos-busmon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-and-running-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing and running it
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-concrete-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      A concrete walkthrough
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-the-logs-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where the logs live
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-1-is-the-service-even-running-and-is-the-bus-reachable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 1 — Is the service even running, and is the bus reachable?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-2-did-the-micwake-word-fire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 2 — Did the mic/wake word fire?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-3-did-stt-produce-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 3 — Did STT produce text?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-4-which-pipeline-stage-matched-or-didnt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 4 — Which pipeline stage matched (or didn't)?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-5-did-the-skill-handler-raise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 5 — Did the skill handler raise?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-6-did-tts-speak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 6 — Did TTS speak?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#turning-up-log-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      Turning up log detail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducing-an-issue-offline-with-ovoscope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reproducing an issue offline with ovoscope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-ask-for-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where to ask for help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Pages
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skill-dev-faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Skill Dev F.A.Q.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../ovos-installer/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Get Started
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../first-skill/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../architecture-overview/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../pipelines-overview/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Intent Pipeline
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../lang-support/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Language Support
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../skill-design-guidelines/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Skill Development
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../plugins-index/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Plugin Ecosystem
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../personas/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    AI Agents & Personas
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../privacy-security/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Privacy & Security
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../production-operations/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Production & Hardware
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../ecosystem-index/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#watch-the-bus-while-you-speak-ovos-busmon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Watch the bus while you speak — ovos-busmon
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Watch the bus while you speak — ovos-busmon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-and-running-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing and running it
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-concrete-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      A concrete walkthrough
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-the-logs-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where the logs live
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-1-is-the-service-even-running-and-is-the-bus-reachable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 1 — Is the service even running, and is the bus reachable?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-2-did-the-micwake-word-fire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 2 — Did the mic/wake word fire?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-3-did-stt-produce-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 3 — Did STT produce text?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-4-which-pipeline-stage-matched-or-didnt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 4 — Which pipeline stage matched (or didn't)?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-5-did-the-skill-handler-raise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 5 — Did the skill handler raise?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-6-did-tts-speak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stage 6 — Did TTS speak?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#turning-up-log-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      Turning up log detail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducing-an-issue-offline-with-ovoscope" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reproducing an issue offline with ovoscope
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-ask-for-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where to ask for help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Pages
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="troubleshooting-debugging">Troubleshooting &amp; Debugging<a class="headerlink" href="#troubleshooting-debugging" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>You said something to OVOS and nothing happened. This page is a decision tree for finding out
+why. It follows the same journey as <a href="../life-of-an-utterance/">The Life of an Utterance</a> — mic,
+wake word, speech-to-text, intent matching, skill, text-to-speech — and at each stop shows where
+the evidence lives (which log file, which bus message), what a healthy result looks like, and
+the exact command to check it yourself. No programming background required to follow along;
+deeper technical detail is layered in as the page goes.</p>
+</div>
+<p>Every stage below can be checked two ways: <strong>tail a log file</strong> (works everywhere, including headless
+boxes over SSH), or <strong>watch the bus live</strong> with <code>ovos-busmon</code> (works anywhere a browser can reach the
+device, and shows every stage in one place instead of six log files). Read the next section first —
+it is the fastest way to answer "which stage swallowed my utterance?" in one shot.</p>
+<hr />
+<h2 id="watch-the-bus-while-you-speak-ovos-busmon">Watch the bus while you speak — <code>ovos-busmon</code><a class="headerlink" href="#watch-the-bus-while-you-speak-ovos-busmon" title="Permanent link">&para;</a></h2>
+<p>All the stages in this guide talk to each other over the <a href="../bus-service/">messagebus</a>: the listener
+emits an utterance message, the intent service emits a match, the skill emits a <code>speak</code>, and so on.
+<strong><a href="https://github.com/OpenVoiceOS/ovos-busmon"><code>ovos-busmon</code></a></strong> is a small web app that connects to
+the bus as a client and streams every one of those messages live to a browser tab — it turns six
+separate log files into one filterable, searchable timeline.</p>
+<p>Under the hood it is a FastAPI + WebSocket/SSE service that opens an <code>ovos-bus-client</code> connection to
+the messagebus and keeps an in-memory ring buffer of everything it sees. The browser UI lets you:</p>
+<ul>
+<li>filter the live stream by message type (glob patterns, e.g. <code>ovos.*</code> or <code>recognizer_loop:*</code>)</li>
+<li>full-text search across message type, data, context, and session</li>
+<li>filter by session ID, source, and destination</li>
+<li>pause/resume capture and sort newest/oldest first</li>
+<li>export the captured buffer as JSON/JSONL for later inspection</li>
+<li>inject an arbitrary message onto the bus from the UI (the same trick as <code>ovos-say-to</code>, but visual)</li>
+</ul>
+<p>There is also a zero-install mode: the UI is a single static page that can open a WebSocket straight
+to <code>ws://&lt;device&gt;:8181/core</code> with no server component at all — useful for a one-off look without
+installing anything.</p>
+<h3 id="installing-and-running-it">Installing and running it<a class="headerlink" href="#installing-and-running-it" title="Permanent link">&para;</a></h3>
+<p><code>ovos-busmon</code> is not yet on PyPI; install it from source:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenVoiceOS/ovos-busmon
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>ovos-busmon
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>pip<span class="w"> </span>install<span class="w"> </span>.
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>ovos-busmon
+</span></code></pre></div>
+<p>By default it binds to <code>http://127.0.0.1:8005</code> and connects outward to a messagebus at
+<code>localhost:8181</code>. Both ends are configurable through environment variables (or a <code>.env</code> file next to
+where you run it):</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OVOS_BUS_HOST</code> / <code>OVOS_BUS_PORT</code></td>
+<td><code>localhost</code> / <code>8181</code></td>
+<td>Where the <em>target</em> OVOS messagebus is.</td>
+</tr>
+<tr>
+<td><code>BUSMON_HOST</code> / <code>BUSMON_PORT</code></td>
+<td><code>127.0.0.1</code> / <code>8005</code></td>
+<td>Where busmon's own web UI listens.</td>
+</tr>
+<tr>
+<td><code>BUSMON_USERNAME</code> / <code>BUSMON_PASSWORD</code></td>
+<td><code>ovos</code> / <code>ovos</code></td>
+<td>HTTP Basic auth for the web UI.</td>
+</tr>
+<tr>
+<td><code>BUFFER_SIZE</code></td>
+<td><code>2000</code></td>
+<td>How many messages the ring buffer keeps.</td>
+</tr>
+</tbody>
+</table>
+<p>A Docker route is also available (<code>docker compose up --build</code> from the repo), using the image
+<code>jarbasai/ovos-busmon:latest</code>; its bundled compose file binds the container to <code>127.0.0.1:8005</code> only
+and sets <code>OVOS_BUS_HOST=host.docker.internal</code> so it can reach a bus running on the host.</p>
+<div class="admonition warning">
+<p class="admonition-title">Local debugging only — never expose this to the internet</p>
+<p><code>ovos-busmon</code> mirrors <strong>every</strong> message on the bus — including STT transcripts, intent matches,
+and skill responses — and ships with a default username/password (<code>ovos</code> / <code>ovos</code>) that most
+people never change. Its message-injection feature also lets anyone who can reach it emit
+arbitrary commands onto your assistant's bus. Keep it bound to <code>127.0.0.1</code> or your local LAN,
+change the default credentials before leaving it running, and never port-forward it to the
+public internet.</p>
+</div>
+<h3 id="a-concrete-walkthrough">A concrete walkthrough<a class="headerlink" href="#a-concrete-walkthrough" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Start <code>ovos-busmon</code> (it will keep retrying the bus connection until the device is reachable).</li>
+<li>Open <code>http://127.0.0.1:8005</code> in a browser and log in with the configured credentials.</li>
+<li>Speak (or trigger) an utterance on the OVOS device.</li>
+<li>Filter by <code>recognizer_loop:*</code> — the first hit is the raw utterance leaving the listener
+   (Stage 2 below); if nothing appears here, the problem is upstream of the bus entirely (Stage 1).</li>
+<li>Filter by <code>ovos.intent.matched</code> and <code>ovos.utterance.handled</code> — these tell you which pipeline
+   stage claimed the utterance and confirm the lifecycle actually closed (Stage &#8536; below).</li>
+<li>Filter by <code>ovos.utterance.speak</code> — its absence, with everything else present, points at a silent
+   skill handler; its presence with no audio points at the TTS/playback stage (Stage 6).</li>
+</ol>
+<p>Each stage further down cites the exact message type to filter on, so this same walkthrough can be
+repeated stage-by-stage instead of glancing at the whole stream at once.</p>
+<hr />
+<h2 id="where-the-logs-live">Where the logs live<a class="headerlink" href="#where-the-logs-live" title="Permanent link">&para;</a></h2>
+<p>OVOS runs several independent services (listener, intent/skills, audio, messagebus, GUI), and each
+one writes its <strong>own</strong> log file, named after the service. By default they land under the XDG state
+directory — on a typical Linux install that is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>~/.local/state/mycroft/
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── audio.log     # ovos-audio — TTS + playback
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── bus.log       # ovos-messagebus
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── skills.log    # ovos-core — intent matching + skill execution
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>└── voice.log     # ovos-dinkum-listener — mic, wake word, STT
+</span></code></pre></div>
+<p>The directory can be overridden per-service via the <code>logs.path</code> config key (or <code>logging.&lt;service&gt;.
+logs.path</code> for a per-service override); see <a href="#turning-up-log-detail">Turning up log detail</a> below.
+Each service also logs to <code>stdout</code>, so if it runs under systemd or Docker, <code>journalctl</code> /
+<code>docker logs</code> shows the same lines.</p>
+<p><code>ovos-logs</code> (shipped by <code>ovos-utils</code>) is the quickest way to read them without hunting for the path:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ovos-logs<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span>skills<span class="w">      </span><span class="c1"># page through skills.log with `less`</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ovos-logs<span class="w"> </span>list<span class="w"> </span>--error<span class="w">        </span><span class="c1"># every ERROR line across all logs</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>ovos-logs<span class="w"> </span>slice<span class="w"> </span>--start<span class="w"> </span><span class="s2">&quot;1-1-2024 09:00&quot;</span><span class="w">   </span><span class="c1"># a time-bounded slice</span>
+</span></code></pre></div>
+<p>See the <a href="../cli-tools/#reading-the-logs-ovos-logs">Command-line Tools</a> page for the full flag
+reference.</p>
+<hr />
+<h2 id="stage-1-is-the-service-even-running-and-is-the-bus-reachable">Stage 1 — Is the service even running, and is the bus reachable?<a class="headerlink" href="#stage-1-is-the-service-even-running-and-is-the-bus-reachable" title="Permanent link">&para;</a></h2>
+<p><strong>Log:</strong> <code>bus.log</code> — <strong>Bus visual:</strong> any message appearing at all in <code>ovos-busmon</code></p>
+<p>Before anything else, confirm the <a href="../bus-service/">messagebus</a> server is up: everything else in
+OVOS is a client of it, so if it is down nothing downstream can work.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ovos-listen
+</span></code></pre></div>
+<p><code>ovos-listen</code> is the simplest possible probe — it just emits <code>mycroft.mic.listen</code> and exits. If the
+bus isn't reachable, the client itself logs the failure to the terminal:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>WARNING - Connection Refused. Is Messagebus Service running?
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>WARNING - Message Bus Client will reconnect in 5.0 seconds.
+</span></code></pre></div>
+<p>If you see that, start (or restart) <code>ovos-messagebus</code>, then <code>ovos-core</code> and <code>ovos-dinkum-listener</code>,
+and check <code>bus.log</code> for a clean startup (no repeated <code>Connection Refused</code> lines). In <code>ovos-busmon</code>,
+this stage is trivially visible: if the bus is down, busmon's own connection retries forever and the
+stream stays empty.</p>
+<div class="admonition tip">
+<p class="admonition-title">Nothing wrong with the mic yet</p>
+<p>This stage says nothing about audio hardware — it only confirms the messagebus itself accepts
+connections. Hardware problems show up in Stage 2.</p>
+</div>
+<hr />
+<h2 id="stage-2-did-the-micwake-word-fire">Stage 2 — Did the mic/wake word fire?<a class="headerlink" href="#stage-2-did-the-micwake-word-fire" title="Permanent link">&para;</a></h2>
+<p><strong>Log:</strong> <code>voice.log</code> (service <code>ovos-dinkum-listener</code>) — <strong>Bus filter:</strong> <code>recognizer_loop:record_begin</code>
+/ <code>record_end</code>, <code>ovos.listener.record.started</code> / <code>ovos.listener.record.ended</code></p>
+<p>A healthy wake-word trigger and recording cycle looks like this in <code>voice.log</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>DEBUG - Record begin
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>DEBUG - Hotword utterance: hey mycroft
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>DEBUG - Emitting hotword event: recognizer_loop:wakeword
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>...
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>DEBUG - Record end
+</span></code></pre></div>
+<p>Common failure signatures:</p>
+<table>
+<thead>
+<tr>
+<th>Symptom in <code>voice.log</code></th>
+<th>Likely cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No <code>Record begin</code> line at all when you speak</td>
+<td>Wake word plugin isn't hearing you — check the mic device/gain, or the <a href="../wake-word-plugins/">wake word</a> model/sensitivity.</td>
+</tr>
+<tr>
+<td><code>Record begin</code> fires but never followed by <code>Record end</code></td>
+<td>VAD never detects silence — check the <a href="../vad-plugins/">VAD plugin</a> config.</td>
+</tr>
+<tr>
+<td>Repeated wake-word triggers with no speech after</td>
+<td>False positives — the wake word threshold may be too low.</td>
+</tr>
+</tbody>
+</table>
+<p>To hear the recorded audio yourself, turn on the listener's own recording keys in
+<a href="../config/">configuration</a> (user config, under <code>"listener"</code>):</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;listener&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&quot;save_utterances&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">&quot;record_wake_words&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nt">&quot;save_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/ovos-audio-debug&quot;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><code>save_utterances</code> writes every STT-bound recording as a <code>.wav</code> file under
+<code>&lt;save_path&gt;/utterances/</code>; <code>record_wake_words</code> does the same for wake-word triggers under
+<code>&lt;save_path&gt;/wake_words/</code>. Set them with:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ovos-config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-k<span class="w"> </span>save_utterances<span class="w"> </span>-v<span class="w"> </span><span class="nb">true</span>
+</span></code></pre></div>
+<p><code>ovos-listen</code> can also be used to force a listening cycle without saying the wake word at all —
+useful for isolating STT problems (Stage 3) from wake-word problems.</p>
+<hr />
+<h2 id="stage-3-did-stt-produce-text">Stage 3 — Did STT produce text?<a class="headerlink" href="#stage-3-did-stt-produce-text" title="Permanent link">&para;</a></h2>
+<p><strong>Log:</strong> <code>voice.log</code> — <strong>Bus filter:</strong> <code>recognizer_loop:utterance</code> (spec name <code>ovos.utterance.handle</code>)</p>
+<p>Once recording stops, the audio is handed to the <a href="../stt-plugins/">STT plugin</a>. A healthy
+transcription shows up as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>DEBUG - STT: [&#39;what time is it&#39;]
+</span></code></pre></div>
+<p>Common failure signatures:</p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ERROR - Empty transcription, either recorded silence or STT failed!</code></td>
+<td>The STT engine returned nothing — check the STT plugin is installed/configured and (for online engines) that the network/API key is working.</td>
+</tr>
+<tr>
+<td><code>INFO - Ignoring low confidence STT transcriptions: [...]</code></td>
+<td>A confidence filter dropped the candidate — check <code>min_stt_confidence</code> in the listener config.</td>
+</tr>
+<tr>
+<td>Transcription text is garbled/wrong words</td>
+<td>STT engine or language mismatch, not a bug in the pipeline — try a different STT plugin or model size.</td>
+</tr>
+</tbody>
+</table>
+<p>To skip the microphone and STT entirely and test everything <strong>downstream</strong> of this point, inject the
+text directly onto the bus as if STT had already produced it:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ovos-say-to<span class="w"> </span><span class="s2">&quot;what time is it&quot;</span>
+</span></code></pre></div>
+<p>This runs <code>MessageBusClient().emit(Message("recognizer_loop:utterance", {"utterances": ["what time
+is it"], "lang": "en-us"}))</code> — exactly the same message the listener would have emitted. It is the
+single most useful command for isolating "is my problem in audio, or in matching/skills?" without
+having to speak into a microphone at all.</p>
+<p>In <code>ovos-busmon</code>, filter by <code>recognizer_loop:*</code> (or the spec name <code>ovos.utterance.handle</code>): seeing
+the utterance land there with the right text confirms STT worked, regardless of what happens next.</p>
+<hr />
+<h2 id="stage-4-which-pipeline-stage-matched-or-didnt">Stage 4 — Which pipeline stage matched (or didn't)?<a class="headerlink" href="#stage-4-which-pipeline-stage-matched-or-didnt" title="Permanent link">&para;</a></h2>
+<p><strong>Log:</strong> <code>skills.log</code> (or <code>intents.log</code> if the intent service runs standalone) — <strong>Bus filter:</strong>
+<code>ovos.intent.matched</code>, <code>ovos.utterance.handled</code></p>
+<p><code>ovos-core</code>'s <code>IntentService</code> logs every step of matching. A healthy match looks like:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>INFO - Parsing utterance: [&#39;what time is it&#39;]
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>INFO - adapt_high match (en-us): IntentMatch(...)
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>DEBUG - final intent match: {...}
+</span></code></pre></div>
+<p><code>adapt_high</code> here is one entry of the configurable <code>intents.pipeline</code> list (default order:
+<code>stop_high</code>, <code>converse</code>, <code>ocp_high</code>, <code>padatious_high</code>, <code>adapt_high</code>, <code>ocp_medium</code>, <code>fallback_high</code>,
+<code>stop_medium</code>, <code>adapt_medium</code>, <code>adapt_low</code>, <code>common_qa</code>, <code>fallback_medium</code>, <code>fallback_low</code> — see
+<a href="../pipelines-overview/">Pipelines Overview</a>). If nothing matches, every matcher in that list logs a
+miss (as <code>no match from &lt;bound method ...&gt;</code>, naming the matcher's Python function) before the
+utterance falls through to the next stage, and eventually to nothing:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>DEBUG - no match from &lt;bound method ...StopPipeline.match ...&gt;
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>DEBUG - no match from &lt;bound method ...ConversePipeline.match ...&gt;
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>DEBUG - no match from &lt;bound method ...OCPPipelineMatcher.match ...&gt;
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>DEBUG - no match from &lt;bound method ...PadatiousPipeline.match_high ...&gt;
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>DEBUG - no match from &lt;bound method ...AdaptPipeline.match_high ...&gt;
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>...
+</span></code></pre></div>
+<p>Use <code>ovos-say-to</code> (Stage 3) to reproduce this deterministically without speaking, then grep
+<code>skills.log</code> for the exact utterance text:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ovos-say-to<span class="w"> </span><span class="s2">&quot;some phrase that does nothing&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ovos-logs<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span>skills
+</span></code></pre></div>
+<p>Every request ends with exactly one <code>ovos.utterance.handled</code> event, whether an intent matched or
+not — its absence means the intent service itself crashed or hung; its presence with no matched
+intent means every pipeline plugin genuinely rejected the utterance (usually a vocabulary/training
+data problem in the target skill, not a bug). See <a href="../intent-layers/">Intent Layers</a> and the
+<a href="../pipelines-overview/">Pipelines Overview</a> for how to add or reorder matchers.</p>
+<p>In <code>ovos-busmon</code>, filter by <code>ovos.intent.matched</code> (see which skill/intent name claimed it) or by
+<code>ovos.utterance.handled</code> (confirm the lifecycle closed at all) — this reproduces the same
+information as the log grep above but across the whole pipeline at a glance, and lets you inspect
+the full JSON payload of the match.</p>
+<hr />
+<h2 id="stage-5-did-the-skill-handler-raise">Stage 5 — Did the skill handler raise?<a class="headerlink" href="#stage-5-did-the-skill-handler-raise" title="Permanent link">&para;</a></h2>
+<p><strong>Log:</strong> <code>skills.log</code> — <strong>Bus filter:</strong> <code>ovos.intent.handler.error</code> (legacy <code>mycroft.skill.handler.
+error</code>) — part of the handler-lifecycle trio <code>...handler.start</code> → <code>...complete</code> / <code>...error</code>
+described in <a href="../life-of-an-utterance/#5-skill-execution">The Life of an Utterance</a></p>
+<p>Once a skill's intent handler is invoked, any unhandled exception inside it is caught by the skill
+base class, logged, and (unless disabled) spoken back as a generic error dialog:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ERROR - &lt;full traceback of the exception&gt;
+</span></code></pre></div>
+<p>and the corresponding <code>...error</code> bus message is emitted so the orchestrator knows the handler
+failed rather than silently returning nothing. Common failure signatures to grep for in
+<code>skills.log</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A traceback right after <code>final intent match</code></td>
+<td>The skill's own handler code raised — read the traceback, it names the exact file/line.</td>
+</tr>
+<tr>
+<td><code>Failed to update settings.json</code></td>
+<td>Non-fatal — a settings write failed after a successful handler run; doesn't explain a silent utterance.</td>
+</tr>
+<tr>
+<td>No traceback, no <code>speak</code>, handler simply never runs</td>
+<td>The bus dispatch itself failed to reach the skill process — check the skill actually loaded (see <a href="../skill-manager/">Skill Manager</a>) and its <code>skill_id</code> matches the matched intent.</td>
+</tr>
+</tbody>
+</table>
+<p>In <code>ovos-busmon</code>, filter by <code>*handler.error</code> to catch any handler-lifecycle error message across
+every skill in one view, or filter by the specific skill's ID to isolate its traffic.</p>
+<hr />
+<h2 id="stage-6-did-tts-speak">Stage 6 — Did TTS speak?<a class="headerlink" href="#stage-6-did-tts-speak" title="Permanent link">&para;</a></h2>
+<p><strong>Log:</strong> <code>audio.log</code> (service <code>ovos-audio</code>) — <strong>Bus filter:</strong> <code>ovos.utterance.speak</code> (legacy
+<code>speak</code>), <code>ovos.utterance.handled</code></p>
+<p>Once a skill calls <code>self.speak()</code>, <code>ovos-audio</code> picks up the message. A healthy synthesis + playback
+cycle logs:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>INFO - Speak: what time is it, it&#39;s three o&#39;clock
+</span></code></pre></div>
+<p>Common failure signatures:</p>
+<table>
+<thead>
+<tr>
+<th>Symptom in <code>audio.log</code></th>
+<th>Likely cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EXCEPTION - TTS synth failed! ...</code></td>
+<td>The <a href="../tts-plugins/">TTS plugin</a> itself errored (model missing, API failure for an online engine, bad voice config).</td>
+</tr>
+<tr>
+<td><code>ERROR - No fallback TTS available and main TTS failed!</code></td>
+<td>Both the primary and fallback TTS engines failed — check both are configured, or that the fallback exists at all.</td>
+</tr>
+<tr>
+<td>No <code>Speak:</code> line at all, despite the skill having matched</td>
+<td>The <code>ovos.utterance.speak</code> message never reached <code>ovos-audio</code> — check <code>ovos-audio</code> is actually running (Stage 1) and not crashed.</td>
+</tr>
+<tr>
+<td><code>Speak:</code> line present but no sound</td>
+<td>Not a bug in the pipeline — check the audio sink: ALSA/PulseAudio device selection, system volume, or that the WAV file was actually written and playable.</td>
+</tr>
+</tbody>
+</table>
+<p>To test synthesis in isolation, without going through STT or intent matching at all:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ovos-speak<span class="w"> </span><span class="s2">&quot;testing one two three&quot;</span>
+</span></code></pre></div>
+<p>This emits a bare <code>speak</code> message directly, exercising exactly the dialog-transformer → TTS plugin →
+tts-transformer → playback path described in <a href="../life-of-an-utterance/#6-text-to-speech-tts">The Life of an Utterance</a>.
+If this command produces sound but a real skill interaction doesn't, the problem is upstream (Stages
+1-5), not in audio output.</p>
+<p>In <code>ovos-busmon</code>, filter by <code>ovos.utterance.speak</code>: present with no sound points at the audio sink;
+absent (with everything upstream present) points at a silent or failed skill handler (Stage 5).</p>
+<hr />
+<h2 id="turning-up-log-detail">Turning up log detail<a class="headerlink" href="#turning-up-log-detail" title="Permanent link">&para;</a></h2>
+<p>By default every service logs at <code>INFO</code>. To see the <code>DEBUG</code> lines quoted throughout this page
+(pipeline misses, hotword events, STT confidence filtering, etc.), raise the log level in the
+<a href="../config/">user configuration</a>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ovos-config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-k<span class="w"> </span>log_level<span class="w"> </span>-v<span class="w"> </span>DEBUG
+</span></code></pre></div>
+<p>which writes a top-level <code>"log_level": "DEBUG"</code> key. This applies to every service (they all watch
+the same configuration and pick up the change without a restart). To raise the level for only one
+service, use the nested <code>"logging"</code> section instead:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="nt">&quot;voice&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;log_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DEBUG&quot;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title"><code>log_level</code> only takes effect from user or system configuration</p>
+<p>This key is deliberately not honored in the bundled defaults or the remote/backend
+configuration layer — it must be set locally (user or system config) to take effect. See
+<a href="../config/">Configuration</a> for how the configuration layers are merged.</p>
+</div>
+<p>Two environment variables set the <em>starting</em> level and logger name before any configuration loads,
+mostly useful when running a service by hand: <code>OVOS_DEFAULT_LOG_LEVEL</code> and <code>OVOS_DEFAULT_LOG_NAME</code>.</p>
+<hr />
+<h2 id="reproducing-an-issue-offline-with-ovoscope">Reproducing an issue offline with <code>ovoscope</code><a class="headerlink" href="#reproducing-an-issue-offline-with-ovoscope" title="Permanent link">&para;</a></h2>
+<p>If a bug reproduces reliably, don't keep re-triggering it on real hardware — capture it once and
+replay it. <strong><a href="../ovoscope-overview/"><code>ovoscope</code></a></strong> runs an in-process, mocked assistant (<code>MiniCroft</code>)
+that loads real skills and the real intent-matching engines without any audio hardware, and its CLI
+can turn a live bus session into a fixture file:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ovoscope<span class="w"> </span>record<span class="w">   </span><span class="c1"># capture a fixture from a running bus session</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>ovoscope<span class="w"> </span>run<span class="w">      </span><span class="c1"># replay a fixture and exit non-zero on failure</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>ovoscope<span class="w"> </span>diff<span class="w">      </span><span class="c1"># compare two fixture files</span>
+</span></code></pre></div>
+<p>This turns "it happens sometimes on the device but I can't tell why" into a fixed, replayable test
+case — see the <a href="../ovoscope-overview/">ovoscope guide</a> for the full workflow, including
+<code>End2EndTest</code> for writing an assertion once the fixture is captured.</p>
+<hr />
+<h2 id="where-to-ask-for-help">Where to ask for help<a class="headerlink" href="#where-to-ask-for-help" title="Permanent link">&para;</a></h2>
+<p>If the logs and bus traffic don't explain the problem, the OpenVoiceOS community is active on:</p>
+<ul>
+<li><strong><a href="https://matrix.to/#/!XFpdtmgyCoPDxOMPpH:matrix.org?via=matrix.org">OVOS Chat on Matrix</a></strong> —
+  real-time chat with maintainers and other users; the
+  <a href="https://matrix.to/#/#openvoiceos-skills:matrix.org">skills channel</a> is specific to skill
+  development questions.</li>
+<li><strong><a href="https://community.openconversational.ai/">Open Conversational AI forum</a></strong> — longer-form
+  questions, bug reports, and searchable past discussions.</li>
+</ul>
+<p>When asking for help, include the relevant log excerpt (or an <code>ovos-busmon</code> JSON export) for the
+stage where the trail goes cold — it is almost always faster to diagnose with the actual message
+sequence than with a description of the symptom alone.</p>
+<hr />
+<h2 id="related-pages">Related Pages<a class="headerlink" href="#related-pages" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../life-of-an-utterance/">The Life of an Utterance</a> — the full journey this page's stages mirror.</li>
+<li><a href="../cli-tools/">Command-line Tools</a> — every CLI referenced above, with full flag references.</li>
+<li><a href="../config/">Configuration</a> — how <code>log_level</code> and other keys are layered and merged.</li>
+<li><a href="../ovoscope-overview/">ovoscope Overview</a> — full end-to-end testing reference.</li>
+<li><a href="../bus-service/">Bus Service</a> — what the messagebus is and how clients connect to it.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.top", "navigation.tracking", "navigation.instant", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>
