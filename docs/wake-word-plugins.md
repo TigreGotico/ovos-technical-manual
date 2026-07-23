@@ -21,7 +21,9 @@ Wake Word plugins allow Open Voice OS to detect specific words or sounds, typica
    }
    ```
 3. Save the file — it's JSON (comments are allowed, `mycroft.conf` is parsed as JSONC).
-4. Restart OVOS for the change to take effect (however your deployment starts the services — e.g. re-run `ovos-core`, or restart the relevant systemd/container unit).
+4. Restart OVOS for the change to take effect — however your deployment starts the services; the
+   common case on a systemd install is `systemctl --user restart ovos.service` (or the equivalent
+   restart for your container/service manager if you're not using systemd).
 5. Say the new phrase — the assistant now wakes on it instead of "hey mycroft".
 
 ## Available Plugins
@@ -110,8 +112,11 @@ from threading import Event
 class MyWWPlugin(HotWordEngine):
     def __init__(self, key_phrase="hey mycroft", config=None):
         super().__init__(key_phrase, config)
+        # self.config is the plugin's own sub-dict from `hotwords.<name>` in
+        # mycroft.conf — read your plugin-specific settings out of it here
+        threshold = self.config.get("sensitivity", 0.5)
         self.detection = Event()
-        self.engine = MyWW(key_phrase)
+        self.engine = MyWW(key_phrase, threshold=threshold)
 
     def found_wake_word(self):
         # inference happens via the self.update method

@@ -131,34 +131,34 @@ Example mappings:
 | "that's affirmative"             | yes          |
 | "no, but actually, yes"          | yes          |
 | "yes, but actually, no"          | no           |
-| "correct, he is lying"            | "yes"           |
+| "correct, he is lying"            | no           |
 | "beans"                           | None            |
 
 ??? example "More mappings — the plugin handles double negatives, sarcasm cues, and indirection"
     | User Says                        | Detected As |
     |----------------------------------|--------------|
-    | "yes, yes, yes, but actually, no" | "no"            |
-    | "please"                          | "yes"           |
-    | "please don't"                    | "no"            |
-    | "no! please! I beg you"           | "no"            |
-    | "yes, i don't want it for sure"   | "no"            |
-    | "please! I beg you"               | "yes"           |
-    | "i want it for sure"              | "yes"           |
-    | "obviously"                       | "yes"           |
-    | "indeed"                          | "yes"           |
-    | "no, I obviously hate it"         | "no"            |
-    | "that's certainly undesirable"    | "no"            |
-    | "yes, it's a lie"                 | "yes"           |
-    | "no, it's a lie"                  | "no"            |
-    | "he is lying"                     | "no"            |
-    | "it's a lie"                      | "no"            |
-    | "you are mistaken"                | "no"            |
-    | "that's a mistake"                | "no"            |
-    | "wrong answer"                    | "no"            |
-    | "it's not a lie"                  | "yes"           |
-    | "he is not lying"                 | "yes"           |
-    | "you are not mistaken"            | "yes"           |
-    | "tou are not wrong"               | "yes"           |
+    | "yes, yes, yes, but actually, no" | no            |
+    | "please"                          | yes           |
+    | "please don't"                    | no            |
+    | "no! please! I beg you"           | no            |
+    | "yes, i don't want it for sure"   | no            |
+    | "please! I beg you"               | yes           |
+    | "i want it for sure"              | yes           |
+    | "obviously"                       | yes           |
+    | "indeed"                          | yes           |
+    | "no, I obviously hate it"         | no            |
+    | "that's certainly undesirable"    | no            |
+    | "yes, it's a lie"                 | yes           |
+    | "no, it's a lie"                  | no            |
+    | "he is lying"                     | no            |
+    | "it's a lie"                      | no            |
+    | "you are mistaken"                | no            |
+    | "that's a mistake"                | no            |
+    | "wrong answer"                    | no            |
+    | "it's not a lie"                  | yes           |
+    | "he is not lying"                 | yes           |
+    | "you are not mistaken"            | yes           |
+    | "you are not wrong"               | yes           |
 
 ---
 

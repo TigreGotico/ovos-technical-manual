@@ -127,6 +127,32 @@ Only unmatched or low-confidence utterances are routed to the persona.
 }
 ```
 
+??? example "A complete, copy-pasteable `mycroft.conf` for Hybrid Mode"
+    This resolves every stage — nothing left as "...remaining stages as needed" — so you can drop it in as-is and adjust from there.
+
+    ```jsonc
+    {
+      "intents": {
+        "persona": {
+          "handle_fallback": true,
+          "default_persona": "Remote Llama"
+        },
+        "pipeline": [
+          "ovos-stop-pipeline-plugin-high",
+          "ovos-converse-pipeline-plugin",
+          "ovos-padatious-pipeline-plugin-high",
+          "ovos-adapt-pipeline-plugin-high",
+          "ovos-persona-pipeline-plugin-high",
+          "ovos-padatious-pipeline-plugin-medium",
+          "ovos-adapt-pipeline-plugin-medium",
+          "ovos-fallback-pipeline-plugin-high",
+          "ovos-fallback-pipeline-plugin-medium",
+          "ovos-fallback-pipeline-plugin-low"
+        ]
+      }
+    }
+    ```
+
 - Preserves traditional voice assistant behavior
 
 

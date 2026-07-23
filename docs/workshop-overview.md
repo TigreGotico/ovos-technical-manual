@@ -56,7 +56,8 @@ OVOSSkill                             ovos_workshop/skills/ovos.py
 ├── UniversalSkill                    ovos_workshop/skills/auto_translatable.py
 │   └── UniversalFallback             ovos_workshop/skills/auto_translatable.py
 └── OVOSAbstractApplication           ovos_workshop/app.py
-    (not loaded by ovos-core)
+    (not loaded by ovos-core itself — used by things that run alongside it,
+     e.g. ovos-persona's PersonaService and the OCP media player)
 
 # CommonQuery skills are plain OVOSSkills using the @common_query decorator
 

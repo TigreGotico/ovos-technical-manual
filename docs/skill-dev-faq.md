@@ -119,6 +119,18 @@ class MySkill(ConversationalSkill):
 
 → full story: [Converse](converse.md)
 
+### I implemented `converse()` but it never fires — why?
+
+Two common gates sit in front of it, both outside your skill's own code. First, converse
+participation is opt-in/opt-out per skill via `ConverseMode` and the converse whitelist/blacklist —
+if your skill isn't allowed to converse at all, `converse()` is never called no matter what it
+returns. Second, converse only runs for skills the orchestrator considers "active" for the
+session (typically the last skill that spoke or handled an intent) — an unrelated skill sitting
+idle won't get a chance either. Check both before assuming your `converse()` logic itself is
+broken.
+
+→ full story: [Permissions & Activation Control](intent-layers.md), [Converse](converse.md)
+
 ---
 
 ## Language, settings, and where things live
@@ -185,7 +197,7 @@ agent engine plugin directly and call it like any other object:
 from ovos_plugin_manager.agents import load_chat_plugin
 
 engine_cls = load_chat_plugin("ovos-openai-plugin")  # or ovos-gguf-plugin, etc.
-engine = engine_cls(config={...})
+engine = engine_cls(config={})  # see the plugin's own README for its config keys (API URL, key, model)
 reply = engine.get_response("summarize this in one sentence: ...")
 ```
 

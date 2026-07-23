@@ -34,6 +34,13 @@ Here's a step-by-step guide on how to replace the dialog of an existing skill:
 
    - Customize the content of the dialog file according to your preferences. You can modify the existing dialogues, add new ones, or remove any that you don't want to use.
 
+!!! warning "Your file REPLACES the original, it does not merge with it"
+    The user-specific file is used instead of the skill's own `time.current.dialog`, line for
+    line — it is not appended to or merged with the original. If the skill is later updated
+    upstream and new lines are added to its `time.current.dialog`, your override will keep
+    shadowing the whole file and you will not see those new lines until you copy them into
+    your override yourself.
+
 **Locate the User-Specific Resource Directory**:
 
    - Use the provided skill ID (`skill-ovos-date-time.openvoiceos`) to locate the user-specific resource directory.
@@ -57,6 +64,11 @@ Here's a step-by-step guide on how to replace the dialog of an existing skill:
 **Verify the Replacement**:
 
    - Test the skill to ensure that the modified dialogues are being used instead of the original ones.
+
+   - **You should see**: triggering the skill's "current time" behavior speaks your custom
+     dialog text, not the skill's built-in one. If you still hear the original wording, double
+     check the path and file name match exactly (including the `.dialog` extension and lang
+     folder casing) and restart OpenVoiceOS so the skill reloads its resources.
 
 
 Customizing dialogues offers users flexibility in tailoring the behavior of skills to their specific needs and preferences.

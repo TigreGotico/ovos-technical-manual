@@ -260,6 +260,13 @@ class MyCustomTransformer(UtteranceTransformer):
 
 The second return value is *additional* context that gets merged into the message context, not a replacement for it.
 
+!!! note "Where `lang` fits"
+    The spec box above describes the transform as receiving `utterances`, `lang`, and
+    `Message.context`; in the installed `UtteranceTransformer.transform()` signature
+    `lang` isn't a separate parameter — it travels inside the `context` dict (e.g.
+    `context.get("lang")`), matching the class actually shipped in
+    `ovos_plugin_manager.templates.transformers`.
+
 **Register as a Plugin**:
 In your `pyproject.toml`, register under the `opm.transformer.text` group:
 

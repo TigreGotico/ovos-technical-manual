@@ -22,6 +22,14 @@ A G2P plugin takes a word or an utterance and returns a list of phonemes in a sp
     plugin missing here, check its `pyproject.toml`/`setup.py` for an `opm.g2p` entry point before
     assuming it belongs on this list.
 
+!!! note "Some TTS engines phonemize internally, without an `opm.g2p` plugin"
+    [`ovos-tts-plugin-espeakNG`](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG) and the
+    `phoonnx` TTS backends embed their own grapheme-to-phoneme conversion (espeak-ng's built-in
+    phonemizer, and `phoonnx`'s own phonemization pipeline respectively) rather than delegating to
+    a separate `opm.g2p` plugin. They are not on the table above because they aren't discoverable
+    as standalone G2P plugins — the phonemization happens as an implementation detail of the TTS
+    engine itself.
+
 ---
 
 ## Technical Explanation
@@ -46,9 +54,11 @@ class Grapheme2PhonemePlugin:
 
 ```
 
-A plugin implements whichever of `get_arpa` / `get_ipa` it can. The base class
-derives `utterance2arpa`, `utterance2ipa`, and `utterance2visemes` from those, and
-exposes an `available_languages` classmethod for discovery.
+A plugin implements whichever of `get_arpa` / `get_ipa` it can — at least one of the two,
+since both raise `NotImplementedError` by default and the derived `utterance2*` helpers need at
+least one working conversion to produce anything. The base class derives `utterance2arpa`,
+`utterance2ipa`, and `utterance2visemes` from those, and exposes an `available_languages`
+classmethod for discovery.
 
 ## Creating Your Own Plugin
 

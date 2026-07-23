@@ -39,7 +39,7 @@ You can configure the VAD plugin in your `mycroft.conf`:
 
 | Plugin | Description |
 |--------|-------------|
-| [ovos-vad-plugin-webrtcvad](https://github.com/OpenVoiceOS/ovos-vad-plugin-webrtcvad) | Based on Google's WebRTC VAD (`webrtcvad-wheels`). Lightweight, CPU-only, widely used. `vad_mode` (0–3) trades sensitivity for aggressiveness. |
+| [ovos-vad-plugin-webrtcvad](https://github.com/OpenVoiceOS/ovos-vad-plugin-webrtcvad) | Based on Google's WebRTC VAD (`webrtcvad-wheels`). Lightweight, CPU-only, widely used. `vad_mode` (0–3) sets how aggressively it filters out non-speech: `0` is the least aggressive (most permissive, more likely to classify borderline audio as speech), `3` is the most aggressive at filtering out non-speech and is the plugin's default. |
 | [ovos-vad-plugin-silero](https://github.com/OpenVoiceOS/ovos-vad-plugin-silero) | Uses the Silero deep-learning model for high-accuracy VAD, particularly in noisy environments. |
 | [ovos-vad-plugin-noise](https://github.com/OpenVoiceOS/ovos-vad-plugin-noise) | Simple energy/noise-threshold VAD with no model download. |
 
@@ -53,11 +53,18 @@ All VAD plugins inherit from the `VADEngine` base class provided by `ovos-plugin
 
 ### The VADEngine Interface
 
+This is the actual base class shipped in `ovos_plugin_manager.templates.vad`:
+
 ```python
 class VADEngine:
-    def __init__(self, config=None, sample_rate=None):
+    def __init__(self, config: Optional[dict] = None,
+                sample_rate: Optional[int] = None):
+        # config keys: padding_duration_ms (default 300), frame_duration_ms
+        # (default 30), thresh (default 0.8); sample_rate falls back to
+        # listener.sample_rate in core config, then 16000
         self.config = config or {}
         self.sample_rate = sample_rate or 16000
+        ...
 
     @abc.abstractmethod
     def is_silence(self, chunk) -> bool:
@@ -71,7 +78,7 @@ class VADEngine:
 
 Subclasses only need to implement `is_silence`. The base class provides
 `extract_speech(audio)`, which uses `is_silence` over a sliding window to trim
-leading/trailing silence from a buffer, and a `runtime_requirements` classmethod
+leading/trailing silence from a buffer, and a `runtime_requirements` classproperty
 (the deprecated [`RuntimeRequirements`](skill-runtime-requirements.md) mechanism)
 used by the plugin manager to advertise network/offline behavior.
 

@@ -15,6 +15,12 @@ For example, Brazilian Portuguese is 'pt-br', German is 'de-de', and Australian 
 `dialog` and `vocab` have been **deprecated**, they are still supported, but we strongly recommend you use `locale` for new
 skills
 
+!!! note "If both layouts exist for the same resource, `locale` wins"
+    Resource lookup (`find_resource`/`load_data_files` in `ovos_workshop/resource_files.py`)
+    checks the `locale/<lang>/` layout before falling back to the legacy `dialog/<lang>/`,
+    `vocab/<lang>/`, `regex/<lang>/` layout. If a skill somehow ships the same filename in both
+    places, the `locale` copy is what gets loaded.
+
 inside the `locale` folder you will find subfolders for each language (e.g. `en-us`), often all you need to do in order
 to translate a skill is adding a new folder for your language here
 
@@ -215,7 +221,7 @@ dependencies = [
 "ovos-skill-hello-world.yourname" = "ovos_skill_hello_world:HelloWorldSkill"
 
 [tool.setuptools.package-data]
-"*" = ["*.json", "locale/**", "ui/**"]
+"*" = ["locale/**/*", "ui/**/*", "*.json"]
 
 ```
 

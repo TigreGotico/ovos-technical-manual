@@ -176,7 +176,7 @@ Avoid Padatious for complex conversational use cases, skills with overlapping in
 
 `PadatiousPipeline` subclasses `ConfidenceMatcherPipeline`, exposing `match_high`, `match_medium`, and `match_low`. The `_high`/`_medium`/`_low` pipeline IDs are derived from that single plugin at runtime by the plugin manager — they are not separate entry points.
 
-**Files.** Skills register `.intent` files (example sentences) and `.entity` files (entity value lists). Registration happens over the bus via `padatious:register_intent` and `padatious:register_entity`; training is triggered by `mycroft.skills.train` and announced with `mycroft.skills.trained`.
+**Files.** Skills register `.intent` files (example sentences) and `.entity` files (entity value lists). Registration happens over the bus via `padatious:register_intent` and `padatious:register_entity`; training is triggered by `mycroft.skills.train` and announced with `mycroft.skills.trained`. See the [Bus Events Reference](bus-events.md) for the wider intent-matching event set these fit into.
 
 **Gotcha — training is asynchronous.** Padatious must train its model before it can match. On a cold start (or after installing a skill), matches will silently fail until training completes. Set `instant_train` to force synchronous training when you need deterministic behavior in tests.
 

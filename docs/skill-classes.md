@@ -219,15 +219,23 @@ from ovos_utils.process_utils import RuntimeRequirements
 @classproperty
 def runtime_requirements(cls):
     return RuntimeRequirements(
-        internet_before_load=False,
         network_before_load=False,
+        internet_before_load=False,
+        gui_before_load=False,
         requires_internet=False,
         requires_network=False,
+        requires_gui=False,
+        no_internet_fallback=False,
+        no_network_fallback=False,
+        no_gui_fallback=True,
     )
 
 ```
 
-Used by `SkillManager` to defer loading until requirements are met.
+All nine fields default `True` except `gui_before_load`, `requires_gui`,
+`no_internet_fallback`, and `no_network_fallback` (default `False`). Used by `SkillManager`
+to defer loading until requirements are met. See [OVOSSkill — RuntimeRequirements](ovos-skill.md#runtimerequirements)
+for the full field reference.
 
 ---
 
@@ -346,7 +354,7 @@ class MyQuerySkill(OVOSSkill):
 
 !!! note "Under the hood"
     On startup `OVOSSkill` scans for a method tagged by `@common_query`
-    (`ovos.py:946`) and wires up the CommonQuery ping/answer bus handlers
+    (in `ovos_workshop/skills/ovos.py`) and wires up the CommonQuery ping/answer bus handlers
     automatically — only one such handler per skill is supported.
 
 ---
@@ -392,7 +400,7 @@ class MyMusicSkill(OVOSCommonPlaybackSkill):
 ## OVOSGameSkill
 
 **Module:** `ovos_workshop.skills.game_skill.OVOSGameSkill`
-**Source:** `ovos_workshop/skills/game_skill.py:13`
+**Source:** `ovos_workshop/skills/game_skill.py`
 
 Extends `OVOSCommonPlaybackSkill`. Structured base for OCP-integrated voice games. Subclasses must implement all six abstract methods: `on_play_game`, `on_pause_game`, `on_resume_game`, `on_stop_game`, `on_save_game`, `on_load_game`.
 
@@ -428,11 +436,16 @@ class TriviaGameSkill(OVOSGameSkill):
 ## ConversationalGameSkill
 
 **Module:** `ovos_workshop.skills.game_skill.ConversationalGameSkill`
-**Source:** `ovos_workshop/skills/game_skill.py:150`
+**Source:** `ovos_workshop/skills/game_skill.py`
 
 Extends `OVOSGameSkill`. Adds a **converse loop**: every utterance that does not match a registered intent is piped to `on_game_command()` while the game is playing. Also adds auto-save support, default pause/resume dialogs, and `on_abandon_game()`.
 
-Remaining abstract methods: `on_play_game`, `on_stop_game`, `on_game_command`.
+Remaining abstract methods (you must implement these): `on_play_game`, `on_stop_game`,
+`on_game_command`. `on_save_game` and `on_load_game` get a default implementation that just
+speaks a "can't save/load" dialog — override them if your game supports saving. `on_pause_game`,
+`on_resume_game`, and `on_abandon_game` also get working default implementations (pause/resume
+dialogs gated by the `pause_dialog` setting, and a no-op abandon hook) that you can leave alone or
+override.
 
 ```python
 from ovos_workshop.skills.game_skill import ConversationalGameSkill
@@ -460,7 +473,7 @@ class AdventureSkill(ConversationalGameSkill):
 ## UniversalSkill
 
 **Module:** `ovos_workshop.skills.auto_translatable.UniversalSkill`
-**Source:** `ovos_workshop/skills/auto_translatable.py:11`
+**Source:** `ovos_workshop/skills/auto_translatable.py`
 
 Extends `OVOSSkill`. Automatically translates incoming utterances to `self.internal_language` before the intent handler runs, and translates `self.speak()` output back to the user's language. Requires a translator plugin to be configured.
 
@@ -485,7 +498,7 @@ class MySkill(UniversalSkill):
 ## UniversalFallback
 
 **Module:** `ovos_workshop.skills.auto_translatable.UniversalFallback`
-**Source:** `ovos_workshop/skills/auto_translatable.py:311`
+**Source:** `ovos_workshop/skills/auto_translatable.py`
 
 Combines `UniversalSkill` and `FallbackSkill`. [Fallback](fallback-pipeline.md) handlers receive utterances in `self.internal_language`. `self.speak()` translates output back to the user's language.
 
@@ -510,7 +523,7 @@ class MyUniversalFallback(UniversalFallback):
 ## OVOSAbstractApplication
 
 **Module:** `ovos_workshop.app.OVOSAbstractApplication`
-**Source:** `ovos_workshop/app.py:12`
+**Source:** `ovos_workshop/app.py`
 
 Like `OVOSSkill` but designed to run **without** an intent service. Suitable for standalone GUI apps, [HiveMind](hivemind-agents.md)-attached services, or any program that needs [TTS](tts-plugins.md)/messagebus/settings but does not register intents with `ovos-core`. Creates its own bus connection if none is provided. Settings stored under `apps/<id>/` instead of `skills/<id>/`.
 
