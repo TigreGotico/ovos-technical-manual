@@ -113,8 +113,9 @@ def iter_fences(text: str):
 def slugify_heading(text: str) -> str:
     """Approximate GitHub/mkdocs-material heading slug algorithm."""
     text = re.sub(r"<[^>]+>", "", text)  # strip inline html
+    text = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", text)  # markdown links -> text
     text = text.strip().lower()
-    text = re.sub(r"[^\w\s-]", "", text)
+    text = re.sub(r"[^\w\s-]", "", text).strip()
     text = re.sub(r"\s+", "-", text)
     return text
 
@@ -384,7 +385,7 @@ def check_python_imports(allowlist) -> tuple[int, int, list[str]]:
 # Check: signatures (best effort)
 # ---------------------------------------------------------------------------
 
-CALL_RE = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\.([A-Za-z_][A-Za-z0-9_]*)\s*\(")
+CALL_RE = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*)\.([A-Za-z_][A-Za-z0-9_]*)\s*\(")
 ASSIGN_CALL_RE = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\s*=\s*([A-Za-z_][A-Za-z0-9_.]*)\s*\(")
 
 
@@ -472,9 +473,10 @@ def check_signatures(allowlist) -> tuple[int, int, list[str]]:
                 continue
             for m in list(CALL_RE.finditer(body)) + []:
                 name, attr = m.group(1), m.group(2)
-                if name not in import_map:
+                base, *rest = name.split(".")
+                if base not in import_map:
                     continue
-                dotted = import_map[name]
+                dotted = ".".join([import_map[base]] + rest)
                 ok, msg = _check_attr_chain(dotted, attr)
                 if ok is None:
                     continue  # ambiguous -> skip, no false positives
