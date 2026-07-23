@@ -2,7 +2,7 @@
 
 !!! abstract "In a nutshell"
     OVOS is built on a handful of shared Python libraries that the services and skills all depend
-    on — the message bus client, general utilities, typed message models, and so on. Their detailed
+    on — the messagebus client, general utilities, typed message models, and so on. Their detailed
     API reference lives **in each library's own repository** (every one ships a `docs/` folder), so
     this page is a **map**: what each library is for, and a direct link to its source and docs.
     Keeping the API reference at the source avoids it drifting out of sync with the code. See the
@@ -17,14 +17,14 @@
 
 ## `ovos-bus-client`
 
-The client for the OVOS [MessageBus](bus-service.md): the `MessageBusClient`, the `Message`
+The client for the OVOS [messagebus](bus-service.md): the `MessageBusClient`, the `Message`
 object, `Session` handling, and the high-level helper APIs (GUI, Enclosure, OCP) that wrap common
 bus chores. It also ships the `ovos-listen` / `ovos-speak` / `ovos-say-to` / `ovos-simple-cli`
 [command-line tools](cli-tools.md).
 
 - Source: [OpenVoiceOS/ovos-bus-client](https://github.com/OpenVoiceOS/ovos-bus-client)
 - API docs: [`/docs`](https://github.com/OpenVoiceOS/ovos-bus-client/tree/dev/docs)
-- In the manual: [MessageBus Service](bus-service.md) (architecture & message flow).
+- In the manual: [messagebus Service](bus-service.md) (architecture & message flow).
 
 ## `ovos-utils`
 

@@ -32,7 +32,7 @@ manages the **namespace stack** that determines what is currently visible on scr
 ## How a skill draws on screen (beginner view)
 
 A skill never talks to the display directly. It calls methods on `self.gui` (a
-`GUIInterface`), which emit messages on the OVOS [MessageBus](bus-service.md). `ovos-gui`
+`GUIInterface`), which emit messages on the OVOS [messagebus](bus-service.md). `ovos-gui`
 receives those messages, keeps track of what each skill wants shown, and forwards the
 result to whatever GUI client is connected (typically [ovos-shell](ovos-shell.md) running
 the Qt/[Kirigami](qt5-gui.md) UI).

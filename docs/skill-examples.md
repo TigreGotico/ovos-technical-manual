@@ -1,7 +1,7 @@
 # Default Skills overview
 
 !!! abstract "In a nutshell"
-    A "skill" is an add-on that teaches your assistant to do one thing — tell the weather, set an alarm, play the radio, answer trivia. This page is a browsable catalogue of ready-made skills you can add to OVOS, each with a short description and how to install it. Some come pre-loaded depending on how you set OVOS up; others you add yourself. See [Your First Skill](first-skill.md) if you want to build your own, or the [Glossary](glossary.md) for terms.
+    A "skill" is an add-on that teaches your assistant to do one thing — tell the weather, set an alarm, play the radio, answer trivia. This page is a browsable catalog of ready-made skills you can add to OVOS, each with a short description and how to install it. Some come pre-loaded depending on how you set OVOS up; others you add yourself. See [Your First Skill](first-skill.md) if you want to build your own, or the [Glossary](glossary.md) for terms.
 
 A non-exhaustive list of skills available for OpenVoiceOS, these might be available out of the box or not depending on how you installed OVOS
 

@@ -1,7 +1,7 @@
 # settingsmeta.json
 
 !!! abstract "In a nutshell"
-    This optional file describes a form for configuring your skill — labelled boxes, checkboxes,
+    This optional file describes a form for configuring your skill — labeled boxes, checkboxes,
     and drop-downs on a settings screen — so a tool can render a settings UI without you writing
     one. **Heads-up: this is a legacy format and most OVOS skills don't ship it.** It came from
     the old Mycroft backend, which OVOS doesn't run; your skill's settings work fine without it

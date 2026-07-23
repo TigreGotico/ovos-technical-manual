@@ -17,7 +17,7 @@ questions; a voice OS is a *platform* — it defines the boundary between what y
 say and what runs, arbitrates which application handles each utterance, carries
 conversation state across turns, and gives third-party skills and plugins a
 stable contract to build against. Concretely that means independent services
-communicating over a common **[MessageBus](bus-service.md)**: you can run only
+communicating over a common **[messagebus](bus-service.md)**: you can run only
 the components you need, swap any plugin for a different backend, and even
 spread services across several devices. The orchestrator's
 `match(utterances, lang, session) → Match` contract is, in effect, the
@@ -38,7 +38,7 @@ The diagram above illustrates how a user utterance moves through the system:
 3. **[Speech-to-Text](stt-plugins.md) ([STT](stt-plugins.md))**: Once the wake word is detected, the subsequent audio is sent to an STT engine.
 
 
-4. **MessageBus**: The transcribed text is published to the bus as `ovos.utterance.handle` — the utterance entry point ([OVOS-PIPELINE-1 §9.1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md); legacy name `recognizer_loop:utterance`).
+4. **messagebus**: The transcribed text is published to the bus as `ovos.utterance.handle` — the utterance entry point ([OVOS-PIPELINE-1 §9.1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md); legacy name `recognizer_loop:utterance`).
 
 
 5. **[Intent Service](intent-service.md)**: the **orchestrator** (`ovos-core`) picks up the utterance and runs it through the **[pipeline](pipelines-overview.md)** of matcher plugins — the first plugin to claim it wins ([OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)).
@@ -87,7 +87,7 @@ processes that could in principle run on separate machines, each responsible for
 
 ## Key Services
 
-### MessageBus
+### messagebus
 The backbone of OVOS. All components communicate via this WebSocket-based bus. It ensures loose coupling and enables remote control and multi-device setups.
 
 ### ovos-core

@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     A *wake word* is the special phrase that gets your assistant's attention — like "Hey Mycroft" — so it only starts paying attention when you mean to talk to it, instead of listening all the time. Wake word plugins are the different tools that listen for that phrase. Some are more accurate for a fixed phrase, while others let you pick your own wake word with less setup. See the [Glossary](glossary.md) and the [listener service](speech-service.md) for related details.
 
-Wake Word plugins allow Open Voice OS to detect specific words or sounds, typically the assistant’s name (e.g., "Hey Mycroft"), but can be customized for various use cases. These plugins enable the system to listen for and react to activation commands or phrases.
+Wake Word plugins allow Open Voice OS to detect specific words or sounds, typically the assistant's name (e.g., "Hey Mycroft"), but can be customized for various use cases. These plugins enable the system to listen for and react to activation commands or phrases.
 
 !!! note "Audio format contract"
     Wake-word plugins receive raw PCM from the [microphone plugin](mic-plugins.md#the-microphone-interface): **16 kHz sample rate, 16-bit samples, mono, little-endian**, delivered in **4096-byte chunks** by default.
@@ -44,9 +44,9 @@ without model training.
 
 > Specification: wake-word detection is one of the deployer-defined capture mechanisms that trigger the audio-input service (referenced in [OVOS-AUDIO-IN-1 §5.1](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md) as the source of a `request_lang` hint).
 
-## Wakeword Configuration
+## Wake Word Configuration
 
-The `hotwords` section in your `mycroft.conf` allows you to configure the wakeword detection parameters for each plugin. For instance:
+The `hotwords` section in your `mycroft.conf` allows you to configure the wake word detection parameters for each plugin. For instance:
 
 ```jsonc
 "hotwords": {
@@ -66,7 +66,7 @@ The `hotwords` section in your `mycroft.conf` allows you to configure the wakewo
 
 ## Tips and Caveats
 
-- **Vosk Plugin**: The Vosk plugin is useful when you need a simple setup that doesn’t require training a wake word model. It’s great for quickly gathering data during the development stage.
+- **Vosk Plugin**: The Vosk plugin is useful when you need a simple setup that doesn't require training a wake word model. It's great for quickly gathering data during the development stage.
 
 
 - **Precision and Sensitivity**: Adjust the `sensitivity` and `trigger_level` settings carefully. Too high a sensitivity can lead to false positives, while too low may miss detection.
@@ -109,7 +109,7 @@ setup([...], entry_points={'opm.wake_word': 'example_ww = my_ww:MyWakeWordEngine
 
 ### Example Plugin
 
-Here’s a simple implementation of a wake word plugin:
+Here's a simple implementation of a wake word plugin:
 
 ```python
 from ovos_plugin_manager.templates.hotwords import HotWordEngine

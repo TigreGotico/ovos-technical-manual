@@ -66,14 +66,14 @@ self.enclosure.mouth_display_png('/path/to/image.png', threshold=70, invert=Fals
 For more advanced control, such as pixel-by-pixel eye manipulation or complex faceplate
 animations, use the [ovos-mark1-utils](https://github.com/OpenVoiceOS/ovos-mark1-utils)
 library (import name `ovos_mark1`, `pip install ovos-mark1-utils`). It interacts with the
-faceplate over the [message bus](bus-service.md) (see the
+faceplate over the [messagebus](bus-service.md) (see the
 [PHAL Mark 1 message spec](https://openvoiceos.github.io/message_spec/phal_mk1/)) and offers
 three layers:
 
 - **`Mark1EnclosureAPI`** — the high-level enclosure API (mouth text, mouth animations, eye
-  colour, system reset). It subclasses the standard `EnclosureAPI` and is what
+  color, system reset). It subclasses the standard `EnclosureAPI` and is what
   `self.enclosure` resolves to on Mark 1 hardware.
-- **`Eyes`** — fine-grained eye control (colour, brightness, blink, spins).
+- **`Eyes`** — fine-grained eye control (color, brightness, blink, spins).
 - **`FaceplateGrid` / `BlackScreen`** — pixel-level drawing on the 32×8 mouth display, plus
   ready-made icons and animations.
 
@@ -150,7 +150,7 @@ for grid in a:
 
 ## Related Resources
 
-- **[Message Bus Spec - PHAL Mark 1](https://openvoiceos.github.io/message_spec/phal_mk1/)**: Detailed reference for the bus messages used by the Mark 1 enclosure.
+- **[messagebus Spec - PHAL Mark 1](https://openvoiceos.github.io/message_spec/phal_mk1/)**: Detailed reference for the bus messages used by the Mark 1 enclosure.
 
 
 - **[ovos-mark1-utils GitHub](https://github.com/OpenVoiceOS/ovos-mark1-utils)**: Source code and additional examples.

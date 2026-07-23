@@ -77,7 +77,7 @@ only useful if you still run legacy CPS skills.
 !!! note "Playback vs. control, and why ordering matters"
     OCP-1 §2 splits media commands into two classes the player must distinguish: **playback requests** ("play X", "open X") that acquire new media, and **control requests** ("pause", "resume", "next", "previous", "stop", seek) that act on whatever is *already* playing — including media OVOS did not start, when the MPRIS bridge (OCP-1 §6) is enabled. There is exactly **one Virtual Media Player per session** (OCP-1 §2, §5); a request names *the player*, not a backend, and the player routes. This is why a high-tier OCP stage belongs early in `session.pipeline`: as a selective pipeline plugin it claims a control utterance like "resume" or "next" only *while it holds paused media for that session*, and first-match-wins (PIPELINE-1 §6.2) lets it intercept those bare words before a general intent engine does — exactly the conservative, state-aware claiming pattern the spec describes. The `ovos.common_play.*` bus surface in the spec is the formal counterpart of the `ovos.common_play.query` / `…status` / `…track.state` topics used below.
 
-## How a media intent is recognised
+## How a media intent is recognized
 
 OCP combines several signals:
 

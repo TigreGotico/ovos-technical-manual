@@ -71,7 +71,7 @@ Source: `ovos_dinkum_listener/voice_loop/voice_loop.py:36` (`ListeningState`) an
 
 ## Bus Events
 
-The listener publishes its activity on the OVOS [MessageBus](bus-service.md). The most
+The listener publishes its activity on the OVOS [messagebus](bus-service.md). The most
 useful events for downstream services:
 
 Canonical (spec) names are shown first, with the legacy name current code still emits in parentheses. The `ovos.listener.*` and `ovos.utterance.handle` names come from [OVOS-AUDIO-IN-1 §5–§6](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md); `ovos-dinkum-listener` itself still emits only the legacy names, and `ovos-bus-client`'s automatic namespace bridge (see [Bus Service](bus-service.md#namespace-migration)) mirrors them onto the spec topics by default.

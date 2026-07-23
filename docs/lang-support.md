@@ -294,7 +294,7 @@ Explore public benchmark tools for evaluating model performance:
 
 ##  Tips for Contributors
 
-- Translators: Use [OVOS Localize](https://openvoiceos.github.io/ovos-localize/)’s side-by-side editor — it shows the skill code behind each phrase — to keep intent logic intact.
+- Translators: Use [OVOS Localize](https://openvoiceos.github.io/ovos-localize/)'s side-by-side editor — it shows the skill code behind each phrase — to keep intent logic intact.
 
 
 - Developers: Review user-submitted errors on the dashboard to improve skill performance.

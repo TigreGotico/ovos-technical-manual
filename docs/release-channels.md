@@ -85,7 +85,7 @@ uv pip install ovos-core[mycroft] --pre -c https://raw.githubusercontent.com/Ope
 
 ```
 
-> 💡 `constraints.txt` files act like version "filters". They don’t install packages directly, but ensure only approved versions get installed.
+> 💡 `constraints.txt` files act like version "filters". They don't install packages directly, but ensure only approved versions get installed.
 
 ---
 
@@ -138,7 +138,7 @@ Rather than using a full distro, you can manually pick which components to insta
 
 - [`ovos-PHAL`](https://github.com/OpenVoiceOS/ovos-PHAL) – hardware abstraction layer
 
-This is useful if you’re building something like a **Hivemind node** or **headless device**, where you might not need audio output or a GUI.
+This is useful if you're building something like a **Hivemind node** or **headless device**, where you might not need audio output or a GUI.
 
 ---
 

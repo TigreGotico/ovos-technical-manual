@@ -28,7 +28,7 @@ the [Skill Design Guidelines](skill-design-guidelines.md).
 
 ## Usage Guide
 
-Here’s how to ask the user for different kinds of input in your OVOS skills:
+Here's how to ask the user for different kinds of input in your OVOS skills:
 
 ### 1. Open-Ended Questions
 
@@ -78,7 +78,7 @@ class IceCreamSkill(OVOSSkill):
 - `on_fail`: A fallback string — or a `(str) -> str` callable — to say if validation fails
 
 
-- `num_retries`: How many times to retry if the response isn’t valid (default `-1`, retry until valid)
+- `num_retries`: How many times to retry if the response isn't valid (default `-1`, retry until valid)
 
 `get_response()` returns the matched utterance as a `str`, or `None` if no valid response
 was captured. The first argument is the dialog to speak.

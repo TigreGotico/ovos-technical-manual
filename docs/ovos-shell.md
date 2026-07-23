@@ -147,7 +147,7 @@ a plain background image; the actual homescreen is provided by a skill (default
 
 ## Configuration
 
-### Theme / Colour (`OvosTheme` KConfig)
+### Theme / Color (`OvosTheme` KConfig)
 
 The `OVOSPlugin.Configuration` QML singleton reads and writes `~/.config/OvosTheme`
 (standard KConfig format).
@@ -167,17 +167,17 @@ path=/usr/share/OVOS/ColorSchemes/default.json
 
 | Group | Key | Default | Description |
 |---|---|---|---|
-| `ColorScheme` | `primaryColor` | `#313131` | Primary UI background colour (ARGB hex) |
-| `ColorScheme` | `secondaryColor` | `#F70D1A` | Accent colour (OVOS red) |
-| `ColorScheme` | `textColor` | `#F1F1F1` | Primary text colour |
+| `ColorScheme` | `primaryColor` | `#313131` | Primary UI background color (ARGB hex) |
+| `ColorScheme` | `secondaryColor` | `#F70D1A` | Accent color (OVOS red) |
+| `ColorScheme` | `textColor` | `#F1F1F1` | Primary text color |
 | `ColorScheme` | `themeStyle` | `dark` | Kirigami theme style: `dark` or `light` |
-| `SelectedScheme` | `name` | `default` | Display name of the active colour scheme |
+| `SelectedScheme` | `name` | `default` | Display name of the active color scheme |
 | `SelectedScheme` | `path` | `default` | Filesystem path to the active scheme's `.json` file |
 
-When individual colours are set via the quick-settings panel, `SelectedScheme` is set to
+When individual colors are set via the quick-settings panel, `SelectedScheme` is set to
 `name=custom`, `path=custom`.
 
-### Colour Scheme Files
+### Color Scheme Files
 
 Scheme `.json` files are loaded from (in priority order):
 
@@ -217,7 +217,7 @@ Display settings panel:
 
 ![](https://github.com/OpenVoiceOS/ovos_assets/raw/master/Images/shell_settings.gif)
 
-Colour theme editor:
+Color theme editor:
 
 ![](https://github.com/OpenVoiceOS/ovos_assets/raw/master/Images/shell_theme.gif)
 
@@ -228,7 +228,7 @@ Colour theme editor:
 To unlock full functionality, configure `ovos-gui-plugin-shell-companion` in
 `mycroft.conf`. This plugin integrates with `ovos-gui` to provide:
 
-- Colour scheme manager
+- Color scheme manager
 
 
 - Notification widgets

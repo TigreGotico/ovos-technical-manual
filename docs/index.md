@@ -55,7 +55,7 @@ how it hears, thinks, and speaks, or teach it brand-new abilities.
 
     [:octicons-arrow-right-24: Architecture overview](architecture-overview.md) ·
     [Life of an utterance](life-of-an-utterance.md) ·
-    [MessageBus](bus-service.md)
+    [messagebus](bus-service.md)
 
 -   :material-translate: __I want to help translate__
 
@@ -83,7 +83,7 @@ how it hears, thinks, and speaks, or teach it brand-new abilities.
 ## How OVOS is organized
 
 OVOS is not one program — it's a small team of cooperating services that talk to each
-other over a shared **[message bus](bus-service.md)**. Knowing the cast of characters
+other over a shared **[messagebus](bus-service.md)**. Knowing the cast of characters
 makes the rest of the manual click into place:
 
 | Piece | In plain terms | Learn more |
@@ -94,7 +94,7 @@ makes the rest of the manual click into place:
 | **Skills** | The abilities (weather, timers, music…) | [Skill development](skill-design-guidelines.md) |
 | **TTS** | Turns the reply text back into speech | [TTS plugins](tts-plugins.md) |
 | **GUI** | Optional screen / visuals — ⚠️ *legacy GUI deprecated; no usable GUI right now, replacement in progress* | [GUI Service](gui-service.md) |
-| **MessageBus** | The shared channel they all talk over | [MessageBus Service](bus-service.md) |
+| **messagebus** | The shared channel they all talk over | [messagebus Service](bus-service.md) |
 
 !!! info "Plugins vs. Skills — the two ways to extend OVOS"
     A **skill** adds an *ability* ("set a timer", "play the news"). A **plugin** swaps
@@ -113,7 +113,7 @@ Understand the "brain" and "nervous system" of the platform:
 
 *   **[Architecture Overview](architecture-overview.md)**: How all the components fit together.
 *   **[Life of an Utterance](life-of-an-utterance.md)**: Trace a command from sound to speech.
-*   **[MessageBus Service](bus-service.md)**: Deep dive into the communication backbone.
+*   **[messagebus Service](bus-service.md)**: Deep dive into the communication backbone.
 *   **[Configuration](config.md)**: Master the layered configuration system.
 
 ### 💻 Developer Resources

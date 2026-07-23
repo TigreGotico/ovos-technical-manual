@@ -85,7 +85,7 @@ Each utterance is associated with a `Session`.
 - **Non-default sessions** (e.g., from [HiveMind](hivemind-agents.md) clients) are updated but not reset.
 
 
-- Session state (active skills, pipeline, blacklists) is serialised into every reply message under `context.session`.
+- Session state (active skills, pipeline, blacklists) is serialized into every reply message under `context.session`.
 
 ## Intent Match Emission
 
@@ -114,7 +114,7 @@ When a pipeline plugin returns a match:
         thread, not a separate process per skill); each skill talks to the bus either through
         `ovos-core`'s single shared connection (`websocket.shared_connection: true`, the default)
         or, if set to `false`, through its own private connection — see
-        [MessageBus Configuration](bus-service.md#configuration).
+        [messagebus Configuration](bus-service.md#configuration).
 
 ## Threading and Failure Model
 

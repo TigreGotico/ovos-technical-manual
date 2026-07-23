@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     Installing OVOS also installs a handful of **terminal commands** — small programs you run from
     a shell to configure the assistant, poke a running system ("say this", "listen now"), read the
-    logs, or launch the individual services by hand. This page is a catalogue of the ones the core
+    logs, or launch the individual services by hand. This page is a catalog of the ones the core
     OVOS packages provide, what each does, and which package ships it. (These are the *core* CLIs;
     the [RaspOVOS image](install-raspovos.md) adds its own extra convenience commands on top.) See
     the [Glossary](glossary.md) for unfamiliar terms.
@@ -35,7 +35,7 @@ language-appropriate defaults.
 ## Talking to a running OVOS — `ovos-bus-client`
 
 Shipped by **[`ovos-bus-client`](core-libraries.md#ovos-bus-client)**. These send messages to a *running*
-OVOS over the [MessageBus](bus-service.md) — handy for testing, scripting, and debugging.
+OVOS over the [messagebus](bus-service.md) — handy for testing, scripting, and debugging.
 
 | Command | What it does |
 |---|---|
@@ -69,7 +69,7 @@ can launch it directly — useful for debugging or minimal/headless setups.
 | Command | Service | Package |
 |---|---|---|
 | `ovos-core` | The skills service ([ovos-core](core.md)) | `ovos-core` |
-| `ovos-messagebus` | The [MessageBus](bus-service.md) server | `ovos-messagebus` |
+| `ovos-messagebus` | The [messagebus](bus-service.md) server | `ovos-messagebus` |
 | `ovos-dinkum-listener` | The [speech/listener service](speech-service.md) | `ovos-dinkum-listener` |
 | `ovos-audio` | The [audio service](audio-service.md) — TTS & sound playback (and the legacy media audioservice) | `ovos-audio` |
 | `ovos-gui-service` | The [GUI service](gui-service.md) | `ovos-gui` |

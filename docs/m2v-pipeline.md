@@ -122,7 +122,7 @@ plugin so it can run alongside the classifier one. It reads its config from
 | `conf_medium` | `0.5` | Threshold for `match_medium`. |
 | `conf_low` | `0.15` | Threshold for `match_low`. |
 | `ignore_intents` | `[]` | Intent labels to never match. |
-| `renormalize` | `false` | Classifier mode: renormalise probabilities over the surviving (registered) labels. |
+| `renormalize` | `false` | Classifier mode: renormalize probabilities over the surviving (registered) labels. |
 
 Prototype mode adds `prototype_k`, `prototype_strategy`, `prototype_top_k` and
 `prototype_tau` to control how prototype embeddings are selected per label.

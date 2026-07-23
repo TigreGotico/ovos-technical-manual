@@ -95,7 +95,7 @@ word optional.
 
 ### Slots (repeated variations)
 
-Sometimes one phrase appears several times so OVOS can recognise different phrasings.
+Sometimes one phrase appears several times so OVOS can recognize different phrasings.
 Each variation is a **slot**.
 
 - Translate **at least one** slot per file.

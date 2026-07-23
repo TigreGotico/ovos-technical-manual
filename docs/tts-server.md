@@ -5,9 +5,9 @@
 
 **Lightweight HTTP microservice for any OVOS text‑to‑speech plugin, with optional caching.**
 
-Wrap your favorite OVOS TTS engine in a FastAPI service—ready to deploy locally, in Docker, or behind a load balancer.
+Wrap your favorite OVOS TTS engine in a FastAPI service — ready to deploy locally, in Docker, or behind a load balancer.
 
-The OpenVoiceOS TTS HTTP Server exposes any OVOS TTS plugin over a simple HTTP API. Send text, receive audio—no extra
+The OpenVoiceOS TTS HTTP Server exposes any OVOS TTS plugin over a simple HTTP API. Send text, receive audio — no extra
 glue code required.
 
 ---
@@ -47,7 +47,7 @@ ovos-tts-server \
 
 ```
 
-**Verify it’s running**  
+**Verify it's running**  
 
 Visit http://localhost:9666/status in your browser or run:
 
@@ -84,7 +84,7 @@ options:
   Spins up a FastAPI application exposing RESTful endpoints for synthesis and status checks.
 
 - **Plugin Loading**  
-  `--engine` names any `opm.tts` plugin entry point; it is loaded dynamically via the OVOS Plugin Manager—no code changes needed when adding new voices. Plugin config is read from the `tts` section of your `mycroft.conf`.
+  `--engine` names any `opm.tts` plugin entry point; it is loaded dynamically via the OVOS Plugin Manager — no code changes needed when adding new voices. Plugin config is read from the `tts` section of your `mycroft.conf`.
 
 - **Caching**  
   When `--cache` is enabled, every synthesis request is stored on disk for debugging or reuse.
@@ -93,7 +93,7 @@ options:
   The app also mounts drop-in compatible routers so existing cloud-TTS clients work unchanged: ElevenLabs, OpenAI, Coqui, Google, Amazon Polly, Azure, MaryTTS, Cartesia, Deepgram Aura, and PlayHT. A `GET /utcp` manual advertises the endpoints to UTCP agents, and `--mcp` mounts an MCP server at `/mcp` (requires the `mcp` extra).
 
 - **Scalability**  
-  Stateless by design—run multiple instances behind NGINX, Traefik, or Kubernetes with round‑robin or load‑based
+  Stateless by design — run multiple instances behind NGINX, Traefik, or Kubernetes with round‑robin or load‑based
   routing.
 
 ---

@@ -120,7 +120,7 @@ Override these in your skill class:
 | Property | Type | Description |
 |---|---|---|
 | `settings` | `JsonStorage` | Persistent skill settings |
-| `bus` | `MessageBusClient` | [MessageBus](bus-service.md) connection |
+| `bus` | `MessageBusClient` | [messagebus](bus-service.md) connection |
 | `gui` | `SkillGUI` | GUI interface |
 | `enclosure` | `EnclosureAPI` | Mark 1 faceplate interface (⚠️ [being removed from the base class](mark1.md) like `self.gui` → moves to `ovos-mark1-utils`; faceplate becomes a GUI plugin) |
 | `file_system` | `FileSystemAccess` | Managed local file access |
@@ -233,7 +233,7 @@ This is used by `SkillManager` to defer loading until the required connectivity 
 
 # Skill API — Inter-Skill RPC
 
-`SkillApi` provides a [MessageBus](bus-service.md)-based remote procedure call (RPC) mechanism. Methods decorated with `@skill_api_method` are exposed on the bus; any other skill (or application) can call them by fetching a `SkillApi` proxy object.
+`SkillApi` provides a [messagebus](bus-service.md)-based remote procedure call (RPC) mechanism. Methods decorated with `@skill_api_method` are exposed on the bus; any other skill (or application) can call them by fetching a `SkillApi` proxy object.
 
 **Source:** `ovos_workshop/skills/api.py`
 

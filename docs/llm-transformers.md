@@ -22,7 +22,7 @@ execution order (higher priority runs first).
 
 ## Utterance Transformers
 
-Utterance transformers normalise or validate ASR output before it reaches the intent pipeline.
+Utterance transformers normalize or validate ASR output before it reaches the intent pipeline.
 They receive a list of candidate utterances and return a (possibly modified) list plus a context
 dict.
 

@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     OVOS is designed to run locally and without a cloud account, but a **default
     install still talks to the network** for speech recognition and speech
-    synthesis unless you change the plugins, and the [message bus](bus-service.md)
+    synthesis unless you change the plugins, and the [messagebus](bus-service.md)
     that skills use to talk to each other has **no authentication** — anything
     that can reach it, or any skill you install, has full control of the
     assistant. This page inventories what a stock install actually sends over
@@ -77,10 +77,10 @@ connection is at that moment.
 
 ---
 
-## The message bus is a trust boundary, not a security boundary
+## The messagebus is a trust boundary, not a security boundary
 
 Everything inside OVOS — skills, plugins, the voice pipeline — talks over the
-local [message bus](bus-service.md). As documented there:
+local [messagebus](bus-service.md). As documented there:
 
 !!! danger "The bus has no authentication and no encryption"
     Any process that can open a WebSocket connection to the bus (default
@@ -142,7 +142,7 @@ There is no secrets manager or encryption layer.
 - [ ] Decide whether public STT/TTS servers are acceptable for your use case;
       switch to offline or self-hosted plugins if not ([STT plugins](stt-plugins.md),
       [TTS plugins](tts-plugins.md)).
-- [ ] Keep the message bus bound to `127.0.0.1`; never expose port `8181`
+- [ ] Keep the messagebus bound to `127.0.0.1`; never expose port `8181`
       directly to the internet ([Bus Service](bus-service.md)).
 - [ ] Leave `allow_pip` off unless you specifically need runtime skill
       installation, and never combine it with a non-local bus

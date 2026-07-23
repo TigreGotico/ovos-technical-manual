@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     OVOS ships as a "batteries-included" assistant you can install with one command, but under
     the hood it is really a set of small, independent Python packages that happen to agree on a
-    common protocol — the [MessageBus](bus-service.md). Because of that, nothing forces you to run
+    common protocol — the [messagebus](bus-service.md). Because of that, nothing forces you to run
     "all of OVOS" as one blob: you can start a single service on its own machine, load a single
     skill as its own process, or `pip install` a speech plugin into a completely unrelated Python
     project and call it directly, with no bus and no assistant around it at all. This page is
@@ -34,7 +34,7 @@ package makes the script available on `PATH`; running it starts that one process
 
 | Service | Package | Console script | Role |
 |---|---|---|---|
-| MessageBus | `ovos-messagebus` | `ovos-messagebus` | The WebSocket hub every other process connects to |
+| messagebus | `ovos-messagebus` | `ovos-messagebus` | The WebSocket hub every other process connects to |
 | Core / orchestrator | `ovos-core` | `ovos-core` | Pipeline matching, skill loading, intent dispatch |
 | Voice pipeline | `ovos-dinkum-listener` | `ovos-dinkum-listener` | Wake word, VAD, STT, produces `recognizer_loop:utterance` |
 | Audio playback | `ovos-audio` | `ovos-audio` | TTS synthesis and playback, `speak` handling |

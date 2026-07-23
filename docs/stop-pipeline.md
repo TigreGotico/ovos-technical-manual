@@ -39,7 +39,7 @@ ovos-stop-pipeline-plugin = "ovos_core.intent_services.stop_service:StopService"
 
 ## Purpose
 
-A voice assistant must always be capable of responding to a "stop" command. Whether the user says *“stop,” “cancel,”* or another localized phrase, OVOS must quickly:
+A voice assistant must always be capable of responding to a "stop" command. Whether the user says *"stop," "cancel,"* or another localized phrase, OVOS must quickly:
 
 * Determine if a skill is actively responding
 
@@ -61,16 +61,16 @@ The stop pipeline exposes three confidence tiers.
 
 Triggered when a user says an **exact** match (`voc_match(..., exact=True)`) for the `stop` or `global_stop` vocab, e.g.:
 
-* “Stop”
+* "Stop"
 
 
-* “Cancel”
+* "Cancel"
 
 
-* “Parar” (in Portuguese)
+* "Parar" (in Portuguese)
 
 
-* “Stopp” (in German)
+* "Stopp" (in German)
 
 The plugin:
 
@@ -91,7 +91,7 @@ A fuzzy (`exact=False`) match of the same `stop` / `global_stop` vocab, for phra
 
 ### Low-confidence (`stop_low`)
 
-Scores the utterance against the `stop` vocab list via fuzzy matching (`match_one`), adds a small bonus when active skills are present, and rejects anything below `min_conf` (default `0.5`). Used as a permissive catch-all so phrases like “can you stop now?” still reach the stop logic.
+Scores the utterance against the `stop` vocab list via fuzzy matching (`match_one`), adds a small bonus when active skills are present, and rejects anything below `min_conf` (default `0.5`). Used as a permissive catch-all so phrases like "can you stop now?" still reach the stop logic.
 
 ---
 

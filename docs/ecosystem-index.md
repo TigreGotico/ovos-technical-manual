@@ -55,7 +55,7 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   OPM can be used to load and create plugins for the OpenVoiceOS ecosystem! Core runtime component of the OVOS stack; other services and skills import it directly or run it as a daemon.
 
 **[ovos-pydantic-models](https://github.com/OpenVoiceOS/ovos-pydantic-models)**
-:   Typed Pydantic v2 models for every message that flows over the OVOS MessageBus. Core runtime component of the OVOS stack; other services and skills import it directly or run it as a daemon.
+:   Typed Pydantic v2 models for every message that flows over the OVOS messagebus. Core runtime component of the OVOS stack; other services and skills import it directly or run it as a daemon.
 
 **[ovos-utils](https://github.com/OpenVoiceOS/ovos-utils)**
 :   collection of simple utilities for use across the mycroft ecosystem. Core runtime component of the OVOS stack; other services and skills import it directly or run it as a daemon.
@@ -79,7 +79,7 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   Bandcamp skill for your hipster music needs. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
 
 **[ovos-skill-boot-finished](https://github.com/OpenVoiceOS/ovos-skill-boot-finished)**
-:   The Finished Booting skill provides notifications when OpenVoiceOS (OVOS) has fully started and all core services are ready. Notifications can be spoken, played as a sound, or simply logged, based on the user’s preferences. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   The Finished Booting skill provides notifications when OpenVoiceOS (OVOS) has fully started and all core services are ready. Notifications can be spoken, played as a sound, or simply logged, based on the user's preferences. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
 
 **[ovos-skill-camera](https://github.com/OpenVoiceOS/ovos-skill-camera)**
 :   Camera skill for OpenVoiceOS, needs the companion plugin ovos-PHAL-plugin-camera or ovos-PHAL-plugin-termux. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
@@ -265,7 +265,7 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 ## TTS plugins (18)
 
 **[ovos-tts-plugin-omnivoice](https://github.com/OpenVoiceOS/ovos-tts-plugin-omnivoice)**
-:   ⚠️ No packaged release yet — a TTS plugin wrapping OmniVoice, a massively multilingual (600+ language) zero-shot text-to-speech model with no fixed speaker catalogue, supporting auto voice selection, free-text voice design, and short-clip voice cloning. Registers under `opm.tts`; loaded by ovos-audio when selected as the active TTS engine.
+:   ⚠️ No packaged release yet — a TTS plugin wrapping OmniVoice, a massively multilingual (600+ language) zero-shot text-to-speech model with no fixed speaker catalog, supporting auto voice selection, free-text voice design, and short-clip voice cloning. Registers under `opm.tts`; loaded by ovos-audio when selected as the active TTS engine.
 
 **[ovos-tts-plugin-SAM](https://github.com/OpenVoiceOS/ovos-tts-plugin-SAM)**
 :   OpenVoiceOS TTS plugin for S.A.M - Software Automatic Mouth. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
@@ -325,7 +325,7 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   OVOS wake-word plugin wrapping microWakeWord TFLite streaming models from the ESPHome ecosystem. Registers under `opm.wake_word`; loaded by ovos-dinkum-listener when configured as the active wake-word engine.
 
 **[ovos-ww-plugin-openWakeWord](https://github.com/OpenVoiceOS/ovos-ww-plugin-openWakeWord)**
-:   This is an OVOS plugin for openWakeWord, an open-source wakeword or phrase detection system. It has competitive performance compared to Mycroft Precise or Picovoice Porcupine, can be trained on 100% synthetic data, and can run on a single Raspberry Pi 3 core. Registers under `opm.wake_word`; loaded by ovos-dinkum-listener when configured as the active wake-word engine.
+:   This is an OVOS plugin for openWakeWord, an open-source wake word or phrase detection system. It has competitive performance compared to Mycroft Precise or Picovoice Porcupine, can be trained on 100% synthetic data, and can run on a single Raspberry Pi 3 core. Registers under `opm.wake_word`; loaded by ovos-dinkum-listener when configured as the active wake-word engine.
 
 **[ovos-ww-plugin-precise-onnx](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx)**
 :   OpenVoiceOS wake-word plugin for Precise using onnxruntime instead of tflite, paired with pre-trained models from precise-lite-models. Registers under `opm.wake_word`; loaded by ovos-dinkum-listener when configured as the active wake-word engine.
@@ -340,7 +340,7 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   Free models for usage with precise-lite. Registers under `opm.wake_word`; loaded by ovos-dinkum-listener when configured as the active wake-word engine.
 
 **[wyoming-ovos-wakeword](https://github.com/OpenVoiceOS/wyoming-ovos-wakeword)**
-:   expose OVOS wakeword plugins via wyoming for usage with the voice pee. Registers under `opm.wake_word`; loaded by ovos-dinkum-listener when configured as the active wake-word engine.
+:   expose OVOS wake word plugins via wyoming for usage with the voice pee. Registers under `opm.wake_word`; loaded by ovos-dinkum-listener when configured as the active wake-word engine.
 
 
 ## VAD plugins (3)
@@ -409,7 +409,7 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   PHAL plugin for OpenVoiceOS that handles OS-level desktop application management on behalf of ovos-skill-application-launcher (or any other bus client). A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
 
 **[ovos-PHAL-plugin-camera](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-camera)**
-:   This plugin allows users to interact with cameras using OpenCV or libcamera, take snapshots, and serve video streams over HTTP. It also provides methods for handling camera operations via message bus events. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   This plugin allows users to interact with cameras using OpenCV or libcamera, take snapshots, and serve video streams over HTTP. It also provides methods for handling camera operations via messagebus events. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
 
 **[ovos-PHAL-plugin-connectivity-events](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-connectivity-events)**
 :   Monitors network state and exposes it via messagebus. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.

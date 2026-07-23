@@ -502,7 +502,7 @@ Instead, it uses Kaldi with a limited language model, which means it can work ou
 without needing to collect and train custom data.
 
 The performance of Vosk may vary depending on the wake word you choose. Some wake words may work better than
-others, so it’s essential to test and evaluate the plugin with your chosen word.
+others, so it's essential to test and evaluate the plugin with your chosen word.
 
 Some wake words are hard to trigger, especially if missing from the language model vocabulary
 

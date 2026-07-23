@@ -28,7 +28,7 @@ The listener service is always active, monitoring a stream of audio.
 
 ## 2. [Speech-to-Text](stt-plugins.md) ([STT](stt-plugins.md))
 **Service:** `ovos-dinkum-listener`
-**Output:** `ovos.utterance.handle` (legacy: `recognizer_loop:utterance`) ([MessageBus](bus-service.md))
+**Output:** `ovos.utterance.handle` (legacy: `recognizer_loop:utterance`) ([messagebus](bus-service.md))
 
 Once the user stops speaking (detected by the VAD plugin), the recorded audio buffer is sent to the **STT Plugin**. Capture is bracketed by the listening-lifecycle signals `ovos.listener.record.started` / `ovos.listener.record.ended` (OVOS-AUDIO-IN-1 §6; legacy: `recognizer_loop:record_begin` / `record_end`).
 

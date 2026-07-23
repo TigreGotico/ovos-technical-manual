@@ -70,7 +70,7 @@ Inside the class, methods are then defined.
 #### __init__()
 
 This method is the _constructor_. It is called when the Skill is first constructed. It is often used to declare state
-variables or perform setup actions, however it cannot fully utilise OVOSSkill methods as the skill is not fully initialized yet at this point. 
+variables or perform setup actions, however it cannot fully utilize OVOSSkill methods as the skill is not fully initialized yet at this point. 
 
 **You usually don't have to include the constructor.**
 

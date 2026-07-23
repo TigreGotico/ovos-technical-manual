@@ -183,7 +183,7 @@ Entry point: `opm.pipeline = ovos-persona-pipeline-plugin`
 
 ### Confidence levels
 
-| Level | Method | Behaviour |
+| Level | Method | Behavior |
 |---|---|---|
 | High | `match_high()` | Matches persona management intents (summon, release, list, check, ask). If a persona is active and no management intent matched, delegates to `match_low()`. |
 | Medium | `match_medium()` | Keyword fallback for summon/ask when padatious confidence was too low. |
@@ -250,7 +250,7 @@ silently skipped. Both sources respect `persona_blacklist`.
 `ovos-messagebus-chat-plugin` (entry point `ovos-messagebus`, class `OVOSMessagebusChatAgent`,
 group `opm.agents.chat`) exposes a running `ovos-core` instance as a persona handler. This
 enables OVOS to act as an agent inside another system — for example a Docker network or a
-[HiveMind](hivemind-agents.md) satellite — without exposing the [MessageBus](bus-service.md) directly.
+[HiveMind](hivemind-agents.md) satellite — without exposing the [messagebus](bus-service.md) directly.
 
 ```json
 {

@@ -17,7 +17,7 @@ it is the fastest way to answer "which stage swallowed my utterance?" in one sho
 
 ## Watch the bus while you speak — `ovos-busmon`
 
-All the stages in this guide talk to each other over the [MessageBus](bus-service.md): the listener
+All the stages in this guide talk to each other over the [messagebus](bus-service.md): the listener
 emits an utterance message, the intent service emits a match, the skill emits a `speak`, and so on.
 **[`ovos-busmon`](https://github.com/OpenVoiceOS/ovos-busmon)** is a small web app that connects to
 the bus as a client and streams every one of those messages live to a browser tab — it turns six
@@ -124,7 +124,7 @@ reference.
 
 **Log:** `bus.log` — **Bus visual:** any message appearing at all in `ovos-busmon`
 
-Before anything else, confirm the [MessageBus](bus-service.md) server is up: everything else in
+Before anything else, confirm the [messagebus](bus-service.md) server is up: everything else in
 OVOS is a client of it, so if it is down nothing downstream can work.
 
 ```bash
@@ -423,4 +423,4 @@ sequence than with a description of the symptom alone.
 - [Command-line Tools](cli-tools.md) — every CLI referenced above, with full flag references.
 - [Configuration](config.md) — how `log_level` and other keys are layered and merged.
 - [ovoscope Overview](ovoscope-overview.md) — full end-to-end testing reference.
-- [Bus Service](bus-service.md) — what the MessageBus is and how clients connect to it.
+- [Bus Service](bus-service.md) — what the messagebus is and how clients connect to it.

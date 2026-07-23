@@ -49,7 +49,7 @@ ovos-stt-server \
 
 ```
 
-**Verify it’s running**  
+**Verify it's running**  
 
 Visit [http://localhost:9666/status](http://localhost:9666/status) in your browser or run:  
 
@@ -237,7 +237,7 @@ Pre-built containers are also available via the [ovos-docker-stt](https://github
 - **Securing Endpoints**: Consider putting a reverse proxy (NGINX, Traefik) in front for SSL or API keys.
 
 
-- **Plugin Dependencies**: Some STT engines require heavy native libraries—bake them into your Docker image.
+- **Plugin Dependencies**: Some STT engines require heavy native libraries — bake them into your Docker image.
 
 ---
 

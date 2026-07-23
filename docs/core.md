@@ -1,14 +1,14 @@
 # ovos-core
 
 !!! abstract "In a nutshell"
-    `ovos-core` is the "brain" of your assistant. It does not listen through the microphone or talk through the speaker — those are separate helpers — but it is the part in the middle that loads your skills, takes the words you said, decides which skill should answer, and hands back the reply. Think of it as the dispatcher in a control room: it does not do the talking or listening itself, it just routes each request to the right place. Everything it does travels over the [MessageBus](bus-service.md); see also the [Glossary](glossary.md).
+    `ovos-core` is the "brain" of your assistant. It does not listen through the microphone or talk through the speaker — those are separate helpers — but it is the part in the middle that loads your skills, takes the words you said, decides which skill should answer, and hands back the reply. Think of it as the dispatcher in a control room: it does not do the talking or listening itself, it just routes each request to the right place. Everything it does travels over the [messagebus](bus-service.md); see also the [Glossary](glossary.md).
 
 !!! info "📐 Formal specification"
     `ovos-core` is the reference **orchestrator** — the logical role that runs the pipeline, routes matches to handlers, and emits the handler-lifecycle events. That role is specified by **[OVOS-PIPELINE-1 — Utterance Lifecycle & Pipeline](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**; the transformer chains it hosts by **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md)**; and the intent/entity registration it ingests by **[OVOS-INTENT-4 — Intent & Entity Registration](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md)**. See also the [spec index](architecture-specs.md). The specs are implementation-agnostic: any conformant orchestrator can replace `ovos-core` and run the same skills.
 
 `ovos-core` is the central intelligence of OpenVoiceOS. It acts as the orchestrator, managing the lifecycle of skills, coordinating the intent pipeline, and ensuring smooth communication between all parts of the system.
 
-**In plain terms:** `ovos-core` is the "brain" service. It does not capture audio or speak — those are separate services. Its job is to load your skills, take the transcribed text off the bus, decide which skill handles it, and hand off the reply. Everything it does flows over the [MessageBus](bus-service.md).
+**In plain terms:** `ovos-core` is the "brain" service. It does not capture audio or speak — those are separate services. Its job is to load your skills, take the transcribed text off the bus, decide which skill handles it, and hand off the reply. Everything it does flows over the [messagebus](bus-service.md).
 
 ## Role in the System
 
@@ -23,7 +23,7 @@ Every user utterance, whether captured from a microphone or received via a remot
 - **Managing sessions** and their associated states.
 
 
-- **Coordinating system-wide events** via the [MessageBus](bus-service.md).
+- **Coordinating system-wide events** via the [messagebus](bus-service.md).
 
 ## Architecture
 

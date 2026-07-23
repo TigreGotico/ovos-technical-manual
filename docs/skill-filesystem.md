@@ -1,7 +1,7 @@
 # Filesystem Access
 
 !!! abstract "In a nutshell"
-    Sometimes a skill needs to save a file and read it back later — a high-score list, a downloaded image, a cache. OVOS gives every skill its own private folder for this, so skills can't accidentally trample each other's files or scatter data across your computer. It's like each skill getting its own labelled drawer. This page shows how to open, read, and write files in that drawer. For saving small preference values instead, see [Skill Settings](skill-settings.md); for term definitions see the [Glossary](glossary.md).
+    Sometimes a skill needs to save a file and read it back later — a high-score list, a downloaded image, a cache. OVOS gives every skill its own private folder for this, so skills can't accidentally trample each other's files or scatter data across your computer. It's like each skill getting its own labeled drawer. This page shows how to open, read, and write files in that drawer. For saving small preference values instead, see [Skill Settings](skill-settings.md); for term definitions see the [Glossary](glossary.md).
 
 `FileSystemAccess` provides each skill with an isolated, XDG-compliant directory for persistent file storage. It prevents skills from accidentally writing to arbitrary locations and handles migration from legacy Mycroft paths.
 

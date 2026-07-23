@@ -93,7 +93,7 @@ The valid-language set is computed from `lang` + `secondary_langs` in `mycroft.c
 
 ## Forcing the Output Language (Bus API)
 
-The `DialogTranslator` listens on the [MessageBus](bus-service.md) so a skill or client can pin the response language for a session, independent of what the user spoke:
+The `DialogTranslator` listens on the [messagebus](bus-service.md) so a skill or client can pin the response language for a session, independent of what the user spoke:
 
 | Message | `data` | Effect |
 |---------|--------|--------|

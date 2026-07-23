@@ -1,12 +1,12 @@
 # Bus Service
 
 !!! abstract "In a nutshell"
-    The Message Bus is the shared channel that lets all the separate parts of OpenVoiceOS talk to one another. Picture a group radio frequency: whatever one part says is heard by everyone tuned in, and each part simply pays attention to the messages meant for it and ignores the rest. There's no traffic controller deciding who gets what — every message goes to everybody. It's how the listener, the brain, the audio, and the screen all stay in sync. See the [Architecture Overview](architecture-overview.md) for how the pieces fit together, or the [Glossary](glossary.md) for unfamiliar terms.
+    The messagebus is the shared channel that lets all the separate parts of OpenVoiceOS talk to one another. Picture a group radio frequency: whatever one part says is heard by everyone tuned in, and each part simply pays attention to the messages meant for it and ignores the rest. There's no traffic controller deciding who gets what — every message goes to everybody. It's how the listener, the brain, the audio, and the screen all stay in sync. See the [Architecture Overview](architecture-overview.md) for how the pieces fit together, or the [Glossary](glossary.md) for unfamiliar terms.
 
 !!! info "📐 Formal specification"
     The `{type, data, context}` envelope, the `source`/`destination` routing keys, the `forward`/`reply`/`response` derivations, and the session carrier that rides in every message are all normative. See **[OVOS-MSG-1 — Bus Message](https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md)**, **[OVOS-SESSION-1 — Session Carrier](https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md)**, **[OVOS-SESSION-2 — Session Lifecycle](https://github.com/OpenVoiceOS/architecture/blob/dev/session-2.md)**, and **[OVOS-BRIDGE-1 — Bus Bridge & Opaque Relay](https://github.com/OpenVoiceOS/architecture/blob/dev/bridge-1.md)** (how satellites relay messages across a [HiveMind](hivemind-agents.md) mesh), plus the [spec index](architecture-specs.md). This page describes the reference implementation; where it diverges from the spec, the spec wins.
 
-The **Message Bus** is the central nervous system of the OVOS platform. All services communicate by publishing and subscribing to typed `Message` objects through this central WebSocket broker.
+The **messagebus** is the central nervous system of the OVOS platform. All services communicate by publishing and subscribing to typed `Message` objects through this central WebSocket broker.
 
 **In plain terms:** every OVOS service (core, audio, listener, GUI) connects to one shared WebSocket. Whatever any service sends, every other service receives — there is no central router deciding who gets what. Services just listen for the message types they care about and ignore the rest.
 
@@ -86,7 +86,7 @@ All settings live under the `websocket` key in `mycroft.conf`:
 | `shared_connection` | `true` | When `true`, all skills share ovos-core's single bus connection. Set `false` to give each skill its own connection (so one skill cannot manipulate another's bus traffic). |
 | `max_msg_size` | `25` | Max WebSocket frame size in megabytes. |
 
-`filter` / `filter_logs` are also recognized (code-level defaults in the message-bus event
+`filter` / `filter_logs` are also recognized (code-level defaults in the messagebus event
 handler — `filter` off, `filter_logs` `["gui.status.request", "gui.page.upload"]`) but are not
 part of the shipped `mycroft.conf` `websocket` section.
 
@@ -109,9 +109,9 @@ part of the shipped `mycroft.conf` `websocket` section.
 
 **Module:** `ovos_messagebus.event_handler.MessageBusEventHandler` — [`ovos_messagebus/event_handler.py`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/event_handler.py)
 
-Tornado `WebSocketHandler` subclass implementing the OVOS message bus. All connected clients share a single module-level connection list (`client_connections`).
+Tornado `WebSocketHandler` subclass implementing the OVOS messagebus. All connected clients share a single module-level connection list (`client_connections`).
 
-### Broadcast Behaviour
+### Broadcast Behavior
 
 The bus is a pure fan-out: no routing, no filtering, no topic subscriptions at the server level. Every message every client sends is forwarded to every client (including the sender):
 
@@ -309,7 +309,7 @@ left can also disable `modernize`. Until then, leave both on — that is what ke
 adoption gradual and safe.
 
 !!! note "Bridged ≠ conformant"
-    [`ovos-test-harness`](spec-tooling.md) asserts spec behaviour on the
+    [`ovos-test-harness`](spec-tooling.md) asserts spec behavior on the
     canonical `ovos.*` topics. A component becomes *spec-conformant* once it
     speaks `ovos.*` directly; the bridge keeps it **interoperable** in the
     meantime, it does not make it conformant.

@@ -46,6 +46,26 @@ Every fenced code block **must** carry a language tag (` ```python `, ` ```bash 
 language). This drives syntax highlighting and tells the reader what kind of block they are
 looking at before reading it. A bare ` ``` ` is only ever acceptable for the *closing* fence.
 
+## Spelling, punctuation, and word choice
+
+- Use American spelling in prose: *behavior*, *color*, *recognize*, *utilize*, *labeled*,
+  *canceled*, *catalog*, *initialize*, *normalize* (not *behaviour*, *colour*, *recognise*,
+  *utilise*, *labelled*, *cancelled*, *catalogue*, *initialise*, *normalise*). This does **not**
+  apply inside quoted material, QML/CSS property names, class names, config keys, bus message
+  types, or any other real identifier that is spelled the British way in the actual code (for
+  example the `ovos.utterance.cancelled` bus message, or the `ColorScheme` KConfig group, which is
+  already American and untouched either way) — copy those exactly as they appear in source.
+- Use straight quotes (`'`/`"`), not curly/smart quotes (`'` `'` `"` `"`), in prose.
+- Space an em dash on both sides — `word — word`, not `word—word`.
+- Say "plugins", not "plug-ins".
+- Say "wake word" (two words) in prose; keep it as written wherever it's a real identifier —
+  the `wakeword` config keys and enum values, the `recognizer_loop:wakeword` bus message, package
+  names like `ovos-ww-plugin-*` or `wakewordlab`, and class names, all stay exactly as they are in
+  code.
+- Say "messagebus" (one word, lowercase) in prose for the concept. `MessageBus` as a bare word is
+  not a real class — the real classes are `MessageBusClient` and `MessageBusEventHandler`; use
+  those (in code font) when referring to the class itself.
+
 ## Timeless writing
 
 - No "recently", "new in `<version>`", "as of `<date>`", and no changelog narration. The manual

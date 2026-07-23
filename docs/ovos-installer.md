@@ -7,9 +7,9 @@
     See [Privacy & Security](privacy-security.md) for what a default install
     actually sends over the network, and how to change it, before you start.
 
-Welcome to the quick-start guide for installing Open Voice OS (OVOS) using the official `ovos-installer`! This guide is suitable for **Raspberry Pi** and **desktop/server** Linux environments. Whether you’re running this on a headless Raspberry Pi or your everyday laptop, the steps are mostly the same—only the way you connect to the device differs.
+Welcome to the quick-start guide for installing Open Voice OS (OVOS) using the official `ovos-installer`! This guide is suitable for **Raspberry Pi** and **desktop/server** Linux environments. Whether you're running this on a headless Raspberry Pi or your everyday laptop, the steps are mostly the same — only the way you connect to the device differs.
 
-> ⚠️ Note: Some “exotic” hardware (like ReSpeaker microphones or certain audio HATs) may require extra configuration. The installer aims for wide compatibility, but specialized setups might need some manual intervention.
+> ⚠️ Note: Some "exotic" hardware (like ReSpeaker microphones or certain audio HATs) may require extra configuration. The installer aims for wide compatibility, but specialized setups might need some manual intervention.
 
 > 💡 The installer is the recommended path on the Raspberry Pi too. The older pre-built
 > [RaspOVOS](install-raspovos.md) images are outdated and **not currently recommended** —
@@ -78,7 +78,7 @@ Once you run the script, the installer will:
 
 - Launch a **text-based user interface (TUI)** to guide you through the setup
 
-This can take anywhere from **5 to 20 minutes**, depending on your hardware, internet speed, and storage performance. Now let’s walk through the installer screens!
+This can take anywhere from **5 to 20 minutes**, depending on your hardware, internet speed, and storage performance. Now let's walk through the installer screens!
 
 ---
 
@@ -309,19 +309,19 @@ message.
 
 ## Installation Complete!
 
-You’ve done it! OVOS is now installed and ready to serve you. Try saying things like:
+You've done it! OVOS is now installed and ready to serve you. Try saying things like:
 
-- “What’s the weather?”
-
-
-- “Tell me a joke.”
+- "What's the weather?"
 
 
-- “Set a timer for 5 minutes.”
+- "Tell me a joke."
+
+
+- "Set a timer for 5 minutes."
 
 ![image](https://gist.github.com/user-attachments/assets/acbc71ed-46aa-4084-8f4c-82c6a2a19d49)
 
-You’re officially part of the Open Voice OS community! 🎤✨
+You're officially part of the Open Voice OS community! 🎤✨
 
 !!! tip "Say the wake word first"
     OVOS only starts listening after it hears its wake word (`hey mycroft` by
@@ -396,7 +396,7 @@ directory of the repository.
 
 > Something went wrong?
 
-Don’t panic! If the installer fails, it will generate a log file and upload it to [https://dpaste.com](https://dpaste.com). Please share that link with the community so we can help you out.
+Don't panic! If the installer fails, it will generate a log file and upload it to [https://dpaste.com](https://dpaste.com). Please share that link with the community so we can help you out.
 
 OVOS is a community-driven project, maintained by passionate volunteers. Your feedback, bug reports, and patience are truly appreciated.
 

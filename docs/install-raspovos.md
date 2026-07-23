@@ -198,10 +198,10 @@ The most straightforward method is to set up Wi-Fi during the imaging process.
 3. Place the transmitting device near the Raspberry Pi microphone.
 
 
-4. If successful, you’ll hear an acknowledgment tone.
+4. If successful, you'll hear an acknowledgment tone.
 
 
-    - If decoding fails or credentials are incorrect, you’ll hear an error tone.
+    - If decoding fails or credentials are incorrect, you'll hear an error tone.
 
 🚧 **Note:** ggwave is a **work-in-progress** feature and does not have any dialogs or provide on-screen feedback. 🚧
 
@@ -283,7 +283,7 @@ to reprint the full list.
 - Use the `ologs` command to monitor logs live on your screen.
 
 
-- If you’re unsure whether the system has finished booting, check logs using this command.
+- If you're unsure whether the system has finished booting, check logs using this command.
 
 ---
 

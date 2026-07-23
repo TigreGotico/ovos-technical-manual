@@ -130,12 +130,12 @@ itself — a separate concern from the `speech_begin`/`silence_end` timing above
 
 ---
 
-## 6. MessageBus (Websocket)
+## 6. messagebus (Websocket)
 
 | Key | Default | Description |
 |---|---|---|
-| `host` | `"127.0.0.1"` | Host for the core MessageBus. |
-| `port` | `8181` | Port for the core MessageBus. |
+| `host` | `"127.0.0.1"` | Host for the core messagebus. |
+| `port` | `8181` | Port for the core messagebus. |
 | `shared_connection`| `true` | If true, all skills share one websocket. |
 
 ---

@@ -32,7 +32,7 @@ OVOSSkill                             ovos_workshop/skills/ovos.py
 
 **Module:** `ovos_workshop.skills.ovos.OVOSSkill`
 
-The universal base class. Every skill and application ultimately inherits from `OVOSSkill`. Handles intent registration, resource files, settings, GUI interface, [MessageBus](bus-service.md) events, and the full skill lifecycle.
+The universal base class. Every skill and application ultimately inherits from `OVOSSkill`. Handles intent registration, resource files, settings, GUI interface, [messagebus](bus-service.md) events, and the full skill lifecycle.
 
 ```python
 from ovos_workshop.skills.ovos import OVOSSkill
@@ -144,7 +144,7 @@ including `skill.json` homescreen registration.
 | Property | Type | Description |
 |---|---|---|
 | `settings` | `JsonStorage` | Persistent skill settings |
-| `bus` | `MessageBusClient` | MessageBus connection |
+| `bus` | `MessageBusClient` | messagebus connection |
 | `gui` | `SkillGUI` | GUI interface |
 | `file_system` | `FileSystemAccess` | Managed local file access |
 | `resources` | `SkillResources` | Resource files for `self.lang` |
@@ -477,7 +477,7 @@ class MyUniversalFallback(UniversalFallback):
 **Module:** `ovos_workshop.app.OVOSAbstractApplication`
 **Source:** `ovos_workshop/app.py:12`
 
-Like `OVOSSkill` but designed to run **without** an intent service. Suitable for standalone GUI apps, [HiveMind](hivemind-agents.md)-attached services, or any program that needs [TTS](tts-plugins.md)/MessageBus/settings but does not register intents with `ovos-core`. Creates its own bus connection if none is provided. Settings stored under `apps/<id>/` instead of `skills/<id>/`.
+Like `OVOSSkill` but designed to run **without** an intent service. Suitable for standalone GUI apps, [HiveMind](hivemind-agents.md)-attached services, or any program that needs [TTS](tts-plugins.md)/messagebus/settings but does not register intents with `ovos-core`. Creates its own bus connection if none is provided. Settings stored under `apps/<id>/` instead of `skills/<id>/`.
 
 ```python
 from ovos_workshop.app import OVOSAbstractApplication

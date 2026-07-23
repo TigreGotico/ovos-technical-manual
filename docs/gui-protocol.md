@@ -16,7 +16,7 @@
 
 The `ovos-gui` service exposes two communication channels:
 
-1. **OVOS [MessageBus](bus-service.md)** — used by skills and core components to set GUI state.
+1. **OVOS [messagebus](bus-service.md)** — used by skills and core components to set GUI state.
 
 
 2. **Qt WebSocket** (default port 18181, served by `ovos-gui` itself) — used by Qt5/Qt6
@@ -31,7 +31,7 @@ client-side transport is implemented in the
 
 ---
 
-## OVOS MessageBus Messages
+## OVOS messagebus Messages
 
 ### Messages emitted by skills (via `GUIInterface`)
 
@@ -219,7 +219,7 @@ namespace), so the UI can react to listening/speaking state:
 | `recognizer_loop:wakeword` | Wake word detected |
 | `ovos.listener.record.started` | Microphone opened |
 | `ovos.listener.record.ended` | Microphone closed |
-| `recognizer_loop:utterance` | [Utterance](life-of-an-utterance.md) recognised |
+| `recognizer_loop:utterance` | [Utterance](life-of-an-utterance.md) recognized |
 | `recognizer_loop:recognition_unknown` | [STT](stt-plugins.md) gave no result |
 | `speak` | [TTS](tts-plugins.md) about to speak |
 | `recognizer_loop:audio_output_start` | Audio playback started |
@@ -231,7 +231,7 @@ namespace), so the UI can react to listening/speaking state:
 | `mycroft.skill.handler.complete` | A skill handler completed |
 | `complete_intent_failure` | No intent/fallback matched the utterance |
 | `ovos.utterance.handled` | Intent matched and handled |
-| `ovos.utterance.cancelled` | Utterance cancelled |
+| `ovos.utterance.cancelled` | Utterance canceled |
 
 `NamespaceManager` also forwards a set of legacy `enclosure.eyes.*` / `enclosure.mouth.*` /
 `enclosure.weather.display` messages, kept for [Mark 1](mark1.md)-style enclosure animations.
@@ -256,7 +256,7 @@ All messages are JSON objects sent over the WebSocket connection at `ws://localh
 
 ### Connection handshake
 
-**Qt client → `ovos-gui` (OVOS MessageBus):**
+**Qt client → `ovos-gui` (OVOS messagebus):**
 
 ```json
 {
@@ -269,7 +269,7 @@ All messages are JSON objects sent over the WebSocket connection at `ws://localh
 
 ```
 
-**`ovos-gui` → Qt client (OVOS MessageBus reply):**
+**`ovos-gui` → Qt client (OVOS messagebus reply):**
 
 ```json
 {

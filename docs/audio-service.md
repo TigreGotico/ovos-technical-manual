@@ -43,7 +43,7 @@
 
 ## Overview
 
-The audio service receives `ovos.utterance.speak` messages (legacy: `speak`) from the [MessageBus](bus-service.md) — the natural-language response exit point of the utterance lifecycle (OVOS-PIPELINE-1 §9.6) — runs the text through the **dialog-transformer chain**, sends it to a [TTS](tts-plugins.md) engine, runs the resulting audio through the **tts-transformer chain**, and plays it through its playback queue (OVOS-AUDIO-1 §3). The same queue also plays sound effects (`mycroft.audio.queue` / `mycroft.audio.play_sound`). Separately, and only when `enable_old_audioservice` is on, it *also* hosts the legacy media audioservice for music/news/streams — see the **Two independent subsystems** note at the top of this page.
+The audio service receives `ovos.utterance.speak` messages (legacy: `speak`) from the [messagebus](bus-service.md) — the natural-language response exit point of the utterance lifecycle (OVOS-PIPELINE-1 §9.6) — runs the text through the **dialog-transformer chain**, sends it to a [TTS](tts-plugins.md) engine, runs the resulting audio through the **tts-transformer chain**, and plays it through its playback queue (OVOS-AUDIO-1 §3). The same queue also plays sound effects (`mycroft.audio.queue` / `mycroft.audio.play_sound`). Separately, and only when `enable_old_audioservice` is on, it *also* hosts the legacy media audioservice for music/news/streams — see the **Two independent subsystems** note at the top of this page.
 
 ### Key Responsibilities
 

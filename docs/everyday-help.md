@@ -22,7 +22,7 @@
 - **Move closer, or reduce background noise.** Wake-word detection is a local audio match — a TV,
   music, or a fan right next to the microphone can drown it out.
 - **The wake word keeps missing or keeps false-triggering.** This is a sensitivity setting, not a
-  hardware fault — see [Wake Word Plugins](wake-word-plugins.md#wakeword-configuration) for how to
+  hardware fault — see [Wake Word Plugins](wake-word-plugins.md#wake-word-configuration) for how to
   adjust `sensitivity` and `trigger_level` in `mycroft.conf`, and pick a less noise-prone wake word
   if needed.
 

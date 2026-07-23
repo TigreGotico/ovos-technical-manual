@@ -148,7 +148,7 @@ my-transformer = "my_module:MyCustomTransformer"
 
 ```
 
-Like other transformer types, intent transformers get the message bus attached (`bind(bus)`) when loaded, so `self.bus` is available inside `transform()`.
+Like other transformer types, intent transformers get the messagebus attached (`bind(bus)`) when loaded, so `self.bus` is available inside `transform()`.
 
 ---
 

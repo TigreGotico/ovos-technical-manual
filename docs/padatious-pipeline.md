@@ -120,10 +120,10 @@ def handle_weather(self, message):
 
 Padatious is reliable in terms of **not misclassifying** — it rarely picks the wrong intent. However, it has key limitations:
 
-* **Weak paraphrase handling**: If the user speaks a sentence that doesn’t closely match an example, Padatious will often fail to match anything at all.
+* **Weak paraphrase handling**: If the user speaks a sentence that doesn't closely match an example, Padatious will often fail to match anything at all.
 
 
-* **Rigid phrasing required**: You may end up in a “train the user to speak correctly” scenario, instead of training the system to understand variations.
+* **Rigid phrasing required**: You may end up in a "train the user to speak correctly" scenario, instead of training the system to understand variations.
 
 
 * **Maintenance burden for sentence diversity**: Adding more phrasing requires adding more sentence examples per intent, increasing effort and clutter.
@@ -137,7 +137,7 @@ Padatious is a good choice in OVOS when:
 * You want **easy localization/multilingual support**.
 
 
-* You’re creating **simple, personal, or demo skills**.
+* You're creating **simple, personal, or demo skills**.
 
 
 * You can **control or guide user phrasing**, such as in kiosk or assistant environments.

@@ -14,7 +14,7 @@ This glossary defines common terms, acronyms, and concepts used throughout the O
 | **[Agent Engine](agent-plugins.md)** | (Formerly [Solver](agent-plugins.md)) A plugin that provides answers to questions or interacts with LLMs (e.g., ChatEngine, RetrievalEngine). |
 | **ASR (Automatic Speech Recognition)** | Another name for [STT](stt-plugins.md) — turning spoken audio into text. |
 | **Audio Service** | The OVOS component (`ovos-audio`) responsible for [TTS](tts-plugins.md) synthesis and audio playback. |
-| **Bus / [MessageBus](bus-service.md)** | The WebSocket-based communication backbone of OVOS. Every service talks by sending JSON [messages](bus-service.md) over it. |
+| **Bus / [messagebus](bus-service.md)** | The WebSocket-based communication backbone of OVOS. Every service talks by sending JSON [messages](bus-service.md) over it. |
 | **[Common Play](ocp-pipeline.md) ([OCP](ocp-pipeline.md))** | OpenVoiceOS Common Play — a framework and intent handler specialized in finding and playing media (music, video, podcasts). The per-session *virtual media player* it arbitrates is specified by 📐 [OVOS-OCP-1](https://github.com/OpenVoiceOS/architecture/blob/dev/ocp-1.md). |
 | **Constraints file** | A version "filter" (a pip [constraints file](release-channels.md)) that pins which package versions a [release channel](release-channels.md) allows. |
 | **[Converse](converse-pipeline.md)** | A mechanism that allows skills to intercept utterances during an active session (continuous conversation). Specified by 📐 [OVOS-CONVERSE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/converse.md). |
@@ -41,7 +41,7 @@ This glossary defines common terms, acronyms, and concepts used throughout the O
 | **Listener** | The service that captures microphone audio, detects the [wake word](wake-word-plugins.md), and records speech for transcription. See [Speech Service](speech-service.md). |
 | **[Mark 1](mark1.md) / [Mark 2](mark2.md)** | Mycroft's reference hardware devices. The Mark 1 is a faceplate-only speaker; the Mark 2 is a Raspberry Pi 4 device with a touchscreen running the full OVOS GUI stack. Both are still supported. |
 | **📐 Match Contract** | The single method every **pipeline plugin** exposes: `match(utterances, lang, session) → Match \| None`. It is the "system-call ABI" of the voice OS — the orchestrator knows nothing about a plugin except this signature. Returning a `Match` claims the utterance; returning `None` declines it. 📐 [OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md). |
-| **Message** | A JSON object sent over the MessageBus, containing a `type`, `data`, and `context`. |
+| **Message** | A JSON object sent over the messagebus, containing a `type`, `data`, and `context`. |
 | **MiniCroft** | A lightweight, in-process version of OVOS Core used for end-to-end testing with `ovoscope`. |
 | **`mycroft.conf`** | OVOS's main [configuration](config.md) file (JSON). The same filename is layered across system → distribution → user locations, with the user's copy winning. |
 | **OCP Stream Extractor** | A plugin that resolves abstract URIs (like YouTube links) into playable media streams. |

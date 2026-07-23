@@ -1,7 +1,7 @@
 # Agent Tool Plugins
 
 !!! abstract "In a nutshell"
-    These plugins give an AI assistant real *abilities* it can reach for — like fetching information or performing an action — rather than only talking. Each "tool" is described in a standard way so the AI knows what it does and what information it needs, much like labelled buttons on a control panel. See [Agentic Loops](agentic-loop.md) for how an assistant decides to use them, and the [Glossary](glossary.md) for unfamiliar terms.
+    These plugins give an AI assistant real *abilities* it can reach for — like fetching information or performing an action — rather than only talking. Each "tool" is described in a standard way so the AI knows what it does and what information it needs, much like labeled buttons on a control panel. See [Agentic Loops](agentic-loop.md) for how an assistant decides to use them, and the [Glossary](glossary.md) for unfamiliar terms.
 
 The OPM `ToolBox` framework provides a standardized mechanism for exposing discoverable, schema-validated functions to OVOS agents (persona solvers, agentic loops, MCP/UTCP clients).
 
@@ -15,7 +15,7 @@ Every `ToolBox` plugin:
 
 1. Declares its tools via `discover_tools()`, returning a list of `AgentTool` instances.
 2. Each `AgentTool` carries Pydantic `argument_schema` and `output_schema` models — these are converted to JSON Schema for LLM tool-use / function-calling.
-3. Registers MessageBus handlers automatically when a bus is injected.
+3. Registers messagebus handlers automatically when a bus is injected.
 
 ### Plugin entry point
 
@@ -33,7 +33,7 @@ The full authoring guide with `AgentTool`, `ToolArguments`, and `ToolOutput` exa
 
 ## PHAL Bus Provider
 
-[OpenVoiceOS/ovos-PHAL-plugin-tools](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-tools) is a PHAL plugin that loads all installed `ToolBox` plugins and registers them on the MessageBus, making them available to any component that can send bus messages.
+[OpenVoiceOS/ovos-PHAL-plugin-tools](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-tools) is a PHAL plugin that loads all installed `ToolBox` plugins and registers them on the messagebus, making them available to any component that can send bus messages.
 
 ```bash
 pip install ovos-PHAL-plugin-tools
@@ -41,7 +41,7 @@ pip install ovos-PHAL-plugin-tools
 
 Entry point group: `opm.phal`; plugin name `ovos-phal-plugin-tools`.
 
-### MessageBus event table
+### messagebus event table
 
 | Message type | Direction | Payload |
 |---|---|---|

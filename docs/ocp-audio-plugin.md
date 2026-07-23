@@ -167,7 +167,7 @@ of player plugins.
 
 ## Related Pages
 
-- [OCP Pipeline](ocp-pipeline.md) — how "play X" is recognised as a media request.
+- [OCP Pipeline](ocp-pipeline.md) — how "play X" is recognized as a media request.
 - [Media Skills (OCP)](ocp-skills.md) — writing skills that provide media results.
 - [OCP Stream Extractors](ocp-plugins.md) — turning page URLs into playable streams.
 - [Audio Service](audio-service.md) — the service this plugin loads into.

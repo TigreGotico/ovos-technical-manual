@@ -5,7 +5,7 @@
 
 PHAL (Platform/Hardware Abstraction Layer) provides a plugin-based system for integrating
 hardware-specific and platform-level functionality into OVOS. PHAL plugins run as
-independent services alongside the core voice assistant, receive the OVOS [MessageBus](bus-service.md)
+independent services alongside the core voice assistant, receive the OVOS [messagebus](bus-service.md)
 client at construction, and may listen to or emit any bus event.
 
 ---
@@ -405,7 +405,7 @@ skill as a voice frontend.
 | [ovos-PHAL-plugin-gpsd](#ovos-phal-plugin-gpsd) | Provides GPS location to OVOS via gpsd. |
 | [ovos-PHAL-plugin-mk1](#ovos-phal-plugin-mk1) | handles integration with the Mycroft Mark1 hardware |
 | [ovos-PHAL-plugin-connectivity-events](#ovos-phal-plugin-connectivity-events) | Reports network connectivity changes to the messagebus. |
-| [ovos-PHAL-plugin-camera](#ovos-phal-plugin-camera) | This plugin allows users to interact with cameras using OpenCV or libcamera, take snapshots, and serve video streams over HTTP. It also provides methods for handling camera operations via message bus events. |
+| [ovos-PHAL-plugin-camera](#ovos-phal-plugin-camera) | This plugin allows users to interact with cameras using OpenCV or libcamera, take snapshots, and serve video streams over HTTP. It also provides methods for handling camera operations via messagebus events. |
 | [ovos-PHAL-plugin-pulseaudio](#ovos-phal-plugin-pulseaudio) | controls system volume with pulseaudio |
 | [ovos-PHAL-plugin-oauth](#ovos-phal-plugin-oauth) | Handles OAuth authentication flows for OVOS skills and services |
 | [ovos-PHAL-plugin-system](#ovos-phal-plugin-system) | Provides system specific commands to OVOS. |
@@ -506,7 +506,7 @@ skill as a voice frontend.
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-PHAL-plugin-camera](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-camera)
 
 
-- **Description**: This plugin allows users to interact with cameras using OpenCV or libcamera, take snapshots, and serve video streams over HTTP. It also provides methods for handling camera operations via message bus events.
+- **Description**: This plugin allows users to interact with cameras using OpenCV or libcamera, take snapshots, and serve video streams over HTTP. It also provides methods for handling camera operations via messagebus events.
 
 ---
 

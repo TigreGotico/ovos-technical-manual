@@ -5,7 +5,7 @@
 
 **Module:** `ovos_core.skill_installer.SkillsStore` — [`ovos_core/skill_installer.py`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/skill_installer.py)
 
-The `SkillsStore` is a built-in subsystem of `ovos-core` that provides runtime skill and package management via the [MessageBus](bus-service.md).
+The `SkillsStore` is a built-in subsystem of `ovos-core` that provides runtime skill and package management via the [messagebus](bus-service.md).
 
 **In plain terms:** other parts of the system (or you, over the bus) can ask OVOS to `pip install` a skill or library while it is running — no shell access or restart needed. It is opt-in and guarded behind the `allow_pip` config flag.
 
@@ -56,7 +56,7 @@ The `constraints` file pins allowed versions; packages listed in it are also tre
     There is no sandbox or permission model. Installing a skill through
     `SkillsStore` means `pip`/`uv install`ing a Python package and loading it —
     it runs with the same access as the rest of OVOS on the OVOS user account.
-    Combined with the fact that the [message bus](bus-service.md) has **no
+    Combined with the fact that the [messagebus](bus-service.md) has **no
     authentication**, turning `allow_pip` on while the bus is reachable by
     anyone untrusted is effectively a remote-code-execution switch: anyone who
     can reach the bus can request an install of code they control. See
@@ -65,7 +65,7 @@ The `constraints` file pins allowed versions; packages listed in it are also tre
 
 ## Install/Uninstall Events
 
-You can trigger installation and uninstallation by emitting messages on the MessageBus. Note that the **skill** events and the **pip** events take different payloads: skills are installed from a single GitHub URL, while the generic pip events take a list of package specifiers.
+You can trigger installation and uninstallation by emitting messages on the messagebus. Note that the **skill** events and the **pip** events take different payloads: skills are installed from a single GitHub URL, while the generic pip events take a list of package specifiers.
 
 ### Skill installation
 

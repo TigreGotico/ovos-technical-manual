@@ -121,7 +121,7 @@ format, and a conformance section. The key words **MUST**, **SHOULD**, and
 
 The repository also ships a non-normative
 [appendix](https://github.com/OpenVoiceOS/architecture/tree/dev/appendix) with
-design rationale, comparisons to other voice systems, and the catalogue of
+design rationale, comparisons to other voice systems, and the catalog of
 deliberate divergences from current OVOS code.
 
 !!! tip "Citing a spec stably"

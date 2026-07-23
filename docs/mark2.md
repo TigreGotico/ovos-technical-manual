@@ -121,8 +121,8 @@ out-of-tree Linux **kernel driver and device-tree overlays** for the SJ201 HAT. 
 `vocalfusion-soundcard.ko` module that wires up the SJ201's **XMOS VocalFusion** DSP microphone
 over I2S (configuring the master clock on a GPIO, plus reset/power lines), and ships the
 device-tree overlays for the soundcard, the hardware **buttons**, and the **PWM fan** — with
-both standard and Raspberry-Pi-5 variants, and separate **rev6 vs rev10** handling for the two
-board versions. The TAS5806 **amplifier** is initialised separately at boot rather than inside
+both standard and Raspberry Pi 5 variants, and separate **rev6 vs rev10** handling for the two
+board versions. The TAS5806 **amplifier** is initialized separately at boot rather than inside
 the module.
 
 It is actively used (the installer builds it on every Mark 2 setup) and is kept working against

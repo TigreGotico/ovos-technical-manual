@@ -69,7 +69,7 @@ ovos-spec-lint my-skill/locale
 
 [**ovos-test-harness**](https://github.com/OpenVoiceOS/ovos-test-harness) is the
 **executable counterpart** of the specs. Each test asserts one observable bus
-behaviour a spec mandates, against a *real running OVOS stack*. If the specs are
+behavior a spec mandates, against a *real running OVOS stack*. If the specs are
 the law, this harness is the courtroom: it puts a concrete combination of OVOS
 repos on trial against the law and returns a verdict per normative clause —
 **pass**, **`xfail`** (a documented gap), or **fail**.
@@ -88,7 +88,7 @@ CI never re-resolves and never downgrades a component. Each test then:
 
 - imports the spec vocabulary from [`ovos-spec-tools`](https://github.com/OpenVoiceOS/ovos-spec-tools), so a topic name is *provably spec-defined* rather than a magic string;
 - drives and captures the live bus through [`ovoscope`](https://github.com/TigreGotico/ovoscope) (see [Testing Skills](ovoscope-overview.md));
-- asserts the spec-mandated behaviour and records pass / `xfail` / fail.
+- asserts the spec-mandated behavior and records pass / `xfail` / fail.
 
 This is where an implementation is **proven to conform** to the merged
 architecture specs — the bridge between the prescriptive Markdown and the code
@@ -110,4 +110,4 @@ coordination**.
 This is what makes spec adoption gradual rather than a breaking change. The full
 mechanism — and how to turn the bridges off once a deployment is fully
 modernised — is documented under
-[**MessageBus Service → Namespace migration**](bus-service.md#namespace-migration).
+[**messagebus Service → Namespace migration**](bus-service.md#namespace-migration).

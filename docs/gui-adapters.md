@@ -1,7 +1,7 @@
 # GUI Adapter Plugins
 
 !!! abstract "In a nutshell"
-    This page is for developers and describes the **new, not-yet-finished** way OVOS will draw things on a screen — the planned replacement for the old, deprecated GUI. The idea: instead of OVOS talking to one kind of screen directly, it sends a generic "show this weather card" message and small plug-ins called **adapters** translate that into whatever the actual display is (a touchscreen, a web browser, even a terminal). Several adapters can run at once, so the same content shows on multiple screens. This is upcoming work, not the everyday path today — see the [GUI Protocol](gui-protocol.md) for the current legacy screen and the [Glossary](glossary.md) for terms.
+    This page is for developers and describes the **new, not-yet-finished** way OVOS will draw things on a screen — the planned replacement for the old, deprecated GUI. The idea: instead of OVOS talking to one kind of screen directly, it sends a generic "show this weather card" message and small plugins called **adapters** translate that into whatever the actual display is (a touchscreen, a web browser, even a terminal). Several adapters can run at once, so the same content shows on multiple screens. This is upcoming work, not the everyday path today — see the [GUI Protocol](gui-protocol.md) for the current legacy screen and the [Glossary](glossary.md) for terms.
 
 !!! info "This is the GUI replacement, still in progress"
     This page documents the **in-progress replacement** for the deprecated
