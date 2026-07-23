@@ -318,10 +318,11 @@ OVOS across machines.
 
 !!! warning "There is no built-in metrics endpoint"
     OVOS does not expose a Prometheus-style `/metrics` endpoint or any built-in dashboard. The
-    closest thing is opt-in, best-effort usage-metric uploads (see the commented-out
-    `opendataConfig`-style keys in the default `mycroft.conf`, and
-    [`ovos-opendata-server`](ecosystem-index.md) if you want to run a collector) — that is a
-    telemetry pipeline, not an operational metrics/monitoring system, and it is off by default.
+    closest thing is usage-metric uploads, and those are **explicitly opt-in**: disabled by
+    default, with nothing sent anywhere unless you deliberately configure an endpoint (see the
+    commented-out `opendataConfig`-style keys in the default `mycroft.conf`, and
+    [`ovos-opendata-server`](ecosystem-index.md) if you want to run your own collector). That
+    is a telemetry pipeline you opt into, not an operational metrics/monitoring system.
 
 For day-to-day, per-device debugging, use:
 
