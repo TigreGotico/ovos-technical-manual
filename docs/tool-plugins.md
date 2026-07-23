@@ -42,10 +42,9 @@ def add(args: AddArgs) -> AddResult:
     return AddResult(sum=args.a + args.b)
 
 class MathToolBox(ToolBox):
-    toolbox_id = "my-toolbox"          # must match the entry-point name
-
     def __init__(self, config=None, bus=None):
-        super().__init__(config=config, bus=bus)
+        # the plugin declares its own id, matching the entry-point name
+        super().__init__(toolbox_id="my-toolbox", config=config, bus=bus)
 
     def discover_tools(self) -> List[AgentTool]:
         return [
@@ -59,13 +58,13 @@ class MathToolBox(ToolBox):
         ]
 ```
 
-Every `ToolBox` declares its identity as the class attribute `toolbox_id`, matching its
-entry-point name, and takes `(config=None, bus=None)` — the same shape as every other OPM
-plugin type. Loaders always construct a toolbox with exactly `cls(config=cfg, bus=bus)`;
-`toolbox_id` is never passed by the loader. A class that declares no `toolbox_id` raises
-`ValueError` at construction. Adapters that front several external servers with one class
-(for example the MCP and UTCP adapters) may additionally accept an optional `toolbox_id=`
-override to keep their bus topics distinct.
+A `ToolBox` plugin defines `__init__(self, config=None, bus=None)` and passes its own
+identity up to the base class: `super().__init__(toolbox_id="<entry-point-name>",
+config=config, bus=bus)`. The `config`/`bus` shape matches every other OPM plugin type.
+Loaders always construct a toolbox with exactly `cls(config=cfg, bus=bus)` and never pass
+`toolbox_id` themselves. An adapter that fronts several external servers with one class
+(the MCP and UTCP adapters, for example) simply exposes `toolbox_id` in its own signature
+and forwards it, so each instance keeps a distinct bus topic.
 
 Per-plugin settings come from the `opm.agents.toolbox.config` entry-point group, exactly as
 for STT, TTS and VAD plugins, and are handed to the constructor as `config`.
