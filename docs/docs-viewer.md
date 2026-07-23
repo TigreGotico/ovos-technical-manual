@@ -50,7 +50,7 @@ The console script `ovos-docs-viewer` maps to `ovos_docs_viewer.ovos_docs:launch
 | `messages` | [message_spec](https://github.com/OpenVoiceOS/message_spec) (zip archive of `master`) |
 | `hivemind` | [HiveMind-community-docs](https://github.com/JarbasHiveMind/HiveMind-community-docs) (zip archive of `master`) |
 | `live-status` | OVOS [status](https://github.com/OpenVoiceOS/status) page README (always re-downloaded) |
-| `raspOVOS` | the raspOVOS image README (note raspOVOS images are deprecated — see [release channels](release-channels.md)) |
+| `raspOVOS` | the raspOVOS image README |
 | `installer` | [ovos-installer](https://github.com/OpenVoiceOS/ovos-installer) README (`main` branch) |
 | `skills` | `dev`-branch README files for ~49 official OVOS skills, one `.md` file per skill |
 
@@ -109,16 +109,6 @@ Zip-archive sources (`technical`, `messages`, `hivemind`) keep their full `docs/
 | `click` | CLI argument parsing |
 | `requests` | HTTP download of documentation |
 | `ovos_utils` | XDG path resolution (`xdg_data_home`) |
-
-## Quick Links
-
-| Resource | Path |
-|---|---|
-| Machine-readable facts | `../QUICK_FACTS.md` |
-| Common questions | `../FAQ.md` |
-| Change log | `../MAINTENANCE_REPORT.md` |
-| Known issues | `../AUDIT.md` |
-| Improvement proposals | `../SUGGESTIONS.md` |
 
 ## Cross-References
 

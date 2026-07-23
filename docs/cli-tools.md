@@ -22,9 +22,9 @@ Shipped by **[`ovos-config`](config.md)**. Inspect and edit the layered
 | Command | What it does |
 |---|---|
 | `ovos-config show` | Print the merged configuration as a table. |
-| `ovos-config get <path>` | Read a single value at a dotted config path. |
-| `ovos-config set <path> <value>` | Write a value into the user (or system) config. |
-| `ovos-config autoconfigure -l <lang>` | Pick sensible default STT/TTS/wake-word plugins for a language and platform. Flags include `--platform {rpi3,rpi4,rpi5,linux,mac,termux}`, `--online` / `--offline` / `--hybrid`, `--gpu`, and `--male` / `--female`. |
+| `ovos-config get -k <key>` | Read the value(s) at a key or key path (e.g. `-k /tts/module`); a loose key name lists every match. |
+| `ovos-config set -k <key> -v <value>` | Write a value into the user configuration; omit `-v` to be prompted (useful when the key is ambiguous). |
+| `ovos-config autoconfigure -l <lang>` | Pick sensible default STT/TTS plugins for a language. `--lang`/`-l` is required; select `--online`/`-on`, `--offline`/`-off`, or `--hybrid`/`-hy` (offline TTS + online STT — the default when none is given), and optionally `--male`/`-m` or `--female`/`-f` for the TTS voice (TTS is left unconfigured if neither is passed). |
 | `ovos-config telemetry --enable` / `--disable` | Opt in or out of anonymous intent telemetry. |
 
 `ovos-config autoconfigure --help` is the recommended first stop after an install to set

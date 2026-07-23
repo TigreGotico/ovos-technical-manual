@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     OVOS is a large ecosystem of small, focused repositories — core services, plus hundreds of swappable [plugins](plugins-index.md) and [skills](skill-design-guidelines.md). This page is the map: every **public** repository in the [OpenVoiceOS GitHub organization](https://github.com/OpenVoiceOS), grouped by what it does, so you can find the right one. (Archived and private repos are omitted.)
 
-There are **249** public, actively-maintained repositories in the [`OpenVoiceOS`](https://github.com/OpenVoiceOS) organization. Browse them by category below; click any name to open it on GitHub.
+There are roughly **246** public, actively-maintained repositories in the [`OpenVoiceOS`](https://github.com/OpenVoiceOS) organization (the exact count drifts as repos are added or archived). Browse them by category below; click any name to open it on GitHub.
 
 > Generated from the live organization repository list. If a repository is missing here it is either archived, private, or newly created — check the [organization page](https://github.com/OpenVoiceOS) for the authoritative list.
 
@@ -295,7 +295,7 @@ There are **249** public, actively-maintained repositories in the [`OpenVoiceOS`
 | [ovos-org-website](https://github.com/OpenVoiceOS/ovos-org-website) | Test repo for ovos webpage |
 | [ovos-technical-manual](https://github.com/OpenVoiceOS/ovos-technical-manual) | developer oriented documentation |
 
-## Other components (48)
+## Other components (45)
 
 | Repository | Description |
 |---|---|
@@ -313,20 +313,17 @@ There are **249** public, actively-maintained repositories in the [`OpenVoiceOS`
 | [nebulento](https://github.com/OpenVoiceOS/nebulento) | fuzzy matching intent parser |
 | [ovos-YesNo-plugin](https://github.com/OpenVoiceOS/ovos-YesNo-plugin) |  |
 | [ovos-audio-plugin-mpv](https://github.com/OpenVoiceOS/ovos-audio-plugin-mpv) |  |
-| [ovos-audio-plugin-simple](https://github.com/OpenVoiceOS/ovos-audio-plugin-simple) |  |
 | [ovos-bidirectional-translation-plugin](https://github.com/OpenVoiceOS/ovos-bidirectional-translation-plugin) |  |
 | [ovos-chromadb-embeddings-plugin](https://github.com/OpenVoiceOS/ovos-chromadb-embeddings-plugin) |  |
 | [ovos-ddg-plugin](https://github.com/OpenVoiceOS/ovos-ddg-plugin) |  |
 | [ovos-dialog-normalizer-plugin](https://github.com/OpenVoiceOS/ovos-dialog-normalizer-plugin) |  |
 | [ovos-gguf-plugin](https://github.com/OpenVoiceOS/ovos-gguf-plugin) |  |
 | [ovos-legacy-mycroft-gui-plugin](https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin) |  |
-| [ovos-lingua-franca](https://github.com/OpenVoiceOS/ovos-lingua-franca) | Mycroft's multilingual text parsing and formatting library |
 | [ovos-localize](https://github.com/OpenVoiceOS/ovos-localize) | GitHub-native localization platform for OpenVoiceOS skills and plugins |
 | [ovos-machine-translations](https://github.com/OpenVoiceOS/ovos-machine-translations) | temporary resource files while we wait for GitLocalize |
 | [ovos-messagebus-chat-plugin](https://github.com/OpenVoiceOS/ovos-messagebus-chat-plugin) | OVOS ChatEngine plugin (opm.agents.chat) that proxies turns through the OVOS messagebus |
 | [ovos-openai-plugin](https://github.com/OpenVoiceOS/ovos-openai-plugin) |  |
 | [ovos-option-matcher-fuzzy-plugin](https://github.com/OpenVoiceOS/ovos-option-matcher-fuzzy-plugin) |  |
-| [ovos-plugin-vlc](https://github.com/OpenVoiceOS/ovos-plugin-vlc) |  |
 | [ovos-qdrant-embeddings-plugin](https://github.com/OpenVoiceOS/ovos-qdrant-embeddings-plugin) |  |
 | [ovos-utterance-corrections-plugin](https://github.com/OpenVoiceOS/ovos-utterance-corrections-plugin) |  |
 | [ovos-utterance-normalizer](https://github.com/OpenVoiceOS/ovos-utterance-normalizer) |  |
