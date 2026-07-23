@@ -52,6 +52,17 @@ The installer can be configured in `mycroft.conf`. It is **disabled unless `allo
 
 The `constraints` file pins allowed versions; packages listed in it are also treated as **protected** and cannot be uninstalled.
 
+!!! danger "Skills are not sandboxed — this installs and runs arbitrary code"
+    There is no sandbox or permission model. Installing a skill through
+    `SkillsStore` means `pip`/`uv install`ing a Python package and loading it —
+    it runs with the same access as the rest of OVOS on the OVOS user account.
+    Combined with the fact that the [message bus](bus-service.md) has **no
+    authentication**, turning `allow_pip` on while the bus is reachable by
+    anyone untrusted is effectively a remote-code-execution switch: anyone who
+    can reach the bus can request an install of code they control. See
+    [Privacy & Security](privacy-security.md#skills-are-not-sandboxed) for the
+    full picture before enabling this in production.
+
 ## Install/Uninstall Events
 
 You can trigger installation and uninstallation by emitting messages on the MessageBus. Note that the **skill** events and the **pip** events take different payloads: skills are installed from a single GitHub URL, while the generic pip events take a list of package specifiers.
