@@ -2,7 +2,7 @@
 
 !!! tip "Just want to change your language?"
     See [Language Support](lang-support.md) instead — this page is internals: how `ovos-core`
-    picks a language for a given utterance under the hood, not how to configure one.
+    picks a language for a given utterance internally, not how to configure one.
 
 OpenVoiceOS is designed to be multi-language from the ground up. This page explains the technical logic used by `ovos-core` to determine which language should be used for a given user utterance.
 

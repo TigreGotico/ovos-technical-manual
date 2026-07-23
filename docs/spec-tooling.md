@@ -57,7 +57,7 @@ ovos-spec-lint my-skill/locale
 ```
 
 !!! tip "When to reach for it"
-    Building an intent engine, a skill loader, a satellite, or any third-party
+    Building an intent-matching pipeline plugin, a skill loader, a satellite, or any third-party
     tool that touches OVOS templates, locale files, language selection, or the
     bus envelope? Depend on `ovos-spec-tools` instead of hand-rolling — that is
     exactly the drift the package exists to prevent. See also
@@ -87,7 +87,7 @@ Its [`requirements.txt`](https://github.com/OpenVoiceOS/ovos-test-harness) is th
 CI never re-resolves and never downgrades a component. Each test then:
 
 - imports the spec vocabulary from [`ovos-spec-tools`](https://github.com/OpenVoiceOS/ovos-spec-tools), so a topic name is *provably spec-defined* rather than a magic string;
-- drives and captures the live bus through [`ovoscope`](https://github.com/TigreGotico/ovoscope) (see [Testing Skills](ovoscope-overview.md));
+- drives and captures the live bus through [`ovoscope`](https://github.com/OpenVoiceOS/ovoscope) (see [Testing Skills](ovoscope-overview.md));
 - asserts the spec-mandated behavior and records pass / `xfail` / fail.
 
 This is where an implementation is **proven to conform** to the merged

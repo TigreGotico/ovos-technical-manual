@@ -29,7 +29,7 @@ It is up us as Skill creators to teach OVOS the variety of ways that a user migh
 part of the design process. It is the key difference between a Skill that kind of works if you know what to say, and a
 Skill that feels intuitive and natural to talk to.
 
-This is handled by an intent parser whose job it is to learn from your Skill what intents it can handle, and extract
+This is handled by a pipeline plugin whose job it is to learn from your Skill what intents it can handle, and extract
 from the user's speech and key information that might be useful for your Skill. In this case it might include the
 specified date and location.
 
@@ -233,7 +233,7 @@ For example, many personal navigation devices \(GPS units\) require users to inp
 | **User**              | _Springfield_               |
 | **Navigation Device** | _Oregon_                    |
 
-This was a limitation of the technology, both the [STT](stt-plugins.md) and intent parser were not capable of handling an entire address. 
+This was a limitation of the technology, both the [STT](stt-plugins.md) and intent-matching pipeline plugin were not capable of handling an entire address. 
 With OVOS you do not need to separate the address into multiple inputs. 
 It's also easy to think like a traditional GUI and translate what are typically separate fields into questions for the user,
 but that will only slow down the interaction. 

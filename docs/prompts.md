@@ -198,7 +198,7 @@ Returns the selected list element, or `None` if nothing matched. User responses 
 - All methods handle microphone activation and parsing behind the scenes.
 
 
-- OVOS automatically integrates with the intent engine to resolve follow-up responses.
+- OVOS automatically integrates with the intent pipeline to resolve follow-up responses.
 
 
 - These interactions are designed to support natural dialogue flows, validating and re-asking as needed.

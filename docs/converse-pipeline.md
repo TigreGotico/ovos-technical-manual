@@ -9,7 +9,7 @@
 The **Converse Pipeline** in **OpenVoiceOS (OVOS)** manages active conversational contexts between the assistant and skills. It allows skills to keep handling user input across multiple turns, enabling more natural, stateful conversations.
 
 !!! note "Spec model vs. current code names"
-    OVOS-CONVERSE-1 frames converse as an **ordinary pipeline plugin**: it is *not* a special case in the orchestrator. During `match` it inspects two session fields and returns a `Match` on a **reserved `intent_name`** (PIPELINE-1 §7.3) which the orchestrator then dispatches like any other intent — `<skill_id>:converse` for a converse claim, `<skill_id>:response` for delivery of a solicited reply. Because converse depends on session state ("is a skill still active?", "is someone awaiting a reply?"), it only works when placed **before** the intent engines in `session.pipeline`, where first-match-wins lets it intercept. Two name mappings between spec and current code:
+    OVOS-CONVERSE-1 frames converse as an **ordinary pipeline plugin**: it is *not* a special case in the orchestrator. During `match` it inspects two session fields and returns a `Match` on a **reserved `intent_name`** (PIPELINE-1 §7.3), which the orchestrator then dispatches like any other intent — `<skill_id>:converse` for a converse claim, `<skill_id>:response` for delivery of a solicited reply. Converse depends on session state ("is a skill still active?", "is someone awaiting a reply?"), so it must be placed **before** the other pipeline plugins in `session.pipeline` — first-match-wins then lets converse intercept before a generic matcher sees the utterance. Two name mappings between spec and current code:
 
     | OVOS-CONVERSE-1 (canonical) | Current `ovos-core` code |
     |---|---|

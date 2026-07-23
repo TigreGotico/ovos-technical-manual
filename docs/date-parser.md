@@ -189,7 +189,7 @@ print(relative_time)  # "twenty four hours"
 
 ```
 
-> The generic implementation speaks the rounded difference as words — `"two hours"`, `"twenty four hours"`, `"seven days"` — using `pronounce_number` under the hood (it does not produce words like "tomorrow"). Basque (`eu`) is the only language with a dedicated `nice_relative_time` implementation; everything else uses the generic one.
+> The generic implementation speaks the rounded difference as words — `"two hours"`, `"twenty four hours"`, `"seven days"` — using `pronounce_number` internally (it does not produce words like "tomorrow"). Basque (`eu`) is the only language with a dedicated `nice_relative_time` implementation; everything else uses the generic one.
 
 ## Related Projects
 

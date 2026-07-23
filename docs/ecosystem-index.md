@@ -478,7 +478,7 @@ Each is a PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL
 :   A generic command-line playback backend: it shells out to any CLI media player, or auto-detects the best available one (sox, mpg123, paplay, aplay, afplay) per platform. Loaded by ovos-media (or the legacy ovos-audio service) as a fallback or explicit backend.
 
 **[ovos-media](https://github.com/OpenVoiceOS/ovos-media)**
-:   > ⚠️ Work in progress — pre-release software. Under active development, not yet > deployed in OpenVoiceOS, APIs may change without notice. Published in the open > for transparency; do not depend on it in production yet. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   ⚠️ **Work in progress** — pre-release software, under active development and not yet deployed in OpenVoiceOS; APIs may change without notice. Published in the open for transparency; do not depend on it in production yet. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
 
 **[ovos-media-plugin-chromecast](https://github.com/OpenVoiceOS/ovos-media-plugin-chromecast)**
 :   chromecast plugin for ovos-audio and ovos-media. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
@@ -547,7 +547,7 @@ Each is a PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL
 :   A curated dataset of labeled utterances for benchmarking intent pipeline plugins against each other. Consumed by benchmarking pipelines and test suites; not loaded at runtime.
 
 **[ovos-adapt-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-adapt-pipeline-plugin)**
-:   Adapt Intent Parser ================== The Adapt Intent Parser is a flexible and extensible intent definition and determination framework. It is intended to parse natural language text into a structured intent that can then be invoked programatically. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
+:   The Adapt Intent Parser is a flexible and extensible intent definition and determination framework. It is intended to parse natural language text into a structured intent that can then be invoked programatically. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
 
 **[ovos-common-query-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin)**
 :   The OVOS Common Query Framework is designed to answer questions by gathering answers from several skills and selecting the best one. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.

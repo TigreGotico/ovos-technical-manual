@@ -6,7 +6,7 @@
 ??? info "📐 Formal specification"
     The utterance lifecycle and the pipeline-plugin contract are specified by **[OVOS-PIPELINE-1 — Utterance Lifecycle & Pipeline](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**. The intents these plugins consume are specified by **[OVOS-INTENT-3 — Intent Definition](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md)** (keyword and template intents) over the **[OVOS-INTENT-1 — Sentence Template Grammar](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md)**. See the [spec index](architecture-specs.md) for the full set.
 
-The OpenVoiceOS (OVOS) Intent Pipeline is a modular and extensible system designed to interpret user utterances and map them to appropriate actions or responses. It orchestrates various intent parsers and fallback mechanisms to ensure accurate and contextually relevant responses.
+The OpenVoiceOS (OVOS) Intent Pipeline is a modular and extensible system designed to interpret user utterances and map them to appropriate actions or responses. It orchestrates various pipeline plugins and fallback mechanisms to ensure accurate and contextually relevant responses.
 
 !!! note "Spec vocabulary in one paragraph"
     In OVOS-PIPELINE-1 terms, every stage on this page is a **pipeline plugin** identified by an opaque `pipeline_id`. Each one exposes exactly one operation to the **orchestrator**: `match(utterances, lang, session) → Match | None`. The orchestrator iterates the plugins in the order given by `session.pipeline` and stops at the **first** one that returns a `Match` — **first match wins**. There is *no* cross-plugin confidence comparison: the per-stage `conf_high/medium/low` thresholds below are each plugin's *own* internal accept/reject gate, not a score the orchestrator ranks between plugins. On a match the orchestrator dispatches the handler on the topic `<skill_id>:<intent_name>` (PIPELINE-1 §7) and emits the handler-lifecycle trio; if no plugin claims, it emits `ovos.intent.unmatched`. Several stages here — converse, stop, common-query, persona, fallback — are pipeline plugins that claim via **reserved `intent_name` values** (`converse`, `response`, `stop`, `common_query`, `fallback`) leased in PIPELINE-1 §7.3; skills may not register those names.
@@ -15,7 +15,7 @@ The OpenVoiceOS (OVOS) Intent Pipeline is a modular and extensible system design
 
 ## What is an Intent Pipeline?
 
-An intent pipeline in OVOS is a sequence of processing stages that analyze user input to determine the user's intent. Each stage employs different strategies, ranging from high-confidence intent parsers to fallback mechanisms, to interpret the input.
+An intent pipeline in OVOS is a sequence of processing stages that analyze user input to determine the user's intent. Each stage employs different strategies, ranging from high-confidence pipeline plugins to fallback mechanisms, to interpret the input.
 
 This layered approach ensures that OVOS can handle a wide range of user queries with varying degrees of specificity and complexity.
 
@@ -25,7 +25,7 @@ This layered approach ensures that OVOS can handle a wide range of user queries 
 
 When an utterance arrives, OVOS walks the pipeline in order and hands the utterance to each stage until one claims it. Stages are tried from most to least confident:
 
-*   **High Confidence**: Primary intent parsers that provide precise matches.
+*   **High Confidence**: Primary pipeline plugins that provide precise matches.
 
 
 *   **Medium Confidence**: Secondary parsers that handle less specific queries.
@@ -35,7 +35,7 @@ When an utterance arrives, OVOS walks the pipeline in order and hands the uttera
 
 The first stage that matches wins, so order matters: a high-confidence Padatious match is tried before any medium-confidence stage, which is tried before any low-confidence stage. Each component is a plugin that can be enabled, disabled, or reordered in your config.
 
-Ordering is **the arbitration model, not a missing feature** (PIPELINE-1 §6.2). Because an earlier plugin gets to answer before any later plugin is asked, a stateful interceptor that depends on session state — converse with an open response window, an active persona, OCP holding paused media to *resume*, stop — can claim "yes" / "next" / "resume" / "stop" *before* a general intent engine would match the bare words. Such selective plugins are deliberately conservative: they claim only when both the utterance and the session warrant it, and return `None` otherwise, trusting their position rather than competing on a score (heterogeneous engines share no common score space to rank across anyway).
+Ordering is **the arbitration model, not a missing feature** (PIPELINE-1 §6.2). Because an earlier plugin gets to answer before any later plugin is asked, a stateful interceptor that depends on session state — converse with an open response window, an active persona, OCP holding paused media to *resume*, stop — can claim "yes" / "next" / "resume" / "stop" *before* a general pipeline plugin would match the bare words. Such selective plugins are deliberately conservative: they claim only when both the utterance and the session warrant it, and return `None` otherwise, trusting their position rather than competing on a score (heterogeneous engines share no common score space to rank across anyway).
 
 **Pipeline IDs vs. plugins.** The IDs you list in your `pipeline` config (like `ovos-adapt-pipeline-plugin-high`) are not separate plugins. A confidence-aware plugin registers a single OPM entry point (e.g. `ovos-adapt-pipeline-plugin`), and OVOS derives the `-high`/`-medium`/`-low` matcher stages from it at runtime. Plugins that match at only one confidence level (such as `ovos-converse-pipeline-plugin` or `ovos-common-query-pipeline-plugin`) expose a single bare ID. The older short names (`adapt_high`, `common_qa`, …) are **deprecated aliases**: ovos-core rewrites them to the canonical plugin IDs via the `_PIPELINE_MIGRATION_MAP`, so existing configs keep working, but new configs should use the canonical names shown below.
 
@@ -157,7 +157,7 @@ OVOS allows users to customize the intent pipeline through configuration files. 
 |--------|-------------|
 | [ovos-common-query-pipeline-plugin](#ovos-common-query-pipeline-plugin) | Answer questions by gathering answers from several skills |
 | [ovos-m2v-pipeline](#ovos-m2v-pipeline) | Intent matching powered by the Model2Vec model |
-| [ovos-padatious-pipeline-plugin](#ovos-padatious-pipeline-plugin) | Neural network intent parser |
+| [ovos-padatious-pipeline-plugin](#ovos-padatious-pipeline-plugin) | Neural network intent-matching pipeline plugin |
 | [ovos-adapt-pipeline-plugin](#ovos-adapt-pipeline-plugin) | Adapt Intent Parser |
 | [ovos-ocp-pipeline-plugin](#ovos-ocp-pipeline-plugin) | Specialized media handling |
 
@@ -184,7 +184,7 @@ OVOS allows users to customize the intent pipeline through configuration files. 
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-padatious-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-padatious-pipeline-plugin)
 
 
-- **Description**: An efficient and agile neural network intent parser.
+- **Description**: An efficient and agile neural network intent-matching pipeline plugin.
 
 ---
 

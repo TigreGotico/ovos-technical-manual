@@ -132,7 +132,7 @@ See [resource-files.md](resource-files.md).
 
 ### Intents
 
-Two intent engines are supported:
+Two intent-matching pipeline plugins are supported:
 
 - **[Adapt](adapt-pipeline.md)** — keyword-based, uses `IntentBuilder` and `.voc` files.
 
