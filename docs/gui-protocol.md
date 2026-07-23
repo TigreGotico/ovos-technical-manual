@@ -236,6 +236,16 @@ namespace), so the UI can react to listening/speaking state:
 `NamespaceManager` also forwards a set of legacy `enclosure.eyes.*` / `enclosure.mouth.*` /
 `enclosure.weather.display` messages, kept for [Mark 1](mark1.md)-style enclosure animations.
 
+!!! note "Producer/consumer split for `enclosure.*`"
+    The `enclosure.*` protocol has two independent halves in separate packages: `EnclosureAPI`
+    (the skill-facing producer that emits `enclosure.*`, in `ovos-gui-api-client` alongside
+    `GUIInterface`) and `EnclosureProtocolListener` (the consumer mix-in that wires those
+    messages to overridable no-op handlers, in
+    [`ovos-ui-enclosure-protocol`](https://github.com/OpenVoiceOS/ovos-ui-enclosure-protocol)).
+    A hardware enclosure plugin inherits `EnclosureProtocolListener` to receive the commands;
+    [`ovos-PHAL-plugin-mk1`](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk1) is the
+    reference listener implementation.
+
 ---
 
 ## Qt WebSocket Protocol (Legacy Adapter)
