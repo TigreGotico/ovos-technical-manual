@@ -63,7 +63,7 @@ Priority is major > minor > build > alpha. If the current version is already sta
 
 Your repo's workflow calls `publish-alpha.yml@dev`. **All steps — version bump, changelog, pre-release tag, release PR, PyPI publish, and Matrix notify — are jobs inside `publish-alpha.yml` itself**, each gated by an input. Your wrapper file is just the trigger plus the `uses:` call.
 
-```
+```text
 PR merged → dev
     │
     ▼
@@ -113,7 +113,7 @@ The `release-X.Y.ZaN` PR opened by the alpha flow requires **human review** befo
 
 Like the alpha flow, **every step lives inside `publish-stable.yml`**. Your wrapper is the `push: master` trigger plus the `uses:` call.
 
-```
+```text
 PR merged → master
     │
     ▼

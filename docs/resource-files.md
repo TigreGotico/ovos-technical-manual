@@ -12,7 +12,7 @@ Skills load localized resources from a structured directory layout. Resources ar
 
 The recommended layout uses a single `locale/` directory:
 
-```
+```text
 my-skill/
 ├── locale/
 │   ├── en-US/
@@ -51,7 +51,7 @@ Legacy skills may use separate `dialog/`, `vocab/`, `regex/` subdirectories — 
 
 Each line in a `.dialog` file is a possible response. One line is chosen randomly when `speak_dialog` is called:
 
-```
+```text
 
 # my.dialog
 Hello there!
@@ -71,7 +71,7 @@ self.speak_dialog("my", data={"name": "Alice"})
 
 Each line is a keyword variation. The first word on each line is the canonical form:
 
-```
+```text
 
 # hello.voc
 hello
@@ -87,7 +87,7 @@ The Adapt entity name is the file name without its extension (`hello` for `hello
 
 One example utterance per line. Supports entity slots `{entity}` and alternation `(a | b)`:
 
-```
+```text
 
 # my.intent
 what is the weather in {location}

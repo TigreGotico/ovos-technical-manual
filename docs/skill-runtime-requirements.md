@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     Some skills only make sense under certain conditions — a weather skill needs internet, a smart-home skill needs the local network, a picture skill needs a screen. "Runtime requirements" are a short declaration where a skill states what it needs, so OVOS only switches it on when those things are available and quietly switches it off when they're not. This saves resources and avoids odd behaviour, a bit like an appliance that won't turn on until it's plugged in. For where this fits in a skill's lifecycle see [Skill Classes](skill-classes.md); for term definitions see the [Glossary](glossary.md).
 
-OVOS (Open Voice OS) introduces advanced runtime management to ensure skills are only loaded and active when the system is ready. This improves performance, avoids premature skill activation, and enables greater flexibility across different system setups (offline, headless, GUI-enabled, etc.).
+OVOS (OpenVoiceOS) introduces advanced runtime management to ensure skills are only loaded and active when the system is ready. This improves performance, avoids premature skill activation, and enables greater flexibility across different system setups (offline, headless, GUI-enabled, etc.).
 
 This guide covers how to control when OVOS declares readiness, how dynamic skill loading works, and how developers can use `RuntimeRequirements` to specify resource dependencies for their skills.
 

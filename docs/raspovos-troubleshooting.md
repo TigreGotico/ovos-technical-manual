@@ -58,13 +58,16 @@ To easily debug intent parsing open a terminal and run `ologs | grep intent` , t
 
 then in another terminal send commands with `ovos-say-to "sentence to test"`  (or use your voice)
 
+The `Session pipeline` line in the log below shows the [default pipeline order](pipelines-overview.md#available-pipeline-components):
+
+--8<-- "snippets/default-pipeline.md"
 
 ```bash
 (ovos) ovos@raspOVOS:~ $ ologs | grep intent
 2025-01-23 16:29:54.299 - skills - ovos_core.intent_services:handle_utterance:416 - INFO - common_qa match: IntentHandlerMatch(match_type='question:action.skill-ovos-wikipedia.openvoiceos', match_data={'phrase': 'Qui és Elon Musk', 'skill_id': 'skill-ovos-wikipedia.openvoiceos', 'answer': "Elon Reeve Musk FRS és un empresari, inversor i magnat conegut pels seus papers clau a l'empresa espacial SpaceX i l'automobilística Tesla, Inc. Les accions i les opinions expressades per Musk l'han convertit en una figura polaritzadora. Després de guanyar al novembre, Trump va anunciar que havia triat Musk per codirigir la junta assessora del nou Departament d'Eficiència Governamental .", 'callback_data': {'answer': "Elon Reeve Musk FRS és un empresari, inversor i magnat conegut pels seus papers clau a l'empresa espacial SpaceX i l'automobilística Tesla, Inc. Les accions i les opinions expressades per Musk l'han convertit en una figura polaritzadora. Després de guanyar al novembre, Trump va anunciar que havia triat Musk per codirigir la junta assessora del nou Departament d'Eficiència Governamental ."}, 'conf': 0.6}, skill_id='skill-ovos-wikipedia.openvoiceos', utterance='Qui és Elon Musk', updated_session=None)
 2025-01-23 16:29:54.300 - skills - ovos_core.intent_services:handle_utterance:436 - DEBUG - intent matching took: 1.5732948780059814
 2025-01-23 16:34:07.672 - skills - ovos_core.intent_services:handle_utterance:399 - INFO - Parsing utterance: ['quina hora és']
-2025-01-23 16:34:07.675 - skills - ovos_core.intent_services:get_pipeline:234 - DEBUG - Session pipeline: ['stop_high', 'converse', 'ocp_high', 'padatious_high', 'adapt_high', 'ocp_medium', 'fallback_high', 'stop_medium', 'adapt_medium', 'padatious_medium', 'adapt_low', 'common_qa', 'fallback_medium', 'fallback_low']
+2025-01-23 16:34:07.675 - skills - ovos_core.intent_services:get_pipeline:234 - DEBUG - Session pipeline: ['stop_high', 'converse', 'ocp_high', 'padatious_high', 'adapt_high', 'ocp_medium', 'fallback_high', 'stop_medium', 'adapt_medium', 'adapt_low', 'common_qa', 'fallback_medium', 'fallback_low']
 2025-01-23 16:34:07.678 - skills - ovos_core.intent_services:handle_utterance:430 - DEBUG - no match from <bound method StopService.match_stop_high of <ovos_core.intent_services.stop_service.StopService object at 0x7fff2b036310>>
 2025-01-23 16:34:07.686 - skills - ovos_core.intent_services:handle_utterance:430 - DEBUG - no match from <bound method ConverseService.converse_with_skills of <ovos_core.intent_services.converse_service.ConverseService object at 0x7fff7159ae50>>
 2025-01-23 16:34:07.691 - skills - ovos_core.intent_services:handle_utterance:430 - DEBUG - no match from <bound method OCPPipelineMatcher.match_high of <ocp_pipeline.opm.OCPPipelineMatcher object at 0x7fff26ac3910>>
@@ -623,7 +626,7 @@ CARD NAME: snd_rpi_proto
 
     - Run `arecord -l` to list all detected audio capture devices (microphones).
 
-```
+```text
 **** List of CAPTURE Hardware Devices ****
 card 2: sndrpiproto [snd_rpi_proto], device 0: WM8731 HiFi wm8731-hifi-0 [WM8731 HiFi wm8731-hifi-0]
 Subdevices: 0/1
@@ -632,7 +635,7 @@ card 3: Device [USB Audio Device], device 0: USB Audio [USB Audio]
 Subdevices: 1/1
 Subdevice #0: subdevice #0
 
-```  
+```
 
 - **Check Output Devices:**
 
@@ -641,7 +644,7 @@ Subdevice #0: subdevice #0
       correctly
   
 
-```
+```text
 **** List of PLAYBACK Hardware Devices ****
 card 0: Headphones [bcm2835 Headphones], device 0: bcm2835 Headphones [bcm2835 Headphones]
 Subdevices: 7/8
@@ -677,7 +680,7 @@ Subdevice #0: subdevice #0
     - `/tmp/autosoundcard.log` (for soundcard autoconfiguration)
     
 
-```
+```text
 ==> /tmp/autosoundcard.log <==
 Fri 17 Jan 11:42:46 WET 2025 - **** List of PLAYBACK Hardware Devices ****
 card 0: Headphones [bcm2835 Headphones], device 0: bcm2835 Headphones [bcm2835 Headphones]
@@ -719,7 +722,7 @@ Fri 17 Jan 11:42:48 WET 2025 - ALSA default card set to: 3
 - You can inspect a sink by its number with `wpctl inspect $SINK_ID`
   
 
-```
+```bash
 (ovos) ovos@raspOVOS:~ $ wpctl status
 PipeWire 'pipewire-0' [1.2.4, ovos@raspOVOS, cookie:3349583741]
 └─ Clients:

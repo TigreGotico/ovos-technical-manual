@@ -56,7 +56,7 @@ The diagram above illustrates how a user utterance moves through the system:
 
 ## Component Map
 
-```
+```bash
 ovos-messagebus  (WebSocket pub/sub)
       │
       ├── ovos-core
@@ -76,6 +76,14 @@ ovos-messagebus  (WebSocket pub/sub)
       └── ovos-phal             – hardware/platform plugins
 
 ```
+
+`ovos-messagebus` sits at the top because every other box connects to it as a client — it is the
+one shared channel, not a hierarchy. `ovos-core` bundles the services most people mean by "the
+brain": `SkillManager` loading skill code, `IntentService` running the utterance through its
+sub-services and the pipeline plugins, and a couple of smaller helpers alongside them. The
+remaining four boxes — the listener, audio, media, GUI, and PHAL services — are separate
+processes that could in principle run on separate machines, each responsible for one stage of the
+[utterance lifecycle](life-of-an-utterance.md).
 
 ## Key Services
 

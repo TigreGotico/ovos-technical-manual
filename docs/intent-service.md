@@ -29,7 +29,7 @@
 
 When an `ovos.utterance.handle` message (legacy: `recognizer_loop:utterance`) arrives on the bus — the lifecycle entry point of [OVOS-PIPELINE-1 §9.1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md):
 
-```
+```text
 ovos.utterance.handle  (legacy: recognizer_loop:utterance)   §9.1
   │
   ├── UtteranceTransformersService.transform()   # utterance-transformer chain   TRANSFORM-1 §3.2
@@ -44,6 +44,13 @@ ovos.utterance.handle  (legacy: recognizer_loop:utterance)   §9.1
               (no plugin matched) → ovos.intent.unmatched (§9.3, legacy: complete_intent_failure)
 
 ```
+
+Reading top to bottom: an incoming utterance is first reshaped by the utterance- and
+metadata-transformer chains, then the best language and a `Session` are resolved once, up front —
+every pipeline plugin after that point sees the same already-prepared utterance, language, and
+session. The plugins themselves are then tried strictly in configured order; the first one to
+return a match wins and short-circuits the rest, and if none of them do, the lifecycle ends in
+`ovos.intent.unmatched` instead of a dispatch.
 
 Every lifecycle terminates with exactly one `ovos.utterance.handled` (§9.5), the universal end-marker, whether or not anything matched.
 
@@ -99,13 +106,34 @@ When a pipeline plugin returns a match:
 5. Wrap the dispatch in the **handler-lifecycle trio** — the orchestrator emits `ovos.intent.handler.start`, then exactly one of `ovos.intent.handler.complete` / `ovos.intent.handler.error` (§8). The skill's intent handler runs between them.
 
     !!! note
-        The skill process itself still emits `mycroft.skill.handler.*` as an internal ovos-workshop → orchestrator done-signal (skills and the orchestrator run in separate processes). The orchestrator consumes that signal to emit the spec-named `ovos.intent.handler.*` trio; the two event namespaces are related but distinct, not simple aliases of each other.
+        The `ovos.intent.handler.*` trio is actually emitted by the **skill itself**, not the
+        orchestrator: `OVOSSkill.add_event()` (in `ovos-workshop`) wraps every registered handler —
+        intents included — so that starting, finishing, and erroring the wrapped call each emit
+        one leg of the trio, plus the legacy `mycroft.skill.handler.*` counterpart. Skills run
+        **in the same process** as `ovos-core` (loaded and supervised by the `SkillManager`
+        thread, not a separate process per skill); each skill talks to the bus either through
+        `ovos-core`'s single shared connection (`websocket.shared_connection: true`, the default)
+        or, if set to `false`, through its own private connection — see
+        [MessageBus Configuration](bus-service.md#configuration).
+
+## Threading and Failure Model
+
+Each skill's handlers (intents, converse, events) run synchronously inside `create_wrapper()`, on
+whichever thread delivers the message to that skill's bus subscription — there is no per-handler
+thread pool. This means: two skills that each own a bus connection can handle messages
+concurrently, but a single slow handler blocks only its own skill's subsequent messages, not
+other skills'. `create_wrapper()` runs the handler inside a `try`/`except`/`finally`: an
+uncaught exception is caught, logged, reported via the handler's `.error` message (and, unless
+`speak_errors=False`, spoken back to the user as a generic "I ran into an error" style dialog) —
+it never crashes `ovos-core` or the offending skill's process. A handler can also raise
+`AbortEvent` to end the current handler run early and skip the `.error` path, treating it as a
+normal (early) completion instead of a failure.
 
 ## Intent Query API
 
 External tools can query the pipeline without triggering a skill action:
 
-```
+```text
 intent.service.intent.get  {utterance: "...", lang: "..."}
   → intent.service.intent.reply  {intent: {...} | null, utterance: "..."}
 

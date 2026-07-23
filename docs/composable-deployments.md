@@ -133,7 +133,7 @@ It reuses the audio-playback and microphone/VAD machinery as plain Python classe
 process, then relays results to the hive over its own protocol — no `ovos-audio` process is ever
 started.
 
-**OPM plugins run as plain libraries, with no bus at all.** The Open Voice OS Plugin Manager
+**OPM plugins run as plain libraries, with no bus at all.** The OpenVoiceOS Plugin Manager
 (`ovos-plugin-manager`, "OPM") factories construct STT/TTS/VAD engines from configuration; nothing
 about the returned object requires a bus:
 

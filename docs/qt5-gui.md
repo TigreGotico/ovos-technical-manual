@@ -48,7 +48,7 @@ A QML module provides versioned types and JavaScript resources in a type namespa
 
 In the code snippet example below we will look at importing some of the common modules that provide the components required to get started with our Visual User Interface.
 
-```
+```qml
 import QtQuick 2.4
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.4
@@ -90,7 +90,7 @@ When you design your skill with QML, Mycroft-GUI frameworks provides you with so
 
 Simple display Image and Text Example using Mycroft.Delegate
 
-```
+```qml
 import Mycroft 1.0 as Mycroft
 
 Mycroft.Delegate {
@@ -118,7 +118,7 @@ Mycroft.Delegate {
 
 Example of using Mycroft.ScrollableDelegate
 
-```
+```qml
 import QtQuick 2.4
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.4
@@ -185,7 +185,7 @@ Before we dive deeper into the Design Guidelines, lets look at some concepts tha
 #### Units: 
 `Mycroft.Units.gridUnit` is the fundamental unit of space that should be used for all sizing inside the QML UI, expressed in pixels. Each `gridUnit` is predefined as 16 pixels
 
-```
+```text
 // Usage in QML Components example
 width: Mycroft.Units.gridUnit * 2 // 32px Wide
 height: Mycroft.Units.gridUnit // 16px Tall
@@ -221,7 +221,7 @@ __Let's look at this image and qml example below, this is a representation of th
 
 __Let's look at this in QML:__
 
-```
+```qml
 import ...
 import Mycroft 1.0 as Mycroft
 
@@ -282,7 +282,7 @@ __Let's look at these images below that represent a Delegate as seen in a Vertic
 
 __Let's look at this in QML:__
 
-```
+```qml
 import ...
 import Mycroft 1.0 as Mycroft
 
@@ -336,7 +336,7 @@ You can use the `LottieAnimation` item just like any other `QtQuick` element, su
 
 **QML Example**
 
-```
+```qml
 import QtQuick 2.4
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.4
@@ -363,7 +363,7 @@ Contains an image that will slowly scroll in order to be shown completely
 
 **QML Example**
 
-```
+```qml
 import QtQuick 2.4
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.4
@@ -386,7 +386,7 @@ Takes a long text and breaks it down into pages that can be horizontally swiped
 
 **QML Example**
 
-```
+```qml
 import QtQuick 2.4
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.4
@@ -420,7 +420,7 @@ self.gui.show_page("foodplaces.qml")
 
 **QML Example**
 
-```
+```qml
 import QtQuick 2.4
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.4
@@ -508,7 +508,7 @@ Mycroft.Delegate{
 
 **QML Example**
 
-```
+```qml
 import QtQuick 2.4
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.4
@@ -543,7 +543,7 @@ Slideshow component lets you insert a slideshow with your custom delegate in any
 
 **QML Example**
 
-```
+```qml
 import QtQuick 2.4
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.4
@@ -610,7 +610,7 @@ Mycroft GUI API provides an Event Handling Protocol between the skill and QML di
 
 **QML Example**
 
-```
+```qml
 import QtQuick 2.4
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.4
@@ -648,7 +648,7 @@ Mycroft.Delegate {
 
 **QML Example**
 
-```
+```qml
 import QtQuick 2.4
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.4
@@ -681,7 +681,7 @@ The resting face API provides skill authors the ability to extend their skills t
 
 **Python Skill Example**
 
-```
+```python
 from ovos_workshop.decorators import resting_screen_handler
 ...
 @resting_screen_handler('NameOfIdleScreen')
@@ -695,7 +695,7 @@ def handle_idle(self, message):
 
 **QML Example**
 
-```
+```qml
 import QtQuick 2.4
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.4

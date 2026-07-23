@@ -37,7 +37,7 @@ pip install -e .
 
 ## Entry Point
 
-```
+```bash
 ovos-docs-viewer DOCS
 
 ```
@@ -79,7 +79,7 @@ ovos-docs-viewer messages
 
 Documentation is stored under:
 
-```
+```text
 $XDG_DATA_HOME/ovos_docs/
 ├── technical/docs/             ← ovos-technical-manual markdown tree (from zip)
 ├── messages/docs/              ← message spec markdown tree (from zip)

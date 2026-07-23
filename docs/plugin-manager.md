@@ -200,6 +200,17 @@ in new plugins:
 | `intentbox.tokenization` | `opm.tokenization` |
 | `intentbox.postag` | `opm.postag` |
 
+This table mirrors `ovos_plugin_manager.utils.DEPRECATED_ENTRYPOINTS` — the source of truth OPM
+uses at runtime to silently rewrite a plugin's old entry-point group to its canonical one, so
+plugins published under any of the names above still load correctly today.
+| `neon.plugin.audio` | `opm.transformer.audio` |
+| `neon.plugin.solver` | `opm.solver.question` |
+| `intentbox.coreference` | `opm.coreference` |
+| `intentbox.keywords` | `opm.keywords` |
+| `intentbox.segmentation` | `opm.segmentation` |
+| `intentbox.tokenization` | `opm.tokenization` |
+| `intentbox.postag` | `opm.postag` |
+
 The legacy **solver** groups (`opm.solver.question`, `opm.solver.chat`,
 `opm.solver.summarization`, `opm.solver.entailment`, `opm.solver.multiple_choice`,
 `opm.solver.reading_comprehension`) and `opm.coreference` are superseded by the

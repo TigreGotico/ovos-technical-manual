@@ -46,10 +46,12 @@ Ordering is **the arbitration model, not a missing feature** (PIPELINE-1 §6.2).
 Below is a list of available pipeline components, categorized by their confidence levels and functionalities. The **Pipeline ID** column shows the canonical name to put in your `pipeline` config going forward. The **Legacy alias** column shows the older short name — this is actually what the bundled default config still ships with (ovos-core rewrites it to the canonical ID at load time), but new configs should use the canonical names.
 
 !!! note "The bundled default pipeline"
-    The default `pipeline` list shipped in `mycroft.conf` currently uses the legacy short names:
-    `stop_high`, `converse`, `ocp_high`, `padatious_high`, `adapt_high`, `ocp_medium`,
-    `fallback_high`, `stop_medium`, `adapt_medium`, `adapt_low`, `common_qa`, `fallback_medium`,
-    `fallback_low` — in that order. Note that Padatious/Adapt's medium and low tiers, Model2Vec,
+    The default `pipeline` list shipped in `mycroft.conf` currently uses the legacy short names,
+    in this order:
+
+    --8<-- "snippets/default-pipeline.md"
+
+    Note that Padatious/Adapt's medium and low tiers, Model2Vec,
     Persona, and the `-low` tiers of stop/padatious are **not** in the default list; you add them
     yourself if you want them.
 

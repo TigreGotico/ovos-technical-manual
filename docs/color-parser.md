@@ -47,7 +47,7 @@ Dependencies: `ovos-utils` (fuzzy matching via `MatchStrategy`). Color-name matc
 
 All color representations are Python `@dataclass` objects. Internal operations are performed in HLS space; conversions between spaces are implemented as properties.
 
-```
+```text
 sRGBAColor  ──as_hls──►  HLSColor  ──as_hsv──►  HSVColor
      │                      │                       │
      │◄──────as_rgb─────────│◄──────as_rgb──────────│

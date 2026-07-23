@@ -523,7 +523,7 @@ as normal bus events.
 
 ## Summary: message flow
 
-```
+```python
 Skill call:   self.gui.show_text("Hello", title="Greeting")
   → bus:      gui.value.set            (skill namespace data)
   → bus:      gui.page.show            (SYSTEM_TextFrame)

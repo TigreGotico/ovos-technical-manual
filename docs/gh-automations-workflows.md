@@ -299,7 +299,7 @@ The report is split into two tables:
 
 **OPM Detection** — one row per plugin type (e.g. `skill`, `tts`):
 
-```
+```text
 ✅ Plugin Status: PASS
 
 Plugin Info:
@@ -325,7 +325,7 @@ OPM Detection:
 
 **Entry Point Validation** — one row per named entry point (supports packages that register multiple entry points per type, e.g. a multi-voice [TTS](tts-plugins.md)):
 
-```
+```text
 Entry Point Validation:
 
 | Entry Point | Import | Interface | Config Docs |
@@ -433,7 +433,7 @@ Runs [ovoscope](ovoscope-overview.md) end-to-end skill tests on a **single Pytho
 
 ### PR comment content
 
-```
+```text
 ✅ 9/9 passed
 
 ✅ **TestConfuciusAdaptEN** — 5/5
@@ -790,7 +790,7 @@ Labels take precedence over PR title. Priority: major > minor > build.
 
 ### PR comment content (with label)
 
-```
+```text
 **Current:** `1.2.3a4` → **Next:** `1.3.0a1`
 
 | Signal | Value |
@@ -805,7 +805,7 @@ Labels take precedence over PR title. Priority: major > minor > build.
 
 ### PR comment content (no label, no prefix)
 
-```
+```text
 **Current:** `1.2.3a4` → **Next:** `1.2.3a5`
 
 | Signal | Value |
@@ -933,7 +933,7 @@ Follows the canonical 3-phase pattern (`continue-on-error` → format → post �
 
 ### PR comment content
 
-```
+```text
 🎙️ **ovos-skill-hello-world.openvoiceos** — 14 languages
 
 **en-us:** 2 intents · 4 dialogs · skill.json ✅
@@ -1289,7 +1289,7 @@ The following workflows post their results as named sections in a **single share
 
 The comment is identified by the HTML marker `<!-- ovos-pr-checks -->` in its body. Each workflow manages its own section:
 
-```
+```text
 <!-- ovos-pr-checks -->
 
 ## OVOS PR Checks
@@ -1417,7 +1417,7 @@ Bumps the version in a `version.py` file.
 
 **Key function:** `update_version(part: str, version_file: str) -> str`
 
-```
+```text
 usage: update_version.py <part> --version-file <path>
 
 part: major | minor | build | alpha
@@ -1439,7 +1439,7 @@ Sets `VERSION_ALPHA = 0` in a `version.py` file (declares stable).
 
 **Key function:** `update_alpha(version_file: str)`
 
-```
+```text
 usage: remove_alpha.py --version-file <path>
 
 ```
@@ -1450,7 +1450,7 @@ Reads and prints the version string from a `version.py` file. Works without inst
 
 **Key function:** `get_version(version_file: str) -> str`
 
-```
+```text
 usage: get_version.py --version-file <path>
 
 ```
@@ -1465,7 +1465,7 @@ Reports which installed packages depend on a given package, using `pipdeptree`. 
 
 **Helper:** `sort_pipdeptree_output(text: str) -> str`
 
-```
+```text
 usage: check_downstream.py --package <name> --output <file>
 
 ```
@@ -1504,7 +1504,7 @@ Detects and validates OVOS plugins via OPM. Supports multi-plugin-type repos. Ou
 
 - `check_opm(plugin_type, entry_point, output_json, ...)` — main entry point
 
-```
+```text
 usage: check_opm.py \
     [--plugin-type auto|skill|tts|stt|wake_word|vad|phal|pipeline|utterance_transformer|tts_transformer|g2p] \
     [--entry-point <id>] \
@@ -1532,7 +1532,7 @@ Analyses a checked-out OVOS skill repository. Outputs a JSON report. Stdlib only
 
 - `run_checks(repo_root, locale_dir_override="")`
 
-```
+```text
 usage: check_skill.py [--repo-root .] [--locale-dir ""] [--output-json /tmp/skill-report.json]
 
 ```
@@ -1551,7 +1551,7 @@ Reads `version.py`, predicts next version from PR labels/title. Stdlib only.
 
 - `run_checks(version_file, pr_labels_json, pr_title)`
 
-```
+```text
 usage: check_release.py --version-file version.py \
     [--pr-labels-json "[]"] \
     [--pr-title ""] \
@@ -1574,7 +1574,7 @@ Uses only Python stdlib (`urllib`, `json`, `re`) — no extra dependencies.
 
 - `insert_or_replace_section(body, section_id, title, content)` — regex replace within `<!-- section:X --> … <!-- /section:X -->` delimiters
 
-```
+```text
 usage: update_pr_comment.py \
     --repo owner/repo \
     --pr 123 \

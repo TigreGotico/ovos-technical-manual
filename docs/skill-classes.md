@@ -11,7 +11,7 @@
 
 ## Class Hierarchy
 
-```
+```text
 OVOSSkill                             ovos_workshop/skills/ovos.py
 ├── ConversationalSkill               ovos_workshop/skills/converse.py
 │   └── ActiveSkill                   ovos_workshop/skills/active.py

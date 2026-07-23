@@ -96,7 +96,7 @@ Detect the language of the given text.
 Response: a language code string (e.g. `"pt"`, `"en"`, `"fr"`), returned directly from `LanguageDetector.detect()`.
 
 Example:
-```
+```text
 GET /detect/o meu nome é Casimiro
 → "pt"
 ```
@@ -114,7 +114,7 @@ Return per-language confidence scores for the given text.
 Response: a JSON object mapping language codes to confidence floats, returned from `LanguageDetector.detect_probs()`.
 
 Example:
-```
+```text
 GET /classify/hello world
 → {"en": 0.95, "de": 0.03, ...}
 ```
@@ -133,7 +133,7 @@ Translate text to the target language, auto-detecting the source language.
 Response: translated string, returned directly from `LanguageTranslator.translate(utterance, target=lang)`.
 
 Example:
-```
+```text
 GET /translate/en/o meu nome é Casimiro
 → "my name is Casimiro"
 ```
@@ -153,7 +153,7 @@ Translate text with an explicit source language.
 Response: translated string, returned from `LanguageTranslator.translate(utterance, target=lang, source=src)`.
 
 Example:
-```
+```text
 GET /translate/pt/en/o meu nome é Casimiro
 → "my name is Casimiro"
 ```

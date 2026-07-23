@@ -157,7 +157,7 @@ can launch it directly — useful for debugging or minimal/headless setups.
     │ telemetry      Enable intent telemetry upload for the opendata initiative.   │
     │                OpenData can be seen live at https://opendata.tigregotico.pt  │
     ╰──────────────────────────────────────────────────────────────────────────────╯
-    ```
+```
 
 ??? example "`ovos-logs --help`"
 
@@ -238,7 +238,7 @@ can launch it directly — useful for debugging or minimal/headless setups.
     │         ▌ ovos-logs show -l debug -p ~/custom_path/                   #      │
     │         ▌ Display debug.log from a custom path                               │
     ╰──────────────────────────────────────────────────────────────────────────────╯
-    ```
+```
 <!-- END GENERATED -->
 
 ---

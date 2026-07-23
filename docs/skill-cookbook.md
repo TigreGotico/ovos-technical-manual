@@ -73,13 +73,13 @@ class ReminderSkill(OVOSSkill):
 
 `locale/en-us/dialog/reminder_set.dialog`:
 
-```
+```text
 I'll remind you in {minutes} minutes
 ```
 
 `locale/en-us/dialog/reminder_due.dialog`:
 
-```
+```text
 Reminder: {text}
 ```
 
@@ -343,7 +343,7 @@ class OfficePlaylistSkill(OVOSCommonPlaybackSkill):
 
 `locale/en-us/vocab/office_playlist.voc`:
 
-```
+```text
 office playlist
 lobby music
 ```

@@ -124,6 +124,14 @@ The repository also ships a non-normative
 design rationale, comparisons to other voice systems, and the catalogue of
 deliberate divergences from current OVOS code.
 
+!!! tip "Citing a spec stably"
+    Links to `dev` (as used throughout this manual) always show the latest wording, which is
+    what you want while reading. If you need to **cite** a specific clause elsewhere — in an
+    issue, a commit message, or another project's own documentation — link to the file at a
+    specific commit hash instead of `dev`, so the cited text cannot shift under the link later.
+    On GitHub, press <kbd>y</kbd> while viewing the file to swap the URL's `dev` for the exact
+    commit it resolved to.
+
 ---
 
 ## Building on the specs

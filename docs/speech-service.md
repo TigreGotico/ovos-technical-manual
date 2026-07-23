@@ -44,7 +44,7 @@ The speech service is the "ears" of OpenVoiceOS. It continuously listens to the 
 
 ## Architecture
 
-```
+```text
 [Microphone] --(audio)--> [VAD/Wake Word] --(trigger)--> [Recording]
                                                             |
                                                             +--(audio)--> [Audio-transformer chain] --> [STT Plugin] --(text)--> [MessageBus]

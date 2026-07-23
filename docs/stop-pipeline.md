@@ -6,7 +6,7 @@
 !!! info "📐 Formal specification"
     The stop plugin is specified by **[OVOS-STOP-1 — Stop Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/stop-1.md)**, built on **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**. See the [spec index](architecture-specs.md).
 
-The **stop pipeline** is a core component of the Open Voice OS (OVOS) pipeline architecture. It defines the logic responsible for stopping ongoing interactions with active skills. This includes aborting responses, halting speech, and terminating background tasks that skills may be performing. 
+The **stop pipeline** is a core component of the OpenVoiceOS (OVOS) pipeline architecture. It defines the logic responsible for stopping ongoing interactions with active skills. This includes aborting responses, halting speech, and terminating background tasks that skills may be performing. 
 
 Because stopping is a **fundamental feature of a voice assistant**, it is implemented as a **dedicated pipeline plugin**, not just a fallback or intent handler. STOP-1 is emphatic that stop is a **pipeline plugin and not a skill** — `skill-ovos-stop` is superseded. Stop only works because PIPELINE-1's first-match-wins lets a high-confidence stop stage placed *first* in `session.pipeline` (STOP-1 §7) intercept "stop" before any intent engine claims the bare word.
 
@@ -99,7 +99,7 @@ Scores the utterance against the `stop` vocab list via fuzzy matching (`match_on
 
 The plugin supports stop commands in multiple languages using `.voc` files bundled in `ovos-core` under `ovos_core/intent_services/locale/<lang>/`:
 
-```
+```text
 ovos_core/intent_services/locale/
   en-us/
     stop.voc

@@ -44,7 +44,7 @@ hello-world-skill = "hello_world_skill:HelloWorldSkill"
 
 ## Full Class Hierarchy
 
-```
+```text
 OVOSSkill                             ovos_workshop/skills/ovos.py
 ├── ConversationalSkill               ovos_workshop/skills/converse.py
 │   └── ActiveSkill                   ovos_workshop/skills/active.py
@@ -117,7 +117,7 @@ See [settings.md](skill-settings.md) for change callbacks and file watching.
 
 Resource files live in the skill's `locale/` directory, organized by language tag:
 
-```
+```text
 locale/
   en-us/
     dialog/   # .dialog files — spoken responses

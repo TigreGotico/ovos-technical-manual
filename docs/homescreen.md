@@ -86,7 +86,7 @@ Select a homescreen skill in `mycroft.conf` (or via [ovos-shell](ovos-shell.md))
 
 The resting face API provides skill authors the ability to extend their skills to supply their own customized IDLE screens that will be displayed when there is no activity on the screen.
 
-```
+```python
 import requests
 from ovos_workshop.skills import OVOSSkill
 from ovos_workshop.decorators import intent_handler, resting_screen_handler

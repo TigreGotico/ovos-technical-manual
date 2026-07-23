@@ -49,7 +49,7 @@ Network/internet state is queried from [PHAL](phal.md) at startup via `ovos.PHAL
 
 The loading process follows this flow:
 
-```
+```text
 load_plugin_skills()
   → find_skill_plugins()                              # {skill_id: SkillClass}
     → _get_plugin_skill_loader(skill_id, skill_class) # build a PluginSkillLoader
@@ -67,7 +67,7 @@ Skills listed in `skills.blacklisted_skills` in `mycroft.conf` are skipped at lo
 
 After new skills are loaded, the manager requests pipeline re-training:
 
-```
+```text
 mycroft.skills.train  →  (pipeline plugins train)  →  mycroft.skills.trained
 
 ```
@@ -78,7 +78,7 @@ Training has a 60-second timeout. On failure, an error is logged but the manager
 
 When enabled, a `FileWatcher` monitors `~/.config/ovos/skills/*/settings.json`. Any change emits:
 
-```
+```text
 ovos.skills.settings_changed  {skill_id: "..."}
 
 ```

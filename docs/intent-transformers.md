@@ -105,7 +105,7 @@ It does **not** use external data or extract entities generically.
 
 This plugin parses registered intent templates like:
 
-```
+```text
 what's the weather in {location}
 
 ```

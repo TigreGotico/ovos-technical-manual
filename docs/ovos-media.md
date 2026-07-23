@@ -92,7 +92,7 @@ that currently run in parallel: the legacy ["old audio service"](media-plugins.m
 (`ovos-ocp-audio-plugin` inside [`ovos-audio`](audio-service.md)) and the standalone `ovos-media`
 daemon described here, which is the target:
 
-```
+```text
 [Current / target]
   ovos-core intent pipeline
     └── ocp-pipeline-plugin
