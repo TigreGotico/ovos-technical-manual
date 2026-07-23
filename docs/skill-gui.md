@@ -3,14 +3,9 @@
 !!! abstract "In a nutshell"
     When an OVOS device has a screen, a skill can show things on it — text, images, a page of results — not just speak. This page describes the small Python toolkit a skill author uses to push data to the screen and ask for a page to be displayed. It is a developer topic, and the screen system is being rebuilt (see [GUI Adapters](gui-adapters.md)), so voice should stay the main way you interact while the screen support is treated as a bonus. See the [Glossary](glossary.md) for terms.
 
-!!! danger "The OVOS GUI is deprecated — assume it is not usable today"
-    The current **"legacy" OVOS GUI** stack is **deprecated** and should be treated as
-    **broken**: **there is no generally usable OVOS GUI right now**. A ground-up replacement
-    (the [GUI rework](gui-adapters.md), spec **OVOS-GUI-1**) is actively being built but is
-    **not yet ready**. Adding screen support to a skill today only benefits **Mark 2**
-    devices, where the [`ovos-installer`](ovos-installer.md) keeps the legacy GUI running
-    until the replacement lands. This page documents the legacy API for reference and Mark 2
-    maintenance — voice should remain the primary interface.
+!!! danger "The OVOS GUI is deprecated — see [Screens on OVOS Today](gui-status.md) for the full picture"
+    This page documents the legacy skill GUI API. There is no generally usable OVOS GUI right
+    now, and a replacement is **Upcoming**. Voice should remain the primary interface.
 
 ??? info "📐 Formal specification"
     The **forward** model a skill targets is **[OVOS-GUI-1 — GUI Display Subsystem](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md)** (a formal [architecture spec](architecture-specs.md)). Under it, `self.gui` declares display intent by naming a template from the **closed `SYSTEM_*` vocabulary** (`SYSTEM_text`, `SYSTEM_image`, `SYSTEM_list`, `SYSTEM_weather`, `SYSTEM_confirm`, …) and pushing flat session-data; interchangeable **render backends** draw it, routed by `session_id`. Two rules matter for skill authors: a skill **MUST NOT** invent template names or ship its own home/resting screen (the resting display is owned entirely by the backend, §6.9), and image keys carry an `http(s)` URL or `data:` URI — **never a local filesystem path**. The `show_*` helpers below map onto these templates; the custom-`.qml` path is legacy and unsupported under OVOS-GUI-1. Where this page and the spec differ, the spec is the canonical target.

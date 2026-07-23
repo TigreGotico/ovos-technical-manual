@@ -3,13 +3,9 @@
 !!! abstract "In a nutshell"
     This is a developer reference for the **legacy** (old, deprecated) way OVOS put things on a screen — the set of behind-the-scenes messages that a skill, the screen service, and the on-device display use to stay in sync about what to show. Think of it as the agreed "language" two parts of the system speak so the right page and data appear. There is no generally usable OVOS screen today; this is kept mainly for **Mark 2** devices and reference, and a ground-up replacement is being built (see [GUI Adapter Plugins](gui-adapters.md)). For terms, see the [Glossary](glossary.md).
 
-!!! danger "The OVOS GUI is deprecated — assume it is not usable today"
-    This describes the **legacy** GUI protocol, which is **deprecated** and should be treated
-    as **broken**: **there is no generally usable OVOS GUI right now**. A ground-up
-    replacement (the [GUI rework](gui-adapters.md), spec **OVOS-GUI-1**) is actively being
-    built but is **not yet ready**. On **Mark 2** devices the
-    [`ovos-installer`](ovos-installer.md) still sets up this legacy stack until the
-    replacement lands. Kept for reference and Mark 2 maintenance.
+!!! danger "The OVOS GUI is deprecated — see [Screens on OVOS Today](gui-status.md) for the full picture"
+    This page documents the legacy protocol. There is no generally usable OVOS GUI right now,
+    and a replacement is **Upcoming**.
 
 ??? info "📐 Formal specification"
     The **forward** model for the display subsystem is **[OVOS-GUI-1 — GUI Display Subsystem](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md)** (a formal [architecture spec](architecture-specs.md)). It replaces the legacy protocol on this page with a clean separation: an application declares *what* to show by naming a template from a **closed `SYSTEM_*` vocabulary** and pushing flat session-data, and interchangeable **render backends (adapters)** decide *how* to draw it — fanned out to every installed adapter. The wire messages stay `gui.value.set` / `gui.page.show` / `gui.clear.namespace`, but a `gui.page.show` whose first page is **not** a `SYSTEM_*` template is rejected (no more arbitrary QML), and a GUI message is routed **solely by its `session_id`**. This page documents the legacy Qt-WebSocket protocol that the OVOS-GUI-1 adapter model supersedes; where they differ, the spec is the canonical target (see the "Upcoming" note at the foot of this page and [GUI Adapter Plugins](gui-adapters.md)).

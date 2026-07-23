@@ -3,13 +3,9 @@
 !!! abstract "In a nutshell"
     The home screen (or "resting screen") is what a device with a display shows when it is just sitting idle — typically the clock, date, weather, and small widgets, much like a smart speaker's standby face. When nothing else is being shown, OVOS falls back to this screen. Note that this page covers the **legacy** screen stack, which is deprecated today and mainly relevant to **Mark 2** devices; in the upcoming rework the home screen becomes a job for the display backend rather than a skill. See the [Glossary](glossary.md) for terms.
 
-!!! danger "The OVOS GUI is deprecated — assume it is not usable today"
-    The home screen is part of the **legacy** OVOS GUI stack, which is **deprecated** and
-    should be treated as **broken**: **there is no generally usable OVOS GUI right now**. A
-    ground-up replacement (the [GUI rework](gui-adapters.md), spec **OVOS-GUI-1**) is actively
-    being built but is **not yet ready**. On **Mark 2** devices the
-    [`ovos-installer`](ovos-installer.md) still sets up the legacy home screen until the
-    replacement lands. Kept for reference and Mark 2 maintenance.
+!!! danger "The OVOS GUI is deprecated — see [Screens on OVOS Today](gui-status.md) for the full picture"
+    The home screen is part of the legacy stack. There is no generally usable OVOS GUI right
+    now, and a replacement is **Upcoming**.
 
 The home screen is what a device with a display shows when it is idle — clock, date,
 weather, widgets, and so on. It is an ordinary **skill** that registers a *resting screen*;

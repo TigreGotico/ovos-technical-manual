@@ -76,7 +76,60 @@ how it hears, thinks, and speaks, or teach it brand-new abilities.
     [Agent engines](agent-plugins.md) ·
     [Local LLM (GGUF)](gguf-plugin.md)
 
+-   :material-lifebuoy: __It's not behaving__
+
+    ---
+
+    Something's not working. Quick, terminal-free fixes for common problems.
+
+    [:octicons-arrow-right-24: It's not behaving](everyday-help.md) ·
+    [Troubleshooting](troubleshooting.md)
+
+-   :material-party-popper: __Fun stuff__
+
+    ---
+
+    Jokes, voice changing, personas, and other things to try once it's running.
+
+    [:octicons-arrow-right-24: Fun stuff to try](showcase.md)
+
+-   :material-swap-horizontal: __Coming from Mycroft__
+
+    ---
+
+    What changed, what stayed the same, and how to migrate a skill.
+
+    [:octicons-arrow-right-24: Migrating from Mycroft](migrating-from-mycroft.md)
+
+-   :material-shield-lock: __Privacy & Security__
+
+    ---
+
+    What OVOS talks to over the network, what runs on-device, and how to lock it down.
+
+    [:octicons-arrow-right-24: Privacy & Security](privacy-security.md)
+
+-   :material-server: __I want to run it in production__
+
+    ---
+
+    Fleet configuration, staged upgrades, readiness probes, and self-hosting.
+
+    [:octicons-arrow-right-24: Production Operations](production-operations.md)
+
+-   :material-raspberry-pi: __I want to build a device__
+
+    ---
+
+    SBC-agnostic hardware, PHAL, and the honest state of on-device screens.
+
+    [:octicons-arrow-right-24: Hardware Integrators](hardware-integrators.md)
+
 </div>
+
+!!! tip "Accessibility"
+    OVOS is voice-first by design, which makes it a strong fit for assistive use. See the
+    **[Accessibility](accessibility.md)** statement for specifics.
 
 ---
 
@@ -98,7 +151,7 @@ makes the rest of the manual click into place:
 
 !!! warning "GUI is legacy and deprecated"
     There is no generally usable OVOS GUI right now — a ground-up replacement is in progress.
-    See [GUI Service](gui-service.md) for what still works today.
+    See [Screens on OVOS Today](gui-status.md) for what still works today.
 
 !!! info "Plugins vs. Skills — the two ways to extend OVOS"
     A **skill** adds an *ability* ("set a timer", "play the news"). A **plugin** swaps

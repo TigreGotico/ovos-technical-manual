@@ -88,19 +88,32 @@ nav:
   - Home:
       - Introduction: index.md
       - Glossary: glossary.md
+  - Help & Troubleshooting:
+      - It's not behaving: everyday-help.md
+      - Troubleshooting: troubleshooting.md
+      - Skill Dev F.A.Q.: skill-dev-faq.md
   - Get Started:
-      - Installation Options: release-channels.md
       - ovos-installer: ovos-installer.md
+      - Manual & Advanced Install: release-channels.md
+      - Fun stuff to try: showcase.md
       - Skill Examples: skill-examples.md
-      - RaspOVOS (legacy image): install-raspovos.md
-      - RaspOVOS Troubleshooting: raspovos-troubleshooting.md
-  - Core Architecture:
+      - Accessibility: accessibility.md
+      - Coming from Mycroft: migrating-from-mycroft.md
+      - Legacy images:
+          - RaspOVOS (legacy image): install-raspovos.md
+          - RaspOVOS Troubleshooting: raspovos-troubleshooting.md
+  - Tutorials:
+      - Your First Skill: first-skill.md
+      - Testing Your Skill: testing-your-skill.md
+      - Skill Cookbook: skill-cookbook.md
+  - Concepts:
       - High-level Overview: architecture-overview.md
       - Formal Specifications: architecture-specs.md
       - Specification Tooling: spec-tooling.md
       - Life of an Utterance: life-of-an-utterance.md
       - MessageBus Service: bus-service.md
       - Plugin Manager: plugin-manager.md
+      - Composable Deployments: composable-deployments.md
       - Configuration:
           - Overview: config.md
           - Reference: config-reference.md
@@ -114,6 +127,7 @@ nav:
           - Speech Service: speech-service.md
           - Audio Service: audio-service.md
           - Media Service (ovos-media): ovos-media.md
+          - Screens on OVOS Today: gui-status.md
           - GUI Service (legacy): gui-service.md
           - PHAL (Hardware Abstraction): phal.md
   - Intent Pipeline:
@@ -146,7 +160,7 @@ nav:
           - TTS: tts-transformers.md
   - Language Support:
       - Overview: lang-support.md
-      - Language Selection: lang-selection.md
+      - Language Selection (internals): lang-selection.md
       - Customizing Resources: lang-customization.md
       - Bidirectional Translation: bidirectional-translation.md
       - Contributing Translations: ovos-localize-tutorial.md
@@ -159,7 +173,6 @@ nav:
           - Quebra Frases: quebra-frases.md
   - Skill Development:
       - Guides:
-          - Your First Skill: first-skill.md
           - Design Guidelines: skill-design-guidelines.md
           - Best Practices: skill-best-practices.md
           - Anatomy of a Skill: skill-structure.md
@@ -172,7 +185,6 @@ nav:
           - SSML: ssml.md
           - Customization: customization.md
           - skill.json: skill-json.md
-          - F.A.Q.: skill-dev-faq.md
       - Skill APIs:
           - ovos-workshop Overview: workshop-overview.md
           - OVOSSkill API: ovos-skill.md
@@ -226,13 +238,18 @@ nav:
           - OpenAI-compatible: openai-plugin.md
           - GGUF / Local LLM: gguf-plugin.md
           - LLM Transformers: llm-transformers.md
-  - Advanced & Self Hosting:
-      - STT Server: stt-server.md
-      - TTS Server: tts-server.md
-      - Translate Server: translate-server.md
-      - Server Compatibility Layers: server-compat-layers.md
+  - Privacy & Security:
+      - Privacy & Security: privacy-security.md
+  - Production & Hardware:
+      - Production Operations: production-operations.md
+      - Hardware Integrators: hardware-integrators.md
+      - Self-hosting Servers:
+          - STT Server: stt-server.md
+          - TTS Server: tts-server.md
+          - Translate Server: translate-server.md
+          - Server Compatibility Layers: server-compat-layers.md
       - HiveMind: hivemind-agents.md
-      - Wyoming Bridges: wyoming-bridges.md
+      - Home Assistant & Wyoming: wyoming-bridges.md
   - Reference:
       - OVOS Repository Index: ecosystem-index.md
       - Command-line Tools: cli-tools.md
