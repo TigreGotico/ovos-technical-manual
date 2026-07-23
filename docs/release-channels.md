@@ -89,6 +89,34 @@ uv pip install ovos-core[mycroft] --pre -c https://raw.githubusercontent.com/Ope
 
 ---
 
+!!! example "A minimal lab-ready manual install, start to finish"
+    Everything below assumes a Python virtual environment is already active and gets you from
+    nothing to a talking assistant on one machine, no installer wizard involved:
+
+    ```bash
+    # 1. Install the core services on the stable channel
+    uv pip install "ovos-core[mycroft]" \
+        -c https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-stable.txt
+
+    # 2. Launch each service (one terminal/tmux pane each, or use the systemd units
+    #    in Production Operations for anything long-lived)
+    ovos-messagebus &
+    ovos_PHAL &
+    ovos-dinkum-listener &
+    ovos-audio &
+    ovos-core &
+
+    # 3. Confirm the bus is up and services are talking to each other
+    ovos-busmon
+    ```
+
+    Say "Hey Mycroft, what time is it" once everything above has settled — if you get a spoken
+    answer, the install is working end to end. See
+    [Production Operations](production-operations.md#keep-services-running-systemd-units) to
+    turn these into supervised systemd services instead of foreground processes.
+
+---
+
 ## OVOS From Scratch: Custom Installation
 
 Rather than using a full distro, you can manually pick which components to install:
@@ -156,6 +184,28 @@ pip install ovos-core[mycroft,plugins,skills-essential]
 
 
 - Constraints files are a **stable standard** for pinning system versions since the [ovos-releases 1.0.0](https://github.com/OpenVoiceOS/ovos-releases) milestone.
+
+---
+
+## Rolling Back
+
+Constraints files pin a channel's versions, but they don't remember what *you* had installed
+before an upgrade. Before upgrading anything you care about, freeze what's currently working:
+
+```bash
+uv pip freeze > known-good.txt
+```
+
+If an upgrade misbehaves, `pip`/`uv` won't downgrade a package on their own just because a
+newer constraints file changed — an ordinary `install` call treats an already-satisfied
+requirement as nothing to do. Force the reinstall of the exact frozen versions instead:
+
+```bash
+uv pip install --force-reinstall -r known-good.txt
+```
+
+See [Production Operations: staged upgrades and rollback](production-operations.md#staged-upgrades-and-rollback)
+for the same pattern applied across a fleet of devices rather than one machine.
 
 ---
 

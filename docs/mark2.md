@@ -9,7 +9,9 @@
     [Mark 1](mark1.md). There are also **two slightly different boards** (an early "dev kit" and
     the retail unit) that need slightly different setup. This page documents the OVOS way to set
     it up (via the [ovos-installer](ovos-installer.md)), the kernel driver involved, and the one
-    thing you must **not** do — mix in Neon packages (see the warning below). New to the terms
+    thing you must **not** do — mix in Neon packages (see the warning below). Audio, fan control,
+    the touchscreen, and the hardware buttons all work through the installer today; the LED ring
+    is the one piece of the SJ201 board the installer path doesn't drive yet. New to the terms
     here? See the [Glossary](glossary.md).
 
 The **Mycroft Mark 2** is built around a **Raspberry Pi 4** carrying the **SJ201** HAT — an

@@ -1,7 +1,7 @@
 # PHAL — Platform/Hardware Abstraction Layer
 
 !!! abstract "In a nutshell"
-    PHAL is how OpenVoiceOS talks to the physical device it runs on — things like volume controls, Wi-Fi setup, buttons, LEDs, and other hardware. It works through small add-ons (plugins) that each handle one piece of hardware and quietly run in the background, so the assistant can adjust the speaker volume or set up a network connection without you saying a word. Some hardware needs extra system permissions, so PHAL comes in a regular version and a privileged "admin" version. New to the terms? See the [Glossary](glossary.md).
+    PHAL is how OpenVoiceOS talks to the physical device it runs on — things like volume controls, Wi-Fi setup, buttons, LEDs, and other hardware. It works through small add-ons (plugins) that each handle one piece of hardware and quietly run in the background, so the assistant can adjust the speaker volume or set up a network connection without you saying a word. Some hardware needs extra system permissions, so PHAL comes in a regular version and a privileged "admin" version. If you're building your own hardware and want to write a PHAL plugin for it, see [Building Hardware on OVOS](hardware-integrators.md). New to the terms? See the [Glossary](glossary.md).
 
 PHAL (Platform/Hardware Abstraction Layer) provides a plugin-based system for integrating
 hardware-specific and platform-level functionality into OVOS. PHAL plugins run as
@@ -134,10 +134,10 @@ The `alive` callback exists in the hook map but `PHAL.start()` does not call
 {
   "PHAL": {
     "ovos-PHAL-plugin-alsa": {},
-    "ovos-PHAL-plugin-display-manager-ipc": {
+    "ovos-PHAL-plugin-dotstar": {
       "enabled": true
     },
-    "ovos-PHAL-plugin-gpio": {
+    "ovos-PHAL-plugin-connectivity-events": {
       "enabled": false
     }
   }
@@ -263,7 +263,9 @@ The base class (`PHALPlugin`) is a `threading.Thread`. Key points:
     `AbstractLed`, `AbstractFan`, and `AbstractSwitches` (plus a suite of ready-made
     LED animations) — live in the
     [`ovos-hardware-helpers`](https://github.com/OpenVoiceOS/ovos-hardware-helpers)
-    library; subclass them there when writing a hardware PHAL plugin.
+    library; subclass them there when writing a hardware PHAL plugin. See
+    [Building Hardware on OVOS](hardware-integrators.md#writing-your-own-hardware-driver-abstractled-abstractswitches)
+    for a worked example.
 
 ### Validator
 

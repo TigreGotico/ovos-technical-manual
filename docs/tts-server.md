@@ -143,6 +143,13 @@ pip install ovos-tts-plugin-server
 
 ```
 
+!!! warning "No `host` configured → public servers, not local failure"
+    If you omit `host`, the plugin does **not** fail — it silently falls back to a built-in
+    list of **public** OVOS TTS servers run by community members, shuffled and tried in order.
+    That's fine for a quick test, but every sentence your assistant speaks is sent to a
+    third-party server by default until you set `host` yourself. Always set `host` explicitly
+    (as in the localhost example above) for any real deployment.
+
 Config keys:
 
 | Key | Default | Description |
