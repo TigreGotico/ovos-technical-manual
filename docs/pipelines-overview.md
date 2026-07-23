@@ -43,7 +43,15 @@ Ordering is **the arbitration model, not a missing feature** (PIPELINE-1 §6.2).
 
 ## Available Pipeline Components
 
-Below is a list of available pipeline components, categorized by their confidence levels and functionalities. The **Pipeline ID** column shows the canonical name you put in your `pipeline` config; these are the names the default config ships with. The **Legacy alias** column shows the older short name that still works (ovos-core rewrites it to the canonical ID at load time) but should not be used in new configs.
+Below is a list of available pipeline components, categorized by their confidence levels and functionalities. The **Pipeline ID** column shows the canonical name to put in your `pipeline` config going forward. The **Legacy alias** column shows the older short name — this is actually what the bundled default config still ships with (ovos-core rewrites it to the canonical ID at load time), but new configs should use the canonical names.
+
+!!! note "The bundled default pipeline"
+    The default `pipeline` list shipped in `mycroft.conf` currently uses the legacy short names:
+    `stop_high`, `converse`, `ocp_high`, `padatious_high`, `adapt_high`, `ocp_medium`,
+    `fallback_high`, `stop_medium`, `adapt_medium`, `adapt_low`, `common_qa`, `fallback_medium`,
+    `fallback_low` — in that order. Note that Padatious/Adapt's medium and low tiers, Model2Vec,
+    Persona, and the `-low` tiers of stop/padatious are **not** in the default list; you add them
+    yourself if you want them.
 
 ### High Confidence Components
 
@@ -104,6 +112,7 @@ pipeline. They expose the same high/medium/low confidence tiers as Adapt/Padatio
 OVOS allows users to customize the intent pipeline through configuration files. Users can enable or disable specific components, adjust their order, and set confidence thresholds.
 
 ```json
+{
   "intents": {
     "ovos-adapt-pipeline-plugin": {
       "conf_high": 0.5,
@@ -128,8 +137,8 @@ OVOS allows users to customize the intent pipeline through configuration files. 
       "ovos-fallback-pipeline-plugin-medium",
       "ovos-fallback-pipeline-plugin-low"
     ]
-  },
-
+  }
+}
 ```
 
 ---

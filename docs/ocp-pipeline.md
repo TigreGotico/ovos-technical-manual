@@ -151,7 +151,14 @@ e.g. "next song" does nothing when no player is active.
 | `entity_csvs` | list | `[]` | User-supplied keyword CSVs feeding the entity matcher. |
 
 The config block is read from `intents.ovos-ocp-pipeline-plugin` (the plugin's
-entry-point ID), the section ovos-core passes to the plugin when loading it.
+entry-point ID), falling back to the older `intents.OCP` key.
+
+!!! note "Shipped defaults differ slightly"
+    The bundled `mycroft.conf` ships an `intents.OCP` section with `min_score: 40`
+    (not the library's own fallback of `50`), plus two experimental keys not
+    covered above: `experimental_media_classifier` and
+    `experimental_binary_classifier` (both `false` by default), which gate
+    in-development classifier strategies.
 
 ---
 

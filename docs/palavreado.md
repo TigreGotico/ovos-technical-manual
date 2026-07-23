@@ -10,9 +10,9 @@
 
 [`palavreado`](https://github.com/OpenVoiceOS/palavreado) matches utterances against named
 intents built from **required** and **optional** keyword slots. Each slot holds a list of
-vocabulary words; if the required words are present in the utterance, the intent fires. Optional
-regex and [simplematch](https://github.com/tfeldmann/simplematch) "autoregex" patterns enable
-**entity extraction** (pulling out a value, like a city name).
+vocabulary words; if the required words are present in the utterance, the intent fires. An
+`autoregex` variant enables **keyword extraction** (pulling out a value, like an item name)
+using [simplematch](https://github.com/tfeldmann/simplematch)-style templates.
 
 ## Install
 
@@ -23,17 +23,29 @@ pip install "palavreado[ovos]"    # + the OVOS pipeline plugin
 
 ## Usage
 
+Intents are built with the fluent `IntentCreator` builder, then registered on the container:
+
 ```python
-from palavreado import IntentContainer
+from palavreado import IntentContainer, IntentCreator
 
 container = IntentContainer()
-container.add_intent("greet", {
-    "required": ["HelloKeyword"],
-    "optional": ["NameKeyword"],
-})
-match = container.calc_intent("hello there")
-print(match)   # name, entities and a confidence score
+
+intent = (
+    IntentCreator("greet")
+    .require("hello", ["hello", "hi"])
+    .optionally("name", ["john", "mary"])
+)
+container.add_intent(intent)
+
+result = container.calc_intent("hello there")
+print(result["name"])                # greet
+print(result["conf"])                # confidence score
+print(result["keywords"])            # {'hello': ['hello']} — matched keyword slots
+print(result["utterance_remainder"]) # 'there' — words not consumed by any slot
 ```
+
+An intent only fires when **every required slot** has at least one keyword match in the
+utterance; optional slots add to the result when present but are not required to fire.
 
 ## In the OVOS pipeline
 

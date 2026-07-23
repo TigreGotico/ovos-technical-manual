@@ -69,14 +69,15 @@ As your skill library grows or if you operate in a multilingual setup, these pro
 Adapt confidence thresholds can be set in `mycroft.conf`:
 
 ```json
-"intents": {
-  "ovos-adapt-pipeline-plugin": {
-    "conf_high": 0.65,
-    "conf_med": 0.45,
-    "conf_low": 0.25
+{
+  "intents": {
+    "ovos-adapt-pipeline-plugin": {
+      "conf_high": 0.65,
+      "conf_med": 0.45,
+      "conf_low": 0.25
+    }
   }
 }
-
 ```
 
 > The config section is keyed by the pipeline's plugin id (`intents.<pipeline-id>`), here
