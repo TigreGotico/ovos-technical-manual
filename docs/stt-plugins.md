@@ -250,6 +250,12 @@ separately-licensed model, that is called out under "model".
 
 ```
 
+There is no single hardcoded default model: the plugin picks a model from an internal
+per-language table (keyed by BCP-47 language code) unless `model` is set explicitly, and
+raises an error if the configured `lang` has no entry and no `model` is given. The
+`proxectonos/Nos_ASR-...` model above is only the entry for Galician (`gl`); other
+languages resolve to different pretrained models.
+
 ---
 
 ## ovos-stt-plugin-azure
@@ -333,7 +339,7 @@ offline engine from the table above.
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2)
 
 
-- **Description**: OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/)
+- **Description**: OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/). This repository and [ovos-stt-plugin-wav2vec](#ovos-stt-plugin-wav2vec) above install the same package and module id (`ovos-stt-plugin-wav2vec`) — the GitHub repo name differs but the entry point does not.
 
 ### Default Configuration
 
@@ -346,6 +352,9 @@ offline engine from the table above.
   }
 
 ```
+
+As above, `model` defaults per-language from an internal table; the value shown is the
+entry for Galician (`gl`).
 
 ---
 

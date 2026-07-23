@@ -16,6 +16,12 @@ A G2P plugin takes a word or an utterance and returns a list of phonemes in a sp
 | `ovos-g2p-plugin-mimic` | ARPA | Uses the Mimic 1 engine for G2P conversion. Shipped by [ovos-tts-plugin-mimic](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic) (the TTS plugin also registers an `opm.g2p` entry point). |
 | [ovos-g2p-plugin-espeak](https://github.com/OVOSHatchery/ovos-g2p-plugin-espeak) | IPA | Wraps `espeak-phonemizer` for broad multilingual IPA coverage. **Hatchery-only** — not published to PyPI, install from source if you need it. |
 
+!!! note "Roster completeness"
+    This table lists the G2P plugins known to register an `opm.g2p` entry point at the time of
+    writing; it is not guaranteed to be exhaustive. If you know of another OVOS-compatible G2P
+    plugin missing here, check its `pyproject.toml`/`setup.py` for an `opm.g2p` entry point before
+    assuming it belongs on this list.
+
 ---
 
 ## Technical Explanation

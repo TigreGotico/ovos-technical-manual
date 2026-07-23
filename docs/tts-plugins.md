@@ -222,7 +222,7 @@ separately-licensed model or a paid cloud service, that is called out under "mod
   "tts": {
     "module": "ovos-tts-plugin-matxa-multispeaker-cat",
     "ovos-tts-plugin-matxa-multispeaker-cat": {
-      "voice": "valencia/gina",
+      "voice": "valencia/gina"
     }
   }
 
@@ -305,7 +305,7 @@ separately-licensed model or a paid cloud service, that is called out under "mod
   "tts": {
     "module": "ovos-tts-plugin-mimic",
     "ovos-tts-plugin-mimic": {
-      "voice": "ap",
+      "voice": "ap"
     }
   }
 

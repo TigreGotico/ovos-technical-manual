@@ -75,7 +75,17 @@ In this example:
 
 ## Active Skill List
 
-A Skill is considered active if it has been called in the last 5 minutes.
+A Skill is considered active if it has been called in the last 5 minutes. This window is the
+`converse.response_timeout` config value (default `300` seconds) and can be changed in
+`mycroft.conf`:
+
+```jsonc
+{
+  "converse": {
+    "response_timeout": 300
+  }
+}
+```
 
 Skills are called in order of when they were last active. For example, if a user spoke the following commands:
 

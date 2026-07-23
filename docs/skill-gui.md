@@ -43,6 +43,13 @@ def handle_hello(self, message):
 page whenever it (re)renders. The keys you set are visible to the page under the
 skill's namespace.
 
+!!! tip "You should see"
+    On a device or emulator with a GUI client connected, triggering `handle_hello` should pop
+    up a text page reading "Hello from OVOS!". If nothing appears, confirm a GUI client (e.g.
+    [ovos-gui](https://github.com/OpenVoiceOS/ovos-gui) or the browser-based
+    [ovos-gui-plugin-shell-companion](https://github.com/OpenVoiceOS/ovos-gui-plugin-shell-companion))
+    is connected to the same messagebus as the skill.
+
 ---
 
 ## Standard page templates

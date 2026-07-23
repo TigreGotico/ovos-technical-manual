@@ -165,6 +165,11 @@ finally:
 
 # Microphone Plugins Reference
 
+Default configuration for the plugins listed in [Supported Microphone Plugins](#supported-microphone-plugins)
+above (OS compatibility and a one-line description live in that table; this section only adds
+config where a plugin has one). `ovos-microphone-plugin-arecord` and `ovos-microphone-plugin-socket`
+have no dedicated section here — see the table above and [Tips & Caveats](#tips-caveats).
+
 ## ovos-microphone-plugin-alsa
 
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-microphone-plugin-alsa](https://github.com/OpenVoiceOS/ovos-microphone-plugin-alsa)

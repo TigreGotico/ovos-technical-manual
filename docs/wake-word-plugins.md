@@ -26,19 +26,13 @@ Wake Word plugins allow Open Voice OS to detect specific words or sounds, typica
 
 ## Available Plugins
 
-OVOS supports different wake word detection plugins, each with its own strengths and use cases
-
-The default OVOS plugins are:
-
-- **[ovos-ww-plugin-precise-lite](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite)**: The plugin the bundled default `mycroft.conf` still ships for `hey_mycroft`, running a trained Precise wake-word model exported to TFLite, with a fallback chain to `ovos-ww-plugin-precise` (classic Precise), then `ovos-ww-plugin-vosk`, then `ovos-ww-plugin-pocketsphinx` if a plugin further up the chain is not installed. The plugin repository itself is archived (legacy lineage); it keeps working as installed, but `ovos-ww-plugin-precise-onnx` is the maintained successor for new setups.
-
-- **[ovos-ww-plugin-precise-onnx](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx)**: Runs the same family of Precise models exported to ONNX instead of TFLite — the actively maintained successor to `ovos-ww-plugin-precise-lite`, and the recommended choice for new deployments that want a model-based Precise wake word.
-
-- **[ovos-ww-plugin-vosk](https://github.com/OpenVoiceOS/ovos-ww-plugin-vosk)**: A text-based plugin leveraging Vosk, which lets you define a wake word without training a model. This is useful during the initial stages of data collection.
-
-Each plugin has its pros and cons: the Precise model is the most accurate for the
-default `hey mycroft`, while Vosk offers faster setup for arbitrary wake phrases
-without model training.
+OVOS supports different wake word detection plugins, each with its own strengths and use cases.
+The full roster with descriptions and licenses lives in one place — the
+[WW Plugins Reference](#ww-plugins-reference) table below. The default OVOS plugin for
+`hey_mycroft` is `ovos-ww-plugin-precise-lite`, with a fallback chain to `ovos-ww-plugin-precise`
+(classic Precise), then `ovos-ww-plugin-vosk`, then `ovos-ww-plugin-pocketsphinx` if a plugin
+further up the chain is not installed; `ovos-ww-plugin-precise-onnx` is the maintained successor
+for new setups. Vosk offers the fastest setup for an arbitrary wake phrase without model training.
 
 > Specification: wake-word detection is one of the deployer-defined capture mechanisms that trigger the audio-input service (referenced in [OVOS-AUDIO-IN-1 §5.1](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md) as the source of a `request_lang` hint).
 
@@ -142,12 +136,37 @@ separately-licensed model, that is called out under "model".
 
 | Plugin | Description | License |
 |--------|-------------|---------|
+| [ovos-ww-plugin-precise-lite](#ovos-ww-plugin-precise-lite) | Default plugin for `hey_mycroft`: a trained Precise wake-word model exported to TFLite. ⚠️ **Archived** — kept working as installed; `ovos-ww-plugin-precise-onnx` is the maintained successor. | Apache-2.0 |
 | [ovos-ww-plugin-openWakeWord](#ovos-ww-plugin-openwakeword) | Wake-word detection using the open-source openWakeWord neural models. | Apache-2.0 (model: see model card) |
 | [ovos-ww-plugin-vosk](#ovos-ww-plugin-vosk) | Mycroft wake word plugin for [Vosk](https://alphacephei.com/vosk/) | Apache-2.0 (model: see model card) |
 | [ovos-ww-plugin-precise-onnx](#ovos-ww-plugin-precise-onnx) | ONNX-exported Precise wake word model, an alternative to the TFLite-based default. | Apache-2.0 |
 | [ovos-ww-plugin-wakewordlab](https://github.com/OpenVoiceOS/ovos-ww-plugin-wakewordlab) | Compact (~240 KB) neural wake-word models with a Silero VAD pre-filter (`.wkw`/`.onnx`). **Not yet on PyPI** — install from source. | see repo (no license file) |
 | [ovos-ww-plugin-wakeforge](https://github.com/OpenVoiceOS/ovos-ww-plugin-wakeforge) | Runs custom wake-word models trained with [wakeforge](https://github.com/TigreGotico/wakeforge) — train a detector from a single phrase, export a two-file model. **Not yet on PyPI** — install from source. | Apache-2.0 |
 | [ovos-ww-plugin-server](https://github.com/OpenVoiceOS/ovos-ww-plugin-server) | Remote wake-word detection: streams audio to an [ovos-ww-server](https://github.com/OpenVoiceOS/ovos-ww-server) instance (offload detection from a thin satellite). **Not yet on PyPI** — install from source. | Apache-2.0 |
+
+## ovos-ww-plugin-precise-lite
+
+- **GitHub**: [https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite](https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite) ⚠️ **Archived**
+
+
+- **Description**: Trained Precise wake-word model exported to TFLite; the plugin the bundled default `mycroft.conf` ships for `hey_mycroft`.
+
+### Default Configuration
+
+```jsonc
+"hotwords": {
+  "hey_mycroft": {
+    "module": "ovos-ww-plugin-precise-lite",
+    "model": "https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite",
+    "trigger_level": 3,
+    "sensitivity": 0.5,
+    "listen": true
+  }
+}
+
+```
+
+---
 
 ## ovos-ww-plugin-openWakeWord
 

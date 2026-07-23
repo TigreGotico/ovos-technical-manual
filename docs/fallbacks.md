@@ -4,7 +4,7 @@
     A fallback skill is a catch-all that only gets a turn when no regular skill understood what you said. It is where you put things like "sorry, I didn't catch that", a web search, or a large language model that should answer only when nothing more specific did. Each fallback has a priority number so you can decide which ones try first, with broad "I don't understand" handlers going last. To see how this fits into the bigger picture, read the [Fallback Pipeline](fallback-pipeline.md), or the [Glossary](glossary.md) for terms.
 
 ??? info "📐 Formal specification"
-    Fallback handling is specified by **[OVOS-FALLBACK-1 — Fallback Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/fallback.md)** (a formal [architecture spec](architecture-specs.md)). A skill declares itself a fallback handler by calling `register_fallback()`, which emits `ovos.skills.fallback.register` with a `skill_id` and integer `priority`; the fallback **pipeline plugin** builds a pool ordered by **ascending** priority (**lower number runs earlier** — matching this page), then pings each candidate with `ovos.skills.fallback.ping` and reads its `can_answer()` verdict off the `ovos.skills.fallback.pong` reply, dispatching in priority order to the first willing skill via `ovos.skills.fallback.<skill_id>.request`. A catch-all skill is typically registered at a high number (e.g. `100`) so every utterance gets a response; the recommended bands are `0–49` for skills that must run **early** (very specific handlers), `50–74` for skills that run in the **middle**, and `75–100` for skills that must run **late** (broad catch-alls). Note this is the opposite of what "priority" usually implies elsewhere: a *lower* number here means the handler is tried *sooner*, not that it is more important.
+    Fallback handling is specified by **[OVOS-FALLBACK-1 — Fallback Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/fallback.md)** (a formal [architecture spec](architecture-specs.md)). A skill declares itself a fallback handler by calling `register_fallback()`, which emits `ovos.skills.fallback.register` with a `skill_id` and integer `priority`; the fallback **pipeline plugin** builds a pool ordered by **ascending** priority (**lower number runs earlier** — matching this page), then pings each candidate with `ovos.skills.fallback.ping` and reads its `can_answer()` verdict off the `ovos.skills.fallback.pong` reply, dispatching in priority order to the first willing skill via `ovos.skills.fallback.<skill_id>.request`. A catch-all skill is typically registered at a high number (e.g. `100`) so every utterance gets a response. Note this is the opposite of what "priority" usually implies elsewhere: a *lower* number here means the handler is tried *sooner*, not that it is more important.
 
 A **Fallback** skill is the last line of defense: it is only consulted when no intent matched the utterance. This is where you put a catch-all ("I didn't understand"), an LLM, a web search, or any handler that should run *only* when nothing more specific did.
 
@@ -12,10 +12,19 @@ A **Fallback** skill is the last line of defense: it is only consulted when no i
 
 Fallback Skills each have a **priority** and are tried in order from low priority value to high priority value (lower number = tried earlier). When a Fallback Skill handles the **[Utterance](life-of-an-utterance.md)** it returns `True` and no further fallbacks are tried.
 
+!!! note "Two different facts: internal stages vs. your pick"
+    The pipeline internally splits the 1-101 priority space into three dispatch stages —
+    `fallback_high` (priority 1-5), `fallback_medium` (6-90), and `fallback_low` (91-101),
+    checked in that order (verified in `FallbackService` source: `ovos_core/intent_services/fallback_service.py`).
+    That is an implementation detail, not a recommendation. The **recommended pick ranges**
+    below are a separate, coarser convention for choosing *where in the medium/low stages*
+    your own handler's priority should sit.
+
 Pick your priority number by how broad your handler is — remember, a smaller number runs **earlier**, a larger number runs **later**:
 
-- Very specific handlers should use a **small number** (e.g. 20-50) so they run before broad ones and get first refusal.
-- Broad, catch-all handlers (an LLM, "I don't understand") should use a **large number** (80-100) so specific skills run and win first.
+- Very specific handlers should use a **small number** (e.g. `0–49`) so they run before broad ones and get first refusal.
+- Handlers that fit a middle ground should use `50–74`.
+- Broad, catch-all handlers (an LLM, "I don't understand") should use a **large number** (`75–100`) so specific skills run and win first.
 
 ---
 
