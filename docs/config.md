@@ -103,6 +103,14 @@ In addition to `USER_CONFIG`, every XDG config dir is scanned, so a system-wide
 `~/.config` file). File formats: JSON (`.json` or `.conf`, with C-style `//`
 comments supported) or YAML (`.yml` or `.yaml`).
 
+!!! warning "Secrets and permissions"
+    Anything you add here — an LLM API key, a Home Assistant token, custom
+    server credentials — is stored as **plaintext**, with no encryption or
+    secrets manager. Restrict the file's permissions (`chmod 600`) on shared
+    machines, and don't commit it to a public dotfiles repository. See
+    [Privacy & Security](privacy-security.md#mycroftconf-can-contain-plaintext-secrets)
+    for the full guidance.
+
 ---
 
 ## Usage Guide

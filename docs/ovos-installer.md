@@ -1,7 +1,11 @@
 # How to Install Open Voice OS with the `ovos-installer`
 
 !!! abstract "In a nutshell"
-    This is the friendly, guided way to get OVOS onto your machine. You run a single command, then a menu-driven wizard walks you through a few choices (your language, where to install, which features you want) and does the rest for you. It works the same on a Raspberry Pi or an everyday Linux laptop, and is the recommended way to install — no programming required. See the [Glossary](glossary.md) for unfamiliar terms.
+    This is the friendly, guided way to get OVOS onto your machine. You run a single command, then a menu-driven wizard walks you through a few choices (your language, where to install, which features you want) and does the rest for you. It works the same on a Raspberry Pi or an everyday Linux laptop, and is the recommended way to install — no programming required. Scripting a fleet instead? See the [non-interactive scenario install](#non-interactive-scenario-install), which skips the wizard entirely. See the [Glossary](glossary.md) for unfamiliar terms.
+
+!!! tip "Privacy first?"
+    See [Privacy & Security](privacy-security.md) for what a default install
+    actually sends over the network, and how to change it, before you start.
 
 Welcome to the quick-start guide for installing Open Voice OS (OVOS) using the official `ovos-installer`! This guide is suitable for **Raspberry Pi** and **desktop/server** Linux environments. Whether you’re running this on a headless Raspberry Pi or your everyday laptop, the steps are mostly the same—only the way you connect to the device differs.
 
@@ -80,6 +84,11 @@ This can take anywhere from **5 to 20 minutes**, depending on your hardware, int
 
 ## The Installer Wizard
 
+!!! tip "Scripting this instead?"
+    Everything below can be answered up front in a
+    [scenario file](#non-interactive-scenario-install), so the installer runs
+    with no prompts at all — useful for fleets or CI.
+
 Navigation:
 
 - navigation is done via arrow keys
@@ -100,7 +109,7 @@ Navigation:
 
 ### 🌍 Language Selection
 
-The first screen lets you select your preferred language. Just follow the on-screen instructions.
+The first screen lets you select your preferred language for the installer's own text (not the assistant's spoken language, which is chosen later). Follow the on-screen instructions; use arrow keys and space to pick.
 
 ![image](https://gist.github.com/user-attachments/assets/61f9e089-1d54-49e9-8d4a-d5e1f6028ee2)
 
@@ -108,7 +117,32 @@ The first screen lets you select your preferred language. Just follow the on-scr
 
 ### 🧠 Environment Summary
 
-You’ll be shown a summary of the detected environment—no action needed here. It’s just informative.
+An informational screen — no action needed. It reports what the installer auto-detected about the machine, including:
+
+`OS`
+:   distribution name and version (e.g. Debian, Ubuntu, macOS)
+
+`Kernel`
+:   kernel version string
+
+`Raspberry Pi model`
+:   detected board, or `N/A` on non-Pi hardware
+
+`Python`
+:   detected Python interpreter version
+
+`CPU capability`
+:   whether the CPU supports AVX2/SIMD (affects which speech plugins are offered)
+
+`Sound server`
+:   PulseAudio or PipeWire, if detected
+
+`Display server`
+:   X11, Wayland, or `EGLFS` (used on Mark II/DevKit), if any
+
+If the board looks like a Mycroft Mark II or DevKit (Raspberry Pi 4 plus the
+matching audio/I²C hardware), a confirmation prompt asks you to verify that —
+some generic HATs expose the same signal without being real Mark II hardware.
 
 ![image](https://gist.github.com/user-attachments/assets/1268a703-2007-4bc0-b153-36f33b782b20)
 
@@ -116,12 +150,16 @@ You’ll be shown a summary of the detected environment—no action needed here.
 
 ### 🧰 Choose Installation Method
 
-You have two choices:
+A radio-button list with up to two options:
 
-- **Virtualenv**: Recommended for most users. Easier to understand and manage.
+`virtualenv`
+:   Python virtual environment. Recommended for most users; supported everywhere, including macOS.
 
+`containers`
+:   Docker (or Podman) containers. Installed automatically if Docker is missing. **Not offered** on macOS, on 32-bit CPUs, on Raspberry Pi 3, or on Mark II/DevKit hardware — those are locked to `virtualenv`.
 
-- **Containers**: For advanced users familiar with Docker or Podman.
+If you're re-running the installer on an existing install, only the method
+already in use is offered (you can't switch method in place).
 
 ![image](https://gist.github.com/user-attachments/assets/e1b881fc-327d-4e1f-839b-396cffcd354c)
 
@@ -129,7 +167,11 @@ You have two choices:
 
 ### 🌱 Choose Channel
 
-Select the **`testing`** channel, which is recommended for most users. An **`alpha`** (bleeding edge) channel is also available for the latest, potentially unstable features.
+`testing`
+:   Recommended for most users; the stable release channel.
+
+`alpha`
+:   Bleeding-edge/pre-release packages. **Required** (and the only option offered) on macOS and on Mark II/DevKit hardware.
 
 ![image](https://gist.github.com/user-attachments/assets/f782cebe-c86b-4474-93d7-894b712e8fe7)
 
@@ -137,7 +179,19 @@ Select the **`testing`** channel, which is recommended for most users. An **`alp
 
 ### 🧪 Choose Profile
 
-Pick the `ovos` profile. This is the classic, all-in-one Open Voice OS experience with all the necessary components running locally.
+A radio-button list of installation profiles:
+
+`ovos`
+:   The classic, all-in-one experience — voice pipeline, skills, and (optionally) GUI all running locally. The default and the profile the rest of this page assumes.
+
+`satellite`
+:   A microphone/speaker endpoint that talks to a separate OVOS core over the network — see [composable deployments](composable-deployments.md). Skips the feature-selection screen (no local skills/GUI/LLM/Home Assistant to configure).
+
+`listener`
+:   Runs only the listening/wake-word side of OVOS.
+
+`server`
+:   A headless core with no local audio hardware assumptions, meant to serve satellites — also skips GUI/LLM/Home Assistant options.
 
 ![image](https://gist.github.com/user-attachments/assets/0ff4279d-69fa-4ab8-b372-0fef263e6d7c)
 
@@ -145,7 +199,22 @@ Pick the `ovos` profile. This is the classic, all-in-one Open Voice OS experienc
 
 ### 🛠️ Feature Selection
 
-Choose what features you’d like to install.
+A checklist (only shown for the `ovos`/`listener`/`server` profiles, not `satellite`):
+
+`skills`
+:   Install the default OVOS skills. **On** by default.
+
+`extra-skills`
+:   Install additional community skills beyond the default set. Off by default.
+
+`gui`
+:   Enable the OVOS GUI. Only offered on Mark II/DevKit hardware running Debian Trixie (or newer); on those devices it defaults **on**. Not offered on the `server`/`satellite` profiles.
+
+`homeassistant`
+:   Enable Home Assistant integration; prompts for a URL and access token. Only offered for the `ovos`/`listener` profiles with the `virtualenv` or `containers` method.
+
+`llm`
+:   Enable an LLM-backed fallback answer via the OVOS Persona pipeline; prompts for an OpenAI-compatible API URL, key, model, and persona name. Same availability rule as `homeassistant`.
 
 ![image](https://gist.github.com/user-attachments/assets/bdb65ba6-18d6-42fd-aff6-22fab0826870)
 
@@ -155,7 +224,9 @@ Choose what features you’d like to install.
 
 ### 🍓 Raspberry Pi Tuning *(if applicable)*
 
-On Raspberry Pi boards, you’ll be offered system tweaks to improve performance. It's highly recommended to enable this!
+On Raspberry Pi boards only, a yes/no prompt offers system performance tweaks
+(including an overclock option on supported boards). It's highly recommended
+to enable this on a Pi.
 
 ![image](https://gist.github.com/user-attachments/assets/91bb5f18-9c5a-49ef-a0fe-5b0e52b44ee9)
 
@@ -163,7 +234,9 @@ On Raspberry Pi boards, you’ll be offered system tweaks to improve performance
 
 ### 🧾 Summary
 
-Before the installation begins, you'll see a summary of your selected options. This is your last chance to cancel the process.
+Before the installation begins, you'll see a summary of every option you
+selected on the previous screens (method, channel, profile, features, tuning).
+This is your last chance to cancel the process.
 
 ![image](https://gist.github.com/user-attachments/assets/62a565f3-6871-4dfe-a441-c482199feac0)
 
@@ -171,22 +244,27 @@ Before the installation begins, you'll see a summary of your selected options. T
 
 ### 📊 Anonymous Telemetry
 
-You'll be asked whether to share **anonymous usage data** to help improve Open Voice OS. Please consider opting in!
+There are actually **two separate opt-in prompts** here, and they are easy to
+mix up — see [Privacy & Security](privacy-security.md#install-time-telemetry-vs-ongoing-usage-telemetry)
+for the full explanation. In short: the first ("Telemetry") is a one-time
+install report; the second ("Usage Metrics") configures the *installed
+assistant* to keep reporting intent-matching data afterwards, so it is not
+purely a "during setup only" choice.
 
 ![image](https://gist.github.com/user-attachments/assets/b8015c41-370d-49d3-b783-996887cb421b)
 
-The data collection only happens during the installation process, nothing else will be collected once the installation is over.
+#### Install-time telemetry (`share_telemetry`)
 
-**The installer will ask you if you want to share or not the data.**
-
-Below is a list of the collected data _(please have a look at the [Ansible template](https://github.com/OpenVoiceOS/ovos-installer/blob/main/ansible/roles/ovos_installer/templates/telemetry.json.j2) used to publish the data)_.
+This report is generated and sent **once**, right after installation
+completes — nothing else about this specific report is collected afterwards.
+Below is the field list _(see the [Ansible template](https://github.com/OpenVoiceOS/ovos-installer/blob/main/ansible/roles/ovos_installer/templates/telemetry.json.j2) used to build it)_.
 
 | Data                   | Description                                              |
 | ---------------------- | -------------------------------------------------------- |
 | `architecture`         | CPU architecture where OVOS was installed                |
 | `channel`              | `testing` or `alpha` channel of OVOS                     |
 | `container`            | OVOS installed into containers                           |
-| `country`              | Country where OVOS has been installed                    |
+| `country`              | Country the machine appeared to be in, derived from a public-IP geolocation lookup (`ip-api.com`) performed by the installer — not something you type in |
 | `cpu_capable`          | Is the CPU supports AVX2 or SIMD instructions            |
 | `display_server`       | Is X or Wayland are used as display server               |
 | `extra_skills_feature` | Extra OVOS's skills enabled during the installation      |
@@ -205,13 +283,25 @@ Below is a list of the collected data _(please have a look at the [Ansible templ
 | `tuning_enabled`       | Whether the Raspberry Pi tuning feature was used         |
 | `venv`                 | OVOS installed into a Python virtual environment         |
 
+#### Ongoing usage telemetry (`share_usage_telemetry`)
+
+Accepting this prompt adds an `open_data.intent_urls` entry pointing at a
+community metrics endpoint to your installed `mycroft.conf`. That makes the
+**running assistant** report anonymous intent-matching data on an ongoing
+basis — every time it processes a voice command, not just during setup. If
+you want data collection to stop once installation is over, decline this
+prompt (declining the first, install-time prompt is not enough on its own).
+
 ---
 
 ### 🧙‍♂️ Sit Back and Relax
 
 The installation begins! This can take some time, so why not grab a coffee (or maybe a cupcake)? ☕🧁
 
-Here is a demo of how the process should go if everything works as intended
+Here is a demo of how the process should go if everything works as intended.
+The recording shows a full run of the wizard on a fresh machine, from launching
+`installer.sh` through the summary screen to the final "installation complete"
+message.
 
 [![asciicast](https://asciinema.org/a/710286.svg)](https://asciinema.org/a/710286)
 
@@ -233,12 +323,20 @@ You’ve done it! OVOS is now installed and ready to serve you. Try saying thing
 
 You’re officially part of the Open Voice OS community! 🎤✨
 
+!!! tip "Say the wake word first"
+    OVOS only starts listening after it hears its wake word (`hey mycroft` by
+    default). Say **"Hey Mycroft"** and wait for the listening sound/prompt
+    before speaking your request — a bare "What's the weather?" with no wake
+    word first won't be heard. See [Wake Word plugins](wake-word-plugins.md)
+    if you want to change it.
+
 ---
 
 ## Post-install tuning
 
 The installer picks sensible defaults, but the best speech plugins vary by language and hardware. After the initial install, review the selected plugins and run `ovos-config autoconfigure --help` to see the language-aware reconfiguration options.
 
+The recording below shows this post-install tuning step in action.
 
 [![asciicast](https://asciinema.org/a/710295.svg)](https://asciinema.org/a/710295)
 
@@ -261,8 +359,8 @@ features:
   skills: true
   extra_skills: false
 raspberry_pi_tuning: true
-share_telemetry: true
-share_usage_telemetry: true
+share_telemetry: false        # one-time install report — see Privacy & Security
+share_usage_telemetry: false  # ongoing intent-matching reports — kept separate on purpose
 ```
 
 Key options:
@@ -275,8 +373,8 @@ Key options:
 | `profile` | Installation profile (e.g. `ovos`) |
 | `features.*` | Per-feature toggles (e.g. `skills`, `extra_skills`, `llm`) |
 | `raspberry_pi_tuning` | Enable Raspberry Pi performance tuning (includes an overclock prompt) |
-| `share_telemetry` | Allow sharing anonymous usage statistics |
-| `share_usage_telemetry` | Allow sharing anonymous *usage* statistics (separate from install-time telemetry above) |
+| `share_telemetry` | One-time install report, sent once when the install finishes ([details](#anonymous-telemetry)) |
+| `share_usage_telemetry` | Configures the *installed, running* assistant to keep reporting intent-matching data afterwards — not a one-time report ([details](#anonymous-telemetry)) |
 
 All of `uninstall`, `method`, `channel`, `profile`, `features`, `raspberry_pi_tuning`,
 `share_telemetry`, and `share_usage_telemetry` are **required** — the installer
