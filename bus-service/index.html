@@ -1944,7 +1944,7 @@ bus, even run code via some plugins). Treat it like an open door to the whole as
 <p>Tornado <code>WebSocketHandler</code> subclass implementing the OVOS messagebus. All connected clients share a single module-level connection list (<code>client_connections</code>).</p>
 <h3 id="broadcast-behavior">Broadcast Behavior<a class="headerlink" href="#broadcast-behavior" title="Permanent link">&para;</a></h3>
 <p>The bus is a pure fan-out: no routing, no filtering, no topic subscriptions at the server level. Every message every client sends is forwarded to every client (including the sender):</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># ovos_messagebus/event_handler.py:77</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># ovos_messagebus/event_handler.py — broadcast loop</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="n">client_connections</span><span class="p">:</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">client</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 </span></code></pre></div>
@@ -1954,13 +1954,13 @@ bus, even run code via some plugins). Treat it like an open door to the whole as
 <summary>Technical Reference</summary>
 <ul>
 <li>
-<p><code>main()</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/__main__.py"><code>ovos_messagebus/__main__.py:43</code></a> — Entry point initializing the Tornado application and IOLoop.</p>
+<p><code>main()</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/__main__.py"><code>ovos_messagebus/__main__.py</code></a> — Entry point initializing the Tornado application and IOLoop.</p>
 </li>
 <li>
-<p><code>MessageBusEventHandler.on_message()</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/event_handler.py"><code>ovos_messagebus/event_handler.py:50</code></a> — Core broadcast logic.</p>
+<p><code>MessageBusEventHandler.on_message()</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/event_handler.py"><code>ovos_messagebus/event_handler.py</code></a> — Core broadcast logic.</p>
 </li>
 <li>
-<p><code>load_message_bus_config()</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/load_config.py"><code>ovos_messagebus/load_config.py:31</code></a> — Configuration loader using <code>ovos-config</code>.</p>
+<p><code>load_message_bus_config()</code> — <a href="https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/load_config.py"><code>ovos_messagebus/load_config.py</code></a> — Configuration loader using <code>ovos-config</code>.</p>
 </li>
 </ul>
 <h3 id="open"><code>open()</code><a class="headerlink" href="#open" title="Permanent link">&para;</a></h3>
@@ -2253,15 +2253,13 @@ meantime, it does not make it conformant.</p>
 the default reference server and adds two optional alternatives, benchmarked side by
 side with a bundled benchmark script at a range of concurrent-client loads:</p>
 <ul>
-<li><strong>webrockets</strong> — a high-performance websocket backend, written in Python. Tracked in
-  <a href="https://github.com/OpenVoiceOS/ovos-messagebus/pull/51">ovos-messagebus#51</a>.</li>
+<li><strong>webrockets</strong> — a high-performance websocket backend, written in Python.</li>
 <li><strong>Rust</strong> — the <a href="https://github.com/OscillateLabsLLC/ovos-rust-messagebus"><code>ovos-rust-messagebus</code></a>
   server, run in place of the Python process.</li>
 </ul>
 <p>Early benchmarking shows webrockets ahead at higher concurrency, with the Rust backend
-showing connection saturation at the highest client counts tested — see the PR above for
-current numbers. None of this is on a published release — do not rely on it on a stable
-install.</p>
+showing connection saturation at the highest client counts tested. None of this is on a
+published release — do not rely on it on a stable install.</p>
 </div>
 <hr />
 <h2 id="filter-debug-mode">Filter / Debug Mode<a class="headerlink" href="#filter-debug-mode" title="Permanent link">&para;</a></h2>
@@ -2319,14 +2317,14 @@ the same client for quick, no-code interaction with a running assistant:</p>
 </ul>
 <h3 id="watching-the-bus-live">Watching the bus live<a class="headerlink" href="#watching-the-bus-live" title="Permanent link">&para;</a></h3>
 <p>For interactively inspecting every message flowing across the bus (useful when a recipe above
-isn't behaving as expected), run <code>ovos-busmon</code> — a terminal viewer for live bus traffic. It
-subscribes like any other client and prints each message as it is broadcast.</p>
+isn't behaving as expected), run <code>ovos-busmon</code> — a browser-based web UI (FastAPI + WebSocket)
+for live bus traffic. It subscribes like any other client and streams each message to the
+browser as it is broadcast; install it with <code>pip install ovos-busmon</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Upcoming — <code>AsyncMessageBusClient</code></p>
-<p>An in-progress change (<a href="https://github.com/OpenVoiceOS/ovos-bus-client/pull/200">ovos-bus-client#200</a>)
-adds an async/await-native <code>AsyncMessageBusClient</code> alongside the threaded <code>MessageBusClient</code>
-used in the recipes above, for callers already running an asyncio event loop (e.g. FastAPI
-servers) that would rather avoid a background thread.</p>
+<p>An in-progress change adds an async/await-native <code>AsyncMessageBusClient</code> alongside the
+threaded <code>MessageBusClient</code> used in the recipes above, for callers already running an
+asyncio event loop (e.g. FastAPI servers) that would rather avoid a background thread.</p>
 </div>
 <hr />
 <h2 id="related-pages">Related Pages<a class="headerlink" href="#related-pages" title="Permanent link">&para;</a></h2>

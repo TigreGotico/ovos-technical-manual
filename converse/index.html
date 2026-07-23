@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/converse/">
       
       
-        <link rel="prev" href="../intent-layers/">
+        <link rel="prev" href="../permissions/">
       
       
         <link rel="next" href="../session/">
@@ -1000,7 +1000,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intent-layers/" class="md-nav__link">
+      <a href="../permissions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1636,6 +1636,13 @@ with a separable legacy-compatibility bridge for existing consumers. See
 <code>ConversationalSkill</code> (<code>from ovos_workshop.skills.converse import ConversationalSkill</code>) instead
 to use any of the features on this page.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">A second gate sits in front of <code>converse()</code></p>
+<p>Being on the Active Skills List is necessary but not sufficient. Whether a skill is allowed
+to converse <strong>at all</strong> is a separate, coarser control — <code>ConverseMode</code> and the converse
+whitelist/blacklist — covered on <a href="../permissions/">Permissions &amp; Activation Control</a>. If
+<code>converse()</code> never fires even though your skill is active, check that gate first.</p>
+</div>
 <h2 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <p>Let's use a version of the Ice Cream Skill we've been building up and add a converse method to catch any brief statements of thanks that might directly follow an order.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills.converse</span> <span class="kn">import</span> <span class="n">ConversationalSkill</span>
@@ -1773,7 +1780,7 @@ At this point, we also want to be responsive to the customers thanks, so we call
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
 </span></code></pre></div>
 <h2 id="conversational-intents">Conversational Intents<a class="headerlink" href="#conversational-intents" title="Permanent link">&para;</a></h2>
-<p>Skills can have extra intents valid while they are active, those are internal and not part of the main intent system, instead each skill checks them BEFORE calling <code>converse</code></p>
+<p>Skills can have extra intents valid while they are active, those are internal and not part of the main intent system. For an active skill, the order is: its <code>@conversational_intent</code>-decorated handlers are checked first; only if none of them match does the skill's own <code>converse()</code> method get a chance to run. Both happen before the utterance would fall through to the normal Adapt/Padatious intent pipeline.</p>
 <p>the <code>@conversational_intent</code> decorator can be used to define converse intent handlers</p>
 <p>these intents only trigger after an initial interaction, essentially they are only follow up questions</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills.converse</span> <span class="kn">import</span> <span class="n">ConversationalSkill</span>

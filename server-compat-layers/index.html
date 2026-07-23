@@ -1474,7 +1474,7 @@ format.</p>
 <p>All compat routers are always loaded; no feature flag is needed.</p>
 <hr />
 <h2 id="stt-server-compat-routes">STT Server Compat Routes<a class="headerlink" href="#stt-server-compat-routes" title="Permanent link">&para;</a></h2>
-<p><code>pip install ovos-stt-http-server</code></p>
+<p><code>pip install ovos-stt-http-server</code> — routers implemented in <code>ovos_stt_http_server.routers</code>.</p>
 <table>
 <thead>
 <tr>
@@ -1555,7 +1555,7 @@ format.</p>
 </table>
 <hr />
 <h2 id="tts-server-compat-routes">TTS Server Compat Routes<a class="headerlink" href="#tts-server-compat-routes" title="Permanent link">&para;</a></h2>
-<p><code>pip install ovos-tts-server</code></p>
+<p><code>pip install ovos-tts-server</code> — routers implemented in <code>ovos_tts_server.routers</code>.</p>
 <table>
 <thead>
 <tr>
@@ -1608,7 +1608,7 @@ format.</p>
 </table>
 <hr />
 <h2 id="translate-server-compat-routes">Translate Server Compat Routes<a class="headerlink" href="#translate-server-compat-routes" title="Permanent link">&para;</a></h2>
-<p><code>pip install ovos-translate-server</code></p>
+<p><code>pip install ovos-translate-server</code> — routers implemented in <code>ovos_translate_server.routers</code>.</p>
 <table>
 <thead>
 <tr>
@@ -1649,7 +1649,10 @@ format.</p>
 </table>
 <hr />
 <h2 id="persona-server-compat-routes">Persona Server Compat Routes<a class="headerlink" href="#persona-server-compat-routes" title="Permanent link">&para;</a></h2>
-<p><code>pip install ovos-persona-server</code></p>
+<p><code>pip install ovos-persona-server</code> — each vendor router lives in its own module in
+<code>ovos_persona_server</code> (e.g. <code>anthropic.py</code>, <code>gemini.py</code>, <code>cohere.py</code>, <code>ollama.py</code>,
+<code>huggingface_tgi.py</code>, <code>aws_bedrock.py</code>); the deprecated bare-<code>/v1</code> routes live in
+<code>deprecated_routers.py</code>.</p>
 <p>The persona server baseline is an OpenAI-compatible chat API at <strong><code>/openai/v1/chat/completions</code></strong>. (The unprefixed <code>/v1/...</code> path is also mounted but is <strong>deprecated legacy</strong> — it returns a <code>Deprecation</code> header; a bare-root base URL 404s, so always include the <code>/openai/v1</code> prefix.) Additional vendor routers are layered on top:</p>
 <table>
 <thead>

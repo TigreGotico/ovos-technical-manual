@@ -1000,7 +1000,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intent-layers/" class="md-nav__link">
+      <a href="../permissions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1774,6 +1774,14 @@
 <p>Customize the content of the dialog file according to your preferences. You can modify the existing dialogues, add new ones, or remove any that you don't want to use.</p>
 </li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Your file REPLACES the original, it does not merge with it</p>
+<p>The user-specific file is used instead of the skill's own <code>time.current.dialog</code>, line for
+line — it is not appended to or merged with the original. If the skill is later updated
+upstream and new lines are added to its <code>time.current.dialog</code>, your override will keep
+shadowing the whole file and you will not see those new lines until you copy them into
+your override yourself.</p>
+</div>
 <p><strong>Locate the User-Specific Resource Directory</strong>:</p>
 <ul>
 <li>
@@ -1800,7 +1808,15 @@
 </ul>
 <p><strong>Verify the Replacement</strong>:</p>
 <ul>
-<li>Test the skill to ensure that the modified dialogues are being used instead of the original ones.</li>
+<li>
+<p>Test the skill to ensure that the modified dialogues are being used instead of the original ones.</p>
+</li>
+<li>
+<p><strong>You should see</strong>: triggering the skill's "current time" behavior speaks your custom
+     dialog text, not the skill's built-in one. If you still hear the original wording, double
+     check the path and file name match exactly (including the <code>.dialog</code> extension and lang
+     folder casing) and restart OpenVoiceOS so the skill reloads its resources.</p>
+</li>
 </ul>
 <p>Customizing dialogues offers users flexibility in tailoring the behavior of skills to their specific needs and preferences.</p>
 <h3 id="local-language-support">Local Language support<a class="headerlink" href="#local-language-support" title="Permanent link">&para;</a></h3>

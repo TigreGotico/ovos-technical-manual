@@ -1596,6 +1596,15 @@ writing; it is not guaranteed to be exhaustive. If you know of another OVOS-comp
 plugin missing here, check its <code>pyproject.toml</code>/<code>setup.py</code> for an <code>opm.g2p</code> entry point before
 assuming it belongs on this list.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Some TTS engines phonemize internally, without an <code>opm.g2p</code> plugin</p>
+<p><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG"><code>ovos-tts-plugin-espeakNG</code></a> and the
+<code>phoonnx</code> TTS backends embed their own grapheme-to-phoneme conversion (espeak-ng's built-in
+phonemizer, and <code>phoonnx</code>'s own phonemization pipeline respectively) rather than delegating to
+a separate <code>opm.g2p</code> plugin. They are not on the table above because they aren't discoverable
+as standalone G2P plugins — the phonemization happens as an implementation detail of the TTS
+engine itself.</p>
+</div>
 <hr />
 <h2 id="technical-explanation">Technical Explanation<a class="headerlink" href="#technical-explanation" title="Permanent link">&para;</a></h2>
 <p>All G2P plugins inherit from the <code>Grapheme2PhonemePlugin</code> base class.</p>
@@ -1613,9 +1622,11 @@ assuming it belongs on this list.</p>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return visemes for lip-sync animation.&quot;&quot;&quot;</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="o">...</span>
 </span></code></pre></div>
-<p>A plugin implements whichever of <code>get_arpa</code> / <code>get_ipa</code> it can. The base class
-derives <code>utterance2arpa</code>, <code>utterance2ipa</code>, and <code>utterance2visemes</code> from those, and
-exposes an <code>available_languages</code> classmethod for discovery.</p>
+<p>A plugin implements whichever of <code>get_arpa</code> / <code>get_ipa</code> it can — at least one of the two,
+since both raise <code>NotImplementedError</code> by default and the derived <code>utterance2*</code> helpers need at
+least one working conversion to produce anything. The base class derives <code>utterance2arpa</code>,
+<code>utterance2ipa</code>, and <code>utterance2visemes</code> from those, and exposes an <code>available_languages</code>
+classmethod for discovery.</p>
 <h2 id="creating-your-own-plugin">Creating Your Own Plugin<a class="headerlink" href="#creating-your-own-plugin" title="Permanent link">&para;</a></h2>
 <h3 id="1-implementation-template">1. Implementation Template<a class="headerlink" href="#1-implementation-template" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.g2p</span> <span class="kn">import</span> <span class="n">Grapheme2PhonemePlugin</span>

@@ -1416,6 +1416,12 @@ same way on a Pi or an x86 box), and only reach for the Pi-specific pieces above
 specifically reusing an i2c HAT or the SJ201 board design.</p>
 <hr />
 <h2 id="writing-your-own-hardware-driver-abstractled-abstractswitches">Writing your own hardware driver: <code>AbstractLed</code> / <code>AbstractSwitches</code><a class="headerlink" href="#writing-your-own-hardware-driver-abstractled-abstractswitches" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Illustrative skeletons</p>
+<p>The <code>MyRingLed</code> and switch examples below are illustrative skeletons, not complete,
+copy-pasteable drivers — real hardware needs the actual bus/SPI/GPIO calls for your board
+filled in where the example stops short.</p>
+</div>
 <p>Custom LEDs and buttons are the two things almost every maker adds. Rather than writing your
 own bus-message plumbing, subclass the abstract base classes in
 <a href="https://github.com/OpenVoiceOS/ovos-hardware-helpers"><code>ovos-hardware-helpers</code></a> and wrap the

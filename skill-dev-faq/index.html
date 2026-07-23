@@ -793,6 +793,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#i-implemented-converse-but-it-never-fires-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      I implemented converse() but it never fires — why?
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1373,6 +1382,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#i-implemented-converse-but-it-never-fires-why" class="md-nav__link">
+    <span class="md-ellipsis">
+      I implemented converse() but it never fires — why?
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1578,6 +1596,15 @@ but that requires subclassing <code>ConversationalSkill</code>, not the plain <c
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="k">return</span> <span class="kc">False</span>
 </span></code></pre></div>
 <p>→ full story: <a href="../converse/">Converse</a></p>
+<h3 id="i-implemented-converse-but-it-never-fires-why">I implemented <code>converse()</code> but it never fires — why?<a class="headerlink" href="#i-implemented-converse-but-it-never-fires-why" title="Permanent link">&para;</a></h3>
+<p>Two common gates sit in front of it, both outside your skill's own code. First, converse
+participation is opt-in/opt-out per skill via <code>ConverseMode</code> and the converse whitelist/blacklist —
+if your skill isn't allowed to converse at all, <code>converse()</code> is never called no matter what it
+returns. Second, converse only runs for skills the orchestrator considers "active" for the
+session (typically the last skill that spoke or handled an intent) — an unrelated skill sitting
+idle won't get a chance either. Check both before assuming your <code>converse()</code> logic itself is
+broken.</p>
+<p>→ full story: <a href="../permissions/">Permissions &amp; Activation Control</a>, <a href="../converse/">Converse</a></p>
 <hr />
 <h2 id="language-settings-and-where-things-live">Language, settings, and where things live<a class="headerlink" href="#language-settings-and-where-things-live" title="Permanent link">&para;</a></h2>
 <h3 id="how-do-i-make-my-skill-speak-in-more-than-one-language">How do I make my skill speak in more than one language?<a class="headerlink" href="#how-do-i-make-my-skill-speak-in-more-than-one-language" title="Permanent link">&para;</a></h3>
@@ -1621,7 +1648,7 @@ agent engine plugin directly and call it like any other object:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.agents</span> <span class="kn">import</span> <span class="n">load_chat_plugin</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">engine_cls</span> <span class="o">=</span> <span class="n">load_chat_plugin</span><span class="p">(</span><span class="s2">&quot;ovos-openai-plugin&quot;</span><span class="p">)</span>  <span class="c1"># or ovos-gguf-plugin, etc.</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">engine</span> <span class="o">=</span> <span class="n">engine_cls</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="o">...</span><span class="p">})</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">engine</span> <span class="o">=</span> <span class="n">engine_cls</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{})</span>  <span class="c1"># see the plugin&#39;s own README for its config keys (API URL, key, model)</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">reply</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="s2">&quot;summarize this in one sentence: ...&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p><code>get_response(utterance, session_id="default", lang=None, units=None) -&gt; str</code> is the same method

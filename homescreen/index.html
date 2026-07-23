@@ -1478,6 +1478,7 @@ whatever data it wants to show on its own.</p>
     participant Shell as GUI client (ovos-shell / Qt)
 
     Skill-&gt;&gt;GUI: register as candidate homescreen
+    Note over GUI: precondition: skill_id must match the configured idle_display_skill,&lt;br/&gt;otherwise it is registered but never asked to display
     Note over GUI: namespace stack becomes empty (no active skill display)
     GUI-&gt;&gt;Skill: ask configured idle_display_skill to display itself
     Skill-&gt;&gt;Skill: @resting_screen_handler builds page data

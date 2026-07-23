@@ -1799,6 +1799,9 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 <li>
 <p><strong>Description</strong>: A rule-based chatbot answer engine for OVOS, using AIML pattern matching.</p>
 </li>
+<li>
+<p><strong>Config</strong>: <code>"enable_tx"</code> (bool, default <code>false</code>) — auto-translate the utterance to English before matching AIML patterns.</p>
+</li>
 </ul>
 <hr />
 <h2 id="ovos-persona">ovos-persona<a class="headerlink" href="#ovos-persona" title="Permanent link">&para;</a></h2>
@@ -1841,6 +1844,9 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 </li>
 <li>
 <p><strong>Description</strong>: Answers factual questions by querying Wikipedia.</p>
+</li>
+<li>
+<p><strong>Config</strong>: <code>"extractive_qa"</code> — module name of the <code>ExtractiveQAEngine</code> plugin used to pull the exact answering passage out of a Wikipedia summary.</p>
 </li>
 </ul>
 <hr />
@@ -1895,6 +1901,9 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 <li>
 <p><strong>Description</strong>: Answers computational and factual questions via the Wolfram Alpha API.</p>
 </li>
+<li>
+<p><strong>Config</strong>: <code>"appid"</code> — your own Wolfram Alpha AppID (falls back to a shared demo key if unset).</p>
+</li>
 </ul>
 <hr />
 <h2 id="ovos-ddg-solver-plugin">ovos-ddg-solver-plugin<a class="headerlink" href="#ovos-ddg-solver-plugin" title="Permanent link">&para;</a></h2>
@@ -1904,6 +1913,9 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 </li>
 <li>
 <p><strong>Description</strong>: Answers questions using DuckDuckGo instant-answer results.</p>
+</li>
+<li>
+<p><strong>Config</strong>: <code>"keyword_extractor"</code> — module name of the keyword-extraction plugin used to pull search terms out of the question (defaults to <code>ovos-rake-keyword-extractor</code>).</p>
 </li>
 </ul>
 <hr />
@@ -1915,6 +1927,9 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 <li>
 <p><strong>Description</strong>: A simple tool to indicate whether a user answered "yes" or "no" to a yes/no prompt.</p>
 </li>
+<li>
+<p><strong>Config</strong>: no config keys — it works out of the box with no settings to tune.</p>
+</li>
 </ul>
 <hr />
 <h2 id="ovos-solver-failure-plugin">ovos-solver-failure-plugin<a class="headerlink" href="#ovos-solver-failure-plugin" title="Permanent link">&para;</a></h2>
@@ -1924,6 +1939,9 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 </li>
 <li>
 <p><strong>Description</strong>: Extreme fallback, just complains it does not have a brain</p>
+</li>
+<li>
+<p><strong>Config</strong>: no config keys — it works out of the box with no settings to tune.</p>
 </li>
 </ul>
 <hr />
@@ -1954,6 +1972,9 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 </li>
 <li>
 <p><strong>Description</strong>: A rule-based chatbot answer engine for OVOS, using RiveScript pattern matching.</p>
+</li>
+<li>
+<p><strong>Config</strong>: <code>"lang"</code> — language code used to pick the bundled RiveScript brain (defaults to <code>en-us</code>).</p>
 </li>
 </ul>
 <hr />

@@ -1991,13 +1991,21 @@ once or repeatedly:</p>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nd">@classproperty</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">def</span> <span class="nf">runtime_requirements</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="k">return</span> <span class="n">RuntimeRequirements</span><span class="p">(</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="n">internet_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>        <span class="n">network_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="n">requires_internet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        <span class="n">requires_network</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="p">)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="n">network_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>        <span class="n">internet_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        <span class="n">gui_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        <span class="n">requires_internet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        <span class="n">requires_network</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        <span class="n">requires_gui</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        <span class="n">no_internet_fallback</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="n">no_network_fallback</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="n">no_gui_fallback</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="p">)</span>
 </span></code></pre></div>
-<p>This is used by <code>SkillManager</code> to defer loading until the required connectivity is available.</p>
+<p>All nine fields default <code>True</code> except <code>gui_before_load</code>, <code>requires_gui</code>, and
+<code>no_internet_fallback</code>/<code>no_network_fallback</code> (default <code>False</code>), and <code>no_gui_fallback</code> (default
+<code>True</code>). This is used by <code>SkillManager</code> to defer loading until the required connectivity is
+available.</p>
 <h2 id="system-bus-events-handled-per-skill">System Bus Events Handled (per skill)<a class="headerlink" href="#system-bus-events-handled-per-skill" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2025,11 +2033,11 @@ once or repeatedly:</p>
 </tr>
 <tr>
 <td><code>mycroft.skill.enable_intent</code></td>
-<td>Enable a disabled intent</td>
+<td>Enable a disabled intent (the bus-facing counterpart to calling <code>self.enable_intent(intent_name)</code> from Python)</td>
 </tr>
 <tr>
 <td><code>mycroft.skill.disable_intent</code></td>
-<td>Disable an active intent</td>
+<td>Disable an active intent (the bus-facing counterpart to calling <code>self.disable_intent(intent_name)</code> from Python)</td>
 </tr>
 <tr>
 <td><code>mycroft.skill.set_cross_context</code></td>
@@ -2090,7 +2098,7 @@ once or repeatedly:</p>
 <p>Return values must be JSON-serializable. Standard Python builtins (<code>str</code>, <code>int</code>, <code>list</code>, <code>dict</code>, <code>None</code>, <code>bool</code>) work. Custom classes are not supported.</p>
 <hr />
 <h2 id="skill_api_method-decorator"><code>@skill_api_method</code> Decorator<a class="headerlink" href="#skill_api_method-decorator" title="Permanent link">&para;</a></h2>
-<p><code>skill_api_method</code> — <code>ovos_workshop/decorators/__init__.py:94</code></p>
+<p><code>skill_api_method</code> — defined in <code>ovos_workshop/decorators/__init__.py</code></p>
 <p>Tag a skill method as part of the public API. The decorator sets <code>func.api_method = True</code>. During skill initialization <code>OVOSSkill</code> discovers all methods with this attribute and registers a bus listener for each one at <code>&lt;skill_id&gt;.&lt;method_name&gt;</code>.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">skill_api_method</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
@@ -2103,7 +2111,7 @@ once or repeatedly:</p>
 </span></code></pre></div>
 <hr />
 <h2 id="skillapi-class"><code>SkillApi</code> Class<a class="headerlink" href="#skillapi-class" title="Permanent link">&para;</a></h2>
-<p><code>SkillApi</code> — <code>ovos_workshop/skills/api.py:20</code></p>
+<p><code>SkillApi</code> — defined in <code>ovos_workshop/skills/api.py</code></p>
 <h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h3>
 <p>Before calling <code>SkillApi.get()</code>, register the bus client once during skill initialization:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills.api</span> <span class="kn">import</span> <span class="n">SkillApi</span>

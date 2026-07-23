@@ -1622,21 +1622,23 @@ between the listener and the intent pipeline.</p>
 <p>💡 <strong>Backward Compatibility</strong>: <code>ovos-plugin-manager</code> still supports legacy <code>mycroft.plugin.stt</code> entry points, but new plugins should use the <code>opm.*</code> namespace.</p>
 </blockquote>
 <h2 id="standalone-usage">Standalone Usage<a class="headerlink" href="#standalone-usage" title="Permanent link">&para;</a></h2>
-<p>STT plugins can be used in your owm projects as follows</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">speech_recognition</span> <span class="kn">import</span> <span class="n">Recognizer</span><span class="p">,</span> <span class="n">AudioFile</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">plug</span> <span class="o">=</span> <span class="n">STTPlug</span><span class="p">()</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># verify lang is supported</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">lang</span> <span class="o">=</span> <span class="s2">&quot;en-us&quot;</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="k">assert</span> <span class="n">lang</span> <span class="ow">in</span> <span class="n">plug</span><span class="o">.</span><span class="n">available_languages</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># read file</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="k">with</span> <span class="n">AudioFile</span><span class="p">(</span><span class="s2">&quot;test.wav&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">source</span><span class="p">:</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">audio</span> <span class="o">=</span> <span class="n">Recognizer</span><span class="p">()</span><span class="o">.</span><span class="n">record</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="c1"># transcribe AudioData object</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="n">transcript</span> <span class="o">=</span> <span class="n">plug</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">audio</span><span class="p">,</span> <span class="n">lang</span><span class="p">)</span>
+<p>STT plugins can be used in your own projects, without a running OVOS instance, by
+importing the plugin class directly. For example, with <code>ovos-stt-plugin-vosk</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_stt_plugin_vosk</span> <span class="kn">import</span> <span class="n">VoskKaldiSTT</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.utils.audio</span> <span class="kn">import</span> <span class="n">AudioFile</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">plug</span> <span class="o">=</span> <span class="n">VoskKaldiSTT</span><span class="p">()</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># verify lang is supported</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">lang</span> <span class="o">=</span> <span class="s2">&quot;en-us&quot;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="k">assert</span> <span class="n">lang</span> <span class="ow">in</span> <span class="n">plug</span><span class="o">.</span><span class="n">available_languages</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># read the whole file into an AudioData object</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="k">with</span> <span class="n">AudioFile</span><span class="p">(</span><span class="s2">&quot;test.wav&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">source</span><span class="p">:</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="n">audio</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="c1"># transcribe</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="n">transcript</span> <span class="o">=</span> <span class="n">plug</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">audio</span><span class="p">,</span> <span class="n">lang</span><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="plugin-template">Plugin Template<a class="headerlink" href="#plugin-template" title="Permanent link">&para;</a></h2>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.stt</span> <span class="kn">import</span> <span class="n">STT</span>
@@ -1727,11 +1729,6 @@ separately-licensed model, that is called out under "model".</p>
 <td>Apache-2.0</td>
 </tr>
 <tr>
-<td><a href="#ovos-stt-plugin-wav2vec2">ovos-stt-plugin-wav2vec2</a></td>
-<td>OVOS plugin for <a href="https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/">Wav2Vec2</a></td>
-<td>Apache-2.0 (model: see model card)</td>
-</tr>
-<tr>
 <td><a href="#ovos-stt-plugin-whisper">ovos-stt-plugin-whisper</a></td>
 <td>OpenVoiceOS STT plugin for <a href="https://github.com/guillaumekln/faster-whisper">Whisper</a>, using transformers library</td>
 <td>Apache-2.0 (model: see model card)</td>
@@ -1786,7 +1783,10 @@ separately-licensed model, that is called out under "model".</p>
 <h2 id="ovos-stt-plugin-wav2vec">ovos-stt-plugin-wav2vec<a class="headerlink" href="#ovos-stt-plugin-wav2vec" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec">https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec</a></p>
+<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec">https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec</a> (aliased by
+  <a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2">ovos-stt-plugin-wav2vec2</a> — a
+  separate GitHub repo that installs the same package and module id, <code>ovos-stt-plugin-wav2vec</code>;
+  the repo name differs but the entry point does not, so both resolve to the same plugin)</p>
 </li>
 <li>
 <p><strong>Description</strong>: OVOS plugin for <a href="https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/">Wav2Vec2</a></p>
@@ -1883,26 +1883,6 @@ servers entirely: fully offline plugins exist for everything.</p>
 </li>
 </ul>
 <hr />
-<h2 id="ovos-stt-plugin-wav2vec2">ovos-stt-plugin-wav2vec2<a class="headerlink" href="#ovos-stt-plugin-wav2vec2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2">https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: OVOS plugin for <a href="https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/">Wav2Vec2</a>. This repository and <a href="#ovos-stt-plugin-wav2vec">ovos-stt-plugin-wav2vec</a> above install the same package and module id (<code>ovos-stt-plugin-wav2vec</code>) — the GitHub repo name differs but the entry point does not.</p>
-</li>
-</ul>
-<h3 id="default-configuration_3">Default Configuration<a class="headerlink" href="#default-configuration_3" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>  &quot;stt&quot;: {
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-wav2vec&quot;,
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    &quot;ovos-stt-plugin-wav2vec&quot;: {
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        &quot;model&quot;: &quot;proxectonos/Nos_ASR-wav2vec2-large-xlsr-53-gl-with-lm&quot;
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    }
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>  }
-</span></code></pre></div>
-<p>As above, <code>model</code> defaults per-language from an internal table; the value shown is the
-entry for Galician (<code>gl</code>).</p>
-<hr />
 <h2 id="ovos-stt-plugin-whisper">ovos-stt-plugin-whisper<a class="headerlink" href="#ovos-stt-plugin-whisper" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -1912,14 +1892,14 @@ entry for Galician (<code>gl</code>).</p>
 <p><strong>Description</strong>: OpenVoiceOS STT plugin for <a href="https://github.com/guillaumekln/faster-whisper">Whisper</a>, using transformers library</p>
 </li>
 </ul>
-<h3 id="default-configuration_4">Default Configuration<a class="headerlink" href="#default-configuration_4" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>  &quot;stt&quot;: {
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-whisper&quot;,
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    &quot;ovos-stt-plugin-whisper&quot;: {
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>        &quot;model&quot;: &quot;openai/whisper-large-v3&quot;,
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>        &quot;use_cuda&quot;: true
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    }
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  }
+<h3 id="default-configuration_3">Default Configuration<a class="headerlink" href="#default-configuration_3" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>  &quot;stt&quot;: {
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-whisper&quot;,
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    &quot;ovos-stt-plugin-whisper&quot;: {
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        &quot;model&quot;: &quot;openai/whisper-large-v3&quot;,
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        &quot;use_cuda&quot;: true
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    }
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>  }
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-stt-plugin-whispercpp">ovos-stt-plugin-whispercpp<a class="headerlink" href="#ovos-stt-plugin-whispercpp" title="Permanent link">&para;</a></h2>
@@ -1931,13 +1911,13 @@ entry for Galician (<code>gl</code>).</p>
 <p><strong>Description</strong>: OpenVoiceOS STT plugin for <a href="https://github.com/ggerganov/whisper.cpp">whispercpp</a></p>
 </li>
 </ul>
-<h3 id="default-configuration_5">Default Configuration<a class="headerlink" href="#default-configuration_5" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>  &quot;stt&quot;: {
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-whispercpp&quot;,
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    &quot;ovos-stt-plugin-whispercpp&quot;: {
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>        &quot;model&quot;: &quot;tiny&quot;
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    }
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>  }
+<h3 id="default-configuration_4">Default Configuration<a class="headerlink" href="#default-configuration_4" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>  &quot;stt&quot;: {
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-whispercpp&quot;,
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    &quot;ovos-stt-plugin-whispercpp&quot;: {
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>        &quot;model&quot;: &quot;tiny&quot;
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    }
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>  }
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-stt-plugin-fasterwhisper">ovos-stt-plugin-fasterwhisper<a class="headerlink" href="#ovos-stt-plugin-fasterwhisper" title="Permanent link">&para;</a></h2>
@@ -1949,17 +1929,17 @@ entry for Galician (<code>gl</code>).</p>
 <p><strong>Description</strong>: OpenVoiceOS STT plugin for <a href="https://github.com/guillaumekln/faster-whisper">Faster Whisper</a></p>
 </li>
 </ul>
-<h3 id="default-configuration_6">Default Configuration<a class="headerlink" href="#default-configuration_6" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>  &quot;stt&quot;: {
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-fasterwhisper&quot;,
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    &quot;ovos-stt-plugin-fasterwhisper&quot;: {
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>        &quot;model&quot;: &quot;large-v3&quot;,
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        &quot;use_cuda&quot;: true,
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>        &quot;compute_type&quot;: &quot;float16&quot;,
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>        &quot;beam_size&quot;: 5,
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>        &quot;cpu_threads&quot;: 4
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    }
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>  }
+<h3 id="default-configuration_5">Default Configuration<a class="headerlink" href="#default-configuration_5" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>  &quot;stt&quot;: {
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-fasterwhisper&quot;,
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    &quot;ovos-stt-plugin-fasterwhisper&quot;: {
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>        &quot;model&quot;: &quot;large-v3&quot;,
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        &quot;use_cuda&quot;: true,
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        &quot;compute_type&quot;: &quot;float16&quot;,
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>        &quot;beam_size&quot;: 5,
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>        &quot;cpu_threads&quot;: 4
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    }
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>  }
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-stt-plugin-nemo">ovos-stt-plugin-nemo<a class="headerlink" href="#ovos-stt-plugin-nemo" title="Permanent link">&para;</a></h2>
@@ -1971,14 +1951,14 @@ entry for Galician (<code>gl</code>).</p>
 <p><strong>Description</strong>: OpenVoiceOS STT plugin for <a href="https://docs.nvidia.com/nemo-framework/user-guide/latest/nemotoolkit/asr/models.html">Nemo</a>, GPU is <strong>strongly recommended</strong></p>
 </li>
 </ul>
-<h3 id="default-configuration_7">Default Configuration<a class="headerlink" href="#default-configuration_7" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>  &quot;stt&quot;: {
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-nemo&quot;,
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    &quot;ovos-stt-plugin-nemo&quot;: {
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>        &quot;model&quot;: &quot;stt_eu_conformer_ctc_large&quot;,
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        &quot;use_cuda&quot;: false
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    }
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>  }
+<h3 id="default-configuration_6">Default Configuration<a class="headerlink" href="#default-configuration_6" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>  &quot;stt&quot;: {
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-nemo&quot;,
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    &quot;ovos-stt-plugin-nemo&quot;: {
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>        &quot;model&quot;: &quot;stt_eu_conformer_ctc_large&quot;,
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        &quot;use_cuda&quot;: false
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    }
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>  }
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-stt-plugin-whisper-lm">ovos-stt-plugin-whisper-lm<a class="headerlink" href="#ovos-stt-plugin-whisper-lm" title="Permanent link">&para;</a></h2>
@@ -1990,18 +1970,18 @@ entry for Galician (<code>gl</code>).</p>
 <p><strong>Description</strong>: OpenVoiceOS STT plugin for <a href="https://github.com/hitz-zentroa/whisper-lm-transformers">Whisper-LM-transformers</a>, KenLM and Large language model integration with Whisper ASR models implemented in Hugging Face library.</p>
 </li>
 </ul>
-<h3 id="default-configuration_8">Default Configuration<a class="headerlink" href="#default-configuration_8" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>  &quot;stt&quot;: {
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-whisper-lm&quot;,
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    &quot;ovos-stt-plugin-whisper-lm&quot;: {
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>        &quot;model&quot;: &quot;zuazo/whisper-medium-eu&quot;,
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>        &quot;lm_repo&quot;: &quot;HiTZ/whisper-lm-ngrams&quot;,
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>        &quot;lm_model&quot;: &quot;5gram-eu.bin&quot;,
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>        &quot;lm_alpha&quot;: 0.33582369,
-</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>        &quot;lm_beta&quot;: 0.68825565,
-</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>        &quot;use_cuda&quot;: true
-</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>    }
-</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>  }
+<h3 id="default-configuration_7">Default Configuration<a class="headerlink" href="#default-configuration_7" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>  &quot;stt&quot;: {
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-whisper-lm&quot;,
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    &quot;ovos-stt-plugin-whisper-lm&quot;: {
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>        &quot;model&quot;: &quot;zuazo/whisper-medium-eu&quot;,
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        &quot;lm_repo&quot;: &quot;HiTZ/whisper-lm-ngrams&quot;,
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>        &quot;lm_model&quot;: &quot;5gram-eu.bin&quot;,
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>        &quot;lm_alpha&quot;: 0.33582369,
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>        &quot;lm_beta&quot;: 0.68825565,
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>        &quot;use_cuda&quot;: true
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    }
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>  }
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-stt-plugin-citrinet">ovos-stt-plugin-citrinet<a class="headerlink" href="#ovos-stt-plugin-citrinet" title="Permanent link">&para;</a></h2>
@@ -2013,13 +1993,13 @@ entry for Galician (<code>gl</code>).</p>
 <p><strong>Description</strong>: OpenVoiceOS STT plugin</p>
 </li>
 </ul>
-<h3 id="default-configuration_9">Default Configuration<a class="headerlink" href="#default-configuration_9" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>  &quot;stt&quot;: {
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-citrinet&quot;,
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    &quot;ovos-stt-plugin-citrinet&quot;: {
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>      &quot;lang&quot;: &quot;ca&quot;
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    }
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>  }
+<h3 id="default-configuration_8">Default Configuration<a class="headerlink" href="#default-configuration_8" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>  &quot;stt&quot;: {
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-citrinet&quot;,
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    &quot;ovos-stt-plugin-citrinet&quot;: {
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>      &quot;lang&quot;: &quot;ca&quot;
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    }
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>  }
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-stt-plugin-nos">ovos-stt-plugin-nos<a class="headerlink" href="#ovos-stt-plugin-nos" title="Permanent link">&para;</a></h2>
@@ -2031,10 +2011,10 @@ entry for Galician (<code>gl</code>).</p>
 <p><strong>Description</strong>: Galician STT using <a href="https://github.com/proxectonos">Proxecto Nós</a> wav2vec2 models. ⚠️ <strong>Archived</strong> — superseded by <a href="https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2">ovos-stt-plugin-wav2vec2</a>.</p>
 </li>
 </ul>
-<h3 id="default-configuration_10">Default Configuration<a class="headerlink" href="#default-configuration_10" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>&quot;stt&quot;: {
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-nos&quot;
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>}
+<h3 id="default-configuration_9">Default Configuration<a class="headerlink" href="#default-configuration_9" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>&quot;stt&quot;: {
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-nos&quot;
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>}
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-stt-plugin-hitz">ovos-stt-plugin-HiTZ<a class="headerlink" href="#ovos-stt-plugin-hitz" title="Permanent link">&para;</a></h2>
@@ -2046,13 +2026,13 @@ entry for Galician (<code>gl</code>).</p>
 <p><strong>Description</strong>: OpenVoiceOS STT plugin for <strong>Basque</strong> models trained by <a href="https://huggingface.co/HiTZ">HiTZ</a></p>
 </li>
 </ul>
-<h3 id="default-configuration_11">Default Configuration<a class="headerlink" href="#default-configuration_11" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>  &quot;stt&quot;: {
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-HiTZ&quot;,
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    &quot;ovos-stt-plugin-HiTZ&quot;: {
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>        &quot;model&quot;: &quot;stt_eu_conformer_transducer_large&quot;
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    }
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>  }
+<h3 id="default-configuration_10">Default Configuration<a class="headerlink" href="#default-configuration_10" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>  &quot;stt&quot;: {
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-HiTZ&quot;,
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    &quot;ovos-stt-plugin-HiTZ&quot;: {
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>        &quot;model&quot;: &quot;stt_eu_conformer_transducer_large&quot;
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    }
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>  }
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-stt-plugin-vosk">ovos-stt-plugin-vosk<a class="headerlink" href="#ovos-stt-plugin-vosk" title="Permanent link">&para;</a></h2>
@@ -2064,13 +2044,13 @@ entry for Galician (<code>gl</code>).</p>
 <p><strong>Description</strong>: Mycroft STT plugin for <a href="https://alphacephei.com/vosk/">Vosk</a></p>
 </li>
 </ul>
-<h3 id="default-configuration_12">Default Configuration<a class="headerlink" href="#default-configuration_12" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>  &quot;stt&quot;: {
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-vosk&quot;,
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    &quot;ovos-stt-plugin-vosk&quot;: {
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>        &quot;model&quot;: &quot;/path/to/unzipped/model/folder&quot;
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>    }
-</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>  }
+<h3 id="default-configuration_11">Default Configuration<a class="headerlink" href="#default-configuration_11" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>  &quot;stt&quot;: {
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-vosk&quot;,
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    &quot;ovos-stt-plugin-vosk&quot;: {
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>        &quot;model&quot;: &quot;/path/to/unzipped/model/folder&quot;
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    }
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>  }
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-stt-plugin-onnx-asr">ovos-stt-plugin-onnx-asr<a class="headerlink" href="#ovos-stt-plugin-onnx-asr" title="Permanent link">&para;</a></h2>
@@ -2082,13 +2062,13 @@ entry for Galician (<code>gl</code>).</p>
 <p><strong>Description</strong>: Runs <a href="https://github.com/istupakov/onnx-asr">onnx-asr</a> models fully offline via ONNX Runtime — no cloud call, no PyTorch/transformers dependency. Supports NeMo Parakeet and Canary, Whisper, and wav2vec2 model families.</p>
 </li>
 </ul>
-<h3 id="default-configuration_13">Default Configuration<a class="headerlink" href="#default-configuration_13" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>  &quot;stt&quot;: {
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-onnx-asr&quot;,
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    &quot;ovos-stt-plugin-onnx-asr&quot;: {
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>        &quot;model&quot;: &quot;nemo-parakeet-tdt-0.6b-v3&quot;
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    }
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>  }
+<h3 id="default-configuration_12">Default Configuration<a class="headerlink" href="#default-configuration_12" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>  &quot;stt&quot;: {
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    &quot;module&quot;: &quot;ovos-stt-plugin-onnx-asr&quot;,
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    &quot;ovos-stt-plugin-onnx-asr&quot;: {
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>        &quot;model&quot;: &quot;nemo-parakeet-tdt-0.6b-v3&quot;
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>    }
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>  }
 </span></code></pre></div>
 <hr />
 <h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>

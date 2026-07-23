@@ -1004,57 +1004,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Key Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#skill-manager" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skill Manager
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intent-service" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intent Service
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intent-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intent Pipeline
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#transformer-plugins" class="md-nav__link">
-    <span class="md-ellipsis">
-      Transformer Plugins
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#skill-installer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skill Installer
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1651,57 +1600,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Key Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#skill-manager" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skill Manager
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intent-service" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intent Service
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intent-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      Intent Pipeline
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#transformer-plugins" class="md-nav__link">
-    <span class="md-ellipsis">
-      Transformer Plugins
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#skill-installer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Skill Installer
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1788,17 +1686,14 @@
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">      </span>└──<span class="w"> </span>ovos-phal<span class="w">             </span>–<span class="w"> </span>hardware/platform<span class="w"> </span>plugins
 </span></code></pre></div>
 <h2 id="key-components">Key Components<a class="headerlink" href="#key-components" title="Permanent link">&para;</a></h2>
-<p>For a deeper dive into each subsystem, refer to the following pages:</p>
-<h3 id="skill-manager">Skill Manager<a class="headerlink" href="#skill-manager" title="Permanent link">&para;</a></h3>
-<p>Learn how <code>ovos-core</code> finds, loads, and manages the lifecycle of your skills. It also handles connectivity gating, ensuring skills are only loaded when their requirements (like internet access) are met.</p>
-<h3 id="intent-service">Intent Service<a class="headerlink" href="#intent-service" title="Permanent link">&para;</a></h3>
-<p>Discover how utterances are processed and matched to skills. This section covers the utterance handling flow, language disambiguation, and the query API.</p>
-<h3 id="intent-pipeline">Intent Pipeline<a class="headerlink" href="#intent-pipeline" title="Permanent link">&para;</a></h3>
-<p>The pipeline is the ordered sequence of <strong>pipeline plugins</strong> OVOS uses to understand what the user wants. Each plugin exposes a single <code>match(utterances, lang, session) → Match | None</code> contract and they are tried in order, <strong>first-match-wins</strong> — there is no cross-plugin confidence scoring (OVOS-PIPELINE-1 §4, §6.2). You can learn about specific matchers like <a href="../adapt-pipeline/">Adapt</a>, <a href="../padatious-pipeline/">Padatious</a>, and the <a href="../cq-pipeline/">Common Query</a> framework.</p>
-<h3 id="transformer-plugins">Transformer Plugins<a class="headerlink" href="#transformer-plugins" title="Permanent link">&para;</a></h3>
-<p>Transformers allow you to modify utterances, metadata, or intent matches as they move through the system.</p>
-<h3 id="skill-installer">Skill Installer<a class="headerlink" href="#skill-installer" title="Permanent link">&para;</a></h3>
-<p>The built-in system for installing and managing skills and Python packages dynamically at runtime.</p>
+<p>For a deeper dive into each subsystem:</p>
+<ul>
+<li><strong><a href="../skill-manager/">Skill Manager</a></strong> — finds, loads, and manages skill lifecycles, including connectivity gating (skills only load once requirements like internet access are met).</li>
+<li><strong><a href="../intent-service/">Intent Service</a></strong> — the utterance handling flow, language disambiguation, and the query API.</li>
+<li><strong>Intent Pipeline</strong> — the ordered sequence of <strong>pipeline plugins</strong> that decide what the user wants; each exposes a single <code>match(utterances, lang, session) → Match | None</code> contract and they run <strong>first-match-wins</strong>, with no cross-plugin confidence scoring (OVOS-PIPELINE-1 §4, §6.2). See <a href="../adapt-pipeline/">Adapt</a>, <a href="../padatious-pipeline/">Padatious</a>, and <a href="../cq-pipeline/">Common Query</a>.</li>
+<li><strong>Transformer Plugins</strong> — modify utterances, metadata, or intent matches as they move through the pipeline.</li>
+<li><strong><a href="../skill-installer/">Skill Installer</a></strong> — installs and manages skills and Python packages dynamically at runtime.</li>
+</ul>
 <hr />
 <h2 id="entry-points">Entry Points<a class="headerlink" href="#entry-points" title="Permanent link">&para;</a></h2>
 <p>If you are running OVOS manually, you can use these commands:</p>

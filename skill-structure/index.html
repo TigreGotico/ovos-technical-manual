@@ -1652,6 +1652,13 @@ language.
 For example, Brazilian Portuguese is 'pt-br', German is 'de-de', and Australian English is 'en-au'.</p>
 <p><code>dialog</code> and <code>vocab</code> have been <strong>deprecated</strong>, they are still supported, but we strongly recommend you use <code>locale</code> for new
 skills</p>
+<div class="admonition note">
+<p class="admonition-title">If both layouts exist for the same resource, <code>locale</code> wins</p>
+<p>Resource lookup (<code>find_resource</code>/<code>load_data_files</code> in <code>ovos_workshop/resource_files.py</code>)
+checks the <code>locale/&lt;lang&gt;/</code> layout before falling back to the legacy <code>dialog/&lt;lang&gt;/</code>,
+<code>vocab/&lt;lang&gt;/</code>, <code>regex/&lt;lang&gt;/</code> layout. If a skill somehow ships the same filename in both
+places, the <code>locale</code> copy is what gets loaded.</p>
+</div>
 <p>inside the <code>locale</code> folder you will find subfolders for each language (e.g. <code>en-us</code>), often all you need to do in order
 to translate a skill is adding a new folder for your language here</p>
 <p>each language folder can have the structure it wants, you may see files grouped by type in subfolder or all in the base
@@ -1790,7 +1797,7 @@ without it, and only some community config tools still read it.</p>
 </span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="s2">&quot;ovos-skill-hello-world.yourname&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ovos_skill_hello_world:HelloWorldSkill&quot;</span>
 </span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>
 </span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="k">[tool.setuptools.package-data]</span>
-</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="s2">&quot;*&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;*.json&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;locale/**&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ui/**&quot;</span><span class="p">]</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="s2">&quot;*&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;locale/**/*&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ui/**/*&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;*.json&quot;</span><span class="p">]</span>
 </span></code></pre></div>
 <h4 id="skilljson"><code>skill.json</code><a class="headerlink" href="#skilljson" title="Permanent link">&para;</a></h4>
 <p>This is an optional, per-language file — it lives alongside your dialog and intent

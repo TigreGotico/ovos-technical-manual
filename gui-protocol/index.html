@@ -2117,6 +2117,15 @@ reference listener implementation.</p>
 </span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>The Qt client then opens a WebSocket connection to <code>ws://localhost:18181</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Try it: connect a raw WebSocket client to 18181</p>
+<p>You don't need a Qt client to see this handshake happen. With <code>ovos-gui</code> running and the
+legacy adapter installed, connect any WebSocket client to <code>ws://localhost:18181</code> (for
+example <code>websocat ws://localhost:18181</code> or a short <code>websockets</code> Python script) and trigger
+a skill that shows a GUI page. You should observe the server immediately replay
+<code>mycroft.session.list.insert</code> and <code>mycroft.gui.list.insert</code> messages for the active
+namespace — this is <code>GUIWebsocketHandler.synchronize()</code> bringing your new client up to date.</p>
+</div>
 <p>When a client connects, <code>GUIWebsocketHandler.synchronize()</code> replays the full current state:</p>
 <ol>
 <li>

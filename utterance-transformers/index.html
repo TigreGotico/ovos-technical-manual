@@ -1747,6 +1747,14 @@ it trades latency for robustness against noisy STT.</p>
 </span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>       <span class="k">return</span> <span class="n">modified_utterances</span><span class="p">,</span> <span class="n">context</span>
 </span></code></pre></div>
 <p>The second return value is <em>additional</em> context that gets merged into the message context, not a replacement for it.</p>
+<div class="admonition note">
+<p class="admonition-title">Where <code>lang</code> fits</p>
+<p>The spec box above describes the transform as receiving <code>utterances</code>, <code>lang</code>, and
+<code>Message.context</code>; in the installed <code>UtteranceTransformer.transform()</code> signature
+<code>lang</code> isn't a separate parameter — it travels inside the <code>context</code> dict (e.g.
+<code>context.get("lang")</code>), matching the class actually shipped in
+<code>ovos_plugin_manager.templates.transformers</code>.</p>
+</div>
 <p><strong>Register as a Plugin</strong>:
 In your <code>pyproject.toml</code>, register under the <code>opm.transformer.text</code> group:</p>
 <div class="language-toml highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.transformer.text&quot;</span><span class="k">]</span>

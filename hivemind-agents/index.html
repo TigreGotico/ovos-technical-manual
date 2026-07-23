@@ -1540,12 +1540,18 @@ key holding its config.</p>
 <hr />
 <h2 id="permissions-access-control">Permissions &amp; access control<a class="headerlink" href="#permissions-access-control" title="Permanent link">&para;</a></h2>
 <p>HiveMind is <strong>deny-by-default</strong>: a client may only do what it has been explicitly granted.
-<code>hivemind-core</code> exposes admin CLI commands to manage this, including:</p>
+<code>hivemind-core</code> enforces this at the message-type level with a <code>PolicyChain</code> of pluggable
+<code>PolicyPlugin</code>s (including <code>MessageTypeACLPolicy</code>) that every inbound message is checked
+against. Its admin CLI manages this, including:</p>
 <ul>
 <li><code>add-client</code> / <code>list-clients</code> / <code>delete-client</code> — manage who may connect.</li>
 <li><code>allow-msg</code> / <code>blacklist-msg</code> — whitelist or block specific bus message types per client.</li>
 <li><code>make-admin</code> / <code>revoke-admin</code>, <code>allow-escalate</code> / <code>allow-propagate</code> — elevate or restrict a client.</li>
-<li><code>blacklist-skill</code> / <code>blacklist-intent</code> — stop a client from reaching specific skills/intents.</li>
+<li><code>blacklist-skill</code> / <code>allow-skill</code>, <code>blacklist-intent</code> / <code>allow-intent</code> — stop or re-allow a
+  client from reaching specific skills/intents. These just write <code>skill_blacklist</code> /
+  <code>intent_blacklist</code> client metadata; actually enforcing it against skill/intent IDs requires
+  the <code>OVOSAgentPolicy</code> plugin (from <code>hivemind-ovos-agent-plugin</code>) to be present in the
+  server's policy chain — the CLI verbs alone don't block anything without it.</li>
 </ul>
 <p>This is what makes HiveMind safe to expose to satellites or other users, unlike the plain
 <a href="../persona-server/">persona-server</a> (HTTP, no auth).</p>

@@ -2213,13 +2213,21 @@ event scheduling, and the full list of bus events an <code>OVOSSkill</code> hand
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nd">@classproperty</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">def</span> <span class="nf">runtime_requirements</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
 </span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="k">return</span> <span class="n">RuntimeRequirements</span><span class="p">(</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        <span class="n">internet_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        <span class="n">network_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="n">requires_internet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="n">requires_network</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="p">)</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        <span class="n">network_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        <span class="n">internet_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="n">gui_before_load</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="n">requires_internet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        <span class="n">requires_network</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        <span class="n">requires_gui</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>        <span class="n">no_internet_fallback</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>        <span class="n">no_network_fallback</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>        <span class="n">no_gui_fallback</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="p">)</span>
 </span></code></pre></div>
-<p>Used by <code>SkillManager</code> to defer loading until requirements are met.</p>
+<p>All nine fields default <code>True</code> except <code>gui_before_load</code>, <code>requires_gui</code>,
+<code>no_internet_fallback</code>, and <code>no_network_fallback</code> (default <code>False</code>). Used by <code>SkillManager</code>
+to defer loading until requirements are met. See <a href="../ovos-skill/#runtimerequirements">OVOSSkill — RuntimeRequirements</a>
+for the full field reference.</p>
 <hr />
 <h2 id="conversationalskill">ConversationalSkill<a class="headerlink" href="#conversationalskill" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_workshop.skills.converse.ConversationalSkill</code></p>
@@ -2282,21 +2290,21 @@ you should actually pick for a handler, covered in <a href="../fallbacks/#order-
 <table>
 <thead>
 <tr>
-<th>Range</th>
+<th>Range (inclusive start, exclusive stop)</th>
 <th>Pipeline stage</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1–5</td>
+<td>0–5</td>
 <td><code>fallback_high</code></td>
 </tr>
 <tr>
-<td>6–90</td>
+<td>5–90</td>
 <td><code>fallback_medium</code></td>
 </tr>
 <tr>
-<td>91–101</td>
+<td>90–101</td>
 <td><code>fallback_low</code></td>
 </tr>
 </tbody>
@@ -2324,7 +2332,7 @@ the highest-confidence answer.</p>
 <div class="admonition note">
 <p class="admonition-title">Under the hood</p>
 <p>On startup <code>OVOSSkill</code> scans for a method tagged by <code>@common_query</code>
-(<code>ovos.py:946</code>) and wires up the CommonQuery ping/answer bus handlers
+(in <code>ovos_workshop/skills/ovos.py</code>) and wires up the CommonQuery ping/answer bus handlers
 automatically — only one such handler per skill is supported.</p>
 </div>
 <hr />
@@ -2361,7 +2369,7 @@ automatically — only one such handler per skill is supported.</p>
 <hr />
 <h2 id="ovosgameskill">OVOSGameSkill<a class="headerlink" href="#ovosgameskill" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_workshop.skills.game_skill.OVOSGameSkill</code>
-<strong>Source:</strong> <code>ovos_workshop/skills/game_skill.py:13</code></p>
+<strong>Source:</strong> <code>ovos_workshop/skills/game_skill.py</code></p>
 <p>Extends <code>OVOSCommonPlaybackSkill</code>. Structured base for OCP-integrated voice games. Subclasses must implement all six abstract methods: <code>on_play_game</code>, <code>on_pause_game</code>, <code>on_resume_game</code>, <code>on_stop_game</code>, <code>on_save_game</code>, <code>on_load_game</code>.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills.game_skill</span> <span class="kn">import</span> <span class="n">OVOSGameSkill</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
@@ -2390,9 +2398,14 @@ automatically — only one such handler per skill is supported.</p>
 <hr />
 <h2 id="conversationalgameskill">ConversationalGameSkill<a class="headerlink" href="#conversationalgameskill" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_workshop.skills.game_skill.ConversationalGameSkill</code>
-<strong>Source:</strong> <code>ovos_workshop/skills/game_skill.py:150</code></p>
+<strong>Source:</strong> <code>ovos_workshop/skills/game_skill.py</code></p>
 <p>Extends <code>OVOSGameSkill</code>. Adds a <strong>converse loop</strong>: every utterance that does not match a registered intent is piped to <code>on_game_command()</code> while the game is playing. Also adds auto-save support, default pause/resume dialogs, and <code>on_abandon_game()</code>.</p>
-<p>Remaining abstract methods: <code>on_play_game</code>, <code>on_stop_game</code>, <code>on_game_command</code>.</p>
+<p>Remaining abstract methods (you must implement these): <code>on_play_game</code>, <code>on_stop_game</code>,
+<code>on_game_command</code>. <code>on_save_game</code> and <code>on_load_game</code> get a default implementation that just
+speaks a "can't save/load" dialog — override them if your game supports saving. <code>on_pause_game</code>,
+<code>on_resume_game</code>, and <code>on_abandon_game</code> also get working default implementations (pause/resume
+dialogs gated by the <code>pause_dialog</code> setting, and a no-op abandon hook) that you can leave alone or
+override.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills.game_skill</span> <span class="kn">import</span> <span class="n">ConversationalGameSkill</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="k">class</span> <span class="nc">AdventureSkill</span><span class="p">(</span><span class="n">ConversationalGameSkill</span><span class="p">):</span>
@@ -2414,7 +2427,7 @@ automatically — only one such handler per skill is supported.</p>
 <hr />
 <h2 id="universalskill">UniversalSkill<a class="headerlink" href="#universalskill" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_workshop.skills.auto_translatable.UniversalSkill</code>
-<strong>Source:</strong> <code>ovos_workshop/skills/auto_translatable.py:11</code></p>
+<strong>Source:</strong> <code>ovos_workshop/skills/auto_translatable.py</code></p>
 <p>Extends <code>OVOSSkill</code>. Automatically translates incoming utterances to <code>self.internal_language</code> before the intent handler runs, and translates <code>self.speak()</code> output back to the user's language. Requires a translator plugin to be configured.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills.auto_translatable</span> <span class="kn">import</span> <span class="n">UniversalSkill</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">intent_handler</span>
@@ -2432,7 +2445,7 @@ automatically — only one such handler per skill is supported.</p>
 <hr />
 <h2 id="universalfallback">UniversalFallback<a class="headerlink" href="#universalfallback" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_workshop.skills.auto_translatable.UniversalFallback</code>
-<strong>Source:</strong> <code>ovos_workshop/skills/auto_translatable.py:311</code></p>
+<strong>Source:</strong> <code>ovos_workshop/skills/auto_translatable.py</code></p>
 <p>Combines <code>UniversalSkill</code> and <code>FallbackSkill</code>. <a href="../fallback-pipeline/">Fallback</a> handlers receive utterances in <code>self.internal_language</code>. <code>self.speak()</code> translates output back to the user's language.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills.auto_translatable</span> <span class="kn">import</span> <span class="n">UniversalFallback</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">fallback_handler</span>
@@ -2450,7 +2463,7 @@ automatically — only one such handler per skill is supported.</p>
 <hr />
 <h2 id="ovosabstractapplication">OVOSAbstractApplication<a class="headerlink" href="#ovosabstractapplication" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_workshop.app.OVOSAbstractApplication</code>
-<strong>Source:</strong> <code>ovos_workshop/app.py:12</code></p>
+<strong>Source:</strong> <code>ovos_workshop/app.py</code></p>
 <p>Like <code>OVOSSkill</code> but designed to run <strong>without</strong> an intent service. Suitable for standalone GUI apps, <a href="../hivemind-agents/">HiveMind</a>-attached services, or any program that needs <a href="../tts-plugins/">TTS</a>/messagebus/settings but does not register intents with <code>ovos-core</code>. Creates its own bus connection if none is provided. Settings stored under <code>apps/&lt;id&gt;/</code> instead of <code>skills/&lt;id&gt;/</code>.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.app</span> <span class="kn">import</span> <span class="n">OVOSAbstractApplication</span>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>

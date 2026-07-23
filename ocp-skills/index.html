@@ -1598,7 +1598,10 @@ service.</p>
 <p><code>self.voc_match(phrase, "skill_name")</code> to handle specific requests for your skill</p>
 </li>
 <li>
-<p><code>self.remove_voc(phrase, "skill_name")</code> to remove matched phrases from the search request</p>
+<p><code>self.remove_voc(phrase, "skill_name")</code> to remove matched phrases from the search request —
+  for example, <code>self.remove_voc("play some somafm radio", "somafm")</code> strips the <code>somafm</code> vocab
+  match and returns <code>"play some radio"</code>, so the rest of your matching logic scores against the
+  cleaned-up phrase instead of the raw one</p>
 </li>
 <li>
 <p>Implement the <code>ocp_search</code> decorator, as many as you want (they run in parallel)</p>
@@ -1619,7 +1622,10 @@ service.</p>
 <p>Values are between 0 and 100</p>
 </li>
 <li>
-<p>High confidence scores cancel other OCP skill searches</p>
+<p>Results below the <code>min_score</code> config threshold (<code>intents.ovos-ocp-pipeline-plugin.min_score</code>,
+    default <code>50</code>) are filtered out before OCP picks a winner across all responding skills; there
+    is no fixed confidence value that short-circuits and cancels other skills' searches early —
+    higher scores simply make your result more likely to win the cross-skill comparison</p>
 </li>
 <li>
 <p><code>ocp_featured_media</code>, return a playlist for the OCP menu if selected from GUI (optional)</p>

@@ -1786,6 +1786,8 @@ problems in plain language before you dig into the technical steps below.</p>
 <hr />
 <h2 id="how-to-remove-all-skills">How to remove all skills<a class="headerlink" href="#how-to-remove-all-skills" title="Permanent link">&para;</a></h2>
 <p>If you want to revert OVOS to a blank state you can use <code>ovos-reset-brain</code> to remove ALL skills</p>
+<details class="example">
+<summary>Full <code>ovos-reset-brain</code> transcript</summary>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="o">(</span>ovos<span class="o">)</span><span class="w"> </span>ovos@raspOVOS:~<span class="w"> </span>$<span class="w"> </span>ovos-reset-brain<span class="w"> </span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="o">[</span>INFO<span class="o">]</span><span class="w"> </span>Starting<span class="w"> </span>OpenVoiceOS<span class="w"> </span>skill<span class="w"> </span>uninstallation<span class="w"> </span>process...
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>WARNING:<span class="w"> </span>This<span class="w"> </span>will<span class="w"> </span>uninstall<span class="w"> </span>all<span class="w"> </span>installed<span class="w"> </span>skills.<span class="w"> </span>Do<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span><span class="k">continue</span>?<span class="w"> </span><span class="o">(</span>y/n<span class="o">)</span>:<span class="w"> </span>y
@@ -1873,6 +1875,7 @@ problems in plain language before you dig into the technical steps below.</p>
 </span><span id="__span-3-85"><a id="__codelineno-3-85" name="__codelineno-3-85" href="#__codelineno-3-85"></a><span class="o">[</span>SUCCESS<span class="o">]</span><span class="w"> </span>All<span class="w"> </span>skills<span class="w"> </span>have<span class="w"> </span>been<span class="w"> </span>uninstalled<span class="w"> </span>successfully.
 </span><span id="__span-3-86"><a id="__codelineno-3-86" name="__codelineno-3-86" href="#__codelineno-3-86"></a><span class="o">[</span>WARNING<span class="o">]</span><span class="w"> </span>Note:<span class="w"> </span>This<span class="w"> </span>operation<span class="w"> </span>only<span class="w"> </span>deletes<span class="w"> </span>the<span class="w"> </span>skills.<span class="w"> </span>Configuration<span class="w"> </span>files<span class="w"> </span>and<span class="w"> </span>pipeline<span class="w"> </span>plugins<span class="w"> </span><span class="o">(</span>which<span class="w"> </span>still<span class="w"> </span>influence<span class="w"> </span>intent<span class="w"> </span>matching<span class="o">)</span><span class="w"> </span>are<span class="w"> </span>NOT<span class="w"> </span>affected<span class="w"> </span>by<span class="w"> </span>this<span class="w"> </span>action.
 </span></code></pre></div>
+</details>
 <h2 id="wake-word-issues">Wake Word Issues<a class="headerlink" href="#wake-word-issues" title="Permanent link">&para;</a></h2>
 <p>Wake word detection in raspOVOS offers several options, each with its advantages and limitations. Understanding these
 can help resolve potential issues and improve performance.</p>
@@ -2086,6 +2089,8 @@ choosing a wake word that will work well in various environments:</p>
 </li>
 <li>You can inspect a sink by its number with <code>wpctl inspect $SINK_ID</code></li>
 </ul>
+<details class="example">
+<summary>Full <code>wpctl status</code> / <code>wpctl inspect</code> transcript</summary>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="o">(</span>ovos<span class="o">)</span><span class="w"> </span>ovos@raspOVOS:~<span class="w"> </span>$<span class="w"> </span>wpctl<span class="w"> </span>status
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>PipeWire<span class="w"> </span><span class="s1">&#39;pipewire-0&#39;</span><span class="w"> </span><span class="o">[</span><span class="m">1</span>.2.4,<span class="w"> </span>ovos@raspOVOS,<span class="w"> </span>cookie:3349583741<span class="o">]</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>└─<span class="w"> </span>Clients:
@@ -2169,6 +2174,7 @@ choosing a wake word that will work well in various environments:</p>
 </span><span id="__span-9-81"><a id="__codelineno-9-81" name="__codelineno-9-81" href="#__codelineno-9-81"></a><span class="w">   </span>alsa.subdevice_name<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;subdevice #0&quot;</span>
 </span><span id="__span-9-82"><a id="__codelineno-9-82" name="__codelineno-9-82" href="#__codelineno-9-82"></a><span class="w">   </span>...
 </span></code></pre></div>
+</details>
 <ul>
 <li><strong>Test Audio:</strong><ul>
 <li>Record a short test file with <code>arecord -f test.wav</code>.</li>

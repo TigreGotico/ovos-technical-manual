@@ -1458,9 +1458,10 @@
 <p>Fallback Skills each have a <strong>priority</strong> and are tried in order from low priority value to high priority value (lower number = tried earlier). When a Fallback Skill handles the <strong><a href="../life-of-an-utterance/">Utterance</a></strong> it returns <code>True</code> and no further fallbacks are tried.</p>
 <div class="admonition note">
 <p class="admonition-title">Two different facts: internal stages vs. your pick</p>
-<p>The pipeline internally splits the 1-101 priority space into three dispatch stages —
-<code>fallback_high</code> (priority 1-5), <code>fallback_medium</code> (6-90), and <code>fallback_low</code> (91-101),
-checked in that order (verified in <code>FallbackService</code> source: <code>ovos_core/intent_services/fallback_service.py</code>).
+<p>The pipeline internally splits the 0-101 priority space into three dispatch stages,
+checked in that order — <code>fallback_high</code> (priority 0 up to, but not including, 5),
+<code>fallback_medium</code> (5 up to 90), and <code>fallback_low</code> (90 up to 101) — implemented directly
+in <code>ovos-core</code>'s <code>FallbackService</code> (no separate pipeline plugin package involved).
 That is an implementation detail, not a recommendation. The <strong>recommended pick ranges</strong>
 below are a separate, coarser convention for choosing <em>where in the medium/low stages</em>
 your own handler's priority should sit.</p>

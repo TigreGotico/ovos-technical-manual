@@ -1735,10 +1735,11 @@ lives in <code>ovos_bus_client.apis.gui.GUIInterface</code>; the skill wrapper i
 <p class="admonition-title">Upcoming — unreleased</p>
 <p>A planned breaking change rebinds <code>self.gui</code> to a
 <code>GUIInterface</code> from the standalone <strong><code>ovos-gui-api-client</code></strong> package (instead of
-<code>ovos_bus_client.apis.gui</code>) and drops the <code>ui_directories</code> constructor argument, since
-skills under the <a href="../gui-service/">GUI rework</a> no longer ship QML. This is <strong>not</strong> on a
-released <code>ovos-workshop</code>; on stable installs <code>self.gui</code> is still the
-<code>ovos_bus_client.apis.gui.GUIInterface</code>-based <code>SkillGUI</code> described above. Tracked in
+<code>ovos_bus_client.apis.gui</code>) and drops the <code>ui_directories</code> constructor argument (today,
+<code>ui_directories</code> is a <code>dict</code> mapping a framework name, e.g. <code>"qt5"</code>, to its local resource
+directory, which <code>GUIInterface</code> searches when resolving a relative image/page name to a
+file on disk), since skills under the <a href="../gui-service/">GUI rework</a> no longer ship QML. This is <strong>not</strong> on a released <code>ovos-workshop</code>; on stable installs <code>self.gui</code> is
+still the <code>ovos_bus_client.apis.gui.GUIInterface</code>-based <code>SkillGUI</code> described above. Tracked in
 <a href="https://github.com/OpenVoiceOS/ovos-workshop/pull/420">ovos-workshop#420</a>.</p>
 </div>
 <h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
@@ -1776,6 +1777,15 @@ according to its local capabilities.</p>
 <p><code>fill</code> accepts <code>"PreserveAspectFit"</code>, <code>"PreserveAspectCrop"</code>, or <code>"Stretch"</code>.
 <code>url</code> may be a local file path or an <code>http(s)</code> URL; missing local files are
 logged and the call returns without showing anything.</p>
+<div class="admonition note">
+<p class="admonition-title">Local paths work today, but the spec says not to rely on them</p>
+<p>The installed <code>show_image()</code> (<code>ovos_bus_client.apis.gui.GUIInterface</code>) does accept and
+resolve a local filesystem path — that's the current, working behavior described above.
+The OVOS-GUI-1 spec box further up this page nonetheless says image keys should carry only
+an <code>http(s)</code> URL or <code>data:</code> URI, never a local path — that's the forward-looking contract
+for interchangeable render backends, not a rule the current code enforces. Prefer a URL or
+<code>data:</code> URI in new skills if you want to stay forward-compatible.</p>
+</div>
 <h4 id="animated-image">Animated Image<a class="headerlink" href="#animated-image" title="Permanent link">&para;</a></h4>
 <p>Display an animated image such as a gif (same arguments as <code>show_image</code>).</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">gui</span><span class="o">.</span><span class="n">show_animated_image</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>

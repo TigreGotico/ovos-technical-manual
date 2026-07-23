@@ -8,7 +8,7 @@
       
       
       
-        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/intent-layers/">
+        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/permissions/">
       
       
         <link rel="prev" href="../layers/">
@@ -1692,6 +1692,17 @@ mechanism.</p>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">}</span>
 </span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">What you should see in the log when a whitelist blocks converse</p>
+<p><code>ConverseService</code> returns <code>False</code> from this check silently — there is no dedicated log
+line announcing "skill X blocked by whitelist". The observable symptom instead: run
+<code>ologs | grep converse</code> (see <a href="../raspovos-troubleshooting/#how-to-debug-intent-matching">RaspOVOS Troubleshooting</a>)
+while talking to the device, and the non-whitelisted skill's <code>skill_id</code> simply never
+shows up as a candidate — no <code>mycroft.skill.converse.request</code>/response pair for it appears
+at all, and its <code>converse()</code> method is never invoked. If a skill you expect to converse is
+silent, check <code>converse_mode</code> and <code>converse_whitelist</code> in your config before assuming the
+skill itself is broken.</p>
+</div>
 <h3 id="converseactivationmode">ConverseActivationMode<a class="headerlink" href="#converseactivationmode" title="Permanent link">&para;</a></h3>
 <p>Controls when a skill is allowed to add itself to the active skills list (enabling converse).</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.permissions</span> <span class="kn">import</span> <span class="n">ConverseActivationMode</span>

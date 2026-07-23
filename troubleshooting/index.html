@@ -1441,11 +1441,14 @@ the messagebus and keeps an in-memory ring buffer of everything it sees. The bro
 to <code>ws://&lt;device&gt;:8181/core</code> with no server component at all — useful for a one-off look without
 installing anything.</p>
 <h3 id="installing-and-running-it">Installing and running it<a class="headerlink" href="#installing-and-running-it" title="Permanent link">&para;</a></h3>
-<p><code>ovos-busmon</code> is not yet on PyPI, so install it from source:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenVoiceOS/ovos-busmon
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>ovos-busmon
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>pip<span class="w"> </span>install<span class="w"> </span>.
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>ovos-busmon
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-busmon
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ovos-busmon
+</span></code></pre></div>
+<p>To hack on it (or track <code>dev</code>), install from a clone instead:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OpenVoiceOS/ovos-busmon
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">cd</span><span class="w"> </span>ovos-busmon
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>pip<span class="w"> </span>install<span class="w"> </span>.
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>ovos-busmon
 </span></code></pre></div>
 <p>By default it binds to <code>http://127.0.0.1:8005</code> and connects outward to a messagebus at
 <code>localhost:8181</code>. Both ends are configurable through environment variables (or a <code>.env</code> file next to
@@ -1512,12 +1515,12 @@ repeated stage-by-stage instead of glancing at the whole stream at once.</p>
 <p><strong>Log:</strong> <code>bus.log</code> — <strong>Bus visual:</strong> any message appearing at all in <code>ovos-busmon</code></p>
 <p>Before anything else, confirm the <a href="../bus-service/">messagebus</a> server is up: everything else in
 OVOS is a client of it, so if it is down nothing downstream can work.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ovos-listen
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ovos-listen
 </span></code></pre></div>
 <p><code>ovos-listen</code> is the simplest possible probe — it just emits <code>mycroft.mic.listen</code> and exits. If the
 bus isn't reachable, the client itself logs the failure to the terminal:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>WARNING - Connection Refused. Is Messagebus Service running?
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>WARNING - Message Bus Client will reconnect in 5.0 seconds.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>WARNING - Connection Refused. Is Messagebus Service running?
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>WARNING - Message Bus Client will reconnect in 5.0 seconds.
 </span></code></pre></div>
 <p>If you see that, start (or restart) <code>ovos-messagebus</code>, then <code>ovos-core</code> and <code>ovos-dinkum-listener</code>,
 and check <code>bus.log</code> for a clean startup (no repeated <code>Connection Refused</code> lines). In <code>ovos-busmon</code>,
@@ -1533,11 +1536,11 @@ connections. Hardware problems show up in Stage 2.</p>
 <p><strong>Log:</strong> <code>voice.log</code> (service <code>ovos-dinkum-listener</code>) — <strong>Bus filter:</strong> <code>recognizer_loop:record_begin</code>
 / <code>record_end</code>, <code>ovos.listener.record.started</code> / <code>ovos.listener.record.ended</code></p>
 <p>A healthy wake-word trigger and recording cycle looks like this in <code>voice.log</code>:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>DEBUG - Record begin
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>DEBUG - Hotword utterance: hey mycroft
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>DEBUG - Emitting hotword event: recognizer_loop:wakeword
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>...
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>DEBUG - Record end
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>DEBUG - Record begin
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>DEBUG - Hotword utterance: hey mycroft
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>DEBUG - Emitting hotword event: recognizer_loop:wakeword
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>...
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>DEBUG - Record end
 </span></code></pre></div>
 <p>Common failure signatures:</p>
 <table>
@@ -1564,18 +1567,18 @@ connections. Hardware problems show up in Stage 2.</p>
 </table>
 <p>To hear the recorded audio yourself, turn on the listener's own recording keys in
 <a href="../config/">configuration</a> (user config, under <code>"listener"</code>):</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;listener&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&quot;save_utterances&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">&quot;record_wake_words&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nt">&quot;save_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/ovos-audio-debug&quot;</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;listener&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">&quot;save_utterances&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">&quot;record_wake_words&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nt">&quot;save_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/tmp/ovos-audio-debug&quot;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="p">}</span>
 </span></code></pre></div>
 <p><code>save_utterances</code> writes every STT-bound recording as a <code>.wav</code> file under
 <code>&lt;save_path&gt;/utterances/</code>; <code>record_wake_words</code> does the same for wake-word triggers under
 <code>&lt;save_path&gt;/wake_words/</code>. Set them with:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ovos-config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-k<span class="w"> </span>save_utterances<span class="w"> </span>-v<span class="w"> </span><span class="nb">true</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ovos-config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-k<span class="w"> </span>save_utterances<span class="w"> </span>-v<span class="w"> </span><span class="nb">true</span>
 </span></code></pre></div>
 <p><code>ovos-listen</code> can also be used to force a listening cycle without saying the wake word at all —
 useful for isolating STT problems (Stage 3) from wake-word problems.</p>
@@ -1584,7 +1587,7 @@ useful for isolating STT problems (Stage 3) from wake-word problems.</p>
 <p><strong>Log:</strong> <code>voice.log</code> — <strong>Bus filter:</strong> <code>recognizer_loop:utterance</code> (spec name <code>ovos.utterance.handle</code>)</p>
 <p>Once recording stops, the audio is handed to the <a href="../stt-plugins/">STT plugin</a>. A healthy
 transcription shows up as:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>DEBUG - STT: [&#39;what time is it&#39;]
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>DEBUG - STT: [&#39;what time is it&#39;]
 </span></code></pre></div>
 <p>Common failure signatures:</p>
 <table>
@@ -1611,7 +1614,7 @@ transcription shows up as:</p>
 </table>
 <p>To skip the microphone and STT entirely and test everything <strong>downstream</strong> of this point, inject the
 text directly onto the bus as if STT had already produced it:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ovos-say-to<span class="w"> </span><span class="s2">&quot;what time is it&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ovos-say-to<span class="w"> </span><span class="s2">&quot;what time is it&quot;</span>
 </span></code></pre></div>
 <p>This runs <code>MessageBusClient().emit(Message("recognizer_loop:utterance", {"utterances": ["what time
 is it"], "lang": "en-us"}))</code> — exactly the same message the listener would have emitted. It is the
@@ -1624,9 +1627,9 @@ the utterance land there with the right text confirms STT worked, regardless of 
 <p><strong>Log:</strong> <code>skills.log</code> (or <code>intents.log</code> if the intent service runs standalone) — <strong>Bus filter:</strong>
 <code>ovos.intent.matched</code>, <code>ovos.utterance.handled</code></p>
 <p><code>ovos-core</code>'s <code>IntentService</code> logs every step of matching. A healthy match looks like:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>INFO - Parsing utterance: [&#39;what time is it&#39;]
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>INFO - adapt_high match (en-us): IntentMatch(...)
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>DEBUG - final intent match: {...}
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>INFO - Parsing utterance: [&#39;what time is it&#39;]
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>INFO - adapt_high match (en-us): IntentMatch(...)
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>DEBUG - final intent match: {...}
 </span></code></pre></div>
 <p><code>adapt_high</code> here is one entry of the configurable <code>intents.pipeline</code> list (default order:
 <code>stop_high</code>, <code>converse</code>, <code>ocp_high</code>, <code>padatious_high</code>, <code>adapt_high</code>, <code>ocp_medium</code>, <code>fallback_high</code>,
@@ -1634,16 +1637,16 @@ the utterance land there with the right text confirms STT worked, regardless of 
 <a href="../pipelines-overview/">Pipelines Overview</a>). If nothing matches, every matcher in that list logs a
 miss (as <code>no match from &lt;bound method ...&gt;</code>, naming the matcher's Python function) before the
 utterance falls through to the next stage, and eventually to nothing:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>DEBUG - no match from &lt;bound method ...StopService.match_stop_high ...&gt;
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>DEBUG - no match from &lt;bound method ...ConverseService.converse_with_skills ...&gt;
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>DEBUG - no match from &lt;bound method ...OCPPipelineMatcher.match_high ...&gt;
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>DEBUG - no match from &lt;bound method ...PadatiousPipeline.match_high ...&gt;
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>DEBUG - no match from &lt;bound method ...AdaptPipeline.match_high ...&gt;
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>...
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>DEBUG - no match from &lt;bound method ...StopService.match_stop_high ...&gt;
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>DEBUG - no match from &lt;bound method ...ConverseService.converse_with_skills ...&gt;
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>DEBUG - no match from &lt;bound method ...OCPPipelineMatcher.match_high ...&gt;
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>DEBUG - no match from &lt;bound method ...PadatiousPipeline.match_high ...&gt;
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>DEBUG - no match from &lt;bound method ...AdaptPipeline.match_high ...&gt;
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>...
 </span></code></pre></div>
 <p>Use <code>ovos-say-to</code> (Stage 3) to reproduce this deterministically without speaking, then grep
 <code>skills.log</code> for the exact utterance text:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ovos-say-to<span class="w"> </span><span class="s2">&quot;some phrase that does nothing&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ovos-logs<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span>skills
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ovos-say-to<span class="w"> </span><span class="s2">&quot;some phrase that does nothing&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ovos-logs<span class="w"> </span>show<span class="w"> </span>-l<span class="w"> </span>skills
 </span></code></pre></div>
 <p>Every request ends with exactly one <code>ovos.utterance.handled</code> event, whether an intent matched or
 not — its absence means the intent service itself crashed or hung; its presence with no matched
@@ -1661,7 +1664,7 @@ error</code>) — part of the handler-lifecycle trio <code>...handler.start</cod
 described in <a href="../life-of-an-utterance/#5-skill-execution">The Life of an Utterance</a></p>
 <p>Once a skill's intent handler is invoked, any unhandled exception inside it is caught by the skill
 base class, logged, and (unless disabled) spoken back as a generic error dialog:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ERROR - &lt;full traceback of the exception&gt;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ERROR - &lt;full traceback of the exception&gt;
 </span></code></pre></div>
 <p>and the corresponding <code>...error</code> bus message is emitted so the orchestrator knows the handler
 failed rather than silently returning nothing. Common failure signatures to grep for in
@@ -1696,7 +1699,7 @@ every skill in one view, or filter by the specific skill's ID to isolate its tra
 <code>speak</code>), <code>ovos.utterance.handled</code></p>
 <p>Once a skill calls <code>self.speak()</code>, <code>ovos-audio</code> picks up the message. A healthy synthesis + playback
 cycle logs:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>INFO - Speak: what time is it, it&#39;s three o&#39;clock
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>INFO - Speak: what time is it, it&#39;s three o&#39;clock
 </span></code></pre></div>
 <p>Common failure signatures:</p>
 <table>
@@ -1726,7 +1729,7 @@ cycle logs:</p>
 </tbody>
 </table>
 <p>To test synthesis in isolation, without going through STT or intent matching at all:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ovos-speak<span class="w"> </span><span class="s2">&quot;testing one two three&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ovos-speak<span class="w"> </span><span class="s2">&quot;testing one two three&quot;</span>
 </span></code></pre></div>
 <p>This emits a bare <code>speak</code> message directly, exercising exactly the dialog-transformer → TTS plugin →
 tts-transformer → playback path described in <a href="../life-of-an-utterance/#6-text-to-speech-tts">The Life of an Utterance</a>.
@@ -1746,9 +1749,9 @@ configuration first, and on a fresh install nothing ships that key by default �
 command fails with <code>Error: No key that fits the query</code> before you've ever set a log level.
 The reliable first-time path is to add the key directly to your user config file
 (<code>~/.config/mycroft/mycroft.conf</code>, creating it if it doesn't exist yet):</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">&quot;log_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DEBUG&quot;</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span><span class="nt">&quot;log_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DEBUG&quot;</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Once the key exists anywhere in the merged configuration (including after you've added it
 this way once), <code>ovos-config set -k log_level -v DEBUG</code> will find and update it on later runs.</p>
@@ -1756,11 +1759,11 @@ this way once), <code>ovos-config set -k log_level -v DEBUG</code> will find and
 <p>This applies to every service (they all watch the same configuration and pick up the change
 without a restart). To raise the level for only one service, add the nested <code>"logging"</code> section
 instead — the same first-time caveat applies, so add it directly to the user config file:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="nt">&quot;voice&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;log_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DEBUG&quot;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="p">{</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="nt">&quot;voice&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;log_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DEBUG&quot;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title"><code>log_level</code> only takes effect from user or system configuration</p>
@@ -1776,9 +1779,9 @@ mostly useful when running a service by hand: <code>OVOS_DEFAULT_LOG_LEVEL</code
 replay it. <strong><a href="../ovoscope-overview/"><code>ovoscope</code></a></strong> runs an in-process, mocked assistant (<code>MiniCroft</code>)
 that loads real skills and the real intent-matching engines without any audio hardware, and its CLI
 can turn a live bus session into a fixture file:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ovoscope<span class="w"> </span>record<span class="w">   </span><span class="c1"># capture a fixture from a running bus session</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>ovoscope<span class="w"> </span>run<span class="w">      </span><span class="c1"># replay a fixture and exit non-zero on failure</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>ovoscope<span class="w"> </span>diff<span class="w">      </span><span class="c1"># compare two fixture files</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ovoscope<span class="w"> </span>record<span class="w">   </span><span class="c1"># capture a fixture from a running bus session</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>ovoscope<span class="w"> </span>run<span class="w">      </span><span class="c1"># replay a fixture and exit non-zero on failure</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>ovoscope<span class="w"> </span>diff<span class="w">      </span><span class="c1"># compare two fixture files</span>
 </span></code></pre></div>
 <p>This turns "it happens sometimes on the device but I can't tell why" into a fixed, replayable test
 case — see the <a href="../ovoscope-overview/">ovoscope guide</a> for the full workflow, including

@@ -1170,6 +1170,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Common Problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#my-intent-is-defined-correctly-but-never-matches" class="md-nav__link">
+    <span class="md-ellipsis">
+      My intent is defined correctly but never matches
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1256,7 +1271,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../intent-layers/" class="md-nav__link">
+      <a href="../permissions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1926,6 +1941,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Common Problems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#my-intent-is-defined-correctly-but-never-matches" class="md-nav__link">
+    <span class="md-ellipsis">
+      My intent is defined correctly but never matches
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2207,7 +2237,7 @@ case we would assume the user expects OVOS to respond with today's weather for t
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>what defines a tomato
 </span></code></pre></div>
 <p>These sample phrases do not require punctuation like a question mark. We can also leave out contractions such as "what's", as this will be automatically expanded to "what is" by OVOS before the utterance is parsed.</p>
-<p>Each file should contain at least 4 examples for good modeling.</p>
+<p>As a rule of thumb, aim for several examples per intent covering the different ways a user might phrase the request — too few examples gives the model little to generalize from.</p>
 <p>The above example allows us to map many phrases to a single intent, however often we need to extract specific data from an utterance. This might be a date, location, category, or some other <code>entity</code>.</p>
 <h4 id="defining-entities">Defining entities<a class="headerlink" href="#defining-entities" title="Permanent link">&para;</a></h4>
 <p>Let's now find out OVOS's opinion on different types of tomatoes. To do this we will create a new intent file: <code>locale/en-us/do.you.like.intent</code></p>
@@ -2348,6 +2378,13 @@ case we would assume the user expects OVOS to respond with today's weather for t
 <p>See <a href="../first-skill/">Your First Skill</a> for a complete, minimal example of a template-intent skill from scratch.</p>
 <h3 id="common-problems_1">Common Problems<a class="headerlink" href="#common-problems_1" title="Permanent link">&para;</a></h3>
 <p>See <a href="#i-am-unable-to-match-against-the-utterance-string">I am unable to match against the utterance string</a> above — the same lowercase-normalization note applies to template-based intent handlers.</p>
+<h4 id="my-intent-is-defined-correctly-but-never-matches">My intent is defined correctly but never matches<a class="headerlink" href="#my-intent-is-defined-correctly-but-never-matches" title="Permanent link">&para;</a></h4>
+<p>If the <code>.intent</code>/<code>.voc</code> files look right and the utterance still doesn't match anything, check
+whether the intent has actually been <strong>disabled</strong> rather than badly written — a skill can turn
+individual intents off with <code>disable_intent()</code>, and a skill or its converse participation can also
+be gated off entirely by the whitelist/blacklist controls. See <a href="../layers/">Intent Layers</a> for
+per-skill intent enable/disable state and <a href="../permissions/">Permissions &amp; Activation Control</a> for
+the coarser skill-level gates.</p>
 
 
 
