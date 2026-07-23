@@ -170,7 +170,8 @@ admin = AdminPHAL(
     config=None,
     bus=None,
     skill_id="PHAL.admin",
-    ...
+    # same on_ready / on_error / on_stopping / on_started / on_alive / watchdog
+    # hooks as PHAL above
 )
 
 ```
@@ -261,7 +262,7 @@ The base class (`PHALPlugin`) is a `threading.Thread`. Key points:
     The abstract base classes that hardware PHAL plugins implement —
     `AbstractLed`, `AbstractFan`, and `AbstractSwitches` (plus a suite of ready-made
     LED animations) — live in the
-    [`ovos-hardware-helpers`](https://github.com/OpenVoiceOS/ovos_hardware_helpers)
+    [`ovos-hardware-helpers`](https://github.com/OpenVoiceOS/ovos-hardware-helpers)
     library; subclass them there when writing a hardware PHAL plugin.
 
 ### Validator
@@ -393,18 +394,18 @@ skill as a voice frontend.
 | Plugin | Description |
 |--------|-------------|
 | [ovos-PHAL-plugin-network-manager](#ovos-phal-plugin-network-manager) | Provides the network manager interface for NetworkManager based plugins. |
-| [ovos-PHAL-plugin-dotstar](#ovos-phal-plugin-dotstar) | **Compatible with** |
+| [ovos-PHAL-plugin-dotstar](#ovos-phal-plugin-dotstar) | Dotstar/APA102 LED ring driver for Respeaker mic HATs and the Adafruit Voice Bonnet |
 | [ovos-PHAL-plugin-wallpaper-manager](#ovos-phal-plugin-wallpaper-manager) | This PHAL plugin provides a central wallpaper management interface for homescreens and other desktops |
 | [ovos-PHAL-plugin-ipgeo](#ovos-phal-plugin-ipgeo) | Autoconfigure default location based on ip address via [ip-api.com](https://ip-api.com) |
 | [ovos-PHAL-sensors](#ovos-phal-sensors) | Exposes the OVOS device and its sensors to Home Assistant. |
 | [ovos-PHAL-plugin-alsa](#ovos-phal-plugin-alsa) | controls system volume with alsa |
-| [ovos-PHAL-plugin-mk2-v6-fan-control](#ovos-phal-plugin-mk2-v6-fan-control) | **Compatible with** |
+| [ovos-PHAL-plugin-mk2-v6-fan-control](#ovos-phal-plugin-mk2-v6-fan-control) | Fan control for the Mycroft Mark 2 dev kit |
 | [ovos-PHAL-plugin-gpsd](#ovos-phal-plugin-gpsd) | Provides GPS location to OVOS via gpsd. |
 | [ovos-PHAL-plugin-mk1](#ovos-phal-plugin-mk1) | handles integration with the Mycroft Mark1 hardware |
 | [ovos-PHAL-plugin-connectivity-events](#ovos-phal-plugin-connectivity-events) | Reports network connectivity changes to the messagebus. |
 | [ovos-PHAL-plugin-camera](#ovos-phal-plugin-camera) | This plugin allows users to interact with cameras using OpenCV or libcamera, take snapshots, and serve video streams over HTTP. It also provides methods for handling camera operations via message bus events. |
 | [ovos-PHAL-plugin-pulseaudio](#ovos-phal-plugin-pulseaudio) | controls system volume with pulseaudio |
-| [ovos-PHAL-plugin-oauth](#ovos-phal-plugin-oauth) | Stable |
+| [ovos-PHAL-plugin-oauth](#ovos-phal-plugin-oauth) | Handles OAuth authentication flows for OVOS skills and services |
 | [ovos-PHAL-plugin-system](#ovos-phal-plugin-system) | Provides system specific commands to OVOS. |
 | [ovos-PHAL-plugin-hotkeys](#ovos-phal-plugin-hotkeys) | plugin for Keyboard hotkeys, define key combos to trigger bus events |
 
@@ -422,7 +423,7 @@ skill as a voice frontend.
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-PHAL-plugin-dotstar](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-dotstar)
 
 
-- **Description**: **Compatible with**
+- **Description**: Dotstar/APA102 LED ring driver, compatible with the Respeaker 2/4/6/8-mic i2c HATs and the Adafruit Voice Bonnet
 
 ---
 
@@ -467,7 +468,7 @@ skill as a voice frontend.
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk2-v6-fan-control](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk2-v6-fan-control)
 
 
-- **Description**: **Compatible with**
+- **Description**: Fan control for the Mycroft Mark 2 dev kit
 
 ---
 

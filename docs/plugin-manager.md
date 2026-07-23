@@ -127,6 +127,7 @@ A pipeline plugin is a matcher exposing `match(utterances, lang, session) → Ma
 | Audio Player | `opm.media.audio` |
 | Video Player | `opm.media.video` |
 | Web Player | `opm.media.web` |
+| Media Provider | `opm.media.provider` |
 
 ### Agent Plugins
 
@@ -147,6 +148,7 @@ A pipeline plugin is a matcher exposing `match(utterances, lang, session) → Ma
 | Yes/No | `opm.agents.yesno` | — |
 | Toolbox | `opm.agents.toolbox` | `ToolBox` |
 | Memory | `opm.agents.memory` | `AgentContextManager` |
+| Option Matcher | `opm.agents.option_matcher` | `OptionMatcherEngine` |
 
 ### Embeddings & Knowledge Plugins
 
@@ -363,6 +365,7 @@ whether the plugin can be loaded before network/internet is available.
 
 ```python
 from ovos_utils.process_utils import RuntimeRequirements
+from ovos_utils import classproperty
 
 class MySTTPlugin(STT):
 
@@ -454,8 +457,9 @@ def get_plugin_language_configs(
 Return configs for all plugins of `plug_type` that support `lang`.
 Returns `{plugin_name: [list_of_valid_config_dicts]}`.
 
-When `include_dialects=True`, configs for closely related dialects are included with a
-+15 priority bonus (to 75).
+When `include_dialects=True`, configs for closely related dialects (linguistic distance
+under 10, via `ovos_spec_tools.lang_distance`) are also included, at their own unmodified
+priority — there is no priority penalty/bonus applied for dialect matches.
 
 ### `get_plugin_supported_languages`
 
@@ -482,8 +486,7 @@ Invalid/empty config lists are removed.
 
 Within a config list, entries are sorted **ascending** by their `"priority"` key (default
 `60`) — `sort_plugin_configs()` puts the highest-numbered priority at the end of the list.
-A dialect (non-exact-language) match has `+15` added to its priority. See
-`sort_plugin_configs` / `get_valid_plugin_configs` in `ovos_plugin_manager.utils.config`
+See `sort_plugin_configs` / `get_valid_plugin_configs` in `ovos_plugin_manager.utils.config`
 for the exact ordering used when selecting a config.
 
 ---

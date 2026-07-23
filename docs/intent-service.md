@@ -96,7 +96,10 @@ When a pipeline plugin returns a match:
 4. Activate the skill in the session (`sess.activate_skill(skill_id)`) and emit `{skill_id}.activate` for the skill's callback.
 
 
-5. Wrap the dispatch in the **handler-lifecycle trio** — the orchestrator (not the skill) emits `ovos.intent.handler.start`, then exactly one of `ovos.intent.handler.complete` / `ovos.intent.handler.error` (§8, legacy: `mycroft.skill.handler.*`). The skill's intent handler runs between them.
+5. Wrap the dispatch in the **handler-lifecycle trio** — the orchestrator emits `ovos.intent.handler.start`, then exactly one of `ovos.intent.handler.complete` / `ovos.intent.handler.error` (§8). The skill's intent handler runs between them.
+
+    !!! note
+        The skill process itself still emits `mycroft.skill.handler.*` as an internal ovos-workshop → orchestrator done-signal (skills and the orchestrator run in separate processes). The orchestrator consumes that signal to emit the spec-named `ovos.intent.handler.*` trio; the two event namespaces are related but distinct, not simple aliases of each other.
 
 ## Intent Query API
 

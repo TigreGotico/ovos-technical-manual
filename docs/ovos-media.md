@@ -172,8 +172,9 @@ The OCP matcher contributes several confidence-ranked pipeline stages — `ovos-
 OCP skills inherit `OVOSCommonPlaybackSkill` and register by emitting `ovos.common_play.announce`:
 
 ```python
-from ovos_workshop.skills.common_play import OVOSCommonPlaybackSkill, MediaType
-from ovos_utils.ocp import MediaEntry
+from ovos_workshop.skills.common_play import (OVOSCommonPlaybackSkill, MediaType,
+                                               ocp_search, ocp_featured_media,
+                                               MediaEntry, Playlist)
 
 class MyMusicSkill(OVOSCommonPlaybackSkill):
     @ocp_search()
@@ -183,7 +184,7 @@ class MyMusicSkill(OVOSCommonPlaybackSkill):
             yield MediaEntry(
                 title="My Song",
                 uri="https://example.com/song.mp3",
-                confidence=85,
+                match_confidence=85,
                 media_type=MediaType.MUSIC,
             )
 
