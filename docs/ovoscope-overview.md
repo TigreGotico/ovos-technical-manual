@@ -88,6 +88,7 @@ For full sequence assertions — message types, ordering, routing, and session s
 | OCP testing | Media ("play …") skills | [ocp.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/ocp.md) · [media-testing.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/media-testing.md) |
 | Audio service testing | TTS / sound playback lifecycle | [audio-testing.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/audio-testing.md) |
 | Listener testing | The speech/listener service | [listener.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/listener.md) · [voice-loop.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/voice-loop.md) |
+| `WakeWordProbe` | Streams a single audio clip through a real `HotWordEngine` with listener-style silence priming, for per-clip wake-word accuracy checks | [`ovoscope/wakeword_probe.py`](https://github.com/OpenVoiceOS/ovoscope/blob/dev/ovoscope/wakeword_probe.py) |
 | PHAL testing | Hardware-abstraction plugins | [phal.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/phal.md) |
 | GUI testing | `gui.page.show` and GUI state | [gui-testing.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/gui-testing.md) |
 | Pydantic integration | Typed message assertions | [pydantic-integration.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/pydantic-integration.md) |

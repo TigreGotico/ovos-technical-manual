@@ -1,14 +1,14 @@
 # RaspOVOS: A Beginner's Guide to Setting Up Your Raspberry Pi with OVOS
 
 !!! abstract "In a nutshell"
-    This is a step-by-step guide to turning a Raspberry Pi (a small, inexpensive computer) into a working OVOS voice assistant by flashing a ready-made "RaspOVOS" image onto an SD card or USB drive. It walks you through hardware choices, writing the image, first boot, connecting to Wi-Fi, and the handy commands you'll use afterward. Heads-up: these pre-built images are now **outdated** — for a fresh install the recommended path is the [`ovos-installer`](ovos-installer.md) instead. See the [Glossary](glossary.md) for unfamiliar terms.
+    This is a step-by-step guide to turning a Raspberry Pi (a small, inexpensive computer) into a working OVOS voice assistant by flashing a ready-made "RaspOVOS" image onto an SD card or USB drive. It walks you through hardware choices, writing the image, first boot, connecting to Wi-Fi, and the handy commands you'll use afterward. RaspOVOS is the flagship, turnkey OpenVoiceOS experience for the Raspberry Pi — flash it and boot straight into a working assistant, no manual install steps required. See the [Glossary](glossary.md) for unfamiliar terms.
 
-!!! warning "Not currently recommended"
-    The pre-built **RaspOVOS** images are **outdated** and **not recommended** for new
-    installs right now. For a Raspberry Pi (or any Linux device), use the
-    **[`ovos-installer`](ovos-installer.md)** instead — it runs on Raspberry Pi OS and
-    is the supported way to get a current OVOS stack. This page is kept for existing
-    RaspOVOS users and for reference.
+!!! tip "Turnkey Raspberry Pi image"
+    **RaspOVOS** is a ready-made, actively maintained image built specifically for the
+    Raspberry Pi — the quickest way to get a full OVOS voice assistant running on Pi
+    hardware. If you're installing on other Linux hardware, or want to build your own
+    image from an existing Raspberry Pi OS install, use the
+    **[`ovos-installer`](ovos-installer.md)** instead.
 
 This tutorial is designed for users new to Raspberry Pi and RaspOVOS. Follow these steps to set up and optimize your device for the best experience.
 

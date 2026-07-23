@@ -37,23 +37,23 @@ The first stage that matches wins, so order matters: a high-confidence Padatious
 
 Ordering is **the arbitration model, not a missing feature** (PIPELINE-1 §6.2). Because an earlier plugin gets to answer before any later plugin is asked, a stateful interceptor that depends on session state — converse with an open response window, an active persona, OCP holding paused media to *resume*, stop — can claim "yes" / "next" / "resume" / "stop" *before* a general pipeline plugin would match the bare words. Such selective plugins are deliberately conservative: they claim only when both the utterance and the session warrant it, and return `None` otherwise, trusting their position rather than competing on a score (heterogeneous engines share no common score space to rank across anyway).
 
-**Pipeline IDs vs. plugins.** The IDs you list in your `pipeline` config (like `ovos-adapt-pipeline-plugin-high`) are not separate plugins. A confidence-aware plugin registers a single OPM entry point (e.g. `ovos-adapt-pipeline-plugin`), and OVOS derives the `-high`/`-medium`/`-low` matcher stages from it at runtime. Plugins that match at only one confidence level (such as `ovos-converse-pipeline-plugin` or `ovos-common-query-pipeline-plugin`) expose a single bare ID. The older short names (`adapt_high`, `common_qa`, …) are **deprecated aliases**: ovos-core rewrites them to the canonical plugin IDs via the `_PIPELINE_MIGRATION_MAP`, so existing configs keep working, but new configs should use the canonical names shown below.
+**Pipeline IDs vs. plugins.** The IDs you list in your `pipeline` config (like `ovos-adapt-pipeline-plugin-high`) are not separate plugins. A confidence-aware plugin registers a single OPM entry point (e.g. `ovos-adapt-pipeline-plugin`), and OVOS derives the `-high`/`-medium`/`-low` matcher stages from it at runtime. Plugins that match at only one confidence level (such as `ovos-converse-pipeline-plugin` or `ovos-common-query-pipeline-plugin`) expose a single bare ID. The older short names (`adapt_high`, `common_qa`, …) are **deprecated aliases**: ovos-core still accepts them and rewrites them to the canonical plugin IDs via the `_PIPELINE_MIGRATION_MAP`, so existing configs keep working, but the bundled default configuration and new configs alike should use the canonical names shown below.
 
 ---
 
 ## Available Pipeline Components
 
-Below is a list of available pipeline components, categorized by their confidence levels and functionalities. The **Pipeline ID** column shows the canonical name to put in your `pipeline` config going forward. The **Legacy alias** column shows the older short name — this is actually what the bundled default config still ships with (ovos-core rewrites it to the canonical ID at load time), but new configs should use the canonical names.
+Below is a list of available pipeline components, categorized by their confidence levels and functionalities. The **Pipeline ID** column shows the canonical name to put in your `pipeline` config. The **Legacy alias** column shows the older short name that some existing configs may still use — ovos-core rewrites it to the canonical ID at load time, but new configs should use the canonical names.
 
 !!! note "The bundled default pipeline"
-    The default `pipeline` list shipped in `mycroft.conf` currently uses the legacy short names,
-    in this order:
+    The default `pipeline` list shipped in `mycroft.conf` uses the canonical plugin IDs, in
+    this order:
 
     --8<-- "snippets/default-pipeline.md"
 
-    Note that Padatious/Adapt's medium and low tiers, Model2Vec,
-    Persona, and the `-low` tiers of stop/padatious are **not** in the default list; you add them
-    yourself if you want them.
+    Note that Padatious/Adapt's low tier, Model2Vec's medium/low tiers, OCP's low tier,
+    Common Query, Persona, and the `-low` tiers of stop/padatious are **not** in the default
+    list; you add them yourself if you want them.
 
 ### High Confidence Components
 

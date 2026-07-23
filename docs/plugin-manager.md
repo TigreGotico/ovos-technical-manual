@@ -95,6 +95,31 @@ These six types are the six ordered chains of [OVOS-TRANSFORM-1](https://github.
 | Metadata Transformer | `opm.transformer.metadata` | `MetadataTransformer` |
 | Intent Transformer | `opm.transformer.intent` | `IntentTransformer` |
 
+#### Canonical chain runners: `ovos_plugin_manager.transformer_services`
+
+Loading, ordering, and chaining transformer plugins used to be reimplemented separately by
+each consumer. `ovos_plugin_manager.transformer_services` is now the single shared
+implementation: `ovos-core`, `ovos-audio`, `ovos-dinkum-listener`, HiveMind, and the OVOS
+TTS/STT servers all build their transformer chains from this module instead of maintaining
+their own copies. It exposes one runner class per transformer type:
+
+| Class | Transformer type |
+|---|---|
+| `UtteranceTransformersService` | `opm.transformer.text` |
+| `MetadataTransformersService` | `opm.transformer.metadata` |
+| `IntentTransformersService` | `opm.transformer.intent` |
+| `DialogTransformersService` | `opm.transformer.dialog` |
+| `TTSTransformersService` | `opm.transformer.tts` |
+| `AudioTransformersService` | `opm.transformer.audio` |
+
+Loading is config-gated and opt-in — a plugin only runs if its name appears in the relevant
+config section and its entry does not set `"active": false`. Ordering follows
+[OVOS-TRANSFORM-1](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md) §4:
+plugins run in ascending `priority` order by default, but an explicit `"order"` list of
+plugin names in the config section overrides priority-based ordering; loaded plugins absent
+from that list are not run. A plugin can cancel the rest of the chain by returning both
+`"canceled": true` and a `"cancel_reason"` in its context (§8.1).
+
 ### Language Processing Plugins
 
 | Plugin type | Entry point group | Template base class |
@@ -203,13 +228,6 @@ in new plugins:
 This table mirrors `ovos_plugin_manager.utils.DEPRECATED_ENTRYPOINTS` — the source of truth OPM
 uses at runtime to silently rewrite a plugin's old entry-point group to its canonical one, so
 plugins published under any of the names above still load correctly today.
-| `neon.plugin.audio` | `opm.transformer.audio` |
-| `neon.plugin.solver` | `opm.solver.question` |
-| `intentbox.coreference` | `opm.coreference` |
-| `intentbox.keywords` | `opm.keywords` |
-| `intentbox.segmentation` | `opm.segmentation` |
-| `intentbox.tokenization` | `opm.tokenization` |
-| `intentbox.postag` | `opm.postag` |
 
 The legacy **solver** groups (`opm.solver.question`, `opm.solver.chat`,
 `opm.solver.summarization`, `opm.solver.entailment`, `opm.solver.multiple_choice`,
@@ -470,8 +488,10 @@ Return configs for all plugins of `plug_type` that support `lang`.
 Returns `{plugin_name: [list_of_valid_config_dicts]}`.
 
 When `include_dialects=True`, configs for closely related dialects (linguistic distance
-under 10, via `ovos_spec_tools.lang_distance`) are also included, at their own unmodified
-priority — there is no priority penalty/bonus applied for dialect matches.
+under 10, via `ovos_spec_tools.lang_distance`) are also included. A dialect match has its
+`priority` raised by 15 (`get_valid_plugin_configs` in `ovos_plugin_manager.utils.config`) —
+since lower priority numbers are selected first, this makes dialect matches lower
+precedence than an exact language/locale match.
 
 ### `get_plugin_supported_languages`
 

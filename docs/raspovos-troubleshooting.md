@@ -1,12 +1,7 @@
 # RaspOVOS Troubleshooting
 
 !!! abstract "In a nutshell"
-    RaspOVOS was a ready-made version of OVOS for the Raspberry Pi mini-computer, and this page is a fix-it guide for the common things that go wrong on those devices: weak power supplies, no sound, a wake word that won't trigger, or wrong speech-to-text results. It walks through hands-on commands you type into a terminal to diagnose and correct each problem. Note that the pre-built RaspOVOS images are now outdated — new installs should use the [`ovos-installer`](ovos-installer.md) — but the troubleshooting tips here still help existing devices. See the [Glossary](glossary.md) for unfamiliar terms.
-
-!!! warning "Not currently recommended"
-    The pre-built **RaspOVOS** images are **outdated** and **not recommended** for new
-    installs. New devices should use the **[`ovos-installer`](ovos-installer.md)**. This
-    page remains for users running existing RaspOVOS images.
+    RaspOVOS is the ready-made, actively maintained OVOS image for the Raspberry Pi mini-computer, and this page is a fix-it guide for the common things that go wrong on those devices: weak power supplies, no sound, a wake word that won't trigger, or wrong speech-to-text results. It walks through hands-on commands you type into a terminal to diagnose and correct each problem. See the [Glossary](glossary.md) for unfamiliar terms.
 
 > ⚠️ This guide applies to raspOVOS and may assume some raspOVOS exclusive utilities are available, if you are not using raspOVOS [some command line utilities](https://github.com/OpenVoiceOS/raspOVOS/tree/dev/overlays/base_ovos/usr/local/bin) will not be available
 

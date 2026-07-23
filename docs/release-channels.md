@@ -22,10 +22,9 @@ Depending on your experience level and goals, you can choose one of the followin
 ### 1. [The `ovos-installer`](ovos-installer.md) (Recommended)
 The easiest way for most users. A guided TUI (Text User Interface) script that handles dependencies, environment setup, and service configuration for you.
 
-### 2. [RaspOVOS](install-raspovos.md) — *not currently recommended*
-A pre-built image for the Raspberry Pi. The images are **outdated** and not recommended
-for new installs; run the [`ovos-installer`](ovos-installer.md) on Raspberry Pi OS
-instead. Kept here for existing users.
+### 2. [RaspOVOS](install-raspovos.md) — turnkey Raspberry Pi image
+The flagship, actively maintained pre-built image for the Raspberry Pi. Flash it and
+boot straight into a working assistant — no manual install steps required.
 
 ### 3. Manual Installation (Advanced)
 Install individual components via `pip` or `uv`. Best for developers or custom integration (e.g., headless nodes, Docker containers).

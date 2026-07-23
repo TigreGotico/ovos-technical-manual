@@ -70,8 +70,9 @@ options:
   --port PORT           port number (default: 9666)
   --host HOST           host (default: 0.0.0.0)
   --cache               save every synth to disk
-  --lang LANG           accepted for compatibility but currently ignored; the default
-                        language comes from config (`lang`) or falls back to "mul"
+  --lang LANG           language code that overrides the plugin's configured language;
+                        if omitted, the plugin uses its own configured `lang`, then the
+                        top-level config `lang`, then falls back to "mul"
   --mcp                 mount MCP server at /mcp (requires ovos-tts-server[mcp])
 
 ```
@@ -111,6 +112,60 @@ options:
 > Both synthesis endpoints respond with a `FileResponse` (the audio file written by the plugin, WAV by default).
 > Any extra query parameters on `/v2/synthesize` (besides `utterance`) are forwarded to the plugin's `get_tts` method as kwargs.
 > 💡 This allows `"voice"` and `"lang"` to be set per-request at runtime rather than only by plugin config at load time (for plugins that support it). A missing `utterance` returns HTTP 400.
+
+---
+
+## Transformer Pipelines
+
+The server can run OVOS [dialog and TTS transformer](tts-transformers.md) plugins around
+synthesis, on every synthesis surface (native endpoints and vendor-compat routers alike):
+
+- **Dialog transformers** rewrite the *text* before it reaches the TTS plugin (e.g. text
+  normalization, profanity filtering, per-locale rewrites).
+- **TTS transformers** post-process the *synthesized audio* (e.g. loudness normalization,
+  effects).
+
+Loading is config-gated and opt-in via the standard `mycroft.conf` sections; with no config
+the server behaves exactly as before:
+
+```json
+{
+  "dialog_transformers": {
+    "ovos-dialog-transformer-openai-plugin": {}
+  },
+  "tts_transformers": {
+    "ovos-tts-transformer-sox-plugin": {}
+  }
+}
+
+```
+
+---
+
+## ElevenLabs Streaming (`stream-input`)
+
+Besides the plain HTTP ElevenLabs-compatible routes (`/v1/voices`, `/v1/models`,
+`/v1/text-to-speech/{voice_id}`), the server also implements ElevenLabs' WebSocket
+streaming protocol at `/v1/text-to-speech/{voice_id}/stream-input`, so clients written
+against the real ElevenLabs streaming SDK work unmodified.
+
+The client connects with the voice in the path and synthesis options in the query string
+(`model_id`, `output_format`, `language_code`, `sync_alignment`, …), then sends JSON text
+frames:
+
+1. **BOS** — `{"text": " ", "voice_settings": {...}, "generation_config": {...}}` opens the
+   stream (its text payload is a single space and carries no content).
+2. **Content** — `{"text": "Hello there "}`, repeated; text accumulates until a generation
+   is triggered.
+3. `{"flush": true}` (optionally with more text) forces the buffered text to synthesize
+   immediately.
+4. **EOS** — `{"text": ""}` closes the stream: whatever is buffered is generated, then the
+   connection terminates.
+
+The server answers with JSON frames carrying base64-encoded audio
+(`{"audio": "<base64>", "isFinal": null, ...}`) and a final frame with no audio and
+`isFinal: true`. The `xi-api-key` header (or `xi_api_key` in the BOS message) is accepted
+but ignored — a self-hosted server has no keys to check.
 
 ---
 

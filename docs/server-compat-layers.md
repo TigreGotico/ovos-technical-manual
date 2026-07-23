@@ -25,7 +25,7 @@ All compat routers are always loaded; no feature flag is needed.
 
 | Prefix | Vendor |
 |--------|--------|
-| `/openai` | OpenAI Whisper (`/openai/v1/audio/transcriptions`) |
+| `/openai` | OpenAI Whisper (`/openai/v1/audio/transcriptions`, plus `/openai/v1/audio/translations` — transcribes then translates to English via the configured OVOS translate plugin) |
 | `/deepgram` | Deepgram |
 | `/google` | Google Cloud Speech |
 | `/assemblyai` | AssemblyAI |
@@ -51,7 +51,7 @@ All compat routers are always loaded; no feature flag is needed.
 
 | Prefix | Vendor |
 |--------|--------|
-| `/elevenlabs` | ElevenLabs |
+| `/elevenlabs` | ElevenLabs (HTTP `/v1/text-to-speech/{voice_id}` plus the `stream-input` WebSocket streaming protocol) |
 | `/openai` | OpenAI TTS |
 | `/coqui` | Coqui TTS |
 | `/google-tts` | Google Cloud TTS |

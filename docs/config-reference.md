@@ -192,17 +192,14 @@ itself — a separate concern from the `speech_begin`/`silence_end` timing above
 | `intents.padatious.single_thread` | `true` |  |
 | `intents.common_query.max_response_wait` | `6` |  |
 | `intents.common_query.extension_time` | `3` |  |
-| `intents.common_query.reranker` | `"ovos-choice-solver-bm25"` |  |
-| `intents.OCP.experimental_media_classifier` | `false` |  |
-| `intents.OCP.experimental_binary_classifier` | `false` |  |
+| `intents.common_query.reranker` | `"ovos-flashrank-reranker-plugin"` |  |
 | `intents.OCP.legacy` | `false` |  |
-| `intents.OCP.classifier_threshold` | `0.4` |  |
 | `intents.OCP.min_score` | `40` |  |
 | `intents.OCP.filter_media` | `true` |  |
 | `intents.OCP.filter_SEI` | `true` |  |
 | `intents.OCP.playback_mode` | `0` |  |
 | `intents.OCP.search_fallback` | `true` |  |
-| `intents.pipeline` | `["stop_high", "converse", "ocp_high", "padatious_high", "adapt_high", "ocp_medium", "fallback_high", "stop_medium", "adapt_medium", "adapt_low", "common_qa", "fallback_medium", "fallback_low"]` |  |
+| `intents.pipeline` | `["ovos-stop-pipeline-plugin-high", "ovos-converse-pipeline-plugin", "ovos-ocp-pipeline-plugin-high", "ovos-padatious-pipeline-plugin-high", "ovos-adapt-pipeline-plugin-high", "ovos-m2v-pipeline-high", "ovos-ocp-pipeline-plugin-medium", "ovos-fallback-pipeline-plugin-high", "ovos-stop-pipeline-plugin-medium", "ovos-adapt-pipeline-plugin-medium", "ovos-fallback-pipeline-plugin-medium", "ovos-fallback-pipeline-plugin-low"]` |  |
 | `skills.directory` | `"skills"` |  |
 | `skills.blacklisted_skills` | `["skill-ovos-stop.openvoiceos"]` |  |
 | `skills.fallbacks.fallback_priorities` | `{}` |  |

@@ -114,6 +114,63 @@ Native endpoints:
 
 Compatibility routers (selection): `POST /wit/speech` (Wit.ai), `POST /speech-api/v2/recognize` (Chromium), plus OpenAI/Deepgram/Google/etc. See `/docs` for the full list.
 
+### OpenAI-Compatible Translation Endpoint
+
+`POST /openai/v1/audio/translations` mirrors OpenAI's Whisper translations endpoint. OpenAI's
+contract for this endpoint always returns **English**, regardless of the spoken language, so
+after transcribing the request runs an extra translate step using the configured OVOS
+translate plugin. If no translate plugin is configured, the endpoint falls back to returning
+the untranslated transcript instead of failing.
+
+```jsonc
+{
+  "language": {
+    "translation_module": "ovos-translate-plugin-server"
+  }
+}
+
+```
+
+---
+
+## Transformer Pipelines
+
+The server can run OVOS transformer plugins around transcription. Both hooks live in the
+model containers, so **every** surface gets them: the native `/stt` endpoint, all
+vendor-compat routers, the websocket streaming routes, MCP, and UTCP.
+
+- **Audio transformers** run *before* the STT stage. When the chain includes an
+  `AudioLanguageDetector` (like the `--lang-engine` mentioned above), its detected language
+  resolves `lang=auto` (an explicitly requested language always wins).
+- **Utterance transformers** rewrite the *transcript* after ASR, before it is returned.
+
+Loading is config-gated and opt-in via the standard `mycroft.conf` sections; with no config
+the server behaves exactly as before:
+
+```json
+{
+  "audio_transformers": {
+    "ovos-audio-transformer-plugin-speechbrain-langdetect": {}
+  },
+  "utterance_transformers": {
+    "ovos-utterance-corrections-plugin": {}
+  }
+}
+
+```
+
+Chains run in ascending priority order; an explicit `"order"` list in a section wins over
+priorities. In multi-model mode (`--multi`) one set of transformer instances is shared
+across the per-language engines. See the
+[transformer plugins reference](transformer-plugins.md) for the full contract.
+
+!!! tip "Server-side transforms are a client-invisible change"
+    An utterance transformer on the server means clients receive a **different transcript**
+    than what the STT engine actually heard. Use it deliberately — fleet-wide vocabulary
+    corrections, language routing via an `AudioLanguageDetector`, or server-side audio
+    cleanup for thin clients — and never enable the same plugin on both the server and a
+    downstream OVOS stack that also runs transformers, or it will run twice.
+
 ---
 
 ## Companion Plugin

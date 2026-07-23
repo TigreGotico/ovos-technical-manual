@@ -1,3 +1,5 @@
-`stop_high`, `converse`, `ocp_high`, `padatious_high`, `adapt_high`, `ocp_medium`,
-`fallback_high`, `stop_medium`, `adapt_medium`, `adapt_low`, `common_qa`, `fallback_medium`,
-`fallback_low`
+`ovos-stop-pipeline-plugin-high`, `ovos-converse-pipeline-plugin`, `ovos-ocp-pipeline-plugin-high`,
+`ovos-padatious-pipeline-plugin-high`, `ovos-adapt-pipeline-plugin-high`, `ovos-m2v-pipeline-high`,
+`ovos-ocp-pipeline-plugin-medium`, `ovos-fallback-pipeline-plugin-high`,
+`ovos-stop-pipeline-plugin-medium`, `ovos-adapt-pipeline-plugin-medium`,
+`ovos-fallback-pipeline-plugin-medium`, `ovos-fallback-pipeline-plugin-low`

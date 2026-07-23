@@ -64,7 +64,9 @@ advances chunk by chunk:
 
 
 - **States** (`ListeningState`): `wakeword` → `recording` → `in_cmd` → `after_cmd`,
-  plus `sleeping` / `wake_up`, `confirmation`, `before_cmd`, `pre_wake_vad`.
+  plus `sleeping` / `wake_up`, `confirmation`, `before_cmd`, `pre_wake_vad`, and
+  `WAITING_CMD = "continuous"` — the state used while continuous/hybrid listening waits
+  for an utterance without a wake word.
 
 Source: `ovos_dinkum_listener/voice_loop/voice_loop.py:36` (`ListeningState`) and `:53`
 (`ListeningMode`).

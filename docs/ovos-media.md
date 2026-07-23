@@ -329,6 +329,33 @@ dbus-send --session --dest=org.freedesktop.DBus --type=method_call --print-reply
 
 ```
 
+### External Player Reflection & Takeover
+
+`OcpMprisExporter` (`ovos_media/mpris.py`) has two roles. Registering OCP itself on the
+D-Bus session bus (above) is always active once `enable_mpris` is set. A second, opt-in
+role lets OCP *reflect and take over* other MPRIS players already running on the same
+machine (Spotify, VLC, Firefox, …):
+
+```json
+{
+  "media": {
+    "enable_mpris": true,
+    "manage_external_players": true
+  }
+}
+
+```
+
+With `manage_external_players` enabled, OCP periodically scans D-Bus for other
+`org.mpris.MediaPlayer2.*` players and mirrors their metadata and playback state onto
+its own OCP bus messages, so an external player's now-playing info shows up the same way
+native OCP media does. When an external player starts playing, OCP automatically pauses
+itself (and vice versa when the external player stops), so only one thing is audibly
+playing at a time. OCP's own transport controls (skip/pause/shuffle/repeat) are proxied
+through to whichever external player is currently active, letting one set of controls
+(voice, GUI, or a remote MPRIS client) drive both native OCP media and third-party
+players interchangeably.
+
 ---
 
 ## Configuration

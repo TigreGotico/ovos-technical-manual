@@ -96,8 +96,8 @@ nav:
       - Skill Examples: skill-examples.md
       - Accessibility: accessibility.md
       - Coming from Mycroft: migrating-from-mycroft.md
-      - Legacy images:
-          - RaspOVOS (legacy image): install-raspovos.md
+      - RaspOVOS image:
+          - RaspOVOS: install-raspovos.md
           - RaspOVOS Troubleshooting: raspovos-troubleshooting.md
   - Tutorials:
       - Your First Skill: first-skill.md
