@@ -542,5 +542,5 @@ If the `.intent`/`.voc` files look right and the utterance still doesn't match a
 whether the intent has actually been **disabled** rather than badly written — a skill can turn
 individual intents off with `disable_intent()`, and a skill or its converse participation can also
 be gated off entirely by the whitelist/blacklist controls. See [Intent Layers](layers.md) for
-per-skill intent enable/disable state and [Permissions & Activation Control](intent-layers.md) for
+per-skill intent enable/disable state and [Permissions & Activation Control](permissions.md) for
 the coarser skill-level gates.

@@ -129,7 +129,7 @@ session (typically the last skill that spoke or handled an intent) — an unrela
 idle won't get a chance either. Check both before assuming your `converse()` logic itself is
 broken.
 
-→ full story: [Permissions & Activation Control](intent-layers.md), [Converse](converse.md)
+→ full story: [Permissions & Activation Control](permissions.md), [Converse](converse.md)
 
 ---
 

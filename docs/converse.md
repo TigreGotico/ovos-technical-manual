@@ -29,7 +29,7 @@ Converse methods must return a Boolean: `True` if the utterance was handled (it 
 !!! note "A second gate sits in front of `converse()`"
     Being on the Active Skills List is necessary but not sufficient. Whether a skill is allowed
     to converse **at all** is a separate, coarser control — `ConverseMode` and the converse
-    whitelist/blacklist — covered on [Permissions & Activation Control](intent-layers.md). If
+    whitelist/blacklist — covered on [Permissions & Activation Control](permissions.md). If
     `converse()` never fires even though your skill is active, check that gate first.
 
 ## Basic usage

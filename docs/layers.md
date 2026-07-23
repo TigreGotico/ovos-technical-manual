@@ -10,7 +10,7 @@
     `IntentLayer` state lives in the **session**, so layered skills are concurrency-safe across [HiveMind](https://jarbashivemind.github.io/HiveMind-community-docs/) satellites — two satellites can be in different layers at the same time. (The lower-level `enable_intent` / `disable_intent` calls in the next section still change the **global** intent set, so prefer layers for per-session flows.)
 
 !!! note "Not the same as skill permissions"
-    Intent layers switch groups of *intents* on and off inside one already-active skill. Whether a skill is even allowed to participate in converse at all (whitelists, blacklists, `ConverseMode`) is a separate, coarser gate — see [Permissions & Activation Control](intent-layers.md).
+    Intent layers switch groups of *intents* on and off inside one already-active skill. Whether a skill is even allowed to participate in converse at all (whitelists, blacklists, `ConverseMode`) is a separate, coarser gate — see [Permissions & Activation Control](permissions.md).
 
 ## Managing Intents
 
