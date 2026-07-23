@@ -61,16 +61,24 @@ def stop(self):
 ### Handle Context Correcty
 If your skill asks a follow-up question (using `expect_response=True`), make sure you are prepared to handle the user's answer in a `converse()` method or a specific intent.
 
-```python
-def handle_ask_name_intent(self, message):
-    self.speak_dialog("ask_name", expect_response=True)
+!!! warning "Requires `ConversationalSkill`"
+    Plain `OVOSSkill` subclasses never have `converse()` called — it is silently ignored. To
+    receive follow-up utterances, subclass `ConversationalSkill` instead (see
+    [Skill Classes](skill-classes.md#conversationalskill) and [Converse](converse.md)).
 
-def converse(self, message=None):
-    utterances = message.data.get("utterances", [])
-    if utterances:
-        self.speak_dialog("hello", {"name": utterances[0]})
-        return True
-    return False
+```python
+from ovos_workshop.skills.converse import ConversationalSkill
+
+class MySkill(ConversationalSkill):
+    def handle_ask_name_intent(self, message):
+        self.speak_dialog("ask_name", expect_response=True)
+
+    def converse(self, message=None):
+        utterances = message.data.get("utterances", [])
+        if utterances:
+            self.speak_dialog("hello", {"name": utterances[0]})
+            return True
+        return False
 ```
 
 ---

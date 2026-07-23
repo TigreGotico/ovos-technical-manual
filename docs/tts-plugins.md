@@ -101,13 +101,13 @@ from ovos_plugin_manager.templates.tts import TTS
 class MyTTSPlugin(TTS):
     def __init__(self, *args, **kwargs):
         # Output format, and the SSML tags this engine GENUINELY handles.
-        # Most engines support none — if so, omit ssml_tags (it defaults to
-        # empty) and OVOS strips all SSML before get_tts() runs. Only list a
-        # tag here if your engine actually understands it; listed tags are
+        # Most engines support none — leave ssml_tags empty/omitted (the
+        # default) and OVOS strips all SSML before get_tts() runs. Only list
+        # a tag here if your engine actually understands it; listed tags are
         # passed through to get_tts() (optionally rewritten via modify_tag()).
-        ssml_tags = ["speak", "s", "w", "voice", "prosody",
-                     "say-as", "break", "sub", "phoneme"]
-        super().__init__(*args, **kwargs, audio_ext="wav", ssml_tags=ssml_tags)
+        # Full SSML tag set an engine COULD support, for reference:
+        #   ["speak", "s", "w", "voice", "prosody", "say-as", "break", "sub", "phoneme"]
+        super().__init__(*args, **kwargs, audio_ext="wav")
         
         # Read plugin-specific settings from config
         self.voice = self.config.get("voice", "default")
@@ -330,6 +330,11 @@ separately-licensed model or a paid cloud service, that is called out under "mod
 - **Description**: This TTS service for OpenVoiceOS requires a subscription to Microsoft Azure and the creation of a Speech resource (https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/overview#create-the-azure-resource)
 
 ### Default Configuration
+
+!!! warning "Never commit a real `api_key`"
+    Treat this like any other credential: keep the real value out of version control and
+    shared config files — use a local, untracked config or an environment-backed secret
+    store instead of hard-coding it in `mycroft.conf`.
 
 ```jsonc
 "tts": {

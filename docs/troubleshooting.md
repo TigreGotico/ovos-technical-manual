@@ -79,7 +79,12 @@ installing anything.
 
 ### Installing and running it
 
-`ovos-busmon` is not yet on PyPI, so install it from source:
+```bash
+pip install ovos-busmon
+ovos-busmon
+```
+
+To hack on it (or track `dev`), install from a clone instead:
 
 ```bash
 git clone https://github.com/OpenVoiceOS/ovos-busmon

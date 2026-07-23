@@ -15,7 +15,7 @@ color = color_from_description("bright vibrant green")
 print(color.hex_str, color.r, color.g, color.b)   # an sRGBAColor, or None if nothing matched
 ```
 
-> **Import note:** the top-level `ovos_color_parser` package only re-exports a subset of the API (see [API reference](#api-reference)). Functions such as `palette_from_description`, `lookup_name`, `rgb_to_cmyk`, `cmyk_to_rgb`, and `is_hex_code_valid` must be imported from `ovos_color_parser.matching`; less common model/palette classes from `ovos_color_parser.models`.
+> **Import note:** the top-level `ovos_color_parser` package re-exports most of the API, including `palette_from_description`, `lookup_name`, `rgb_to_cmyk`, `cmyk_to_rgb`, and `is_hex_code_valid` — import them directly from `ovos_color_parser` (see [API reference](#api-reference)). Only the less common pre-built spectral/language palette constants still need a submodule import from `ovos_color_parser.models`.
 
 ## Why it exists
 
@@ -79,9 +79,9 @@ Weighted circular-mean hue averaging (`average_colors()`) prevents wrap-around e
 
 ## API reference
 
-**Importable from the top-level `ovos_color_parser`:** `color_from_description`, `color_distance`, `closest_color`, `average_colors`, `convert_K_to_RGB`, `get_contrasting_black_or_white`, `ColorMatcher`, and the model classes `sRGBAColor`, `HLSColor`, `HSVColor`, `SpectralColor`, `HueRange`, `sRGBAColorPalette`, `HSVColorPalette`, `HLSColorPalette`, `SpectralColorPalette`, `NewtonSpectralColorTerms`, `ISCCNBSSpectralColorTerms`, `EnglishColorTerms`.
+**Importable from the top-level `ovos_color_parser`:** `color_from_description`, `color_distance`, `closest_color`, `average_colors`, `convert_K_to_RGB`, `get_contrasting_black_or_white`, `ColorMatcher`, `palette_from_description`, `lookup_name`, `rgb_to_cmyk`, `cmyk_to_rgb`, `is_hex_code_valid`, `GamutPolicy`, `in_gamut`, `fit_to_gamut`, `srgb8_distance`, `load_palettes`, `load_locale_palettes`, `load_shared_palettes`, `palette_names`, and the model classes `sRGBAColor`, `HLSColor`, `HSVColor`, `SpectralColor`, `HueRange`, `ColorTerm`, `LanguageColorVocabulary`, `sRGBAColorPalette`, `HSVColorPalette`, `HLSColorPalette`, `SpectralColorPalette`, `NewtonSpectralColorTerms`, `ISCCNBSSpectralColorTerms`, `EnglishColorTerms`.
 
-Everything else listed below (e.g. `palette_from_description`, `lookup_name`, `rgb_to_cmyk`, `cmyk_to_rgb`, `is_hex_code_valid`, `ColorTerm`, `LanguageColorVocabulary`, `MalacaraSpectralColorTerms`, `CRCHandbookSpectralColorTerms`, `IRSpectralColors`, `UVSpectralColors`, `ElectroMagneticSpectrum`, `OtjihereroColorTerms`) is **not** re-exported and must be imported from its submodule (`ovos_color_parser.models` or `ovos_color_parser.matching`).
+Only the pre-built spectral/language palette **constants** below (e.g. `MalacaraSpectralColorTerms`, `CRCHandbookSpectralColorTerms`, `IRSpectralColors`, `UVSpectralColors`, `ElectroMagneticSpectrum`, `OtjihereroColorTerms`) are **not** re-exported and must be imported from their submodule (`ovos_color_parser.models`).
 
 ### Color model classes (`ovos_color_parser/models.py`)
 

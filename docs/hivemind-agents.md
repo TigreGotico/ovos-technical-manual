@@ -144,12 +144,18 @@ This split is the real "voice satellite" story: cheap devices listen and speak, 
 ## Permissions & access control
 
 HiveMind is **deny-by-default**: a client may only do what it has been explicitly granted.
-`hivemind-core` exposes admin CLI commands to manage this, including:
+`hivemind-core` enforces this at the message-type level with a `PolicyChain` of pluggable
+`PolicyPlugin`s (including `MessageTypeACLPolicy`) that every inbound message is checked
+against. Its admin CLI manages this, including:
 
 - `add-client` / `list-clients` / `delete-client` — manage who may connect.
 - `allow-msg` / `blacklist-msg` — whitelist or block specific bus message types per client.
 - `make-admin` / `revoke-admin`, `allow-escalate` / `allow-propagate` — elevate or restrict a client.
-- `blacklist-skill` / `blacklist-intent` — stop a client from reaching specific skills/intents.
+- `blacklist-skill` / `allow-skill`, `blacklist-intent` / `allow-intent` — stop or re-allow a
+  client from reaching specific skills/intents. These just write `skill_blacklist` /
+  `intent_blacklist` client metadata; actually enforcing it against skill/intent IDs requires
+  the `OVOSAgentPolicy` plugin (from `hivemind-ovos-agent-plugin`) to be present in the
+  server's policy chain — the CLI verbs alone don't block anything without it.
 
 This is what makes HiveMind safe to expose to satellites or other users, unlike the plain
 [persona-server](persona-server.md) (HTTP, no auth).

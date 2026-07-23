@@ -117,7 +117,7 @@ The bus is a pure fan-out: no routing, no filtering, no topic subscriptions at t
 
 ```python
 
-# ovos_messagebus/event_handler.py:77
+# ovos_messagebus/event_handler.py — broadcast loop
 for client in client_connections:
     client.write_message(message)
 
@@ -129,13 +129,13 @@ Subscription filtering is handled entirely in the client library (`ovos-bus-clie
 
 ??? abstract "Technical Reference"
 
-    - `main()` — [`ovos_messagebus/__main__.py:43`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/__main__.py) — Entry point initializing the Tornado application and IOLoop.
+    - `main()` — [`ovos_messagebus/__main__.py`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/__main__.py) — Entry point initializing the Tornado application and IOLoop.
 
 
-    - `MessageBusEventHandler.on_message()` — [`ovos_messagebus/event_handler.py:50`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/event_handler.py) — Core broadcast logic.
+    - `MessageBusEventHandler.on_message()` — [`ovos_messagebus/event_handler.py`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/event_handler.py) — Core broadcast logic.
 
 
-    - `load_message_bus_config()` — [`ovos_messagebus/load_config.py:31`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/load_config.py) — Configuration loader using `ovos-config`.
+    - `load_message_bus_config()` — [`ovos_messagebus/load_config.py`](https://github.com/OpenVoiceOS/ovos-messagebus/blob/dev/ovos_messagebus/load_config.py) — Configuration loader using `ovos-config`.
     
     ### `open()`
     
@@ -348,15 +348,13 @@ A separate, drop-in Rust implementation exists as its own project for deployment
     the default reference server and adds two optional alternatives, benchmarked side by
     side with a bundled benchmark script at a range of concurrent-client loads:
 
-    - **webrockets** — a high-performance websocket backend, written in Python. Tracked in
-      [ovos-messagebus#51](https://github.com/OpenVoiceOS/ovos-messagebus/pull/51).
+    - **webrockets** — a high-performance websocket backend, written in Python.
     - **Rust** — the [`ovos-rust-messagebus`](https://github.com/OscillateLabsLLC/ovos-rust-messagebus)
       server, run in place of the Python process.
 
     Early benchmarking shows webrockets ahead at higher concurrency, with the Rust backend
-    showing connection saturation at the highest client counts tested — see the PR above for
-    current numbers. None of this is on a published release — do not rely on it on a stable
-    install.
+    showing connection saturation at the highest client counts tested. None of this is on a
+    published release — do not rely on it on a stable install.
 
 ---
 
@@ -430,14 +428,14 @@ the same client for quick, no-code interaction with a running assistant:
 ### Watching the bus live
 
 For interactively inspecting every message flowing across the bus (useful when a recipe above
-isn't behaving as expected), run `ovos-busmon` — a terminal viewer for live bus traffic. It
-subscribes like any other client and prints each message as it is broadcast.
+isn't behaving as expected), run `ovos-busmon` — a browser-based web UI (FastAPI + WebSocket)
+for live bus traffic. It subscribes like any other client and streams each message to the
+browser as it is broadcast; install it with `pip install ovos-busmon`.
 
 !!! note "Upcoming — `AsyncMessageBusClient`"
-    An in-progress change ([ovos-bus-client#200](https://github.com/OpenVoiceOS/ovos-bus-client/pull/200))
-    adds an async/await-native `AsyncMessageBusClient` alongside the threaded `MessageBusClient`
-    used in the recipes above, for callers already running an asyncio event loop (e.g. FastAPI
-    servers) that would rather avoid a background thread.
+    An in-progress change adds an async/await-native `AsyncMessageBusClient` alongside the
+    threaded `MessageBusClient` used in the recipes above, for callers already running an
+    asyncio event loop (e.g. FastAPI servers) that would rather avoid a background thread.
 
 ---
 

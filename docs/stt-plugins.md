@@ -136,22 +136,24 @@ entry_points = {
 
 ## Standalone Usage
 
-STT plugins can be used in your owm projects as follows
+STT plugins can be used in your own projects, without a running OVOS instance, by
+importing the plugin class directly. For example, with `ovos-stt-plugin-vosk`:
 
 ```python
-from speech_recognition import Recognizer, AudioFile
+from ovos_stt_plugin_vosk import VoskKaldiSTT
+from ovos_plugin_manager.utils.audio import AudioFile
 
-plug = STTPlug()
+plug = VoskKaldiSTT()
 
 # verify lang is supported
 lang = "en-us"
 assert lang in plug.available_languages
 
-# read file
+# read the whole file into an AudioData object
 with AudioFile("test.wav") as source:
-    audio = Recognizer().record(source)
+    audio = source.read()
 
-# transcribe AudioData object
+# transcribe
 transcript = plug.execute(audio, lang)
 
 ```
@@ -219,7 +221,6 @@ separately-licensed model, that is called out under "model".
 | [ovos-stt-plugin-mms](#ovos-stt-plugin-mms) | OVOS plugin for [The Massively Multilingual Speech (MMS) project](https://huggingface.co/docs/transformers/main/en/model_doc/mms) ⚠️ **Archived** — MMS models also run under [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2). | Apache-2.0 (model: see model card) |
 | [ovos-stt-server-plugin](#ovos-stt-server-plugin) | OpenVoiceOS companion plugin for [OpenVoiceOS STT Server](https://github.com/OpenVoiceOS/ovos-stt-http-server) | Apache-2.0 |
 | [ovos-stt-http-server](#ovos-stt-http-server) | Turn any OVOS STT plugin into a micro service! | Apache-2.0 |
-| [ovos-stt-plugin-wav2vec2](#ovos-stt-plugin-wav2vec2) | OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) | Apache-2.0 (model: see model card) |
 | [ovos-stt-plugin-whisper](#ovos-stt-plugin-whisper) | OpenVoiceOS STT plugin for [Whisper](https://github.com/guillaumekln/faster-whisper), using transformers library | Apache-2.0 (model: see model card) |
 | [ovos-stt-plugin-whispercpp](#ovos-stt-plugin-whispercpp) | OpenVoiceOS STT plugin for [whispercpp](https://github.com/ggerganov/whisper.cpp) | Apache-2.0 (model: see model card) |
 | [ovos-stt-plugin-fasterwhisper](#ovos-stt-plugin-fasterwhisper) | OpenVoiceOS STT plugin for [Faster Whisper](https://github.com/guillaumekln/faster-whisper) | Apache-2.0 (model: see model card) |
@@ -233,7 +234,10 @@ separately-licensed model, that is called out under "model".
 
 ## ovos-stt-plugin-wav2vec
 
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec)
+- **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec) (aliased by
+  [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2) — a
+  separate GitHub repo that installs the same package and module id, `ovos-stt-plugin-wav2vec`;
+  the repo name differs but the entry point does not, so both resolve to the same plugin)
 
 
 - **Description**: OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/)
@@ -331,30 +335,6 @@ offline engine from the table above.
 
 
 - **Description**: Turn any OVOS STT plugin into a micro service!
-
----
-
-## ovos-stt-plugin-wav2vec2
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2)
-
-
-- **Description**: OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/). This repository and [ovos-stt-plugin-wav2vec](#ovos-stt-plugin-wav2vec) above install the same package and module id (`ovos-stt-plugin-wav2vec`) — the GitHub repo name differs but the entry point does not.
-
-### Default Configuration
-
-```jsonc
-  "stt": {
-    "module": "ovos-stt-plugin-wav2vec",
-    "ovos-stt-plugin-wav2vec": {
-        "model": "proxectonos/Nos_ASR-wav2vec2-large-xlsr-53-gl-with-lm"
-    }
-  }
-
-```
-
-As above, `model` defaults per-language from an internal table; the value shown is the
-entry for Galician (`gl`).
 
 ---
 

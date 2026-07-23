@@ -308,11 +308,11 @@ earlier). These are the dispatch stage boundaries, verified in `FallbackService`
 (`ovos_core/intent_services/fallback_service.py`) — a separate fact from *which* priority
 you should actually pick for a handler, covered in [Fallback Skill](fallbacks.md#order-of-precedence):
 
-| Range | Pipeline stage |
+| Range (inclusive start, exclusive stop) | Pipeline stage |
 |---|---|
-| 1–5 | `fallback_high` |
-| 6–90 | `fallback_medium` |
-| 91–101 | `fallback_low` |
+| 0–5 | `fallback_high` |
+| 5–90 | `fallback_medium` |
+| 90–101 | `fallback_low` |
 
 Priority can be overridden in config:
 
@@ -346,7 +346,7 @@ class MyQuerySkill(OVOSSkill):
 
 !!! note "Under the hood"
     On startup `OVOSSkill` scans for a method tagged by `@common_query`
-    (`ovos.py:946`) and wires up the CommonQuery ping/answer bus handlers
+    (in `ovos_workshop/skills/ovos.py`) and wires up the CommonQuery ping/answer bus handlers
     automatically — only one such handler per skill is supported.
 
 ---
@@ -392,7 +392,7 @@ class MyMusicSkill(OVOSCommonPlaybackSkill):
 ## OVOSGameSkill
 
 **Module:** `ovos_workshop.skills.game_skill.OVOSGameSkill`
-**Source:** `ovos_workshop/skills/game_skill.py:13`
+**Source:** `ovos_workshop/skills/game_skill.py`
 
 Extends `OVOSCommonPlaybackSkill`. Structured base for OCP-integrated voice games. Subclasses must implement all six abstract methods: `on_play_game`, `on_pause_game`, `on_resume_game`, `on_stop_game`, `on_save_game`, `on_load_game`.
 
@@ -428,7 +428,7 @@ class TriviaGameSkill(OVOSGameSkill):
 ## ConversationalGameSkill
 
 **Module:** `ovos_workshop.skills.game_skill.ConversationalGameSkill`
-**Source:** `ovos_workshop/skills/game_skill.py:150`
+**Source:** `ovos_workshop/skills/game_skill.py`
 
 Extends `OVOSGameSkill`. Adds a **converse loop**: every utterance that does not match a registered intent is piped to `on_game_command()` while the game is playing. Also adds auto-save support, default pause/resume dialogs, and `on_abandon_game()`.
 
@@ -460,7 +460,7 @@ class AdventureSkill(ConversationalGameSkill):
 ## UniversalSkill
 
 **Module:** `ovos_workshop.skills.auto_translatable.UniversalSkill`
-**Source:** `ovos_workshop/skills/auto_translatable.py:11`
+**Source:** `ovos_workshop/skills/auto_translatable.py`
 
 Extends `OVOSSkill`. Automatically translates incoming utterances to `self.internal_language` before the intent handler runs, and translates `self.speak()` output back to the user's language. Requires a translator plugin to be configured.
 
@@ -485,7 +485,7 @@ class MySkill(UniversalSkill):
 ## UniversalFallback
 
 **Module:** `ovos_workshop.skills.auto_translatable.UniversalFallback`
-**Source:** `ovos_workshop/skills/auto_translatable.py:311`
+**Source:** `ovos_workshop/skills/auto_translatable.py`
 
 Combines `UniversalSkill` and `FallbackSkill`. [Fallback](fallback-pipeline.md) handlers receive utterances in `self.internal_language`. `self.speak()` translates output back to the user's language.
 
@@ -510,7 +510,7 @@ class MyUniversalFallback(UniversalFallback):
 ## OVOSAbstractApplication
 
 **Module:** `ovos_workshop.app.OVOSAbstractApplication`
-**Source:** `ovos_workshop/app.py:12`
+**Source:** `ovos_workshop/app.py`
 
 Like `OVOSSkill` but designed to run **without** an intent service. Suitable for standalone GUI apps, [HiveMind](hivemind-agents.md)-attached services, or any program that needs [TTS](tts-plugins.md)/messagebus/settings but does not register intents with `ovos-core`. Creates its own bus connection if none is provided. Settings stored under `apps/<id>/` instead of `skills/<id>/`.
 

@@ -13,9 +13,10 @@ A **Fallback** skill is the last line of defense: it is only consulted when no i
 Fallback Skills each have a **priority** and are tried in order from low priority value to high priority value (lower number = tried earlier). When a Fallback Skill handles the **[Utterance](life-of-an-utterance.md)** it returns `True` and no further fallbacks are tried.
 
 !!! note "Two different facts: internal stages vs. your pick"
-    The pipeline internally splits the 1-101 priority space into three dispatch stages —
-    `fallback_high` (priority 1-5), `fallback_medium` (6-90), and `fallback_low` (91-101),
-    checked in that order (verified in `FallbackService` source: `ovos_core/intent_services/fallback_service.py`).
+    The pipeline internally splits the 0-101 priority space into three dispatch stages,
+    checked in that order — `fallback_high` (priority 0 up to, but not including, 5),
+    `fallback_medium` (5 up to 90), and `fallback_low` (90 up to 101) — implemented directly
+    in `ovos-core`'s `FallbackService` (no separate pipeline plugin package involved).
     That is an implementation detail, not a recommendation. The **recommended pick ranges**
     below are a separate, coarser convention for choosing *where in the medium/low stages*
     your own handler's priority should sit.
