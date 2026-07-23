@@ -309,7 +309,7 @@ Intent layers let you enable or disable groups of intents at runtime, implementi
 
 ### `@layer_intent`
 
-`layer_intent` — `ovos_workshop/decorators/layers.py:128`
+`layer_intent` — `ovos_workshop/decorators/layers.py:159`
 
 Register an intent handler that belongs to a named layer. The intent is disabled until the layer is activated.
 
@@ -326,8 +326,8 @@ def handle_move(self, message): ...
 
 ### `@enables_layer` / `@disables_layer`
 
-`enables_layer` — `ovos_workshop/decorators/layers.py:33`
-`disables_layer` — `ovos_workshop/decorators/layers.py:52`
+`enables_layer` — `ovos_workshop/decorators/layers.py:66`
+`disables_layer` — `ovos_workshop/decorators/layers.py:85`
 
 Activate or deactivate a named intent layer **after** the decorated method runs.
 
@@ -348,7 +348,7 @@ def stop_game_intent(self, message):
 
 ### `@replaces_layer`
 
-`replaces_layer` — `ovos_workshop/decorators/layers.py:71`
+`replaces_layer` — `ovos_workshop/decorators/layers.py:104`
 
 Replace the intent list of a named layer after the method runs.
 
@@ -364,7 +364,7 @@ def transition(self, message): ...
 
 ### `@removes_layer`
 
-`removes_layer` — `ovos_workshop/decorators/layers.py:91`
+`removes_layer` — `ovos_workshop/decorators/layers.py:123`
 
 Remove a named layer entirely (and disable its intents) after the method runs.
 
@@ -380,7 +380,7 @@ def finish_flow(self, message): ...
 
 ### `@resets_layers`
 
-`resets_layers` — `ovos_workshop/decorators/layers.py:110`
+`resets_layers` — `ovos_workshop/decorators/layers.py:142`
 
 Disable **all** intent layers after the method runs.
 
@@ -486,40 +486,46 @@ class MyMusicSkill(OVOSCommonPlaybackSkill):
 
 ---
 
-## Decorator Stacking Order Matters
+## Combining Decorators
 
-When stacking multiple decorators, Python applies them **bottom-up** (innermost first). The `@intent_handler` and `@killable_intent` decorators both wrap the function, so the order affects which wrapper is outermost:
+Python applies stacked decorators **bottom-up** (innermost first). Whether
+order matters depends on what each decorator does to the function:
+
+- `@intent_handler`, `@fallback_handler`, `@common_query`, `@conversational_intent`,
+  `@homescreen_app`, and `@skill_api_method` are pure **tags** — they set an
+  attribute on the function object and return it unchanged, without wrapping
+  it. Because of this, stacking one of these with a wrapping decorator (like
+  `@killable_intent` or `@adds_context`) works in **either order**: the tag
+  ends up on whatever object is on top by the time it runs, and
+  `functools.wraps` propagates it if another wrapper is added afterwards.
 
 ```python
-
-# CORRECT: @killable_intent wraps the already-tagged intent handler.
-
-# The intent is registered first, then wrapped for killability.
+# Both of these register the intent correctly — order does not matter here,
+# because @intent_handler never wraps the function.
 @killable_intent(react_to_stop=True)
 @intent_handler("long_task.intent")
 def handle_long_task(self, message):
     ...
 
-# WRONG: @intent_handler would wrap the killable wrapper,
-
-# and the `intents` attribute set by @intent_handler would be lost.
 @intent_handler("long_task.intent")
 @killable_intent(react_to_stop=True)
 def handle_long_task(self, message):
-    ...  # ← intent registration silently fails
-
+    ...
 ```
 
-Similarly, context decorators (`@adds_context`, `@removes_context`) should be the **outermost** decorator when combined with `@intent_handler`, because they run after the function body:
+- `@adds_context`, `@removes_context`, `@killable_intent`, `@killable_event`,
+  and the intent-layer decorators (`@enables_layer`, `@disables_layer`, etc.)
+  **do** wrap the function — they run code before and/or after calling it.
+  When you stack two *wrapping* decorators together, the order changes what
+  actually executes and when, so make sure the one that should run
+  last (e.g. `@adds_context`, which fires after the handler body returns) is
+  the outermost:
 
 ```python
-@adds_context("ConfirmContext")
+@adds_context("ConfirmContext")   # runs after handle_confirm() returns
 @intent_handler("confirm_order.intent")
 def handle_confirm(self, message):
     self.speak("Order confirmed.")
-
-# Context is added AFTER handle_confirm() returns.
-
 ```
 
 ---

@@ -66,21 +66,36 @@ The `skill.json` file is an optional but powerful way to describe your Open Voic
 
 ## Field Reference
 
-| Field            | Type     | Required | Description |
+None of these fields are enforced by `ovos-workshop` at runtime — only
+`examples` is actually read (it is registered with the homescreen so it can
+show sample phrases for the skill). Everything else is a convention followed
+by skill-store and CI tooling. Ecosystem lint tooling (the `check_skill.py`
+compliance check used in CI) treats `skill_id`, `name`, `description`,
+`examples`, and `tags` as the fields it expects to be present; treat the rest
+as recommended, not mandatory.
+
+| Field            | Type     | Recommended | Description |
 |------------------|----------|----------|-------------|
 | `skill_id`       | string   | ✅ Yes    | Unique ID, typically `repo.author` style (lowercase). |
 | `source`         | string   | ❌ Optional | Git URL to install from source. |
-| `package_name`   | string   | ✅ Yes    | Python package name (e.g., for PyPI installs). |
+| `package_name`   | string   | ❌ Optional | Python package name (e.g., for PyPI installs). |
 | `pip_spec`       | string   | ❌ Optional | [PEP 508](https://peps.python.org/pep-0508/) install spec. |
 | `license`        | string   | ❌ Optional | License ID (see [SPDX list](https://spdx.org/licenses/)). |
 | `author`         | string   | ❌ Optional | Display name of the skill author. |
 | `extra_plugins`  | object   | ❌ Optional | Dependencies to be installed in other OVOS services (not this skill). |
 | `icon`           | string   | ❌ Optional | URL to a skill icon (SVG recommended). |
 | `images`         | list     | ❌ Optional | Screenshots or promotional images. |
-| `name`           | string   | ❌ Optional | User-facing skill name. |
-| `description`    | string   | ❌ Optional | Short, one-line summary of the skill. |
-| `examples`       | list     | ❌ Optional | Example utterances your skill handles. |
-| `tags`           | list     | ❌ Optional | Keywords for searchability. |
+| `name`           | string   | ✅ Yes    | User-facing skill name (some skills use `title` instead or as well). |
+| `description`    | string   | ✅ Yes    | Short, one-line summary of the skill. |
+| `examples`       | list     | ✅ Yes    | Example utterances your skill handles — the only field `ovos-workshop` actually reads, to register with the homescreen. |
+| `tags`           | list     | ✅ Yes    | Keywords for searchability. |
+
+!!! note
+    In practice, real-world `skill.json` files vary quite a bit — some use
+    `title` instead of `name`, and older, auto-generated `skill.json` files
+    (from the legacy skills-manager tooling) carry many more fields
+    (`version`, `url`, `requirements`, `platforms`, and more). Stick to the
+    fields above for new skills; anything extra is ignored by `ovos-workshop`.
 
 ---
 
@@ -92,17 +107,10 @@ To support multiple languages, place a `skill.json` file in each corresponding `
 
 ## Installation Behavior
 
-When installing a skill, OVOS will try the following methods in order:
-
-1. `pip_spec` (if present)
-
-
-2. `package_name` (from PyPI)
-
-
-3. `source` (from Git)
-
-At least **one valid installation path is required**.
+`pip_spec`, `package_name`, and `source` are hints for skill-installer /
+skill-store tooling about where to fetch a skill from — `ovos-workshop`
+itself does not install skills or read these fields. Provide at least one
+so external installers have somewhere to pull the skill from.
 
 ---
 

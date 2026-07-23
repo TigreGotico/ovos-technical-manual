@@ -54,47 +54,49 @@ Override these in your skill class:
 3. Bind bus (`bind`)
 
 
-4. Init GUI
+4. Init GUI (skipped if a `gui` object was already passed to the constructor)
 
 
 5. Load resource files (`load_data_files`)
 
 
-6. Register decorated intents (`_register_decorated`)
+6. Register `skill.json` examples with the homescreen (`_register_skill_json`)
 
 
-7. Register homescreen app if `@homescreen_app` used
+7. Register decorated intents (`_register_decorated`)
 
 
-8. Register resting screen if `@resting_screen_handler` used
+8. Register homescreen app if `@homescreen_app` used
 
 
-9. Call `initialize()`
+9. Register resting screen if `@resting_screen_handler` used
 
 
-10. Check first run
+10. Call `initialize()`
 
 
-11. Set status to `ready`
-
-### Shutdown Sequence (`default_shutdown`)
-
-1. `stop()`
+11. Check first run
 
 
-2. Store settings
+12. Set status to `ready`
+
+### Shutdown Sequence
+
+1. `SkillManager` calls `shutdown()` — skill-specific cleanup
 
 
-3. Shutdown GUI
+2. `SkillManager` calls `default_shutdown()`, which:
+    1. Calls `stop()`
+    2. Stores settings
+    3. Shuts down the GUI
+    4. Shuts down the event scheduler, clears events
+    5. Emits `detach_skill`
 
-
-4. Shutdown event scheduler, clear events
-
-
-5. Call `shutdown()`
-
-
-6. Emit `detach_skill`
+!!! note
+    `shutdown()` and `default_shutdown()` are two separate calls made by
+    `SkillManager` when it unloads a skill — `default_shutdown()` does not call
+    `shutdown()` itself. Override `shutdown()` for your own cleanup code;
+    never call `default_shutdown()` directly.
 
 ## Key Properties
 
@@ -192,6 +194,7 @@ Decorate a method with `@skill_api_method` to expose it over the bus. Other skil
 Override the class property to declare connectivity needs:
 
 ```python
+from ovos_utils import classproperty
 from ovos_utils.process_utils import RuntimeRequirements
 
 @classproperty
@@ -223,7 +226,8 @@ This is used by `SkillManager` to defer loading until the required connectivity 
 | `ovos.skills.settings_changed` | Local settings file changed |
 | `question:query` | Common query pipeline request |
 | `ovos.common_query.ping` | Common query service discovery |
-| `question:action.{skill_id}` | Common query callback |
+| `question:action.{skill_id}` | Common query callback (this skill's answer was selected) |
+| `question:action` | Common query callback (generic, any skill's answer was selected) |
 | `homescreen.metadata.get` | Homescreen requesting metadata |
 | `{skill_id}.public_api` | Skill API introspection |
 

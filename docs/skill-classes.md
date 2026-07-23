@@ -100,7 +100,7 @@ Override these in your skill class:
 3. Bind bus (`bind`)
 
 
-4. Init GUI
+4. Init GUI (skipped if a `gui` object was already passed to the constructor)
 
 
 5. Load resource files (`load_data_files`)
@@ -122,6 +122,9 @@ Override these in your skill class:
 
 
 11. Set status to `ready`
+
+See [OVOSSkill](ovos-skill.md#startup-sequence-_startup) for the full sequence
+including `skill.json` homescreen registration.
 
 ### Key Properties
 
@@ -178,6 +181,7 @@ choice = self.ask_selection(["A", "B", "C"], "Pick one")
 Override the class property to declare connectivity needs:
 
 ```python
+from ovos_utils import classproperty
 from ovos_utils.process_utils import RuntimeRequirements
 
 @classproperty
@@ -267,13 +271,13 @@ class MyFallback(FallbackSkill):
 
 ```
 
-Priority determines stage:
+Priority determines which pipeline stage checks the fallback first (lower runs earlier):
 
-| Range | Stage |
+| Range | Pipeline stage |
 |---|---|
-| 0–4 | `ovos-fallback-pipeline-plugin-high` |
-| 5–89 | `ovos-fallback-pipeline-plugin-medium` |
-| 90–100 | `ovos-fallback-pipeline-plugin-low` |
+| 0–4 | `fallback_high` |
+| 5–89 | `fallback_medium` |
+| 90–100 | `fallback_low` |
 
 Priority can be overridden in config:
 
@@ -307,7 +311,7 @@ class MyQuerySkill(OVOSSkill):
 
 !!! note "Under the hood"
     On startup `OVOSSkill` scans for a method tagged by `@common_query`
-    (`ovos.py:920`) and wires up the CommonQuery ping/answer bus handlers
+    (`ovos.py:946`) and wires up the CommonQuery ping/answer bus handlers
     automatically — only one such handler per skill is supported.
 
 ---

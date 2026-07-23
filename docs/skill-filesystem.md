@@ -14,17 +14,17 @@
 Files for a skill are stored under:
 
 ```
-~/.local/share/ovos/filesystem/skills/<skill_id>/
+$XDG_DATA_HOME/<base_folder>/filesystem/skills/<skill_id>/
 
 ```
 
-The exact base is determined by `get_xdg_data_save_path()` from `ovos-config`. The directory is created automatically if it does not exist. (`self.file_system` is constructed as `FileSystemAccess("skills/" + skill_id)`; a `FileSystemAccess` built directly with a bare name maps to `filesystem/<name>/` without the `skills/` segment.)
+`<base_folder>` defaults to `mycroft` (see [Skill Settings](skill-settings.md#storage-location) for how it can be renamed system-wide). On most Linux installs this resolves to `~/.local/share/mycroft/filesystem/skills/<skill_id>/`. The exact base is determined by `get_xdg_data_save_path()` from `ovos-config`. The directory is created automatically if it does not exist. (`self.file_system` is constructed as `FileSystemAccess("skills/" + skill_id)`; a `FileSystemAccess` built directly with a bare name maps to `filesystem/<name>/` without the `skills/` segment.)
 
 ---
 
 ## Migration from Legacy Paths
 
-If a directory exists at the legacy Mycroft location (`~/.mycroft/<skill_id>`) but the XDG path does not yet exist, the directory is automatically **moved** to the new location. A deprecation warning is logged during migration.
+If a directory exists at the legacy dotfile location (`~/.<base_folder>/skills/<skill_id>`, e.g. `~/.mycroft/skills/<skill_id>`) but the XDG path does not yet exist, the directory is automatically **moved** to the new location. A deprecation warning is logged during migration.
 
 ---
 
@@ -189,7 +189,8 @@ from ovos_workshop.filesystem import FileSystemAccess
 
 fs = FileSystemAccess("my-app.author")
 
-# Files stored at ~/.local/share/ovos/filesystem/my-app.author/
+# Files stored at $XDG_DATA_HOME/<base_folder>/filesystem/my-app.author/
+# (e.g. ~/.local/share/mycroft/filesystem/my-app.author/ by default)
 
 if not fs.exists("config.json"):
     with fs.open("config.json", "w") as f:

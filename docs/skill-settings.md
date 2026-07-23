@@ -10,16 +10,27 @@ Settings provide per-skill persistent key-value storage backed by a JSON file. T
 ## Storage Location
 
 ```
-~/.config/ovos/skills/<skill_id>/settings.json
+$XDG_CONFIG_HOME/<base_folder>/skills/<skill_id>/settings.json
 
 ```
+
+`<base_folder>` defaults to `mycroft` for backwards-compatibility, but a
+system-wide `ovos.conf` (or the `OVOS_CONFIG_BASE_FOLDER` environment
+variable) can rename it — commonly to `OpenVoiceOS`. On most Linux
+installs `XDG_CONFIG_HOME` is `~/.config`, so the effective default is
+`~/.config/mycroft/skills/<skill_id>/settings.json`.
 
 For `OVOSAbstractApplication`:
 
 ```
-~/.config/ovos/apps/<skill_id>/settings.json
+$XDG_CONFIG_HOME/<base_folder>/apps/<skill_id>/settings.json
 
 ```
+
+!!! tip
+    Never hardcode this path in a skill — use `self.settings_path` (or
+    `self.file_system` for other files) so it always resolves correctly
+    regardless of how the running system is configured.
 
 ---
 

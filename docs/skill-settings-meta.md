@@ -31,7 +31,7 @@ community settings editor like the one above), which then presents the described
 
 ### Example settingsmeta file
 
-To see it in action, lets look at a simple example from the [Date-Time Skill](https://github.com/MycroftAI/skill-date-time). First using the JSON syntax as a `settingsmeta.json` file:
+To see it in action, here is a simple example, similar to what a legacy date-and-time skill might ship. First using the JSON syntax as a `settingsmeta.json` file:
 
 ```javascript
 {
@@ -70,7 +70,7 @@ skillMetadata:
 
 ```
 
-Notice that the value of `false` is surrounded by "quotation marks". This is because OVOS expects a string of `"true"` or `"false"` rather than a Boolean.
+Notice that the checkbox's value, `"true"`, is a quoted string rather than a bare YAML/JSON boolean. This is intentional — the format expects the literal string `"true"` or `"false"`, not a real boolean.
 
 Both of these files would result in the same settings block.
 
@@ -85,7 +85,7 @@ Whilst the syntax differs, the structure of these two filetypes is the same. Thi
 
 Each section represents a group of settings that logically sit together. This enables us to display the settings more clearly in the web interface for users.
 
-In the simple example above we have just one section. However, the [Spotify Skill settings](https://github.com/forslund/spotify-skill/blob/19.08/settingsmeta.json) contains two sections. The first is for Spotify Account authentication, and the second section contains settings to define your default playback device.
+In the simple example above we have just one section. A skill that needs more configuration might use several — for example, one section for account authentication and a separate section for playback preferences.
 
 Each section must contain a `name` attribute that is used as the heading for that section, and an Array of `fields`.
 
