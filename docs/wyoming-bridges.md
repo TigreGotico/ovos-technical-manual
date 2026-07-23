@@ -92,14 +92,15 @@ Examples:
 
 ```bash
 
-# OVOS public STT server proxy
-wyoming-ovos-stt --uri tcp://0.0.0.0:7891 --plugin-name ovos-stt-plugin-server
-
-# Whisper locally
+# Whisper locally (no audio leaves the machine)
 wyoming-ovos-stt --uri tcp://0.0.0.0:7891 --plugin-name ovos-stt-plugin-whisper
 
 # Unix socket
 wyoming-ovos-stt --uri unix:///run/wyoming-stt.sock --plugin-name ovos-stt-plugin-vosk
+
+# Proxy to a server plugin — set "urls" to YOUR OWN stt-server (see stt-server.md);
+# leaving "urls" unset falls back to public community servers
+wyoming-ovos-stt --uri tcp://0.0.0.0:7891 --plugin-name ovos-stt-plugin-server
 
 ```
 
@@ -113,7 +114,7 @@ Language is taken from `cfg["lang"]` if present, otherwise from `mycroft.conf["l
   "lang": "en-US",
   "stt": {
     "ovos-stt-plugin-server": {
-      "url": "https://stt.openvoiceos.com/stt"
+      "urls": ["http://localhost:8080/stt"]
     },
     "ovos-stt-plugin-whisper": {
       "model": "base"
@@ -122,6 +123,20 @@ Language is taken from `cfg["lang"]` if present, otherwise from `mycroft.conf["l
 }
 
 ```
+
+!!! warning "`ovos-stt-plugin-server` without `urls` uses public servers"
+    As on the [STT server](stt-server.md) page: if you don't set `urls`, this plugin falls back
+    to public community-run STT servers rather than failing. Set `urls` to your own
+    [stt-server](stt-server.md) instance for anything other than a quick test.
+
+!!! warning "Community servers are best-effort demos"
+    Public community-run OVOS servers are **best-effort, not optimized, and come with no
+    uptime guarantee** — they exist purely to make onboarding and demos easy, and may slow
+    down, rate-limit, or disappear at any time. Relying on one for real use will make your
+    OVOS assistant slow and unreliable. Offline [STT plugins](stt-plugins.md) exist for every
+    supported engine — the official recommendation is to self-host your own server or run a
+    fully offline STT plugin as the bridge's `--plugin-name`, not to depend on a public one
+    long-term.
 
 ### Wyoming message flow
 
@@ -191,14 +206,15 @@ Examples:
 
 ```bash
 
-# OVOS public TTS server proxy
-wyoming-ovos-tts --uri tcp://0.0.0.0:7892 --plugin-name ovos-tts-plugin-server
-
-# Piper locally
+# Piper locally (no text leaves the machine)
 wyoming-ovos-tts --uri tcp://0.0.0.0:7892 --plugin-name ovos-tts-plugin-piper
 
 # Unix socket
 wyoming-ovos-tts --uri unix:///run/wyoming-tts.sock --plugin-name ovos-tts-plugin-espeak
+
+# Proxy to a server plugin — set "host" to YOUR OWN tts-server (see tts-server.md);
+# leaving "host" unset falls back to public community servers
+wyoming-ovos-tts --uri tcp://0.0.0.0:7892 --plugin-name ovos-tts-plugin-server
 
 ```
 
@@ -211,7 +227,7 @@ Plugin configuration is read from `mycroft.conf["tts"][<plugin-name>]`.
   "lang": "en-US",
   "tts": {
     "ovos-tts-plugin-server": {
-      "host": "https://pipertts.ziggyai.online"
+      "host": "http://localhost:9666"
     },
     "ovos-tts-plugin-piper": {
       "voice": "en_US-lessac-medium"
@@ -220,6 +236,20 @@ Plugin configuration is read from `mycroft.conf["tts"][<plugin-name>]`.
 }
 
 ```
+
+!!! warning "`ovos-tts-plugin-server` without `host` uses public servers"
+    As on the [TTS server](tts-server.md) page: if you don't set `host`, this plugin falls back
+    to public community-run TTS servers rather than failing. Set `host` to your own
+    [tts-server](tts-server.md) instance for anything other than a quick test.
+
+!!! warning "Community servers are best-effort demos"
+    Public community-run OVOS servers are **best-effort, not optimized, and come with no
+    uptime guarantee** — they exist purely to make onboarding and demos easy, and may slow
+    down, rate-limit, or disappear at any time. Relying on one for real use will make your
+    OVOS assistant slow and unreliable. Offline [TTS plugins](tts-plugins.md) exist for every
+    supported voice — the official recommendation is to self-host your own server or run a
+    fully offline TTS plugin as the bridge's `--plugin-name`, not to depend on a public one
+    long-term.
 
 ### Wyoming message flow
 

@@ -607,7 +607,12 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   small library to interact with a Mycroft Mark1 faceplate via the messagebus. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
 
 **[ovos-systemd](https://github.com/OpenVoiceOS/ovos-systemd)**
-:   This repository is a work in progress. For these to run properly, you need to run the following mycroft-core version till this get PR-ed and merged into the main repository;. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
+:   A legacy, unmaintained set of example systemd unit files written for the old `mycroft-core`
+    stack (predating OVOS's own systemd packaging). It is not wired into the current OVOS
+    install paths — the [`ovos-installer`](ovos-installer.md) and [raspOVOS](install-raspovos.md)
+    each ship their own current systemd units instead; see
+    [Production Operations](production-operations.md#keep-services-running-systemd-units) for
+    real, current examples.
 
 **[raspOVOS](https://github.com/OpenVoiceOS/raspOVOS)**
 :   raspOVOS is the flagship OpenVoiceOS experience for the Raspberry Pi: ready-to-flash images that turn a Pi into a voice assistant. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.

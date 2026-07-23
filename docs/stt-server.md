@@ -127,14 +127,17 @@ pip install ovos-stt-plugin-server
 
 ```
 
-**Configure**  
+**Configure**
+
+Point it at your own server (localhost, or wherever you run the container above):
 
 ```jsonc
   "stt": {
     "module": "ovos-stt-plugin-server",
     "ovos-stt-plugin-server": {
-      "urls": ["https://0.0.0.0:8080/stt"],
-      "verify_ssl": true
+      "urls": ["http://localhost:8080/stt"],
+      "verify_ssl": true,
+      "timeout": 5
     },
  }
 
@@ -146,13 +149,59 @@ for audio language detection
   "listener": {
     "audio_transformers": {
         "ovos-audio-lang-server-plugin": {
-          "urls": ["https://0.0.0.0:8080/lang_detect"],
+          "urls": ["http://localhost:8080/lang_detect"],
           "verify_ssl": true
         }
     }
   }
 
 ```
+
+!!! warning "No `urls` configured → public servers, not local failure"
+    If you omit `urls` entirely, the plugin does **not** fail — it silently falls back to a
+    small built-in list of **public** OVOS STT servers (shuffled, tried in order) run by
+    community members. That's convenient for a quick test, but it means your audio leaves your
+    network by default unless you set `urls` yourself. Always set `urls` explicitly for any
+    real deployment.
+
+!!! warning "Community servers are best-effort demos"
+    Public community-run OVOS servers are **best-effort, not optimized, and come with no
+    uptime guarantee** — they exist purely to make onboarding and demos easy, and may slow
+    down, rate-limit, or disappear at any time. Relying on one for real use will make your
+    OVOS assistant slow and unreliable. Offline [STT plugins](stt-plugins.md) exist for every
+    supported engine — the official recommendation is to self-host your own server (as taught
+    on this page) or run a fully offline STT plugin, not to depend on a public one long-term.
+
+`urls` semantics:
+
+- **List, tried in order until one succeeds** — if you list more than one server, the plugin
+  tries each in turn (each attempt bounded by `timeout`, default 5 seconds) and returns the
+  first successful transcription; it does not race them in parallel.
+- **`timeout`** is per-attempt, in seconds, not a total budget across the whole list.
+- A request that exhausts every URL without success raises no exception from the plugin call
+  itself — the caller (the listener, below) just gets no transcript back.
+
+### Listener-side fallback: a second STT engine, not just a second URL
+
+Independent of this plugin's own multi-URL retry, `ovos-dinkum-listener` supports a completely
+separate **fallback STT engine** — a different plugin entirely, used only if the primary
+engine returns no utterance. Configure it under the `stt` section:
+
+```jsonc
+{
+  "stt": {
+    "module": "ovos-stt-plugin-fasterwhisper",  // primary, offline
+    "fallback_module": "ovos-stt-plugin-server", // used only if the primary returns nothing
+    "ovos-stt-plugin-server": {
+      "urls": ["http://localhost:8080/stt"]
+    }
+  }
+}
+
+```
+
+This is useful the other way around too — a fast/light primary engine locally, with a heavier
+server-backed engine as the fallback for when the light one comes back empty.
 
 ---
 

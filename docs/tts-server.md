@@ -143,6 +143,21 @@ pip install ovos-tts-plugin-server
 
 ```
 
+!!! warning "No `host` configured → public servers, not local failure"
+    If you omit `host`, the plugin does **not** fail — it silently falls back to a built-in
+    list of **public** OVOS TTS servers run by community members, shuffled and tried in order.
+    That's fine for a quick test, but every sentence your assistant speaks is sent to a
+    third-party server by default until you set `host` yourself. Always set `host` explicitly
+    (as in the localhost example above) for any real deployment.
+
+!!! warning "Community servers are best-effort demos"
+    Public community-run OVOS servers are **best-effort, not optimized, and come with no
+    uptime guarantee** — they exist purely to make onboarding and demos easy, and may slow
+    down, rate-limit, or disappear at any time. Relying on one for real use will make your
+    OVOS assistant slow and unreliable. Offline [TTS plugins](tts-plugins.md) exist for every
+    supported voice — the official recommendation is to self-host your own server (as taught
+    on this page) or run a fully offline TTS plugin, not to depend on a public one long-term.
+
 Config keys:
 
 | Key | Default | Description |
