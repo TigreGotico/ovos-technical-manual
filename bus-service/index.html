@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/bus-service/">
       
       
-        <link rel="prev" href="../life-of-an-utterance/">
+        <link rel="prev" href="../spec-tooling/">
       
       
         <link rel="next" href="../plugin-manager/">
@@ -239,24 +239,6 @@
     
     
       <li class="md-tabs__item">
-        <a href="../everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
         <a href="../ovos-installer/" class="md-tabs__link">
           
   
@@ -275,10 +257,10 @@
     
     
       <li class="md-tabs__item">
-        <a href="../first-skill/" class="md-tabs__link">
+        <a href="../everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -355,7 +337,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -424,25 +406,7 @@
         <a href="../privacy-security/" class="md-tabs__link">
           
   
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../production-operations/" class="md-tabs__link">
-          
-  
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -583,48 +547,6 @@
         
   
   
-    <a href="../everyday-help/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Help & Troubleshooting
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="../ovos-installer/" class="md-nav__link">
       
   
@@ -667,11 +589,11 @@
         
   
   
-    <a href="../first-skill/" class="md-nav__link">
+    <a href="../everyday-help/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Tutorials
+    Help & Troubleshooting
   </span>
   
 
@@ -710,10 +632,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -724,8 +646,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Concepts
           </label>
@@ -743,6 +665,27 @@
   
   <span class="md-ellipsis">
     High-level Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../life-of-an-utterance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Life of an Utterance
   </span>
   
 
@@ -785,27 +728,6 @@
   
   <span class="md-ellipsis">
     Specification Tooling
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../life-of-an-utterance/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Life of an Utterance
   </span>
   
 
@@ -1393,7 +1315,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -1530,49 +1452,7 @@
       
   
   <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../production-operations/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
@@ -2016,7 +1896,7 @@ connect and take part on equal footing.</p>
 <tr>
 <td><code>port</code></td>
 <td><code>8181</code></td>
-<td>TCP port. The GUI service uses a separate port (<code>18181</code>).</td>
+<td>TCP port. The GUI service uses a separate port, <code>18181</code> by default (config key <code>gui_websocket.base_port</code>).</td>
 </tr>
 <tr>
 <td><code>route</code></td>
@@ -2090,23 +1970,20 @@ bus, even run code via some plugins). Treat it like an open door to the whole as
 <h3 id="check_originorigin-bool"><code>check_origin(origin) → bool</code><a class="headerlink" href="#check_originorigin-bool" title="Permanent link">&para;</a></h3>
 <p>Always returns <code>True</code>. OVOS does not enforce CORS/origin checks.</p>
 <h3 id="max_message_size"><code>max_message_size</code><a class="headerlink" href="#max_message_size" title="Permanent link">&para;</a></h3>
-<p>```python
-config.get("websocket", {}).get("max_msg_size", 10) * 1024 * 1024</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;websocket&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_msg_size&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
+</span></code></pre></div>
+<p>The shipped <code>mycroft.conf</code> sets <code>max_msg_size</code> to 25, so the effective default is
+25 MB (the code's hardcoded fallback of 10 only applies if the key is absent).
+Tornado closes the connection when a message exceeds this size.</p>
+<hr />
 </details>
-<p>```</p>
-<div class="language-text highlight"><pre><span></span><code>The shipped `mycroft.conf` sets `max_msg_size` to 25, so the effective default is
-25 MB (the code&#39;s hardcoded fallback of 10 only applies if the key is absent).
-Tornado closes the connection when a message exceeds this size.
-
----
-</code></pre></div>
 <h2 id="message-structure">Message Structure<a class="headerlink" href="#message-structure" title="Permanent link">&para;</a></h2>
 <p>Every message on the bus is a JSON object with three fields:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;recognizer_loop:utterance&quot;</span><span class="p">,</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;utterances&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;what time is it&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;lang&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;en-us&quot;</span><span class="p">},</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;session&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;listener&quot;</span><span class="p">}</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;recognizer_loop:utterance&quot;</span><span class="p">,</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;utterances&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;what time is it&quot;</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;lang&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;en-us&quot;</span><span class="p">},</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;session&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;listener&quot;</span><span class="p">}</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <ul>
 <li>
@@ -2272,22 +2149,23 @@ ecosystem of independently-released repos cannot happen in one coordinated step,
 so <strong><code>ovos-bus-client</code> migrates automatically and incrementally</strong> — the legacy
 and the new names interoperate transparently while the ecosystem moves over.</p>
 <p>The canonical legacy ↔ spec topic map lives in the <code>NamespaceTranslator</code> from
-<a href="../spec-tooling/"><code>ovos-spec-tools</code></a>, and the bus client applies it in two
-orthogonal directions, both <strong>on by default</strong>:</p>
+<a href="../spec-tooling/"><code>ovos-spec-tools</code></a>, and each <code>MessageBusClient</code> applies it on the
+<strong>receive</strong> side, not by putting a second copy on the wire:</p>
 <ul>
-<li><strong>emit</strong> — a migrated message is <em>dual-sent</em> on <strong>both</strong> the legacy and the
-  <code>ovos.*</code> topic. The mirrored copy is reshaped into the counterpart topic's
-  payload shape (identity for payload-compatible renames; a per-topic transform
-  where the shape changed), so a consumer on either topic receives it in <em>its</em>
-  expected shape.</li>
-<li><strong>listen</strong> — subscribing to <em>either</em> name (<code>bus.on(...)</code>) also subscribes to
-  its counterpart, with <strong>de-duplication</strong> so a handler that would match both
-  fires exactly once.</li>
+<li>A single logical <code>emit()</code> sends exactly <strong>one</strong> message over the websocket — the topic the
+  caller actually chose.</li>
+<li>When that message arrives back over the websocket (to every connected client, including the
+  sender), each client's <code>on_message</code> handler locally re-dispatches it under its counterpart
+  topic(s) too, using the translator to reshape the payload where the shape changed. This is a
+  listener-delivery convenience <em>inside each process</em>, not a second bus message — the broadcast
+  server never sees or re-broadcasts a counterpart frame.</li>
+<li><strong>listen</strong> — subscribing to <em>either</em> name (<code>bus.on(...)</code>) also delivers the counterpart, with
+  <strong>de-duplication</strong> so a handler that would match both fires exactly once.</li>
 </ul>
-<p>The result: a producer and a consumer can each switch from a legacy topic to its
-<code>ovos.*</code> spec name <strong>in any order, with no coordination</strong> — there is no flag day.
-A repo that has fully adopted <code>ovos.*</code> keeps working against one that has not,
-and vice-versa.</p>
+<p>The result is the same practical guarantee — a producer and a consumer can each switch from a
+legacy topic to its <code>ovos.*</code> spec name <strong>in any order, with no coordination</strong>, and no flag day —
+achieved by translating on receipt in every connected process rather than by widening what goes
+out on the wire.</p>
 <h3 id="turning-the-bridges-off">Turning the bridges off<a class="headerlink" href="#turning-the-bridges-off" title="Permanent link">&para;</a></h3>
 <p>Each direction is independently controllable (default <code>true</code>), via environment
 variable or bus configuration:</p>
@@ -2305,19 +2183,21 @@ variable or bus configuration:</p>
 <td>modernize</td>
 <td><code>OVOS_BUS_MODERNIZE</code></td>
 <td><code>modernize</code></td>
-<td>emitting a <strong>legacy</strong> topic also emits the <code>ovos.*</code> one</td>
+<td>a received <strong>legacy</strong> topic is also locally re-dispatched under its <code>ovos.*</code> counterpart</td>
 </tr>
 <tr>
 <td>emit_legacy</td>
 <td><code>OVOS_BUS_EMIT_LEGACY</code></td>
 <td><code>emit_legacy</code></td>
-<td>emitting an <strong><code>ovos.*</code></strong> topic also emits the legacy one</td>
+<td>a received <strong><code>ovos.*</code></strong> topic is also locally re-dispatched under its legacy counterpart</td>
 </tr>
 </tbody>
 </table>
-<p>A deployment whose components all speak <code>ovos.*</code> can set <code>emit_legacy=false</code> to
-drop the legacy copies (and the extra bus traffic); one with no legacy producers
-left can also disable <code>modernize</code>. Until then, leave both on — that is what keeps
+<p>Because the bridging happens per-process on receive, turning a direction off only stops that
+process from locally delivering the counterpart to its own handlers — it does not add or remove
+any traffic on the wire. A deployment whose components all speak <code>ovos.*</code> can set
+<code>emit_legacy=false</code> once no local handler still needs the legacy delivery; one with no legacy
+producers left can also disable <code>modernize</code>. Until then, leave both on — that is what keeps
 adoption gradual and safe.</p>
 <div class="admonition note">
 <p class="admonition-title">Bridged ≠ conformant</p>
@@ -2369,57 +2249,25 @@ meantime, it does not make it conformant.</p>
 <p><strong>In plain terms:</strong> on a stable install, run the default Python (Tornado) server; only reach for the Rust build if profiling shows the bus is a bottleneck.</p>
 <div class="admonition warning">
 <p class="admonition-title">Upcoming — unreleased</p>
-<p>Pluggable high-performance backends are in development. The work
-keeps <strong>Tornado</strong> as the default reference server and adds two
-optional alternatives, benchmarked side by side with <code>benchmark/run_benchmark.py</code> at four
-load levels (5 / 20 / 50 / 100 concurrent clients):</p>
+<p>Pluggable high-performance backends are in development. The work keeps <strong>Tornado</strong> as
+the default reference server and adds two optional alternatives, benchmarked side by
+side with a bundled benchmark script at a range of concurrent-client loads:</p>
 <ul>
 <li><strong>webrockets</strong> — a high-performance websocket backend, written in Python. Tracked in
   <a href="https://github.com/OpenVoiceOS/ovos-messagebus/pull/51">ovos-messagebus#51</a>.</li>
 <li><strong>Rust</strong> — the <a href="https://github.com/OscillateLabsLLC/ovos-rust-messagebus"><code>ovos-rust-messagebus</code></a>
   server, run in place of the Python process.</li>
 </ul>
-<p>Throughput vs the Tornado baseline, measured with the included benchmark script:</p>
-<table>
-<thead>
-<tr>
-<th>Load</th>
-<th>webrockets</th>
-<th>Rust</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>5 clients × 200 msgs</td>
-<td>+11%</td>
-<td>+18%</td>
-</tr>
-<tr>
-<td>20 clients × 1000 msgs</td>
-<td>+9%</td>
-<td>+20%</td>
-</tr>
-<tr>
-<td>50 clients × 2000 msgs</td>
-<td>+24%</td>
-<td>+20%</td>
-</tr>
-<tr>
-<td>100 clients × 500 msgs</td>
-<td>+4%</td>
-<td>connection errors (saturation)</td>
-</tr>
-</tbody>
-</table>
-<p>webrockets leads at higher concurrency; the Rust backend showed connection
-saturation (28 connection errors) at the 100-client level. None of this is on a
-published release — do not rely on it on a stable install.</p>
+<p>Early benchmarking shows webrockets ahead at higher concurrency, with the Rust backend
+showing connection saturation at the highest client counts tested — see the PR above for
+current numbers. None of this is on a published release — do not rely on it on a stable
+install.</p>
 </div>
 <hr />
 <h2 id="filter-debug-mode">Filter / Debug Mode<a class="headerlink" href="#filter-debug-mode" title="Permanent link">&para;</a></h2>
 <p>Set <code>websocket.filter: true</code> in <code>mycroft.conf</code> to log all message types before broadcasting. This does not affect message delivery.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>DEBUG: &lt;msg_type&gt; source: [...] destination: [...]
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>       SESSION: {...}
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>DEBUG: &lt;msg_type&gt; source: [...] destination: [...]
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>       SESSION: {...}
 </span></code></pre></div>
 <p>Messages listed in <code>filter_logs</code> are excluded from the log to reduce noise (default: <code>["gui.status.request", "gui.page.upload"]</code>).</p>
 <p>When <code>filter</code> is off (the default), the bus never deserializes messages — it emits and re-broadcasts the raw frame as-is. Deserialization only happens in <code>filter</code> mode for the log line; if a frame fails to deserialize there, it is dropped (not logged, not re-broadcast).</p>
@@ -2427,25 +2275,35 @@ published release — do not rely on it on a stable install.</p>
 <h2 id="bus-recipes">Bus recipes<a class="headerlink" href="#bus-recipes" title="Permanent link">&para;</a></h2>
 <p>A few small, runnable patterns for talking to a live bus directly, without going through a skill.</p>
 <h3 id="connect-emit-and-wait-for-a-response">Connect, emit, and wait for a response<a class="headerlink" href="#connect-emit-and-wait-for-a-response" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client</span> <span class="kn">import</span> <span class="n">MessageBusClient</span><span class="p">,</span> <span class="n">Message</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">bus</span> <span class="o">=</span> <span class="n">MessageBusClient</span><span class="p">()</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">bus</span><span class="o">.</span><span class="n">run_in_thread</span><span class="p">()</span>  <span class="c1"># connects on a background daemon thread</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># fire-and-forget</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;ovos.utterance.handle&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;what time is it&quot;</span><span class="p">],</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-us&quot;</span><span class="p">}))</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># request/response: send a message, then wait for a specific reply type</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">response</span> <span class="o">=</span> <span class="n">bus</span><span class="o">.</span><span class="n">wait_for_response</span><span class="p">(</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">Message</span><span class="p">(</span><span class="s2">&quot;ovos.session.sync&quot;</span><span class="p">),</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="n">reply_type</span><span class="o">=</span><span class="s2">&quot;ovos.session.update_default&quot;</span><span class="p">,</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="n">timeout</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="p">)</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
-</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="n">bus</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client</span> <span class="kn">import</span> <span class="n">MessageBusClient</span><span class="p">,</span> <span class="n">Message</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">bus</span> <span class="o">=</span> <span class="n">MessageBusClient</span><span class="p">()</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">bus</span><span class="o">.</span><span class="n">run_in_thread</span><span class="p">()</span>  <span class="c1"># connects on a background daemon thread</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># fire-and-forget</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">bus</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">Message</span><span class="p">(</span><span class="s2">&quot;ovos.utterance.handle&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;utterances&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;what time is it&quot;</span><span class="p">],</span> <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;en-us&quot;</span><span class="p">}))</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="c1"># request/response: send a message, then wait for a specific reply type</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="n">response</span> <span class="o">=</span> <span class="n">bus</span><span class="o">.</span><span class="n">wait_for_response</span><span class="p">(</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="n">Message</span><span class="p">(</span><span class="s2">&quot;intent.service.adapt.manifest.get&quot;</span><span class="p">),</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="n">reply_type</span><span class="o">=</span><span class="s2">&quot;intent.service.adapt.manifest&quot;</span><span class="p">,</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    <span class="n">timeout</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="p">)</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># {&quot;intents&quot;: [...]} — the registered Adapt intent manifest</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="n">bus</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title"><code>ovos.session.sync</code> can't be used this way</p>
+<p>A tempting-looking request/response pair is <code>Message("ovos.session.sync")</code> replying with
+<code>ovos.session.update_default</code> — but <code>MessageBusClient.emit()</code> always auto-injects a
+<code>session</code> object into <code>message.context</code> before sending if one isn't already present. That
+turns every <code>ovos.session.sync</code> this client emits into a <em>session sync</em> (carrying context),
+not the legacy <em>bare default-session request</em> that triggers an echo — so it never gets a
+reply this way. <code>intent.service.adapt.manifest.get</code> above is a plain request/response pair
+with no such caveat.</p>
+</div>
 <p><code>MessageBusClient()</code> with no arguments reads <code>host</code>/<code>port</code>/<code>route</code> from <code>mycroft.conf</code>'s
 <code>websocket</code> section (see <a href="#configuration">Configuration</a> above). <code>run_in_thread()</code> starts the
 WebSocket loop on a daemon thread so the call returns immediately; <code>wait_for_response</code> blocks the
@@ -2463,15 +2321,19 @@ the same client for quick, no-code interaction with a running assistant:</p>
 <p>For interactively inspecting every message flowing across the bus (useful when a recipe above
 isn't behaving as expected), run <code>ovos-busmon</code> — a terminal viewer for live bus traffic. It
 subscribes like any other client and prints each message as it is broadcast.</p>
+<div class="admonition note">
+<p class="admonition-title">Upcoming — <code>AsyncMessageBusClient</code></p>
+<p>An in-progress change (<a href="https://github.com/OpenVoiceOS/ovos-bus-client/pull/200">ovos-bus-client#200</a>)
+adds an async/await-native <code>AsyncMessageBusClient</code> alongside the threaded <code>MessageBusClient</code>
+used in the recipes above, for callers already running an asyncio event loop (e.g. FastAPI
+servers) that would rather avoid a background thread.</p>
+</div>
 <hr />
 <h2 id="related-pages">Related Pages<a class="headerlink" href="#related-pages" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p><a href="../core-libraries/#ovos-bus-client">Bus Client</a> — <code>MessageBusClient</code>, <code>Message</code>, <code>Session</code> Python API</p>
-</li>
-<li>
-<p><a href="../session/">Bus Session</a> — <code>Session</code>, <code>SessionManager</code>, <code>IntentContextManager</code></p>
-</li>
+<li><a href="../bus-events/">Bus Events Reference</a> — a consolidated table of message types by domain</li>
+<li><a href="../core-libraries/#ovos-bus-client">Bus Client</a> — <code>MessageBusClient</code>, <code>Message</code>, <code>Session</code> Python API</li>
+<li><a href="../session/">Bus Session</a> — <code>Session</code>, <code>SessionManager</code>, <code>IntentContextManager</code></li>
 <li>
 <p><a href="../core/">ovos-core</a> — Intent service, skill manager</p>
 </li>

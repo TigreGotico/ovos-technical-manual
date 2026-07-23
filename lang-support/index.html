@@ -239,24 +239,6 @@
     
     
       <li class="md-tabs__item">
-        <a href="../everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
         <a href="../ovos-installer/" class="md-tabs__link">
           
   
@@ -275,10 +257,10 @@
     
     
       <li class="md-tabs__item">
-        <a href="../first-skill/" class="md-tabs__link">
+        <a href="../everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -355,7 +337,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -424,25 +406,7 @@
         <a href="../privacy-security/" class="md-tabs__link">
           
   
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../production-operations/" class="md-tabs__link">
-          
-  
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -583,48 +547,6 @@
         
   
   
-    <a href="../everyday-help/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Help & Troubleshooting
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="../ovos-installer/" class="md-nav__link">
       
   
@@ -667,11 +589,11 @@
         
   
   
-    <a href="../first-skill/" class="md-nav__link">
+    <a href="../everyday-help/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Tutorials
+    Help & Troubleshooting
   </span>
   
 
@@ -794,10 +716,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -808,8 +730,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             Language Support
           </label>
@@ -1252,7 +1174,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -1389,49 +1311,7 @@
       
   
   <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../production-operations/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
@@ -1735,6 +1615,22 @@
 <p>OpenVoiceOS (OVOS) aims to support multiple languages across its components, including intent recognition, speech-to-text (<a href="../stt-plugins/">STT</a>), text-to-speech (<a href="../tts-plugins/">TTS</a>), and skill dialogs. However, full language support requires more than translation of interface text. This document outlines the current state of language support, known limitations, and how contributors can help improve multilingual performance in OVOS.</p>
 <p><strong>Want it working now?</strong> Jump to <a href="#auto-configuration">Auto-Configuration</a> — <code>ovos-config autoconfigure -l &lt;lang&gt; ...</code> sets up recommended STT/TTS plugins in one command. <strong>Want to make your language work better?</strong> See <a href="#how-to-improve-language-support">How to Improve Language Support</a>.</p>
 <p>Related pages: <a href="../lang-selection/">Language Selection</a> (how OVOS picks a language per utterance), <a href="../lang-customization/">Customizing Language Resources</a> (override/translate skill text), and <a href="../bidirectional-translation/">Bidirectional Translation</a> (use a single-language skill in any language).</p>
+<div class="admonition note">
+<p class="admonition-title">How language selection works</p>
+<p>Setting the global <code>lang</code> key in <a href="../config/"><code>mycroft.conf</code></a> is sufficient on its own to
+switch the assistant's language: STT, TTS, and every other language-aware plugin follow
+the global <code>lang</code> automatically. A per-plugin <code>lang</code> setting exists only to <em>override</em>
+that default for one plugin (e.g. running a second voice in another language).
+<code>ovos-config autoconfigure</code> (below) is a convenience that additionally picks the
+<em>recommended</em> plugins/voices for a language (offline/online, gender) — it optionally
+swaps in better defaults, it is not required just to switch languages.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Language codes are case-insensitive</p>
+<p>OVOS normalizes language codes internally (e.g. <code>en-us</code>, <code>EN-US</code>, and <code>en_US</code> all become
+<code>en-US</code>), so it doesn't matter which case you type them in on the command line or in
+<code>mycroft.conf</code>. This manual writes codes in lower-case (<code>en-us</code>) by convention.</p>
+</div>
 <hr />
 <p>While the OVOS installer allows users to select a preferred language, <strong>selecting a language does not guarantee full support across all subsystems</strong>. True multilingual support requires dedicated:</p>
 <ul>
@@ -1854,10 +1750,19 @@ skill data (hosted statically, refreshed daily), under <code>data/datasets/</cod
 <h2 id="auto-configuration">Auto-Configuration<a class="headerlink" href="#auto-configuration" title="Permanent link">&para;</a></h2>
 <p>The fastest way to get a working setup for your language is <code>ovos-config autoconfigure</code>. It writes recommended STT and TTS plugin settings into your user config:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>en-us<span class="w"> </span>--offline<span class="w"> </span>--female
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>de-de<span class="w"> </span>--online<span class="w"> </span>--male
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>de-de<span class="w"> </span>--offline<span class="w"> </span>--male
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>ovos-config<span class="w"> </span>autoconfigure<span class="w"> </span>-l<span class="w"> </span>fr-fr<span class="w"> </span>--hybrid<span class="w"> </span>--female
 </span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These three commands illustrate the three <em>modes</em> (<code>--offline</code>/<code>--online</code>/<code>--hybrid</code>),
+not a per-language recommendation — check the <a href="#supported-languages">Supported Languages</a>
+table below for what's actually bundled for a given language before picking a mode.</p>
+</div>
 <p>The recommendations are data-driven: they come from per-language <code>*.conf</code> files bundled in <code>ovos-config</code> (<code>recommends/</code>), so the exact models depend on your installed version. See <a href="../config/"><code>ovos-config</code></a> for full options.</p>
+<p>The bundled offline recommendations use <a href="../stt-plugins/#ovos-stt-plugin-onnx-asr"><code>ovos-stt-plugin-onnx-asr</code></a>
+for STT and <a href="../tts-plugins/#ovos-tts-plugin-phoonnx"><code>ovos-tts-plugin-phoonnx</code></a> for TTS — the
+table below shows the exact per-language model/voice picked for each.</p>
 <h3 id="flags">Flags<a class="headerlink" href="#flags" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1906,98 +1811,100 @@ development for a future <code>ovos-config</code> release. <code>--gpu</code> is
 <p>The table below is a snapshot of the bundled recommendations. The authoritative list is whatever <code>recommends/base/*.conf</code>, <code>recommends/offline_stt/*.conf</code>, and related files ship in your installed <code>ovos-config</code>.</p>
 </blockquote>
 <p>Plainly: a few widely-spoken variants still have real gaps in the bundled recommendations.
-<strong>pt-BR</strong> has no bundled offline STT recommendation at all — you'll need to configure an
-online plugin or pick a multilingual offline model (e.g. Whisper) by hand. <strong>en-AU</strong> has no
-bundled offline recommendation on either side. Several regional voices are one-gender-only
-offline (e.g. <strong>pt-PT</strong> and <strong>da-DK</strong> ship no offline female voice, <strong>eu-ES</strong> and <strong>gl-ES</strong>
-ship no offline male voice) — the missing gender still works, just via an online plugin or a
-manually-configured model.</p>
+<strong>en-GB</strong> and <strong>pt-BR</strong> have no bundled offline STT recommendation at all — you'll need to
+configure an online plugin or pick a multilingual offline model (e.g. Whisper) by hand.
+<strong>en-AU</strong> has no bundled offline recommendation on either side. Some regional voices are
+one-gender-only offline (e.g. <strong>da-DK</strong> ships no offline female voice) — the missing gender
+still works, just via an online plugin or a manually-configured model.</p>
+<p>All bundled offline STT recommendations use <code>ovos-stt-plugin-onnx-asr</code> and all bundled
+offline TTS recommendations use <code>ovos-tts-plugin-phoonnx</code>; the table shows the model/voice
+each language is configured with.</p>
 <table>
 <thead>
 <tr>
 <th>Language</th>
-<th>Offline STT</th>
-<th>Offline TTS (Male)</th>
-<th>Offline TTS (Female)</th>
+<th>Offline STT model</th>
+<th>Offline TTS voice (Male)</th>
+<th>Offline TTS voice (Female)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>en-US</strong></td>
-<td><code>ovos-stt-plugin-fasterwhisper</code> (<code>small.en</code>)</td>
-<td><code>ovos-tts-plugin-piper</code> (ryan-low)</td>
-<td><code>ovos-tts-plugin-piper</code> (amy-low)</td>
+<td><code>nemo-parakeet-tdt-0.6b-v3</code> (int8)</td>
+<td><code>OpenVoiceOS/pipertts_en-US_miro</code></td>
+<td><code>OpenVoiceOS/pipertts_en-GB_dii</code></td>
 </tr>
 <tr>
 <td><strong>en-GB</strong></td>
 <td>—</td>
-<td><code>ovos-tts-plugin-piper</code> (alan-low)</td>
-<td><code>ovos-tts-plugin-piper</code> (alba-medium)</td>
+<td><code>OpenVoiceOS/pipertts_en-GB_miro</code></td>
+<td><code>OpenVoiceOS/pipertts_en-GB_dii</code></td>
 </tr>
 <tr>
 <td><strong>de-DE</strong></td>
-<td><code>ovos-stt-plugin-citrinet</code> (de)</td>
-<td><code>ovos-tts-plugin-piper</code> (thorsten-low)</td>
-<td><code>ovos-tts-plugin-piper</code> (ramona-low)</td>
+<td><code>nemo-parakeet-tdt-0.6b-v3</code> (int8)</td>
+<td><code>OpenVoiceOS/pipertts_de-DE_miro</code></td>
+<td><code>OpenVoiceOS/pipertts_de-DE_dii</code></td>
 </tr>
 <tr>
 <td><strong>fr-FR</strong></td>
-<td><code>ovos-stt-plugin-citrinet</code> (fr)</td>
-<td><code>ovos-tts-plugin-piper</code> (gilles-low)</td>
-<td><code>ovos-tts-plugin-piper</code> (siwis-low)</td>
+<td><code>nemo-parakeet-tdt-0.6b-v3</code> (int8)</td>
+<td><code>OpenVoiceOS/pipertts_fr-FR_miro</code></td>
+<td><code>piper/fr_FR-siwis-medium</code></td>
 </tr>
 <tr>
 <td><strong>es-ES</strong></td>
-<td><code>ovos-stt-plugin-fasterwhisper-zuazo</code> (es, base)</td>
-<td><code>ovos-tts-plugin-piper</code> (carlfm-x_low)</td>
-<td><code>ovos-tts-plugin-ahotts</code></td>
+<td><code>OpenVoiceOS/parakeet-rnnt-1.1b-cv17-es-ep18-1270h-onnx</code></td>
+<td><code>OpenVoiceOS/pipertts_es-ES_miro</code></td>
+<td><code>OpenVoiceOS/phoonnx_es-ES_dii_espeak</code></td>
 </tr>
 <tr>
 <td><strong>it-IT</strong></td>
-<td><code>ovos-stt-plugin-citrinet</code> (it)</td>
-<td><code>ovos-tts-plugin-piper</code> (riccardo-x_low)</td>
-<td><code>ovos-tts-plugin-piper</code> (paola-medium)</td>
+<td><code>nemo-parakeet-tdt-0.6b-v3</code> (int8)</td>
+<td><code>OpenVoiceOS/pipertts_it-IT_miro</code></td>
+<td><code>OpenVoiceOS/pipertts_it-IT_dii</code></td>
 </tr>
 <tr>
 <td><strong>nl-NL</strong></td>
-<td><code>ovos-stt-plugin-citrinet</code> (nl)</td>
-<td><code>ovos-tts-plugin-piper</code> (ronnie-medium)</td>
-<td><code>ovos-tts-plugin-piper</code> (nathalie-medium)</td>
+<td><code>nemo-parakeet-tdt-0.6b-v3</code> (int8)</td>
+<td><code>OpenVoiceOS/pipertts_nl-NL_miro</code></td>
+<td><code>OpenVoiceOS/pipertts_nl-NL_dii</code></td>
 </tr>
 <tr>
 <td><strong>pt-PT</strong></td>
-<td><code>ovos-stt-plugin-fasterwhisper</code> (custom model)</td>
-<td><code>ovos-tts-plugin-piper</code> (tugão-medium)</td>
-<td>—</td>
+<td><code>OpenVoiceOS/whisper-medium-pt-onnx</code></td>
+<td><code>OpenVoiceOS/pipertts_pt-PT_miro</code></td>
+<td><code>OpenVoiceOS/pipertts_pt-PT_dii</code></td>
 </tr>
 <tr>
 <td><strong>pt-BR</strong></td>
 <td>—</td>
-<td><code>ovos-tts-plugin-piper</code> (faber-medium)</td>
-<td>—</td>
+<td><code>OpenVoiceOS/pipertts_pt-BR_miro</code></td>
+<td><code>OpenVoiceOS/pipertts_pt-BR_dii</code></td>
 </tr>
 <tr>
 <td><strong>ca-ES</strong></td>
-<td><code>ovos-stt-plugin-citrinet</code> (ca)</td>
-<td><code>ovos-tts-plugin-matxa-multispeaker-cat</code> (grau)</td>
-<td><code>ovos-tts-plugin-matxa-multispeaker-cat</code> (elia)</td>
+<td><code>OpenVoiceOS/stt-ca-es-conformer-transducer-large-onnx</code></td>
+<td><code>OpenVoiceOS/matxa-cat-multiaccent-wavenext</code> (speaker 2)</td>
+<td><code>OpenVoiceOS/matxa-cat-multiaccent-wavenext</code> (speaker 3)</td>
 </tr>
 <tr>
 <td><strong>gl-ES</strong></td>
-<td><code>ovos-stt-plugin-fasterwhisper-zuazo</code> (gl, base)</td>
-<td><code>ovos-tts-plugin-cotovia</code> (iago)</td>
-<td><code>ovos-tts-plugin-nos</code> (celtia)</td>
+<td><code>onnx-community/whisper-large-v3-turbo</code> (int8)</td>
+<td><code>OpenVoiceOS/phoonnx_gl-ES_miro_unicode</code></td>
+<td><code>proxectonos/celtia</code></td>
 </tr>
 <tr>
 <td><strong>eu-ES</strong></td>
-<td><code>ovos-stt-plugin-fasterwhisper-zuazo</code> (eu, base)</td>
-<td>—</td>
-<td><code>ovos-tts-plugin-ahotts</code></td>
+<td><code>OpenVoiceOS/stt-eu-conformer-transducer-large-onnx</code></td>
+<td><code>OpenVoiceOS/phoonnx_eu-ES_miro_espeak</code></td>
+<td><code>OpenVoiceOS/phoonnx_eu-ES_dii_espeak</code></td>
 </tr>
 <tr>
 <td><strong>da-DK</strong></td>
-<td><code>ovos-stt-plugin-fasterwhisper</code> (small)</td>
-<td><code>ovos-tts-plugin-piper</code> (nst_talesyntese-medium)</td>
+<td><code>nemo-parakeet-tdt-0.6b-v3</code> (int8)</td>
+<td><code>OpenVoiceOS/phoonnx_da-DK_miro_espeak</code></td>
 <td>—</td>
 </tr>
 <tr>
@@ -2076,14 +1983,14 @@ phrasing is covered.</p>
 <tr>
 <td>pt-PT</td>
 <td style="text-align: center;">✅</td>
-<td style="text-align: center;">⚠️ (male only)</td>
+<td style="text-align: center;">✅</td>
 <td style="text-align: center;">✅</td>
 <td style="text-align: center;">✅</td>
 </tr>
 <tr>
 <td>pt-BR</td>
 <td style="text-align: center;">❌</td>
-<td style="text-align: center;">⚠️ (male only)</td>
+<td style="text-align: center;">✅</td>
 <td style="text-align: center;">✅</td>
 <td style="text-align: center;">✅</td>
 </tr>

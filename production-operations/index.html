@@ -239,24 +239,6 @@
     
     
       <li class="md-tabs__item">
-        <a href="../everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
         <a href="../ovos-installer/" class="md-tabs__link">
           
   
@@ -275,10 +257,10 @@
     
     
       <li class="md-tabs__item">
-        <a href="../first-skill/" class="md-tabs__link">
+        <a href="../everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -353,7 +335,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -415,34 +397,16 @@
         
   
   
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../privacy-security/" class="md-tabs__link">
-          
-  
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
     
   
   
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+        <a href="../privacy-security/" class="md-tabs__link">
           
   
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -583,48 +547,6 @@
         
   
   
-    <a href="../everyday-help/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Help & Troubleshooting
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="../ovos-installer/" class="md-nav__link">
       
   
@@ -667,11 +589,11 @@
         
   
   
-    <a href="../first-skill/" class="md-nav__link">
+    <a href="../everyday-help/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Tutorials
+    Help & Troubleshooting
   </span>
   
 
@@ -838,7 +760,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -952,48 +874,6 @@
       
   
   
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../privacy-security/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -1014,26 +894,47 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
             
   
   <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_12">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
-            Production & Hardware
+            Production & Security
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy-security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Privacy & Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1599,6 +1500,13 @@ services that actually apply:</p>
 </span></code></pre></div>
 <p><code>network</code>/<code>internet</code>/<code>gui_connected</code> are also accepted <code>ready_settings</code> entries, and any
 service exposing an OVOS <code>ProcessStatus</code> (including <code>PHAL</code>) can be named by its status key.</p>
+<div class="admonition note">
+<p class="admonition-title">Upcoming — a bundled health check script</p>
+<p>A ready-to-use OVOS health check script for the <code>ovos-installer</code> is in progress
+(<a href="https://github.com/OpenVoiceOS/ovos-installer/pull/542">ovos-installer#542</a>), covering
+the same "is the assistant actually ready" question as the readiness probe above without
+writing your own.</p>
+</div>
 <hr />
 <h2 id="log-locations-and-shipping-them-out">Log locations and shipping them out<a class="headerlink" href="#log-locations-and-shipping-them-out" title="Permanent link">&para;</a></h2>
 <p>OVOS logs to stdout by default; every real deployment (systemd, raspOVOS, the installer) sets
@@ -1653,12 +1561,26 @@ pinned version on its own.</p>
 confirm the readiness probe and a couple of real voice interactions succeed, then repeat
 the same <code>uv pip install -c ...</code> command across the rest of the fleet.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Detecting a partially-failed rollback</p>
+<p><code>--force-reinstall</code> can itself be interrupted (network drop, disk full, <code>Ctrl-C</code>) partway
+through reinstalling the packages listed in the frozen file, leaving some packages back at
+the old pinned version and others still on the newer one. Compare the current environment
+against the frozen file to check:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>diff<span class="w"> </span>&lt;<span class="o">(</span>uv<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="o">)</span><span class="w"> </span>&lt;<span class="o">(</span>sort<span class="w"> </span>/etc/ovos/known-good-2026-07-01.txt<span class="o">)</span>
+</span></code></pre></div>
+<p>Any line in the diff is a package whose installed version does not match the known-good
+snapshot — re-run the <code>--force-reinstall</code> rollback command to finish the job before
+restarting the service. <code>uv pip check</code> is also worth running after either an upgrade or a
+rollback: it reports any dependency resolution left inconsistent (declared requirements no
+longer satisfied by what's installed), which a partial rollback commonly causes.</p>
+</div>
 <hr />
 <h2 id="one-config-for-many-devices-the-system-config-layer">One config for many devices: the system config layer<a class="headerlink" href="#one-config-for-many-devices-the-system-config-layer" title="Permanent link">&para;</a></h2>
 <p>OVOS reads configuration from several layered files, <a href="../config/">merged in order</a> so that a
 more specific file overrides a more general one. The layer meant for fleet-wide, admin-managed
 settings is the <strong>system config</strong>, at a fixed path:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/etc/mycroft/mycroft.conf
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/etc/mycroft/mycroft.conf
 </span></code></pre></div>
 <p>This file sits below each user's own <code>~/.config/mycroft/mycroft.conf</code>, so per-device
 overrides still win, but anything you don't override there comes from the system file. This
@@ -1672,36 +1594,36 @@ and audio services, all pointed at one shared, more capable machine that does th
 speech-to-text and text-to-speech work over HTTP (see <a href="../stt-server/">STT server</a> and
 <a href="../tts-server/">TTS server</a>). A sketch, based on the real container images published by
 <a href="https://github.com/OpenVoiceOS/ovos-docker"><code>ovos-docker</code></a>:</p>
-<div class="language-yaml highlight"><span class="filename">docker-compose.yml — central speech backend</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">services</span><span class="p">:</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">ovos_stt_server</span><span class="p">:</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-stt-server:${VERSION}</span><span class="w">   </span><span class="c1"># or your own build, see stt-server.md</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;8080:8080&quot;</span><span class="p p-Indicator">]</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">  </span><span class="nt">ovos_tts_server</span><span class="p">:</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-tts-server:${VERSION}</span><span class="w">   </span><span class="c1"># or your own build, see tts-server.md</span>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;9666:9666&quot;</span><span class="p p-Indicator">]</span>
-</span></code></pre></div>
-<div class="language-yaml highlight"><span class="filename">docker-compose.yml — thin client (per device)</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">services</span><span class="p">:</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">ovos_messagebus</span><span class="p">:</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-messagebus:${VERSION}</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
+<div class="language-yaml highlight"><span class="filename">docker-compose.yml — central speech backend</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">services</span><span class="p">:</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">ovos_stt_server</span><span class="p">:</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-stt-server:${VERSION}</span><span class="w">   </span><span class="c1"># or your own build, see stt-server.md</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;8080:8080&quot;</span><span class="p p-Indicator">]</span>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">  </span><span class="nt">ovos_listener</span><span class="p">:</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-listener:${VERSION}</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ovos_messagebus</span><span class="p p-Indicator">]</span>
-</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="c1"># configure stt.module = ovos-stt-plugin-server, urls -&gt; the central STT server above</span>
-</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
-</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">  </span><span class="nt">ovos_audio</span><span class="p">:</span>
-</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-audio:${VERSION}</span>
-</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
-</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ovos_messagebus</span><span class="p p-Indicator">]</span>
-</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="w">    </span><span class="c1"># configure tts.module = ovos-tts-plugin-server, host -&gt; the central TTS server above</span>
-</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>
-</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="w">  </span><span class="nt">ovos_core</span><span class="p">:</span>
-</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-core:${VERSION}</span>
-</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
-</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ovos_messagebus</span><span class="p p-Indicator">]</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">  </span><span class="nt">ovos_tts_server</span><span class="p">:</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-tts-server:${VERSION}</span><span class="w">   </span><span class="c1"># or your own build, see tts-server.md</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;9666:9666&quot;</span><span class="p p-Indicator">]</span>
+</span></code></pre></div>
+<div class="language-yaml highlight"><span class="filename">docker-compose.yml — thin client (per device)</span><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">services</span><span class="p">:</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">ovos_messagebus</span><span class="p">:</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-messagebus:${VERSION}</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">  </span><span class="nt">ovos_listener</span><span class="p">:</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-listener:${VERSION}</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ovos_messagebus</span><span class="p p-Indicator">]</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">    </span><span class="c1"># configure stt.module = ovos-stt-plugin-server, urls -&gt; the central STT server above</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">  </span><span class="nt">ovos_audio</span><span class="p">:</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-audio:${VERSION}</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ovos_messagebus</span><span class="p p-Indicator">]</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="w">    </span><span class="c1"># configure tts.module = ovos-tts-plugin-server, host -&gt; the central TTS server above</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="w">  </span><span class="nt">ovos_core</span><span class="p">:</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io/smartgic/ovos-core:${VERSION}</span>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ovos_messagebus</span><span class="p p-Indicator">]</span>
 </span></code></pre></div>
 <p>Each thin client still runs its own bus, listener, audio and core — only the heavy STT/TTS
 inference is centralized. This is the same pattern as

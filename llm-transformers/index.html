@@ -239,24 +239,6 @@
     
     
       <li class="md-tabs__item">
-        <a href="../everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
         <a href="../ovos-installer/" class="md-tabs__link">
           
   
@@ -275,10 +257,10 @@
     
     
       <li class="md-tabs__item">
-        <a href="../first-skill/" class="md-tabs__link">
+        <a href="../everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -353,7 +335,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -426,25 +408,7 @@
         <a href="../privacy-security/" class="md-tabs__link">
           
   
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../production-operations/" class="md-tabs__link">
-          
-  
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -585,48 +549,6 @@
         
   
   
-    <a href="../everyday-help/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Help & Troubleshooting
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="../ovos-installer/" class="md-nav__link">
       
   
@@ -669,11 +591,11 @@
         
   
   
-    <a href="../first-skill/" class="md-nav__link">
+    <a href="../everyday-help/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Tutorials
+    Help & Troubleshooting
   </span>
   
 
@@ -840,7 +762,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -927,10 +849,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -941,8 +863,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_10">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             AI Agents & Personas
           </label>
@@ -1119,10 +1041,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_10_5" id="__nav_10_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1133,8 +1055,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_5_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_10_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9_5">
             <span class="md-nav__icon md-icon"></span>
             LLM Backends
           </label>
@@ -1354,49 +1276,7 @@
       
   
   <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../production-operations/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
@@ -1669,19 +1549,34 @@ implementations:</p>
 </table>
 <hr />
 <h2 id="stacking-transformers">Stacking Transformers<a class="headerlink" href="#stacking-transformers" title="Permanent link">&para;</a></h2>
-<p>Multiple transformers can be active simultaneously. Priority controls order:</p>
+<p>Multiple transformers of the same type can be active simultaneously; each configured entry under
+<code>dialog_transformers</code> runs in turn, <strong>higher <code>priority</code> first</strong>, each one's output feeding into
+the next. For example, running a cheap local pass to strip markdown/jargon before an expensive
+cloud model adds personality on top:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;dialog_transformers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;ovos-dialog-transformer-openai-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sk-...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">&quot;rewrite_prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Rewrite for TTS.&quot;</span><span class="p">,</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">      </span><span class="nt">&quot;priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;ovos-dialog-transformer-gguf-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/model.gguf&quot;</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">&quot;rewrite_prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Remove all markdown and technical jargon; keep it plain and short.&quot;</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">      </span><span class="nt">&quot;n_gpu_layers&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="nt">&quot;priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nt">&quot;ovos-dialog-transformer-openai-plugin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="nt">&quot;api_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://api.openai.com/v1&quot;</span><span class="p">,</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">      </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sk-...&quot;</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">      </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">      </span><span class="nt">&quot;rewrite_prompt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Rewrite in the style of a grumpy old pirate.&quot;</span><span class="p">,</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">      </span><span class="nt">&quot;priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>Utterance transformers run first (highest priority first), cleaning or validating ASR output
-before intent matching. The dialog transformer rewrites skill responses (priority 50) before TTS.</p>
+<p>With this configuration, a skill's dialog is rewritten twice before TTS: first the GGUF
+transformer (<code>priority: 60</code>) runs locally to clean the raw text, then its output is passed to
+the OpenAI transformer (<code>priority: 40</code>) to apply the character voice. If either call fails, it
+falls back to passing its input through unchanged, so the chain degrades gracefully.</p>
+<p>Utterance transformers work the same way but run before intent matching (cleaning or validating
+ASR output), with higher priority also running first.</p>
 <hr />
 <h2 id="cross-references">Cross-References<a class="headerlink" href="#cross-references" title="Permanent link">&para;</a></h2>
 <ul>

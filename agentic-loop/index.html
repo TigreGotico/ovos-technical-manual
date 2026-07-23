@@ -239,24 +239,6 @@
     
     
       <li class="md-tabs__item">
-        <a href="../everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
         <a href="../ovos-installer/" class="md-tabs__link">
           
   
@@ -275,10 +257,10 @@
     
     
       <li class="md-tabs__item">
-        <a href="../first-skill/" class="md-tabs__link">
+        <a href="../everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -353,7 +335,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -426,25 +408,7 @@
         <a href="../privacy-security/" class="md-tabs__link">
           
   
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../production-operations/" class="md-tabs__link">
-          
-  
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -585,48 +549,6 @@
         
   
   
-    <a href="../everyday-help/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Help & Troubleshooting
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="../ovos-installer/" class="md-nav__link">
       
   
@@ -669,11 +591,11 @@
         
   
   
-    <a href="../first-skill/" class="md-nav__link">
+    <a href="../everyday-help/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Tutorials
+    Help & Troubleshooting
   </span>
   
 
@@ -840,7 +762,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -927,10 +849,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -941,8 +863,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_10">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             AI Agents & Personas
           </label>
@@ -1326,49 +1248,7 @@
       
   
   <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../production-operations/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
@@ -1597,6 +1477,28 @@ response — exactly the slot the agentic brains on this page fill. For the
 full set see the <strong><a href="../architecture-specs/">spec index</a></strong>.</p>
 </details>
 <p><a href="https://github.com/OpenVoiceOS/ovos-agentic-loop">ovos-agentic-loop</a> implements eight agentic reasoning patterns as standard OPM <code>ChatEngine</code> plugins. Each pattern wires a configurable inner LLM brain with one or more <code>ToolBox</code> plugins to produce multi-step reasoning over OVOS personas.</p>
+<div class="admonition tip">
+<p class="admonition-title">Which loop should I pick?</p>
+<ul>
+<li>Just need the model to use a tool and answer? Start with <strong><code>ovos-react-loop</code></strong> — it's the
+  general-purpose default, and every other loop is a variation for a specific need.</li>
+<li>Your model's API supports native <code>tool_calls</code> (most modern hosted LLMs)? Use
+  <strong><code>ovos-native-toolcall-loop</code></strong> instead — same job, less prompt overhead, and it falls
+  back to the ReAct text loop automatically if the model doesn't support it.</li>
+<li>Multi-step task where doing the steps in the wrong order matters (e.g. booking a trip)?
+  Use <strong><code>ovos-plan-execute-loop</code></strong> to plan up front, then execute.</li>
+<li>The model's first attempt is often wrong and could improve on a second pass? Use
+  <strong><code>ovos-reflexion-loop</code></strong> (self-critique + retry) or <strong><code>ovos-critic-loop</code></strong> (verify factual
+  claims specifically).</li>
+<li>The question is really several smaller questions bundled together ("who directed the movie
+  that won best picture the year X was born?")? Use <strong><code>ovos-self-ask-loop</code></strong>.</li>
+<li>Pure reasoning with no tools involved (math, logic puzzles)? Use
+  <strong><code>ovos-chain-of-thought-loop</code></strong>.</li>
+<li>Open-ended exploration where several candidate solution paths are worth comparing before
+  committing? Use <strong><code>ovos-tree-of-thoughts-loop</code></strong> — the most expensive option, reserve it
+  for problems where a single reasoning path is unreliable.</li>
+</ul>
+</div>
 <hr />
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-agentic-loop

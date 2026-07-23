@@ -239,24 +239,6 @@
     
     
       <li class="md-tabs__item">
-        <a href="../everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
         <a href="../ovos-installer/" class="md-tabs__link">
           
   
@@ -275,10 +257,10 @@
     
     
       <li class="md-tabs__item">
-        <a href="../first-skill/" class="md-tabs__link">
+        <a href="../everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -353,7 +335,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -415,34 +397,16 @@
         
   
   
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../privacy-security/" class="md-tabs__link">
-          
-  
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
     
   
   
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../production-operations/" class="md-tabs__link">
+        <a href="../privacy-security/" class="md-tabs__link">
           
   
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -583,48 +547,6 @@
         
   
   
-    <a href="../everyday-help/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Help & Troubleshooting
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="../ovos-installer/" class="md-nav__link">
       
   
@@ -667,11 +589,11 @@
         
   
   
-    <a href="../first-skill/" class="md-nav__link">
+    <a href="../everyday-help/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Tutorials
+    Help & Troubleshooting
   </span>
   
 
@@ -838,7 +760,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -952,48 +874,6 @@
       
   
   
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../privacy-security/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -1014,26 +894,47 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
             
   
   <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_12">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
-            Production & Hardware
+            Production & Security
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../privacy-security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Privacy & Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1953,13 +1854,10 @@ to public community-run TTS servers rather than failing. Set <code>host</code> t
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Community servers are best-effort demos</p>
-<p>Public community-run OVOS servers are <strong>best-effort, not optimized, and come with no
-uptime guarantee</strong> — they exist purely to make onboarding and demos easy, and may slow
-down, rate-limit, or disappear at any time. Relying on one for real use will make your
-OVOS assistant slow and unreliable. Offline <a href="../tts-plugins/">TTS plugins</a> exist for every
-supported voice — the official recommendation is to self-host your own server or run a
-fully offline TTS plugin as the bridge's <code>--plugin-name</code>, not to depend on a public one
-long-term.</p>
+<p>The public OVOS servers exist for easy onboarding and demos only. They are best-effort,
+not optimized, carry no uptime guarantees, and may vanish at any time. OVOS will be slow
+and unreliable if you rely on them. The official recommendation is to self-host — or skip
+servers entirely: fully offline plugins exist for everything.</p>
 </div>
 <h3 id="wyoming-message-flow_1">Wyoming message flow<a class="headerlink" href="#wyoming-message-flow_1" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Client → Synthesize(text=&quot;Hello world&quot;, voice=VoiceSettings(...))

@@ -239,24 +239,6 @@
     
     
       <li class="md-tabs__item">
-        <a href="../everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
         <a href="../ovos-installer/" class="md-tabs__link">
           
   
@@ -275,10 +257,10 @@
     
     
       <li class="md-tabs__item">
-        <a href="../first-skill/" class="md-tabs__link">
+        <a href="../everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -355,7 +337,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -424,25 +406,7 @@
         <a href="../privacy-security/" class="md-tabs__link">
           
   
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../production-operations/" class="md-tabs__link">
-          
-  
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -583,48 +547,6 @@
         
   
   
-    <a href="../everyday-help/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Help & Troubleshooting
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="../ovos-installer/" class="md-nav__link">
       
   
@@ -667,11 +589,11 @@
         
   
   
-    <a href="../first-skill/" class="md-nav__link">
+    <a href="../everyday-help/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Tutorials
+    Help & Troubleshooting
   </span>
   
 
@@ -752,10 +674,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -766,8 +688,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Intent Pipeline
           </label>
@@ -1021,49 +943,6 @@
         
   
   
-    <a href="../prompts/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Logic & Concepts
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="../transformer-plugins/" class="md-nav__link">
       
   
@@ -1159,7 +1038,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -1296,49 +1175,7 @@
       
   
   <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../production-operations/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
@@ -1526,21 +1363,21 @@
 <summary>📐 Formal specification</summary>
 <p>The utterance lifecycle and the pipeline-plugin contract are specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 — Utterance Lifecycle &amp; Pipeline</a></strong>. The intents these plugins consume are specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md">OVOS-INTENT-3 — Intent Definition</a></strong> (keyword and template intents) over the <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1 — Sentence Template Grammar</a></strong>. See the <a href="../architecture-specs/">spec index</a> for the full set.</p>
 </details>
-<p>The OpenVoiceOS (OVOS) Intent Pipeline is a modular and extensible system designed to interpret user utterances and map them to appropriate actions or responses. It orchestrates various intent parsers and fallback mechanisms to ensure accurate and contextually relevant responses.</p>
+<p>The OpenVoiceOS (OVOS) Intent Pipeline is a modular and extensible system designed to interpret user utterances and map them to appropriate actions or responses. It orchestrates various pipeline plugins and fallback mechanisms to ensure accurate and contextually relevant responses.</p>
 <div class="admonition note">
 <p class="admonition-title">Spec vocabulary in one paragraph</p>
 <p>In OVOS-PIPELINE-1 terms, every stage on this page is a <strong>pipeline plugin</strong> identified by an opaque <code>pipeline_id</code>. Each one exposes exactly one operation to the <strong>orchestrator</strong>: <code>match(utterances, lang, session) → Match | None</code>. The orchestrator iterates the plugins in the order given by <code>session.pipeline</code> and stops at the <strong>first</strong> one that returns a <code>Match</code> — <strong>first match wins</strong>. There is <em>no</em> cross-plugin confidence comparison: the per-stage <code>conf_high/medium/low</code> thresholds below are each plugin's <em>own</em> internal accept/reject gate, not a score the orchestrator ranks between plugins. On a match the orchestrator dispatches the handler on the topic <code>&lt;skill_id&gt;:&lt;intent_name&gt;</code> (PIPELINE-1 §7) and emits the handler-lifecycle trio; if no plugin claims, it emits <code>ovos.intent.unmatched</code>. Several stages here — converse, stop, common-query, persona, fallback — are pipeline plugins that claim via <strong>reserved <code>intent_name</code> values</strong> (<code>converse</code>, <code>response</code>, <code>stop</code>, <code>common_query</code>, <code>fallback</code>) leased in PIPELINE-1 §7.3; skills may not register those names.</p>
 </div>
 <hr />
 <h2 id="what-is-an-intent-pipeline">What is an Intent Pipeline?<a class="headerlink" href="#what-is-an-intent-pipeline" title="Permanent link">&para;</a></h2>
-<p>An intent pipeline in OVOS is a sequence of processing stages that analyze user input to determine the user's intent. Each stage employs different strategies, ranging from high-confidence intent parsers to fallback mechanisms, to interpret the input.</p>
+<p>An intent pipeline in OVOS is a sequence of processing stages that analyze user input to determine the user's intent. Each stage employs different strategies, ranging from high-confidence pipeline plugins to fallback mechanisms, to interpret the input.</p>
 <p>This layered approach ensures that OVOS can handle a wide range of user queries with varying degrees of specificity and complexity.</p>
 <hr />
 <h2 id="pipeline-structure">Pipeline Structure<a class="headerlink" href="#pipeline-structure" title="Permanent link">&para;</a></h2>
 <p>When an utterance arrives, OVOS walks the pipeline in order and hands the utterance to each stage until one claims it. Stages are tried from most to least confident:</p>
 <ul>
 <li>
-<p><strong>High Confidence</strong>: Primary intent parsers that provide precise matches.</p>
+<p><strong>High Confidence</strong>: Primary pipeline plugins that provide precise matches.</p>
 </li>
 <li>
 <p><strong>Medium Confidence</strong>: Secondary parsers that handle less specific queries.</p>
@@ -1550,21 +1387,29 @@
 </li>
 </ul>
 <p>The first stage that matches wins, so order matters: a high-confidence Padatious match is tried before any medium-confidence stage, which is tried before any low-confidence stage. Each component is a plugin that can be enabled, disabled, or reordered in your config.</p>
-<p>Ordering is <strong>the arbitration model, not a missing feature</strong> (PIPELINE-1 §6.2). Because an earlier plugin gets to answer before any later plugin is asked, a stateful interceptor that depends on session state — converse with an open response window, an active persona, OCP holding paused media to <em>resume</em>, stop — can claim "yes" / "next" / "resume" / "stop" <em>before</em> a general intent engine would match the bare words. Such selective plugins are deliberately conservative: they claim only when both the utterance and the session warrant it, and return <code>None</code> otherwise, trusting their position rather than competing on a score (heterogeneous engines share no common score space to rank across anyway).</p>
-<p><strong>Pipeline IDs vs. plugins.</strong> The IDs you list in your <code>pipeline</code> config (like <code>ovos-adapt-pipeline-plugin-high</code>) are not separate plugins. A confidence-aware plugin registers a single OPM entry point (e.g. <code>ovos-adapt-pipeline-plugin</code>), and OVOS derives the <code>-high</code>/<code>-medium</code>/<code>-low</code> matcher stages from it at runtime. Plugins that match at only one confidence level (such as <code>ovos-converse-pipeline-plugin</code> or <code>ovos-common-query-pipeline-plugin</code>) expose a single bare ID. The older short names (<code>adapt_high</code>, <code>common_qa</code>, …) are <strong>deprecated aliases</strong>: ovos-core rewrites them to the canonical plugin IDs via the <code>_PIPELINE_MIGRATION_MAP</code>, so existing configs keep working, but new configs should use the canonical names shown below.</p>
+<div class="admonition note">
+<p class="admonition-title"><code>intents.pipeline</code> orders matchers — it does not gate loading</p>
+<p>The config list controls which loaded matchers are <em>tried</em> and in what order. Every
+installed pipeline plugin is still discovered and initialized at startup (some load
+models when they do); to keep a plugin from initializing at all, uninstall its package.</p>
+</div>
+<p>Ordering is <strong>the arbitration model, not a missing feature</strong> (PIPELINE-1 §6.2). Because an earlier plugin gets to answer before any later plugin is asked, a stateful interceptor that depends on session state — converse with an open response window, an active persona, OCP holding paused media to <em>resume</em>, stop — can claim "yes" / "next" / "resume" / "stop" <em>before</em> a general pipeline plugin would match the bare words. Such selective plugins are deliberately conservative: they claim only when both the utterance and the session warrant it, and return <code>None</code> otherwise, trusting their position rather than competing on a score (heterogeneous engines share no common score space to rank across anyway).</p>
+<p><strong>Pipeline IDs vs. plugins.</strong> The IDs you list in your <code>pipeline</code> config (like <code>ovos-adapt-pipeline-plugin-high</code>) are not separate plugins. A confidence-aware plugin registers a single OPM entry point (e.g. <code>ovos-adapt-pipeline-plugin</code>), and OVOS derives the <code>-high</code>/<code>-medium</code>/<code>-low</code> matcher stages from it at runtime. Plugins that match at only one confidence level (such as <code>ovos-converse-pipeline-plugin</code> or <code>ovos-common-query-pipeline-plugin</code>) expose a single bare ID. The older short names (<code>adapt_high</code>, <code>common_qa</code>, …) are <strong>deprecated aliases</strong>: ovos-core still accepts them and rewrites them to the canonical plugin IDs via the <code>_PIPELINE_MIGRATION_MAP</code>, so existing configs keep working, but the bundled default configuration and new configs alike should use the canonical names shown below.</p>
 <hr />
 <h2 id="available-pipeline-components">Available Pipeline Components<a class="headerlink" href="#available-pipeline-components" title="Permanent link">&para;</a></h2>
-<p>Below is a list of available pipeline components, categorized by their confidence levels and functionalities. The <strong>Pipeline ID</strong> column shows the canonical name to put in your <code>pipeline</code> config going forward. The <strong>Legacy alias</strong> column shows the older short name — this is actually what the bundled default config still ships with (ovos-core rewrites it to the canonical ID at load time), but new configs should use the canonical names.</p>
+<p>Below is a list of available pipeline components, categorized by their confidence levels and functionalities. The <strong>Pipeline ID</strong> column shows the canonical name to put in your <code>pipeline</code> config. The <strong>Legacy alias</strong> column shows the older short name that some existing configs may still use — ovos-core rewrites it to the canonical ID at load time, but new configs should use the canonical names.</p>
 <div class="admonition note">
 <p class="admonition-title">The bundled default pipeline</p>
-<p>The default <code>pipeline</code> list shipped in <code>mycroft.conf</code> currently uses the legacy short names,
-in this order:</p>
-<p><code>stop_high</code>, <code>converse</code>, <code>ocp_high</code>, <code>padatious_high</code>, <code>adapt_high</code>, <code>ocp_medium</code>,
-<code>fallback_high</code>, <code>stop_medium</code>, <code>adapt_medium</code>, <code>adapt_low</code>, <code>common_qa</code>, <code>fallback_medium</code>,
-<code>fallback_low</code></p>
-<p>Note that Padatious/Adapt's medium and low tiers, Model2Vec,
-Persona, and the <code>-low</code> tiers of stop/padatious are <strong>not</strong> in the default list; you add them
-yourself if you want them.</p>
+<p>The default <code>pipeline</code> list shipped in <code>mycroft.conf</code> uses the canonical plugin IDs, in
+this order:</p>
+<p><code>ovos-stop-pipeline-plugin-high</code>, <code>ovos-converse-pipeline-plugin</code>, <code>ovos-ocp-pipeline-plugin-high</code>,
+<code>ovos-padatious-pipeline-plugin-high</code>, <code>ovos-adapt-pipeline-plugin-high</code>, <code>ovos-m2v-pipeline-high</code>,
+<code>ovos-ocp-pipeline-plugin-medium</code>, <code>ovos-fallback-pipeline-plugin-high</code>,
+<code>ovos-stop-pipeline-plugin-medium</code>, <code>ovos-adapt-pipeline-plugin-medium</code>,
+<code>ovos-fallback-pipeline-plugin-medium</code>, <code>ovos-fallback-pipeline-plugin-low</code></p>
+<p>Note that Padatious/Adapt's low tier, Model2Vec's medium/low tiers, OCP's low tier,
+Common Query, Persona, and the <code>-low</code> tiers of stop/padatious are <strong>not</strong> in the default
+list; you add them yourself if you want them.</p>
 </div>
 <h3 id="high-confidence-components">High Confidence Components<a class="headerlink" href="#high-confidence-components" title="Permanent link">&para;</a></h3>
 <table>
@@ -1807,7 +1652,7 @@ pipeline. They expose the same high/medium/low confidence tiers as Adapt/Padatio
 </tr>
 <tr>
 <td><a href="#ovos-padatious-pipeline-plugin">ovos-padatious-pipeline-plugin</a></td>
-<td>Neural network intent parser</td>
+<td>Neural network intent-matching pipeline plugin</td>
 </tr>
 <tr>
 <td><a href="#ovos-adapt-pipeline-plugin">ovos-adapt-pipeline-plugin</a></td>
@@ -1845,7 +1690,7 @@ pipeline. They expose the same high/medium/low confidence tiers as Adapt/Padatio
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-padatious-pipeline-plugin">https://github.com/OpenVoiceOS/ovos-padatious-pipeline-plugin</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: An efficient and agile neural network intent parser.</p>
+<p><strong>Description</strong>: An efficient and agile neural network intent-matching pipeline plugin.</p>
 </li>
 </ul>
 <hr />

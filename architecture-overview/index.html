@@ -11,10 +11,10 @@
         <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/architecture-overview/">
       
       
-        <link rel="prev" href="../skill-cookbook/">
+        <link rel="prev" href="../skill-dev-faq/">
       
       
-        <link rel="next" href="../architecture-specs/">
+        <link rel="next" href="../life-of-an-utterance/">
       
       
       <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
@@ -239,24 +239,6 @@
     
     
       <li class="md-tabs__item">
-        <a href="../everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
         <a href="../ovos-installer/" class="md-tabs__link">
           
   
@@ -275,10 +257,10 @@
     
     
       <li class="md-tabs__item">
-        <a href="../first-skill/" class="md-tabs__link">
+        <a href="../everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -355,7 +337,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -424,25 +406,7 @@
         <a href="../privacy-security/" class="md-tabs__link">
           
   
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../production-operations/" class="md-tabs__link">
-          
-  
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -583,48 +547,6 @@
         
   
   
-    <a href="../everyday-help/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Help & Troubleshooting
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="../ovos-installer/" class="md-nav__link">
       
   
@@ -667,11 +589,11 @@
         
   
   
-    <a href="../first-skill/" class="md-nav__link">
+    <a href="../everyday-help/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Tutorials
+    Help & Troubleshooting
   </span>
   
 
@@ -710,10 +632,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -724,8 +646,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Concepts
           </label>
@@ -904,6 +826,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../life-of-an-utterance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Life of an Utterance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../architecture-specs/" class="md-nav__link">
         
   
@@ -930,27 +873,6 @@
   
   <span class="md-ellipsis">
     Specification Tooling
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../life-of-an-utterance/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Life of an Utterance
   </span>
   
 
@@ -1231,7 +1153,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -1368,49 +1290,7 @@
       
   
   <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../production-operations/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
@@ -1643,30 +1523,14 @@ stable interface without knowing about each other — see the
 <p><img alt="Full Flow" src="../img/Full%20flow.jpeg" /></p>
 <p>The diagram above illustrates how a user utterance moves through the system:</p>
 <ol>
-<li>
-<p><strong>Microphone Input</strong>: Captured by a microphone plugin.</p>
-</li>
-<li>
-<p><strong><a href="../wake-word-plugins/">Wake Word</a> Detection</strong>: The <code>ovos-dinkum-listener</code> (or similar) monitors the stream for the wake word.</p>
-</li>
-<li>
-<p><strong><a href="../stt-plugins/">Speech-to-Text</a> (<a href="../stt-plugins/">STT</a>)</strong>: Once the wake word is detected, the subsequent audio is sent to an STT engine.</p>
-</li>
-<li>
-<p><strong>messagebus</strong>: The transcribed text is published to the bus as <code>ovos.utterance.handle</code> — the utterance entry point (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §9.1</a>; legacy name <code>recognizer_loop:utterance</code>).</p>
-</li>
-<li>
-<p><strong><a href="../intent-service/">Intent Service</a></strong>: the <strong>orchestrator</strong> (<code>ovos-core</code>) picks up the utterance and runs it through the <strong><a href="../pipelines-overview/">pipeline</a></strong> of matcher plugins — the first plugin to claim it wins (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>).</p>
-</li>
-<li>
-<p><strong><a href="../skill-design-guidelines/">Skill</a> Execution</strong>: If a match is found, the corresponding skill is triggered.</p>
-</li>
-<li>
-<p><strong>Response</strong>: The handler emits an <code>ovos.utterance.speak</code> message — the natural-language response (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §9.6</a>).</p>
-</li>
-<li>
-<p><strong><a href="../tts-plugins/">Text-to-Speech</a> (<a href="../tts-plugins/">TTS</a>)</strong>: <code>ovos-audio</code> converts the response text to audio and plays it.</p>
-</li>
+<li><strong>Microphone Input</strong>: Captured by a microphone plugin.</li>
+<li><strong><a href="../wake-word-plugins/">Wake Word</a> Detection</strong>: The <code>ovos-dinkum-listener</code> (or similar) monitors the stream for the wake word.</li>
+<li><strong><a href="../stt-plugins/">Speech-to-Text</a> (<a href="../stt-plugins/">STT</a>)</strong>: Once the wake word is detected, the subsequent audio is sent to an STT engine.</li>
+<li><strong>messagebus</strong>: The transcribed text is published to the bus as <code>ovos.utterance.handle</code> — the utterance entry point (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §9.1</a>; legacy name <code>recognizer_loop:utterance</code>).</li>
+<li><strong><a href="../intent-service/">Intent Service</a></strong>: the <strong>orchestrator</strong> (<code>ovos-core</code>) picks up the utterance and runs it through the <strong><a href="../pipelines-overview/">pipeline</a></strong> of matcher plugins — the first plugin to claim it wins (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>).</li>
+<li><strong><a href="../skill-design-guidelines/">Skill</a> Execution</strong>: If a match is found, the corresponding skill is triggered.</li>
+<li><strong>Response</strong>: The handler emits an <code>ovos.utterance.speak</code> message — the natural-language response (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §9.6</a>).</li>
+<li><strong><a href="../tts-plugins/">Text-to-Speech</a> (<a href="../tts-plugins/">TTS</a>)</strong>: <code>ovos-audio</code> converts the response text to audio and plays it.</li>
 </ol>
 <hr />
 <h2 id="component-map">Component Map<a class="headerlink" href="#component-map" title="Permanent link">&para;</a></h2>
@@ -1710,20 +1574,13 @@ processes that could in principle run on separate machines, each responsible for
 <p>Handles hardware-specific tasks like volume control, battery monitoring, and connectivity management.</p>
 <hr />
 <h2 id="modularity-and-plugins">Modularity and Plugins<a class="headerlink" href="#modularity-and-plugins" title="Permanent link">&para;</a></h2>
-<p>One of OVOS's greatest strengths is its plugin-based architecture. Almost every major function is a plugin:</p>
+<p>One of OVOS's greatest strengths is its plugin-based architecture. Almost every major function is a plugin, and the manual keeps a maintained catalog for each category:</p>
 <ul>
-<li>
-<p><strong>Microphone Plugins</strong>: ALSA, PyAudio, etc.</p>
-</li>
-<li>
-<p><strong>STT/TTS Plugins</strong>: Google, Whisper, Coqui, etc.</p>
-</li>
-<li>
-<p><strong>Wake Word Plugins</strong>: Precise, PocketSphinx, Snowboy, etc.</p>
-</li>
-<li>
-<p><strong>Intent Plugins</strong>: <a href="../adapt-pipeline/">Adapt</a>, <a href="../padatious-pipeline/">Padatious</a>, <a href="../cq-pipeline/">Common Query</a>, etc.</p>
-</li>
+<li><strong>Microphone Plugins</strong>: see the <a href="../mic-plugins/">Microphone Plugins catalog</a>.</li>
+<li><strong>STT Plugins</strong>: see the <a href="../stt-plugins/">STT Plugins catalog</a>.</li>
+<li><strong>TTS Plugins</strong>: see the <a href="../tts-plugins/">TTS Plugins catalog</a>.</li>
+<li><strong>Wake Word Plugins</strong>: see the <a href="../wake-word-plugins/">Wake Word Plugins catalog</a>.</li>
+<li><strong>Intent Plugins</strong>: <a href="../adapt-pipeline/">Adapt</a>, <a href="../padatious-pipeline/">Padatious</a>, <a href="../cq-pipeline/">Common Query</a>, and the rest of the <a href="../pipelines-overview/">pipeline overview</a>.</li>
 </ul>
 <p>This allows OVOS to run on everything from a high-end server to a Raspberry Pi Zero.</p>
 <h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>

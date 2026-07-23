@@ -14,7 +14,7 @@
         <link rel="prev" href="../troubleshooting/">
       
       
-        <link rel="next" href="../ovos-installer/">
+        <link rel="next" href="../architecture-overview/">
       
       
       <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
@@ -235,26 +235,6 @@
         
   
   
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
   
     
     
@@ -273,14 +253,16 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../first-skill/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -355,7 +337,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -424,25 +406,7 @@
         <a href="../privacy-security/" class="md-tabs__link">
           
   
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../production-operations/" class="md-tabs__link">
-          
-  
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -564,6 +528,48 @@
       
   
   
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../ovos-installer/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Get Started
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -584,10 +590,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -598,8 +604,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Help & Troubleshooting
           </label>
@@ -637,7 +643,7 @@
         
   
   <span class="md-ellipsis">
-    Troubleshooting
+    Troubleshooting & Debugging
   </span>
   
 
@@ -700,27 +706,192 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-do-i-know-if-a-screen-gui-client-is-available" class="md-nav__link">
+  <a href="#getting-started-and-the-inner-dev-loop" class="md-nav__link">
     <span class="md-ellipsis">
-      How do I know if a screen / GUI client is available?
+      Getting started and the inner dev loop
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting started and the inner dev loop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#my-utterance-doesnt-do-anything-where-do-i-even-start-looking" class="md-nav__link">
+    <span class="md-ellipsis">
+      My utterance doesn't do anything — where do I even start looking?
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#how-do-i-stop-an-intent-mid-execution" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-test-a-skill-without-talking-into-a-microphone" class="md-nav__link">
     <span class="md-ellipsis">
-      How do I stop an intent mid execution?
+      How do I test a skill without talking into a microphone?
     </span>
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-restart-just-my-skill-while-im-iterating-on-it-without-restarting-all-of-ovos" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I restart just my skill while I'm iterating on it, without restarting all of OVOS?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-isnt-my-skill-loading-at-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why isn't my skill loading at all?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#how-do-i-send-files-over-the-bus" class="md-nav__link">
+  <a href="#why-isnt-it-doing-what-i-expect" class="md-nav__link">
     <span class="md-ellipsis">
-      How do I send files over the bus?
+      Why isn't it doing what I expect
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why isn't it doing what I expect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-doesnt-my-phrase-match-my-intent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why doesn't my phrase match my intent?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#should-my-skill-use-adapt-or-padatious-for-intent-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Should my skill use Adapt or Padatious for intent matching?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#my-skill-needs-a-follow-up-question-how-do-multi-turn-conversations-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      My skill needs a follow-up question — how do multi-turn conversations work?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#language-settings-and-where-things-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language, settings, and where things live
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Language, settings, and where things live">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-make-my-skill-speak-in-more-than-one-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I make my skill speak in more than one language?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-do-my-skills-settings-and-files-actually-live-on-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where do my skill's settings and files actually live on disk?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-packaging-and-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies, packaging, and sharing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies, packaging, and sharing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-do-my-skills-python-dependencies-go-skilljson-or-pyprojecttoml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where do my skill's Python dependencies go — skill.json or pyproject.toml?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-share-or-publish-my-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I share or publish my skill?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-aillms-from-a-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using AI/LLMs from a skill
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using AI/LLMs from a skill">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#can-i-use-an-llm-inside-my-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can I use an LLM inside my skill?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#still-stuck" class="md-nav__link">
+    <span class="md-ellipsis">
+      Still stuck?
     </span>
   </a>
   
@@ -737,90 +908,6 @@
             
           </ul>
         </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../ovos-installer/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Get Started
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../first-skill/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Tutorials
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
       
     </li>
   
@@ -978,7 +1065,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -1115,49 +1202,7 @@
       
   
   <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../production-operations/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
@@ -1241,27 +1286,192 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-do-i-know-if-a-screen-gui-client-is-available" class="md-nav__link">
+  <a href="#getting-started-and-the-inner-dev-loop" class="md-nav__link">
     <span class="md-ellipsis">
-      How do I know if a screen / GUI client is available?
+      Getting started and the inner dev loop
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting started and the inner dev loop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#my-utterance-doesnt-do-anything-where-do-i-even-start-looking" class="md-nav__link">
+    <span class="md-ellipsis">
+      My utterance doesn't do anything — where do I even start looking?
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#how-do-i-stop-an-intent-mid-execution" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-test-a-skill-without-talking-into-a-microphone" class="md-nav__link">
     <span class="md-ellipsis">
-      How do I stop an intent mid execution?
+      How do I test a skill without talking into a microphone?
     </span>
   </a>
   
 </li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-restart-just-my-skill-while-im-iterating-on-it-without-restarting-all-of-ovos" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I restart just my skill while I'm iterating on it, without restarting all of OVOS?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-isnt-my-skill-loading-at-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why isn't my skill loading at all?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#how-do-i-send-files-over-the-bus" class="md-nav__link">
+  <a href="#why-isnt-it-doing-what-i-expect" class="md-nav__link">
     <span class="md-ellipsis">
-      How do I send files over the bus?
+      Why isn't it doing what I expect
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why isn't it doing what I expect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-doesnt-my-phrase-match-my-intent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why doesn't my phrase match my intent?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#should-my-skill-use-adapt-or-padatious-for-intent-matching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Should my skill use Adapt or Padatious for intent matching?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#my-skill-needs-a-follow-up-question-how-do-multi-turn-conversations-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      My skill needs a follow-up question — how do multi-turn conversations work?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#language-settings-and-where-things-live" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language, settings, and where things live
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Language, settings, and where things live">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-make-my-skill-speak-in-more-than-one-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I make my skill speak in more than one language?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-do-my-skills-settings-and-files-actually-live-on-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where do my skill's settings and files actually live on disk?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies-packaging-and-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies, packaging, and sharing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies, packaging, and sharing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#where-do-my-skills-python-dependencies-go-skilljson-or-pyprojecttoml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where do my skill's Python dependencies go — skill.json or pyproject.toml?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-share-or-publish-my-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I share or publish my skill?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-aillms-from-a-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using AI/LLMs from a skill
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using AI/LLMs from a skill">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#can-i-use-an-llm-inside-my-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      Can I use an LLM inside my skill?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#still-stuck" class="md-nav__link">
+    <span class="md-ellipsis">
+      Still stuck?
     </span>
   </a>
   
@@ -1288,129 +1498,142 @@
 <h1 id="developer-faq">Developer FAQ<a class="headerlink" href="#developer-faq" title="Permanent link">&para;</a></h1>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
-<p>Short answers to specific "how do I…?" questions that come up while writing a skill. Skim
-it when you hit one of these; it assumes you've already built a basic skill (start with
-<a href="../first-skill/">Your First Skill</a> if not). If you don't write skills, you can skip this page.</p>
+<p>Short, direct answers to the questions that come up most often while building an OVOS skill —
+mined from real questions asked in the community and from the sticking points people hit while
+working through this manual. Each answer routes you to the full page for the depth you need; skim
+this page when you hit one of these, then dive into the linked page. It assumes you've already
+built a basic skill — start with <a href="../first-skill/">Your First Skill</a> if not.</p>
 </div>
-<h2 id="how-do-i-know-if-a-screen-gui-client-is-available">How do I know if a screen / GUI client is available?<a class="headerlink" href="#how-do-i-know-if-a-screen-gui-client-is-available" title="Permanent link">&para;</a></h2>
-<p><code>ovos_utils.gui</code> exposes helper functions to query GUI availability. Use these to decide whether to show a page or fall back to voice-only behavior.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">ovos_utils.gui</span> <span class="kn">import</span> <span class="n">can_display</span><span class="p">,</span> <span class="n">is_gui_installed</span><span class="p">,</span> <span class="n">is_gui_connected</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">intent_handler</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">class</span> <span class="nc">MySkill</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="nd">@intent_handler</span><span class="p">(</span><span class="s2">&quot;gui.status.intent&quot;</span><span class="p">)</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="k">def</span> <span class="nf">handle_status_intent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;device has a screen:&quot;</span><span class="p">,</span> <span class="n">can_display</span><span class="p">())</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mycroft-gui installed:&quot;</span><span class="p">,</span> <span class="n">is_gui_installed</span><span class="p">())</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;gui client connected:&quot;</span><span class="p">,</span> <span class="n">is_gui_connected</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bus</span><span class="p">))</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="k">if</span> <span class="n">is_gui_connected</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bus</span><span class="p">):</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">gui</span><span class="o">.</span><span class="n">show_text</span><span class="p">(</span><span class="s2">&quot;Hello from the GUI!&quot;</span><span class="p">)</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;I have nothing to show, no screen is connected&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<blockquote>
-<p>The legacy <code>GUITracker</code> class has been <strong>removed</strong> from <code>ovos_utils.gui</code>. Use the standalone <code>can_display()</code>, <code>is_gui_installed()</code>, and <code>is_gui_connected(bus)</code> functions instead. To react to GUI lifecycle events, listen to the relevant <code>gui.*</code> messagebus messages with <code>self.add_event(...)</code>.</p>
-</blockquote>
-<h2 id="how-do-i-stop-an-intent-mid-execution">How do I stop an intent mid execution?<a class="headerlink" href="#how-do-i-stop-an-intent-mid-execution" title="Permanent link">&para;</a></h2>
-<p>Sometimes you want to abort a running intent immediately, the stop method may not be enough in some circumstances
-we provide a <code>killable_intent</code> decorator in <code>ovos_workshop</code> that can be used to abort a running intent immediately</p>
-<p>a common use case is for GUI interfaces where the same action may be done by voice or clicking buttons, in this case you may need to abort a running <code>get_response</code> loop</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.decorators</span> <span class="kn">import</span> <span class="n">killable_intent</span><span class="p">,</span> <span class="n">intent_handler</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">class</span> <span class="nc">Test</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="sd">    send &quot;mycroft.skills.abort_question&quot; and confirm only get_response is aborted</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="sd">    send &quot;mycroft.skills.abort_execution&quot; and confirm the full intent is aborted, except intent3</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="sd">    send &quot;my.own.abort.msg&quot; and confirm intent3 is aborted</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="sd">    say &quot;stop&quot; and confirm all intents are aborted</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">my_special_var</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="k">def</span> <span class="nf">handle_intent_aborted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;I am dead&quot;</span><span class="p">)</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        <span class="c1"># handle any cleanup the skill might need, since intent was killed</span>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        <span class="c1"># at an arbitrary place of code execution some variables etc. might</span>
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        <span class="c1"># end up in unexpected states</span>
-</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">my_special_var</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
-</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
-</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="nd">@killable_intent</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">handle_intent_aborted</span><span class="p">)</span>
-</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    <span class="nd">@intent_handler</span><span class="p">(</span><span class="s2">&quot;test.intent&quot;</span><span class="p">)</span>
-</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    <span class="k">def</span> <span class="nf">handle_test_abort_intent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">my_special_var</span> <span class="o">=</span> <span class="s2">&quot;changed&quot;</span>
-</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>            <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;still here&quot;</span><span class="p">)</span>
-</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
-</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>    <span class="nd">@intent_handler</span><span class="p">(</span><span class="s2">&quot;test2.intent&quot;</span><span class="p">)</span>
-</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>    <span class="nd">@killable_intent</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">handle_intent_aborted</span><span class="p">)</span>
-</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>    <span class="k">def</span> <span class="nf">handle_test_get_response_intent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">my_special_var</span> <span class="o">=</span> <span class="s2">&quot;CHANGED&quot;</span>
-</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>        <span class="n">ans</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="s2">&quot;question&quot;</span><span class="p">,</span> <span class="n">num_retries</span><span class="o">=</span><span class="mi">99999</span><span class="p">)</span>
-</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;get_response returned: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ans</span><span class="p">))</span>
-</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>        <span class="k">if</span> <span class="n">ans</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;question aborted&quot;</span><span class="p">)</span>
-</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a>
-</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>    <span class="nd">@killable_intent</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s2">&quot;my.own.abort.msg&quot;</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">handle_intent_aborted</span><span class="p">)</span>
-</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a>    <span class="nd">@intent_handler</span><span class="p">(</span><span class="s2">&quot;test3.intent&quot;</span><span class="p">)</span>
-</span><span id="__span-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>    <span class="k">def</span> <span class="nf">handle_test_msg_intent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_special_var</span> <span class="o">!=</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
-</span><span id="__span-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;someone forgot to cleanup&quot;</span><span class="p">)</span>
-</span><span id="__span-1-46"><a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-</span><span id="__span-1-47"><a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>            <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-1-48"><a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;you can&#39;t abort me&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<h2 id="how-do-i-send-files-over-the-bus">How do I send files over the bus?<a class="headerlink" href="#how-do-i-send-files-over-the-bus" title="Permanent link">&para;</a></h2>
-<p>Sometimes you may want to send files or binary data over the messagebus, <code>ovos_utils</code> provides some tools to make this easy</p>
-<p>Sending a file</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.util</span> <span class="kn">import</span> <span class="n">send_binary_file_message</span><span class="p">,</span> <span class="n">decode_binary_message</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">class</span> <span class="nc">MySkill</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span> 
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="s2">&quot;mycroft.binary.file&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive_file</span><span class="p">)</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="k">def</span> <span class="nf">receive_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Receiving file&quot;</span><span class="p">)</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="n">path</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>  <span class="c1"># file path, extract filename if needed</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="n">binary_data</span> <span class="o">=</span> <span class="n">decode_binary_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="c1"># Insert logic to process the data</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="k">def</span> <span class="nf">send_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">my_file_path</span><span class="p">):</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>        <span class="c1"># pass self.bus explicitly — otherwise a brand new bus connection is</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="c1"># opened and closed just for this one message</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>        <span class="n">send_binary_file_message</span><span class="p">(</span><span class="n">my_file_path</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bus</span><span class="p">)</span>
-</span></code></pre></div>
-<p>Sending binary data directly</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.util</span> <span class="kn">import</span> <span class="n">send_binary_data_message</span><span class="p">,</span> <span class="n">decode_binary_message</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills</span> <span class="kn">import</span> <span class="n">OVOSSkill</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">class</span> <span class="nc">MySkill</span><span class="p">(</span><span class="n">OVOSSkill</span><span class="p">):</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="s2">&quot;mycroft.binary.data&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive_binary</span><span class="p">)</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="k">def</span> <span class="nf">send_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binary_data</span><span class="p">):</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="c1"># pass self.bus explicitly — otherwise a brand new bus connection is</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="c1"># opened and closed just for this one message</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="n">send_binary_data_message</span><span class="p">(</span><span class="n">binary_data</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bus</span><span class="p">)</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="k">def</span> <span class="nf">receive_binary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Receiving binary data&quot;</span><span class="p">)</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>        <span class="n">binary_data</span> <span class="o">=</span> <span class="n">decode_binary_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>         <span class="c1"># Insert logic to process the data</span>
-</span></code></pre></div>
 <hr />
-<p>Didn't find your question here? Ask in the
-<a href="https://matrix.to/#/#openvoiceos-skills:matrix.org">skills channel on OVOS Chat</a>.</p>
+<h2 id="getting-started-and-the-inner-dev-loop">Getting started and the inner dev loop<a class="headerlink" href="#getting-started-and-the-inner-dev-loop" title="Permanent link">&para;</a></h2>
+<h3 id="my-utterance-doesnt-do-anything-where-do-i-even-start-looking">My utterance doesn't do anything — where do I even start looking?<a class="headerlink" href="#my-utterance-doesnt-do-anything-where-do-i-even-start-looking" title="Permanent link">&para;</a></h3>
+<p>Work through it stage by stage: is the messagebus up, did the mic/wake word fire, did STT produce
+text, did a pipeline stage match, did the handler raise, did TTS speak. Each stage has an exact log
+line to grep for and a bus message to filter on. Start by injecting the text directly, skipping the
+mic entirely:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ovos-say-to<span class="w"> </span><span class="s2">&quot;what time is it&quot;</span>
+</span></code></pre></div>
+<p>→ full story: <a href="../troubleshooting/">Troubleshooting &amp; Debugging</a></p>
+<h3 id="how-do-i-test-a-skill-without-talking-into-a-microphone">How do I test a skill without talking into a microphone?<a class="headerlink" href="#how-do-i-test-a-skill-without-talking-into-a-microphone" title="Permanent link">&para;</a></h3>
+<p>Three options, cheapest first: <code>ovos-say-to "some phrase"</code> injects a <code>recognizer_loop:utterance</code>
+message as if STT had already produced it; <code>ovos-busmon</code> gives you a browser view of every bus
+message live, including a button to inject arbitrary messages yourself; and
+<a href="../ovoscope-overview/"><code>ovoscope</code></a> runs a real in-process assistant (<code>MiniCroft</code>) with no audio
+hardware at all, so you can write pytest assertions instead of speaking out loud every time.</p>
+<p>→ full story: <a href="../testing-your-skill/">Test Your Skill</a>, <a href="../troubleshooting/#stage-3-did-stt-produce-text">Troubleshooting</a></p>
+<h3 id="how-do-i-restart-just-my-skill-while-im-iterating-on-it-without-restarting-all-of-ovos">How do I restart just my skill while I'm iterating on it, without restarting all of OVOS?<a class="headerlink" href="#how-do-i-restart-just-my-skill-while-im-iterating-on-it-without-restarting-all-of-ovos" title="Permanent link">&para;</a></h3>
+<p>Use <code>ovos-skill-launcher</code>, shipped by <code>ovos-workshop</code>. It connects to a running bus, loads (or
+reloads) one skill by ID, and stays attached so you can edit-and-rerun without touching the rest of
+the stack:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ovos-skill-launcher<span class="w"> </span>my-first.youruser<span class="w"> </span>/path/to/ovos-skill-my-first
+</span></code></pre></div>
+<p>Pass just the <code>skill_id</code> if the skill is already discoverable on the standard skill directories;
+pass a second argument to point at an arbitrary local path instead.</p>
+<p>→ full story: <a href="../cli-tools/">Command-line Tools</a></p>
+<h3 id="why-isnt-my-skill-loading-at-all">Why isn't my skill loading at all?<a class="headerlink" href="#why-isnt-my-skill-loading-at-all" title="Permanent link">&para;</a></h3>
+<p>Almost always one of two things: the <code>opm.skill</code> entry point in <code>pyproject.toml</code> doesn't match what
+OVOS is looking for, or the package failed to import. Check <code>skills.log</code> for your <code>skill_id</code> right
+after startup — a traceback there names the exact import problem. If nothing about your skill
+appears in the log at all, <code>pip show &lt;your-package&gt;</code> to confirm it actually installed, then confirm
+the entry point:</p>
+<div class="language-toml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">[project.entry-points.</span><span class="s2">&quot;opm.skill&quot;</span><span class="k">]</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="s2">&quot;my-first.youruser&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ovos_skill_my_first:MyFirstSkill&quot;</span>
+</span></code></pre></div>
+<p>The left-hand side (<code>&lt;skill-name&gt;.&lt;author&gt;</code>) becomes the <code>skill_id</code>; the right-hand side is
+<code>package:ClassName</code>. <code>find_skill_plugins()</code> in <code>ovos-plugin-manager</code> enumerates this exact group —
+a typo here means the skill is invisible, not broken.</p>
+<p>→ full story: <a href="../first-skill/#step-5-make-it-installable">Your First Skill</a>, <a href="../skill-manager/">Skill Manager</a></p>
+<hr />
+<h2 id="why-isnt-it-doing-what-i-expect">Why isn't it doing what I expect<a class="headerlink" href="#why-isnt-it-doing-what-i-expect" title="Permanent link">&para;</a></h2>
+<h3 id="why-doesnt-my-phrase-match-my-intent">Why doesn't my phrase match my intent?<a class="headerlink" href="#why-doesnt-my-phrase-match-my-intent" title="Permanent link">&para;</a></h3>
+<p><code>ovos-core</code> logs every pipeline stage it tries, in order, and each one logs a miss if it doesn't
+claim the utterance:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>DEBUG - no match from &lt;bound method ...PadatiousPipeline.match_high ...&gt;
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>DEBUG - no match from &lt;bound method ...AdaptPipeline.match_high ...&gt;
+</span></code></pre></div>
+<p>Reproduce it deterministically with <code>ovos-say-to "the exact phrase"</code>, then grep <code>skills.log</code> for
+that text. If every matcher rejects it, it's a training-data problem in your intent files (missing
+sample phrase, wrong vocab), not a bug in the pipeline — add the phrasing to your <code>.intent</code>/<code>.voc</code>
+file and retrain.</p>
+<p>→ full story: <a href="../troubleshooting/#stage-4-which-pipeline-stage-matched-or-didnt">Troubleshooting — Stage 4</a>, <a href="../pipelines-overview/">Pipelines Overview</a></p>
+<h3 id="should-my-skill-use-adapt-or-padatious-for-intent-matching">Should my skill use Adapt or Padatious for intent matching?<a class="headerlink" href="#should-my-skill-use-adapt-or-padatious-for-intent-matching" title="Permanent link">&para;</a></h3>
+<p>Padatious is the better default for most skills: it's a trained neural matcher that generalizes
+across paraphrasing and localizes easily to other languages. Reach for Adapt instead only for a
+personal/private skill where you need strict, predictable command-and-control matching in a single
+language you fully control.</p>
+<p>→ full story: <a href="../adapt-pipeline/#when-to-use-adapt-in-ovos">Adapt Pipeline</a>, <a href="../padatious-pipeline/#when-to-use">Padatious Pipeline</a></p>
+<h3 id="my-skill-needs-a-follow-up-question-how-do-multi-turn-conversations-work">My skill needs a follow-up question — how do multi-turn conversations work?<a class="headerlink" href="#my-skill-needs-a-follow-up-question-how-do-multi-turn-conversations-work" title="Permanent link">&para;</a></h3>
+<p>Two different mechanisms depending on the shape of the follow-up. If you're waiting for the answer
+to a specific question you just asked, call <code>self.get_response(...)</code> — it blocks and returns the
+next utterance (or <code>None</code> on timeout). If instead you want your skill to keep intercepting <em>any</em>
+follow-up for a while after it last acted ("yes", "no", "the red one"), implement <code>converse()</code> —
+but that requires subclassing <code>ConversationalSkill</code>, not the plain <code>OVOSSkill</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">ovos_workshop.skills.converse</span> <span class="kn">import</span> <span class="n">ConversationalSkill</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">class</span> <span class="nc">MySkill</span><span class="p">(</span><span class="n">ConversationalSkill</span><span class="p">):</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">def</span> <span class="nf">converse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="k">if</span> <span class="s2">&quot;yes&quot;</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;utterances&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s2">&quot;Great!&quot;</span><span class="p">)</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>            <span class="k">return</span> <span class="kc">True</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="k">return</span> <span class="kc">False</span>
+</span></code></pre></div>
+<p>→ full story: <a href="../converse/">Converse</a></p>
+<hr />
+<h2 id="language-settings-and-where-things-live">Language, settings, and where things live<a class="headerlink" href="#language-settings-and-where-things-live" title="Permanent link">&para;</a></h2>
+<h3 id="how-do-i-make-my-skill-speak-in-more-than-one-language">How do I make my skill speak in more than one language?<a class="headerlink" href="#how-do-i-make-my-skill-speak-in-more-than-one-language" title="Permanent link">&para;</a></h3>
+<p>Put per-language <code>.intent</code>/<code>.voc</code>/dialog files under <code>locale/&lt;lang&gt;/</code>, and a translated <code>skill.json</code>
+in the same folder if you want a localized store listing. Padatious intents localize with the least
+friction since they're trained from example phrases rather than hand-written grammar rules.</p>
+<p>→ full story: <a href="../skill-structure/">Skill Structure</a>, <a href="../lang-support/">Language Support</a>, <a href="../skill-json/#language-support">Skill Metadata File</a></p>
+<h3 id="where-do-my-skills-settings-and-files-actually-live-on-disk">Where do my skill's settings and files actually live on disk?<a class="headerlink" href="#where-do-my-skills-settings-and-files-actually-live-on-disk" title="Permanent link">&para;</a></h3>
+<p>Settings live at <code>~/.config/ovos/skills/&lt;skill_id&gt;/settings.json</code> (a <code>FileWatcher</code> on that path
+fires <code>ovos.skills.settings_changed</code> whenever it changes). Persistent skill data belongs under
+<code>self.file_system</code>, not a path you build yourself — it resolves to
+<code>$XDG_DATA_HOME/mycroft/filesystem/&lt;skill_id&gt;/</code> and survives skill reinstalls.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;my_key&quot;</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">)</span>   <span class="c1"># read</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="s2">&quot;my_key&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;value&quot;</span>        <span class="c1"># write — auto-saved on shutdown</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_system</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;cache.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="o">...</span>
+</span></code></pre></div>
+<p>→ full story: <a href="../skill-settings/">Skill Settings</a>, <a href="../skill-filesystem/">Filesystem Access</a>, <a href="../locations-ref/">Locations</a></p>
+<hr />
+<h2 id="dependencies-packaging-and-sharing">Dependencies, packaging, and sharing<a class="headerlink" href="#dependencies-packaging-and-sharing" title="Permanent link">&para;</a></h2>
+<h3 id="where-do-my-skills-python-dependencies-go-skilljson-or-pyprojecttoml">Where do my skill's Python dependencies go — <code>skill.json</code> or <code>pyproject.toml</code>?<a class="headerlink" href="#where-do-my-skills-python-dependencies-go-skilljson-or-pyprojecttoml" title="Permanent link">&para;</a></h3>
+<p><code>pyproject.toml</code>'s <code>dependencies</code> list is what actually gets installed by <code>pip</code> — that's the real
+dependency mechanism. <code>skill.json</code> only carries <code>extra_plugins</code>, for companion OVOS plugins (a TTS
+voice, a G2P engine) your skill expects to be present but doesn't import as a Python dependency;
+<code>ovos-workshop</code> never reads <code>skill.json</code> to install anything.</p>
+<p>→ full story: <a href="../skill-json/#installation-behavior">Skill Metadata File</a></p>
+<h3 id="how-do-i-share-or-publish-my-skill">How do I share or publish my skill?<a class="headerlink" href="#how-do-i-share-or-publish-my-skill" title="Permanent link">&para;</a></h3>
+<p>Push it to a GitHub repository (<code>source</code> in <code>skill.json</code> should point there); optionally publish it
+to PyPI too and set <code>package_name</code> so people can <code>pip install</code> it directly. A skill without a PyPI
+release is still installable straight from git via <code>pip_spec</code>. From there, list it on the
+<a href="https://store.openvoiceos.org">OVOS Skill store</a> — the store reads <code>name</code>, <code>description</code>,
+<code>examples</code>, <code>tags</code>, <code>icon</code>, and <code>images</code> from <code>skill.json</code> to build the listing card.</p>
+<p>→ full story: <a href="../skill-json/#sharing-your-skill">Skill Metadata File — Sharing your skill</a></p>
+<hr />
+<h2 id="using-aillms-from-a-skill">Using AI/LLMs from a skill<a class="headerlink" href="#using-aillms-from-a-skill" title="Permanent link">&para;</a></h2>
+<h3 id="can-i-use-an-llm-inside-my-skill">Can I use an LLM inside my skill?<a class="headerlink" href="#can-i-use-an-llm-inside-my-skill" title="Permanent link">&para;</a></h3>
+<p>Yes, two ways. If you just want conversational fallback behavior for your whole assistant, that's
+what a <a href="../personas/">persona</a> is for — no skill code needed. If you specifically want your skill's
+own handler to call an LLM (to phrase a reply, summarize something, classify an answer), load an
+agent engine plugin directly and call it like any other object:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.agents</span> <span class="kn">import</span> <span class="n">load_chat_plugin</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">engine_cls</span> <span class="o">=</span> <span class="n">load_chat_plugin</span><span class="p">(</span><span class="s2">&quot;ovos-openai-plugin&quot;</span><span class="p">)</span>  <span class="c1"># or ovos-gguf-plugin, etc.</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">engine</span> <span class="o">=</span> <span class="n">engine_cls</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="o">...</span><span class="p">})</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">reply</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="s2">&quot;summarize this in one sentence: ...&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p><code>get_response(utterance, session_id="default", lang=None, units=None) -&gt; str</code> is the same method
+every <code>ChatEngine</code> implements, regardless of backend, so swapping providers doesn't touch your
+skill's logic.</p>
+<p>→ full story: <a href="../agent-plugins/">Agent Plugins</a>, <a href="../advanced-solvers/">Specialized Agent Engine Types</a>, <a href="../personas/">Personas</a></p>
+<hr />
+<h2 id="still-stuck">Still stuck?<a class="headerlink" href="#still-stuck" title="Permanent link">&para;</a></h2>
+<p>Ask in the <strong><a href="https://matrix.to/#/#openvoiceos-skills:matrix.org">skills channel on OVOS Chat</a></strong>, or
+post a longer question on the <strong><a href="https://community.openconversational.ai/">Open Conversational AI forum</a></strong>.
+Include a log excerpt or <code>ovos-busmon</code> export for the stage where the trail goes cold — see
+<a href="../troubleshooting/#where-to-ask-for-help">Troubleshooting</a>.</p>
 
 
 

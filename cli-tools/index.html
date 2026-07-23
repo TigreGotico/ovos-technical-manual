@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/cli-tools/">
       
       
-        <link rel="prev" href="../ecosystem-index/">
+        <link rel="prev" href="../bus-events/">
       
       
         <link rel="next" href="../core-libraries/">
@@ -239,24 +239,6 @@
     
     
       <li class="md-tabs__item">
-        <a href="../everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
         <a href="../ovos-installer/" class="md-tabs__link">
           
   
@@ -275,10 +257,10 @@
     
     
       <li class="md-tabs__item">
-        <a href="../first-skill/" class="md-tabs__link">
+        <a href="../everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -353,7 +335,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -422,25 +404,7 @@
         <a href="../privacy-security/" class="md-tabs__link">
           
   
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../production-operations/" class="md-tabs__link">
-          
-  
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -583,48 +547,6 @@
         
   
   
-    <a href="../everyday-help/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Help & Troubleshooting
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="../ovos-installer/" class="md-nav__link">
       
   
@@ -667,11 +589,11 @@
         
   
   
-    <a href="../first-skill/" class="md-nav__link">
+    <a href="../everyday-help/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Tutorials
+    Help & Troubleshooting
   </span>
   
 
@@ -838,7 +760,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -975,49 +897,7 @@
       
   
   <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../production-operations/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
@@ -1056,10 +936,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
         
           
-          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="">
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -1070,8 +950,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_13">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
             Reference
           </label>
@@ -1089,6 +969,27 @@
   
   <span class="md-ellipsis">
     OVOS Repository Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bus-events/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bus Events Reference
   </span>
   
 
@@ -1198,7 +1099,7 @@
         <li class="md-nav__item">
   <a href="#command-help-output-generated" class="md-nav__link">
     <span class="md-ellipsis">
-      Command --help Output (Generated)
+      Command Help Output (Generated)
     </span>
   </a>
   
@@ -1444,7 +1345,7 @@
         <li class="md-nav__item">
   <a href="#command-help-output-generated" class="md-nav__link">
     <span class="md-ellipsis">
-      Command --help Output (Generated)
+      Command Help Output (Generated)
     </span>
   </a>
   
@@ -1516,7 +1417,8 @@ version-correct options.</p>
 </tbody>
 </table>
 <p><code>ovos-config autoconfigure --help</code> is the recommended first stop after an install to set
-language-appropriate defaults.</p>
+language-appropriate defaults. See the full generated
+<a href="#command-help-output-generated"><code>ovos-config --help</code> output</a> below.</p>
 <hr />
 <h2 id="talking-to-a-running-ovos-ovos-bus-client">Talking to a running OVOS — <code>ovos-bus-client</code><a class="headerlink" href="#talking-to-a-running-ovos-ovos-bus-client" title="Permanent link">&para;</a></h2>
 <p>Shipped by <strong><a href="../core-libraries/#ovos-bus-client"><code>ovos-bus-client</code></a></strong>. These emit messages to a <em>running</em>
@@ -1577,6 +1479,7 @@ OVOS over the <a href="../bus-service/">messagebus</a> — handy for testing, sc
 </tr>
 </tbody>
 </table>
+<p>See the full generated <a href="#command-help-output-generated"><code>ovos-logs --help</code> output</a> below.</p>
 <hr />
 <h2 id="running-the-services-by-hand">Running the services by hand<a class="headerlink" href="#running-the-services-by-hand" title="Permanent link">&para;</a></h2>
 <p>Each core OVOS service is normally started by your service manager (systemd, the
@@ -1648,7 +1551,7 @@ can launch it directly — useful for debugging or minimal/headless setups.</p>
 <li><a href="../install-raspovos/#helpful-commands">RaspOVOS helper commands</a> — extra CLIs added by the RaspOVOS image.</li>
 </ul>
 <hr />
-<h2 id="command-help-output-generated">Command <code>--help</code> Output (Generated)<a class="headerlink" href="#command-help-output-generated" title="Permanent link">&para;</a></h2>
+<h2 id="command-help-output-generated">Command Help Output (Generated)<a class="headerlink" href="#command-help-output-generated" title="Permanent link">&para;</a></h2>
 <!-- BEGIN GENERATED: cli-help-output -->
 <!-- This section is auto-generated by tools/gen_reference.py from the upstream source of truth. Do not hand-edit; re-run the script instead. -->
 <details class="example">

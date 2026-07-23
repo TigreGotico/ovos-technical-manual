@@ -239,24 +239,6 @@
     
     
       <li class="md-tabs__item">
-        <a href="everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
         <a href="ovos-installer/" class="md-tabs__link">
           
   
@@ -275,10 +257,10 @@
     
     
       <li class="md-tabs__item">
-        <a href="first-skill/" class="md-tabs__link">
+        <a href="everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -353,7 +335,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="skill-design-guidelines/" class="md-tabs__link">
+        <a href="first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -422,25 +404,7 @@
         <a href="privacy-security/" class="md-tabs__link">
           
   
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="production-operations/" class="md-tabs__link">
-          
-  
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -649,7 +613,7 @@
           <li class="md-nav__item">
   <a href="#core-architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      🏗️ Core Architecture
+      Core Architecture
     </span>
   </a>
   
@@ -658,7 +622,7 @@
           <li class="md-nav__item">
   <a href="#developer-resources" class="md-nav__link">
     <span class="md-ellipsis">
-      💻 Developer Resources
+      Developer Resources
     </span>
   </a>
   
@@ -667,7 +631,7 @@
           <li class="md-nav__item">
   <a href="#language-support" class="md-nav__link">
     <span class="md-ellipsis">
-      🌍 Language Support
+      Language Support
     </span>
   </a>
   
@@ -738,48 +702,6 @@
         
   
   
-    <a href="everyday-help/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Help & Troubleshooting
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="ovos-installer/" class="md-nav__link">
       
   
@@ -822,11 +744,11 @@
         
   
   
-    <a href="first-skill/" class="md-nav__link">
+    <a href="everyday-help/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Tutorials
+    Help & Troubleshooting
   </span>
   
 
@@ -993,7 +915,7 @@
     
   
   
-    <a href="skill-design-guidelines/" class="md-nav__link">
+    <a href="first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -1130,49 +1052,7 @@
       
   
   <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="production-operations/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
@@ -1293,7 +1173,7 @@
           <li class="md-nav__item">
   <a href="#core-architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      🏗️ Core Architecture
+      Core Architecture
     </span>
   </a>
   
@@ -1302,7 +1182,7 @@
           <li class="md-nav__item">
   <a href="#developer-resources" class="md-nav__link">
     <span class="md-ellipsis">
-      💻 Developer Resources
+      Developer Resources
     </span>
   </a>
   
@@ -1311,7 +1191,7 @@
           <li class="md-nav__item">
   <a href="#language-support" class="md-nav__link">
     <span class="md-ellipsis">
-      🌍 Language Support
+      Language Support
     </span>
   </a>
   
@@ -1345,6 +1225,14 @@
   <p>The complete guide to using, building on, and understanding the OVOS voice assistant — from your first install to the deepest internals.</p>
 </div>
 
+<div class="admonition abstract">
+<p class="admonition-title">In a nutshell</p>
+<p>OpenVoiceOS (OVOS) is a free, open-source voice assistant you run yourself — an
+open alternative to Alexa or Google Assistant. This manual covers every layer of
+it: installing a ready-made device, writing your first skill, and the internals
+of the messagebus and intent pipeline underneath. Pick a path below that matches
+what you want to do; you don't need to read it front to back.</p>
+</div>
 <p><img align="right" alt="OVOS Logo" src="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true" width="160" /></p>
 <h2 id="what-is-openvoiceos">What is OpenVoiceOS?<a class="headerlink" href="#what-is-openvoiceos" title="Permanent link">&para;</a></h2>
 <p><strong>OpenVoiceOS (OVOS)</strong> is a free, open-source, privacy-respecting <strong>voice assistant</strong> —
@@ -1368,8 +1256,9 @@ matches what you want to do. Unfamiliar word? Check the <strong><a href="glossar
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m13.13 22.19-1.63-3.83c1.57-.58 3.04-1.36 4.4-2.27l-2.77 6.1M5.64 12.5l-3.83-1.63 6.1-2.77C7 9.46 6.22 10.93 5.64 12.5M21.61 2.39S16.66.269 11 5.93c-2.19 2.19-3.5 4.6-4.35 6.71-.28.75-.09 1.57.46 2.13l2.13 2.12c.55.56 1.37.74 2.12.46A19.1 19.1 0 0 0 18.07 13c5.66-5.66 3.54-10.61 3.54-10.61m-7.07 7.07c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0c.77.78.78 2.05 0 2.83-.78.78-2.05.78-2.83 0m-5.66 7.07-1.41-1.41 1.41 1.41M6.24 22l3.64-3.64c-.34-.09-.67-.24-.97-.45L4.83 22h1.41M2 22h1.41l4.77-4.76-1.42-1.41L2 20.59V22m0-2.83 4.09-4.08c-.21-.3-.36-.62-.45-.97L2 17.76v1.41Z"/></svg></span> <strong>I just want to run OVOS</strong></p>
 <hr />
 <p>Get a working voice assistant on your device.</p>
-<p><a href="release-channels/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> Installation options</a> ·
-<a href="ovos-installer/">ovos-installer</a> ·
+<p><a href="ovos-installer/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"/></svg></span> ovos-installer</a> ·
+<a href="personalize/">Make it yours</a> ·
+<a href="release-channels/">Advanced / manual install</a> ·
 <a href="skill-examples/">Skill examples</a></p>
 </li>
 <li>
@@ -1513,7 +1402,7 @@ repository in the project.</p>
 </div>
 <hr />
 <h2 id="explore-by-topic">Explore by topic<a class="headerlink" href="#explore-by-topic" title="Permanent link">&para;</a></h2>
-<h3 id="core-architecture">🏗️ Core Architecture<a class="headerlink" href="#core-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="core-architecture"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15h-2v-2h2m0 6h-2v-2h2M13 7h-2V5h2m0 6h-2V9h2m0 6h-2v-2h2m0 6h-2v-2h2m-6-6H5V9h2m0 6H5v-2h2m0 6H5v-2h2m8-6V5l-3-3-3 3v2H3v14h18V11h-6Z"/></svg></span> Core Architecture<a class="headerlink" href="#core-architecture" title="Permanent link">&para;</a></h3>
 <p>Understand the "brain" and "nervous system" of the platform:</p>
 <ul>
 <li><strong><a href="architecture-overview/">Architecture Overview</a></strong>: How all the components fit together.</li>
@@ -1521,7 +1410,7 @@ repository in the project.</p>
 <li><strong><a href="bus-service/">messagebus Service</a></strong>: Deep dive into the communication backbone.</li>
 <li><strong><a href="config/">Configuration</a></strong>: Master the layered configuration system.</li>
 </ul>
-<h3 id="developer-resources">💻 Developer Resources<a class="headerlink" href="#developer-resources" title="Permanent link">&para;</a></h3>
+<h3 id="developer-resources"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16v10H4m16 2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2h-4Z"/></svg></span> Developer Resources<a class="headerlink" href="#developer-resources" title="Permanent link">&para;</a></h3>
 <p>Ready to build your own plugins or skills?</p>
 <ul>
 <li><strong><a href="skill-design-guidelines/">Skill Development</a></strong>: Learn how to write your first voice skill.</li>
@@ -1529,7 +1418,7 @@ repository in the project.</p>
 <li><strong><a href="pipelines-overview/">Intent Pipelines</a></strong>: Understand how OVOS parses natural language.</li>
 <li><strong><a href="ovoscope-overview/">Skill Testing</a></strong>: Ensure your skills are robust with <code>ovoscope</code>.</li>
 </ul>
-<h3 id="language-support">🌍 Language Support<a class="headerlink" href="#language-support" title="Permanent link">&para;</a></h3>
+<h3 id="language-support"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.9 17.39c-.26-.8-1.01-1.39-1.9-1.39h-1v-3a1 1 0 0 0-1-1H8v-2h2a1 1 0 0 0 1-1V7h2a2 2 0 0 0 2-2v-.41a7.984 7.984 0 0 1 2.9 12.8M11 19.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.22.21-1.79L9 15v1a2 2 0 0 0 2 2m1-16A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2Z"/></svg></span> Language Support<a class="headerlink" href="#language-support" title="Permanent link">&para;</a></h3>
 <p>OVOS is built for a global community:</p>
 <ul>
 <li><strong><a href="lang-support/">Overview</a></strong>: Current status and requirements for full language support.</li>

@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/plugin-arena/">
+        <link rel="canonical" href="https://tigregotico.github.io/ovos-technical-manual/bus-events/">
       
       
-        <link rel="prev" href="../plugins-index/">
+        <link rel="prev" href="../ecosystem-index/">
       
       
-        <link rel="next" href="../mic-plugins/">
+        <link rel="next" href="../cli-tools/">
       
       
       <link rel="icon" href="https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Plugin Arena (benchmarks) - OpenVoiceOS Technical Manual</title>
+        <title>Bus Events Reference - OpenVoiceOS Technical Manual</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#plugin-arena" class="md-skip">
+        <a href="#bus-events-reference" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Plugin Arena (benchmarks)
+              Bus Events Reference
             
           </span>
         </div>
@@ -352,12 +352,10 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../plugins-index/" class="md-tabs__link">
           
   
@@ -417,10 +415,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../ecosystem-index/" class="md-tabs__link">
           
   
@@ -785,332 +785,39 @@
       
   
   
-    
   
   
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
   
-    
-    
-    
+  
+    <a href="../plugins-index/" class="md-nav__link">
       
-        
-        
-      
-      
-    
-    
-      
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
-            
   
   <span class="md-ellipsis">
     Plugin Ecosystem
   </span>
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_8">
-            <span class="md-nav__icon md-icon"></span>
-            Plugin Ecosystem
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../plugins-index/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Index & Overview
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Plugin Arena (benchmarks)
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    Plugin Arena (benchmarks)
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#github-native-zero-servers" class="md-nav__link">
-    <span class="md-ellipsis">
-      GitHub-Native, Zero Servers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#design-principles" class="md-nav__link">
-    <span class="md-ellipsis">
-      Design Principles
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#leagues-modalities" class="md-nav__link">
-    <span class="md-ellipsis">
-      Leagues (Modalities)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#declarative-registry" class="md-nav__link">
-    <span class="md-ellipsis">
-      Declarative Registry
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prediction-contract-huggingface" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prediction Contract (HuggingFace)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#elo-ratings" class="md-nav__link">
-    <span class="md-ellipsis">
-      ELO Ratings
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#supported-modalities" class="md-nav__link">
-    <span class="md-ellipsis">
-      Supported Modalities
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-pages" class="md-nav__link">
-    <span class="md-ellipsis">
-      Related Pages
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../mic-plugins/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Speech & Audio
-  </span>
-  
-
       
         <span class="md-nav__icon md-icon"></span>
       
     </a>
   
 
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../ocp-audio-plugin/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Media Playback
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../gui-protocol/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    GUI (legacy & upcoming)
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
       
     </li>
   
@@ -1209,6 +916,295 @@
       
   
   
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ecosystem-index/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OVOS Repository Index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Bus Events Reference
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Bus Events Reference
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#listener-wake-word" class="md-nav__link">
+    <span class="md-ellipsis">
+      Listener / wake word
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stt-utterance-entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      STT / utterance entry point
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intent-matching-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intent matching &amp; context
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intent matching & context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#converse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Converse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fallback
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skill-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill lifecycle
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skill lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stop-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stop pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tts-audio-playback" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTS / audio playback
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gui-forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      GUI forwarding
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-skill-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Session &amp; skill management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related pages
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Command-line Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core-libraries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core Libraries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     
@@ -1228,11 +1224,11 @@
         
   
   
-    <a href="../ecosystem-index/" class="md-nav__link">
+    <a href="../docs-viewer/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Reference
+    Tools
   </span>
   
 
@@ -1242,6 +1238,100 @@
     </a>
   
 
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../i2c-sound/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Hardware
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../timeline/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Project Info
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -1274,63 +1364,111 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#github-native-zero-servers" class="md-nav__link">
+  <a href="#listener-wake-word" class="md-nav__link">
     <span class="md-ellipsis">
-      GitHub-Native, Zero Servers
+      Listener / wake word
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#design-principles" class="md-nav__link">
+  <a href="#stt-utterance-entry-point" class="md-nav__link">
     <span class="md-ellipsis">
-      Design Principles
+      STT / utterance entry point
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#leagues-modalities" class="md-nav__link">
+  <a href="#intent-matching-context" class="md-nav__link">
     <span class="md-ellipsis">
-      Leagues (Modalities)
+      Intent matching &amp; context
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intent matching & context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#converse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Converse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fallback
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skill-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill lifecycle
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skill lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stop-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stop pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tts-audio-playback" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTS / audio playback
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#declarative-registry" class="md-nav__link">
+  <a href="#gui-forwarding" class="md-nav__link">
     <span class="md-ellipsis">
-      Declarative Registry
+      GUI forwarding
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#prediction-contract-huggingface" class="md-nav__link">
+  <a href="#session-skill-management" class="md-nav__link">
     <span class="md-ellipsis">
-      Prediction Contract (HuggingFace)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#elo-ratings" class="md-nav__link">
-    <span class="md-ellipsis">
-      ELO Ratings
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#supported-modalities" class="md-nav__link">
-    <span class="md-ellipsis">
-      Supported Modalities
+      Session &amp; skill management
     </span>
   </a>
   
@@ -1339,7 +1477,7 @@
         <li class="md-nav__item">
   <a href="#related-pages" class="md-nav__link">
     <span class="md-ellipsis">
-      Related Pages
+      Related pages
     </span>
   </a>
   
@@ -1363,201 +1501,438 @@
   
 
 
-<h1 id="plugin-arena">Plugin Arena<a class="headerlink" href="#plugin-arena" title="Permanent link">&para;</a></h1>
+<h1 id="bus-events-reference">Bus Events Reference<a class="headerlink" href="#bus-events-reference" title="Permanent link">&para;</a></h1>
 <div class="admonition abstract">
 <p class="admonition-title">In a nutshell</p>
-<p>OVOS lets you swap in different plugins for jobs like understanding speech or recognizing commands — but which one is actually best? The Plugin Arena answers that by comparing them two ways: objective scores measured against test data, and a "which sounds better?" vote where people blindly pick between two plugins' results, scored a bit like chess rankings. It is purely a scoreboard for comparing plugins; it never installs or runs them itself. See the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
+<p>Every OVOS component talks to every other one by sending small named messages over the
+shared <a href="../bus-service/">messagebus</a> — a bit like a group chat where each service watches
+for the message types it cares about. This page collects the message types documented
+elsewhere in the manual into one place, grouped by which stage of the
+<a href="../life-of-an-utterance/">utterance lifecycle</a> they belong to, so you don't have to hunt
+through six different pages to find one event name. Each row links back to the page that
+documents that event in context; this page does not introduce anything new.</p>
 </div>
-<blockquote>
-<p><strong>Status:</strong> <a href="https://github.com/OpenVoiceOS/ovos-plugin-arena">OpenVoiceOS/ovos-plugin-arena</a> — in development. The <strong>intent</strong>, <strong>STT</strong>, <strong>wake word</strong>, and <strong>VAD</strong> leagues have live battles and ELO standings; <strong>TTS</strong> competitors are registered but not yet benchmarked (all entries sit at the seed ELO with zero battles).</p>
-</blockquote>
-<p><strong>What this is:</strong> a way to answer <em>"which OVOS plugin should I use?"</em> It compares plugins on two signals:</p>
-<ol>
-<li><strong>Benchmarks</strong> — accuracy/F1 for intent, WER for STT, detection metrics for wake word — computed offline against labeled datasets and published openly as HuggingFace datasets.</li>
-<li><strong>Human preference</strong> — chess-style ELO ratings from blind A/B "battles" where people pick the better of two plugin outputs. The initial ELO is seeded from the benchmarks; human votes refine it.</li>
-</ol>
-<p>The arena is the <em>rating and voting</em> venue — <strong>not</strong> an execution venue. It never installs, isolates, or runs plugins.</p>
-<hr />
-<h2 id="github-native-zero-servers">GitHub-Native, Zero Servers<a class="headerlink" href="#github-native-zero-servers" title="Permanent link">&para;</a></h2>
-<p>The arena is a <strong>repository</strong>, not a service. There is no backend, no database, and no account system:</p>
-<ul>
-<li><strong>Data artifacts</strong> are JSON files committed by scheduled GitHub Actions (<code>assemble.yml</code> daily, <code>tally.yml</code> hourly).</li>
-<li><strong>The UI</strong> is a static Astro site published to <strong>GitHub Pages</strong>.</li>
-<li><strong>Votes</strong> are <strong>GitHub issues</strong>.</li>
-<li><strong>Plugin predictions</strong> are produced <em>outside</em> the arena as offline batch jobs and published as HuggingFace datasets.</li>
-</ul>
-<p>Forking the repo and editing JSON yields a working arena. A local FastAPI shim may exist as a development tool only; it is not a deployment target.</p>
-<hr />
-<h2 id="design-principles">Design Principles<a class="headerlink" href="#design-principles" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Many events have a legacy <code>mycroft.*</code>/bare name alongside a newer <code>ovos.*</code> name. Only one
+of the two is actually put on the wire — each connected client's bus library locally
+re-dispatches it under the other name too, so a handler on either name receives it (see
+<a href="../bus-service/#namespace-migration">Bus Service: legacy/modern topic pairs</a> for the
+mechanism); the tables below show both names where applicable.</p>
+</div>
+<h2 id="listener-wake-word">Listener / wake word<a class="headerlink" href="#listener-wake-word" title="Permanent link">&para;</a></h2>
+<p>Emitted by <code>ovos-dinkum-listener</code> as the audio pipeline runs. See
+<a href="../speech-service/">Speech Service</a> for the full lifecycle.</p>
 <table>
 <thead>
 <tr>
-<th>Principle</th>
-<th>Description</th>
+<th>Event</th>
+<th>Data</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>GitHub-native</strong></td>
-<td>Artifacts are committed JSON, the UI is GitHub Pages, votes are GitHub issues. No backend, no database.</td>
+<td><code>ovos.listener.record.started</code> (legacy: <code>recognizer_loop:record_begin</code>)</td>
+<td>none</td>
+<td>Command recording started</td>
 </tr>
 <tr>
-<td><strong>Decentralized predictions</strong></td>
-<td>Plugins run outside the arena as offline jobs anywhere. The arena never installs or executes plugins in CI.</td>
+<td><code>ovos.listener.record.ended</code> (legacy: <code>recognizer_loop:record_end</code>)</td>
+<td>none</td>
+<td>Command recording ended</td>
 </tr>
 <tr>
-<td><strong>HuggingFace as artifact layer</strong></td>
-<td>Every prediction run is published as a queryable HF dataset, independent of the arena.</td>
+<td><code>recognizer_loop:wakeword</code></td>
+<td><code>{"utterance", "lang"}</code></td>
+<td>Wake word fired</td>
 </tr>
 <tr>
-<td><strong>Everything declarative</strong></td>
-<td>Every competitor and dataset is a JSON file under <code>registry/</code>. Editing JSON is enough to extend the arena.</td>
+<td><code>recognizer_loop:speech.recognition.unknown</code></td>
+<td>none</td>
+<td>STT returned nothing (silence / failure)</td>
 </tr>
 <tr>
-<td><strong>Replayable ratings</strong></td>
-<td>Battle ids are content hashes; the ELO seed is a deterministic function of the published predictions; human votes replay in <strong>issue-number order</strong>. Standings are reproducible from public data alone.</td>
-</tr>
-<tr>
-<td><strong>All predictions kept</strong></td>
-<td>Bad predictions are first-class content — failure cases guide plugin improvements.</td>
+<td><code>ovos.listener.awoken</code> (legacy: <code>mycroft.awoken</code>)</td>
+<td>none</td>
+<td>Listener woke from sleep</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="leagues-modalities">Leagues (Modalities)<a class="headerlink" href="#leagues-modalities" title="Permanent link">&para;</a></h2>
-<p>Each modality is an independent league with its own benchmarks, battle pools and ELO standings: <code>stt</code>, <code>tts</code>, <code>wake_word</code>, <code>vad</code>, and <strong>three intent leagues</strong> (keyword and template paradigms consume different supervision, so they are never ranked against each other):</p>
+<h2 id="stt-utterance-entry-point">STT / utterance entry point<a class="headerlink" href="#stt-utterance-entry-point" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>League</th>
-<th>Who competes</th>
+<th>Event</th>
+<th>Data</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>intent_template</code></td>
-<td>template/embedding engines (Padatious, Padacioso, Nebulento, …)</td>
+<td><code>ovos.utterance.handle</code> (legacy: <code>recognizer_loop:utterance</code>)</td>
+<td><code>{"utterances": [str], "lang"}</code></td>
+<td>Transcribed command enters the pipeline — see <a href="../life-of-an-utterance/">Life of an Utterance</a> and <a href="../intent-service/#bus-events-handled">Intent Service</a></td>
 </tr>
 <tr>
-<td><code>intent_keyword</code></td>
-<td>keyword engines (Adapt, Palavreado, …)</td>
-</tr>
-<tr>
-<td><code>intent</code></td>
-<td>open league — mixed-paradigm pipeline <strong>fusions</strong> (ensembles)</td>
+<td><code>ovos.utterance.handled</code></td>
+<td>—</td>
+<td>Universal utterance-lifecycle end-marker; see <a href="../bus-service/#core-intent-pipeline">Bus Service</a></td>
 </tr>
 </tbody>
 </table>
-<p>A "competitor" is a <strong>shippable config</strong>, not just a plugin: a single-stage pipeline benchmarks one engine, a multi-stage pipeline is an ensemble fighter in its own right, and the same plugin under a different config is a <em>different competitor</em>. <code>competitor_id</code> is the stable key for predictions, battles, ELO and leaderboards.</p>
-<hr />
-<h2 id="declarative-registry">Declarative Registry<a class="headerlink" href="#declarative-registry" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Competitors</strong> — <code>registry/competitors/&lt;modality&gt;/&lt;id&gt;.json</code>. For intent, <code>config</code> is a valid <code>mycroft.conf</code> fragment (an <code>intents</code> section with an ordered <code>pipeline</code> of <code>&lt;plugin&gt;-&lt;tier&gt;</code> stages).</li>
-<li><strong>Datasets</strong> — <code>registry/datasets/&lt;modality&gt;/&lt;id&gt;.json</code>. One corpus per entry: HF source id + revision, <code>reference_fields</code> (the datashape contract), license, <code>lang</code> (or <code>lang: multi</code> + <code>langs</code>), and a <code>role</code> (<code>train</code>/<code>eval</code>). Keyword and template training corpora are distinct datasets with distinct datashapes.</li>
-</ul>
-<hr />
-<h2 id="prediction-contract-huggingface">Prediction Contract (HuggingFace)<a class="headerlink" href="#prediction-contract-huggingface" title="Permanent link">&para;</a></h2>
-<p>Predictions live in HF dataset repos — one per benchmark modality, named <code>ovos-&lt;modality&gt;-bench-&lt;dataset_id&gt;</code> (league underscores dashed), as per-competitor JSON lines at <code>predictions/&lt;competitor_id&gt;.jsonl</code>, one row per sample (language is a field on each row, not a path segment).</p>
-<p>Core <code>PredictionRow</code> fields (<code>arena/models.py</code>):</p>
+<h2 id="intent-matching-context">Intent matching &amp; context<a class="headerlink" href="#intent-matching-context" title="Permanent link">&para;</a></h2>
+<p>Handled by <code>ovos-core</code>'s <code>IntentService</code>; see <a href="../intent-service/#bus-events-handled">Intent Service</a>.</p>
 <table>
 <thead>
 <tr>
-<th>Field</th>
-<th>Notes</th>
+<th>Event</th>
+<th>Handler</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>competitor_id</code></td>
-<td>Stable competitor key</td>
+<td><code>ovos.utterance.handle</code> (legacy: <code>recognizer_loop:utterance</code>)</td>
+<td><code>handle_utterance</code></td>
+<td>Run an utterance through the pipeline</td>
 </tr>
 <tr>
-<td><code>sample_id</code></td>
-<td>Stable ID within the source dataset</td>
+<td><code>add_context</code> / <code>remove_context</code> / <code>clear_context</code></td>
+<td><code>handle_add_context</code> / <code>handle_remove_context</code> / <code>handle_clear_context</code></td>
+<td>Manage <a href="../context/">intent context</a></td>
 </tr>
 <tr>
-<td><code>dataset_id</code></td>
-<td>Source corpus identifier</td>
+<td><code>intent.service.intent.get</code></td>
+<td><code>handle_get_intent</code></td>
+<td>Query the best-matching intent without dispatching it</td>
 </tr>
 <tr>
-<td><code>lang</code></td>
-<td>BCP-47</td>
+<td><code>intent.service.skills.deactivate</code></td>
+<td><code>_handle_deactivate</code></td>
+<td>Remove a skill from active/converse consideration</td>
 </tr>
 <tr>
-<td><code>modality</code></td>
-<td>League (inferred from fields when absent)</td>
+<td><code>intent.service.pipelines.reload</code></td>
+<td><code>handle_reload_pipelines</code></td>
+<td>Reload the configured pipeline plugin stack</td>
 </tr>
 <tr>
-<td><code>plugin_id</code>, <code>plugin_version</code></td>
-<td>Plugin name + exact installed version</td>
-</tr>
-<tr>
-<td><code>prediction</code></td>
-<td>Modality-specific payload</td>
-</tr>
-<tr>
-<td><code>runner_version</code></td>
-<td>Reproducibility anchor</td>
-</tr>
-<tr>
-<td><code>created_at</code></td>
-<td>Timestamp</td>
+<td><code>ovos.intent.unmatched</code> (legacy: <code>complete_intent_failure</code>)</td>
+<td>—</td>
+<td>No pipeline plugin claimed the utterance; routed to <a href="../fallback-pipeline/">Fallback</a></td>
 </tr>
 </tbody>
 </table>
-<p>Modality-specific fields (kept inline or in <code>extras</code>):</p>
-<ul>
-<li><strong>Intent</strong>: <code>utterance</code>, <code>reference_intent</code>, <code>exact_match</code>, <code>confidence</code>, <code>bucket</code>, <code>reference_slots</code>, <code>predicted_slots</code>.</li>
-<li><strong>STT</strong>: <code>reference_text</code>, <code>wer</code>.</li>
-<li><strong>Shared diagnostics</strong>: <code>latency_ms</code>.</li>
-</ul>
-<hr />
-<h2 id="elo-ratings">ELO Ratings<a class="headerlink" href="#elo-ratings" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Standard ELO formula (<code>arena/elo.py</code>): <code>K_FACTOR = 32</code> for new competitors (<code>&lt; 30</code> battles), <code>K_FACTOR_VETERAN = 16</code> once past the <code>VETERAN_THRESHOLD = 30</code> battles.</li>
-<li>The ELO seed is derived deterministically from the published benchmark predictions; human votes (GitHub issues) replay in issue-number order on top of it.</li>
-<li>Standings are fully recomputable from public data alone — the leaderboard JSON committed by <code>tally.yml</code> is a cache, not the source of truth.</li>
-</ul>
-<hr />
-<h2 id="supported-modalities">Supported Modalities<a class="headerlink" href="#supported-modalities" title="Permanent link">&para;</a></h2>
+<h3 id="converse">Converse<a class="headerlink" href="#converse" title="Permanent link">&para;</a></h3>
+<p>See <a href="../converse-pipeline/#bus-events-handled">Converse Pipeline</a> for the full picture.</p>
 <table>
 <thead>
 <tr>
-<th>Modality</th>
-<th>Status</th>
+<th>Event</th>
+<th>Handler</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Intent</td>
-<td>Live (<code>benchmarks/intent_intents_for_eval.py</code>, multiple engines × languages)</td>
+<td><code>intent.service.skills.activate</code></td>
+<td><code>handle_activate_skill_request</code></td>
+<td>Add a skill to the converse-eligible list</td>
 </tr>
 <tr>
-<td>STT</td>
-<td>Live (<code>benchmarks/stt_minds14.py</code>, multiple languages)</td>
+<td><code>intent.service.skills.deactivate</code></td>
+<td><code>handle_deactivate_skill_request</code></td>
+<td>Remove a skill from the converse-eligible list</td>
 </tr>
 <tr>
-<td>VAD</td>
-<td>Live (<code>benchmarks/vad_speech.py</code>, many languages)</td>
+<td><code>intent.service.active_skills.get</code></td>
+<td><code>handle_get_active_skills</code></td>
+<td>Query the current converse-eligible list</td>
 </tr>
 <tr>
-<td>Wake word</td>
-<td>Live (<code>benchmarks/ww_hey_jarvis.py</code>, <code>ww_hey_mycroft.py</code>, <code>ww_computer.py</code>)</td>
+<td><code>skill.converse.get_response.enable</code> / <code>.disable</code></td>
+<td><code>handle_get_response_enable</code> / <code>handle_get_response_disable</code></td>
+<td>Toggle the <code>get_response</code> window for a skill</td>
 </tr>
 <tr>
-<td>TTS</td>
-<td>Registered, not yet benchmarked — competitors are declared but have no predictions or battles yet, so every entry sits at the seed ELO (human-vote-only boards planned, no auto metric or ELO seed)</td>
+<td><code>converse:skill</code></td>
+<td><code>handle_converse</code></td>
+<td>Dispatch an utterance to an active skill's <code>converse</code></td>
+</tr>
+<tr>
+<td><code>{skill_id}.converse.get_response</code></td>
+<td>—</td>
+<td>Feed the user's reply back into a pending <code>get_response</code> (see <a href="../ovos-skill/#system-bus-events-handled-per-skill">OVOSSkill API</a>)</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="related-pages">Related Pages<a class="headerlink" href="#related-pages" title="Permanent link">&para;</a></h2>
+<h3 id="common-query">Common Query<a class="headerlink" href="#common-query" title="Permanent link">&para;</a></h3>
+<p>See <a href="../cq-pipeline/">Common Query Pipeline</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>question:query</code></td>
+<td>Common query pipeline request broadcast to all skills</td>
+</tr>
+<tr>
+<td><code>ovos.common_query.ping</code></td>
+<td>Common query service discovery</td>
+</tr>
+<tr>
+<td><code>question:action.{skill_id}</code></td>
+<td>Callback: this skill's answer was selected</td>
+</tr>
+<tr>
+<td><code>question:action</code></td>
+<td>Callback: some skill's answer was selected (generic)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fallback">Fallback<a class="headerlink" href="#fallback" title="Permanent link">&para;</a></h3>
+<p>See <a href="../fallback-pipeline/#bus-events-handled">Fallback Pipeline</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Handler</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ovos.skills.fallback.register</code></td>
+<td><code>handle_register_fallback</code></td>
+<td>Register a skill as a fallback handler</td>
+</tr>
+<tr>
+<td><code>ovos.skills.fallback.deregister</code></td>
+<td><code>handle_deregister_fallback</code></td>
+<td>Remove a fallback handler</td>
+</tr>
+</tbody>
+</table>
+<h2 id="skill-lifecycle">Skill lifecycle<a class="headerlink" href="#skill-lifecycle" title="Permanent link">&para;</a></h2>
+<p>Handled by every <code>OVOSSkill</code> instance; see <a href="../ovos-skill/#system-bus-events-handled-per-skill">OVOSSkill API</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mycroft.stop</code></td>
+<td>Trigger the skill's stop flow (also the global stop broadcast, see below)</td>
+</tr>
+<tr>
+<td><code>{skill_id}.stop</code></td>
+<td>Skill-specific stop</td>
+</tr>
+<tr>
+<td><code>{skill_id}.stop.ping</code></td>
+<td>Check whether this skill can stop</td>
+</tr>
+<tr>
+<td><code>mycroft.skill.enable_intent</code> / <code>mycroft.skill.disable_intent</code></td>
+<td>Enable/disable one of the skill's intents</td>
+</tr>
+<tr>
+<td><code>mycroft.skill.set_cross_context</code> / <code>mycroft.skill.remove_cross_context</code></td>
+<td>Manage cross-skill context</td>
+</tr>
+<tr>
+<td><code>mycroft.skills.settings.changed</code></td>
+<td>Remote settings update</td>
+</tr>
+<tr>
+<td><code>ovos.skills.settings_changed</code></td>
+<td>Local settings file changed — see <code>settings_change_callback</code> in <a href="../skill-settings/#change-callback">Skill Settings</a> (<a href="../skill-cookbook/#2-user-configurable-behavior-settings-settingsmeta-live-reload">Skill Cookbook recipe 2</a>) for reacting to it from a skill</td>
+</tr>
+<tr>
+<td><code>homescreen.metadata.get</code></td>
+<td>Homescreen requesting metadata</td>
+</tr>
+<tr>
+<td><code>{skill_id}.public_api</code></td>
+<td>Skill API introspection (see <a href="../ovos-skill/#skill-api-inter-skill-rpc">Skill API — Inter-Skill RPC</a>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stop-pipeline">Stop pipeline<a class="headerlink" href="#stop-pipeline" title="Permanent link">&para;</a></h3>
+<p><code>mycroft.stop</code> and the per-skill stop handshake above are driven by the dedicated
+<a href="../stop-pipeline/#bus-events">Stop Pipeline</a> plugin, not by a generic intent match:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Direction</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stop:global</code></td>
+<td>in</td>
+<td>Handled by <code>handle_global_stop</code> — emits <code>mycroft.stop</code> (and <code>ovos.utterance.handled</code>)</td>
+</tr>
+<tr>
+<td><code>stop:skill</code></td>
+<td>in</td>
+<td>Handled by <code>handle_skill_stop</code> — forwards <code>{skill_id}.stop</code></td>
+</tr>
+<tr>
+<td><code>{skill_id}.stop.ping</code></td>
+<td>out</td>
+<td>Asks a skill whether it can stop</td>
+</tr>
+<tr>
+<td><code>skill.stop.pong</code></td>
+<td>in</td>
+<td>Skill's reply</td>
+</tr>
+<tr>
+<td><code>{skill_id}.stop</code></td>
+<td>out</td>
+<td>Tells a specific skill to stop</td>
+</tr>
+<tr>
+<td><code>{skill_id}.stop.response</code></td>
+<td>in</td>
+<td>Skill's stop confirmation</td>
+</tr>
+<tr>
+<td><code>mycroft.stop</code></td>
+<td>out</td>
+<td>Global stop signal when no skill handles it</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tts-audio-playback">TTS / audio playback<a class="headerlink" href="#tts-audio-playback" title="Permanent link">&para;</a></h2>
+<p>Handled by <code>ovos-audio</code>; see <a href="../audio-service/">Audio Service</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ovos.utterance.speak</code> (legacy: <code>speak</code>)</td>
+<td>Natural-language response to synthesize and play — the exit point of the utterance lifecycle</td>
+</tr>
+<tr>
+<td><code>mycroft.audio.queue</code></td>
+<td>Queue a sound effect / audio file for playback (see <a href="../ovos-skill/#playing-audio-files"><code>play_audio</code></a>)</td>
+</tr>
+<tr>
+<td><code>mycroft.audio.play_sound</code></td>
+<td>Play a sound effect / audio file instantly</td>
+</tr>
+<tr>
+<td><code>mycroft.audio.speech.stop</code></td>
+<td>Interrupt in-progress TTS speech (emitted by the <a href="../decorators/"><code>@intent_handler(..., stop_tts=True)</code></a> decorator, among others)</td>
+</tr>
+<tr>
+<td><code>mycroft.audio.service.play</code></td>
+<td>Legacy media audioservice: play a track (only relevant when <code>enable_old_audioservice</code> is on)</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:utterance_start</code></td>
+<td>Emitted by the playback thread right before spoken audio starts playing. An in-progress change (<a href="https://github.com/OpenVoiceOS/ovos-audio/pull/146">ovos-audio#146</a>) will add a <code>duration</code> field to its payload — <strong>Upcoming</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gui-forwarding">GUI forwarding<a class="headerlink" href="#gui-forwarding" title="Permanent link">&para;</a></h2>
+<p>Handled by <code>ovos-gui</code>; see <a href="../gui-service/">GUI Service</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gui.value.set</code></td>
+<td>Write session variables into a skill's GUI namespace</td>
+</tr>
+<tr>
+<td><code>gui.page.show</code></td>
+<td>Request one or more QML/HTML pages be shown</td>
+</tr>
+<tr>
+<td><code>gui.page.delete</code> / <code>gui.page.delete.all</code></td>
+<td>Remove page(s) from the namespace</td>
+</tr>
+<tr>
+<td><code>gui.event.send</code></td>
+<td>Send a custom event into the namespace</td>
+</tr>
+<tr>
+<td><code>gui.clear.namespace</code></td>
+<td>Remove a skill's namespace from the active GUI stack</td>
+</tr>
+</tbody>
+</table>
+<h2 id="session-skill-management">Session &amp; skill management<a class="headerlink" href="#session-skill-management" title="Permanent link">&para;</a></h2>
+<p>See <a href="../bus-service/#key-message-categories">Bus Service: common message types</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>From</th>
+<th>To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mycroft.skills.initialized</code></td>
+<td><code>ovos-core</code></td>
+<td>GUI clients, tools</td>
+</tr>
+<tr>
+<td><code>skillmanager.list</code></td>
+<td>any client</td>
+<td><code>ovos-core</code></td>
+</tr>
+<tr>
+<td><code>ovos.skills.install</code></td>
+<td>any client</td>
+<td><code>ovos-core</code></td>
+</tr>
+<tr>
+<td><code>ovos.session.sync</code></td>
+<td>new client</td>
+<td><code>ovos-core</code></td>
+</tr>
+<tr>
+<td><code>ovos.session.update_default</code></td>
+<td><code>ovos-core</code></td>
+<td>all clients</td>
+</tr>
+<tr>
+<td><code>mycroft.network.connected</code> / <code>mycroft.internet.connected</code></td>
+<td><code>ovos-PHAL</code></td>
+<td><code>ovos-core</code>, skills</td>
+</tr>
+</tbody>
+</table>
+<h2 id="related-pages">Related pages<a class="headerlink" href="#related-pages" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../stt-plugins/">STT Plugins</a></li>
-<li><a href="../tts-plugins/">TTS Plugins</a></li>
-<li><a href="../wake-word-plugins/">Wake Word Plugins</a></li>
-<li><a href="../ww-verifier/">Wake Word Verifier</a></li>
-<li><a href="../ovoscope-overview/">Testing &amp; Ovoscope</a></li>
+<li><a href="../bus-service/">Bus Service</a> — the messagebus itself, connection details, legacy/modern topic pairs</li>
+<li><a href="../life-of-an-utterance/">Life of an Utterance</a> — the full request/response journey these events trace</li>
+<li><a href="../intent-service/">Intent Service</a>, <a href="../converse-pipeline/">Converse Pipeline</a>, <a href="../stop-pipeline/">Stop Pipeline</a>, <a href="../fallback-pipeline/">Fallback Pipeline</a>, <a href="../cq-pipeline/">Common Query Pipeline</a> — per-pipeline detail</li>
+<li><a href="../audio-service/">Audio Service</a>, <a href="../gui-service/">GUI Service</a> — output-side detail</li>
+<li><a href="../ovos-skill/">OVOSSkill API</a> — the skill-side handlers for these events</li>
 </ul>
 
 

@@ -239,24 +239,6 @@
     
     
       <li class="md-tabs__item">
-        <a href="../everyday-help/" class="md-tabs__link">
-          
-  
-  Help & Troubleshooting
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
         <a href="../ovos-installer/" class="md-tabs__link">
           
   
@@ -275,10 +257,10 @@
     
     
       <li class="md-tabs__item">
-        <a href="../first-skill/" class="md-tabs__link">
+        <a href="../everyday-help/" class="md-tabs__link">
           
   
-  Tutorials
+  Help & Troubleshooting
 
         </a>
       </li>
@@ -353,7 +335,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../skill-design-guidelines/" class="md-tabs__link">
+        <a href="../first-skill/" class="md-tabs__link">
           
   
   Skill Development
@@ -426,25 +408,7 @@
         <a href="../privacy-security/" class="md-tabs__link">
           
   
-  Privacy & Security
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../production-operations/" class="md-tabs__link">
-          
-  
-  Production & Hardware
+  Production & Security
 
         </a>
       </li>
@@ -585,48 +549,6 @@
         
   
   
-    <a href="../everyday-help/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Help & Troubleshooting
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
     <a href="../ovos-installer/" class="md-nav__link">
       
   
@@ -669,11 +591,11 @@
         
   
   
-    <a href="../first-skill/" class="md-nav__link">
+    <a href="../everyday-help/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
-    Tutorials
+    Help & Troubleshooting
   </span>
   
 
@@ -840,7 +762,7 @@
     
   
   
-    <a href="../skill-design-guidelines/" class="md-nav__link">
+    <a href="../first-skill/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -927,10 +849,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -941,8 +863,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_10">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             AI Agents & Personas
           </label>
@@ -1012,10 +934,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_10_2" id="__nav_10_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1026,8 +948,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_10_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9_2">
             <span class="md-nav__icon md-icon"></span>
             Agent Engines
           </label>
@@ -1387,49 +1309,7 @@
       
   
   <span class="md-ellipsis">
-    Privacy & Security
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../production-operations/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    Production & Hardware
+    Production & Security
   </span>
   
 
@@ -1828,36 +1708,44 @@ release. Migrate existing plugins to the corresponding <code>opm.agents.*</code>
 <tr>
 <th>Deprecated entry point</th>
 <th>Replacement</th>
+<th>Why</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>opm.solver.question</code> (<code>QuestionSolver</code>)</td>
 <td><code>opm.agents.chat</code> (<code>ChatEngine</code>)</td>
+<td>Single-turn Q&amp;A folds into the general chat contract; no need for a separate type.</td>
 </tr>
 <tr>
 <td><code>opm.solver.chat</code> (<code>ChatMessageSolver</code>)</td>
 <td><code>opm.agents.chat</code> (<code>ChatEngine</code>)</td>
+<td>Same engine type as above — the two deprecated solvers converge on one replacement.</td>
 </tr>
 <tr>
 <td><code>opm.solver.summarization</code> (<code>TldrSolver</code>)</td>
 <td><code>opm.agents.summarizer</code> (<code>SummarizerEngine</code>)</td>
+<td>Renamed for clarity; behavior is otherwise equivalent.</td>
 </tr>
 <tr>
 <td><code>opm.solver.reading_comprehension</code> (<code>EvidenceSolver</code>)</td>
 <td><code>opm.agents.extractive_qa</code> (<code>ExtractiveQAEngine</code>)</td>
+<td>Renamed to match the standard NLP task name (extractive QA over evidence).</td>
 </tr>
 <tr>
 <td><code>opm.solver.multiple_choice</code> (<code>MultipleChoiceSolver</code>)</td>
 <td><code>opm.agents.reranker</code> (<code>ReRankerEngine</code>)</td>
+<td>Choosing among options is really scoring/ranking candidates, so it moved under the reranker contract.</td>
 </tr>
 <tr>
 <td><code>opm.solver.entailment</code> (<code>EntailmentSolver</code>)</td>
 <td><code>opm.agents.nli</code> (<code>NaturalLanguageInferenceEngine</code>)</td>
+<td>Renamed to the standard NLI task name; entailment is one of NLI's three labels.</td>
 </tr>
 <tr>
 <td><code>opm.coreference</code></td>
 <td><code>opm.agents.coref</code></td>
+<td>Moved under the unified <code>opm.agents.*</code> namespace alongside the other engine types.</td>
 </tr>
 </tbody>
 </table>
