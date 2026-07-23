@@ -14,16 +14,22 @@ The converse method expects a single argument, a standard `Message` object — t
 
 Converse methods must return a Boolean: `True` if the utterance was handled (it is consumed and intent parsing is skipped), otherwise `False`.
 
+!!! warning "Requires `ConversationalSkill`"
+    `converse()`, `activate()`, `deactivate()`, `handle_activate()`/`handle_deactivate()`, and
+    `@conversational_intent` are **not** available on the plain `OVOSSkill` base class — subclass
+    `ConversationalSkill` (`from ovos_workshop.skills.converse import ConversationalSkill`) instead
+    to use any of the features on this page.
+
 ## Basic usage
 
 Let's use a version of the Ice Cream Skill we've been building up and add a converse method to catch any brief statements of thanks that might directly follow an order.
 
 ```python
-from ovos_workshop.skills import OVOSSkill
+from ovos_workshop.skills.converse import ConversationalSkill
 from ovos_workshop.decorators import intent_handler
 
 
-class IceCreamSkill(OVOSSkill):
+class IceCreamSkill(ConversationalSkill):
     def initialize(self):
         self.flavors = ['vanilla', 'chocolate', 'mint']
 
@@ -58,7 +64,7 @@ In this example:
 
 
 !!! warning
-    skills that are not [Session](session.md) aware may behave weirdly with voice satellites, see the [parrot skill](https://github.com/OpenVoiceOS/skill-ovos-parrot/) for an example.
+    skills that are not [Session](session.md) aware may behave weirdly with voice satellites, see the [parrot skill](https://github.com/OpenVoiceOS/ovos-skill-parrot/) for an example.
 
 
 ## Active Skill List
@@ -105,10 +111,10 @@ At this point, we also want to be responsive to the customers thanks, so we call
 
 ```python
 from ovos_bus_client.message import Message
-from ovos_workshop.skills import OVOSSkill
+from ovos_workshop.skills.converse import ConversationalSkill
 
 
-class IceCreamSkill(OVOSSkill):
+class IceCreamSkill(ConversationalSkill):
     def on_order_ready(self, message):
         self.activate()
         
@@ -131,10 +137,10 @@ Individual Skills may react to this event, to clean up state or, in some rare ca
 
 ```python
 from ovos_bus_client.message import Message
-from ovos_workshop.skills import OVOSSkill
+from ovos_workshop.skills.converse import ConversationalSkill
 
 
-class AlwaysActiveSkill(OVOSSkill):
+class AlwaysActiveSkill(ConversationalSkill):
 
     def handle_deactivate(self, message: Message):
         """
@@ -151,10 +157,10 @@ A skill can also deactivate itself at any time
 
 ```python
 from ovos_bus_client.message import Message
-from ovos_workshop.skills import OVOSSkill
+from ovos_workshop.skills.converse import ConversationalSkill
 
 
-class LazySkill(OVOSSkill):
+class LazySkill(ConversationalSkill):
 
     def handle_intent(self, message: Message):
         self.speak("leave me alone")
@@ -171,11 +177,11 @@ the `@conversational_intent` decorator can be used to define converse intent han
 these intents only trigger after an initial interaction, essentially they are only follow up questions
 
 ```python
-from ovos_workshop.skills import OVOSSkill
+from ovos_workshop.skills.converse import ConversationalSkill
 from ovos_workshop.decorators import intent_handler, conversational_intent
 
 
-class DogFactsSkill(OVOSSkill):
+class DogFactsSkill(ConversationalSkill):
 
     @intent_handler("dog_facts.intent")
     def handle_intent(self, message):
@@ -193,7 +199,7 @@ class DogFactsSkill(OVOSSkill):
 A more complex example, a game skill that allows saving/exiting the game only during playback
 
 ```python
-class MyGameSkill(OVOSSkill):
+class MyGameSkill(ConversationalSkill):
 
     @intent_handler("play.intent")
     def handle_play(self, message):

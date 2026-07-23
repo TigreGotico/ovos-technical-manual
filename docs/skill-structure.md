@@ -221,15 +221,14 @@ dependencies = [
 
 #### `skill.json`
 
-This file contains metadata used by the OVOS Skill Store and installer.
+This is an optional, per-language file — it lives alongside your dialog and intent
+files (e.g. `locale/en-us/skill.json`), not at the repository root. Today it is read for
+exactly one purpose: registering example utterances with the homescreen, so the
+launcher can show sample things to say for that language.
 
 ```json
 {
-    "name": "Hello World Skill",
-    "description": "A simple example skill",
-    "icon": "https://example.com/icon.png",
-    "category": "Information",
-    "tags": ["hello", "example"]
+    "examples": ["hello", "say hello"]
 }
 
 ```

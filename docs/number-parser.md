@@ -51,32 +51,33 @@ Every function takes an explicit `lang` (a BCP-47 code such as `"en"` or `"pt-br
 
 | Language Code           | Pronounce Number | Pronounce Ordinal | Extract Number | numbers_to_digits |
 |-------------------------|------------------|-------------------|----------------|-------------------|
-| `en` (English)          | ✅               | 🚧                | ✅             | ✅                |
-| `az` (Azerbaijani)      | ✅               | 🚧                | ✅             | ✅                |
-| `ca` (Catalan)          | ✅                | 🚧                 | ✅              | 🚧                 |
-| `gl` (Galician)         | ✅                | ❌                | ✅              |  🚧                  |
-| `cs` (Czech)            | ✅                | 🚧                 | ✅              | ✅                 |
+| `en` (English)          | ✅               | 🚧                | ✅             | 🚧                |
+| `az` (Azerbaijani)      | ✅               | 🚧                | ✅             | 🚧                |
+| `ca` (Catalan)          | ✅                | ✅                 | ✅              | 🚧                 |
+| `gl` (Galician)         | ✅                | ✅                | ✅              |  ✅                  |
+| `cs` (Czech)            | ✅                | ✅                 | ✅              | 🚧                 |
 | `da` (Danish)           | ✅                | ✅                 | ✅              | 🚧                 |
 | `de` (German)           | ✅                | ✅                 | ✅              | ✅                 |
 | `es` (Spanish)          | ✅                | 🚧                 | ✅              | 🚧                 |
-| `eu` (Euskara / Basque) | ✅                | ❌                 | ✅              | ❌                 |
-| `fa` (Farsi / Persian)  | ✅                | 🚧                 | ✅              | ❌                 |
-| `fr` (French)           | ✅                | 🚧                 | ✅              | ❌                 |
-| `hu` (Hungarian)        | ✅                | ✅                 | ❌              | ❌                 |
-| `it` (Italian)          | ✅                | 🚧                | ✅              | ❌                 |
+| `eu` (Euskara / Basque) | ✅                | ✅                 | ✅              | 🚧                 |
+| `fa` (Farsi / Persian)  | ✅                | ✅                 | ✅              | 🚧                 |
+| `fr` (French)           | ✅                | 🚧                 | ✅              | 🚧                 |
+| `hu` (Hungarian)        | ✅                | ✅                 | ✅              | 🚧                 |
+| `it` (Italian)          | ✅                | 🚧                | ✅              | 🚧                 |
 | `mwl` (Mirandese)       | ✅                | ✅                 | ✅              | ✅                 |
-| `nl` (Dutch)            | ✅                | ✅                 | ✅              | ✅                 |
-| `pl` (Polish)           | ✅                | 🚧                 | ✅              | ✅                 |
-| `pt` (Portuguese)       | ✅                | ✅                 | ✅              | 🚧                 |
+| `nl` (Dutch)            | ✅                | ✅                 | ✅              | 🚧                 |
+| `pl` (Polish)           | ✅                | ✅                 | ✅              | 🚧                 |
+| `pt` (Portuguese)       | ✅                | ✅                 | ✅              | ✅                 |
 | `ru` (Russian)          | ✅                | 🚧                 | ✅              | ✅                 |
-| `sv` (Swedish)          | ✅                | ✅                 | ✅              | ❌                 |
-| `sl` (Slovenian)        | ✅                | 🚧                 | ❌              | ❌                 |
-| `uk` (Ukrainian)        | ✅                | 🚧                 | ✅              | ✅                 |
+| `sv` (Swedish)          | ✅                | ✅                 | ✅              | 🚧                 |
+| `sl` (Slovenian)        | ✅                | ✅                 | ✅              | 🚧                 |
+| `uk` (Ukrainian)        | ✅                | ✅                 | ✅              | ✅                 |
 
 
 > 💡 If a language is not implemented for `pronounce_number` or `pronounce_ordinal` then [unicode-rbnf](https://github.com/rhasspy/unicode-rbnf) will be used as a fallback.
 
-> 🚧 **Upcoming:** Asturian (`ast`) support and a shared `RomanceNumberExtractor` base class are planned for a future release.
+!!! note
+    Several Romance languages (`ast`, `an`, `oc`, `fr`, `it`, `ca`, `es`, `gl`, `pt`, `mwl`, `ro`) share a common `RomanceNumberExtractor`/`NumberVocabulary` engine internally, so their extraction logic stays consistent across languages that inflect numbers similarly.
 
 ## Installation
 
@@ -94,10 +95,11 @@ pip install ovos-number-parser
 Convert a number to its spoken equivalent.
 
 ```python
-def pronounce_number(number: Union[int, float], lang: str, places: int = 3, short_scale: bool = True,
+def pronounce_number(number: Union[int, float], lang: str, places: int = 3, short_scale: Optional[bool] = None,
                      scientific: bool = False, ordinals: bool = False,
-                     digits: DigitPronunciation = DigitPronunciation.FULL_NUMBER,
-                     gender: GrammaticalGender = GrammaticalGender.MASCULINE) -> str:
+                     digits: Optional[DigitPronunciation] = None,
+                     gender: GrammaticalGender = GrammaticalGender.MASCULINE,
+                     scale: Optional[Scale] = None) -> str:
     """
     Convert a number to its spoken equivalent.
 
@@ -105,11 +107,12 @@ def pronounce_number(number: Union[int, float], lang: str, places: int = 3, shor
         number: The number to pronounce.
         lang (str): A BCP-47 language code.
         places (int): Number of decimal places to express. Default is 3.
-        short_scale (bool): Use short (True) or long scale (False) for large numbers.
+        short_scale (bool): Use short (True) or long scale (False) for large numbers. Defaults to `True` when left `None`.
         scientific (bool): Pronounce in scientific notation if True.
         ordinals (bool): Pronounce as an ordinal if True.
         digits (DigitPronunciation): Digit-reading style (e.g. read digit-by-digit). Honored by pt/mwl.
         gender (GrammaticalGender): Grammatical gender for languages that inflect numbers. Honored by pt/mwl.
+        scale (Scale): Alternate way to select short/long scale. Honored by pt/mwl.
 
     Returns:
         str: The pronounced number.
@@ -120,7 +123,7 @@ def pronounce_number(number: Union[int, float], lang: str, places: int = 3, shor
 
 ```
 
-> Most language backends only consume `number`, `places`, `short_scale`, `scientific`, and `ordinals`. The `digits` and `gender` arguments (and `DigitPronunciation`/`GrammaticalGender`, importable from `ovos_number_parser.util`) currently only affect Portuguese (`pt`) and Mirandese (`mwl`).
+> Most language backends only consume `number`, `places`, `short_scale`, `scientific`, and `ordinals`. The `digits`, `gender`, and `scale` arguments (and `DigitPronunciation`/`GrammaticalGender`/`Scale`, importable from `ovos_number_parser.util`) currently only affect Portuguese (`pt`) and Mirandese (`mwl`).
 
 **Example Usage:**
 
@@ -138,8 +141,9 @@ print(result)  # "one hundred and twenty three"
 Convert a number to its ordinal spoken equivalent.
 
 ```python
-def pronounce_ordinal(number: Union[int, float], lang: str, short_scale: bool = True,
-                      gender: GrammaticalGender = GrammaticalGender.MASCULINE) -> str:
+def pronounce_ordinal(number: Union[int, float], lang: str, short_scale: Optional[bool] = None,
+                      gender: GrammaticalGender = GrammaticalGender.MASCULINE,
+                      scale: Optional[Scale] = None) -> str:
     """
     Convert an ordinal number to its spoken equivalent.
 
@@ -158,7 +162,7 @@ def pronounce_ordinal(number: Union[int, float], lang: str, short_scale: bool = 
 
 ```
 
-Hand-written ordinal pronunciation exists for `da`, `de`, `hu`, `nl`, `sv`, `pt`, and `mwl`; all other languages route through the unicode-rbnf fallback.
+Hand-written ordinal pronunciation exists for most languages in the support table above; a handful (`en`, `az`, `es`, `fr`, `it`, among others) route through the unicode-rbnf fallback instead.
 
 **Example Usage:**
 
@@ -176,7 +180,8 @@ print(result)  # "fifth"
 Extract a number from a given text string.
 
 ```python
-def extract_number(text: str, lang: str, short_scale: bool = True, ordinals: bool = False) -> Union[int, float, bool]:
+def extract_number(text: str, lang: str, short_scale: Optional[bool] = None, ordinals: bool = False,
+                    scale: Optional[Scale] = None) -> Union[int, float, bool]:
     """
     Extract a number from text.
 
@@ -208,7 +213,8 @@ print(result)  # 20
 Identify if the text contains a fractional number.
 
 ```python
-def is_fractional(input_str: str, lang: str, short_scale: bool = True) -> Union[bool, float]:
+def is_fractional(input_str: str, lang: str, short_scale: Optional[bool] = None,
+                   scale: Optional[Scale] = None) -> Union[bool, float]:
     """
     Check if the text is a fraction.
 
@@ -264,7 +270,7 @@ print(result)  # 3
 
 ```
 
-> `is_ordinal` is only implemented for `en`, `de`, `da`, `pt`, and `mwl`; other languages raise `NotImplementedError`.
+> `is_ordinal` has hand-written detection for most languages in the support table above and a generic fallback for the rest, so it rarely raises `NotImplementedError` in practice.
 
 ### Words to Digits
 
@@ -278,10 +284,10 @@ numbers_to_digits("set a timer for twenty five minutes", "en")
 ```
 
 ```python
-def numbers_to_digits(utterance: str, lang: str, scale: Scale = Scale.LONG) -> str: ...
+def numbers_to_digits(utterance: str, lang: str, scale: Optional[Scale] = None) -> str: ...
 ```
 
-`scale` (`Scale.LONG` / `Scale.SHORT`, from `ovos_number_parser.util`) only matters for `pt`/`mwl`. Supported languages: `az`, `ca`, `gl`, `cs`, `da`, `de`, `en`, `es`, `nl`, `pl`, `pt`, `mwl`, `ru`, `uk`. Unsupported languages raise `NotImplementedError`.
+`scale` (`Scale.LONG` / `Scale.SHORT`, from `ovos_number_parser.util`) only matters for `pt`/`mwl`. Hand-written rewriting exists for `gl`, `de`, `pt`, `mwl`, `ru`, and `uk` (marked ✅ in the table above); every other language that `extract_number` supports gets a generic word-span replacement instead (marked 🚧) — it works but is less precise about compound numerals than a hand-written implementation. A language `extract_number` does not support at all is left unchanged rather than raising.
 
 ### Pronounce a Fraction
 
@@ -294,7 +300,7 @@ pronounce_fraction("3/2", "pt")   # "três meios"
 ```
 
 ```python
-def pronounce_fraction(fraction_word: str, lang: str, scale: Scale = Scale.LONG) -> str: ...
+def pronounce_fraction(fraction_word: str, lang: str, scale: Optional[Scale] = None) -> str: ...
 ```
 
 ## Related Projects

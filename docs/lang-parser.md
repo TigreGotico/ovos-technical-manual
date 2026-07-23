@@ -11,7 +11,7 @@ OpenVoiceOS's multilingual language-name parsing and pronouncing library. It con
 ```python
 from ovos_lang_parser import extract_langcode, pronounce_lang
 
-extract_langcode("switch to Spanish please", "en")   # ("es", 0.95)  -> (code, confidence)
+extract_langcode("switch to Spanish please", "en")   # ("es", 1.0)  -> (code, confidence)
 pronounce_lang("fr", "en")                            # "French"
 ```
 
@@ -45,16 +45,17 @@ LANGS = os.listdir(RES_DIR)    # list of language codes with resource files
 
 1. Uses `langcodes.closest_match(lang, LANGS)` to tolerate BCP-47 variants (e.g. `"en-US"` matches `"en"`). Raises `ValueError` if distance > 10.
 2. Opens `res/<closest_lang>/langs.json`.
-3. Expands bracket templates (e.g. `"[Español|Castellano]"` → `["Español", "Castellano"]`) using `ovos_utils.bracket_expansion.expand_template`.
+3. Expands any alternative-name templates (e.g. `"(Español|Castellano)"` → `["Español", "Castellano"]`) using `ovos_utils.bracket_expansion.expand_template`.
 4. Returns a flat `dict` of `spoken_name → bcp47_code` for all known languages in that UI language.
 
-The `langs.json` format maps BCP-47 codes to one or more spoken names:
+!!! note
+    `expand_template` is deprecated in favor of `ovos_spec_tools.expand`, which the current implementation now delegates to internally. The template syntax is `(a|b)` for alternatives, not square brackets.
+
+The `langs.json` format maps BCP-47 codes to one or more spoken names, either as a plain string, a JSON list, or a `(alt1|alt2)` template string. For example, `res/de/langs.json` (German UI names) lists Catalan as:
 
 ```json
 {
-  "en": "English",
-  "es": "[Spanish|Español|Castellano]",
-  "fr": "French"
+  "ca": ["Katalanisch", "Valencianisch"]
 }
 ```
 
@@ -133,7 +134,7 @@ pronounce_lang("en", "fr")   # "Anglais"
 
 Resources live in `ovos_lang_parser/res/<lang>/langs.json`. Each file is written in the UI language indicated by the directory name and lists language names as they would be spoken by a user of that UI language.
 
-The bracket template syntax `"[Name1|Name2]"` is expanded to a list of valid spoken forms, allowing for multiple correct names (e.g., both "Spanish" and "Castilian" map to `"es"` in English).
+A code can list multiple valid spoken forms — as a JSON list, or as a `"(Name1|Name2)"` alternation string that gets expanded — allowing for synonyms (e.g. German lists both "Katalanisch" and "Valencianisch" for `"ca"`).
 
 ---
 

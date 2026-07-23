@@ -129,4 +129,4 @@ class UtteranceRepeaterSkill(OVOSSkill):
 
 ```
 
-A full example can be found in the [parrot skill](https://github.com/OpenVoiceOS/skill-ovos-parrot)
+A full example can be found in the [parrot skill](https://github.com/OpenVoiceOS/ovos-skill-parrot)
