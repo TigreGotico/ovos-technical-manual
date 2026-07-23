@@ -1,5 +1,9 @@
 # Language Selection and Disambiguation
 
+!!! tip "Just want to change your language?"
+    See [Language Support](lang-support.md) instead — this page is internals: how `ovos-core`
+    picks a language for a given utterance under the hood, not how to configure one.
+
 OpenVoiceOS is designed to be multi-language from the ground up. This page explains the technical logic used by `ovos-core` to determine which language should be used for a given user utterance.
 
 **In one sentence:** every utterance carries a language tag (on the message `context`), and `ovos-core` resolves it from the most trustworthy source available — falling back to your configured default — before it tries to match an intent. If you only ever use one language, the default `lang` in `mycroft.conf` is all that matters and you can skip the details below.

@@ -6,6 +6,9 @@
 !!! info "📐 Formal specification"
     STT sits inside the audio input service, specified by **[OVOS-AUDIO-IN-1 — Audio Input Service](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md)**: capture → audio-transformer chain → STT → utterance. The transcript is emitted on `ovos.utterance.handle` ([OVOS-PIPELINE-1 §9.1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)). See the [spec index](architecture-specs.md).
 
+!!! note "Audio format contract"
+    Everything upstream of an STT plugin — the [microphone plugin](mic-plugins.md#the-microphone-interface) and any audio transformers — hands over raw PCM in a fixed shape: **16 kHz sample rate, 16-bit samples, mono, little-endian**, delivered in **4096-byte chunks** by default (the `Microphone` template's `sample_rate`/`sample_width`/`sample_channels`/`chunk_size` defaults). A batch `STT.execute()` plugin gets this bundled into a `speech_recognition.AudioData` object; a `StreamingSTT` plugin receives it chunk-by-chunk, still at this same format, unless a deployment explicitly reconfigures the microphone.
+
 STT (Speech-to-Text) plugins convert spoken audio into text. They are the bridge
 between the listener and the intent pipeline.
 
@@ -61,6 +64,51 @@ A more advanced STT class for streaming data to the STT. This will receive chunk
 The plugin author needs to implement the `create_streaming_thread()` method creating a thread for handling data sent through `self.queue`. 
 
 The thread this method creates should be based on the `StreamThread` class. Its abstract `handle_audio_stream(audio, language)` method also needs to be implemented — it receives a generator of audio chunks and should set `self.text` to the transcript; `finalize()` returns that stored text once the stream ends.
+
+### Chunk semantics
+
+`StreamingSTT` runs the streaming work on a background thread, fed through a queue:
+
+- `stream_start(language=None)` creates a fresh `Queue`, builds a `StreamThread` via `create_streaming_thread()`, and starts it.
+- Each call to `stream_data(chunk)` puts one raw PCM `bytes` chunk (16 kHz/16-bit/mono, `chunk_size`-sized — see the audio format contract above) onto that queue.
+- The `StreamThread`'s `run()` calls your `handle_audio_stream(audio, language)` with `audio` as a **generator** that yields chunks off the queue until a `None` sentinel appears — your implementation should loop over it (e.g. `for chunk in audio:`) and feed each chunk to the underlying engine, setting `self.text` as partial/final results arrive.
+- `stream_stop()` pushes the `None` sentinel, joins the thread, and calls `finalize()` on it to retrieve the stored `self.text` as the final transcript — this is also what `execute()` returns for a `StreamingSTT` plugin.
+
+A complete minimal streaming plugin:
+
+```python
+from queue import Queue
+from threading import Thread
+from ovos_plugin_manager.templates.stt import StreamingSTT, StreamThread
+
+
+class MyStreamThread(StreamThread):
+    def __init__(self, queue: Queue, language: str, engine):
+        super().__init__(queue, language)
+        self.engine = engine
+
+    def handle_audio_stream(self, audio, language):
+        # `audio` is a generator of raw PCM byte chunks; `self.queue.get()`
+        # returns None once the caller closes the stream.
+        for chunk in audio:
+            partial = self.engine.feed(chunk, language)
+            if partial:
+                self.text = partial
+        return self.text
+
+
+class MyStreamingSTT(StreamingSTT):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.engine = MyStreamingEngine()
+
+    def create_streaming_thread(self):
+        return MyStreamThread(self.queue, self.lang, self.engine)
+
+    @property
+    def available_languages(self):
+        return {"en-us"}
+```
 
 ## Entry point
 
@@ -160,25 +208,28 @@ MySTTConfig = {
 
 # STT plugins Reference
 
-| Plugin | Description |
-|--------|-------------|
-| [ovos-stt-plugin-wav2vec](#ovos-stt-plugin-wav2vec) | OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) |
-| [ovos-stt-plugin-azure](#ovos-stt-plugin-azure) | Microsoft Azure cloud speech-to-text. |
-| [ovos-stt-plugin-chromium](#ovos-stt-plugin-chromium) | Speech-to-text using the Google Chrome browser speech API. |
-| [ovos-stt-plugin-mms](#ovos-stt-plugin-mms) | OVOS plugin for [The Massively Multilingual Speech (MMS) project](https://huggingface.co/docs/transformers/main/en/model_doc/mms) ⚠️ **Archived** — MMS models also run under [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2). |
-| [ovos-stt-server-plugin](#ovos-stt-server-plugin) | OpenVoiceOS companion plugin for [OpenVoiceOS STT Server](https://github.com/OpenVoiceOS/ovos-stt-http-server) |
-| [ovos-stt-http-server](#ovos-stt-http-server) | Turn any OVOS STT plugin into a micro service! |
-| [ovos-stt-plugin-wav2vec2](#ovos-stt-plugin-wav2vec2) | OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) |
-| [ovos-stt-plugin-whisper](#ovos-stt-plugin-whisper) | OpenVoiceOS STT plugin for [Whisper](https://github.com/guillaumekln/faster-whisper), using transformers library |
-| [ovos-stt-plugin-whispercpp](#ovos-stt-plugin-whispercpp) | OpenVoiceOS STT plugin for [whispercpp](https://github.com/ggerganov/whisper.cpp) |
-| [ovos-stt-plugin-fasterwhisper](#ovos-stt-plugin-fasterwhisper) | OpenVoiceOS STT plugin for [Faster Whisper](https://github.com/guillaumekln/faster-whisper) |
-| [ovos-stt-plugin-nemo](#ovos-stt-plugin-nemo) | OpenVoiceOS STT plugin for [Nemo](https://docs.nvidia.com/nemo-framework/user-guide/latest/nemotoolkit/asr/models.html), GPU is **strongly recommended** |
-| [ovos-stt-plugin-whisper-lm](#ovos-stt-plugin-whisper-lm) | OpenVoiceOS STT plugin for [Whisper-LM-transformers](https://github.com/hitz-zentroa/whisper-lm-transformers), KenLM and Large language model integration with Whisper ASR models implemented in Hugging Face library. |
-| [ovos-stt-plugin-citrinet](#ovos-stt-plugin-citrinet) | OpenVoiceOS STT plugin |
-| [ovos-stt-plugin-nos](#ovos-stt-plugin-nos) | Galician STT using Proxecto Nós wav2vec2 models. ⚠️ Archived — superseded by [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2). |
-| [ovos-stt-plugin-HiTZ](#ovos-stt-plugin-hitz) | OpenVoiceOS STT plugin for **Basque** models trained by [HiTZ](https://huggingface.co/HiTZ) ⚠️ **Archived/deprecated.** |
-| [ovos-stt-plugin-vosk](#ovos-stt-plugin-vosk) | Mycroft STT plugin for [Vosk](https://alphacephei.com/vosk/) |
-| [ovos-stt-plugin-onnx-asr](#ovos-stt-plugin-onnx-asr) | Runs [onnx-asr](https://github.com/istupakov/onnx-asr) models (NeMo Parakeet/Canary, Whisper, wav2vec2, …) fully offline via ONNX Runtime — a strong default for on-device, offline recognition. |
+Code license is the SPDX license of the plugin's own repository; where the plugin wraps a
+separately-licensed model, that is called out under "model".
+
+| Plugin | Description | License |
+|--------|-------------|---------|
+| [ovos-stt-plugin-wav2vec](#ovos-stt-plugin-wav2vec) | OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-azure](#ovos-stt-plugin-azure) | Microsoft Azure cloud speech-to-text. | Apache-2.0 |
+| [ovos-stt-plugin-chromium](#ovos-stt-plugin-chromium) | Speech-to-text using the Google Chrome browser speech API. | Apache-2.0 |
+| [ovos-stt-plugin-mms](#ovos-stt-plugin-mms) | OVOS plugin for [The Massively Multilingual Speech (MMS) project](https://huggingface.co/docs/transformers/main/en/model_doc/mms) ⚠️ **Archived** — MMS models also run under [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2). | Apache-2.0 (model: see model card) |
+| [ovos-stt-server-plugin](#ovos-stt-server-plugin) | OpenVoiceOS companion plugin for [OpenVoiceOS STT Server](https://github.com/OpenVoiceOS/ovos-stt-http-server) | Apache-2.0 |
+| [ovos-stt-http-server](#ovos-stt-http-server) | Turn any OVOS STT plugin into a micro service! | Apache-2.0 |
+| [ovos-stt-plugin-wav2vec2](#ovos-stt-plugin-wav2vec2) | OVOS plugin for [Wav2Vec2](https://ai.meta.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-whisper](#ovos-stt-plugin-whisper) | OpenVoiceOS STT plugin for [Whisper](https://github.com/guillaumekln/faster-whisper), using transformers library | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-whispercpp](#ovos-stt-plugin-whispercpp) | OpenVoiceOS STT plugin for [whispercpp](https://github.com/ggerganov/whisper.cpp) | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-fasterwhisper](#ovos-stt-plugin-fasterwhisper) | OpenVoiceOS STT plugin for [Faster Whisper](https://github.com/guillaumekln/faster-whisper) | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-nemo](#ovos-stt-plugin-nemo) | OpenVoiceOS STT plugin for [Nemo](https://docs.nvidia.com/nemo-framework/user-guide/latest/nemotoolkit/asr/models.html), GPU is **strongly recommended** | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-whisper-lm](#ovos-stt-plugin-whisper-lm) | OpenVoiceOS STT plugin for [Whisper-LM-transformers](https://github.com/hitz-zentroa/whisper-lm-transformers), KenLM and Large language model integration with Whisper ASR models implemented in Hugging Face library. | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-citrinet](#ovos-stt-plugin-citrinet) | OpenVoiceOS STT plugin | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-nos](#ovos-stt-plugin-nos) | Galician STT using Proxecto Nós wav2vec2 models. ⚠️ Archived — superseded by [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2). | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-HiTZ](#ovos-stt-plugin-hitz) | OpenVoiceOS STT plugin for **Basque** models trained by [HiTZ](https://huggingface.co/HiTZ) ⚠️ **Archived/deprecated.** | see repo (no license file) |
+| [ovos-stt-plugin-vosk](#ovos-stt-plugin-vosk) | Mycroft STT plugin for [Vosk](https://alphacephei.com/vosk/) | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-onnx-asr](#ovos-stt-plugin-onnx-asr) | Runs [onnx-asr](https://github.com/istupakov/onnx-asr) models (NeMo Parakeet/Canary, Whisper, wav2vec2, …) fully offline via ONNX Runtime — a strong default for on-device, offline recognition. | Apache-2.0 (model: see model card) |
 
 ## ovos-stt-plugin-wav2vec
 

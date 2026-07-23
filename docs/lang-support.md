@@ -127,6 +127,9 @@ These load directly via HuggingFace `datasets.load_dataset(...)`.
 
 - Skills may have translated intents but missing dialog translations. The assistant typically speaks the dialog filename if it is not translated
 
+
+- STT/TTS plugin coverage is uneven per language variant — some regional variants have no bundled offline recommendation at all (see the gaps called out below the auto-configuration table), so a language can be "installed" without actually being able to hear or speak yet.
+
 ---
 
 ## Auto-Configuration
@@ -164,6 +167,14 @@ After writing the config it lists the installed STT/TTS plugins and warns about 
 
 > The table below is a snapshot of the bundled recommendations. The authoritative list is whatever `recommends/base/*.conf`, `recommends/offline_stt/*.conf`, and related files ship in your installed `ovos-config`.
 
+Plainly: a few widely-spoken variants still have real gaps in the bundled recommendations.
+**pt-BR** has no bundled offline STT recommendation at all — you'll need to configure an
+online plugin or pick a multilingual offline model (e.g. Whisper) by hand. **en-AU** has no
+bundled offline recommendation on either side. Several regional voices are one-gender-only
+offline (e.g. **pt-PT** and **da-DK** ship no offline female voice, **eu-ES** and **gl-ES**
+ship no offline male voice) — the missing gender still works, just via an online plugin or a
+manually-configured model.
+
 | Language | Offline STT | Offline TTS (Male) | Offline TTS (Female) |
 |----------|-------------|---------------------|---------------------|
 | **en-US** | `ovos-stt-plugin-fasterwhisper` (`small.en`) | `ovos-tts-plugin-piper` (ryan-low) | `ovos-tts-plugin-piper` (amy-low) |
@@ -185,6 +196,42 @@ After writing the config it lists the installed STT/TTS plugins and warns about 
     Where a cell shows "—", the bundled recommendations don't cover that combination yet;
     `autoconfigure` will skip that part of the configuration and tell you so.
 
+### Per-language status matrix
+
+STT/TTS columns summarize the auto-configuration table above (✅ = a bundled offline
+recommendation exists for at least one voice/gender, ⚠️ = only online/partial, ❌ = no bundled
+offline recommendation). Number and date parsing come from the language modules actually
+shipped in the installed `ovos-number-parser` / `ovos-date-parser` — a ✅ here means a
+dedicated language module exists (`numbers_<code>.py` / `dates_<code>.py`), not that every
+phrasing is covered.
+
+| Language | Offline STT | Offline TTS | Number parser | Date parser |
+|----------|:---:|:---:|:---:|:---:|
+| en (US/GB/AU) | ✅ (US only) | ✅ | ✅ | ✅ |
+| de-DE | ✅ | ✅ | ✅ | ✅ |
+| fr-FR | ✅ | ✅ | ✅ | ✅ |
+| es-ES | ✅ | ✅ | ✅ | ✅ |
+| it-IT | ✅ | ✅ | ✅ | ✅ |
+| nl-NL | ✅ | ✅ | ✅ | ✅ |
+| pt-PT | ✅ | ⚠️ (male only) | ✅ | ✅ |
+| pt-BR | ❌ | ⚠️ (male only) | ✅ | ✅ |
+| ca-ES | ✅ | ✅ | ✅ | ✅ |
+| gl-ES | ✅ | ✅ | ✅ | ✅ |
+| eu-ES | ✅ | ⚠️ (female only) | ✅ | ✅ |
+| da-DK | ✅ | ⚠️ (male only) | ✅ | ✅ |
+
+Both the number and date parsers already cover far more languages than the bundled
+auto-configuration table above — including several with no offline STT/TTS recommendation
+yet (e.g. Arabic, Hebrew, Polish, Turkish, Ukrainian, Russian, and more). Parsing text is
+much cheaper to add a language module for than shipping a full speech model, so this column
+tends to run ahead of STT/TTS.
+
+!!! warning "pt-BR has no bundled offline STT"
+    Brazilian Portuguese is a widely-spoken variant with **no bundled offline speech-to-text
+    recommendation** at all — `ovos-config autoconfigure -l pt-br --offline` will skip STT
+    entirely. Use an online STT plugin, or configure a multilingual offline model (such as
+    Whisper) by hand until a dedicated recommendation is added.
+
 ---
 
 ## How to Improve Language Support
@@ -200,7 +247,7 @@ Use [OVOS Localize](https://openvoiceos.github.io/ovos-localize/) to translate d
 
 Translation stats for each language are also available in:
 
-- [Markdown summaries (e.g., `translate_status_pt.md`)](https://openvoiceos.github.io/lang-support-tracker/tx_info/translate_status_pt-PT.md)
+- [Markdown summaries (e.g., `translate_status_pt-PT.md`)](https://openvoiceos.github.io/lang-support-tracker/tx_info/translate_status_pt-PT.md)
 
 
 - [JSON format (e.g., `pt-PT.json`)](https://openvoiceos.github.io/lang-support-tracker/tx_info/pt-PT.json)

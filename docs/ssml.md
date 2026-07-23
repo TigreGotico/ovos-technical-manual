@@ -144,6 +144,19 @@ class MySkill(OVOSSkill):
 
 ## SSML Support in [TTS](tts-plugins.md) Plugins
 
+### Engines that support SSML
+
+Most [TTS plugins](tts-plugins.md) declare no SSML support at all. Two verified exceptions in the
+OVOS plugin set actually parse and act on SSML tags:
+
+| Plugin | Supported tags |
+|--------|----------------|
+| [ovos-tts-plugin-espeakNG](tts-plugins.md#ovos-tts-plugin-espeakng) | `speak`, `say-as`, `voice`, `prosody`, `break`, `emphasis`, `sub` |
+| [ovos-tts-plugin-polly](tts-plugins.md#ovos-tts-plugin-polly) | `speak`, `say-as`, `voice`, `prosody`, `break`, `emphasis`, `sub`, `lang`, `phoneme`, `w`, `whisper`, `p`, `s`, `mark`, plus the Amazon-specific `amazon:auto-breaths` and `amazon:effect` |
+
+For any other engine, SSML tags are stripped before synthesis (see below) — check a specific
+plugin's source for its `ssml_tags` list if you need to confirm support beyond these two.
+
 !!! tip "It is always safe to send SSML — even to engines that don't support it"
     **Most TTS engines do not support SSML.** That's fine: you can emit SSML from any skill
     without checking the engine first. The base `TTS` class **strips the tags before the engine

@@ -5,6 +5,25 @@
 
 Wake Word plugins allow Open Voice OS to detect specific words or sounds, typically the assistant’s name (e.g., "Hey Mycroft"), but can be customized for various use cases. These plugins enable the system to listen for and react to activation commands or phrases.
 
+!!! note "Audio format contract"
+    Wake-word plugins receive raw PCM from the [microphone plugin](mic-plugins.md#the-microphone-interface): **16 kHz sample rate, 16-bit samples, mono, little-endian**, delivered in **4096-byte chunks** by default.
+
+## Change your wake word
+
+1. Open `~/.config/mycroft/mycroft.conf` (create it if it doesn't exist).
+2. Add or edit the `listener.wake_word` key and a matching entry under `hotwords`:
+   ```json
+   {
+     "listener": { "wake_word": "hey_computer" },
+     "hotwords": {
+       "hey_computer": { "module": "ovos-ww-plugin-vosk", "listen": true }
+     }
+   }
+   ```
+3. Save the file — it's JSON (comments are allowed, `mycroft.conf` is parsed as JSONC).
+4. Restart OVOS for the change to take effect (however your deployment starts the services — e.g. re-run `ovos-core`, or restart the relevant systemd/container unit).
+5. Say the new phrase — the assistant now wakes on it instead of "hey mycroft".
+
 ## Available Plugins
 
 OVOS supports different wake word detection plugins, each with its own strengths and use cases
@@ -51,6 +70,15 @@ The `hotwords` section in your `mycroft.conf` allows you to configure the wakewo
 
 
 - **Precision and Sensitivity**: Adjust the `sensitivity` and `trigger_level` settings carefully. Too high a sensitivity can lead to false positives, while too low may miss detection.
+
+### `sensitivity` vs `trigger_level`
+
+These two settings work together in the model-based Precise plugins (`ovos-ww-plugin-precise-lite`, `ovos-ww-plugin-precise-onnx`):
+
+- **`sensitivity`** (float, 0.0–1.0, default `0.5`) sets how close a single audio chunk's model output has to be to "yes" before it counts as a match: a chunk counts as activated when its probability exceeds `1.0 - sensitivity`. Raising `sensitivity` makes each individual chunk easier to trigger (more false positives, more sensitive to the word).
+- **`trigger_level`** (int, default `3`) is a debounce counter: it's the number of consecutive activated chunks required before the wake word actually fires, so a single lucky chunk isn't enough. Raising `trigger_level` requires a longer sustained match (fewer false positives, but a slower/stricter detection).
+
+In short: `sensitivity` controls how easily *one* chunk counts as a hit; `trigger_level` controls how many hits in a row are needed to confirm the wake word.
 
 ## Plugin Development
 
@@ -109,16 +137,19 @@ class MyWWPlugin(HotWordEngine):
 
 ```
 
-# WW Plugins Reference
+## WW Plugins Reference
 
-| Plugin | Description |
-|--------|-------------|
-| [ovos-ww-plugin-openWakeWord](#ovos-ww-plugin-openwakeword) | Wake-word detection using the open-source openWakeWord neural models. |
-| [ovos-ww-plugin-vosk](#ovos-ww-plugin-vosk) | Mycroft wake word plugin for [Vosk](https://alphacephei.com/vosk/) |
-| [ovos-ww-plugin-precise-onnx](#ovos-ww-plugin-precise-onnx) | ONNX-exported Precise wake word model, an alternative to the TFLite-based default. |
-| [ovos-ww-plugin-wakewordlab](https://github.com/OpenVoiceOS/ovos-ww-plugin-wakewordlab) | Compact (~240 KB) neural wake-word models with a Silero VAD pre-filter (`.wkw`/`.onnx`). **Not yet on PyPI** — install from source. |
-| [ovos-ww-plugin-wakeforge](https://github.com/OpenVoiceOS/ovos-ww-plugin-wakeforge) | Runs custom wake-word models trained with [wakeforge](https://github.com/TigreGotico/wakeforge) — train a detector from a single phrase, export a two-file model. **Not yet on PyPI** — install from source. |
-| [ovos-ww-plugin-server](https://github.com/OpenVoiceOS/ovos-ww-plugin-server) | Remote wake-word detection: streams audio to an [ovos-ww-server](https://github.com/OpenVoiceOS/ovos-ww-server) instance (offload detection from a thin satellite). **Not yet on PyPI** — install from source. |
+Code license is the SPDX license of the plugin's own repository; where the plugin wraps a
+separately-licensed model, that is called out under "model".
+
+| Plugin | Description | License |
+|--------|-------------|---------|
+| [ovos-ww-plugin-openWakeWord](#ovos-ww-plugin-openwakeword) | Wake-word detection using the open-source openWakeWord neural models. | Apache-2.0 (model: see model card) |
+| [ovos-ww-plugin-vosk](#ovos-ww-plugin-vosk) | Mycroft wake word plugin for [Vosk](https://alphacephei.com/vosk/) | Apache-2.0 (model: see model card) |
+| [ovos-ww-plugin-precise-onnx](#ovos-ww-plugin-precise-onnx) | ONNX-exported Precise wake word model, an alternative to the TFLite-based default. | Apache-2.0 |
+| [ovos-ww-plugin-wakewordlab](https://github.com/OpenVoiceOS/ovos-ww-plugin-wakewordlab) | Compact (~240 KB) neural wake-word models with a Silero VAD pre-filter (`.wkw`/`.onnx`). **Not yet on PyPI** — install from source. | see repo (no license file) |
+| [ovos-ww-plugin-wakeforge](https://github.com/OpenVoiceOS/ovos-ww-plugin-wakeforge) | Runs custom wake-word models trained with [wakeforge](https://github.com/TigreGotico/wakeforge) — train a detector from a single phrase, export a two-file model. **Not yet on PyPI** — install from source. | Apache-2.0 |
+| [ovos-ww-plugin-server](https://github.com/OpenVoiceOS/ovos-ww-plugin-server) | Remote wake-word detection: streams audio to an [ovos-ww-server](https://github.com/OpenVoiceOS/ovos-ww-server) instance (offload detection from a thin satellite). **Not yet on PyPI** — install from source. | Apache-2.0 |
 
 ## ovos-ww-plugin-openWakeWord
 
