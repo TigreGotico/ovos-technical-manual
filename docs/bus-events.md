@@ -122,6 +122,7 @@ Handled by `ovos-audio`; see [Audio Service](audio-service.md).
 | `mycroft.audio.play_sound` | Play a sound effect / audio file instantly |
 | `mycroft.audio.speech.stop` | Interrupt in-progress TTS speech (emitted by the [`@intent_handler(..., stop_tts=True)`](decorators.md) decorator, among others) |
 | `mycroft.audio.service.play` | Legacy media audioservice: play a track (only relevant when `enable_old_audioservice` is on) |
+| `recognizer_loop:utterance_start` | Emitted by the playback thread right before spoken audio starts playing. An in-progress change ([ovos-audio#146](https://github.com/OpenVoiceOS/ovos-audio/pull/146)) will add a `duration` field to its payload — **Upcoming**. |
 
 ## GUI forwarding
 

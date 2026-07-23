@@ -244,6 +244,10 @@ docker run -p 9666:9666 my-ovos-tts
 Pre-built containers are also available via the [ovos-docker-tts](https://github.com/OpenVoiceOS/ovos-docker-tts)
 repository.
 
+!!! note "Upcoming — Docker Compose"
+    A default Docker Compose setup and custom-container documentation are in progress
+    ([ovos-tts-server#101](https://github.com/OpenVoiceOS/ovos-tts-server/pull/101)).
+
 ---
 
 ## Tips & Caveats

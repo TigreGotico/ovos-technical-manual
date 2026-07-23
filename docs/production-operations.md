@@ -170,6 +170,12 @@ ready_sound: false   # don't play a ready chime either
 `network`/`internet`/`gui_connected` are also accepted `ready_settings` entries, and any
 service exposing an OVOS `ProcessStatus` (including `PHAL`) can be named by its status key.
 
+!!! note "Upcoming — a bundled health check script"
+    A ready-to-use OVOS health check script for the `ovos-installer` is in progress
+    ([ovos-installer#542](https://github.com/OpenVoiceOS/ovos-installer/pull/542)), covering
+    the same "is the assistant actually ready" question as the readiness probe above without
+    writing your own.
+
 ---
 
 ## Log locations and shipping them out

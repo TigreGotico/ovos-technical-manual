@@ -152,3 +152,17 @@ The `*_context` events mutate the per-session intent context (`session.intent_co
 | `intent.service.intent.get` | `handle_get_intent` |
 | `intent.service.skills.deactivate` | `_handle_deactivate` |
 | `intent.service.pipelines.reload` | `handle_reload_pipelines` |
+
+!!! note "Upcoming — INTENT-4 registration topics"
+    An in-progress change ([ovos-workshop#431](https://github.com/OpenVoiceOS/ovos-workshop/pull/431))
+    will make skills dual-emit their intent/entity registration on the canonical
+    [OVOS-INTENT-4](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md) bus topics
+    alongside the legacy `register_intent`/`register_vocab` events, so pipeline plugins can
+    migrate to the spec topics without breaking skills still on the legacy events.
+
+!!! note "Upcoming — reserved `intent_name` values"
+    An in-progress change ([ovos-core#802](https://github.com/OpenVoiceOS/ovos-core/pull/802))
+    formalizes `stop` as a reserved `intent_name` per
+    [OVOS-PIPELINE-1 §7.3](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md),
+    alongside a separable legacy-compatibility bridge for existing consumers. See
+    [Converse](converse.md) for how reserved names interact with converse/context handling.

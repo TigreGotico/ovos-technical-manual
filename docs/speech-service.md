@@ -84,6 +84,7 @@ Canonical (spec) names are shown first, with the legacy name current code still 
 | `ovos.listener.record.ended` (legacy: `recognizer_loop:record_end`) | none | Command recording ended (§6.2) |
 | `recognizer_loop:wakeword` | `{"utterance", "lang"}` | Wake word fired (implementation event; not respecified by AUDIO-IN-1 §6) |
 | `ovos.utterance.handle` (legacy: `recognizer_loop:utterance`) | `{"utterances": [str], "lang"}` | Transcribed command — the main result (§5, OVOS-PIPELINE-1 §9.1) |
+| — | `duration` (**Upcoming**) | An in-progress change ([ovos-dinkum-listener#215](https://github.com/OpenVoiceOS/ovos-dinkum-listener/pull/215)) will add an audio-duration field to this message's payload. |
 | `recognizer_loop:speech.recognition.unknown` | none | STT returned nothing (silence / failure) |
 | `ovos.listener.awoken` (legacy: `mycroft.awoken`) | none | Listener woke from sleep (§6.4) |
 

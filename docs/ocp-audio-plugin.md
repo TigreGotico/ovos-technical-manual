@@ -79,6 +79,11 @@ The OCP audio plugin is **still the default media playback path**:
 So unless you have explicitly switched to `ovos-media`, your OVOS device is playing media through
 this plugin.
 
+!!! warning "Upcoming — breaking"
+    This legacy audioservice subsystem — including the OCP backend described on this page —
+    is planned for removal from `ovos-audio` entirely. Media playback will then live wholly
+    in [`ovos-media`](ovos-media.md); plan a migration if you have not already switched.
+
 ---
 
 ## Configuration

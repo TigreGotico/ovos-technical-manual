@@ -163,6 +163,10 @@ ovos-config autoconfigure -l fr-fr --hybrid --female
 
 The recommendations are data-driven: they come from per-language `*.conf` files bundled in `ovos-config` (`recommends/`), so the exact models depend on your installed version. See [`ovos-config`](config.md) for full options.
 
+The bundled offline recommendations use [`ovos-stt-plugin-onnx-asr`](stt-plugins.md#ovos-stt-plugin-onnx-asr)
+for STT and [`ovos-tts-plugin-phoonnx`](tts-plugins.md#ovos-tts-plugin-phoonnx) for TTS — the
+table below shows the exact per-language model/voice picked for each.
+
 ### Flags
 
 | Flag | Meaning |
@@ -187,28 +191,31 @@ After writing the config it lists the installed STT/TTS plugins and warns about 
 > The table below is a snapshot of the bundled recommendations. The authoritative list is whatever `recommends/base/*.conf`, `recommends/offline_stt/*.conf`, and related files ship in your installed `ovos-config`.
 
 Plainly: a few widely-spoken variants still have real gaps in the bundled recommendations.
-**pt-BR** has no bundled offline STT recommendation at all — you'll need to configure an
-online plugin or pick a multilingual offline model (e.g. Whisper) by hand. **en-AU** has no
-bundled offline recommendation on either side. Several regional voices are one-gender-only
-offline (e.g. **pt-PT** and **da-DK** ship no offline female voice, **eu-ES** and **gl-ES**
-ship no offline male voice) — the missing gender still works, just via an online plugin or a
-manually-configured model.
+**en-GB** and **pt-BR** have no bundled offline STT recommendation at all — you'll need to
+configure an online plugin or pick a multilingual offline model (e.g. Whisper) by hand.
+**en-AU** has no bundled offline recommendation on either side. Several regional voices are
+one-gender-only offline (e.g. **pt-PT** and **da-DK** ship no offline female voice) — the
+missing gender still works, just via an online plugin or a manually-configured model.
 
-| Language | Offline STT | Offline TTS (Male) | Offline TTS (Female) |
+All bundled offline STT recommendations use `ovos-stt-plugin-onnx-asr` and all bundled
+offline TTS recommendations use `ovos-tts-plugin-phoonnx`; the table shows the model/voice
+each language is configured with.
+
+| Language | Offline STT model | Offline TTS voice (Male) | Offline TTS voice (Female) |
 |----------|-------------|---------------------|---------------------|
-| **en-US** | `ovos-stt-plugin-fasterwhisper` (`small.en`) | `ovos-tts-plugin-piper` (ryan-low) | `ovos-tts-plugin-piper` (amy-low) |
-| **en-GB** | — | `ovos-tts-plugin-piper` (alan-low) | `ovos-tts-plugin-piper` (alba-medium) |
-| **de-DE** | `ovos-stt-plugin-citrinet` (de) | `ovos-tts-plugin-piper` (thorsten-low) | `ovos-tts-plugin-piper` (ramona-low) |
-| **fr-FR** | `ovos-stt-plugin-citrinet` (fr) | `ovos-tts-plugin-piper` (gilles-low) | `ovos-tts-plugin-piper` (siwis-low) |
-| **es-ES** | `ovos-stt-plugin-fasterwhisper-zuazo` (es, base) | `ovos-tts-plugin-piper` (carlfm-x_low) | `ovos-tts-plugin-ahotts` |
-| **it-IT** | `ovos-stt-plugin-citrinet` (it) | `ovos-tts-plugin-piper` (riccardo-x_low) | `ovos-tts-plugin-piper` (paola-medium) |
-| **nl-NL** | `ovos-stt-plugin-citrinet` (nl) | `ovos-tts-plugin-piper` (ronnie-medium) | `ovos-tts-plugin-piper` (nathalie-medium) |
-| **pt-PT** | `ovos-stt-plugin-fasterwhisper` (custom model) | `ovos-tts-plugin-piper` (tugão-medium) | — |
-| **pt-BR** | — | `ovos-tts-plugin-piper` (faber-medium) | — |
-| **ca-ES** | `ovos-stt-plugin-citrinet` (ca) | `ovos-tts-plugin-matxa-multispeaker-cat` (grau) | `ovos-tts-plugin-matxa-multispeaker-cat` (elia) |
-| **gl-ES** | `ovos-stt-plugin-fasterwhisper-zuazo` (gl, base) | `ovos-tts-plugin-cotovia` (iago) | `ovos-tts-plugin-nos` (celtia) |
-| **eu-ES** | `ovos-stt-plugin-fasterwhisper-zuazo` (eu, base) | — | `ovos-tts-plugin-ahotts` |
-| **da-DK** | `ovos-stt-plugin-fasterwhisper` (small) | `ovos-tts-plugin-piper` (nst_talesyntese-medium) | — |
+| **en-US** | `nemo-parakeet-tdt-0.6b-v3` (int8) | `OpenVoiceOS/pipertts_en-US_miro` | `OpenVoiceOS/pipertts_en-GB_dii` |
+| **en-GB** | — | `OpenVoiceOS/pipertts_en-GB_miro` | `OpenVoiceOS/pipertts_en-GB_dii` |
+| **de-DE** | `nemo-parakeet-tdt-0.6b-v3` (int8) | `OpenVoiceOS/pipertts_de-DE_miro` | `OpenVoiceOS/pipertts_de-DE_dii` |
+| **fr-FR** | `nemo-parakeet-tdt-0.6b-v3` (int8) | `OpenVoiceOS/pipertts_fr-FR_miro` | `piper/fr_FR-siwis-medium` |
+| **es-ES** | `OpenVoiceOS/parakeet-rnnt-1.1b-cv17-es-ep18-1270h-onnx` | `OpenVoiceOS/pipertts_es-ES_miro` | `OpenVoiceOS/phoonnx_es-ES_dii_espeak` |
+| **it-IT** | `nemo-parakeet-tdt-0.6b-v3` (int8) | `OpenVoiceOS/pipertts_it-IT_miro` | `OpenVoiceOS/pipertts_it-IT_dii` |
+| **nl-NL** | `nemo-parakeet-tdt-0.6b-v3` (int8) | `OpenVoiceOS/pipertts_nl-NL_miro` | `OpenVoiceOS/pipertts_nl-NL_dii` |
+| **pt-PT** | `OpenVoiceOS/whisper-medium-pt-onnx` | `OpenVoiceOS/pipertts_pt-PT_miro` | `OpenVoiceOS/pipertts_pt-PT_dii` |
+| **pt-BR** | — | `OpenVoiceOS/pipertts_pt-BR_miro` | `OpenVoiceOS/pipertts_pt-BR_dii` |
+| **ca-ES** | `OpenVoiceOS/stt-ca-es-conformer-transducer-large-onnx` | `OpenVoiceOS/matxa-cat-multiaccent-wavenext` (speaker 2) | `OpenVoiceOS/matxa-cat-multiaccent-wavenext` (speaker 3) |
+| **gl-ES** | `onnx-community/whisper-large-v3-turbo` (int8) | `OpenVoiceOS/phoonnx_gl-ES_miro_unicode` | `proxectonos/celtia` |
+| **eu-ES** | `OpenVoiceOS/stt-eu-conformer-transducer-large-onnx` | `OpenVoiceOS/phoonnx_eu-ES_miro_espeak` | `OpenVoiceOS/phoonnx_eu-ES_dii_espeak` |
+| **da-DK** | `nemo-parakeet-tdt-0.6b-v3` (int8) | `OpenVoiceOS/phoonnx_da-DK_miro_espeak` | — |
 | **en-AU** | — | — | — |
 
 !!! note

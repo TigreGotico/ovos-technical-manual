@@ -250,6 +250,10 @@ docker build . -t my-translate-server
 docker run -p 9686:9686 my-translate-server
 ```
 
+!!! note "Upcoming — Docker Compose"
+    A default Docker Compose setup and custom-container documentation are in progress
+    ([ovos-translate-server#33](https://github.com/OpenVoiceOS/ovos-translate-server/pull/33)).
+
 ---
 
 ## Gotchas

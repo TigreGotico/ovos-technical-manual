@@ -6,6 +6,12 @@
 ??? info "📐 Formal specification"
     Converse is specified by **[OVOS-CONVERSE-1 — Active Handlers & Interactive Response](https://github.com/OpenVoiceOS/architecture/blob/dev/converse.md)** (a formal [architecture spec](architecture-specs.md)). A skill that was recently active stays on the session's **converse-handler list** (`session.converse_handlers` — what this page calls the *Active Skills List*); a **converse pipeline plugin** polls each eligible handler with a `<skill_id>.converse.ping` / `.pong` round-trip and, when one claims, returns a `Match` on the reserved `intent_name` **`converse`**, which the orchestrator dispatches to `<skill_id>:converse`. The "wait for the next reply" feature (the response window) is the session field `session.response_mode`, delivered via the reserved `intent_name` **`response`**. Both `converse` and `response` are reserved names no skill may register. The list and the response window are **session-resident state** that rides every message — which is why session-aware skills behave correctly across satellites.
 
+!!! note "Upcoming — `stop` joins the reserved names"
+    An in-progress change ([ovos-core#802](https://github.com/OpenVoiceOS/ovos-core/pull/802))
+    formalizes `stop` as a third reserved `intent_name`, alongside `converse` and `response`,
+    with a separable legacy-compatibility bridge for existing consumers. See
+    [Intent Service](intent-service.md) for the pipeline-plugin side of this change.
+
 **What / why (beginners):** `converse()` lets a skill keep listening *after* it has just spoken, without registering a new intent for every possible follow-up. Once your skill runs, it goes onto the **Active Skills List** for a few minutes; while it is there, every new utterance is offered to its `converse()` method *before* normal intent parsing. This is how you handle "yes / no / thanks / the red one" replies that only make sense right after your skill acted.
 
 Each [Skill](skill-design-guidelines.md) may define a `converse()` method. This method is called any time the Skill has been recently active and a new utterance is processed.

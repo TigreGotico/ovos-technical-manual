@@ -26,6 +26,12 @@
     Switching media playback to `ovos-media` (`enable_old_audioservice: false`) turns off
     subsystem 2 only — TTS and sound playback (subsystem 1) keep working exactly as before.
 
+!!! warning "Upcoming — breaking"
+    The legacy media audioservice subsystem (subsystem 2 above, including the
+    [OCP audioservice backend](ocp-audio-plugin.md)) is planned for removal from
+    `ovos-audio` entirely. Media playback will then live wholly in [`ovos-media`](ovos-media.md).
+    The TTS / sound playback queue (subsystem 1) is unaffected.
+
 ---
 
 ??? abstract "Technical Reference"
@@ -104,6 +110,6 @@ Settings for the audio service are located in the `tts` and `Audio` sections of 
 
 ## Related Pages
 
-- [Bus Events Reference](bus-events.md#tts-audio-playback) — TTS/audio message types alongside the rest of the utterance lifecycle
+- [Bus Events Reference](bus-events.md#tts-audio-playback) — TTS/audio message types alongside the rest of the utterance lifecycle, including `recognizer_loop:utterance_start` emitted here when playback begins
 - [TTS Plugins](tts-plugins.md) — the plugins this service loads
 - [Bus Service](bus-service.md) — the messagebus itself

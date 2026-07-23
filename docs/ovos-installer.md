@@ -404,6 +404,12 @@ Don't panic! If the installer fails, it will generate a log file and upload it t
 
 OVOS is a community-driven project, maintained by passionate volunteers. Your feedback, bug reports, and patience are truly appreciated.
 
+!!! note "Upcoming — a bundled health check script"
+    A ready-to-use OVOS health check script is in progress
+    ([ovos-installer#542](https://github.com/OpenVoiceOS/ovos-installer/pull/542)). See
+    [Production Operations](production-operations.md#knowing-when-the-assistant-is-actually-ready)
+    for the readiness-probe pattern it will wrap.
+
 ## Further reading
 
 - [Boring installs, now on macOS (Intel + Apple Silicon)](https://blog.openvoiceos.org/posts/2026-03-05-ovos-installer-macos-intel-apple-silicon) — OVOS blog

@@ -430,6 +430,12 @@ For interactively inspecting every message flowing across the bus (useful when a
 isn't behaving as expected), run `ovos-busmon` — a terminal viewer for live bus traffic. It
 subscribes like any other client and prints each message as it is broadcast.
 
+!!! note "Upcoming — `AsyncMessageBusClient`"
+    An in-progress change ([ovos-bus-client#200](https://github.com/OpenVoiceOS/ovos-bus-client/pull/200))
+    adds an async/await-native `AsyncMessageBusClient` alongside the threaded `MessageBusClient`
+    used in the recipes above, for callers already running an asyncio event loop (e.g. FastAPI
+    servers) that would rather avoid a background thread.
+
 ---
 
 ## Related Pages
