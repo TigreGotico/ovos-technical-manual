@@ -221,7 +221,7 @@ Translation coverage alone does not ensure accuracy. Native speakers are encoura
 
 You can help by **enabling open data collection** in your OVOS instance by pointing `intent_urls` at a reporting server:
 
-```json
+```jsonc
 "open_data": {
   "intent_urls": [
     "https://your-opendata-server.example.com/intents"

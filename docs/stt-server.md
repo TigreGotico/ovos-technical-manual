@@ -129,7 +129,7 @@ pip install ovos-stt-plugin-server
 
 **Configure**  
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-server",
     "ovos-stt-plugin-server": {
@@ -142,7 +142,7 @@ pip install ovos-stt-plugin-server
 
 for audio language detection
 
-```json
+```jsonc
   "listener": {
     "audio_transformers": {
         "ovos-audio-lang-server-plugin": {

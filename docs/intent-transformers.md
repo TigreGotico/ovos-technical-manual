@@ -44,7 +44,7 @@ A transformer is loaded only if its plugin name appears under `intent_transforme
 
 To enable or disable specific transformers, modify your `mycroft.conf`:
 
-```json
+```jsonc
 "intent_transformers": {
   "ovos-keyword-template-matcher": {
     "active": true

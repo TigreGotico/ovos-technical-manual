@@ -30,7 +30,7 @@ Dialog transformers run inside the **ovos-audio** service, in the `speak` handli
 
 To enable dialog transformers, add them to your `mycroft.conf` file under the `dialog_transformers` section:
 
-```json
+```jsonc
 "dialog_transformers": {
   "plugin_name": {
     // plugin-specific configuration
@@ -68,7 +68,7 @@ pip install ovos-dialog-normalizer-plugin
 
 * **Configuration**:
 
-```json
+```jsonc
 "dialog_transformers": {
   "ovos-dialog-normalizer-plugin": {}
 }
@@ -105,7 +105,7 @@ pip install ovos-openai-plugin
 
 * **Configuration**:
 
-```json
+```jsonc
 "dialog_transformers": {
     "ovos-dialog-transformer-openai-plugin": {
       "rewrite_prompt": "Explain like I'm five"
@@ -141,7 +141,7 @@ pip install ovos-bidirectional-translation-plugin
 
 * **Configuration** (the dialog half registers under the entry-point name `ovos-dialog-translation-plugin`):
 
-```json
+```jsonc
 "dialog_transformers": {
     "ovos-dialog-translation-plugin": {}
 }
@@ -191,7 +191,7 @@ In your `pyproject.toml`, expose the class under the `opm.transformer.dialog` en
 **Install and Configure**:
 After installation, add your transformer to the `mycroft.conf`:
 
-```json
+```jsonc
 "dialog_transformers": {
   "my-custom-transformer": {}
 }

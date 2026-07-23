@@ -29,7 +29,7 @@ without model training.
 
 The `hotwords` section in your `mycroft.conf` allows you to configure the wakeword detection parameters for each plugin. For instance:
 
-```json
+```jsonc
 "hotwords": {
   "hey_mycroft": {
     "module": "ovos-ww-plugin-precise-lite",
@@ -138,7 +138,7 @@ class MyWWPlugin(HotWordEngine):
 
 ### Default Configuration
 
-```json
+```jsonc
   "listener": {
     "wake_word": "hey_computer"
   },
@@ -162,7 +162,7 @@ class MyWWPlugin(HotWordEngine):
 
 ### Default Configuration
 
-```json
+```jsonc
 "listener": {
   "wake_word": "hey_mycroft"
 },

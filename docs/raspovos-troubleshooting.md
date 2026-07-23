@@ -507,7 +507,7 @@ Some wake words are hard to trigger, especially if missing from the language mod
 
 example for "hey  computer"
 
-```json
+```jsonc
   "listener": {
     "wake_word": "hey_computer"
   },

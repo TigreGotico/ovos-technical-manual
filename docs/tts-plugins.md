@@ -161,7 +161,7 @@ MyTTSConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "tts": {
     "module": "ovos-tts-plugin-google-tx"
   }
@@ -189,7 +189,7 @@ MyTTSConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "tts": {
     "module": "ovos-tts-plugin-matxa-multispeaker-cat",
     "ovos-tts-plugin-matxa-multispeaker-cat": {
@@ -210,7 +210,7 @@ MyTTSConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
 "tts": {
     "module": "ovos-tts-plugin-marytts",
     "ovos-tts-plugin-marytts": {
@@ -250,7 +250,7 @@ MyTTSConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "tts": {
     "module": "ovos-tts-plugin-cotovia",
     "ovos-tts-plugin-cotovia": {
@@ -272,7 +272,7 @@ MyTTSConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "tts": {
     "module": "ovos-tts-plugin-mimic",
     "ovos-tts-plugin-mimic": {
@@ -302,13 +302,13 @@ MyTTSConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
 "tts": {
     "module": "ovos-tts-plugin-azure",
     "ovos-tts-plugin-azure": {
         "api_key": "insert_your_key_here",
-        "voice": "en-US-JennyNeural",  # optional, default "en-US-Guy24kRUS"
-        "region": "westus" # optional, if your region is westus
+        "voice": "en-US-JennyNeural",  // optional, default "en-US-Guy24kRUS"
+        "region": "westus" // optional, if your region is westus
     }
 }
 
@@ -325,7 +325,7 @@ MyTTSConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "tts": {
     "module": "ovos-tts-plugin-ahotts",
     "ovos-tts-plugin-ahotts": {
@@ -346,7 +346,7 @@ MyTTSConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "tts": {
     "module": "ovos-tts-plugin-server",
     "ovos-tts-plugin-server": {
@@ -370,7 +370,7 @@ MyTTSConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "tts": {
     "module": "ovos-tts-plugin-coqui",
     "ovos-tts-plugin-coqui": {}
@@ -399,7 +399,7 @@ MyTTSConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "tts": {
     "module": "ovos-tts-plugin-phoonnx",
     "ovos-tts-plugin-phoonnx": {

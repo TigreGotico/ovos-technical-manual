@@ -40,7 +40,7 @@ They run inside the **ovos-audio** service, in the playback path: once the TTS e
 
 To enable TTS Transformers, add them to your `mycroft.conf` under the `tts_transformers` section:
 
-```json
+```jsonc
 "tts_transformers": {
   "plugin_name": {
     // plugin-specific configuration
@@ -90,7 +90,7 @@ Replace `"plugin_name"` with the identifier of the desired plugin and provide an
 
 * **Configuration Example**:
 
-```json
+```jsonc
   "tts_transformers": {
     "ovos-tts-transformer-sox-plugin": {
       "default_effects": {
@@ -130,7 +130,7 @@ Torch at runtime) and picks between `novasr` (default), `lavasr`, and `hifiganbw
 config; if audio is already 48 kHz, or the model/weights are unavailable, it returns the
 original audio unchanged so synthesis never breaks.
 
-```json
+```jsonc
 "tts_transformers": {
   "ovos-tts-transformer-audiosr": {"engine": "novasr"}
 }
@@ -176,7 +176,7 @@ Expose the class under the `opm.transformer.tts` entry-point group in your `pypr
 **Install and Configure**:
 After installation, add your transformer to the `mycroft.conf`:
 
-```json
+```jsonc
 "tts_transformers": {
  "my-custom-tts-transformer": {}
 }
