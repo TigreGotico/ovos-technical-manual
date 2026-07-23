@@ -12,6 +12,8 @@ json: []
 # accepted standalone or wrapped in `{ }` as a fragment.
 
 python_imports:
+  - module: ovos_media_classifier
+    reason: "docs/media-plugins.md references ovos-media-classifier (real top-level exports KeywordMediaClassifier/load_media_classifier, verified); optional package not in the minimal CI python-imports install set."
   - module: ovos_stt_plugin_vosk
     reason: >
       docs/stt-plugins.md's standalone example imports VoskKaldiSTT from the
