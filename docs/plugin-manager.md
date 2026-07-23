@@ -78,7 +78,8 @@ The entry point group is the canonical identifier used in `setup.py` / `pyprojec
 
 !!! warning "Upcoming — unreleased"
     A dedicated GUI-adapter plugin type (entry point `opm.gui_adapter`, base class
-    `AbstractGUIPlugin`) is in development.
+    `AbstractGUIPlugin`) is in development. Tracked in
+    [ovos-plugin-manager#377](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/377).
     Until it lands, the current GUI plugin type is `opm.gui` (`GUIExtension`).
 
 ### Transformer Plugins

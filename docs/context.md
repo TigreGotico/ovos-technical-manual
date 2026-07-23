@@ -112,11 +112,11 @@ The context is limited by the keywords provided by the **current** Skill.
 There is also `self.set_cross_skill_context` / `self.remove_cross_skill_context`, intended
 to share a keyword with **other** Skills as well.
 
-!!! warning "Cross-skill context is not wired up"
-    `set_cross_skill_context` emits the `mycroft.skill.set_cross_context` bus message,
-    but no consumer for it currently exists in `ovos-core`, so on current releases it is
-    effectively a no-op. Prefer per-skill `set_context` (or inject shared values into the
-    Session context directly). The example below documents the intended behaviour.
+`set_cross_skill_context` emits the `mycroft.skill.set_cross_context` bus
+message; every loaded `OVOSSkill` subscribes to it (and to the matching
+`mycroft.skill.remove_cross_context`) and re-applies the keyword under its
+own namespace, which is how it becomes visible to other skills' context
+gates.
 
 ```python
     @intent_handler(IntentBuilder().require(PythonPerson).require(WhereFrom))

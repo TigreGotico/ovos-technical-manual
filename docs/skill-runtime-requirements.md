@@ -121,17 +121,14 @@ Any other name is treated generically: the skill waits for a `mycroft.<name>.is_
 
 Skills are loaded only when their specific requirements are met. This optimization prevents unnecessary loading, conserving system resources and ensuring a more efficient skill environment.
 
-!!! warning "Unloading on lost connectivity is not implemented"
-    `requires_internet`, `requires_network`, and `requires_gui` describe the
-    *intent* — a skill that should stop working once a resource disappears —
-    but the corresponding unload logic in `ovos-core`'s `SkillManager`
-    (`_unload_on_internet_disconnect`, `_unload_on_network_disconnect`,
-    `_unload_on_gui_disconnect`) is not yet implemented; skills currently stay
-    loaded even after the resource they depend on disappears. Only the
-    **before-load** gating (deferring load until a resource is available) is
-    active today. Don't rely on automatic unloading — if your skill truly
-    cannot function without a resource, check for it defensively at the top
-    of your intent handlers.
+`requires_internet`, `requires_network`, and `requires_gui` describe both
+sides of the skill's lifecycle: the **before-load** gate (deferring load
+until the resource is available) and the matching **unload** behavior once
+the skill is running. When a required resource disappears, `ovos-core`'s
+`SkillManager` unloads the skill (`_unload_on_internet_disconnect`,
+`_unload_on_network_disconnect`, `_unload_on_gui_disconnect`), unless the
+skill has declared the corresponding `no_*_fallback` flag to keep running
+without it.
 
 ---
 
@@ -146,12 +143,12 @@ The `RuntimeRequirements` class property allows skill developers to declare when
 | Field                 | Description |
 |----------------------|-------------|
 | `internet_before_load` | Wait for internet before loading |
-| `requires_internet`     | Declares the skill needs internet to work (unload-on-loss is not yet implemented, see warning above) |
+| `requires_internet`     | Declares the skill needs internet to work (unloaded if internet is lost, unless `no_internet_fallback` is set) |
 | `no_internet_fallback` | Declares the skill can keep working without internet |
 | `network_before_load`  | Wait for network before loading |
-| `requires_network`     | Declares the skill needs network to work (unload-on-loss is not yet implemented) |
+| `requires_network`     | Declares the skill needs network to work (unloaded if network is lost, unless `no_network_fallback` is set) |
 | `gui_before_load`      | Wait for GUI before loading |
-| `requires_gui`         | Declares the skill needs a GUI to work (unload-on-loss is not yet implemented) |
+| `requires_gui`         | Declares the skill needs a GUI to work (unloaded if the GUI is lost, unless `no_gui_fallback` is set) |
 | `no_gui_fallback`      | Declares the skill can keep working without a GUI |
 
 > 🧠 Uses `@classproperty` so the system can evaluate the requirements without loading the skill.
@@ -195,7 +192,7 @@ In this example, an online search skill with a local cache is defined. The skill
 both loading and runtime. If the internet is not available, the skill won't load. Once loaded, the skill continues to
 require internet connectivity.
 
-Our skill keeps a cache of previous results, so it declares it can handle internet outages via `no_internet_fallback=True` — a statement of intent for future unload logic (see the warning above about the current state of unloading).
+Our skill keeps a cache of previous results, so it declares it can handle internet outages via `no_internet_fallback=True` — this keeps the skill loaded (rather than unloaded) if internet later goes away.
 
 ```python
 from ovos_utils import classproperty
@@ -231,7 +228,7 @@ safe to utilize network resources on initialization.
 In this example, an IOT skill controlling devices via LAN is defined. The skill requires network connectivity during
 loading, and if the network is not available, it won't load.
 
-`no_network_fallback=False` states the skill cannot cope without network — again a declaration of intent for future unload logic.
+`no_network_fallback=False` states the skill cannot cope without network, so it will be unloaded if network connectivity is lost.
 
 ```python
 from ovos_utils import classproperty
@@ -263,7 +260,7 @@ Consider a skill with both graphical user interface (GUI) and internet dependenc
 
 The skill requires both GUI availability and internet connectivity during loading — if either is not available, the skill won't load.
 
-If the user asks "show me the picture of the day" and we have both internet and a GUI, our skill will match the intent. If we do not have internet but have a GUI, the skill can still operate using a cached picture — that's what `no_internet_fallback=True` communicates, even though the framework does not yet act on it after load (see the warning above).
+If the user asks "show me the picture of the day" and we have both internet and a GUI, our skill will match the intent. If we do not have internet but have a GUI, the skill can still operate using a cached picture — that's what `no_internet_fallback=True` communicates: the skill stays loaded rather than being unloaded when internet later disappears.
 
 ```python
 from ovos_utils import classproperty

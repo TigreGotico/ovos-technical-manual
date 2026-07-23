@@ -11,7 +11,12 @@
 
 !!! warning "Upcoming — unreleased"
     This whole page describes the **GUI-rendering rework**, which is **not yet released**.
-    Nothing here is available on a stable install, and the pieces are at different stages:
+    Nothing here is available on a stable install, and the pieces are at different stages.
+    Tracked in [ovos-plugin-manager#377](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/377) (`AbstractGUIPlugin`),
+    [ovos-gui#112](https://github.com/OpenVoiceOS/ovos-gui/pull/112) (adapter/template rework landing),
+    [ovos-gui#117](https://github.com/OpenVoiceOS/ovos-gui/pull/117) (OVOS-GUI-1 service conformance),
+    [ovos-bus-client#238](https://github.com/OpenVoiceOS/ovos-bus-client/pull/238) (GUI-1-conformant wire shapes), and
+    [ovos-legacy-mycroft-gui-plugin#3](https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3) (adapter conforms to the session_id-only contract):
 
     - `ovos-gui-api-client` — a template-based `GUIInterface` already exists and works today.
     - `ovos-legacy-mycroft-gui-plugin` and `ovos-gui-plugin-pyhtmx` (repo `pyhtmx-gui-client`)

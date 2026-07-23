@@ -339,7 +339,8 @@ A separate, drop-in Rust implementation exists as its own project for deployment
     optional alternatives, benchmarked side by side with `benchmark/run_benchmark.py` at four
     load levels (5 / 20 / 50 / 100 concurrent clients):
 
-    - **webrockets** — a high-performance websocket backend, written in Python.
+    - **webrockets** — a high-performance websocket backend, written in Python. Tracked in
+      [ovos-messagebus#51](https://github.com/OpenVoiceOS/ovos-messagebus/pull/51).
     - **Rust** — the [`ovos-rust-messagebus`](https://github.com/OscillateLabsLLC/ovos-rust-messagebus)
       v1.1.2 server, run in place of the Python process.
 

@@ -81,7 +81,8 @@ Select a homescreen skill in `mycroft.conf` (or via [ovos-shell](ovos-shell.md))
     below (`@resting_screen_handler`, `homescreen_app`, and the `IdleDisplaySkill` base class)
     is therefore being **removed** from `ovos-workshop` (a planned breaking change). The resting
     display moves into the [GUI plugin / render backend](gui-adapters.md). This still works on
-    current releases; it is documented here for existing skills.
+    current releases; it is documented here for existing skills. Tracked in
+    [ovos-workshop#421](https://github.com/OpenVoiceOS/ovos-workshop/pull/421).
 
 The resting face API provides skill authors the ability to extend their skills to supply their own customized IDLE screens that will be displayed when there is no activity on the screen.
 

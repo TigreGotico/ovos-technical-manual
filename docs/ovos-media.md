@@ -46,6 +46,7 @@
     **in-process** and calls `search()` on directly, in place of today's
     [OCP skills](ocp-skills.md). This first ships in **`ovos-plugin-manager 2.8.0a1`**
     (Phase 1 of the `ovos-media` migration). OCP skills remain the way to provide media for now.
+    Tracked in [ovos-workshop#423](https://github.com/OpenVoiceOS/ovos-workshop/pull/423).
 
 `ovos-media` is the standalone audio/video daemon for OpenVoiceOS. It is the **upcoming
 replacement** for the legacy audio service, providing a more robust and modular media player

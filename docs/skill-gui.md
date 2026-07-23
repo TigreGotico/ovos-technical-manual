@@ -33,7 +33,8 @@ lives in `ovos_bus_client.apis.gui.GUIInterface`; the skill wrapper is
     `ovos_bus_client.apis.gui`) and drops the `ui_directories` constructor argument, since
     skills under the [GUI rework](gui-service.md) no longer ship QML. This is **not** on a
     released `ovos-workshop`; on stable installs `self.gui` is still the
-    `ovos_bus_client.apis.gui.GUIInterface`-based `SkillGUI` described above.
+    `ovos_bus_client.apis.gui.GUIInterface`-based `SkillGUI` described above. Tracked in
+    [ovos-workshop#420](https://github.com/OpenVoiceOS/ovos-workshop/pull/420).
 
 ## Quick start
 

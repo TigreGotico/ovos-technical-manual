@@ -245,8 +245,9 @@ print(spectral.wavelen)        # 610 (approximate wavelength in nm)
 
 ```
 
-!!! warning "Known gotcha (verified against `dev`)"
-    `as_spectral_color` can raise `ValueError: Hue is out of the defined spectral color palette.` for hues that fall in the gaps between the `ISCCNBSSpectralColorTerms` bands (for example, a pure-orange hue around 39° falls between the "Yellow" and "Yellow-Green" bands). Not every RGB color has a defined spectral mapping.
+`as_spectral_color` maps a hue to the nearest defined band in
+`ISCCNBSSpectralColorTerms`, covering the full hue circle so every RGB
+color resolves to a spectral color term.
 
 ---
 

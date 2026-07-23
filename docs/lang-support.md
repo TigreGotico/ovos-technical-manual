@@ -157,7 +157,8 @@ After writing the config it lists the installed STT/TTS plugins and warns about 
 !!! note "Upcoming"
     A `--gpu` flag (GPU-accelerated offline STT) and a `--platform` flag (hardware-tuned
     intent-pipeline presets for `rpi3`/`rpi4`/`rpi5`/`linux`/`mac`/`termux`) are in
-    development for a future `ovos-config` release.
+    development for a future `ovos-config` release. `--gpu` is tracked in
+    [ovos-config#274](https://github.com/OpenVoiceOS/ovos-config/pull/274).
 
 ### Supported Languages
 

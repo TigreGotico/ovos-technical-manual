@@ -543,7 +543,10 @@ User swipes / taps on Qt:
 !!! warning "Upcoming — unreleased"
     In the GUI-rework, specified by the
     [OVOS-GUI-1](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md) spec
-    (see [GUI Service](gui-service.md)) the bus contract changes:
+    (see [GUI Service](gui-service.md)) the bus contract changes. Tracked in
+    [ovos-gui#112](https://github.com/OpenVoiceOS/ovos-gui/pull/112),
+    [ovos-gui#117](https://github.com/OpenVoiceOS/ovos-gui/pull/117), and
+    [ovos-bus-client#238](https://github.com/OpenVoiceOS/ovos-bus-client/pull/238):
 
     - `gui.page.show` is expected to accept **only** `SYSTEM_*` template names; a
       `page_names[0]` that does not start with `SYSTEM_` would be rejected by the

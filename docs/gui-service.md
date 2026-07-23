@@ -179,7 +179,11 @@ The GUI WebSocket server is configured under `gui_websocket` in `mycroft.conf`:
     [OVOS-GUI-1](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md) spec
     and implemented in `ovos-gui`, with adapters in
     `ovos-legacy-mycroft-gui-plugin` and `pyhtmx-gui-client`.
-    Do not rely on any of this on a stable install.
+    Do not rely on any of this on a stable install. Tracked in
+    [ovos-plugin-manager#377](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/377),
+    [ovos-gui#112](https://github.com/OpenVoiceOS/ovos-gui/pull/112),
+    [ovos-gui#117](https://github.com/OpenVoiceOS/ovos-gui/pull/117), and
+    [ovos-legacy-mycroft-gui-plugin#3](https://github.com/OpenVoiceOS/ovos-legacy-mycroft-gui-plugin/pull/3).
 
     **What changes.** Per OVOS-GUI-1, `ovos-gui` becomes a **pure state-and-dispatch hub**:
     it runs **no WebSocket server** and renders nothing. It loads every installed

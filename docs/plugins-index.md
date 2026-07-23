@@ -39,7 +39,7 @@ their config, and install commands.
 |---|---|---|
 | [OCP Stream Extractors](ocp-plugins.md) | `opm.ocp.extractor` | Resolve a playable stream from a URL (YouTube, RSS, …) |
 | [Media Playback](media-plugins.md) | `opm.media.audio` / `.video` / `.web` | Backend players for [ovos-media](ovos-media.md) |
-| [GUI Adapters](gui-adapters.md) | `opm.gui_adapter` | Render backends for the GUI *(upcoming — see page)* |
+| [GUI Adapters](gui-adapters.md) | `opm.gui_adapter` | Render backends for the GUI *(**Upcoming** — tracked in [ovos-plugin-manager#377](https://github.com/OpenVoiceOS/ovos-plugin-manager/pull/377), see page)* |
 
 ## AI Agents & Personas
 
