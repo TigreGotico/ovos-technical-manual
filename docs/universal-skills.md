@@ -41,7 +41,16 @@ To run `UniversalSkills` you need to configure [Translation plugins](translation
     the first time they are accessed — there is no silent fallback to "no translation"; the
     `OVOSLangTranslationFactory.create()` call is deliberately left unguarded
     (`ovos_workshop/skills/ovos.py`, `translator` property) so a missing plugin surfaces loudly
-    instead of silently mistranslating.
+    instead of silently mistranslating. If you want your skill to degrade gracefully instead of
+    crashing, wrap the access yourself:
+
+    ```python
+    try:
+        translated = self.translator.translate(text, target="en")
+    except Exception as e:
+        self.log.warning(f"Translation unavailable, using original text: {e}")
+        translated = text
+    ```
 
 ## Usage
 
@@ -77,6 +86,8 @@ class MyMultilingualSkill(UniversalSkill):
 
 
         - translate_tags (bool): Whether to translate the private __tags__ value (adapt entities).
+                                 Default True; set False to skip translating that internal
+                                 bookkeeping value if your skill doesn't rely on it.
 
 
         - autodetect (bool): If True, the skill will detect the language of the utterance

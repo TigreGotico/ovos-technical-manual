@@ -219,15 +219,23 @@ from ovos_utils.process_utils import RuntimeRequirements
 @classproperty
 def runtime_requirements(cls):
     return RuntimeRequirements(
-        internet_before_load=False,
         network_before_load=False,
+        internet_before_load=False,
+        gui_before_load=False,
         requires_internet=False,
         requires_network=False,
+        requires_gui=False,
+        no_internet_fallback=False,
+        no_network_fallback=False,
+        no_gui_fallback=True,
     )
 
 ```
 
-Used by `SkillManager` to defer loading until requirements are met.
+All nine fields default `True` except `gui_before_load`, `requires_gui`,
+`no_internet_fallback`, and `no_network_fallback` (default `False`). Used by `SkillManager`
+to defer loading until requirements are met. See [OVOSSkill — RuntimeRequirements](ovos-skill.md#runtimerequirements)
+for the full field reference.
 
 ---
 
@@ -432,7 +440,12 @@ class TriviaGameSkill(OVOSGameSkill):
 
 Extends `OVOSGameSkill`. Adds a **converse loop**: every utterance that does not match a registered intent is piped to `on_game_command()` while the game is playing. Also adds auto-save support, default pause/resume dialogs, and `on_abandon_game()`.
 
-Remaining abstract methods: `on_play_game`, `on_stop_game`, `on_game_command`.
+Remaining abstract methods (you must implement these): `on_play_game`, `on_stop_game`,
+`on_game_command`. `on_save_game` and `on_load_game` get a default implementation that just
+speaks a "can't save/load" dialog — override them if your game supports saving. `on_pause_game`,
+`on_resume_game`, and `on_abandon_game` also get working default implementations (pause/resume
+dialogs gated by the `pause_dialog` setting, and a no-op abandon hook) that you can leave alone or
+override.
 
 ```python
 from ovos_workshop.skills.game_skill import ConversationalGameSkill

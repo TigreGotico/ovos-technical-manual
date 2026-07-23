@@ -9,6 +9,9 @@
 !!! tip "`IntentLayers` are per-session"
     `IntentLayer` state lives in the **session**, so layered skills are concurrency-safe across [HiveMind](https://jarbashivemind.github.io/HiveMind-community-docs/) satellites — two satellites can be in different layers at the same time. (The lower-level `enable_intent` / `disable_intent` calls in the next section still change the **global** intent set, so prefer layers for per-session flows.)
 
+!!! note "Not the same as skill permissions"
+    Intent layers switch groups of *intents* on and off inside one already-active skill. Whether a skill is even allowed to participate in converse at all (whitelists, blacklists, `ConverseMode`) is a separate, coarser gate — see [Permissions & Activation Control](intent-layers.md).
+
 ## Managing Intents
 
 Sometimes you might want to manually enable or disable an intent, in OVOSSkills you can do this explicitly to create stateful interactions
@@ -54,7 +57,7 @@ Another utils provided by `ovos-workshop` is `IntentLayers`, to manage groups of
 
 In this example we implement the [Konami Code](https://en.wikipedia.org/wiki/Konami_Code), doing everything the manual way instead of using decorators
 
-![imagem](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/13b9de20-1f8d-44b3-9b65-c13a79a41b1e)
+![State diagram of the Konami Code intent layers: up1 and up2 lead to down1 and down2, then left1/right1, left2/right2, and finally the B and A layers before resetting](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/13b9de20-1f8d-44b3-9b65-c13a79a41b1e)
 
 ```python
 class KonamiCodeSkill(OVOSSkill):
@@ -114,28 +117,10 @@ class KonamiCodeSkill(OVOSSkill):
             self.intent_layers.deactivate_layer("down2")
         self.acknowledge()
 
-    def handle_left_intent(self, message):       
-        if self.intent_layers.is_active("left1"):
-            self.intent_layers.deactivate_layer("left1")
-            self.intent_layers.activate_layer("right1")
-        else:
-            self.intent_layers.deactivate_layer("left2")
-            self.intent_layers.activate_layer("right2")
-        self.acknowledge()
-
-    def handle_right_intent(self, message):
-        if self.intent_layers.is_active("right1"):
-            self.intent_layers.deactivate_layer("right1")
-            self.intent_layers.activate_layer("left2")
-        else:
-            self.intent_layers.activate_layer("B")
-            self.intent_layers.deactivate_layer("right2")
-        self.acknowledge()
-
-    def handle_b_intent(self, message):
-        self.intent_layers.activate_layer("A")
-        self.intent_layers.deactivate_layer("B")
-        self.acknowledge()
+    # handle_left_intent, handle_right_intent, and handle_b_intent follow the
+    # same pattern: check which layer of the pair is active, deactivate it,
+    # and activate the next layer in the sequence (left1/left2, then
+    # right1/right2, then "B", then "A")
 
     def handle_a_intent(self, message):
         self.play_audio(self.find_resource("power_up.mp3", "snd"))

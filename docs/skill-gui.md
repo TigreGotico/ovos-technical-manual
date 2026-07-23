@@ -25,10 +25,11 @@ lives in `ovos_bus_client.apis.gui.GUIInterface`; the skill wrapper is
 !!! warning "Upcoming — unreleased"
     A planned breaking change rebinds `self.gui` to a
     `GUIInterface` from the standalone **`ovos-gui-api-client`** package (instead of
-    `ovos_bus_client.apis.gui`) and drops the `ui_directories` constructor argument, since
-    skills under the [GUI rework](gui-service.md) no longer ship QML. This is **not** on a
-    released `ovos-workshop`; on stable installs `self.gui` is still the
-    `ovos_bus_client.apis.gui.GUIInterface`-based `SkillGUI` described above. Tracked in
+    `ovos_bus_client.apis.gui`) and drops the `ui_directories` constructor argument (today,
+    `ui_directories` is a `dict` mapping a framework name, e.g. `"qt5"`, to its local resource
+    directory, which `GUIInterface` searches when resolving a relative image/page name to a
+    file on disk), since skills under the [GUI rework](gui-service.md) no longer ship QML. This is **not** on a released `ovos-workshop`; on stable installs `self.gui` is
+    still the `ovos_bus_client.apis.gui.GUIInterface`-based `SkillGUI` described above. Tracked in
     [ovos-workshop#420](https://github.com/OpenVoiceOS/ovos-workshop/pull/420).
 
 ## Quick start
@@ -80,6 +81,14 @@ gui.show_image(url, caption=None, title=None, fill=None,
 `fill` accepts `"PreserveAspectFit"`, `"PreserveAspectCrop"`, or `"Stretch"`.
 `url` may be a local file path or an `http(s)` URL; missing local files are
 logged and the call returns without showing anything.
+
+!!! note "Local paths work today, but the spec says not to rely on them"
+    The installed `show_image()` (`ovos_bus_client.apis.gui.GUIInterface`) does accept and
+    resolve a local filesystem path — that's the current, working behavior described above.
+    The OVOS-GUI-1 spec box further up this page nonetheless says image keys should carry only
+    an `http(s)` URL or `data:` URI, never a local path — that's the forward-looking contract
+    for interchangeable render backends, not a rule the current code enforces. Prefer a URL or
+    `data:` URI in new skills if you want to stay forward-compatible.
 
 #### Animated Image
 

@@ -312,7 +312,7 @@ what defines a tomato
 
 These sample phrases do not require punctuation like a question mark. We can also leave out contractions such as "what's", as this will be automatically expanded to "what is" by OVOS before the utterance is parsed.
 
-Each file should contain at least 4 examples for good modeling.
+As a rule of thumb, aim for several examples per intent covering the different ways a user might phrase the request — too few examples gives the model little to generalize from.
 
 The above example allows us to map many phrases to a single intent, however often we need to extract specific data from an utterance. This might be a date, location, category, or some other `entity`.
 
@@ -535,3 +535,12 @@ See [Your First Skill](first-skill.md) for a complete, minimal example of a temp
 ### Common Problems
 
 See [I am unable to match against the utterance string](#i-am-unable-to-match-against-the-utterance-string) above — the same lowercase-normalization note applies to template-based intent handlers.
+
+#### My intent is defined correctly but never matches
+
+If the `.intent`/`.voc` files look right and the utterance still doesn't match anything, check
+whether the intent has actually been **disabled** rather than badly written — a skill can turn
+individual intents off with `disable_intent()`, and a skill or its converse participation can also
+be gated off entirely by the whitelist/blacklist controls. See [Intent Layers](layers.md) for
+per-skill intent enable/disable state and [Permissions & Activation Control](intent-layers.md) for
+the coarser skill-level gates.

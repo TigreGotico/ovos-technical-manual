@@ -169,15 +169,23 @@ from ovos_utils.process_utils import RuntimeRequirements
 @classproperty
 def runtime_requirements(cls):
     return RuntimeRequirements(
-        internet_before_load=False,
         network_before_load=False,
+        internet_before_load=False,
+        gui_before_load=False,
         requires_internet=False,
         requires_network=False,
+        requires_gui=False,
+        no_internet_fallback=False,
+        no_network_fallback=False,
+        no_gui_fallback=True,
     )
 
 ```
 
-This is used by `SkillManager` to defer loading until the required connectivity is available.
+All nine fields default `True` except `gui_before_load`, `requires_gui`, and
+`no_internet_fallback`/`no_network_fallback` (default `False`), and `no_gui_fallback` (default
+`True`). This is used by `SkillManager` to defer loading until the required connectivity is
+available.
 
 ## System Bus Events Handled (per skill)
 
@@ -187,8 +195,8 @@ This is used by `SkillManager` to defer loading until the required connectivity 
 | `{skill_id}.stop` | Skill-specific stop |
 | `{skill_id}.stop.ping` | Check if skill can stop |
 | `{skill_id}.converse.get_response` | Feed user response to `get_response` |
-| `mycroft.skill.enable_intent` | Enable a disabled intent |
-| `mycroft.skill.disable_intent` | Disable an active intent |
+| `mycroft.skill.enable_intent` | Enable a disabled intent (the bus-facing counterpart to calling `self.enable_intent(intent_name)` from Python) |
+| `mycroft.skill.disable_intent` | Disable an active intent (the bus-facing counterpart to calling `self.disable_intent(intent_name)` from Python) |
 | `mycroft.skill.set_cross_context` | Set cross-skill context |
 | `mycroft.skill.remove_cross_context` | Remove cross-skill context |
 | `mycroft.skills.settings.changed` | Remote settings update |
@@ -223,7 +231,7 @@ Return values must be JSON-serializable. Standard Python builtins (`str`, `int`,
 
 ## `@skill_api_method` Decorator
 
-`skill_api_method` — `ovos_workshop/decorators/__init__.py:94`
+`skill_api_method` — defined in `ovos_workshop/decorators/__init__.py`
 
 Tag a skill method as part of the public API. The decorator sets `func.api_method = True`. During skill initialization `OVOSSkill` discovers all methods with this attribute and registers a bus listener for each one at `<skill_id>.<method_name>`.
 
@@ -243,7 +251,7 @@ class MySkill(OVOSSkill):
 
 ## `SkillApi` Class
 
-`SkillApi` — `ovos_workshop/skills/api.py:20`
+`SkillApi` — defined in `ovos_workshop/skills/api.py`
 
 ### Setup
 

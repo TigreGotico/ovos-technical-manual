@@ -26,6 +26,12 @@ Converse methods must return a Boolean: `True` if the utterance was handled (it 
     `ConversationalSkill` (`from ovos_workshop.skills.converse import ConversationalSkill`) instead
     to use any of the features on this page.
 
+!!! note "A second gate sits in front of `converse()`"
+    Being on the Active Skills List is necessary but not sufficient. Whether a skill is allowed
+    to converse **at all** is a separate, coarser control — `ConverseMode` and the converse
+    whitelist/blacklist — covered on [Permissions & Activation Control](intent-layers.md). If
+    `converse()` never fires even though your skill is active, check that gate first.
+
 ## Basic usage
 
 Let's use a version of the Ice Cream Skill we've been building up and add a converse method to catch any brief statements of thanks that might directly follow an order.
@@ -186,7 +192,7 @@ class LazySkill(ConversationalSkill):
 
 ## Conversational Intents
 
-Skills can have extra intents valid while they are active, those are internal and not part of the main intent system, instead each skill checks them BEFORE calling `converse`
+Skills can have extra intents valid while they are active, those are internal and not part of the main intent system. For an active skill, the order is: its `@conversational_intent`-decorated handlers are checked first; only if none of them match does the skill's own `converse()` method get a chance to run. Both happen before the utterance would fall through to the normal Adapt/Padatious intent pipeline.
 
 the `@conversational_intent` decorator can be used to define converse intent handlers
 

@@ -135,7 +135,9 @@ from ovos_plugin_manager.microphone import find_microphone_plugins
 
 # Find and load the plugin
 plugins = find_microphone_plugins()
-mic_class = plugins["ovos-microphone-plugin-alsa"]
+mic_class = plugins.get("ovos-microphone-plugin-alsa")
+if mic_class is None:
+    raise RuntimeError("ovos-microphone-plugin-alsa is not installed")
 mic = mic_class()
 
 mic.start()
@@ -162,6 +164,11 @@ finally:
 
 
 - **Remote audio**: The `socket` plugin is a proof-of-concept for networked microphones and is not recommended for production use without customization.
+
+
+- **Hatchery-only plugins**: `ovos-microphone-plugin-arecord` and `ovos-microphone-plugin-socket`
+  live under [OVOSHatchery](https://github.com/OVOSHatchery), not the core `OpenVoiceOS` org, and
+  are **not published to PyPI** — install them straight from the git repository if you need them.
 
 # Microphone Plugins Reference
 

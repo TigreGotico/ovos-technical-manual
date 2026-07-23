@@ -74,7 +74,10 @@ General Steps to create a skill
 - `self.voc_match(phrase, "skill_name")` to handle specific requests for your skill
 
 
-- `self.remove_voc(phrase, "skill_name")` to remove matched phrases from the search request
+- `self.remove_voc(phrase, "skill_name")` to remove matched phrases from the search request —
+  for example, `self.remove_voc("play some somafm radio", "somafm")` strips the `somafm` vocab
+  match and returns `"play some radio"`, so the rest of your matching logic scores against the
+  cleaned-up phrase instead of the raw one
 
 
 - Implement the `ocp_search` decorator, as many as you want (they run in parallel)
@@ -95,7 +98,10 @@ General Steps to create a skill
   - Values are between 0 and 100
 
 
-  - High confidence scores cancel other OCP skill searches
+  - Results below the `min_score` config threshold (`intents.ovos-ocp-pipeline-plugin.min_score`,
+    default `50`) are filtered out before OCP picks a winner across all responding skills; there
+    is no fixed confidence value that short-circuits and cancels other skills' searches early —
+    higher scores simply make your result more likely to win the cross-skill comparison
 
 
 - `ocp_featured_media`, return a playlist for the OCP menu if selected from GUI (optional)
