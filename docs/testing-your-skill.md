@@ -221,7 +221,7 @@ ovoscope run test/fixtures/hello.json -v
     anything is actually broken, but because the session's `active_handlers` records a Unix
     timestamp (*when the skill activated*) at capture time — and that timestamp is different every
     time you re-run it:
-```text
+    ```text
     [run] FAIL: ❌ message context mismatch for key 'session' - expected
     '...activated_at': 1784823640.9039652...' | got '...activated_at': 1784823715.739504...'
     ```

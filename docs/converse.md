@@ -48,7 +48,7 @@ class IceCreamSkill(ConversationalSkill):
 
 In this example:
 
-1. A User might request an ice cream which is handled by `handle_request_icecream()`&#x20;
+1. A User might request an ice cream which is handled by `handle_request_icecream()`
 
 
 2. The Skill would be added to the system Active Skill list for up to 5 minutes.
