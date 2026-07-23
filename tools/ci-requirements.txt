@@ -11,3 +11,13 @@ ovos-hardware-helpers
 ovoscope
 quebra-frases
 padacioso
+SpeechRecognition
+palavreado
+nebulento
+ovos-lang-parser
+ovos-audio
+ovos-agentic-loop
+ovos-translate-server
+numpy
+uvicorn
+radiosoma

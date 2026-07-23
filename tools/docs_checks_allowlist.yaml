@@ -34,6 +34,24 @@ python_imports:
       PHAL/AdminPHAL). Verified correct via a scratch `pip install ovos-PHAL`.
       Not part of the shared dev venv or the current CI install set; add it
       there if PHAL coverage becomes a priority.
+  - module: ovos_color_parser
+    reason: >
+      docs/color-parser.md documents `ovos-color-parser` correctly, but the
+      published PyPI wheel is missing its core/match/vocab subpackages
+      (verified: the shared dev venv only imports it because it is installed
+      editable from a local clone, not the released wheel). Tracked upstream
+      in OpenVoiceOS/ovos-color-parser#116; remove this entry once a fixed
+      release is published.
+  - module: openai
+    reason: >
+      Provider SDK for the OpenAI-compatible API examples in
+      docs/openai-plugin.md/docs/llm-transformers.md; a paid third-party SDK,
+      intentionally not part of the shared dev venv or CI's installed set.
+  - module: anthropic
+    reason: >
+      Provider SDK referenced by LLM-backend examples (e.g.
+      docs/llm-transformers.md); a paid third-party SDK, intentionally not
+      part of the shared dev venv or CI's installed set.
 
   # TODO(content-owner): docs/openai-plugin.md imports
   # `ovos_openai_plugin.translate.OpenAITextTranslator` and
