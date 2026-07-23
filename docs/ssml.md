@@ -1,5 +1,13 @@
 # SSMLBuilder 
 
+!!! warning "Experimental — most TTS plugins do not support SSML"
+    SSML support is an **experimental**, engine-dependent feature, not a universal one. Most
+    TTS plugins ignore or strip SSML tags entirely rather than acting on them — currently only
+    the **espeakNG** and **Amazon Polly** plugins actually interpret SSML markup; every other
+    plugin just reads the plain words underneath. Sending SSML is always harmless (unsupported
+    tags are stripped), but don't build a skill that *depends* on SSML for meaning — if a
+    voice effect matters, choose a TTS plugin/voice that can actually produce it instead.
+
 !!! abstract "In a nutshell"
     Normally the assistant just reads text aloud in a flat voice. SSML is a way to add stage directions to that text — pause here, say this word louder, slow down, whisper, change the pitch — so speech sounds more natural and expressive. It's like the difference between reading a script plainly and acting it out. The `SSMLBuilder` helper on this page lets you add those directions without memorizing the markup by hand. Heads-up: **most TTS voices don't actually support SSML** — but that's harmless, OVOS just strips the directions and reads the plain words, so it's always safe to send. For spoken replies in general see [Statements](statements.md); for term definitions see the [Glossary](glossary.md).
 

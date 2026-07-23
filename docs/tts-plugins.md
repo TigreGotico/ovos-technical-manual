@@ -91,6 +91,10 @@ print(f"Audio saved to {wav_file}")
 
 ## Plugin Template
 
+!!! note
+    SSML: experimental, engine-dependent — see [SSML](ssml.md). Most plugins declare no
+    `ssml_tags` and OVOS strips all SSML before synthesis.
+
 ```python
 from ovos_plugin_manager.templates.tts import TTS
 

@@ -48,8 +48,11 @@ and [`ovos-tts-plugin-edge-tts`](tts-plugins.md#ovos-tts-plugin-edge-tts) each e
 `voice` key for picking a specific speaker; check a given plugin's page for whether it also
 exposes a rate/speed option.
 
-What works with **every** voice, regardless of plugin, is [SSML](ssml.md)'s `<prosody rate="...">`
-tag, applied per-utterance from a skill:
+Rate control is per-plugin config, so check the active plugin's page first. [SSML](ssml.md)'s
+`<prosody rate="...">` tag is a niche fallback, applied per-utterance from a skill, but it is
+**experimental** and only honored by a couple of TTS plugins (currently espeakNG and Amazon
+Polly) — every other plugin just strips the tag and speaks the plain text, so it does nothing
+for most voices:
 
 ```python
 from ovos_utils.ssml import SSMLBuilder
@@ -58,9 +61,9 @@ ssml_text = SSMLBuilder(speak_tag=True).say_slow("Here is the reminder you asked
 self.speak(ssml_text)
 ```
 
-If the active voice doesn't support SSML, OVOS strips the tag and speaks the plain text instead of
-failing — so it's always safe to slow things down this way even if you're not sure the current
-voice honors it.
+Sending SSML is always safe — an unsupported voice just ignores it and speaks the plain text —
+but don't rely on it as your primary rate-control mechanism; prefer a plugin's own rate/speed
+config key where one exists.
 
 ## Where support is thin today
 

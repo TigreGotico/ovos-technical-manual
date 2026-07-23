@@ -69,7 +69,7 @@ This glossary defines common terms, acronyms, and concepts used throughout the O
 | **Skill Settings** | Per-skill configuration, optionally editable by the user. See [Skill Settings](skill-settings.md). |
 | **`skill_id`** | A skill's unique identifier (e.g. `ovos-skill-weather.openvoiceos`), taken from its [entry point](plugin-manager.md). Used to namespace its settings, events, and resources. |
 | **Solver** | The former name for an [Agent Engine](agent-plugins.md) — you'll still see it in older configs and code. |
-| **SSML (Speech Synthesis Markup Language)** | Tags that control *how* [TTS](tts-plugins.md) speaks a sentence — pauses, emphasis, pitch, rate. See [SSML](ssml.md). |
+| **SSML (Speech Synthesis Markup Language)** | Tags that control *how* [TTS](tts-plugins.md) speaks a sentence — pauses, emphasis, pitch, rate. Experimental and engine-dependent: most TTS plugins ignore it. See [SSML](ssml.md). |
 | **[STT](stt-plugins.md) ([Speech-to-Text](stt-plugins.md))** | The process of transcribing spoken audio into text. |
 | **[Transformer](transformer-plugins.md)** | A plugin that modifies audio, text, or metadata as it moves through the pipeline. Specified by 📐 [OVOS-TRANSFORM-1](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md); see **Transformer Chain** below. |
 | **📐 Transformer Chain** | One of **six** ordered chains — *audio*, *utterance*, *metadata*, *intent*, *dialog*, *tts* — that reshape an artifact at a fixed point in the utterance lifecycle. Unlike a **pipeline plugin** (which decides whether to claim an utterance), every transformer in a chain **always runs** at its injection point. 📐 [OVOS-TRANSFORM-1](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md). |
