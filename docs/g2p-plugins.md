@@ -17,17 +17,17 @@ A G2P plugin takes a word or an utterance and returns a list of phonemes in a sp
 | [ovos-g2p-plugin-espeak](https://github.com/OVOSHatchery/ovos-g2p-plugin-espeak) | IPA | Wraps `espeak-phonemizer` for broad multilingual IPA coverage. **Hatchery-only** — not published to PyPI, install from source if you need it. |
 
 !!! note "Roster completeness"
-    This table lists the G2P plugins known to register an `opm.g2p` entry point at the time of
-    writing; it is not guaranteed to be exhaustive. If you know of another OVOS-compatible G2P
+    This table lists the G2P plugins known to register an `opm.g2p` entry point; it is
+    not guaranteed to be exhaustive. If you know of another OVOS-compatible G2P
     plugin missing here, check its `pyproject.toml`/`setup.py` for an `opm.g2p` entry point before
     assuming it belongs on this list.
 
 !!! note "Some TTS engines phonemize internally, without an `opm.g2p` plugin"
-    [`ovos-tts-plugin-espeakNG`](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG) and the
-    `phoonnx` TTS backends embed their own grapheme-to-phoneme conversion (espeak-ng's built-in
-    phonemizer, and `phoonnx`'s own phonemization pipeline respectively) rather than delegating to
-    a separate `opm.g2p` plugin. They are not on the table above because they aren't discoverable
-    as standalone G2P plugins — the phonemization happens as an implementation detail of the TTS
+    [`ovos-tts-plugin-espeakNG`](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG) embeds
+    espeak-ng's own grapheme-to-phoneme conversion, and the `phoonnx` TTS backends delegate
+    phonemization to [`scriptconv`](https://github.com/TigreGotico/scriptconv) — rather than to a
+    separate `opm.g2p` plugin. Neither is on the table above because neither is discoverable
+    as a standalone G2P plugin — the phonemization happens as an implementation detail of the TTS
     engine itself.
 
 ---

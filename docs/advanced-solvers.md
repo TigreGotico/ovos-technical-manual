@@ -29,12 +29,23 @@ best = engine.select_answer("play bohemian rhapsody", candidates)
 
 ```
 
+!!! note "Score semantics"
+    `ReRankerEngine.rerank()` returns `(score, option)` pairs, but the base class does
+    **not** fix the score's scale — it is whatever the underlying model produces. The
+    shipped default, [`ovos-flashrank-reranker-plugin`](agent-plugins.md), applies a
+    sigmoid (binary cross-encoder) or softmax (multi-class) normalization internally,
+    so its scores land in **`[0, 1]`** and read as a relevance/similarity value — a
+    higher score is a better match, and `min_reranker_score` can be tuned as a
+    plain probability-like threshold against it. A different reranker plugin backed
+    by a raw-logit model would need its own calibration; check that plugin's docs
+    before reusing the same threshold.
+
 ### Common Query pipeline config
 
 ```json
 {
   "intents": {
-    "common_query": {
+    "ovos-common-query-pipeline-plugin": {
       "min_self_confidence": 0.5,
       "min_reranker_score": 0.5,
       "reranker": "<your-reranker-plugin>",

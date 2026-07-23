@@ -154,11 +154,15 @@ The config block is read from `intents.ovos-ocp-pipeline-plugin` (the plugin's
 entry-point ID), falling back to the older `intents.OCP` key.
 
 !!! note "Shipped defaults differ slightly"
-    The bundled `mycroft.conf` ships an `intents.OCP` section with `min_score: 40`
-    (not the library's own fallback of `50`), plus two experimental keys not
-    covered above: `experimental_media_classifier` and
-    `experimental_binary_classifier` (both `false` by default), which gate
-    in-development classifier strategies.
+    The bundled `mycroft.conf` ships an `intents.ovos-ocp-pipeline-plugin` section
+    with `min_score: 40` (not the library's own fallback of `50`); the other keys
+    above match the library defaults.
+
+!!! note "Upcoming"
+    Media-type classification currently relies on the entity matcher described
+    above. Adopting [`ovos-media-classifier`](ocp-plugins.md#ovos-media-classifier)
+    as a pluggable classifier for OCP's media-type / binary relevance decisions
+    is **Upcoming**.
 
 ---
 

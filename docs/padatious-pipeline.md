@@ -6,7 +6,7 @@
 ??? info "📐 Formal specification"
     Padatious is a **pipeline plugin** under **[OVOS-PIPELINE-1 — Utterance Lifecycle & Pipeline](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**. It is a **template-intent** engine in the sense of **[OVOS-INTENT-3 — Intent Definition §5](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md)**: the `.intent` example sentences are *training data*, written in the **[OVOS-INTENT-1 — Sentence Template Grammar](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md)** with `{slot}` placeholders the engine fills at match time. See the [spec index](architecture-specs.md).
 
-The **Padatious Pipeline Plugin** brings example-based intent recognition to the **OpenVoiceOS (OVOS)** pipeline. You define each intent by listing a few example sentences in a plain-text `.intent` file; Padatious trains a small neural network (backed by [fann2](https://github.com/FutureLinkCorporation/fann2)) on those examples and scores incoming utterances against them.
+The **Padatious Pipeline Plugin** brings example-based intent recognition to the **OpenVoiceOS (OVOS)** pipeline. You define each intent by listing a few example sentences in a plain-text `.intent` file; Padatious trains a small neural network (numpy backend) on those examples and scores incoming utterances against them.
 
 In OVOS-PIPELINE-1 terms Padatious is a pipeline plugin exposing `match(utterances, lang, session) → Match | None`; the orchestrator iterates `session.pipeline` and takes the first match. The `conf_high/medium/low` thresholds are Padatious's own per-stage accept gate, not a cross-plugin ranking — INTENT-1 §4 and INTENT-3 §1.1 leave generalization and scoring entirely engine-specific, which is exactly why a capable engine recognizes phrasings beyond its training samples.
 
@@ -48,12 +48,12 @@ Each stage runs at a different point in the pipeline and applies a different con
 
 ## Configuration
 
-Configure Padatious thresholds in your `mycroft.conf` under `intents` → `padatious`. The defaults are:
+Configure Padatious thresholds in your `mycroft.conf` under `intents` → `ovos-padatious-pipeline-plugin` (the canonical, plugin-id-keyed section; the older `padatious` key is read as a fallback if the canonical one is absent). The defaults are:
 
 ```json
 {
   "intents": {
-    "padatious": {
+    "ovos-padatious-pipeline-plugin": {
       "conf_high": 0.95,
       "conf_med": 0.8,
       "conf_low": 0.5
@@ -181,4 +181,7 @@ Avoid Padatious for complex conversational use cases, skills with overlapping in
 **Gotcha — training is asynchronous.** Padatious must train its model before it can match. On a cold start (or after installing a skill), matches will silently fail until training completes. Set `instant_train` to force synchronous training when you need deterministic behavior in tests.
 
 **Per-domain training.** Setting `domain_engine: true` in the plugin's config trains a separate model per skill domain (using the same `ovos-padatious-pipeline-plugin` entry point) instead of one flat model across all skills, reducing cross-skill collisions at the cost of extra memory.
+
+!!! note "Upcoming"
+    A dedicated `DomainPadatiousPipeline` OPM entry point — a first-class plugin ID for the per-domain training mode, instead of the `domain_engine` config flag on the flat plugin — is **Upcoming**.
 
