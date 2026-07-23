@@ -203,12 +203,11 @@ A background asyncio event loop keeps sessions alive between tool calls. Each se
     surface (`/tools/manual`, `/mcp`) are `ToolBox` plugins under the same `opm.agents.toolbox`
     entry-point group, so installing `ovos-tool-adapters` alongside `ovos-persona-server` also
     exposes the bridged external tools through the Persona Server's own MCP/UTCP endpoints.
-    Every shipped `ToolBox` implementation (`DuckDuckGoToolbox`, `WikipediaToolbox`, `MCPToolBox`,
-    `UTCPToolBox`, ...) takes a single optional `config` dict and derives its own `toolbox_id`
-    internally, rather than the literal `toolbox_id` keyword declared by the abstract `ToolBox`
-    template — the Persona Server tries the no-argument/config-based convention first, since it
-    matches every real-world plugin, and only falls back to the template's `toolbox_id` kwarg for
-    a class that still inherits the base `__init__` unchanged.
+    Every `ToolBox` implementation (`DuckDuckGoToolbox`, `WikipediaToolbox`, `MCPToolBox`,
+    `UTCPToolBox`, ...) declares its `toolbox_id` as a class attribute and takes
+    `(config=None, bus=None)`, so the Persona Server constructs each one with a single
+    `cls(config=cfg, bus=bus)` call. See [Agent Tool Plugins](tool-plugins.md) for the
+    full contract.
 
 ## Further reading
 
