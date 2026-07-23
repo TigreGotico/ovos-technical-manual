@@ -67,7 +67,7 @@ is direct:
 | Spec | What it covers |
 |------|----------------|
 | [**OVOS-MSG-1** — Bus Message](https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md) | The JSON `{type, data, context}` envelope, `source`/`destination` routing, and the `forward` / `reply` / `response` derivations every message obeys. |
-| [**OVOS-SESSION-1** — Session Carrier Wire Shape](https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md) | The wire shape of the session — the per-conversation state that rides in every message — and the field registry other specs extend. |
+| [**OVOS-SESSION-1** — Session Specification](https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md) | The wire shape of the session — the per-conversation state that rides in every message — and the field registry other specs extend. |
 | [**OVOS-SESSION-2** — Session Lifecycle & State Ownership](https://github.com/OpenVoiceOS/architecture/blob/dev/session-2.md) | Who owns session state, when it may be mutated, the reserved `"default"` device session, and out-of-band sync. |
 | [**OVOS-BRIDGE-1** — Bus Bridge & Opaque Relay](https://github.com/OpenVoiceOS/architecture/blob/dev/bridge-1.md) | How a satellite / remote deployment relays messages and preserves sessions across a [HiveMind](https://github.com/JarbasHiveMind) mesh. |
 
@@ -105,6 +105,18 @@ is direct:
 Each spec is a standalone document with a scope statement, the normative wire
 format, and a conformance section. The key words **MUST**, **SHOULD**, and
 **MAY** are used as in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119).
+
+Every spec header carries two separate numbers, and it matters which one you
+cite:
+
+- **Version** — the spec's compatibility class (V0/V1/V2, see the README
+  registry below). It changes only when an edit breaks compatibility with the
+  prior class; a spec is cited by class (`OVOS-MSG-1 v1`).
+- **Revision** — a monotonic counter of normative edits *within* a class,
+  starting at `1`. A refinement — tightening a requirement, adding an
+  optional field, correcting a cross-reference — bumps the revision, not the
+  version. `Revision` disambiguates which text of a given class you mean
+  (`v1 rev 3`); non-normative edits (typos, formatting) don't bump it at all.
 
 - **Newcomers:** read the scope and the worked examples; skip the conformance
   tables until you need them. Start with

@@ -228,6 +228,8 @@ All keys live under `"intents": { "persona": { ... } }` in `mycroft.conf`:
 | Check | "Who am I talking to right now?" |
 | Release | "Stop the interaction", "Go dormant" |
 
+Summon, ask, list, check, and release are **ordinary intents** — locale `.intent` / `.entity` resources matched with the same intent machinery any other intent uses. A persona plugin earns no bespoke matching layer of its own; what makes it a persona plugin is that it *also* catches everything else once a persona is active (the low-confidence catch-all above), not how it recognizes its own commands.
+
 ---
 
 ## Persona Loading

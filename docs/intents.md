@@ -6,7 +6,7 @@
 ??? info "📐 Formal specification"
     Intents are specified across the **intent stack** of the formal [architecture specs](architecture-specs.md):
 
-    - **[OVOS-INTENT-3 — Intent Definition](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md)** — what an intent *is*: a skill-private binding from a natural-language command to **one handler**, defined by exactly one of two methods (**keyword** or **template**), identified by the qualified name `skill_id:intent_name`, producing a uniform match result (label + slots map).
+    - **[OVOS-INTENT-3 — Intent Definition](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md)** — what an intent *is*: a skill-private binding from a natural-language command to **one handler**, defined by one or both of two methods (**keyword** and/or **template** — an intent may carry one registration of each, two training-data representations of the same handler; each individual registration still uses exactly one method), identified by the qualified name `skill_id:intent_name`, producing a uniform match result (label + slot map).
     - **[OVOS-INTENT-1 — Sentence Template Grammar](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md)** — the `(a|b)` / `[optional]` / `{slot}` / `<vocab>` grammar that template intents and vocabularies are written in.
     - **[OVOS-INTENT-4 — Intent & Entity Registration](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md)** — the broadcast, fire-and-forget bus messages (`ovos.intent.register.keyword` / `.template`) a skill emits to declare its intents.
 
@@ -41,7 +41,7 @@ In the example above, we might extract data elements like:
   to give Julie yesterday's weather, particularly as Melbourne is renowned for having changeable weather.
 
 
-OVOS provides two kinds of intent, each with its own strengths. The [OVOS-INTENT-3](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md) specification calls them **template intents** and **keyword intents**; the two are not interoperable — an intent is defined by exactly one of the two methods.
+OVOS provides two kinds of intent, each with its own strengths. The [OVOS-INTENT-3](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md) specification calls them **template intents** and **keyword intents**. Each individual registration uses exactly one method — the two shapes are never mixed within one registration — but a single intent name may carry **one registration of each method**, giving the same handler two independent training-data representations; registering a new keyword (or template) registration replaces only the prior registration under that same method, leaving the other method's registration for that intent untouched.
 
 **Template intents** (example based) are matched against whole phrases. These are generally more accurate, but require you to include sample phrases covering the breadth of ways a user might ask. They live in `.intent` files.
 

@@ -185,6 +185,9 @@ Every message on the bus is a JSON object with three fields:
 
 The bus recognises only one special message type: `connected` (emitted to a new client immediately after it opens a connection). All other types are application-level.
 
+!!! note "Colon vs. dot: what a topic's shape tells you"
+    A `:` anywhere in a topic's `type` marks it as **dispatch-shaped** — assembled at runtime from identifiers to address one specific registered handler, canonically `<skill_id>:<intent_name>`. Only a formal spec defines a colon-bearing shape. Every other topic — events, requests, responses, lifecycle signals — uses the dotted `<x>.<y>.<verb>` form and never contains `:`. You can classify any topic you see on the bus with that one test.
+
 See [Bus Client](core-libraries.md#ovos-bus-client) for the `Message` Python API.
 
 ---
@@ -205,6 +208,8 @@ Every message may carry a `session` object inside its `context`. Sessions enable
 - [Skill](skill-design-guidelines.md) and intent blacklisting per session
 
 The default session (`session_id="default"`) is used by the local microphone. HiveMind satellites each have their own session.
+
+A `session` that is entirely absent (or explicitly `null`) is normal — it just means "use the default session." A `session` key that is present but isn't a JSON object is a different case, a producer bug: the bus client discards that one message and logs a warning rather than raising, so a single malformed producer can't force every client on the bus into a reconnect loop.
 
 See [Bus Session](session.md) for full `Session` and `SessionManager` documentation.
 
@@ -448,3 +453,5 @@ browser as it is broadcast; install it with `pip install ovos-busmon`.
 
 
 - [Configuration](config.md) — `mycroft.conf` configuration
+
+Further reading: [protocol interoperability between OVOS and other assistant frameworks](https://blog.openvoiceos.org/posts/2025-10-24-protocol_interoperability).

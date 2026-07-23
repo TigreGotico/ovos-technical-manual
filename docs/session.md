@@ -33,6 +33,26 @@ class MySkill(OVOSSkill):
 
 If the message originated in the device itself, the `session_id` is always equal to the reserved value `"default"`; if it comes from an external client then it will be a unique uuid. The `"default"` session is special: it is the device-local session whose state the orchestrator holds and persists in-process, rather than receiving it from a client on every message (OVOS-SESSION-2 §5).
 
+!!! note "A present-but-malformed session never crashes the bus client"
+    `Session.from_message` treats an *absent* `session` key (or an explicit
+    `null`) as "use the default session" — completely normal. A `session`
+    key that *is* present but is not a JSON object (a bare string, a number)
+    is a different case: a producer bug. Rather than raising and tearing
+    down the whole bus connection, the client discards just that one
+    malformed message and logs a warning, so one badly-behaved emitter can't
+    force every other client into a reconnect loop.
+
+Beyond `session_id` and `lang`, a session carries **presentation
+preferences** that follow the session's originator rather than the device —
+useful when a remote participant (a HiveMind satellite, a different-locale
+caller) wants times, dates, units, and place-relative answers rendered for
+*their* locale: `location` (an object holding city/coordinate/timezone),
+`system_unit` (`"metric"` / `"imperial"`), `time_format` (`"full"` for
+24-hour, `"half"` for 12-hour), and `date_format` (e.g. `"DMY"` / `"MDY"`).
+All four are optional — an absence falls back to the deployment default —
+and `location` is what backs the `location` / `location_pretty` /
+`location_timezone` magic properties below.
+
 ## Magic Properties
 
 Skills have some "magic properties", these will always reflect the value in the current `Session`
@@ -83,6 +103,14 @@ Skills have some "magic properties", these will always reflect the value in the 
         """
 
 ```
+
+!!! note "Two different ways a session gets updated"
+    An inbound client message **merges** field-by-field onto the stored
+    `"default"` session — a field the client omits is left alone, so a
+    client can never delete a stored field just by not sending it. A
+    pipeline plugin's `Match.updated_session`, by contrast, is a **complete
+    snapshot**: whatever it doesn't include is treated as deleted. Deletion
+    by omission exists on that one pathway only.
 
 ## Per User Interactions
 
