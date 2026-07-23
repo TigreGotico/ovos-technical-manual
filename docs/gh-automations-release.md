@@ -63,8 +63,10 @@ Priority is major > minor > build > alpha. If the current version is already sta
 
 Your repo's workflow calls `publish-alpha.yml@dev`. **All steps — version bump, changelog, pre-release tag, release PR, PyPI publish, and Matrix notify — are jobs inside `publish-alpha.yml` itself**, each gated by an input. Your wrapper file is just the trigger plus the `uses:` call.
 
+Worked example: a repo currently at version `1.2.3` merges a PR to `dev` labeled `minor`.
+
 ```text
-PR merged → dev
+PR merged → dev   (repo currently at version 1.2.3, PR labeled "minor")
     │
     ▼
 your-repo workflow  (e.g. release.yml)
@@ -80,23 +82,23 @@ your-repo workflow  (e.g. release.yml)
                 │   Checkout repo + gh-automations scripts (@dev)
                 │   if: PR merged (skipping allcontributors/pre-commit-ci bots
                 │       when skip_bot_prs) OR workflow_dispatch
-                │   Determine bump part from PR labels
-                │   update_version.py <part> --version-file ...
+                │   Determine bump part from PR labels → "minor" label found
+                │   update_version.py minor --version-file ...  →  1.3.0a1
                 │   git-auto-commit-action@v7 → push to `branch` (default dev)
                 │
                 ├─ [update_changelog job]   if: update_changelog
                 │   github-changelog-generator → commit & push
                 │
                 ├─ [tag_prerelease job]   if: publish_prerelease
-                │   ncipollo/release-action → GitHub pre-release tag (e.g. 1.2.3a4)
+                │   ncipollo/release-action → GitHub pre-release tag 1.3.0a1
                 │
                 ├─ [propose_release job]   if: propose_release  (default true)
-                │   git checkout -B release-X.Y.ZaN  (force-create, idempotent)
+                │   git checkout -B release-1.3.0a1  (force-create, idempotent)
                 │   git push; gh pr create → PR to `base_branch` (default master)
                 │
                 ├─ [publish_pypi job]   if: publish_pypi
                 │   python -m build
-                │   pypa/gh-action-pypi-publish@release/v1 → PyPI  (uses PYPI_TOKEN)
+                │   pypa/gh-action-pypi-publish@release/v1 → PyPI as 1.3.0a1 (uses PYPI_TOKEN)
                 │
                 └─ [notify job]   if: notify_matrix && PR merged
                     calls notify-matrix.yml@dev → OVOS Matrix channel (uses MATRIX_TOKEN)
@@ -113,8 +115,11 @@ The `release-X.Y.ZaN` PR opened by the alpha flow requires **human review** befo
 
 Like the alpha flow, **every step lives inside `publish-stable.yml`**. Your wrapper is the `push: master` trigger plus the `uses:` call.
 
+Continuing the same worked example: the `release-1.3.0a1` PR opened above is reviewed and merged
+to `master`.
+
 ```text
-PR merged → master
+PR merged → master   (the release-1.3.0a1 PR from the alpha flow above)
     │
     ▼
 your-repo workflow  (e.g. publish_stable.yml)
@@ -128,15 +133,15 @@ your-repo workflow  (e.g. publish_stable.yml)
                 │
                 ├─ [bump_version job]   if: github.actor != 'github-actions[bot]'
                 │   Detects target branch (uses default branch if master is absent)
-                │   remove_alpha.py → VERSION_ALPHA = 0
+                │   remove_alpha.py → VERSION_ALPHA = 0   →   1.3.0a1 becomes 1.3.0
                 │   git-auto-commit-action@v7 → push to the stable branch
                 │
                 ├─ [tag_release job]   if: publish_release  (default true)
-                │   ncipollo/release-action → GitHub release tag
+                │   ncipollo/release-action → GitHub release tag 1.3.0
                 │
                 ├─ [publish_pypi job]   if: publish_pypi
                 │   python -m build
-                │   pypa/gh-action-pypi-publish@release/v1 → PyPI (uses PYPI_TOKEN)
+                │   pypa/gh-action-pypi-publish@release/v1 → PyPI as 1.3.0 (uses PYPI_TOKEN)
                 │
                 ├─ [sync_dev job]   if: sync_dev
                 │   ad-m/github-push-action → push master → dev

@@ -93,6 +93,19 @@ $XDG_DATA_HOME/ovos_docs/
 
 Zip-archive sources (`technical`, `messages`, `hivemind`) keep their full `docs/` tree. Single-README sources (`live-status`, `raspOVOS`, `installer`) are written as `<key>/docs/<key>.md`. `$XDG_DATA_HOME` is resolved via `ovos_utils.xdg_utils.xdg_data_home` (typically `~/.local/share`).
 
+!!! tip "Seeing stale docs? Delete the cache"
+    There is no `--force` CLI flag to refresh a source once it's cached. If a page looks
+    out of date, the reliable fix is to delete that source's cache directory and relaunch —
+    it will be re-downloaded automatically:
+
+    ```bash
+    rm -rf "$XDG_DATA_HOME/ovos_docs/technical"
+    ovos-docs-viewer technical
+    ```
+
+    Substitute the relevant key (`messages`, `hivemind`, `skills`, …) for `technical`, or
+    remove the whole `ovos_docs/` directory to refresh everything at once.
+
 ## UI Keybindings
 
 | Key | Action |

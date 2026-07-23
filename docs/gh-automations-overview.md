@@ -54,6 +54,68 @@ Several reusable workflows check this repo out again at runtime to reach `script
 
 ---
 
+## Worked example: wiring build-tests + publish-alpha + publish-stable together
+
+A typical repo runs `build-tests.yml` as a PR gate, `publish-alpha.yml` when a PR merges to
+`dev`, and `publish-stable.yml` when the resulting release PR merges to `master`:
+
+```yaml
+# .github/workflows/build_tests.yml — gate every PR into dev
+name: Run Build Tests
+on:
+  pull_request:
+    branches: [dev]
+jobs:
+  build_tests:
+    uses: OpenVoiceOS/gh-automations/.github/workflows/build-tests.yml@dev
+    secrets: inherit
+    with:
+      install_extras: 'test'
+      test_path: 'test/'
+```
+
+```yaml
+# .github/workflows/publish_alpha.yml — bump + publish an alpha on merge to dev
+name: Publish Alpha Build
+on:
+  pull_request:
+    types: [closed]
+    branches: [dev]
+jobs:
+  publish_alpha:
+    if: github.event.pull_request.merged == true
+    uses: OpenVoiceOS/gh-automations/.github/workflows/publish-alpha.yml@dev
+    secrets: inherit
+    with:
+      publish_pypi: true
+      update_changelog: true
+```
+
+```yaml
+# .github/workflows/publish_stable.yml — declare stable + publish on push to master
+name: Publish Stable Build
+on:
+  push:
+    branches: [master]
+jobs:
+  publish_stable:
+    uses: OpenVoiceOS/gh-automations/.github/workflows/publish-stable.yml@dev
+    secrets: inherit
+    with:
+      publish_pypi: true
+      sync_dev: true
+```
+
+The three form a pipeline: `build-tests` must pass before a PR can merge to `dev`;
+`publish-alpha` then bumps the version, tags a pre-release, publishes it to PyPI, and opens the
+release PR to `master`; merging that PR triggers `publish-stable`, which drops the alpha suffix,
+tags the stable release, publishes it, and (with `sync_dev: true`) pushes `master` back into
+`dev` so both branches stay aligned. `secrets: inherit` is required on every call so
+`PYPI_TOKEN` reaches the reusable workflow. See [Release Flow](gh-automations-release.md) for the
+full diagram of this same pipeline.
+
+---
+
 ## Reusable Workflows
 
 Every reusable workflow lives in `.github/workflows/` and is called as:

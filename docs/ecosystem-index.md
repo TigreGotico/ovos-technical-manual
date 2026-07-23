@@ -465,6 +465,8 @@ Each is a PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL
 
 ## Media / OCP plugins (17)
 
+Unless noted otherwise, these are part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+
 **[ovos-media-classifier](https://github.com/OpenVoiceOS/ovos-media-classifier)**
 :   ⚠️ Work in progress, not yet deployed in OVOS — a self-describing, pluggable media-intent classifier that decides what kind of media a request wants ("play some music", "watch an anime") so the OCP pipeline can route it to the right provider. Intended to register under an OCP classifier entry point once stable; loaded by ovos-media's OCP pipeline when adopted.
 
@@ -478,100 +480,106 @@ Each is a PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL
 :   A generic command-line playback backend: it shells out to any CLI media player, or auto-detects the best available one (sox, mpg123, paplay, aplay, afplay) per platform. Loaded by ovos-media (or the legacy ovos-audio service) as a fallback or explicit backend.
 
 **[ovos-media](https://github.com/OpenVoiceOS/ovos-media)**
-:   ⚠️ **Work in progress** — pre-release software, under active development and not yet deployed in OpenVoiceOS; APIs may change without notice. Published in the open for transparency; do not depend on it in production yet. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   ⚠️ **Work in progress** — pre-release software, under active development and not yet deployed in OpenVoiceOS; APIs may change without notice. Published in the open for transparency; do not depend on it in production yet.
 
 **[ovos-media-plugin-chromecast](https://github.com/OpenVoiceOS/ovos-media-plugin-chromecast)**
-:   chromecast plugin for ovos-audio and ovos-media. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   chromecast plugin for ovos-audio and ovos-media.
 
 **[ovos-media-plugin-mplayer](https://github.com/OpenVoiceOS/ovos-media-plugin-mplayer)**
-:   Mplayer plugin for ovos-media. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   Mplayer plugin for ovos-media.
 
 **[ovos-media-plugin-spotify](https://github.com/OpenVoiceOS/ovos-media-plugin-spotify)**
-:   spotify plugin for ovos-audio and ovos-media. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   spotify plugin for ovos-audio and ovos-media.
 
 **[ovos-media-plugin-vlc](https://github.com/OpenVoiceOS/ovos-media-plugin-vlc)**
-:   vlc plugin for ovos-media. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   vlc plugin for ovos-media.
 
 **[ovos-ocp-audio-plugin](https://github.com/OpenVoiceOS/ovos-ocp-audio-plugin)**
-:   OVOS Common Play is a full-fledged voice media player packaged as a mycroft audio plugin. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   OVOS Common Play is a full-fledged voice media player packaged as a mycroft audio plugin.
 
 **[ovos-ocp-bandcamp-plugin](https://github.com/OpenVoiceOS/ovos-ocp-bandcamp-plugin)**
-:   allows OCP to play bandcamp urls, streams will be extracted at playback time. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   allows OCP to play bandcamp urls, streams will be extracted at playback time.
 
 **[ovos-ocp-files-plugin](https://github.com/OpenVoiceOS/ovos-ocp-files-plugin)**
-:   Packaging of the audio-metadata library for OVOS, adding MP4 support and a maintained PyPI release; used to read audio file tags. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   Packaging of the audio-metadata library for OVOS, adding MP4 support and a maintained PyPI release; used to read audio file tags.
 
 **[ovos-ocp-m3u-plugin](https://github.com/OpenVoiceOS/ovos-ocp-m3u-plugin)**
-:   allows OCP to play .pls and .m3u urls as playlists. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   allows OCP to play .pls and .m3u urls as playlists.
 
 **[ovos-ocp-news-plugin](https://github.com/OpenVoiceOS/ovos-ocp-news-plugin)**
-:   allows OCP to play urls for some news providers, this plugin will extract the real stream at playback time. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   allows OCP to play urls for some news providers, this plugin will extract the real stream at playback time.
 
 **[ovos-ocp-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-ocp-pipeline-plugin)**
-:   OVOS plugin for specialized media handling. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   OVOS plugin for specialized media handling.
 
 **[ovos-ocp-rss-plugin](https://github.com/OpenVoiceOS/ovos-ocp-rss-plugin)**
-:   allows OCP to play rss feeds, the plugin will extract the first playable stream. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   allows OCP to play rss feeds, the plugin will extract the first playable stream.
 
 **[ovos-ocp-youtube-plugin](https://github.com/OpenVoiceOS/ovos-ocp-youtube-plugin)**
-:   allows OCP to play youtube urls. Part of the OVOS Common Play (OCP) media stack; loaded by ovos-media (or the legacy ovos-audio service) to resolve or play a given media type.
+:   allows OCP to play youtube urls.
 
 
 ## Translation plugins (6)
 
+Unless noted otherwise, these register under `opm.lang.translate` / `opm.lang.detect` and are used wherever OVOS needs to detect or translate free text, including skills and transformer plugins.
+
 **[ovos-google-translate-plugin](https://github.com/OpenVoiceOS/ovos-google-translate-plugin)**
-:   The plugin is used in a wider context to translate utterances/texts on demand (e.g. from solvers and ovos-bidirectional-translation-plugin). Registers under `opm.lang.translate` / `opm.lang.detect`; used wherever OVOS needs to detect or translate free text, including skills and transformer plugins.
+:   The plugin is used in a wider context to translate utterances/texts on demand (e.g. from solvers and ovos-bidirectional-translation-plugin).
 
 **[ovos-lang-detector-classics-plugin](https://github.com/OpenVoiceOS/ovos-lang-detector-classics-plugin)**
-:   Provides plugins for the following packages:. Registers under `opm.lang.translate` / `opm.lang.detect`; used wherever OVOS needs to detect or translate free text, including skills and transformer plugins.
+:   Provides plugins for the following packages:.
 
 **[ovos-lang-detector-fasttext-plugin](https://github.com/OpenVoiceOS/ovos-lang-detector-fasttext-plugin)**
-:   fasttext-language-identification is the companion language detector for the NLLB model. Registers under `opm.lang.translate` / `opm.lang.detect`; used wherever OVOS needs to detect or translate free text, including skills and transformer plugins.
+:   fasttext-language-identification is the companion language detector for the NLLB model.
 
 **[ovos-translate-plugin-nllb](https://github.com/OpenVoiceOS/ovos-translate-plugin-nllb)**
-:   Language Plugin for NLLB200 language translator. Registers under `opm.lang.translate` / `opm.lang.detect`; used wherever OVOS needs to detect or translate free text, including skills and transformer plugins.
+:   Language Plugin for NLLB200 language translator.
 
 **[ovos-translate-server](https://github.com/OpenVoiceOS/ovos-translate-server)**
 :   Wraps any OVOS translation/language-detection plugin as a standalone HTTP microservice. Called over HTTP by ovos-translate-server-plugin (or any client speaking its API) instead of loading a translation plugin in-process.
 
 **[ovos-translate-server-plugin](https://github.com/OpenVoiceOS/ovos-translate-server-plugin)**
-:   A client-side translation/language-detection plugin that forwards text to a remote ovos-translate-server instance over HTTP. Registers under `opm.lang.translate` / `opm.lang.detect`; used wherever OVOS needs to detect or translate free text via a remote server.
+:   A client-side translation/language-detection plugin that forwards text to a remote ovos-translate-server instance over HTTP.
 
 
 ## Pipeline / Intent plugins (10)
 
+Unless noted otherwise, these register under `opm.pipeline` and are loaded by ovos-core's intent service to match utterances to skills.
+
 **[ovos-markov-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-markov-pipeline-plugin)**
-:   An intent pipeline plugin that trains one word-level Markov chain per intent and picks the intent whose model has the lowest perplexity for a given utterance, sitting between pattern-matchers (Adapt, padacioso) and trained classifiers (Padatious) in modeling approach. Registers under `opm.pipeline`; loaded by ovos-core's intent service.
+:   An intent pipeline plugin that trains one word-level Markov chain per intent and picks the intent whose model has the lowest perplexity for a given utterance, sitting between pattern-matchers (Adapt, padacioso) and trained classifiers (Padatious) in modeling approach.
 
 **[intent-test-set](https://github.com/OpenVoiceOS/intent-test-set)**
 :   A curated dataset of labeled utterances for benchmarking intent pipeline plugins against each other. Consumed by benchmarking pipelines and test suites; not loaded at runtime.
 
 **[ovos-adapt-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-adapt-pipeline-plugin)**
-:   The Adapt Intent Parser is a flexible and extensible intent definition and determination framework. It is intended to parse natural language text into a structured intent that can then be invoked programatically. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
+:   The Adapt Intent Parser is a flexible and extensible intent definition and determination framework. It is intended to parse natural language text into a structured intent that can then be invoked programatically.
 
 **[ovos-common-query-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-common-query-pipeline-plugin)**
-:   The OVOS Common Query Framework is designed to answer questions by gathering answers from several skills and selecting the best one. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
+:   The OVOS Common Query Framework is designed to answer questions by gathering answers from several skills and selecting the best one.
 
 **[ovos-hierarchical-knn-pipeline](https://github.com/OpenVoiceOS/ovos-hierarchical-knn-pipeline)**
-:   An intent matching pipeline for OpenVoiceOS (OVOS), powered by a two-stage hierarchical k-NN classifier backed by IBM Granite embeddings and a FAISS index. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
+:   An intent matching pipeline for OpenVoiceOS (OVOS), powered by a two-stage hierarchical k-NN classifier backed by IBM Granite embeddings and a FAISS index.
 
 **[ovos-hivemind-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-hivemind-pipeline-plugin)**
-:   When in doubt, ask a smarter OVOS install. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
+:   When in doubt, ask a smarter OVOS install.
 
 **[ovos-m2v-pipeline](https://github.com/OpenVoiceOS/ovos-m2v-pipeline)**
-:   An intent matching pipeline for OpenVoiceOS (OVOS), powered by the Model2Vec model for intent classification. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
+:   An intent matching pipeline for OpenVoiceOS (OVOS), powered by the Model2Vec model for intent classification.
 
 **[ovos-padatious-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-padatious-pipeline-plugin)**
-:   An efficient and agile neural network intent parser, implemented in pure numpy with a FANN-compatible model format. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
+:   An efficient and agile neural network intent parser, implemented in pure numpy with a FANN-compatible model format.
 
 **[ovos-tool-adapters](https://github.com/OpenVoiceOS/ovos-tool-adapters)**
-:   Bridges MCP (Model Context Protocol) and UTCP (Universal Tool Calling Protocol) servers into the OVOS agentic loop as standard ToolBox plugins. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
+:   Bridges MCP (Model Context Protocol) and UTCP (Universal Tool Calling Protocol) servers into the OVOS agentic loop as standard ToolBox plugins.
 
 **[padatious_cache](https://github.com/OpenVoiceOS/padatious_cache)**
-:   Pre-trained Padatious intent classifiers to significantly accelerate the first boot and skill loading of OpenVoiceOS. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
+:   Pre-trained Padatious intent classifiers to significantly accelerate the first boot and skill loading of OpenVoiceOS.
 
 
 ## Transformer plugins (6)
+
+Unless noted otherwise, these register under an `opm.transformer.*` group and are loaded by ovos-core or ovos-audio to hook into a stage of the pipeline (text, metadata, dialog, or TTS-audio).
 
 **[ovos-audio-transformer-plugin-bandpass](https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-bandpass)**
 :   An audio transformer that band-pass filters captured speech before STT, attenuating energy outside a configurable range (the telephone band, 300–3400 Hz, by default) to strip non-phonetic rumble and hiss. Registers under `opm.transformer.audio`; loaded by ovos-dinkum-listener before the STT stage.
@@ -580,40 +588,42 @@ Each is a PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL
 :   An engine-agnostic TTS transformer that upscales the waveform from any TTS plugin to 48 kHz just before playback, recovering high-frequency detail lost by low-sample-rate voices without retraining. Registers under `opm.transformer.tts`; loaded by ovos-audio after the TTS stage and before playback.
 
 **[ovos-audio-transformer-plugin-ggwave](https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-ggwave)**
-:   Audio transformer plugin wrapping ggwave (data-over-sound) so OVOS can receive audio QR codes such as Wi-Fi setup credentials spoken through a speaker. Registers under `opm.transformer.*`; loaded by ovos-core or ovos-audio to hook into the text, metadata, dialog, or TTS-audio stage of the pipeline.
+:   Audio transformer plugin wrapping ggwave (data-over-sound) so OVOS can receive audio QR codes such as Wi-Fi setup credentials spoken through a speaker.
 
 **[ovos-audio-transformer-plugin-speechbrain-langdetect](https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-speechbrain-langdetect)**
-:   spoken language detector for ovos. Registers under `opm.transformer.*`; loaded by ovos-core or ovos-audio to hook into the text, metadata, dialog, or TTS-audio stage of the pipeline.
+:   spoken language detector for ovos.
 
 **[ovos_tts_transformer_FlashSR](https://github.com/OpenVoiceOS/ovos_tts_transformer_FlashSR)**
-:   Audio super-resolution for OpenVoiceOS speech synthesis. FlashSR upsamples the audio produced by any TTS plugin from 16 kHz to 48 kHz just before playback, recovering high-frequency detail that low-sample-rate voices discard. The result is brighter, less muffled speech without retraining or replacing your existing voice. Registers under `opm.transformer.*`; loaded by ovos-core or ovos-audio to hook into the text, metadata, dialog, or TTS-audio stage of the pipeline.
+:   Audio super-resolution for OpenVoiceOS speech synthesis. FlashSR upsamples the audio produced by any TTS plugin from 16 kHz to 48 kHz just before playback, recovering high-frequency detail that low-sample-rate voices discard. The result is brighter, less muffled speech without retraining or replacing your existing voice.
 
 **[ovos_tts_transformer_NovaSR](https://github.com/OpenVoiceOS/ovos_tts_transformer_NovaSR)**
-:   Audio super-resolution for OpenVoiceOS speech synthesis. NovaSR upsamples the audio produced by any TTS plugin from 16 kHz to 48 kHz just before playback, recovering high-frequency detail that low-sample-rate voices discard. The result is brighter, less muffled speech without retraining or replacing your existing voice. Registers under `opm.transformer.*`; loaded by ovos-core or ovos-audio to hook into the text, metadata, dialog, or TTS-audio stage of the pipeline.
+:   Audio super-resolution for OpenVoiceOS speech synthesis. NovaSR upsamples the audio produced by any TTS plugin from 16 kHz to 48 kHz just before playback, recovering high-frequency detail that low-sample-rate voices discard. The result is brighter, less muffled speech without retraining or replacing your existing voice.
 
 
 ## Hardware / OS images (10)
 
+Unless noted otherwise, these are consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
+
 **[buildroot](https://github.com/OpenVoiceOS/buildroot)**
-:   Buildroot is a simple, efficient and easy-to-use tool to generate embedded Linux systems through cross-compilation. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
+:   Buildroot is a simple, efficient and easy-to-use tool to generate embedded Linux systems through cross-compilation.
 
 **[mycroft-mark1-firmware](https://github.com/OpenVoiceOS/mycroft-mark1-firmware)**
-:   This repository holds the code run on the Arduino within a Mycroft unit. It manages the eyes, the mouth, and the button. The code is written entirely in C++ with Arduino's standard library. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
+:   This repository holds the code run on the Arduino within a Mycroft unit. It manages the eyes, the mouth, and the button. The code is written entirely in C++ with Arduino's standard library.
 
 **[ovos-buildroot](https://github.com/OpenVoiceOS/ovos-buildroot)**
-:   A minimalistic Linux OS bringing the open source voice assistant ovos-core to embedded, low-spec headless and/or small (touch)screen devices. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
+:   A minimalistic Linux OS bringing the open source voice assistant ovos-core to embedded, low-spec headless and/or small (touch)screen devices.
 
 **[ovos-hardware-helpers](https://github.com/OpenVoiceOS/ovos-hardware-helpers)**
-:   A small library to help with specific hardware. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
+:   A small library to help with specific hardware.
 
 **[ovos-i2c-detection](https://github.com/OpenVoiceOS/ovos-i2c-detection)**
-:   A small repo containing auto-detection scripts for i2c devices. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
+:   A small repo containing auto-detection scripts for i2c devices.
 
 **[ovos-i2csound](https://github.com/OpenVoiceOS/ovos-i2csound)**
-:   Script for i2c HAT detection and configuration on a Raspberry Pi. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
+:   Script for i2c HAT detection and configuration on a Raspberry Pi.
 
 **[ovos-mark1-utils](https://github.com/OpenVoiceOS/ovos-mark1-utils)**
-:   small library to interact with a Mycroft Mark1 faceplate via the messagebus. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
+:   small library to interact with a Mycroft Mark1 faceplate via the messagebus.
 
 **[ovos-systemd](https://github.com/OpenVoiceOS/ovos-systemd)**
 :   A legacy, unmaintained set of example systemd unit files written for the old `mycroft-core`
@@ -624,82 +634,88 @@ Each is a PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL
     real, current examples.
 
 **[raspOVOS](https://github.com/OpenVoiceOS/raspOVOS)**
-:   raspOVOS is the flagship OpenVoiceOS experience for the Raspberry Pi: ready-to-flash images that turn a Pi into a voice assistant. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
+:   raspOVOS is the flagship OpenVoiceOS experience for the Raspberry Pi: ready-to-flash images that turn a Pi into a voice assistant.
 
 **[raspovos-audio-setup](https://github.com/OpenVoiceOS/raspovos-audio-setup)**
-:   Automatic audio configuration for Raspberry Pi devices running OpenVoiceOS. Consumed by device images and build tooling (raspOVOS, ovos-buildroot) rather than by the runtime software stack directly.
+:   Automatic audio configuration for Raspberry Pi devices running OpenVoiceOS.
 
 
 ## Tooling & CI (14)
 
+Unless noted otherwise, these are standalone developer or operator tools, not a runtime dependency of the OVOS stack.
+
 **[gh-automations](https://github.com/OpenVoiceOS/gh-automations)**
-:   Reusable GitHub Actions workflows and Python scripts for the OpenVoiceOS ecosystem. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   Reusable GitHub Actions workflows and Python scripts for the OpenVoiceOS ecosystem.
 
 **[ovos-busmon](https://github.com/OpenVoiceOS/ovos-busmon)**
-:   Live monitor, capture, and injection tool for the OpenVoiceOS messagebus. Stream every bus message to a browser, filter by type (glob), inspect payloads, export captures as JSONL, and inject messages directly from the UI. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   Live monitor, capture, and injection tool for the OpenVoiceOS messagebus. Stream every bus message to a browser, filter by type (glob), inspect payloads, export captures as JSONL, and inject messages directly from the UI.
 
 **[ovos-docker](https://github.com/OpenVoiceOS/ovos-docker)**
-:   Please follow the dedicated documentation. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   Please follow the dedicated documentation.
 
 **[ovos-docker-stt](https://github.com/OpenVoiceOS/ovos-docker-stt)**
-:   Docker/Podman compose files that run an OVOS STT plugin as a standalone speech-to-text container service. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   Docker/Podman compose files that run an OVOS STT plugin as a standalone speech-to-text container service.
 
 **[ovos-docker-tts](https://github.com/OpenVoiceOS/ovos-docker-tts)**
-:   Docker/Podman compose files that run an OVOS TTS plugin as a standalone text-to-speech container service. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   Docker/Podman compose files that run an OVOS TTS plugin as a standalone text-to-speech container service.
 
 **[ovos-docker-tx](https://github.com/OpenVoiceOS/ovos-docker-tx)**
-:   Docker/Podman compose files that run an OVOS translation plugin as a standalone translation container service. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   Docker/Podman compose files that run an OVOS translation plugin as a standalone translation container service.
 
 **[ovos-docs-viewer](https://github.com/OpenVoiceOS/ovos-docs-viewer)**
-:   in terminal docs viewer. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   in terminal docs viewer.
 
 **[ovos-installer](https://github.com/OpenVoiceOS/ovos-installer)**
-:   Installer for Open Voice OS (OVOS) and HiveMind on Linux and macOS. Supports interactive installs, scenario-based automation, and optional container deployment. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   Installer for Open Voice OS (OVOS) and HiveMind on Linux and macOS. Supports interactive installs, scenario-based automation, and optional container deployment.
 
 **[ovos-spec-tools](https://github.com/OpenVoiceOS/ovos-spec-tools)**
-:   Reference implementation of the OVOS [formal specifications](architecture-specs.md) — the low-level, dependency-light primitives those specifications describe. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   Reference implementation of the OVOS [formal specifications](architecture-specs.md) — the low-level, dependency-light primitives those specifications describe.
 
 **[ovos-tools](https://github.com/OpenVoiceOS/ovos-tools)**
-:   A grab-bag of helper scripts for developing, testing, and administering OVOS devices. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   A grab-bag of helper scripts for developing, testing, and administering OVOS devices.
 
 **[ovos-wyoming-docker](https://github.com/OpenVoiceOS/ovos-wyoming-docker)**
-:   A collection of Docker images for running OVOS services using the Wyoming Protocol. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   A collection of Docker images for running OVOS services using the Wyoming Protocol.
 
 **[ovos-yaml-editor](https://github.com/OpenVoiceOS/ovos-yaml-editor)**
-:   The OpenVoiceOS Config Editor is a web-based application for managing and editing the configuration files of OpenVoiceOS, supporting YAML and JSON formats. It provides an easy-to-use interface for modifying and saving configuration data, making it simple for users to adjust system settings. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   The OpenVoiceOS Config Editor is a web-based application for managing and editing the configuration files of OpenVoiceOS, supporting YAML and JSON formats. It provides an easy-to-use interface for modifying and saving configuration data, making it simple for users to adjust system settings.
 
 **[wyoming-ovos-stt](https://github.com/OpenVoiceOS/wyoming-ovos-stt)**
-:   expose OVOS STT plugins via wyoming for usage with the voice pee. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   expose OVOS STT plugins via wyoming for usage with the voice pee.
 
 **[wyoming-ovos-tts](https://github.com/OpenVoiceOS/wyoming-ovos-tts)**
-:   expose OVOS TTS plugins via wyoming for usage with the voice pee. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   expose OVOS TTS plugins via wyoming for usage with the voice pee.
 
 
 ## Datasets & Models (3)
 
+These are consumed by training or benchmarking pipelines and plugin test suites; none are loaded at runtime.
+
 **[ovos-datasets](https://github.com/OpenVoiceOS/ovos-datasets)**
-:   All datasets released under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license. Consumed by training or benchmarking pipelines and plugin test suites; not loaded at runtime.
+:   All datasets released under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) license.
 
 **[ovos-ww-community-dataset](https://github.com/OpenVoiceOS/ovos-ww-community-dataset)**
-:   Wake Word training data provided by the OpenVoiceOS/Mycroft Community. Consumed by training or benchmarking pipelines and plugin test suites; not loaded at runtime.
+:   Wake Word training data provided by the OpenVoiceOS/Mycroft Community.
 
 **[voices_demo](https://github.com/OpenVoiceOS/voices_demo)**
-:   Audio samples demonstrating available TTS voices, for comparing options before configuring one. Consumed by training or benchmarking pipelines and plugin test suites; not loaded at runtime.
+:   Audio samples demonstrating available TTS voices, for comparing options before configuring one.
 
 
 ## Project infrastructure (web/blog) (4)
 
+Public-facing website or blog infrastructure for the project; not part of the runtime software stack.
+
 **[ovos-blogs](https://github.com/OpenVoiceOS/ovos-blogs)**
-:   This is the existing blog-starter plus TypeScript. Public-facing website or blog infrastructure for the project; not part of the runtime software stack.
+:   This is the existing blog-starter plus TypeScript.
 
 **[ovos-landing-page](https://github.com/OpenVoiceOS/ovos-landing-page)**
-:   A community-driven, open-source AI voice platform. Public-facing website or blog infrastructure for the project; not part of the runtime software stack.
+:   A community-driven, open-source AI voice platform.
 
 **[ovos-org-website](https://github.com/OpenVoiceOS/ovos-org-website)**
-:   Test repo for ovos webpage. Public-facing website or blog infrastructure for the project; not part of the runtime software stack.
+:   Test repo for ovos webpage.
 
 **[ovos-technical-manual](https://github.com/OpenVoiceOS/ovos-technical-manual)**
-:   the OVOS project documentation is written and maintained by users just like you! Public-facing website or blog infrastructure for the project; not part of the runtime software stack.
+:   the OVOS project documentation is written and maintained by users just like you!
 
 
 ## Meta & infrastructure / other components (46)

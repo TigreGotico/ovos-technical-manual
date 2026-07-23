@@ -44,10 +44,10 @@ compatible with your use case before depending on them.
 
 | Repository | License | Reason |
 |---|---|---|
-| [ovos-intent-plugin-padatious](https://github.com/OpenVoiceOS/ovos-intent-plugin-padatious) | Apache-2.0 | [padatious](https://github.com/MycroftAI/padatious) depends on `libfann2` (LGPL); its own license status is uncertain as a result |
-| [ovos-tts-plugin-mimic3](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3) | AGPL | depends on [mimic3](https://github.com/MycroftAI/mimic3) (AGPL). This plugin is **archived**; see [Deprecated & Archived Repositories](deprecated-repos.md) for the current replacement |
-| [ovos-tts-plugin-espeakNG](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG) | GPL | depends on [espeak-ng](https://github.com/espeak-ng/espeak-ng) (GPL) |
-| [ovos-g2p-plugin-espeak](https://github.com/OpenVoiceOS/ovos-g2p-plugin-espeak) | GPL | depends on [espeak-phonemizer](https://github.com/rhasspy/espeak-phonemizer) (GPL) |
+| [ovos-intent-plugin-padatious](https://github.com/OpenVoiceOS/ovos-intent-plugin-padatious) | Apache-2.0 | [padatious](https://github.com/MycroftAI/padatious) depends on [libfann](https://github.com/libfann/fann) ([LGPL-2.1](https://github.com/libfann/fann/blob/master/LICENSE.md)); its own license status is uncertain as a result |
+| [ovos-tts-plugin-mimic3](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3) | AGPL | depends on [mimic3](https://github.com/MycroftAI/mimic3) ([AGPL-3.0](https://github.com/MycroftAI/mimic3/blob/master/LICENSE)). This plugin is **archived**; see [Deprecated & Archived Repositories](deprecated-repos.md) for the current replacement |
+| [ovos-tts-plugin-espeakNG](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG) | GPL | depends on [espeak-ng](https://github.com/espeak-ng/espeak-ng) ([GPL-3.0](https://github.com/espeak-ng/espeak-ng/blob/master/COPYING)) |
+| [ovos-g2p-plugin-espeak](https://github.com/OpenVoiceOS/ovos-g2p-plugin-espeak) | GPL | depends on [espeak-phonemizer](https://github.com/rhasspy/espeak-phonemizer) ([GPL-3.0](https://github.com/rhasspy/espeak-phonemizer/blob/master/LICENSE)) |
 | [ovos-tts-plugin-SAM](https://github.com/OpenVoiceOS/ovos-tts-plugin-SAM) | Unclear | reverse-engineered abandonware with no clear upstream license |
 
 ## Further reading

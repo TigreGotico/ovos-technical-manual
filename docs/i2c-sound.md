@@ -46,6 +46,22 @@ card was found). It supports the SJ201 and a range of Respeaker-style HATs, and 
 Install is a one-time `sudo ./install.sh` (apt-based systems) followed by a reboot; on a raspOVOS
 image it is already baked in.
 
+!!! tip "You should see"
+    `install.sh` finishes by printing:
+
+    ```text
+    Installation complete. Please reboot your system to apply changes.
+    ```
+
+    After the reboot, confirm detection worked by reading the marker file it writes:
+
+    ```bash
+    cat /etc/OpenVoiceOS/i2c_platform
+    ```
+
+    A supported board's name (e.g. `SJ201V6`) means detection succeeded. If the file does not
+    exist, `ovos-i2csound` ran but did not find a supported sound card.
+
 ## `raspovos-audio-setup` — manage the audio configuration
 
 [`OpenVoiceOS/raspovos-audio-setup`](https://github.com/OpenVoiceOS/raspovos-audio-setup) is the

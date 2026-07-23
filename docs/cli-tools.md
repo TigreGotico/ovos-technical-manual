@@ -28,7 +28,8 @@ Shipped by **[`ovos-config`](config.md)**. Inspect and edit the layered
 | `ovos-config telemetry --enable` / `--disable` | Opt in or out of anonymous intent telemetry. |
 
 `ovos-config autoconfigure --help` is the recommended first stop after an install to set
-language-appropriate defaults.
+language-appropriate defaults. See the full generated
+[`ovos-config --help` output](#command-help-output-generated) below.
 
 ---
 
@@ -57,6 +58,8 @@ Shipped by **[`ovos-utils`](core-libraries.md#ovos-utils)**. A helper for slicin
 | `ovos-logs list` | List messages filtered by level — `--error`, `--warning`, `--exception`, `--debug` — and time. |
 | `ovos-logs show -l <log>` | Print one named log (e.g. `skills`, `bus`, `audio`). |
 | `ovos-logs reduce` | Truncate the logs to a given `--size` or `--date` to reclaim space. |
+
+See the full generated [`ovos-logs --help` output](#command-help-output-generated) below.
 
 ---
 
