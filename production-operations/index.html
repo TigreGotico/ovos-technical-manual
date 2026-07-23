@@ -1645,7 +1645,7 @@ is a telemetry pipeline you opt into, not an operational metrics/monitoring syst
 </div>
 <p>For day-to-day, per-device debugging, use:</p>
 <ul>
-<li><strong><code>ovos-busmon</code></strong> — a terminal UI that shows the live message traffic on a device's bus in
+<li><strong><code>ovos-busmon</code></strong> — a browser-based web UI (FastAPI + WebSocket) that streams the live message traffic on a device's bus in
   real time; the fastest way to see whether wake word → STT → intent → TTS is actually firing.</li>
 <li><strong><code>ovos-logs</code></strong> (above) for historical logs.</li>
 <li>The <a href="#knowing-when-the-assistant-is-actually-ready">readiness probe</a> as a synthetic check you
