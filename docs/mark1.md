@@ -157,3 +157,14 @@ for grid in a:
 
 
 - **[ovos-mark1-utils GitHub](https://github.com/OpenVoiceOS/ovos-mark1-utils)**: Source code and additional examples.
+
+!!! note "Bus topics follow the OVOS spec namespace"
+    The Mark 1 PHAL plugin emits its faceplate/enclosure bus messages under the standard OVOS
+    spec message namespace rather than legacy topic names — see the
+    [PHAL Mark 1 message spec](https://openvoiceos.github.io/message_spec/phal_mk1/) for the
+    current topic names.
+
+!!! note "Upcoming — enclosure protocol mixin"
+    The Mark 1 PHAL plugin is expected to adopt a shared `EnclosureProtocolListener` mixin for
+    handling the enclosure protocol, aligning it with how other enclosure PHAL plugins are
+    structured.

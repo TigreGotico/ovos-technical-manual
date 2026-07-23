@@ -256,7 +256,7 @@ the player by its entry-point name.
 |---|---|---|
 | [`ovos-media-plugin-vlc`](https://github.com/OpenVoiceOS/ovos-media-plugin-vlc) | audio, video | VLC instance |
 | [`ovos-media-plugin-mplayer`](https://github.com/OpenVoiceOS/ovos-media-plugin-mplayer) | audio, video | mplayer |
-| [`ovos-media-plugin-simple`](https://github.com/OpenVoiceOS/ovos-media-plugin-simple) | audio | Minimal audio player (simple fallback) |
+| [`ovos-media-plugin-cli`](https://github.com/OpenVoiceOS/ovos-media-plugin-cli) | audio | Generic CLI-command player — minimal/default audio fallback |
 | [`ovos-media-plugin-spotify`](https://github.com/OpenVoiceOS/ovos-media-plugin-spotify) | audio | Spotify Connect |
 | [`ovos-media-plugin-chromecast`](https://github.com/OpenVoiceOS/ovos-media-plugin-chromecast) | audio, video | Cast to a Chromecast device |
 | [`ovos-media-plugin-qt5`](https://github.com/OpenVoiceOS/ovos-media-plugin-qt5) | audio, video, web | Hand off to the [GUI](gui-service.md) player ([ovos-shell](ovos-shell.md)) |

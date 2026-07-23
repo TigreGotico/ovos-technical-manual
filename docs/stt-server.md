@@ -175,7 +175,12 @@ across the per-language engines. See the
 
 ## Companion Plugin
 
-To point a OpenVoiceOS (or compatible project) to a STT server you can use the companion plugin
+To point a OpenVoiceOS (or compatible project) to a STT server you can use the companion plugin.
+
+!!! note "Package name vs. repository name"
+    The PyPI package is `ovos-stt-plugin-server`, but its source repository is named
+    `OpenVoiceOS/ovos-stt-server-plugin` (the words are swapped). Both names refer to the same
+    plugin — use the pip name to install, the repo name to find the source.
 
 **Install**  
 
@@ -183,6 +188,10 @@ To point a OpenVoiceOS (or compatible project) to a STT server you can use the c
 pip install ovos-stt-plugin-server
 
 ```
+
+!!! note "Upcoming — universal server adapter"
+    A `server_type` option is planned for this companion plugin, so a single config shape can
+    target different self-hosted or cloud STT server APIs without a dedicated plugin per vendor.
 
 **Configure**
 

@@ -26,12 +26,10 @@ family, adding the other is a **TODO**.
 | [ovos-media-plugin-chromecast](#ovos-media-plugin-chromecast) | Chromecast (audio + video) | ✅ both |
 | [ovos-media-plugin-vlc](#ovos-media-plugin-vlc) | headless VLC (audio + video) | ✅ both |
 | [ovos-media-plugin-mplayer](#ovos-media-plugin-mplayer) | MPlayer (audio + video) | ✅ both |
-| [ovos-media-plugin-simple](#ovos-media-plugin-simple) | minimal/default audio | ✅ both |
 | [ovos-audio-plugin-mpv](#ovos-audio-plugin-mpv) | MPV (audio + video) | ✅ both |
 | [ovos-media-plugin-ffplay](#ovos-media-plugin-ffplay) | ffplay (audio) | ✅ both |
 | [ovos-media-plugin-cli](#ovos-media-plugin-cli) | generic CLI-command player (audio) | ✅ both |
 | [ovos-plugin-vlc](#ovos-plugin-vlc) | VLC | old audio service only (legacy) — use ovos-media-plugin-vlc for ovos-media |
-| [ovos-audio-plugin-simple](#ovos-audio-plugin-simple) | minimal audio | old audio service only — ⚠️ ovos ≤ 0.0.7 |
 
 The [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) below is not a playback backend — it is the
 **old audio service itself** (deprecated, still the shipped default).
@@ -75,27 +73,6 @@ The [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) below is not a playback ba
 
 
 - **Description**: The legacy **"old audio service"** OCP backend. It crams OCP search orchestration, the player state machine, MPRIS and the GUI into a single `ovos-audio` `AudioBackend`. ⚠️ **Deprecated but still shipped and enabled by default** (`enable_old_audioservice: true`); superseded by the standalone [ovos-media](ovos-media.md) daemon. See the dedicated **[OCP Audio Plugin](ocp-audio-plugin.md)** page for the full background, configuration, and migration path.
-
----
-
-## ovos-media-plugin-simple
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-media-plugin-simple](https://github.com/OpenVoiceOS/ovos-media-plugin-simple)
-
-
-- **Description**: Minimal/default audio playback (import name `ovos_media_plugin_cli`). Ships
-  entry points for both [ovos-media](https://github.com/OpenVoiceOS/ovos-media)
-  (`opm.media.audio`, class `CLIAudioService`) and the old audio service
-  (`mycroft.plugin.audioservice`, type `ovos_cli`).
-
----
-
-## ovos-audio-plugin-simple
-
-- **GitHub**: [https://github.com/OpenVoiceOS/ovos-audio-plugin-simple](https://github.com/OpenVoiceOS/ovos-audio-plugin-simple)
-
-
-- **Description**: ⚠️ Legacy old-audio-service backend (`mycroft.plugin.audioservice`). This plugin was made for old OCP and only works on ovos ≤ 0.0.7.
 
 ---
 

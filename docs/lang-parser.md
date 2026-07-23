@@ -101,7 +101,7 @@ Returns `(bcp47_code, confidence_score)` — the best-matching language code and
 Example:
 ```python
 extract_langcode("switch to Spanish please", "en")
-# ("es", 0.95)
+# ("es", 1.0)
 ```
 
 ---

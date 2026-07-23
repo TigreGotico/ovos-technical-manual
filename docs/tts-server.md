@@ -230,13 +230,22 @@ Config keys:
 | `verify_ssl` | `true` | Verify the server's TLS certificate. |
 | `tts_timeout` | `5` | Per-request timeout in seconds. |
 
+!!! note "Upcoming — universal server adapter"
+    A `server_type` option (plus first-class `api_key` support) is planned for the companion
+    plugin, so a single config shape can target different self-hosted or cloud TTS server APIs
+    without a dedicated plugin per vendor.
+
 ---
 
 ## Docker Deployment
 
-**Upcoming** — a ready-made Docker Compose proxy setup is tracked in
-[ovos-tts-server#101](https://github.com/OpenVoiceOS/ovos-tts-server/pull/101).
+**Upcoming** — a ready-made Docker Compose proxy setup for this server is in progress.
 
+!!! tip "An interim path: some TTS plugins ship their own Docker image"
+    A few TTS plugin repositories (for example the eSpeak NG, S.A.M., and Mimic engines)
+    already ship their own `Dockerfile` and `docker-compose.yml` that build a ready-made
+    container serving that engine behind `ovos-tts-server`. Until the compose proxy above
+    lands, check a plugin's own repository for a Dockerfile before building one by hand.
 
 **Create a Dockerfile**
 

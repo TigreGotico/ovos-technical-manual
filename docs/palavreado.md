@@ -41,6 +41,7 @@ result = container.calc_intent("hello there")
 print(result["name"])                # greet
 print(result["conf"])                # confidence score
 print(result["keywords"])            # {'hello': ['hello']} — matched keyword slots
+print(result["utterance"])           # 'hello there' — the original utterance
 print(result["utterance_remainder"]) # 'there' — words not consumed by any slot
 ```
 
