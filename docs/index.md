@@ -40,10 +40,18 @@ how it hears, thinks, and speaks, or teach it brand-new abilities.
 
     Get a working voice assistant on your device.
 
-    [:octicons-arrow-right-24: ovos-installer](ovos-installer.md) ·
+    [:octicons-arrow-right-24: ovos-installer (start here)](ovos-installer.md) ·
     [Make it yours](personalize.md) ·
     [Advanced / manual install](release-channels.md) ·
     [Skill examples](skill-examples.md)
+
+-   :material-account-question: __Coming from Alexa or Google?__
+
+    ---
+
+    An honest look at what's the same, what's different, and what to expect on day one.
+
+    [:octicons-arrow-right-24: Coming from Alexa/Google](coming-from-alexa.md)
 
 -   :material-school: __I want to build a skill__
 

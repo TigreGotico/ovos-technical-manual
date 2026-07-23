@@ -13,7 +13,9 @@
 
 The [Dad Jokes skill](skill-examples.md#dad-jokes) (`ovos-skill-icanhazdadjokes`) answers "tell me
 a joke", "do you know any Chuck Norris jokes?", or "tell me a joke about dentists" with a fresh
-pun every time. Install it with `pip install ovos-skill-icanhazdadjokes` and restart `ovos-core`.
+pun every time. Install it with `pip install ovos-skill-icanhazdadjokes`, then:
+
+--8<-- "snippets/restart-ovos.md"
 
 ## Turn it into a parrot
 
@@ -44,7 +46,9 @@ also expose several distinct voices through their own `voice` config key. For ex
 picks a specific speaker/dialect with `"voice": "valencia/gina"`, and
 [`ovos-tts-plugin-edge-tts`](tts-plugins.md#ovos-tts-plugin-edge-tts) offers dozens of
 cloud voices across many languages and accents. Set the plugin (and, where supported, its `voice`)
-under the `tts` section of `mycroft.conf` and restart `ovos-audio` to hear the change.
+under the `tts` section of `mycroft.conf` and restart to hear the change:
+
+--8<-- "snippets/restart-ovos.md"
 
 ## Change how it sounds
 
@@ -77,3 +81,19 @@ together:
 Nothing here needs custom hardware — a speaker and a device running OVOS is enough to try the
 pattern indoors before building it into a prop. See [Hardware Integrators](hardware-integrators.md)
 if you do want to build a standalone battery/speaker enclosure for it.
+
+!!! note "This one's for people who write skills"
+    The Halloween-prop recipe above uses skill code (`self.schedule_event`, `converse`) rather
+    than voice/config alone. If you haven't written a skill yet, [Your First Skill](first-skill.md)
+    is a gentler starting point.
+
+## Play your own music, or control your smart home
+
+OVOS plays internet radio ([PyRadios](skill-examples.md#pyradios),
+[SomaFM](skill-examples.md#somafm)) and local audio files out of the box — there is no bundled
+Spotify or other streaming-service player. See [Media Plugins](media-plugins.md) for what can be
+added.
+
+Turning lights and other smart-home devices on and off by voice is also not built in — it's a
+separate skill that talks to Home Assistant. See [OVOS & Home Assistant](home-assistant.md) for
+the setup and example commands.
