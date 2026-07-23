@@ -1848,8 +1848,8 @@ surface (<code>/tools/manual</code>, <code>/mcp</code>) are <code>ToolBox</code>
 entry-point group, so installing <code>ovos-tool-adapters</code> alongside <code>ovos-persona-server</code> also
 exposes the bridged external tools through the Persona Server's own MCP/UTCP endpoints.
 Every <code>ToolBox</code> implementation (<code>DuckDuckGoToolbox</code>, <code>WikipediaToolbox</code>, <code>MCPToolBox</code>,
-<code>UTCPToolBox</code>, ...) declares its <code>toolbox_id</code> as a class attribute and takes
-<code>(config=None, bus=None)</code>, so the Persona Server constructs each one with a single
+<code>UTCPToolBox</code>, ...) takes <code>(config=None, bus=None)</code> and passes its own <code>toolbox_id</code> up
+to the base class, so the Persona Server constructs each one with a single
 <code>cls(config=cfg, bus=bus)</code> call. See <a href="../tool-plugins/">Agent Tool Plugins</a> for the
 full contract.</p>
 </div>

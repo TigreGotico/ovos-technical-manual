@@ -1508,29 +1508,28 @@
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="k">return</span> <span class="n">AddResult</span><span class="p">(</span><span class="nb">sum</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="n">args</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="k">class</span> <span class="nc">MathToolBox</span><span class="p">(</span><span class="n">ToolBox</span><span class="p">):</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="n">toolbox_id</span> <span class="o">=</span> <span class="s2">&quot;my-toolbox&quot;</span>          <span class="c1"># must match the entry-point name</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">)</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="k">def</span> <span class="nf">discover_tools</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">AgentTool</span><span class="p">]:</span>
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        <span class="k">return</span> <span class="p">[</span>
-</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>            <span class="n">AgentTool</span><span class="p">(</span>
-</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="p">,</span>
-</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Add two numbers together.&quot;</span><span class="p">,</span>
-</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>                <span class="n">argument_schema</span><span class="o">=</span><span class="n">AddArgs</span><span class="p">,</span>
-</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>                <span class="n">output_schema</span><span class="o">=</span><span class="n">AddResult</span><span class="p">,</span>
-</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>                <span class="n">tool_call</span><span class="o">=</span><span class="n">add</span><span class="p">,</span>
-</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>            <span class="p">)</span>
-</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        <span class="p">]</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="c1"># the plugin declares its own id, matching the entry-point name</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">toolbox_id</span><span class="o">=</span><span class="s2">&quot;my-toolbox&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">)</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="k">def</span> <span class="nf">discover_tools</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">AgentTool</span><span class="p">]:</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        <span class="k">return</span> <span class="p">[</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>            <span class="n">AgentTool</span><span class="p">(</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="p">,</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Add two numbers together.&quot;</span><span class="p">,</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>                <span class="n">argument_schema</span><span class="o">=</span><span class="n">AddArgs</span><span class="p">,</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>                <span class="n">output_schema</span><span class="o">=</span><span class="n">AddResult</span><span class="p">,</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>                <span class="n">tool_call</span><span class="o">=</span><span class="n">add</span><span class="p">,</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>            <span class="p">)</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>        <span class="p">]</span>
 </span></code></pre></div>
-<p>Every <code>ToolBox</code> declares its identity as the class attribute <code>toolbox_id</code>, matching its
-entry-point name, and takes <code>(config=None, bus=None)</code> — the same shape as every other OPM
-plugin type. Loaders always construct a toolbox with exactly <code>cls(config=cfg, bus=bus)</code>;
-<code>toolbox_id</code> is never passed by the loader. A class that declares no <code>toolbox_id</code> raises
-<code>ValueError</code> at construction. Adapters that front several external servers with one class
-(for example the MCP and UTCP adapters) may additionally accept an optional <code>toolbox_id=</code>
-override to keep their bus topics distinct.</p>
+<p>A <code>ToolBox</code> plugin defines <code>__init__(self, config=None, bus=None)</code> and passes its own
+identity up to the base class: <code>super().__init__(toolbox_id="&lt;entry-point-name&gt;",
+config=config, bus=bus)</code>. The <code>config</code>/<code>bus</code> shape matches every other OPM plugin type.
+Loaders always construct a toolbox with exactly <code>cls(config=cfg, bus=bus)</code> and never pass
+<code>toolbox_id</code> themselves. An adapter that fronts several external servers with one class
+(the MCP and UTCP adapters, for example) simply exposes <code>toolbox_id</code> in its own signature
+and forwards it, so each instance keeps a distinct bus topic.</p>
 <p>Per-plugin settings come from the <code>opm.agents.toolbox.config</code> entry-point group, exactly as
 for STT, TTS and VAD plugins, and are handed to the constructor as <code>config</code>.</p>
 <p><code>ToolBox.__init__</code> calls <code>discover_tools()</code> immediately to populate <code>self.tools</code>, and <code>bind(bus)</code>
