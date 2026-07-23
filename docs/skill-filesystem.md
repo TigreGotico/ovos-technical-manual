@@ -13,7 +13,7 @@
 
 Files for a skill are stored under:
 
-```
+```text
 $XDG_DATA_HOME/<base_folder>/filesystem/skills/<skill_id>/
 
 ```

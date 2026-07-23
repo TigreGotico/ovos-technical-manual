@@ -76,7 +76,7 @@ These files live in the Skill's `locale/<lang>/` directory (e.g. `locale/en-us/P
 
 Consider a simple `Potato.voc`. Within this file we might include:
 
-```
+```text
 potato
 potatoes
 spud
@@ -111,7 +111,7 @@ These files live in the Skill's `locale/<lang>/` directory. They can have one or
 
 Let's consider a `type.rx` file to extract the type of potato we are interested in. Within this file we might include:
 
-```
+```text
 .* about (?P<Type>.*) potatoes
 .* (make|like) (?P<Type>.*) potato
 
@@ -141,7 +141,7 @@ From these three utterances, what will the extracted `Type` be:\
 
 This `Type` will be available to use in your Skill's Intent Handler on the `message` object. We can access this using:
 
-```
+```text
 message.data.get('Type')
 
 ```

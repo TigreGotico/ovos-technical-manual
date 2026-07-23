@@ -76,7 +76,7 @@ messages above into the Qt wire protocol (`mycroft.session.*`, `mycroft.gui.list
 pushes them to every connected client. See [GUI Protocol](gui-protocol.md) for the wire
 format.
 
-```
+```text
 ┌──────────────────────────────────────────────────────────┐
 │  Skill (OVOSSkill)                                        │
 │  self.gui.show_text("Hello", title="Greeting")           │
@@ -138,7 +138,7 @@ namespace holds session data (key/value pairs) and an ordered list of displayed 
 
 Example lifecycle:
 
-```
+```text
 OVOS idle          → homescreen / idle view
 "play music"       → music player namespace at position 0
 "what time is it"  → clock skill namespace at position 0; music player at 1

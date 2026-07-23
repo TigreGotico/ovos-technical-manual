@@ -121,7 +121,7 @@ Skills load localized resources from a structured directory layout. Resources ar
 
 ### Recommended Layout
 
-```
+```text
 my-skill/
 ├── locale/
 │   ├── en-US/
@@ -158,7 +158,7 @@ Legacy skills may use separate `dialog/`, `vocab/`, `regex/` subdirectories — 
 
 Each line in a `.dialog` file is a possible response. One line is chosen randomly when `speak_dialog` is called:
 
-```
+```text
 
 # my.dialog
 Hello there!

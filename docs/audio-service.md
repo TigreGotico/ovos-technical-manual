@@ -63,7 +63,7 @@ The audio service receives `ovos.utterance.speak` messages (legacy: `speak`) fro
 
 ## Architecture
 
-```
+```text
 Subsystem 1 — TTS / sound playback (always on):    OVOS-AUDIO-1 §3
   [MessageBus] --(ovos.utterance.speak)--> [dialog-transformers §3.5] --> [TTS Plugin] --> [tts-transformers §3.6]
                (legacy: speak)                                                                      |

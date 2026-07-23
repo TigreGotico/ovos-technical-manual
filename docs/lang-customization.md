@@ -32,7 +32,7 @@ Two files may share a base name only if their roles differ (`confirm.intent` and
 
 All localized resources live under a single `locale/` directory, with **one subdirectory per language**, named with a BCP-47 tag (case-insensitive — `en-US` and `en-us` are the same):
 
-```
+```text
 my-skill/
 └── locale/
     ├── en-US/
@@ -67,7 +67,7 @@ Overrides apply at **whole-file granularity**: an override file replaces the cor
 
 The user override base is `<xdg_data>/resources/<skill_id>/`, where `<xdg_data>` is the XDG data path — by default `~/.local/share/mycroft`. So a typical override file path is:
 
-```
+```text
 ~/.local/share/mycroft/resources/<skill_id>/locale/<lang>/<file>
 ```
 
@@ -97,13 +97,13 @@ All five roles are line-oriented UTF-8 text (OVOS-INTENT-2 §3):
 
 Slot-bearing files (`.intent`, `.dialog`) use the OVOS-INTENT-1 sentence-template grammar — expansion `(a|b)` / optional `[x]` and named slots `{name}`. Slot-free files (`.entity`, `.voc`, `.blacklist`) use expansion only, with no `{slots}`.
 
-```
+```text
 # turn_on.intent  (slot-bearing)
 turn on (the|) {device}
 (switch|power) on {device}
 ```
 
-```
+```text
 # thing.voc  (slot-free)
 light
 lamp

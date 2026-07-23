@@ -659,7 +659,7 @@
 - May 2023 - [ovos-docker](https://github.com/openvoiceos/ovos-docker) released, maintained by community member @goldyfruit
 
 
-- May 2023 - Open Voice OS TTS/STT [status page](http://openvoiceos.github.io/status/) released, maintained by community member @goldyfruit
+- May 2023 - OpenVoiceOS TTS/STT [status page](http://openvoiceos.github.io/status/) released, maintained by community member @goldyfruit
 
 
 - May 2023 - First successful run of OpenVoiceOS on Mac OS using containers with [ovos-docker](https://github.com/openvoiceos/ovos-docker)
@@ -863,7 +863,7 @@
 - Mar 2024 - [ovos-installer](https://github.com/OpenVoiceOS/ovos-installer) second release, codename `Doom` supports Mark II device, maintained by community member @goldyfruit
 
 
-- Apr 2024 - [Mark 2 demo](https://community.openconversational.ai/t/open-voice-os-running-on-a-mark-ii-with-its-local-ai-running-mistral/14572) running Open Voice OS connected to a local A.I.
+- Apr 2024 - [Mark 2 demo](https://community.openconversational.ai/t/open-voice-os-running-on-a-mark-ii-with-its-local-ai-running-mistral/14572) running OpenVoiceOS connected to a local A.I.
 
 
 - Apr 2024 - First successful run of [HiveMind Satellite](https://github.com/JarbasHiveMind/HiveMind-voice-sat) on Mark 1 device

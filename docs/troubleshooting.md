@@ -94,7 +94,7 @@ OVOS runs several independent services (listener, intent/skills, audio, messageb
 one writes its **own** log file, named after the service. By default they land under the XDG state
 directory — on a typical Linux install that is:
 
-```
+```text
 ~/.local/state/mycroft/
 ├── audio.log     # ovos-audio — TTS + playback
 ├── bus.log       # ovos-messagebus
@@ -134,7 +134,7 @@ ovos-listen
 `ovos-listen` is the simplest possible probe — it just emits `mycroft.mic.listen` and exits. If the
 bus isn't reachable, the client itself logs the failure to the terminal:
 
-```
+```text
 WARNING - Connection Refused. Is Messagebus Service running?
 WARNING - Message Bus Client will reconnect in 5.0 seconds.
 ```
@@ -157,7 +157,7 @@ stream stays empty.
 
 A healthy wake-word trigger and recording cycle looks like this in `voice.log`:
 
-```
+```text
 DEBUG - Record begin
 DEBUG - Hotword utterance: hey mycroft
 DEBUG - Emitting hotword event: recognizer_loop:wakeword
@@ -206,7 +206,7 @@ useful for isolating STT problems (Stage 3) from wake-word problems.
 Once recording stops, the audio is handed to the [STT plugin](stt-plugins.md). A healthy
 transcription shows up as:
 
-```
+```text
 DEBUG - STT: ['what time is it']
 ```
 
@@ -242,7 +242,7 @@ the utterance land there with the right text confirms STT worked, regardless of 
 
 `ovos-core`'s `IntentService` logs every step of matching. A healthy match looks like:
 
-```
+```text
 INFO - Parsing utterance: ['what time is it']
 INFO - adapt_high match (en-us): IntentMatch(...)
 DEBUG - final intent match: {...}
@@ -255,7 +255,7 @@ DEBUG - final intent match: {...}
 miss (as `no match from <bound method ...>`, naming the matcher's Python function) before the
 utterance falls through to the next stage, and eventually to nothing:
 
-```
+```text
 DEBUG - no match from <bound method ...StopPipeline.match ...>
 DEBUG - no match from <bound method ...ConversePipeline.match ...>
 DEBUG - no match from <bound method ...OCPPipelineMatcher.match ...>
@@ -293,7 +293,7 @@ described in [The Life of an Utterance](life-of-an-utterance.md#5-skill-executio
 Once a skill's intent handler is invoked, any unhandled exception inside it is caught by the skill
 base class, logged, and (unless disabled) spoken back as a generic error dialog:
 
-```
+```text
 ERROR - <full traceback of the exception>
 ```
 
@@ -320,7 +320,7 @@ every skill in one view, or filter by the specific skill's ID to isolate its tra
 Once a skill calls `self.speak()`, `ovos-audio` picks up the message. A healthy synthesis + playback
 cycle logs:
 
-```
+```text
 INFO - Speak: what time is it, it's three o'clock
 ```
 

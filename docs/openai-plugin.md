@@ -269,7 +269,7 @@ for consumption by skills before TTS, not directly by end-users.
 
 Default `prompt_template`:
 
-```
+```text
 Your task is to summarize the text into a suitable format.
 Answer in plaintext with no formatting, 2 paragraphs long at most.
 Focus on the most important information.

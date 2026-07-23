@@ -14,7 +14,7 @@ In OVOS-PIPELINE-1 terms Padatious is a pipeline plugin exposing `match(utteranc
 
 **Minimal example** — drop a `weather.intent` file in your skill's `locale/en-us/` folder:
 
-```
+```text
 what is the weather
 tell me the weather
 what's the weather like
@@ -83,7 +83,7 @@ Padatious is **excellent for multilingual environments** because intents are def
 
 To add another language, simply create a new `.intent` file in the relevant language folder, such as:
 
-```
+```text
 locale/pt-pt/weather.intent
 locale/fr-fr/weather.intent
 
@@ -95,7 +95,7 @@ locale/fr-fr/weather.intent
 
 Intent examples are written line-by-line in `.intent` files:
 
-```
+```text
 what is the weather
 tell me the weather
 what's the weather like

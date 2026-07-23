@@ -16,7 +16,7 @@ The **Message Bus** is the central nervous system of the OVOS platform. All serv
 
 `ovos-messagebus` is a pure fan-out WebSocket broker. Every message received from one client is broadcast verbatim to every connected client. The bus performs no filtering, routing, or transformation.
 
-```
+```text
 ┌─────────────────────────────────────────────┐
 │              ovos-messagebus                │
 │                                             │
@@ -35,6 +35,13 @@ The **Message Bus** is the central nervous system of the OVOS platform. All serv
     (clients via ovos-bus-client)
 
 ```
+
+The broker itself has no logic beyond fan-out: it holds a list of open WebSocket connections and,
+for every message any one client sends, writes that same message to every other open connection
+(the Tornado I/O loop shown in the box runs this on its own daemon thread, so it does not block
+whichever process embeds it). `ovos-core`, `ovos-audio`, and `ovos-gui` above are just three
+example clients — anything speaking the same WebSocket protocol, including your own scripts, can
+connect and take part on equal footing.
 
 ---
 
@@ -146,7 +153,7 @@ Subscription filtering is handled entirely in the client library (`ovos-bus-clie
     
     ```python
     config.get("websocket", {}).get("max_msg_size", 10) * 1024 * 1024
-    ```
+```
     
     The shipped `mycroft.conf` sets `max_msg_size` to 25, so the effective default is
     25 MB (the code's hardcoded fallback of 10 only applies if the key is absent).
@@ -340,9 +347,9 @@ A separate, drop-in Rust implementation exists as its own project for deployment
     load levels (5 / 20 / 50 / 100 concurrent clients):
 
     - **webrockets** — a high-performance websocket backend, written in Python. Tracked in
-      [ovos-messagebus#51](https://github.com/OpenVoiceOS/ovos-messagebus/pull/51).
+      the `ovos-messagebus` project.
     - **Rust** — the [`ovos-rust-messagebus`](https://github.com/OscillateLabsLLC/ovos-rust-messagebus)
-      v1.1.2 server, run in place of the Python process.
+      server, run in place of the Python process.
 
     Throughput vs the Tornado baseline, measured with the included benchmark script:
 
@@ -363,7 +370,7 @@ A separate, drop-in Rust implementation exists as its own project for deployment
 
 Set `websocket.filter: true` in `mycroft.conf` to log all message types before broadcasting. This does not affect message delivery.
 
-```
+```text
 DEBUG: <msg_type> source: [...] destination: [...]
        SESSION: {...}
 
@@ -372,6 +379,56 @@ DEBUG: <msg_type> source: [...] destination: [...]
 Messages listed in `filter_logs` are excluded from the log to reduce noise (default: `["gui.status.request", "gui.page.upload"]`).
 
 When `filter` is off (the default), the bus never deserializes messages — it emits and re-broadcasts the raw frame as-is. Deserialization only happens in `filter` mode for the log line; if a frame fails to deserialize there, it is dropped (not logged, not re-broadcast).
+
+---
+
+## Bus recipes
+
+A few small, runnable patterns for talking to a live bus directly, without going through a skill.
+
+### Connect, emit, and wait for a response
+
+```python
+from ovos_bus_client import MessageBusClient, Message
+
+bus = MessageBusClient()
+bus.run_in_thread()  # connects on a background daemon thread
+
+# fire-and-forget
+bus.emit(Message("ovos.utterance.handle", {"utterances": ["what time is it"], "lang": "en-us"}))
+
+# request/response: send a message, then wait for a specific reply type
+response = bus.wait_for_response(
+    Message("ovos.session.sync"),
+    reply_type="ovos.session.update_default",
+    timeout=3.0,
+)
+if response is not None:
+    print(response.data)
+
+bus.close()
+```
+
+`MessageBusClient()` with no arguments reads `host`/`port`/`route` from `mycroft.conf`'s
+`websocket` section (see [Configuration](#configuration) above). `run_in_thread()` starts the
+WebSocket loop on a daemon thread so the call returns immediately; `wait_for_response` blocks the
+calling thread until a message of `reply_type` arrives or the timeout elapses, returning `None` on
+timeout.
+
+### From the command line
+
+The [`ovos-bus-client` CLI tools](cli-tools.md#talking-to-a-running-ovos-ovos-bus-client) wrap
+the same client for quick, no-code interaction with a running assistant:
+
+- `ovos-say-to "what time is it"` — inject an utterance as if spoken.
+- `ovos-listen` — trigger listening, as if the wake word fired.
+- `ovos-speak "hello"` — make OVOS speak a phrase.
+
+### Watching the bus live
+
+For interactively inspecting every message flowing across the bus (useful when a recipe above
+isn't behaving as expected), run `ovos-busmon` — a terminal viewer for live bus traffic. It
+subscribes like any other client and prints each message as it is broadcast.
 
 ---
 

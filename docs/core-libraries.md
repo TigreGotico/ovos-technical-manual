@@ -65,6 +65,8 @@ The layered configuration system (defaults → system → user → runtime). Cov
 [Configuration](config.md).
 
 - Source: [OpenVoiceOS/ovos-config](https://github.com/OpenVoiceOS/ovos-config)
+- API docs: unlike the libraries above, `ovos-config` has no separate `docs/` folder — its
+  [`README`](https://github.com/OpenVoiceOS/ovos-config/blob/dev/README.md) is the API reference.
 
 ## `kw-template-matcher`
 

@@ -5,11 +5,11 @@
     fast, pretend version of the whole assistant in one process, so you can confirm a request is
     understood and answered correctly without real hardware. "End-to-end" just means it checks the
     whole journey — from what the user said to what the assistant did. This page gets you started;
-    the **full, always-current reference lives in the [ovoscope repo's `docs/`](https://github.com/OpenVoiceOS/ovoscope/tree/dev/docs)**. See the [Glossary](glossary.md).
+    the **full, always-current reference lives in the [ovoscope repo's `docs/`](https://github.com/OpenVoiceOS/ovoscope/tree/1.5.0/docs)**. See the [Glossary](glossary.md).
 
 !!! info "This page is a guide; the reference is in the repo"
     `ovoscope` is actively developed, so its detailed per-harness reference is kept **in the tool's
-    own [`docs/`](https://github.com/OpenVoiceOS/ovoscope/tree/dev/docs)** rather than copied here
+    own [`docs/`](https://github.com/OpenVoiceOS/ovoscope/tree/1.5.0/docs)** rather than copied here
     (which would drift out of sync). This page gives you the concept and a working first test, then
     links to the authoritative reference for each harness.
 
@@ -70,29 +70,29 @@ the speak is ever checked.
 
 For full sequence assertions — message types, ordering, routing, and session state — populate
 `expected_messages` and call `test.execute()` directly (see the
-[usage guide](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/usage-guide.md)).
+[usage guide](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/usage-guide.md)).
 
 ---
 
 ## The harnesses (full reference in the repo)
 
 `ovoscope` ships a harness per subsystem. Each is documented in the tool's
-[`docs/`](https://github.com/OpenVoiceOS/ovoscope/tree/dev/docs):
+[`docs/`](https://github.com/OpenVoiceOS/ovoscope/tree/1.5.0/docs):
 
 | Harness / topic | What it tests | Reference |
 |---|---|---|
-| `MiniCroft` | The in-process core that loads your skills | [minicroft.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/minicroft.md) |
-| `End2EndTest` | Declarative single/multi-turn interactions | [end2end-test.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/end2end-test.md) · [usage-guide.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/usage-guide.md) |
-| `CaptureSession` | Recording bus messages for assertion/replay | [capture-session.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/capture-session.md) |
-| Pipeline testing | Intent-pipeline matching | [pipeline.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/pipeline.md) |
-| OCP testing | Media ("play …") skills | [ocp.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/ocp.md) · [media-testing.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/media-testing.md) |
-| Audio service testing | TTS / sound playback lifecycle | [audio-testing.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/audio-testing.md) |
-| Listener testing | The speech/listener service | [listener.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/listener.md) · [voice-loop.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/voice-loop.md) |
-| PHAL testing | Hardware-abstraction plugins | [phal.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/phal.md) |
-| GUI testing | `gui.page.show` and GUI state | [gui-testing.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/gui-testing.md) |
-| Pydantic integration | Typed message assertions | [pydantic-integration.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/pydantic-integration.md) |
-| Bus coverage | Which message types your test exercised | [bus-coverage.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/bus-coverage.md) |
-| CLI | The `ovoscope` command-line runner | [cli.md](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/cli.md) |
+| `MiniCroft` | The in-process core that loads your skills | [minicroft.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/minicroft.md) |
+| `End2EndTest` | Declarative single/multi-turn interactions | [end2end-test.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/end2end-test.md) · [usage-guide.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/usage-guide.md) |
+| `CaptureSession` | Recording bus messages for assertion/replay | [capture-session.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/capture-session.md) |
+| Pipeline testing | Intent-pipeline matching | [pipeline.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/pipeline.md) |
+| OCP testing | Media ("play …") skills | [ocp.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/ocp.md) · [media-testing.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/media-testing.md) |
+| Audio service testing | TTS / sound playback lifecycle | [audio-testing.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/audio-testing.md) |
+| Listener testing | The speech/listener service | [listener.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/listener.md) · [voice-loop.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/voice-loop.md) |
+| PHAL testing | Hardware-abstraction plugins | [phal.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/phal.md) |
+| GUI testing | `gui.page.show` and GUI state | [gui-testing.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/gui-testing.md) |
+| Pydantic integration | Typed message assertions | [pydantic-integration.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/pydantic-integration.md) |
+| Bus coverage | Which message types your test exercised | [bus-coverage.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/bus-coverage.md) |
+| CLI | The `ovoscope` command-line runner | [cli.md](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/cli.md) |
 
 The low-level `FakeBus` it builds on lives in `ovos-utils` (`ovos_utils.fakebus`).
 
@@ -101,9 +101,9 @@ The low-level `FakeBus` it builds on lives in `ovos-utils` (`ovos_utils.fakebus`
 ## Running in CI
 
 Add the shared `ovoscope` workflow to your skill repo so the tests run on every pull request — see
-[CI Integration](https://github.com/OpenVoiceOS/ovoscope/blob/dev/docs/ci-integration.md) and the
+[CI Integration](https://github.com/OpenVoiceOS/ovoscope/blob/1.5.0/docs/ci-integration.md) and the
 manual's [gh-automations](gh-automations-overview.md) page for the OVOS CI conventions.
 
 ---
 
-*Source code & full reference: [OpenVoiceOS/ovoscope](https://github.com/OpenVoiceOS/ovoscope) — see its [`docs/`](https://github.com/OpenVoiceOS/ovoscope/tree/dev/docs).*
+*Source code & full reference: [OpenVoiceOS/ovoscope](https://github.com/OpenVoiceOS/ovoscope) — see its [`docs/`](https://github.com/OpenVoiceOS/ovoscope/tree/1.5.0/docs).*

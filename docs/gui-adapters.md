@@ -210,7 +210,7 @@ exact key path is not yet fixed by any released code — treat it as illustrativ
 With two adapters installed (e.g. legacy Qt and pyhtmx), every display event is dispatched
 to both:
 
-```
+```text
 self.gui.show_weather(…)
        ↓
 ovos-gui router, fanned out to every installed opm.gui_adapter plugin

@@ -29,7 +29,7 @@ Every user utterance, whether captured from a microphone or received via a remot
 
 The diagram below shows the key components within `ovos-core` and how they interact with other services:
 
-```
+```bash
 ovos-messagebus  (WebSocket pub/sub)
       │
       ├── ovos-core  (this service)

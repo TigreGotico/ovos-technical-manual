@@ -470,7 +470,7 @@ Brighten your day with dad humor. Laughter is not guaranteed, but eye rolls are 
 
 [:material-github: OpenVoiceOS/ovos-skill-local-media](https://github.com/OpenVoiceOS/ovos-skill-local-media) · `pip install ovos-skill-local-media`
 
-Local Media File Browser For Open Voice OS
+Local Media File Browser For OpenVoiceOS
 
 **Usage examples:**
 

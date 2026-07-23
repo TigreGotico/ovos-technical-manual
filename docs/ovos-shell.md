@@ -30,7 +30,7 @@ skill (see [Home Screen](homescreen.md)), not by the shell.
 
 ## Architecture
 
-```
+```bash
 ovos-shell/
 ├── application/             ← Main executable (ovos-shell binary)
 │   ├── main.cpp             ← QApplication entry point
