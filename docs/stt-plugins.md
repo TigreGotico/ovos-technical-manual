@@ -60,7 +60,7 @@ A more advanced STT class for streaming data to the STT. This will receive chunk
 
 The plugin author needs to implement the `create_streaming_thread()` method creating a thread for handling data sent through `self.queue`. 
 
-The thread this method creates should be based on the `StreamThread` class. `handle_audio_data()` method also needs to be implemented.
+The thread this method creates should be based on the `StreamThread` class. Its abstract `handle_audio_stream(audio, language)` method also needs to be implemented — it receives a generator of audio chunks and should set `self.text` to the transcript; `finalize()` returns that stored text once the stream ends.
 
 ## Entry point
 
@@ -178,6 +178,7 @@ MySTTConfig = {
 | [ovos-stt-plugin-nos](#ovos-stt-plugin-nos) | Galician STT using Proxecto Nós wav2vec2 models. ⚠️ Archived — superseded by [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2). |
 | [ovos-stt-plugin-HiTZ](#ovos-stt-plugin-hitz) | OpenVoiceOS STT plugin for **Basque** models trained by [HiTZ](https://huggingface.co/HiTZ) ⚠️ **Archived/deprecated.** |
 | [ovos-stt-plugin-vosk](#ovos-stt-plugin-vosk) | Mycroft STT plugin for [Vosk](https://alphacephei.com/vosk/) |
+| [ovos-stt-plugin-onnx-asr](#ovos-stt-plugin-onnx-asr) | Runs [onnx-asr](https://github.com/istupakov/onnx-asr) models (NeMo Parakeet/Canary, Whisper, wav2vec2, …) fully offline via ONNX Runtime — a strong default for on-device, offline recognition. |
 
 ## ovos-stt-plugin-wav2vec
 
@@ -485,6 +486,27 @@ MySTTConfig = {
     }
   }
  
+
+```
+
+---
+
+## ovos-stt-plugin-onnx-asr
+
+- **GitHub**: [https://github.com/OpenVoiceOS/ovos-stt-plugin-onnx-asr](https://github.com/OpenVoiceOS/ovos-stt-plugin-onnx-asr)
+
+
+- **Description**: Runs [onnx-asr](https://github.com/istupakov/onnx-asr) models fully offline via ONNX Runtime — no cloud call, no PyTorch/transformers dependency. Supports NeMo Parakeet and Canary, Whisper, and wav2vec2 model families.
+
+### Default Configuration
+
+```json
+  "stt": {
+    "module": "ovos-stt-plugin-onnx-asr",
+    "ovos-stt-plugin-onnx-asr": {
+        "model": "nemo-parakeet-tdt-0.6b-v3"
+    }
+  }
 
 ```
 

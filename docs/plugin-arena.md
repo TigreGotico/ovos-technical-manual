@@ -1,9 +1,9 @@
 # Plugin Arena
 
 !!! abstract "In a nutshell"
-    OVOS lets you swap in different plugins for jobs like understanding speech or recognising commands — but which one is actually best? The Plugin Arena answers that by comparing them two ways: objective scores measured against test data, and a "which sounds better?" vote where people blindly pick between two plugins' results, scored a bit like chess rankings. It is purely a scoreboard for comparing plugins; it never installs or runs them itself. Right now only the intent (command-understanding) league is live. See the [Glossary](glossary.md) for unfamiliar terms.
+    OVOS lets you swap in different plugins for jobs like understanding speech or recognising commands — but which one is actually best? The Plugin Arena answers that by comparing them two ways: objective scores measured against test data, and a "which sounds better?" vote where people blindly pick between two plugins' results, scored a bit like chess rankings. It is purely a scoreboard for comparing plugins; it never installs or runs them itself. See the [Glossary](glossary.md) for unfamiliar terms.
 
-> **Status:** [OpenVoiceOS/ovos-plugin-arena](https://github.com/OpenVoiceOS/ovos-plugin-arena) — in development. Only the **intent** league is live today; STT, TTS and wake word are pending.
+> **Status:** [OpenVoiceOS/ovos-plugin-arena](https://github.com/OpenVoiceOS/ovos-plugin-arena) — in development. The **intent**, **STT**, **wake word**, and **VAD** leagues have live battles and ELO standings; **TTS** competitors are registered but not yet benchmarked (all entries sit at the seed ELO with zero battles).
 
 **What this is:** a way to answer *"which OVOS plugin should I use?"* It compares plugins on two signals:
 
@@ -42,7 +42,7 @@ Forking the repo and editing JSON yields a working arena. A local FastAPI shim m
 
 ## Leagues (Modalities)
 
-Each modality is an independent league with its own benchmarks, battle pools and ELO standings: `stt`, `tts`, `wake_word`, and **three intent leagues** (keyword and template paradigms consume different supervision, so they are never ranked against each other):
+Each modality is an independent league with its own benchmarks, battle pools and ELO standings: `stt`, `tts`, `wake_word`, `vad`, and **three intent leagues** (keyword and template paradigms consume different supervision, so they are never ranked against each other):
 
 | League | Who competes |
 |---|---|
@@ -63,7 +63,7 @@ A "competitor" is a **shippable config**, not just a plugin: a single-stage pipe
 
 ## Prediction Contract (HuggingFace)
 
-Predictions live in HF dataset repos — one per benchmark modality, named `ovos-<modality>-bench-<dataset_id>` (league underscores dashed), as per-competitor JSON lines at `predictions/<lang>/<competitor_id>.jsonl`, one row per (language, sample).
+Predictions live in HF dataset repos — one per benchmark modality, named `ovos-<modality>-bench-<dataset_id>` (league underscores dashed), as per-competitor JSON lines at `predictions/<competitor_id>.jsonl`, one row per sample (language is a field on each row, not a path segment).
 
 Core `PredictionRow` fields (`arena/models.py`):
 
@@ -100,9 +100,10 @@ Modality-specific fields (kept inline or in `extras`):
 | Modality | Status |
 |----------|--------|
 | Intent | Live (`benchmarks/intent_intents_for_eval.py`, multiple engines × languages) |
-| STT | Pending — prediction runner exists; arena benchmark script + registry entries pending |
-| Wake word | Pending |
-| TTS | Pending — planned as human-vote-only boards (no auto metric, no ELO seed) |
+| STT | Live (`benchmarks/stt_minds14.py`, multiple languages) |
+| VAD | Live (`benchmarks/vad_speech.py`, many languages) |
+| Wake word | Live (`benchmarks/ww_hey_jarvis.py`, `ww_hey_mycroft.py`, `ww_computer.py`) |
+| TTS | Registered, not yet benchmarked — competitors are declared but have no predictions or battles yet, so every entry sits at the seed ELO (human-vote-only boards planned, no auto metric or ELO seed) |
 
 ---
 

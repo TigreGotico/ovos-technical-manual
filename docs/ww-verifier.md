@@ -78,7 +78,7 @@ The reference verifier wraps the Silero VAD model to confirm that captured audio
 A lower `threshold` accepts quieter speech; raise it to require stronger speech confidence.
 
 !!! note
-    `ovos-ww-verifier-silero` is the reference verifier used throughout the listener's own examples and end-to-end tests. The package may not yet be published to PyPI — install from source if it is not available.
+    `ovos-ww-verifier-silero` is the reference verifier used throughout the listener's own examples and end-to-end tests. It is not a separate PyPI package — it is an `opm.wake_word.verifier` entry point registered by [`ovos-vad-plugin-silero`](vad-plugins.md), so `pip install ovos-vad-plugin-silero` is what makes it available.
 
 ---
 
@@ -132,7 +132,7 @@ Use case: household authorization — a shared-wake-word deployment where each r
 
 ## microWakeWord Plugin
 
-> **Status:** [OpenVoiceOS/ovos-ww-plugin-microwakeword](https://github.com/OpenVoiceOS/ovos-ww-plugin-microwakeword) — private, in development.
+> **Status:** [OpenVoiceOS/ovos-ww-plugin-microwakeword](https://github.com/OpenVoiceOS/ovos-ww-plugin-microwakeword) — in development, not yet published to PyPI.
 
 OVOS wake-word plugin wrapping [microWakeWord](https://github.com/kahrendt/microWakeWord) TFLite streaming models from the ESPHome ecosystem. Enables zero-cost sub-1 MB wake word models originally designed for microcontrollers.
 

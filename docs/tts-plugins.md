@@ -131,6 +131,7 @@ MyTTSConfig = {
 | [ovos-tts-plugin-coqui](#ovos-tts-plugin-coqui) | OVOS TTS plugin for [Coqui TTS](https://coqui-tts.readthedocs.io/en/latest) |
 | [ovos-tts-plugin-pico](#ovos-tts-plugin-pico) | SVOX Pico lightweight offline text-to-speech. |
 | [ovos-tts-plugin-lux](https://github.com/OpenVoiceOS/ovos-tts-plugin-lux) | LuxTTS — zipvoice-based voice-cloning TTS (48 kHz, en-US). |
+| [ovos-tts-plugin-phoonnx](#ovos-tts-plugin-phoonnx) | Built into [phoonnx](https://pypi.org/project/phoonnx), OVOS's own ONNX-based multilingual neural TTS engine — the default choice for fully offline synthesis, with automatic model fetching. |
 
 ## ovos-tts-server
 
@@ -385,6 +386,29 @@ MyTTSConfig = {
 
 
 - **Description**: SVOX Pico lightweight offline text-to-speech.
+
+---
+
+## ovos-tts-plugin-phoonnx
+
+- **GitHub**: [https://github.com/OpenVoiceOS/phoonnx](https://github.com/OpenVoiceOS/phoonnx)
+
+
+- **Description**: OVOS's own multilingual, ONNX-based neural TTS engine, distributed as part of the `phoonnx` package. Registering the plugin only requires `pip install phoonnx` — model files are fetched and cached automatically the first time a voice is used.
+
+### Default Configuration
+
+```json
+  "tts": {
+    "module": "ovos-tts-plugin-phoonnx",
+    "ovos-tts-plugin-phoonnx": {
+      "voice": "OpenVoiceOS/phoonnx_pt-PT_miro_tugaphone"
+    }
+  }
+
+```
+
+> If `"voice"` is omitted, the plugin picks the first bundled model that supports the configured language.
 
 ---
 
