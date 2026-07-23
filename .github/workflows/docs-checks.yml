@@ -34,24 +34,14 @@ jobs:
         with:
           python-version: "3.12"
           cache: "pip"
+          cache-dependency-path: tools/ci-requirements.txt
 
       - name: Install a minimal OVOS stack (alpha channel)
         env:
           PIP_CONSTRAINT: https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-alpha.txt
         run: |
           python3 -m pip install --upgrade pip
-          pip install --pre \
-            ovos-core \
-            ovos-workshop \
-            ovos-bus-client \
-            ovos-plugin-manager \
-            ovos-config \
-            ovos-utils \
-            ovos-number-parser \
-            ovos-date-parser \
-            ovos-color-parser \
-            quebra-frases \
-            padacioso
+          pip install --pre -r tools/ci-requirements.txt
 
       - name: Check python imports and signatures
         env:

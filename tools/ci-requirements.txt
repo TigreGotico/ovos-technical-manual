@@ -1,0 +1,13 @@
+ovos-core
+ovos-workshop
+ovos-bus-client
+ovos-plugin-manager
+ovos-config
+ovos-utils
+ovos-number-parser
+ovos-date-parser
+ovos-color-parser
+ovos-hardware-helpers
+ovoscope
+quebra-frases
+padacioso
