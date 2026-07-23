@@ -131,12 +131,12 @@ These load directly via HuggingFace `datasets.load_dataset(...)`.
 
 ## Auto-Configuration
 
-The fastest way to get a working setup for your language is `ovos-config autoconfigure`. It writes recommended STT and TTS plugin settings (and, with `--platform`, an intent-pipeline preset) into your user config:
+The fastest way to get a working setup for your language is `ovos-config autoconfigure`. It writes recommended STT and TTS plugin settings into your user config:
 
 ```bash
 ovos-config autoconfigure -l en-us --offline --female
-ovos-config autoconfigure -l de-de --online --male -p rpi4
-ovos-config autoconfigure -l fr-fr --gpu --female
+ovos-config autoconfigure -l de-de --online --male
+ovos-config autoconfigure -l fr-fr --hybrid --female
 ```
 
 The recommendations are data-driven: they come from per-language `*.conf` files bundled in `ovos-config` (`recommends/`), so the exact models depend on your installed version. See [`ovos-config`](config.md) for full options.
@@ -148,46 +148,41 @@ The recommendations are data-driven: they come from per-language `*.conf` files 
 | `-l`, `--lang` | **Required.** Language code (e.g. `en-us`). Standardized internally (e.g. `en-US`). |
 | `--offline` / `-off` | Offline STT + TTS. |
 | `--online` / `-on` | Online (public-server) STT + TTS. |
-| *(neither)* | **Defaults to hybrid** — offline TTS with online STT. A warning is printed. |
-| `--gpu` / `-g` | GPU STT. Implies `--offline`; cannot be combined with `--online`, hybrid, or an `rpi*` platform. |
+| `--hybrid` / `-hy` | Offline TTS with online STT. |
+| *(none of the three)* | **Defaults to hybrid.** |
 | `--male` / `-m`, `--female` / `-f` | Pick a voice. Pass exactly one. If you pass **neither**, TTS configuration is skipped. |
-| `-p`, `--platform` | Apply a platform preset (see below). |
 
 After writing the config it lists the installed STT/TTS plugins and warns about any recommended plugin you still need to `pip install`.
 
-### Supported Languages and Optimizations
+!!! note "Upcoming"
+    A `--gpu` flag (GPU-accelerated offline STT) and a `--platform` flag (hardware-tuned
+    intent-pipeline presets for `rpi3`/`rpi4`/`rpi5`/`linux`/`mac`/`termux`) are in
+    development for a future `ovos-config` release.
 
-> The table below is a snapshot of the bundled recommendations. The authoritative list is whatever `recommends/base/*.conf` files ship in your installed `ovos-config` (currently also includes **en-AU**).
+### Supported Languages
 
-| Language | Offline STT | Offline STT (Fallback) | Offline TTS (Male) | Offline TTS (Female) | GPU STT |
-|----------|-------------|------------------------|---------------------|---------------------|---------|
-| **en-US** | `ovos-stt-plugin-citrinet` (en) | `faster-whisper-base.en` | — | — | `whisper-large-v3-turbo` |
-| **en-GB** | — | `faster-whisper-base` | — | — | — |
-| **de-DE** | `ovos-stt-plugin-citrinet` (de) | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
-| **fr-FR** | `ovos-stt-plugin-citrinet` (fr) | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
-| **es-ES** | `ovos-stt-plugin-citrinet` (es) | `Jarbas/faster-whisper-base-es-cv13` | — | — | `Jarbas/faster-whisper-base-es-cv13` |
-| **it-IT** | `ovos-stt-plugin-citrinet` (it) | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
-| **nl-NL** | `ovos-stt-plugin-citrinet` (nl) | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
-| **pt-PT** | `ovos-stt-plugin-citrinet` (pt) | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
-| **pt-BR** | — | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
-| **ca-ES** | `ovos-stt-plugin-citrinet` (ca) | `Jarbas/faster-whisper-base-ca-cv13` | `matxa` (grau) | `matxa` (elia) | `projecte-aina/faster-whisper-large-v3-ca-3catparla` |
-| **gl-ES** | — | `Jarbas/faster-whisper-base-gl-cv13` | `cotovia` (iago) | `nos` (celtia) | `Jarbas/faster-whisper-large-v2-gl-cv13` |
-| **eu-ES** | `ovos-stt-plugin-HiTZ` | `Jarbas/faster-whisper-base-eu-cv16` | — | — | `ovos-stt-plugin-HiTZ` |
-| **da-DK** | — | `faster-whisper-base` | — | — | `whisper-large-v3-turbo` |
-| **ar-SA** | — | — | — | — | — |
+> The table below is a snapshot of the bundled recommendations. The authoritative list is whatever `recommends/base/*.conf`, `recommends/offline_stt/*.conf`, and related files ship in your installed `ovos-config`.
 
-### Platform-Specific Optimizations
+| Language | Offline STT | Offline TTS (Male) | Offline TTS (Female) |
+|----------|-------------|---------------------|---------------------|
+| **en-US** | `ovos-stt-plugin-fasterwhisper` (`small.en`) | `ovos-tts-plugin-piper` (ryan-low) | `ovos-tts-plugin-piper` (amy-low) |
+| **en-GB** | — | `ovos-tts-plugin-piper` (alan-low) | `ovos-tts-plugin-piper` (alba-medium) |
+| **de-DE** | `ovos-stt-plugin-citrinet` (de) | `ovos-tts-plugin-piper` (thorsten-low) | `ovos-tts-plugin-piper` (ramona-low) |
+| **fr-FR** | `ovos-stt-plugin-citrinet` (fr) | `ovos-tts-plugin-piper` (gilles-low) | `ovos-tts-plugin-piper` (siwis-low) |
+| **es-ES** | `ovos-stt-plugin-fasterwhisper-zuazo` (es, base) | `ovos-tts-plugin-piper` (carlfm-x_low) | `ovos-tts-plugin-ahotts` |
+| **it-IT** | `ovos-stt-plugin-citrinet` (it) | `ovos-tts-plugin-piper` (riccardo-x_low) | `ovos-tts-plugin-piper` (paola-medium) |
+| **nl-NL** | `ovos-stt-plugin-citrinet` (nl) | `ovos-tts-plugin-piper` (ronnie-medium) | `ovos-tts-plugin-piper` (nathalie-medium) |
+| **pt-PT** | `ovos-stt-plugin-fasterwhisper` (custom model) | `ovos-tts-plugin-piper` (tugão-medium) | — |
+| **pt-BR** | — | `ovos-tts-plugin-piper` (faber-medium) | — |
+| **ca-ES** | `ovos-stt-plugin-citrinet` (ca) | `ovos-tts-plugin-matxa-multispeaker-cat` (grau) | `ovos-tts-plugin-matxa-multispeaker-cat` (elia) |
+| **gl-ES** | `ovos-stt-plugin-fasterwhisper-zuazo` (gl, base) | `ovos-tts-plugin-cotovia` (iago) | `ovos-tts-plugin-nos` (celtia) |
+| **eu-ES** | `ovos-stt-plugin-fasterwhisper-zuazo` (eu, base) | — | `ovos-tts-plugin-ahotts` |
+| **da-DK** | `ovos-stt-plugin-fasterwhisper` (small) | `ovos-tts-plugin-piper` (nst_talesyntese-medium) | — |
+| **en-AU** | — | — | — |
 
-The `--platform` option merges a preset that tunes the intent pipeline for the target hardware. The available presets are `rpi3`, `rpi4`, `rpi5`, `linux`, `mac`, and `termux`:
-
-| Platform | Pipeline Features |
-|----------|-------------------|
-| **rpi3** | Simplified pipeline, GUI disabled |
-| **rpi4** / **rpi5** | Full pipeline with the model2vec intent matcher (`Jarbas/ovos-model2vec-intents-LaBSE`) |
-| **linux** / **mac** | Full desktop pipeline with the model2vec intent matcher |
-| **termux** | Android/Termux preset |
-
-> `--gpu` is rejected for `rpi*` platforms.
+!!! note
+    Where a cell shows "—", the bundled recommendations don't cover that combination yet;
+    `autoconfigure` will skip that part of the configuration and tell you so.
 
 ---
 

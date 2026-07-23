@@ -4,7 +4,7 @@
     Once the assistant has figured out *what you want* (your "intent" — for example, "set a timer"), these plugins can add extra detail or tidy up that request before the matching feature actually runs. It's a chance to fill in or pull out the specifics — like spotting names, places, or numbers in what you said — in one shared place instead of repeating that work everywhere. See [Transformer Plugins](transformer-plugins.md) and the [Glossary](glossary.md) for unfamiliar terms.
 
 !!! info "📐 Formal specification"
-    Intent transformers are the **`intent` chain** of **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md) §3.4** (a formal [architecture spec](architecture-specs.md)). The spec's post-match, pre-dispatch injection point receives the `Match` a pipeline plugin produced ([OVOS-INTENT-3](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md) — `skill_id`, `intent_name`, `captures`/slots) and may **enrich `captures`** — it is the canonical home for slot/entity injection. It **MUST NOT** change `Match.skill_id` or `Match.intent_name` (that would re-route the handler); an orchestrator treats such a change as a shape violation and discards it. **Ordering:** the spec runs the chain by **ascending** `priority` — `priority` 1 runs **first**. The current OVOS code sorts **descending** (so `priority` 1 runs *last*, as described below); the spec order is the canonical one.
+    Intent transformers are the **`intent` chain** of **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md) §3.4** (a formal [architecture spec](architecture-specs.md)). The spec's post-match, pre-dispatch injection point receives the `Match` a pipeline plugin produced ([OVOS-INTENT-3](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md) — `skill_id`, `intent_name`, `captures`/slots) and may **enrich `captures`** — it is the canonical home for slot/entity injection. It **MUST NOT** change `Match.skill_id` or `Match.intent_name` (that would re-route the handler); an orchestrator treats such a change as a shape violation and discards it. **Ordering:** the chain runs by **ascending** `priority` — `priority` 1 runs **first**, matching the spec.
 
 **Intent Transformers** are a pluggable mechanism in OVOS that allow you to enrich or transform intent data **after** an intent is matched by an engine ([Padatious](padatious-pipeline.md), [Adapt](adapt-pipeline.md), etc.), but **before** it is passed to the skill handler.
 
@@ -23,7 +23,7 @@ This is useful for:
 
 Each transformer subclasses `IntentTransformer` (`ovos_plugin_manager.templates.transformers`), registers under the `opm.transformer.intent` entry-point group, and operates on the `IntentHandlerMatch` object returned by the matching pipeline. They are loaded and chained by `IntentTransformersService` in `ovos-core` (`ovos_core/transformers.py`).
 
-In the current code transformers run sorted by `priority`, **highest first** — so a transformer with `priority` 1 runs *last* and gets the final say over `match_data`. (OVOS-TRANSFORM-1 §4 specifies the reverse, ascending order; see the callout above — the spec is canonical.) This lets you reimplement entity logic once instead of in every skill.
+Transformers run sorted by `priority`, **lowest first** — so a transformer with `priority` 1 runs *first*, and later transformers see and may build on its output, per OVOS-TRANSFORM-1 §4. This lets you reimplement entity logic once instead of in every skill.
 
 ---
 
@@ -36,7 +36,7 @@ In the current code transformers run sorted by `priority`, **highest first** —
 | `ovos-keyword-template-matcher` | `keyword-template-matcher`  | Extracts values from `{placeholder}`-style intent templates                                        | 1        |
 | `ovos-ahocorasick-ner-plugin`   | `ahocorasick-ner`           | Performs NER using Aho-Corasick keyword matching based on registered entities from skill templates | 5        |
 
-A transformer is loaded only if its plugin name appears under `intent_transformers`; set `"active": false` to skip it. (Note: `ahocorasick-ner` runs before `keyword-template-matcher`, since 5 > 1.)
+A transformer is loaded only if its plugin name appears under `intent_transformers`; set `"active": false` to skip it. (Note: `keyword-template-matcher` runs before `ahocorasick-ner`, since 1 < 5.)
 
 ---
 
@@ -69,7 +69,7 @@ To enable or disable specific transformers, modify your `mycroft.conf`:
 2. The `IntentService` passes that match to `IntentTransformersService.transform(match)`.
 
 
-3. Each registered transformer plugin runs its `transform()` method in priority order (highest first), each receiving the match returned by the previous one.
+3. Each registered transformer plugin runs its `transform()` method in priority order (lowest first), each receiving the match returned by the previous one.
 
 
 4. Extracted entities are injected into the intent's `match_data`.
@@ -148,7 +148,7 @@ my-transformer = "my_module:MyCustomTransformer"
 
 ```
 
-Unlike utterance transformers, intent transformers get the message bus attached (`bind(bus)`) when loaded, so `self.bus` is available inside `transform()`.
+Like other transformer types, intent transformers get the message bus attached (`bind(bus)`) when loaded, so `self.bus` is available inside `transform()`.
 
 ---
 
