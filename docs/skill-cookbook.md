@@ -155,9 +155,15 @@ skillMetadata:
 
 ---
 
-## 3. Calling an external API safely: timeouts, `runtime_requirements`, spoken errors, and a cache
+## 3. Calling an external API safely: timeouts, spoken errors, and a cache
 
-**When you'd want this:** a skill answers "what's the exchange rate" or similar by hitting a remote HTTP API, and needs to (a) never hang the skill process on a slow/dead endpoint, (b) not even try to load fully when there's no network, and (c) fail with a spoken sentence instead of a traceback.
+**When you'd want this:** a skill answers "what's the exchange rate" or similar by hitting a remote HTTP API, and needs to (a) never hang the skill process on a slow/dead endpoint, and (b) fail with a spoken sentence instead of a traceback.
+
+!!! note
+    This recipe also shows `runtime_requirements`, a deprecated, legacy declaration kept here
+    for skills that already use it — see [Runtime Requirements](skill-runtime-requirements.md)
+    for what it currently does. New skills don't need it for the timeout/cache/spoken-error
+    pattern below, which works regardless.
 
 ```python
 import json
@@ -176,8 +182,8 @@ class ExchangeRateSkill(OVOSSkill):
 
     @property
     def runtime_requirements(self):
-        # this skill is useless without a live network connection,
-        # so don't even finish loading it until one is available
+        # legacy declaration: this skill needs a live network connection.
+        # only gates loading if "skills.use_deferred_loading" is enabled.
         return RuntimeRequirements(
             network_before_load=True,
             internet_before_load=True,
@@ -231,7 +237,7 @@ class ExchangeRateSkill(OVOSSkill):
 
 ### Moving parts
 
-- `runtime_requirements` (a `@property` you override, returning `RuntimeRequirements(...)`) tells the skill loader whether to gate loading/running this skill on network and internet availability — this is the mechanism, `requires_internet=True` alone does not skip loading, `*_before_load` flags do. See [Decorators & Runtime Requirements](decorators.md) for every flag and its default.
+- `runtime_requirements` (a `@property` you override, returning `RuntimeRequirements(...)`) is a deprecated, legacy declaration. Its `*_before_load` flags only gate loading when `skills.use_deferred_loading` is enabled in config — with the default config, all skills load unconditionally regardless of this declaration. See [Runtime Requirements](skill-runtime-requirements.md) for the current behavior.
 - Always pass `timeout=` to `requests.get`/`.post` — an OVOS skill runs on the shared bus-handling thread pool and a hung HTTP call can stall other skill callbacks.
 - `self.file_system` (a `FileSystemAccess`, exposing `.path`) is a writable, skill-private directory distinct from `settings.json` — the right place for a response cache, downloaded assets, or anything larger than a few settings keys.
 - Wrap the network call narrowly (`requests.exceptions.Timeout` / `.RequestException`) so a real bug elsewhere in the handler still raises normally instead of being swallowed by a broad `except Exception`.

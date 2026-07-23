@@ -16,12 +16,11 @@
 
 Every core interaction — waking the assistant, asking a question, hearing the answer, adjusting
 [volume](skill-examples.md#volume), asking what it can do — works with sound alone, no display
-required. This isn't a design aspiration: the [GUI service](gui-service.md) is explicitly
-**optional** for a skill (`requires_gui` defaults to `False` in
-[`runtime_requirements`](skill-runtime-requirements.md)), and a skill with nothing to show on
-screen is expected to fall back to speaking instead. As it happens, the current OVOS GUI stack is
-itself [deprecated and not generally usable](gui-service.md) while its replacement is built — so
-today, voice-only really is how most OVOS devices operate in practice, screen or no screen.
+required. This isn't a design aspiration: a skill is not required to register any
+[GUI](gui-service.md) page at all, and a skill with nothing to show on screen simply speaks its
+response instead. As it happens, the current OVOS GUI stack is itself
+[deprecated and not generally usable](gui-service.md) while its replacement is built — so today,
+voice-only really is how most OVOS devices operate in practice, screen or no screen.
 
 ## Installing without fighting a screen reader
 

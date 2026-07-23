@@ -1,9 +1,14 @@
 # Runtime Requirements in OVOS
 
-!!! abstract "In a nutshell"
-    Some skills only make sense under certain conditions — a weather skill needs internet, a smart-home skill needs the local network, a picture skill needs a screen. "Runtime requirements" are a short declaration where a skill states what it needs, so OVOS only switches it on when those things are available and quietly switches it off when they're not. This saves resources and avoids odd behavior, a bit like an appliance that won't turn on until it's plugged in. For where this fits in a skill's lifecycle see [Skill Classes](skill-classes.md); for term definitions see the [Glossary](glossary.md).
+!!! warning "Deprecated — legacy reference"
+    `RuntimeRequirements` is a deprecated mechanism, kept documented here for existing skills
+    that already declare it. There is currently no successor mechanism in `ovos-utils`/
+    `ovos-workshop`. New skills should not be built around it.
 
-OVOS (OpenVoiceOS) introduces advanced runtime management to ensure skills are only loaded and active when the system is ready. This improves performance, avoids premature skill activation, and enables greater flexibility across different system setups (offline, headless, GUI-enabled, etc.), controlling when OVOS declares readiness and how dynamic skill loading works.
+!!! abstract "In a nutshell"
+    Some skills only make sense under certain conditions — a weather skill needs internet, a smart-home skill needs the local network, a picture skill needs a screen. "Runtime requirements" is a legacy declaration where a skill states what it needs, so OVOS can optionally defer loading it until those things are available. For where this fits in a skill's lifecycle see [Skill Classes](skill-classes.md); for term definitions see the [Glossary](glossary.md).
+
+`RuntimeRequirements` lets a skill declare, up front, what conditions (internet, network, GUI) it needs — historically intended to let OVOS defer loading a skill until the system is ready for it, and to skip premature activation on offline, headless, or GUI-enabled setups.
 
 ---
 
@@ -103,11 +108,25 @@ Any other name is treated generically: the skill waits for a `mycroft.<name>.is_
 
 ---
 
-## Dynamic Loading and Unloading
+## Deferred Loading (before-load gating only)
 
-`ovos-core`'s dynamic skill management improves system performance and reliability by **only loading skills once their requirements are met** — a skill with `internet_before_load=True` simply is not instantiated until the internet connection event fires, and likewise for `network_before_load` and `gui_before_load`.
+`ovos-core`'s `SkillManager` can defer loading a skill until its declared requirements are
+met — a skill with `internet_before_load=True` is not instantiated until the internet
+connection event fires, and likewise for `network_before_load` and `gui_before_load`. This
+gating is **opt-in**: it only applies when `skills.use_deferred_loading` is set to `true` in
+config. With the default configuration (`use_deferred_loading` unset/`false`), all installed
+skills load unconditionally at startup regardless of their declared requirements.
 
-### Benefits:
+```json
+{
+  "skills": {
+    "use_deferred_loading": true
+  }
+}
+
+```
+
+### Benefits (when deferred loading is enabled):
 
 - Reduces memory and CPU usage.
 
@@ -117,22 +136,16 @@ Any other name is treated generically: the skill waits for a `mycroft.<name>.is_
 
 - Simplifies skill logic (e.g., no need to check for connectivity manually before doing network I/O in `initialize()`).
 
-Skills are loaded only when their specific requirements are met. This optimization prevents unnecessary loading, conserving system resources and ensuring a more efficient skill environment.
-
-`requires_internet`, `requires_network`, and `requires_gui` describe both
-sides of the skill's lifecycle: the **before-load** gate (deferring load
-until the resource is available) and the matching **unload** behavior once
-the skill is running. When a required resource disappears, `ovos-core`'s
-`SkillManager` unloads the skill (`_unload_on_internet_disconnect`,
-`_unload_on_network_disconnect`, `_unload_on_gui_disconnect`), unless the
-skill has declared the corresponding `no_*_fallback` flag to keep running
-without it.
+`requires_internet`, `requires_network`, and `requires_gui` are also present on
+`RuntimeRequirements`, but they do not currently trigger an unload — `SkillManager`'s
+connection-loss handlers exist as no-op placeholders, so a running skill is **not** unloaded
+when a required resource disappears. Only the before-load gate above is active.
 
 ---
 
 ## RuntimeRequirements (`@classproperty`)
 
-The `RuntimeRequirements` class property allows skill developers to declare when a skill should be loaded or unloaded based on runtime conditions.
+The `RuntimeRequirements` class property lets a skill declare its connectivity/GUI needs.
 
 > ⚠️ Replaces the older, now-removed `"priority_skills"` config option.
 
@@ -140,13 +153,13 @@ The `RuntimeRequirements` class property allows skill developers to declare when
 
 | Field                 | Description |
 |----------------------|-------------|
-| `internet_before_load` | Wait for internet before loading |
-| `requires_internet`     | Declares the skill needs internet to work (unloaded if internet is lost, unless `no_internet_fallback` is set) |
+| `internet_before_load` | Wait for internet before loading (requires `skills.use_deferred_loading: true`) |
+| `requires_internet`     | Declares the skill needs internet to work |
 | `no_internet_fallback` | Declares the skill can keep working without internet |
-| `network_before_load`  | Wait for network before loading |
-| `requires_network`     | Declares the skill needs network to work (unloaded if network is lost, unless `no_network_fallback` is set) |
-| `gui_before_load`      | Wait for GUI before loading |
-| `requires_gui`         | Declares the skill needs a GUI to work (unloaded if the GUI is lost, unless `no_gui_fallback` is set) |
+| `network_before_load`  | Wait for network before loading (requires `skills.use_deferred_loading: true`) |
+| `requires_network`     | Declares the skill needs network to work |
+| `gui_before_load`      | Wait for GUI before loading (requires `skills.use_deferred_loading: true`) |
+| `requires_gui`         | Declares the skill needs a GUI to work |
 | `no_gui_fallback`      | Declares the skill can keep working without a GUI |
 
 > 🧠 Uses `@classproperty` so the system can evaluate the requirements without loading the skill.
@@ -160,7 +173,7 @@ The `RuntimeRequirements` class property allows skill developers to declare when
 In this example, a fully offline skill is defined. The skill does not require internet or network connectivity during
 loading or runtime. If the network or internet is unavailable, the skill can still operate.
 
-Defining this will ensure your skill loads as soon as possible; otherwise, the `SkillManager` will wait for internet before loading the skill.
+Defining this documents that your skill has no connectivity needs; with `skills.use_deferred_loading: true` it also ensures the skill loads as soon as possible instead of waiting on internet.
 
 ```python
 from ovos_utils import classproperty
@@ -180,17 +193,17 @@ class MyOfflineSkill(OVOSSkill):
                                    no_network_fallback=True)
 
 ```
-Loads immediately, runs without internet or network.
+Documents that the skill needs neither internet nor network.
 
 ---
 
 ### 2. Internet-Dependent Skill (with fallback)
 
-In this example, an online search skill with a local cache is defined. The skill requires internet connectivity during
-both loading and runtime. If the internet is not available, the skill won't load. Once loaded, the skill continues to
-require internet connectivity.
+In this example, an online search skill with a local cache is defined. The skill declares that it requires internet
+connectivity to work. With `skills.use_deferred_loading: true`, it also won't load until internet is available.
 
-Our skill keeps a cache of previous results, so it declares it can handle internet outages via `no_internet_fallback=True` — this keeps the skill loaded (rather than unloaded) if internet later goes away.
+Our skill keeps a cache of previous results, so it declares `no_internet_fallback=True` to document that it can
+tolerate internet outages once running.
 
 ```python
 from ovos_utils import classproperty
@@ -204,29 +217,29 @@ class MyInternetSkill(OVOSSkill):
     def runtime_requirements(self):
         # our skill can answer cached results when the internet goes down
         return RuntimeRequirements(
-            internet_before_load=True,  # only load once we have internet
+            internet_before_load=True,  # only load once we have internet (needs deferred loading)
             requires_internet=True,  # indicate we need internet to work
-            no_internet_fallback=True  # do NOT unload if internet goes down
+            no_internet_fallback=True  # documents that a cached fallback exists
         )
 
     def initialize(self):
         ...  # do something that requires internet connectivity
 
 ```
-Loads only when internet is available.
+With `skills.use_deferred_loading: true`, loads only once internet is available.
 
 ---
 
 ### 3. LAN-Controlled IOT Skill
 
 Consider a skill that should only load once we have a network connection.
-By specifying that requirement, we can ensure that the skill is only loaded once the requirements are met, and it is
-safe to utilize network resources on initialization.
+By specifying that requirement (with `skills.use_deferred_loading: true`), we can ensure the
+skill is only loaded once the network is available, and it is safe to utilize network
+resources on initialization.
 
-In this example, an IOT skill controlling devices via LAN is defined. The skill requires network connectivity during
-loading, and if the network is not available, it won't load.
+In this example, an IOT skill controlling devices via LAN is defined.
 
-`no_network_fallback=False` states the skill cannot cope without network, so it will be unloaded if network connectivity is lost.
+`no_network_fallback=False` documents that the skill cannot cope without network.
 
 ```python
 from ovos_utils import classproperty
@@ -239,16 +252,16 @@ class MyIOTSkill(OVOSSkill):
     @classproperty
     def runtime_requirements(self):
         return RuntimeRequirements(
-            network_before_load=True,  # only load once network available
+            network_before_load=True,  # only load once network available (needs deferred loading)
             requires_network=True,  # we need network to work
-            no_network_fallback=False  # unload if network goes down
+            no_network_fallback=False  # documents that no fallback exists without network
         )
 
     def initialize(self):
         ...  # do something that needs LAN connectivity
 
 ```
-Loads when the local network is connected.
+With `skills.use_deferred_loading: true`, loads once the local network is connected.
 
 ---
 
@@ -256,9 +269,10 @@ Loads when the local network is connected.
 
 Consider a skill with both graphical user interface (GUI) and internet dependencies.
 
-The skill requires both GUI availability and internet connectivity during loading — if either is not available, the skill won't load.
+The skill declares both GUI and internet requirements — with `skills.use_deferred_loading: true`,
+loading waits until both are available.
 
-If the user asks "show me the picture of the day" and we have both internet and a GUI, our skill will match the intent. If we do not have internet but have a GUI, the skill can still operate using a cached picture — that's what `no_internet_fallback=True` communicates: the skill stays loaded rather than being unloaded when internet later disappears.
+If the user asks "show me the picture of the day" and we have both internet and a GUI, our skill will match the intent. If we do not have internet but have a GUI, the skill can still operate using a cached picture — that's what `no_internet_fallback=True` documents.
 
 ```python
 from ovos_utils import classproperty
@@ -271,19 +285,19 @@ class MyGUIAndInternetSkill(OVOSSkill):
     @classproperty
     def runtime_requirements(self):
         return RuntimeRequirements(
-            gui_before_load=True,  # only load if GUI is available
-            requires_gui=True,  # continue requiring GUI once loaded
-            internet_before_load=True,  # only load if internet is available
-            requires_internet=True,  # continue requiring internet once loaded
-            no_gui_fallback=False,  # unload if GUI becomes unavailable
-            no_internet_fallback=True  # do NOT unload if internet becomes unavailable, use cached picture
+            gui_before_load=True,  # only load if GUI is available (needs deferred loading)
+            requires_gui=True,  # documents the skill needs a GUI to work
+            internet_before_load=True,  # only load if internet is available (needs deferred loading)
+            requires_internet=True,  # documents the skill needs internet to work
+            no_gui_fallback=False,  # documents that no fallback exists without a GUI
+            no_internet_fallback=True  # documents that a cached fallback exists without internet
         )
 
     def initialize(self):
         ...  # do something that requires both GUI and internet connectivity
 
 ```
-Requires both GUI and internet to load.
+With `skills.use_deferred_loading: true`, requires both GUI and internet to load.
 
 ---
 
@@ -295,7 +309,8 @@ Requires both GUI and internet to load.
 - You can combine different requirements to handle a wide range of usage patterns (e.g., headless servers, embedded devices, smart displays).
 
 
-- Consider defining graceful fallbacks to avoid unnecessary unloading.
+- Before-load gating only takes effect with `skills.use_deferred_loading: true`; otherwise
+  `RuntimeRequirements` is documentation only and every skill loads unconditionally at startup.
 
 ---
 

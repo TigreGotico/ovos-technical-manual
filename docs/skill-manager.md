@@ -34,7 +34,17 @@ plugins = find_skill_plugins()
 
 ## Connectivity Gating
 
-Skills declare their runtime requirements (`network_before_load`, `internet_before_load`, `requires_gui`) in `RuntimeRequirements`. The skill manager only loads a skill when those requirements are met:
+!!! note
+    `RuntimeRequirements` (`network_before_load`, `internet_before_load`, `requires_gui`, …) is
+    a deprecated mechanism — see [Runtime Requirements](skill-runtime-requirements.md) for the
+    full picture. Crucially, the gating described below is **opt-in**: it only applies when
+    `skills.use_deferred_loading` is set to `true` in config. With the default configuration,
+    every installed skill loads unconditionally at startup regardless of its declared
+    requirements.
+
+When `skills.use_deferred_loading` is enabled, skills declare their runtime requirements in
+`RuntimeRequirements`, and the skill manager defers loading a skill until those requirements
+are met:
 
 | Event | Action |
 |---|---|

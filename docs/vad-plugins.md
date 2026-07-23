@@ -72,6 +72,7 @@ class VADEngine:
 Subclasses only need to implement `is_silence`. The base class provides
 `extract_speech(audio)`, which uses `is_silence` over a sliding window to trim
 leading/trailing silence from a buffer, and a `runtime_requirements` classmethod
+(the deprecated [`RuntimeRequirements`](skill-runtime-requirements.md) mechanism)
 used by the plugin manager to advertise network/offline behavior.
 
 ## Creating Your Own VAD Plugin

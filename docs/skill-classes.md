@@ -178,6 +178,9 @@ choice = self.ask_selection(["A", "B", "C"], "Pick one")
 
 ### RuntimeRequirements
 
+!!! note
+    `RuntimeRequirements` is a deprecated mechanism — see [Runtime Requirements](skill-runtime-requirements.md) for what it currently does.
+
 Override the class property to declare connectivity needs:
 
 ```python

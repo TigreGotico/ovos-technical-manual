@@ -241,6 +241,9 @@ Decorate a method with `@skill_api_method` to expose it over the bus. Other skil
 
 ## RuntimeRequirements
 
+!!! note
+    `RuntimeRequirements` is a deprecated mechanism — see [Runtime Requirements](skill-runtime-requirements.md) for what it currently does.
+
 Override the class property to declare connectivity needs:
 
 ```python

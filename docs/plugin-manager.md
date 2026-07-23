@@ -390,8 +390,12 @@ class MyTTSPluginConfig:
 
 ### 5. Declare `RuntimeRequirements`
 
-Override `runtime_requirements` to declare connectivity needs. OVOS uses this to decide
-whether the plugin can be loaded before network/internet is available.
+!!! note
+    `RuntimeRequirements` is a deprecated mechanism; see [Runtime Requirements](skill-runtime-requirements.md) for current behavior.
+
+Override `runtime_requirements` to declare connectivity needs. See
+[Runtime Requirements](skill-runtime-requirements.md) for what OVOS actually does with this
+declaration today.
 
 ```python
 from ovos_utils.process_utils import RuntimeRequirements
