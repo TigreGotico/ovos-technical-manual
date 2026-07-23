@@ -54,9 +54,9 @@ a question.
     | OVOS-COMMON-QUERY-1 (canonical) | Current code |
     |---|---|
     | `ovos.common_query.ping` / `.pong` — wants-to-answer poll | discovery handshake (same names) |
-    | `<skill_id>:common_query` — full-answer request to a claiming skill | `question:query` broadcast |
+    | `<skill_id>.common_query.request` — full-answer request to a claiming skill (dotted, non-dispatch) | `question:query` broadcast |
     | `<skill_id>.common_query.response` — a skill's answer + `conf` | `question:query.response` |
-    | `<pipeline_id>:common_query` — reserved-name handler dispatch | `question:action.<skill_id>` |
+    | `<pipeline_id>:common_query` — reserved-name handler dispatch (the one genuine colon/dispatch topic in this family) | `question:action.<skill_id>` |
 
 ## How it works
 

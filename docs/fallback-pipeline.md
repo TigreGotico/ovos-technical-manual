@@ -48,7 +48,7 @@ Each matcher filters registered fallbacks with `range.start < priority ≤ range
 2. `FallbackService.match_high/medium/low()` filters registered fallbacks to the stage's priority range
 
 
-3. It pings candidates via `ovos.skills.fallback.ping` (carrying the priority `range`) and collects `ovos.skills.fallback.pong` acknowledgements (`can_handle`) within ~0.5s
+3. It pings candidates via `ovos.skills.fallback.ping` (carrying the priority `range` and a `fallback_request_id`) and collects `ovos.skills.fallback.pong` acknowledgements (`can_handle`, echoing the same `fallback_request_id`) within ~0.5s. The request id lets the service ignore a pong that answers a stale or concurrent poll round instead of one it is currently waiting on.
 
 
 4. Candidates are sorted by priority ascending; the winning match dispatches to that skill via `ovos.skills.fallback.{skill_id}.request`

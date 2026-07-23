@@ -54,7 +54,7 @@ album: str
 image: str # uri/file path
 bg_image: str # uri/file path
 skill_icon: str # uri/file path
-length: int # seconds, -1 for live streams
+length: int # milliseconds, -1 for unknown/live streams — one time convention (ms, -1=unknown/live) across the whole media surface
 
 ```
 
