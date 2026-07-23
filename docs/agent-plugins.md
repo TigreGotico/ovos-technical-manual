@@ -51,7 +51,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 | [ovos-qdrant-embeddings-plugin](#ovos-qdrant-embeddings-plugin) | The `QdrantEmbeddingsDB` plugin integrates with the [qdrant](https://qdrant.tech/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using qdrant’s capabilities. |
 | [ovos-solver-plugin-aiml](#ovos-solver-plugin-aiml) | Give Mycroft some sass with AIML! |
 | [ovos-persona](#ovos-persona) | The **`PersonaPipeline`** brings multi-persona management to OpenVoiceOS (OVOS), enabling interactive conversations with virtual assistants. 🎙️ With personas, you can customize how queries are handled by assigning specific solvers to each persona. |
-| [ovos-openai-plugin](#ovos-openai-plugin) | Leverages [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to provide the following ovos plugins: |
+| [ovos-openai-plugin](#ovos-openai-plugin) | Leverages the [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to provide a chat engine, a dialog-rewriting transformer, and a summarizer, all pointed at any OpenAI-compatible endpoint. |
 | [ovos-messagebus-chat-plugin](#ovos-messagebus-chat-plugin) | `OVOSMessagebusChatAgent` — a `ChatEngine` (`opm.agents.chat`, entry point `ovos-messagebus`) that proxies each turn through a connected OVOS messagebus pipeline. |
 | [ovos-wikipedia-solver](#ovos-wikipedia-solver) | Answers factual questions by querying Wikipedia. |
 | [ovos-chromadb-embeddings-plugin](#ovos-chromadb-embeddings-plugin) | The `ChromaEmbeddingsDB` plugin integrates with the [ChromaDB](https://www.trychroma.com/) database to provide a robust solution for managing and querying embeddings. This plugin extends the abstract `EmbeddingsDB` class, allowing you to store, retrieve, and query embeddings efficiently using ChromaDB’s capabilities. |
@@ -59,7 +59,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 | [ovos-ddg-solver-plugin](#ovos-ddg-solver-plugin) | Answers questions using DuckDuckGo instant-answer results. |
 | [ovos-solver-YesNo-plugin](#ovos-solver-yesno-plugin) | A simple tool to indicate whether a user answered "yes" or "no" to a yes/no prompt. |
 | [ovos-solver-failure-plugin](#ovos-solver-failure-plugin) | Extreme fallback, just complains it does not have a brain |
-| [ovos-gguf-plugin](#ovos-gguf-plugin) | `GGUFSolver` is a question-answering module that utilizes GGUF models to provide responses to user queries. This solver |
+| [ovos-gguf-plugin](#ovos-gguf-plugin) | Unified GGUF wrapper — chat, summarization, dialog rewriting, translation, language detection, and text embeddings, all backed by quantized GGUF models via `llama-cpp-python`. |
 | [ovos-persona-server](#ovos-persona-server) | Standalone server that exposes an OVOS persona over an HTTP API. |
 | [ovos-solver-plugin-rivescript](#ovos-solver-plugin-rivescript) | Give Mycroft some sass with Rivescript! |
 
@@ -107,7 +107,7 @@ examples, see [Agents & Personas](personas.md) and [Advanced Solvers](advanced-s
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-openai-plugin](https://github.com/OpenVoiceOS/ovos-openai-plugin)
 
 
-- **Description**: Leverages [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to provide the following ovos plugins:
+- **Description**: Leverages the [OpenAI Completions API](https://platform.openai.com/docs/api-reference/completions/create) to provide `ovos-solver-openai-plugin` (a chat engine for use in an [ovos-persona](personas.md)), `ovos-dialog-transformer-openai-plugin` (rewrites OVOS dialogs just before TTS runs), and `ovos-summarizer-openai-plugin` (summarizes text for consumption by other plugins/skills).
 
 ---
 
@@ -192,7 +192,7 @@ Per-collection metadata defaults `hnsw:space` to `cosine` when not specified.
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-gguf-plugin](https://github.com/OpenVoiceOS/ovos-gguf-plugin)
 
 
-- **Description**: `GGUFSolver` is a question-answering module that utilizes GGUF models to provide responses to user queries. This solver
+- **Description**: A unified GGUF wrapper providing chat, summarization, dialog rewriting, translation, language detection, and text-embedding engines, all backed by quantized GGUF models loaded through `llama-cpp-python`. See [GGUF Plugin](gguf-plugin.md) for the full entry-point table.
 
 ---
 

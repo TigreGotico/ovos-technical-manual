@@ -217,20 +217,24 @@ namespace), so the UI can react to listening/speaking state:
 | Bus message type | Meaning |
 |---|---|
 | `recognizer_loop:wakeword` | Wake word detected |
-| `recognizer_loop:record_begin` | Microphone opened |
-| `recognizer_loop:record_end` | Microphone closed |
+| `ovos.listener.record.started` | Microphone opened |
+| `ovos.listener.record.ended` | Microphone closed |
 | `recognizer_loop:utterance` | [Utterance](life-of-an-utterance.md) recognised |
 | `recognizer_loop:recognition_unknown` | [STT](stt-plugins.md) gave no result |
 | `speak` | [TTS](tts-plugins.md) about to speak |
 | `recognizer_loop:audio_output_start` | Audio playback started |
 | `recognizer_loop:audio_output_end` | Audio playback ended |
-| `recognizer_loop:sleep` | Device going to sleep |
+| `ovos.listener.sleep` | Device going to sleep |
 | `recognizer_loop:wake_up` | Device waking up |
-| `mycroft.awoken` | Wake-up acknowledged |
+| `ovos.listener.awoken` | Wake-up acknowledged |
 | `mycroft.skill.handler.start` | A skill handler started |
 | `mycroft.skill.handler.complete` | A skill handler completed |
+| `complete_intent_failure` | No intent/fallback matched the utterance |
 | `ovos.utterance.handled` | Intent matched and handled |
 | `ovos.utterance.cancelled` | Utterance cancelled |
+
+`NamespaceManager` also forwards a set of legacy `enclosure.eyes.*` / `enclosure.mouth.*` /
+`enclosure.weather.display` messages, kept for [Mark 1](mark1.md)-style enclosure animations.
 
 ---
 
@@ -531,16 +535,19 @@ User swipes / taps on Qt:
     [OVOS-GUI-1](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md) spec
     (see [GUI Service](gui-service.md)) the bus contract changes:
 
-    - `gui.page.show` accepts **only** `SYSTEM_*` template names; if `page_names[0]` does
-      not start with `SYSTEM_`, `handle_show_page()` logs an error and drops the request
-      (custom QML is no longer supported).
-    - Instead of mirroring to Qt clients directly, `NamespaceManager` calls
-      `adapter.dispatch_template(template, skill_id, data, session_id)` on every loaded
-      `opm.gui_adapter` plugin; the Qt WebSocket protocol moves into the
-      `ovos-legacy-mycroft-gui-plugin` adapter.
-    - Forwarded status events go to adapters via
-      `adapter.on_status_event(event_name, data, session_id)` rather than straight to Qt clients.
-    - `gui.namespace.removed` / `gui.namespace.displayed` are still emitted; the
-      `gui.page.delete` / `gui.page.delete.all` handlers are removed.
+    - `gui.page.show` is expected to accept **only** `SYSTEM_*` template names; a
+      `page_names[0]` that does not start with `SYSTEM_` would be rejected by the
+      current `handle_show_page()` handler (custom QML is no longer supported).
+    - Instead of mirroring to Qt clients directly, `NamespaceManager` would fan each
+      template event out to every loaded `opm.gui_adapter` plugin (see
+      [GUI Adapter Plugins](gui-adapters.md)); the Qt WebSocket protocol becomes one such
+      adapter, provided by `ovos-legacy-mycroft-gui-plugin`.
+    - Forwarded status events would go to adapters instead of straight to Qt clients.
+    - `gui.namespace.removed` / `gui.namespace.displayed` are expected to keep being emitted;
+      whether the `gui.page.delete` / `gui.page.delete.all` handlers survive the rework is not
+      yet decided.
 
-    See [GUI Adapter Plugins](gui-adapters.md) for the adapter-side API.
+    None of this is implemented in `ovos-gui` yet — the OVOS-GUI-1 spec leaves the adapter
+    entry-point name and method signatures **non-normative**; see
+    [GUI Adapter Plugins](gui-adapters.md) for what the adapter plugins being built ahead of
+    this rework have already settled on.

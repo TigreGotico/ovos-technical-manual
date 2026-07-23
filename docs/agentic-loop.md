@@ -30,7 +30,10 @@ pip install 'ovos-agentic-loop[web]'
 
 ## Loop Architectures
 
-| Entry point | Class | Best for |
+Each is registered under `opm.agents.chat` via a thin `factory.py` subclass
+(`<Name>EnginePlugin`) of the implementation class listed below:
+
+| Entry point | Implementation class | Best for |
 |---|---|---|
 | `ovos-react-loop` | `ReActLoopEngine` | General tool-using Q&A |
 | `ovos-native-toolcall-loop` | `NativeToolCallEngine` | Tool-using Q&A with brains that expose native `tool_calls` (falls back to the ReAct text loop otherwise) |

@@ -3,7 +3,12 @@
 !!! abstract "In a nutshell"
     A "persona" is an OVOS chat character — a configured AI personality that answers questions. This server puts a persona online and makes it *look and behave like* the well-known AI chat services (such as OpenAI, Ollama, or Anthropic Claude). The practical upshot: any app or tool that already knows how to talk to one of those services can be pointed at your persona instead, with no changes — handy for plugging an OVOS persona into other software (like Home Assistant). Note it has no built-in password protection, so keep it on a trusted network. See [OVOS Personas](personas.md) and the [Glossary](glossary.md).
 
-The OVOS Persona Server exposes any OVOS [persona](personas.md) over HTTP using the APIs of the major LLM vendors, so an OVOS persona becomes a drop-in replacement for an LLM backend in third-party tools. A single server simultaneously serves OpenAI-, Ollama-, Anthropic-, Gemini-, Cohere-, AWS Bedrock- and HuggingFace TGI-compatible endpoints, plus embeddings, MCP, UTCP and A2A surfaces.
+The OVOS Persona Server exposes any OVOS [persona](personas.md) over HTTP using the APIs of
+major LLM vendors, so an OVOS persona becomes a drop-in replacement for an LLM backend in
+third-party tools. Today the running server actually serves **OpenAI-** and
+**Ollama-compatible** chat endpoints plus a UTCP tool surface (and MCP, if installed); modules
+for Anthropic, Gemini, Cohere, AWS Bedrock and HuggingFace TGI compatibility already exist in
+the package but are not yet mounted on the app the CLI starts — see the note below.
 
 It is a FastAPI app served by `uvicorn`. A persona is loaded from a JSON file at startup; the persona's `solvers` do the actual work (anything from a local rule-based bot to a remote LLM).
 
@@ -34,9 +39,15 @@ ovos-persona-server --persona my_persona.json --host 0.0.0.0 --port 8337
 | `--persona` | `None` | Path to the persona `.json` file to load |
 | `--host` | `0.0.0.0` | Host to bind |
 | `--port` | `8337` | TCP port |
-| `--a2a-base-url` | `None` | Enable the A2A endpoint at `/a2a` and set its public base URL (e.g. `http://myhost:8337/a2a`). Requires the `a2a` extra. |
 
 The console script is `ovos-persona-server` (module `ovos_persona_server.__main__:main`).
+
+!!! warning "Upcoming — Agent-to-Agent (A2A) surface"
+    The package ships an `ovos_persona_server.a2a` module (`create_a2a_application()`) that
+    exposes a persona as an [A2A](https://google.github.io/A2A/) agent, and it is unit-tested —
+    but it is **not yet wired into the CLI or the running FastAPI app**: there is no
+    `--a2a-base-url` flag and no `a2a` installable extra today. Treat the A2A surface as a
+    library building block, not a currently reachable endpoint.
 
 ---
 
@@ -62,39 +73,42 @@ Solvers are tried in order; the first that returns an answer wins. Some solvers 
 
 ## HTTP API Endpoints
 
-Endpoints are mounted under vendor-specific prefixes. Legacy unprefixed paths (`/v1/...` for OpenAI, `/api/...` for Ollama) are also mounted for backward compatibility and return a deprecation header.
-
 | Endpoint | Method | Compatible with |
 |----------|--------|-----------------|
-| `/openai/v1/chat/completions` | POST | OpenAI chat (streaming + tool calls) |
-| `/openai/v1/completions` | POST | OpenAI legacy completions |
-| `/ollama/api/chat` | POST | Ollama chat |
-| `/ollama/api/generate` | POST | Ollama generate |
-| `/ollama/api/tags`, `/show`, `/ps`, `/pull`, `/push`, `/embeddings` | GET/POST | Ollama model listing + embeddings |
-| `/anthropic/v1/...` | POST | Anthropic Messages |
-| `/gemini/v1beta/models/...` | POST | Google Gemini |
-| `/cohere/v1/...` | POST | Cohere |
-| `/bedrock/model/...` | POST | AWS Bedrock |
-| `/tgi/...` | POST | HuggingFace Text Generation Inference |
+| `/v1/chat/completions` | POST | OpenAI chat (streaming + tool calls) |
+| `/v1/completions` | POST | OpenAI legacy completions |
+| `/api/chat` | POST | Ollama chat |
+| `/api/generate` | POST | Ollama generate |
+| `/api/tags` | GET | Ollama model listing |
 | `/tools/manual` | GET | UTCP tool-discovery manual |
 | `/tools/{name}` | POST | UTCP tool invocation |
-| `/a2a` | * | Agent-to-Agent (only when `--a2a-base-url` is set; requires the `a2a` extra) |
 | `/mcp` | * | MCP streamable-HTTP transport (mounted when the `mcp` extra is installed) |
 
 There is no authentication; put the server behind a reverse proxy if it is exposed.
+
+!!! note "Vendor-prefixed and additional routes exist but are not mounted"
+    The package also ships router modules for **Anthropic** (`/anthropic/v1/...`), **Gemini**
+    (`/gemini/v1beta/models/...`), **Cohere** (`/cohere/v1/...`), **AWS Bedrock**
+    (`/bedrock/model/...`), and **HuggingFace TGI** (`/tgi/...`), plus vendor-prefixed
+    `/openai/v1/...` / `/ollama/api/...` aliases for the OpenAI/Ollama routes above (intended
+    as the canonical paths, with `/v1`/`/api` becoming the deprecated aliases). None of these
+    are actually included on the FastAPI app the `ovos-persona-server` CLI starts today — only
+    the bare `/v1` and `/api` paths in the table above are reachable. Treat the vendor-prefixed
+    paths, and the Anthropic/Gemini/Cohere/Bedrock/TGI compatibility surfaces, as not yet wired
+    up rather than as something you can point a client at.
 
 ---
 
 ## OpenAI-Compatible Example
 
-Point the `openai` SDK at the OpenAI prefix (`/openai/v1`, or the legacy `/v1`):
+Point the `openai` SDK at the `/v1` path:
 
 ```python
 from openai import OpenAI
 
 client = OpenAI(
     api_key="not-needed",                       # no key required for local use
-    base_url="http://localhost:8337/openai/v1",
+    base_url="http://localhost:8337/v1",
 )
 
 resp = client.chat.completions.create(
@@ -108,13 +122,19 @@ print(resp.choices[0].message.content)
 
 ## Ollama-Compatible Use
 
-The Ollama surface (`/ollama/api/...`, legacy `/api/...`) lets Ollama clients treat the persona as a local model. For example, the [Home Assistant Ollama integration](https://www.home-assistant.io/integrations/ollama/) can connect directly and use the persona as its LLM backend. `/ollama/api/tags` reports the model name(s) from the persona's solver config.
+The Ollama surface (`/api/chat`, `/api/generate`, `/api/tags`) lets Ollama clients treat the
+persona as a local model. For example, the
+[Home Assistant Ollama integration](https://www.home-assistant.io/integrations/ollama/) can
+connect directly and use the persona as its LLM backend. `/api/tags` reports the model name(s)
+from the persona's solver config.
 
 ---
 
 ## Tips
 
-- **Mind the prefix.** Clients must hit `/openai/v1` (or legacy `/v1`), not the bare host root — pointing a client at `http://localhost:8337` alone will 404. Tool calling is only supported with `stream=false`.
+- **Mind the prefix.** Clients must hit `/v1` (OpenAI) or `/api` (Ollama), not the bare host
+  root — pointing a client at `http://localhost:8337` alone will 404. Tool calling is only
+  supported with `stream=false`.
 
 - Make sure your persona file's `solvers` and their config are complete; a missing plugin or model means the persona cannot answer.
 

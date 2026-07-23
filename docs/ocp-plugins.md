@@ -5,7 +5,7 @@
 
 | Plugin | Description |
 |--------|-------------|
-| [ovos-ocp-files-plugin](#ovos-ocp-files-plugin) | Please see the original repo |
+| [ovos-ocp-files-plugin](#ovos-ocp-files-plugin) | Lets OCP play local files (`file://` URIs) and reads their audio tags/metadata so the player can show a title and artist |
 | [ovos-ocp-news-plugin](#ovos-ocp-news-plugin) | allows OCP to play urls for some news providers, this plugin will extract the real stream at playback time |
 | [ovos-ocp-bandcamp-plugin](#ovos-ocp-bandcamp-plugin) | allows OCP to play bandcamp urls, streams will be extracted at playback time |
 | [ovos-ocp-rss-plugin](#ovos-ocp-rss-plugin) | allows OCP to play rss feeds, the plugin will extract the first playable stream |
@@ -17,7 +17,9 @@
 - **GitHub**: [https://github.com/OpenVoiceOS/ovos-ocp-files-plugin](https://github.com/OpenVoiceOS/ovos-ocp-files-plugin)
 
 
-- **Description**: Please see the original repo
+- **Description**: A stream extractor that lets OCP play local files (`file://` URIs, or plain
+  paths on disk) and reads their embedded audio tags (title, artist, album) so the player can
+  display them. It bundles a fork of the `audio-metadata` tag-reading library.
 
 ---
 
