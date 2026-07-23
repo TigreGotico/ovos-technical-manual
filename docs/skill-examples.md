@@ -173,7 +173,7 @@ Track the location of the ISS
 - Where is the ISS
 
 
-- Tell me about the IS
+- Tell me about the ISS
 
 
 - how many persons on board of the space station
@@ -353,6 +353,10 @@ Record and manage audio clips directly from your assistant.
 
 The Finished Booting skill provides notifications when OpenVoiceOS has fully started and all core services are ready
 
+It listens for the `mycroft.ready` bus event (emitted once every core service reports
+ready) and speaks a short confirmation — useful on headless devices where you can't
+otherwise tell startup finished.
+
 **Usage examples:**
 
 - Disable ready notifications.
@@ -511,6 +515,9 @@ Local Media File Browser For OpenVoiceOS
 [:material-github: OpenVoiceOS/ovos-skill-naptime](https://github.com/OpenVoiceOS/ovos-skill-naptime) · `pip install ovos-skill-naptime`
 
 Put the assistant to sleep when you don't want to be disturbed.
+
+While asleep, the wake word stops triggering listening — say "Wake up" (or the
+configured stand-up word) to bring it back.
 
 **Usage examples:**
 

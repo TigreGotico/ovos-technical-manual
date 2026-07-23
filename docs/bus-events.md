@@ -10,9 +10,11 @@
     documents that event in context; this page does not introduce anything new.
 
 !!! note
-    Many events have a legacy `mycroft.*`/bare name alongside a newer `ovos.*` name. Both are
-    emitted by default (see [Bus Service: legacy/modern topic pairs](bus-service.md#namespace-migration));
-    the tables below show both where applicable.
+    Many events have a legacy `mycroft.*`/bare name alongside a newer `ovos.*` name. Only one
+    of the two is actually put on the wire — each connected client's bus library locally
+    re-dispatches it under the other name too, so a handler on either name receives it (see
+    [Bus Service: legacy/modern topic pairs](bus-service.md#namespace-migration) for the
+    mechanism); the tables below show both names where applicable.
 
 ## Listener / wake word
 
@@ -92,7 +94,7 @@ Handled by every `OVOSSkill` instance; see [OVOSSkill API](ovos-skill.md#system-
 | `mycroft.skill.enable_intent` / `mycroft.skill.disable_intent` | Enable/disable one of the skill's intents |
 | `mycroft.skill.set_cross_context` / `mycroft.skill.remove_cross_context` | Manage cross-skill context |
 | `mycroft.skills.settings.changed` | Remote settings update |
-| `ovos.skills.settings_changed` | Local settings file changed |
+| `ovos.skills.settings_changed` | Local settings file changed — see `settings_change_callback` in [Skill Settings](skill-settings.md#change-callback) ([Skill Cookbook recipe 2](skill-cookbook.md#2-user-configurable-behavior-settings-settingsmeta-live-reload)) for reacting to it from a skill |
 | `homescreen.metadata.get` | Homescreen requesting metadata |
 | `{skill_id}.public_api` | Skill API introspection (see [Skill API — Inter-Skill RPC](ovos-skill.md#skill-api-inter-skill-rpc)) |
 

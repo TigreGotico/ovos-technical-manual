@@ -128,8 +128,10 @@ Raspberry Pi boards are notoriously **picky about power supplies**. Insufficient
 
 ## Step 4: Setting Up Wi-Fi
 
-### Option 1: Configure Wi-Fi Using Raspberry Pi Imager
-The most straightforward method is to set up Wi-Fi during the imaging process.
+### Option 1 (recommended): Configure Wi-Fi Using Raspberry Pi Imager
+The most straightforward and reliable method is to set up Wi-Fi during the imaging
+process, in Step 2 above — use this whenever you have a computer to flash the image
+with.
 
 1. Open Raspberry Pi Imager and select Edit Settings Option.
 
@@ -139,7 +141,11 @@ The most straightforward method is to set up Wi-Fi during the imaging process.
 
 3. Write the image to your SD card or USB drive, and your Wi-Fi will be pre-configured.
 
-### Option 2: Use Audio-Based Wi-Fi Setup (ggwave)
+### Option 2 (fallback, work-in-progress): Audio-Based Wi-Fi Setup (ggwave)
+
+Use this only if you didn't set Wi-Fi credentials at imaging time and have no other way
+to reach the device (no monitor/keyboard, no Ethernet). It is a work in progress and
+gives no on-screen confirmation, so treat it as a fallback, not the primary path.
 
 1. Open [ggwave Wi-Fi setup](https://openvoiceos.github.io/ovos-audio-transformer-plugin-ggwave/) on a device with speakers.
 
@@ -166,7 +172,12 @@ The most straightforward method is to set up Wi-Fi during the imaging process.
 ### OVOS First Launch
 
 - On the first run, OVOS may take longer to initialize.
-- When ready, OVOS will say: **"I am ready"** (requires an Internet connection).
+- A working Internet connection is required for OVOS to consider itself ready and
+  announce it out loud — if Wi-Fi isn't configured yet or the network is unreachable,
+  the device stays silent instead. Check `ovos-status` and the `ologs` output (see
+  below) to confirm the services actually started even without a spoken confirmation,
+  and see [RaspOVOS Troubleshooting](raspovos-troubleshooting.md#ovos-fails-to-speak-i-am-ready)
+  if it never speaks up once online.
 
 ---
 

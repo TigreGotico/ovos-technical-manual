@@ -26,8 +26,16 @@ directory — on a typical Linux install that is:
 ├── audio.log     # ovos-audio — TTS + playback
 ├── bus.log       # ovos-messagebus
 ├── skills.log    # ovos-core — intent matching + skill execution
-└── voice.log     # ovos-dinkum-listener — mic, wake word, STT
+├── voice.log     # ovos-dinkum-listener — mic, wake word, STT
+└── ovos.log      # any process that never set its own service name (see note)
 ```
+
+!!! note "Where `ovos.log` comes from"
+    The shared logger (`ovos-utils`) names its log file after whatever service name was set;
+    if a process never sets one — a one-off script, a plugin running standalone, or a service
+    started before it calls its own name-setting step — it falls back to the logger's own
+    default name, `OVOS`, lower-cased to `ovos.log`. Seeing this file usually just means some
+    component is logging under the generic default rather than its own service log.
 
 The directory can be overridden per-service via the `logs.path` config key (or `logging.<service>.
 logs.path` for a per-service override); see [Turning up log detail](#turning-up-log-detail) below.
@@ -71,7 +79,7 @@ installing anything.
 
 ### Installing and running it
 
-`ovos-busmon` is not yet on PyPI; install it from source:
+`ovos-busmon` is not yet on PyPI, so install it from source:
 
 ```bash
 git clone https://github.com/OpenVoiceOS/ovos-busmon
@@ -256,9 +264,9 @@ miss (as `no match from <bound method ...>`, naming the matcher's Python functio
 utterance falls through to the next stage, and eventually to nothing:
 
 ```text
-DEBUG - no match from <bound method ...StopPipeline.match ...>
-DEBUG - no match from <bound method ...ConversePipeline.match ...>
-DEBUG - no match from <bound method ...OCPPipelineMatcher.match ...>
+DEBUG - no match from <bound method ...StopService.match_stop_high ...>
+DEBUG - no match from <bound method ...ConverseService.converse_with_skills ...>
+DEBUG - no match from <bound method ...OCPPipelineMatcher.match_high ...>
 DEBUG - no match from <bound method ...PadatiousPipeline.match_high ...>
 DEBUG - no match from <bound method ...AdaptPipeline.match_high ...>
 ...
@@ -353,15 +361,27 @@ absent (with everything upstream present) points at a silent or failed skill han
 
 By default every service logs at `INFO`. To see the `DEBUG` lines quoted throughout this page
 (pipeline misses, hotword events, STT confidence filtering, etc.), raise the log level in the
-[user configuration](config.md):
+[user configuration](config.md).
 
-```bash
-ovos-config set -k log_level -v DEBUG
-```
+!!! note "`ovos-config set` only edits keys that already exist somewhere"
+    `ovos-config set -k log_level -v DEBUG` looks for `log_level` in the *currently merged*
+    configuration first, and on a fresh install nothing ships that key by default — so the
+    command fails with `Error: No key that fits the query` before you've ever set a log level.
+    The reliable first-time path is to add the key directly to your user config file
+    (`~/.config/mycroft/mycroft.conf`, creating it if it doesn't exist yet):
 
-which writes a top-level `"log_level": "DEBUG"` key. This applies to every service (they all watch
-the same configuration and pick up the change without a restart). To raise the level for only one
-service, use the nested `"logging"` section instead:
+    ```json
+    {
+      "log_level": "DEBUG"
+    }
+    ```
+
+    Once the key exists anywhere in the merged configuration (including after you've added it
+    this way once), `ovos-config set -k log_level -v DEBUG` will find and update it on later runs.
+
+This applies to every service (they all watch the same configuration and pick up the change
+without a restart). To raise the level for only one service, add the nested `"logging"` section
+instead — the same first-time caveat applies, so add it directly to the user config file:
 
 ```json
 {
