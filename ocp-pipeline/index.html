@@ -1724,11 +1724,16 @@ e.g. "next song" does nothing when no player is active.</p>
 entry-point ID), falling back to the older <code>intents.OCP</code> key.</p>
 <div class="admonition note">
 <p class="admonition-title">Shipped defaults differ slightly</p>
-<p>The bundled <code>mycroft.conf</code> ships an <code>intents.OCP</code> section with <code>min_score: 40</code>
-(not the library's own fallback of <code>50</code>), plus two experimental keys not
-covered above: <code>experimental_media_classifier</code> and
-<code>experimental_binary_classifier</code> (both <code>false</code> by default), which gate
-in-development classifier strategies.</p>
+<p>The bundled <code>mycroft.conf</code> ships an <code>intents.ovos-ocp-pipeline-plugin</code> section
+with <code>min_score: 40</code> (not the library's own fallback of <code>50</code>); the other keys
+above match the library defaults.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Upcoming</p>
+<p>Media-type classification currently relies on the entity matcher described
+above. Adopting <a href="../ocp-plugins/#ovos-media-classifier"><code>ovos-media-classifier</code></a>
+as a pluggable classifier for OCP's media-type / binary relevance decisions
+is <strong>Upcoming</strong>.</p>
 </div>
 <hr />
 <h2 id="gotcha-legacy-vs-ocp-playback">Gotcha: legacy vs. OCP playback<a class="headerlink" href="#gotcha-legacy-vs-ocp-playback" title="Permanent link">&para;</a></h2>

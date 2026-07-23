@@ -664,6 +664,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#first-check-the-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      First, check the basics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#its-not-listening-to-me" class="md-nav__link">
     <span class="md-ellipsis">
       "It's not listening to me"
@@ -1139,6 +1148,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#first-check-the-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      First, check the basics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#its-not-listening-to-me" class="md-nav__link">
     <span class="md-ellipsis">
       "It's not listening to me"
@@ -1213,6 +1231,22 @@ by voice or with a couple of taps in a settings screen. If your problem isn't he
 page.</p>
 </div>
 <hr />
+<h2 id="first-check-the-basics">First, check the basics<a class="headerlink" href="#first-check-the-basics" title="Permanent link">&para;</a></h2>
+<p>Before anything else, these four things cause most "it's just not working" moments and take
+seconds to check — no terminal, no config file:</p>
+<ul>
+<li><strong>Is it muted?</strong> Look for a mute light/icon, or ask <em>"are you muted?"</em> — if it can't hear you
+  to answer, check the physical mute switch/button if your device has one.</li>
+<li><strong>Is the volume up?</strong> Ask <em>"what's the volume?"</em> — a spoken answer means the speaker path
+  works.</li>
+<li><strong>Is it powered on?</strong> A dead device won't react to anything — check the power light/cable
+  before assuming a software problem.</li>
+<li><strong>Is it connected to the network?</strong> Most skills (weather, radio, trivia) need internet access;
+  check your router or the device's Wi-Fi indicator/settings screen if answers about the outside
+  world consistently fail while purely local things (time, volume) still work.</li>
+</ul>
+<p>If all four check out and something's still wrong, the sections below cover the specific
+symptom.</p>
 <h2 id="its-not-listening-to-me">"It's not listening to me"<a class="headerlink" href="#its-not-listening-to-me" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Say the wake word clearly, with a short pause after it.</strong> OVOS listens for a wake word (by
@@ -1226,7 +1260,9 @@ page.</p>
 <li><strong>The wake word keeps missing or keeps false-triggering.</strong> This is a sensitivity setting, not a
   hardware fault — see <a href="../wake-word-plugins/#wake-word-configuration">Wake Word Plugins</a> for how to
   adjust <code>sensitivity</code> and <code>trigger_level</code> in <code>mycroft.conf</code>, and pick a less noise-prone wake word
-  if needed.</li>
+  if needed. Unlike the fixes above, this one needs opening a text config file, not just talking
+  to the assistant — see <a href="../personalize/">Make It Yours</a> for the general edit-and-restart
+  routine.</li>
 </ul>
 <h2 id="its-not-talking-back-to-me-its-muted">"It's not talking back to me" / "It's muted"<a class="headerlink" href="#its-not-talking-back-to-me-its-muted" title="Permanent link">&para;</a></h2>
 <ul>

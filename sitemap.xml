@@ -65,6 +65,10 @@
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/coming-from-alexa/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/common-query/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
@@ -82,6 +86,10 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/context/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/contributing/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
@@ -194,6 +202,10 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/hivemind-agents/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/home-assistant/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
     <url>
@@ -598,6 +610,10 @@
     </url>
     <url>
          <loc>https://tigregotico.github.io/ovos-technical-manual/snippets/default-pipeline/</loc>
+         <lastmod>2026-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://tigregotico.github.io/ovos-technical-manual/snippets/restart-ovos/</loc>
          <lastmod>2026-07-23</lastmod>
     </url>
 </urlset>

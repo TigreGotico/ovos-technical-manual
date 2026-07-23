@@ -1093,24 +1093,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ovos-media-plugin-simple" class="md-nav__link">
-    <span class="md-ellipsis">
-      ovos-media-plugin-simple
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ovos-audio-plugin-simple" class="md-nav__link">
-    <span class="md-ellipsis">
-      ovos-audio-plugin-simple
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#ovos-plugin-vlc" class="md-nav__link">
     <span class="md-ellipsis">
       ovos-plugin-vlc
@@ -1425,24 +1407,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ovos-media-plugin-simple" class="md-nav__link">
-    <span class="md-ellipsis">
-      ovos-media-plugin-simple
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ovos-audio-plugin-simple" class="md-nav__link">
-    <span class="md-ellipsis">
-      ovos-audio-plugin-simple
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#ovos-plugin-vlc" class="md-nav__link">
     <span class="md-ellipsis">
       ovos-plugin-vlc
@@ -1555,11 +1519,6 @@ family, adding the other is a <strong>TODO</strong>.</p>
 <td>✅ both</td>
 </tr>
 <tr>
-<td><a href="#ovos-media-plugin-simple">ovos-media-plugin-simple</a></td>
-<td>minimal/default audio</td>
-<td>✅ both</td>
-</tr>
-<tr>
 <td><a href="#ovos-audio-plugin-mpv">ovos-audio-plugin-mpv</a></td>
 <td>MPV (audio + video)</td>
 <td>✅ both</td>
@@ -1578,11 +1537,6 @@ family, adding the other is a <strong>TODO</strong>.</p>
 <td><a href="#ovos-plugin-vlc">ovos-plugin-vlc</a></td>
 <td>VLC</td>
 <td>old audio service only (legacy) — use ovos-media-plugin-vlc for ovos-media</td>
-</tr>
-<tr>
-<td><a href="#ovos-audio-plugin-simple">ovos-audio-plugin-simple</a></td>
-<td>minimal audio</td>
-<td>old audio service only — ⚠️ ovos ≤ 0.0.7</td>
 </tr>
 </tbody>
 </table>
@@ -1630,29 +1584,6 @@ family, adding the other is a <strong>TODO</strong>.</p>
 </li>
 <li>
 <p><strong>Description</strong>: The legacy <strong>"old audio service"</strong> OCP backend. It crams OCP search orchestration, the player state machine, MPRIS and the GUI into a single <code>ovos-audio</code> <code>AudioBackend</code>. ⚠️ <strong>Deprecated but still shipped and enabled by default</strong> (<code>enable_old_audioservice: true</code>); superseded by the standalone <a href="../ovos-media/">ovos-media</a> daemon. See the dedicated <strong><a href="../ocp-audio-plugin/">OCP Audio Plugin</a></strong> page for the full background, configuration, and migration path.</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-media-plugin-simple">ovos-media-plugin-simple<a class="headerlink" href="#ovos-media-plugin-simple" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-media-plugin-simple">https://github.com/OpenVoiceOS/ovos-media-plugin-simple</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: Minimal/default audio playback (import name <code>ovos_media_plugin_cli</code>). Ships
-  entry points for both <a href="https://github.com/OpenVoiceOS/ovos-media">ovos-media</a>
-  (<code>opm.media.audio</code>, class <code>CLIAudioService</code>) and the old audio service
-  (<code>mycroft.plugin.audioservice</code>, type <code>ovos_cli</code>).</p>
-</li>
-</ul>
-<hr />
-<h2 id="ovos-audio-plugin-simple">ovos-audio-plugin-simple<a class="headerlink" href="#ovos-audio-plugin-simple" title="Permanent link">&para;</a></h2>
-<ul>
-<li>
-<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-audio-plugin-simple">https://github.com/OpenVoiceOS/ovos-audio-plugin-simple</a></p>
-</li>
-<li>
-<p><strong>Description</strong>: ⚠️ Legacy old-audio-service backend (<code>mycroft.plugin.audioservice</code>). This plugin was made for old OCP and only works on ovos ≤ 0.0.7.</p>
 </li>
 </ul>
 <hr />

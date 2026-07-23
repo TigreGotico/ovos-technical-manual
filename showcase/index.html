@@ -781,6 +781,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#play-your-own-music-or-control-your-smart-home" class="md-nav__link">
+    <span class="md-ellipsis">
+      Play your own music, or control your smart home
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1328,6 +1337,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#play-your-own-music-or-control-your-smart-home" class="md-nav__link">
+    <span class="md-ellipsis">
+      Play your own music, or control your smart home
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1359,7 +1377,30 @@ last example combines several pieces for a Halloween-prop style build.</p>
 <h2 id="make-it-tell-jokes">Make it tell jokes<a class="headerlink" href="#make-it-tell-jokes" title="Permanent link">&para;</a></h2>
 <p>The <a href="../skill-examples/#dad-jokes">Dad Jokes skill</a> (<code>ovos-skill-icanhazdadjokes</code>) answers "tell me
 a joke", "do you know any Chuck Norris jokes?", or "tell me a joke about dentists" with a fresh
-pun every time. Install it with <code>pip install ovos-skill-icanhazdadjokes</code> and restart <code>ovos-core</code>.</p>
+pun every time. Install it with <code>pip install ovos-skill-icanhazdadjokes</code>, then:</p>
+<div class="admonition tip">
+<p class="admonition-title">How to restart your assistant</p>
+<p>OVOS is not one program — it's several separate services (the listener, ovos-core,
+ovos-audio, the messagebus, and more) that need to pick up a config change together. How you
+restart them depends on how OVOS was installed:</p>
+<ul>
+<li><strong>systemd install</strong> (the <code>ovos-installer</code> or a RaspOVOS image): restart the whole stack with
+  one command —
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>restart<span class="w"> </span>ovos.service
+</span></code></pre></div>
+  <code>ovos.service</code> is a <code>--user</code> target unit that the other services (<code>ovos-messagebus.service</code>,
+  <code>ovos-listener.service</code>, <code>ovos-audio.service</code>, <code>ovos-skills.service</code>, <code>ovos-phal.service</code>,
+  and — if installed — <code>ovos-gui.service</code>/<code>ovos-shell.service</code>) declare as <code>PartOf=</code>, so
+  restarting it cascades to all of them. Restarting a single service instead (e.g. only the
+  listener after a wake-word change) works the same way: <code>systemctl --user restart
+  ovos-listener.service</code>.</li>
+<li><strong>Docker/container install</strong>: restart the equivalent service(s) in your compose file, e.g.
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>&lt;service-name&gt;
+</span></code></pre></div>
+  (or <code>docker compose restart</code> with no name to restart everything).</li>
+<li><strong>Manual/development run</strong>: stop the running <code>ovos-core</code> process (Ctrl-C) and start it again.</li>
+</ul>
+</div>
 <h2 id="turn-it-into-a-parrot">Turn it into a parrot<a class="headerlink" href="#turn-it-into-a-parrot" title="Permanent link">&para;</a></h2>
 <p>The <a href="../skill-examples/#parrot">Parrot skill</a> (<code>ovos-skill-parrot</code>) makes OVOS repeat whatever you
 say back to you: "repeat Once upon a midnight dreary…" or "say Goodnight, Gracie" gets echoed
@@ -1384,7 +1425,30 @@ also expose several distinct voices through their own <code>voice</code> config 
 picks a specific speaker/dialect with <code>"voice": "valencia/gina"</code>, and
 <a href="../tts-plugins/#ovos-tts-plugin-edge-tts"><code>ovos-tts-plugin-edge-tts</code></a> offers dozens of
 cloud voices across many languages and accents. Set the plugin (and, where supported, its <code>voice</code>)
-under the <code>tts</code> section of <code>mycroft.conf</code> and restart <code>ovos-audio</code> to hear the change.</p>
+under the <code>tts</code> section of <code>mycroft.conf</code> and restart to hear the change:</p>
+<div class="admonition tip">
+<p class="admonition-title">How to restart your assistant</p>
+<p>OVOS is not one program — it's several separate services (the listener, ovos-core,
+ovos-audio, the messagebus, and more) that need to pick up a config change together. How you
+restart them depends on how OVOS was installed:</p>
+<ul>
+<li><strong>systemd install</strong> (the <code>ovos-installer</code> or a RaspOVOS image): restart the whole stack with
+  one command —
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>restart<span class="w"> </span>ovos.service
+</span></code></pre></div>
+  <code>ovos.service</code> is a <code>--user</code> target unit that the other services (<code>ovos-messagebus.service</code>,
+  <code>ovos-listener.service</code>, <code>ovos-audio.service</code>, <code>ovos-skills.service</code>, <code>ovos-phal.service</code>,
+  and — if installed — <code>ovos-gui.service</code>/<code>ovos-shell.service</code>) declare as <code>PartOf=</code>, so
+  restarting it cascades to all of them. Restarting a single service instead (e.g. only the
+  listener after a wake-word change) works the same way: <code>systemctl --user restart
+  ovos-listener.service</code>.</li>
+<li><strong>Docker/container install</strong>: restart the equivalent service(s) in your compose file, e.g.
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>&lt;service-name&gt;
+</span></code></pre></div>
+  (or <code>docker compose restart</code> with no name to restart everything).</li>
+<li><strong>Manual/development run</strong>: stop the running <code>ovos-core</code> process (Ctrl-C) and start it again.</li>
+</ul>
+</div>
 <h2 id="change-how-it-sounds">Change how it sounds<a class="headerlink" href="#change-how-it-sounds" title="Permanent link">&para;</a></h2>
 <p>Most spoken replies are flat, one-tone sentences — but they don't have to be. The reliable way
 to change how OVOS sounds is to pick a different <a href="../tts-plugins/">TTS plugin or voice</a>, as in
@@ -1413,6 +1477,20 @@ together:</p>
 <p>Nothing here needs custom hardware — a speaker and a device running OVOS is enough to try the
 pattern indoors before building it into a prop. See <a href="../hardware-integrators/">Hardware Integrators</a>
 if you do want to build a standalone battery/speaker enclosure for it.</p>
+<div class="admonition note">
+<p class="admonition-title">This one's for people who write skills</p>
+<p>The Halloween-prop recipe above uses skill code (<code>self.schedule_event</code>, <code>converse</code>) rather
+than voice/config alone. If you haven't written a skill yet, <a href="../first-skill/">Your First Skill</a>
+is a gentler starting point.</p>
+</div>
+<h2 id="play-your-own-music-or-control-your-smart-home">Play your own music, or control your smart home<a class="headerlink" href="#play-your-own-music-or-control-your-smart-home" title="Permanent link">&para;</a></h2>
+<p>OVOS plays internet radio (<a href="../skill-examples/#pyradios">PyRadios</a>,
+<a href="../skill-examples/#somafm">SomaFM</a>) and local audio files out of the box — there is no bundled
+Spotify or other streaming-service player. See <a href="../media-plugins/">Media Plugins</a> for what can be
+added.</p>
+<p>Turning lights and other smart-home devices on and off by voice is also not built in — it's a
+separate skill that talks to Home Assistant. See <a href="../home-assistant/">OVOS &amp; Home Assistant</a> for
+the setup and example commands.</p>
 
 
 

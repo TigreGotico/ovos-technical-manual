@@ -1716,6 +1716,21 @@ mechanism); the tables below show both names where applicable.</p>
 <td><code>handle_deregister_fallback</code></td>
 <td>Remove a fallback handler</td>
 </tr>
+<tr>
+<td><code>ovos.skills.fallback.ping</code></td>
+<td><code>_handle_fallback_ack</code> (skill-side)</td>
+<td>Fallback service asks every registered skill whether it can handle the utterance</td>
+</tr>
+<tr>
+<td><code>ovos.skills.fallback.pong</code></td>
+<td><code>handle_ack</code> (service-side)</td>
+<td>A skill's reply to the ping, <code>can_handle</code> true/false</td>
+</tr>
+<tr>
+<td><code>ovos.skills.fallback.{skill_id}.request</code></td>
+<td><code>_handle_fallback_request</code> (skill-side)</td>
+<td>Service asks one specific skill to actually process the utterance</td>
+</tr>
 </tbody>
 </table>
 <h2 id="skill-lifecycle">Skill lifecycle<a class="headerlink" href="#skill-lifecycle" title="Permanent link">&para;</a></h2>
@@ -1847,10 +1862,22 @@ mechanism); the tables below show both names where applicable.</p>
 </tr>
 <tr>
 <td><code>recognizer_loop:utterance_start</code></td>
-<td>Emitted by the playback thread right before spoken audio starts playing. An in-progress change (<a href="https://github.com/OpenVoiceOS/ovos-audio/pull/146">ovos-audio#146</a>) will add a <code>duration</code> field to its payload — <strong>Upcoming</strong>.</td>
+<td>Emitted by the playback thread right before spoken audio starts playing</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:audio_output_start</code> (spec: <code>ovos.audio.output.started</code>)</td>
+<td>Emitted by the playback thread when audio actually starts playing</td>
+</tr>
+<tr>
+<td><code>recognizer_loop:audio_output_end</code> (spec: <code>ovos.audio.output.ended</code>)</td>
+<td>Emitted by the playback thread when audio finishes playing</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Adding a <code>duration</code> field to <code>utterance_start</code></p>
+<p>Carrying the synthesized clip's duration on <code>recognizer_loop:utterance_start</code> itself (rather than requiring a listener to wait for the output-end pair) is <strong>Upcoming</strong>.</p>
+</div>
 <h2 id="gui-forwarding">GUI forwarding<a class="headerlink" href="#gui-forwarding" title="Permanent link">&para;</a></h2>
 <p>Handled by <code>ovos-gui</code>; see <a href="../gui-service/">GUI Service</a>.</p>
 <table>

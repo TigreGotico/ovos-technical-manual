@@ -1591,18 +1591,18 @@
 </table>
 <div class="admonition note">
 <p class="admonition-title">Roster completeness</p>
-<p>This table lists the G2P plugins known to register an <code>opm.g2p</code> entry point at the time of
-writing; it is not guaranteed to be exhaustive. If you know of another OVOS-compatible G2P
+<p>This table lists the G2P plugins known to register an <code>opm.g2p</code> entry point; it is
+not guaranteed to be exhaustive. If you know of another OVOS-compatible G2P
 plugin missing here, check its <code>pyproject.toml</code>/<code>setup.py</code> for an <code>opm.g2p</code> entry point before
 assuming it belongs on this list.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Some TTS engines phonemize internally, without an <code>opm.g2p</code> plugin</p>
-<p><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG"><code>ovos-tts-plugin-espeakNG</code></a> and the
-<code>phoonnx</code> TTS backends embed their own grapheme-to-phoneme conversion (espeak-ng's built-in
-phonemizer, and <code>phoonnx</code>'s own phonemization pipeline respectively) rather than delegating to
-a separate <code>opm.g2p</code> plugin. They are not on the table above because they aren't discoverable
-as standalone G2P plugins — the phonemization happens as an implementation detail of the TTS
+<p><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG"><code>ovos-tts-plugin-espeakNG</code></a> embeds
+espeak-ng's own grapheme-to-phoneme conversion, and the <code>phoonnx</code> TTS backends delegate
+phonemization to <a href="https://github.com/TigreGotico/scriptconv"><code>scriptconv</code></a> — rather than to a
+separate <code>opm.g2p</code> plugin. Neither is on the table above because neither is discoverable
+as a standalone G2P plugin — the phonemization happens as an implementation detail of the TTS
 engine itself.</p>
 </div>
 <hr />

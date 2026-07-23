@@ -1660,10 +1660,10 @@ back to the older <code>intents.common_query</code> key.</p>
 self-reported confidences.</p>
 <div class="admonition note">
 <p class="admonition-title">Shipped defaults differ slightly</p>
-<p>The bundled <code>mycroft.conf</code> ships an <code>intents.common_query</code> section that
-overrides some of the library defaults above: <code>max_response_wait: 6</code>,
-<code>extension_time: 3</code>, and <code>reranker: "ovos-choice-solver-bm25"</code> (instead of
-the library's own fallback of <code>ovos-flashrank-reranker-plugin</code>).</p>
+<p>The bundled <code>mycroft.conf</code> ships an <code>intents.ovos-common-query-pipeline-plugin</code>
+section that overrides some of the library defaults above: <code>max_response_wait: 6</code>
+and <code>extension_time: 3</code>. Its <code>reranker</code> is <code>ovos-flashrank-reranker-plugin</code> —
+the same plugin the library falls back to when no reranker is configured at all.</p>
 </div>
 <hr />
 <h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h2>

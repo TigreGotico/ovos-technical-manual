@@ -1711,10 +1711,22 @@
 <p class="admonition-title">In a nutshell</p>
 <p>This is the friendly, guided way to get OVOS onto your machine. You run a single command, then a menu-driven wizard walks you through a few choices (your language, where to install, which features you want) and does the rest for you. It works the same on a Raspberry Pi or an everyday Linux laptop, and is the recommended way to install — no programming required. Scripting a fleet instead? See the <a href="#non-interactive-scenario-install">non-interactive scenario install</a>, which skips the wizard entirely. See the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
 </div>
-<div class="admonition tip">
-<p class="admonition-title">Privacy first?</p>
-<p>See <a href="../privacy-security/">Privacy &amp; Security</a> for what a default install
-actually sends over the network, and how to change it, before you start.</p>
+<div class="admonition warning">
+<p class="admonition-title">Read this before you start: what a default install sends over the network</p>
+<p>A default OVOS install talks to public, community-run servers for speech-to-text and
+text-to-speech unless you change it — and the installer asks you to opt into two separate
+telemetry reports along the way. See <a href="../privacy-security/">Privacy &amp; Security</a> for exactly
+what that means, and the <a href="#anonymous-telemetry">telemetry section below</a> for what each
+prompt does. <strong>If you're unsure, decline both telemetry prompts</strong> — nothing else about the
+install depends on them.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">This runs over SSH in a terminal, not an app</p>
+<p>There's no phone app or setup wizard with a graphical pairing flow — you type commands into
+a terminal, usually over SSH into a headless device. If you've never used SSH before, budget
+some extra time to get comfortable with it, or consider the
+<a href="../install-raspovos/">RaspOVOS</a> image instead, which boots straight into a working assistant
+with no SSH step required.</p>
 </div>
 <p>Welcome to the quick-start guide for installing Open Voice OS (OVOS) using the official <code>ovos-installer</code>! This guide is suitable for <strong>Raspberry Pi</strong> and <strong>desktop/server</strong> Linux environments. Whether you're running this on a headless Raspberry Pi or your everyday laptop, the steps are mostly the same — only the way you connect to the device differs.</p>
 <blockquote>
@@ -1727,8 +1739,11 @@ Linux hardware, use the <code>ovos-installer</code>.</p>
 <hr />
 <h2 id="step-by-step-installation">Step-by-step Installation<a class="headerlink" href="#step-by-step-installation" title="Permanent link">&para;</a></h2>
 <h3 id="1-connect-to-your-device-if-remote">✅ 1. Connect to Your Device <em>(if remote)</em><a class="headerlink" href="#1-connect-to-your-device-if-remote" title="Permanent link">&para;</a></h3>
-<p>If you're installing on a headless device (like a Raspberry Pi), connect via SSH:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ssh<span class="w"> </span>-l<span class="w"> </span>your-username<span class="w"> </span>&lt;your-device-ip&gt;
+<p>If you're installing on a headless device (like a Raspberry Pi), you first need its IP address
+or hostname. Try <code>raspberrypi.local</code> (the default mDNS hostname on a fresh Raspberry Pi OS
+install), or look up the device's IP in your router's connected-devices list if that doesn't
+resolve. Then connect via SSH:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ssh<span class="w"> </span>-l<span class="w"> </span>your-username<span class="w"> </span>&lt;your-device-ip-or-raspberrypi.local&gt;
 </span></code></pre></div>
 <hr />
 <h3 id="2-update-package-metadata">🔄 2. Update Package Metadata<a class="headerlink" href="#2-update-package-metadata" title="Permanent link">&para;</a></h3>
@@ -1882,6 +1897,11 @@ This is your last chance to cancel the process.</p>
 <p><img alt="image" src="https://gist.github.com/user-attachments/assets/62a565f3-6871-4dfe-a441-c482199feac0" /></p>
 <hr />
 <h3 id="anonymous-telemetry">📊 Anonymous Telemetry<a class="headerlink" href="#anonymous-telemetry" title="Permanent link">&para;</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">TL;DR: if you're unsure, decline both</p>
+<p>Declining both prompts changes nothing about how OVOS works — it only stops these two
+reports from being sent. There is no functional downside to declining.</p>
+</div>
 <p>There are actually <strong>two separate opt-in prompts</strong> here, and they are easy to
 mix up — see <a href="../privacy-security/#install-time-telemetry-vs-ongoing-usage-telemetry">Privacy &amp; Security</a>
 for the full explanation. In short: the first ("Telemetry") is a one-time

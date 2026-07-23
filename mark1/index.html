@@ -1602,6 +1602,19 @@ three layers:</p>
 <p><strong><a href="https://github.com/OpenVoiceOS/ovos-mark1-utils">ovos-mark1-utils GitHub</a></strong>: Source code and additional examples.</p>
 </li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Bus topics follow the OVOS spec namespace</p>
+<p>The Mark 1 PHAL plugin emits its faceplate/enclosure bus messages under the standard OVOS
+spec message namespace rather than legacy topic names — see the
+<a href="https://openvoiceos.github.io/message_spec/phal_mk1/">PHAL Mark 1 message spec</a> for the
+current topic names.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Upcoming — enclosure protocol mixin</p>
+<p>The Mark 1 PHAL plugin is expected to adopt a shared <code>EnclosureProtocolListener</code> mixin for
+handling the enclosure protocol, aligning it with how other enclosure PHAL plugins are
+structured.</p>
+</div>
 
 
 

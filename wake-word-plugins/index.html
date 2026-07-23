@@ -1042,9 +1042,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#sensitivity-vs-trigger_level" class="md-nav__link">
+  <a href="#sensitivity-vs-trigger_level-the-technical-breakdown" class="md-nav__link">
     <span class="md-ellipsis">
-      sensitivity vs trigger_level
+      sensitivity vs trigger_level — the technical breakdown
     </span>
   </a>
   
@@ -1585,9 +1585,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#sensitivity-vs-trigger_level" class="md-nav__link">
+  <a href="#sensitivity-vs-trigger_level-the-technical-breakdown" class="md-nav__link">
     <span class="md-ellipsis">
-      sensitivity vs trigger_level
+      sensitivity vs trigger_level — the technical breakdown
     </span>
   </a>
   
@@ -1779,9 +1779,32 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">}</span>
 </span></code></pre></div></li>
 <li>Save the file — it's JSON (comments are allowed, <code>mycroft.conf</code> is parsed as JSONC).</li>
-<li>Restart OVOS for the change to take effect — however your deployment starts the services; the
-   common case on a systemd install is <code>systemctl --user restart ovos.service</code> (or the equivalent
-   restart for your container/service manager if you're not using systemd).</li>
+<li>Restart OVOS for the change to take effect:</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">How to restart your assistant</p>
+<p>OVOS is not one program — it's several separate services (the listener, ovos-core,
+ovos-audio, the messagebus, and more) that need to pick up a config change together. How you
+restart them depends on how OVOS was installed:</p>
+<ul>
+<li><strong>systemd install</strong> (the <code>ovos-installer</code> or a RaspOVOS image): restart the whole stack with
+  one command —
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>restart<span class="w"> </span>ovos.service
+</span></code></pre></div>
+  <code>ovos.service</code> is a <code>--user</code> target unit that the other services (<code>ovos-messagebus.service</code>,
+  <code>ovos-listener.service</code>, <code>ovos-audio.service</code>, <code>ovos-skills.service</code>, <code>ovos-phal.service</code>,
+  and — if installed — <code>ovos-gui.service</code>/<code>ovos-shell.service</code>) declare as <code>PartOf=</code>, so
+  restarting it cascades to all of them. Restarting a single service instead (e.g. only the
+  listener after a wake-word change) works the same way: <code>systemctl --user restart
+  ovos-listener.service</code>.</li>
+<li><strong>Docker/container install</strong>: restart the equivalent service(s) in your compose file, e.g.
+  <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>&lt;service-name&gt;
+</span></code></pre></div>
+  (or <code>docker compose restart</code> with no name to restart everything).</li>
+<li><strong>Manual/development run</strong>: stop the running <code>ovos-core</code> process (Ctrl-C) and start it again.</li>
+</ul>
+</div>
+<ol>
 <li>Say the new phrase — the assistant now wakes on it instead of "hey mycroft".</li>
 </ol>
 <h2 id="available-plugins">Available Plugins<a class="headerlink" href="#available-plugins" title="Permanent link">&para;</a></h2>
@@ -1796,16 +1819,28 @@ for new setups. Vosk offers the fastest setup for an arbitrary wake phrase witho
 <p>Specification: wake-word detection is one of the deployer-defined capture mechanisms that trigger the audio-input service (referenced in <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md">OVOS-AUDIO-IN-1 §5.1</a> as the source of a <code>request_lang</code> hint).</p>
 </blockquote>
 <h2 id="wake-word-configuration">Wake Word Configuration<a class="headerlink" href="#wake-word-configuration" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Too many false alarms, or not hearing you at all?</p>
+<ul>
+<li><strong>It wakes up on its own too often (false alarms)?</strong> Raise <code>trigger_level</code> (fewer false
+  positives, but needs a longer, more sustained match) — or lower <code>sensitivity</code>.</li>
+<li><strong>It doesn't hear you when you say the wake word?</strong> Raise <code>sensitivity</code> (each chunk of
+  audio is easier to trigger) — or lower <code>trigger_level</code>.</li>
+</ul>
+<p>Both live under <code>hotwords.&lt;name&gt;</code> in <code>mycroft.conf</code>, next to each other — nudge one at a
+time and test before changing the other. The full technical breakdown of what each number
+actually does is below.</p>
+</div>
 <p>The <code>hotwords</code> section in your <code>mycroft.conf</code> allows you to configure the wake word detection parameters for each plugin. For instance:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;hotwords&quot;: {
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  &quot;hey_mycroft&quot;: {
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    &quot;module&quot;: &quot;ovos-ww-plugin-precise-lite&quot;,
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    &quot;model&quot;: &quot;https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite&quot;,
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    &quot;trigger_level&quot;: 3,
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    &quot;sensitivity&quot;: 0.5,
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    &quot;listen&quot;: true
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  }
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>}
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&quot;hotwords&quot;: {
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  &quot;hey_mycroft&quot;: {
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    &quot;module&quot;: &quot;ovos-ww-plugin-precise-lite&quot;,
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    &quot;model&quot;: &quot;https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite&quot;,
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    &quot;trigger_level&quot;: 3,
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    &quot;sensitivity&quot;: 0.5,
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    &quot;listen&quot;: true
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  }
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>}
 </span></code></pre></div>
 <blockquote>
 <p>💡 see the full docs for the <a href="../speech-service/">listener service</a></p>
@@ -1819,7 +1854,7 @@ for new setups. Vosk offers the fastest setup for an arbitrary wake phrase witho
 <p><strong>Precision and Sensitivity</strong>: Adjust the <code>sensitivity</code> and <code>trigger_level</code> settings carefully. Too high a sensitivity can lead to false positives, while too low may miss detection.</p>
 </li>
 </ul>
-<h3 id="sensitivity-vs-trigger_level"><code>sensitivity</code> vs <code>trigger_level</code><a class="headerlink" href="#sensitivity-vs-trigger_level" title="Permanent link">&para;</a></h3>
+<h3 id="sensitivity-vs-trigger_level-the-technical-breakdown"><code>sensitivity</code> vs <code>trigger_level</code> — the technical breakdown<a class="headerlink" href="#sensitivity-vs-trigger_level-the-technical-breakdown" title="Permanent link">&para;</a></h3>
 <p>These two settings work together in the model-based Precise plugins (<code>ovos-ww-plugin-precise-lite</code>, <code>ovos-ww-plugin-precise-onnx</code>):</p>
 <ul>
 <li><strong><code>sensitivity</code></strong> (float, 0.0–1.0, default <code>0.5</code>) sets how close a single audio chunk's model output has to be to "yes" before it counts as a match: a chunk counts as activated when its probability exceeds <code>1.0 - sensitivity</code>. Raising <code>sensitivity</code> makes each individual chunk easier to trigger (more false positives, more sensitive to the word).</li>
@@ -1845,38 +1880,38 @@ for new setups. Vosk offers the fastest setup for an arbitrary wake phrase witho
 </blockquote>
 <h3 id="registering-your-plugin">Registering Your Plugin<a class="headerlink" href="#registering-your-plugin" title="Permanent link">&para;</a></h3>
 <p>To make your plugin detectable, provide an entry point under the <code>opm.wake_word</code> namespace:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">setup</span><span class="p">([</span><span class="o">...</span><span class="p">],</span> <span class="n">entry_points</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;opm.wake_word&#39;</span><span class="p">:</span> <span class="s1">&#39;example_ww = my_ww:MyWakeWordEngine&#39;</span><span class="p">})</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">setup</span><span class="p">([</span><span class="o">...</span><span class="p">],</span> <span class="n">entry_points</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;opm.wake_word&#39;</span><span class="p">:</span> <span class="s1">&#39;example_ww = my_ww:MyWakeWordEngine&#39;</span><span class="p">})</span>
 </span></code></pre></div>
 <blockquote>
 <p>💡 <strong>Backward Compatibility</strong>: <code>ovos-plugin-manager</code> still supports legacy <code>mycroft.plugin.wake_word</code> entry points, but new plugins should use the <code>opm.*</code> namespace.</p>
 </blockquote>
 <h3 id="example-plugin">Example Plugin<a class="headerlink" href="#example-plugin" title="Permanent link">&para;</a></h3>
 <p>Here's a simple implementation of a wake word plugin:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.hotwords</span> <span class="kn">import</span> <span class="n">HotWordEngine</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">class</span> <span class="nc">MyWWPlugin</span><span class="p">(</span><span class="n">HotWordEngine</span><span class="p">):</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key_phrase</span><span class="o">=</span><span class="s2">&quot;hey mycroft&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">key_phrase</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="c1"># self.config is the plugin&#39;s own sub-dict from `hotwords.&lt;name&gt;` in</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="c1"># mycroft.conf — read your plugin-specific settings out of it here</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="n">threshold</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sensitivity&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">detection</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="n">MyWW</span><span class="p">(</span><span class="n">key_phrase</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">)</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="k">def</span> <span class="nf">found_wake_word</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        <span class="c1"># inference happens via the self.update method</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="n">detected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>        <span class="k">if</span> <span class="n">detected</span><span class="p">:</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>        <span class="k">return</span> <span class="n">detected</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk</span><span class="p">):</span>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">found_it</span><span class="p">(</span><span class="n">chunk</span><span class="p">):</span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">bye</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">ovos_plugin_manager.templates.hotwords</span> <span class="kn">import</span> <span class="n">HotWordEngine</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">class</span> <span class="nc">MyWWPlugin</span><span class="p">(</span><span class="n">HotWordEngine</span><span class="p">):</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key_phrase</span><span class="o">=</span><span class="s2">&quot;hey mycroft&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">key_phrase</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        <span class="c1"># self.config is the plugin&#39;s own sub-dict from `hotwords.&lt;name&gt;` in</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        <span class="c1"># mycroft.conf — read your plugin-specific settings out of it here</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>        <span class="n">threshold</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sensitivity&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">detection</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="n">MyWW</span><span class="p">(</span><span class="n">key_phrase</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">)</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="k">def</span> <span class="nf">found_wake_word</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>        <span class="c1"># inference happens via the self.update method</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>        <span class="n">detected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>        <span class="k">if</span> <span class="n">detected</span><span class="p">:</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>        <span class="k">return</span> <span class="n">detected</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk</span><span class="p">):</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">found_it</span><span class="p">(</span><span class="n">chunk</span><span class="p">):</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">bye</span><span class="p">()</span>
 </span></code></pre></div>
 <h2 id="ww-plugins-reference">WW Plugins Reference<a class="headerlink" href="#ww-plugins-reference" title="Permanent link">&para;</a></h2>
 <p>Code license is the SPDX license of the plugin's own repository; where the plugin wraps a
@@ -1937,15 +1972,15 @@ separately-licensed model, that is called out under "model".</p>
 </li>
 </ul>
 <h3 id="default-configuration">Default Configuration<a class="headerlink" href="#default-configuration" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;hotwords&quot;: {
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  &quot;hey_mycroft&quot;: {
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    &quot;module&quot;: &quot;ovos-ww-plugin-precise-lite&quot;,
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    &quot;model&quot;: &quot;https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite&quot;,
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    &quot;trigger_level&quot;: 3,
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    &quot;sensitivity&quot;: 0.5,
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    &quot;listen&quot;: true
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  }
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>}
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&quot;hotwords&quot;: {
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  &quot;hey_mycroft&quot;: {
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    &quot;module&quot;: &quot;ovos-ww-plugin-precise-lite&quot;,
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    &quot;model&quot;: &quot;https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite&quot;,
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    &quot;trigger_level&quot;: 3,
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    &quot;sensitivity&quot;: 0.5,
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    &quot;listen&quot;: true
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  }
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>}
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-ww-plugin-openwakeword">ovos-ww-plugin-openWakeWord<a class="headerlink" href="#ovos-ww-plugin-openwakeword" title="Permanent link">&para;</a></h2>
@@ -1968,15 +2003,15 @@ separately-licensed model, that is called out under "model".</p>
 </li>
 </ul>
 <h3 id="default-configuration_1">Default Configuration<a class="headerlink" href="#default-configuration_1" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>  &quot;listener&quot;: {
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    &quot;wake_word&quot;: &quot;hey_computer&quot;
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  },
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  &quot;hotwords&quot;: {
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    &quot;hey_computer&quot;: {
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        &quot;module&quot;: &quot;ovos-ww-plugin-vosk&quot;,
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        &quot;listen&quot;: true
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    }
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  }
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>  &quot;listener&quot;: {
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    &quot;wake_word&quot;: &quot;hey_computer&quot;
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  },
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  &quot;hotwords&quot;: {
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    &quot;hey_computer&quot;: {
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        &quot;module&quot;: &quot;ovos-ww-plugin-vosk&quot;,
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        &quot;listen&quot;: true
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    }
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>  }
 </span></code></pre></div>
 <hr />
 <h2 id="ovos-ww-plugin-precise-onnx">ovos-ww-plugin-precise-onnx<a class="headerlink" href="#ovos-ww-plugin-precise-onnx" title="Permanent link">&para;</a></h2>
@@ -1989,17 +2024,17 @@ separately-licensed model, that is called out under "model".</p>
 </li>
 </ul>
 <h3 id="default-configuration_2">Default Configuration<a class="headerlink" href="#default-configuration_2" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&quot;listener&quot;: {
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  &quot;wake_word&quot;: &quot;hey_mycroft&quot;
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>},
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>&quot;hotwords&quot;: {
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  &quot;hey_mycroft&quot;: {
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    &quot;module&quot;: &quot;ovos-ww-plugin-precise-onnx&quot;,
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    &quot;model&quot;: &quot;https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.onnx&quot;,
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    &quot;trigger_level&quot;: 3,
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    &quot;sensitivity&quot;: 0.5
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>   }
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>}
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>&quot;listener&quot;: {
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  &quot;wake_word&quot;: &quot;hey_mycroft&quot;
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>},
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>&quot;hotwords&quot;: {
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  &quot;hey_mycroft&quot;: {
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    &quot;module&quot;: &quot;ovos-ww-plugin-precise-onnx&quot;,
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    &quot;model&quot;: &quot;https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.onnx&quot;,
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    &quot;trigger_level&quot;: 3,
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    &quot;sensitivity&quot;: 0.5
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>   }
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>}
 </span></code></pre></div>
 <hr />
 <h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>

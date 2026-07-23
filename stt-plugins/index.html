@@ -1522,7 +1522,7 @@
 </details>
 <div class="admonition note">
 <p class="admonition-title">Audio format contract</p>
-<p>Everything upstream of an STT plugin — the <a href="../mic-plugins/#the-microphone-interface">microphone plugin</a> and any audio transformers — hands over raw PCM in a fixed shape: <strong>16 kHz sample rate, 16-bit samples, mono, little-endian</strong>, delivered in <strong>4096-byte chunks</strong> by default (the <code>Microphone</code> template's <code>sample_rate</code>/<code>sample_width</code>/<code>sample_channels</code>/<code>chunk_size</code> defaults). A batch <code>STT.execute()</code> plugin gets this bundled into a <code>speech_recognition.AudioData</code> object; a <code>StreamingSTT</code> plugin receives it chunk-by-chunk, still at this same format, unless a deployment explicitly reconfigures the microphone.</p>
+<p>Everything upstream of an STT plugin — the <a href="../mic-plugins/#the-microphone-interface">microphone plugin</a> and any audio transformers — hands over raw PCM in a fixed shape: <strong>16 kHz sample rate, 16-bit samples, mono, little-endian</strong>, delivered in <strong>4096-byte chunks</strong> by default (the <code>Microphone</code> template's <code>sample_rate</code>/<code>sample_width</code>/<code>sample_channels</code>/<code>chunk_size</code> defaults). A batch <code>STT.execute()</code> plugin gets this bundled into a <code>speech_recognition.AudioData</code> object; a <code>StreamingSTT</code> plugin receives it chunk-by-chunk, still at this same format, unless a deployment explicitly reconfigures the microphone. Neither the <code>STT</code> nor the <code>StreamingSTT</code> template resamples on the plugin's behalf: if the wrapped model expects a different native rate, converting the incoming 16 kHz PCM is the plugin's own job.</p>
 </div>
 <p>STT (Speech-to-Text) plugins convert spoken audio into text. They are the bridge
 between the listener and the intent pipeline.</p>
@@ -1565,6 +1565,12 @@ between the listener and the intent pipeline.</p>
 <p>The plugin author needs to implement the <code>create_streaming_thread()</code> method creating a thread for handling data sent through <code>self.queue</code>. </p>
 <p>The thread this method creates should be based on the <code>StreamThread</code> class. Its abstract <code>handle_audio_stream(audio, language)</code> method also needs to be implemented — it receives a generator of audio chunks and should set <code>self.text</code> to the transcript; <code>finalize()</code> returns that stored text once the stream ends.</p>
 <h3 id="chunk-semantics">Chunk semantics<a class="headerlink" href="#chunk-semantics" title="Permanent link">&para;</a></h3>
+<p>Audio arrives synchronously per chunk: <code>stream_data()</code> is called once per captured
+chunk on the mic thread, so it must return well under the per-chunk time budget
+(the same real-time cadence constraint a wake-word plugin's <code>update(chunk)</code> runs
+under — see <a href="../wake-word-plugins/#key-methods">Wake Word Plugins: Key Methods</a>). Do any
+slow work (network calls, heavy inference) on the <code>StreamThread</code> this class
+manages, not inline in <code>stream_data()</code>.</p>
 <p><code>StreamingSTT</code> runs the streaming work on a background thread, fed through a queue:</p>
 <ul>
 <li><code>stream_start(language=None)</code> creates a fresh <code>Queue</code>, builds a <code>StreamThread</code> via <code>create_streaming_thread()</code>, and starts it.</li>
@@ -1731,7 +1737,7 @@ separately-licensed model, that is called out under "model".</p>
 <tr>
 <td><a href="#ovos-stt-plugin-whisper">ovos-stt-plugin-whisper</a></td>
 <td>OpenVoiceOS STT plugin for <a href="https://github.com/guillaumekln/faster-whisper">Whisper</a>, using transformers library</td>
-<td>Apache-2.0 (model: see model card)</td>
+<td>Apache-2.0 (default model: <a href="https://huggingface.co/openai/whisper-large-v3-turbo">openai/whisper-large-v3-turbo</a>)</td>
 </tr>
 <tr>
 <td><a href="#ovos-stt-plugin-whispercpp">ovos-stt-plugin-whispercpp</a></td>
@@ -1741,7 +1747,7 @@ separately-licensed model, that is called out under "model".</p>
 <tr>
 <td><a href="#ovos-stt-plugin-fasterwhisper">ovos-stt-plugin-fasterwhisper</a></td>
 <td>OpenVoiceOS STT plugin for <a href="https://github.com/guillaumekln/faster-whisper">Faster Whisper</a></td>
-<td>Apache-2.0 (model: see model card)</td>
+<td>Apache-2.0 (default model: <a href="https://huggingface.co/mobiuslabsgmbh/faster-whisper-large-v3-turbo">mobiuslabsgmbh/faster-whisper-large-v3-turbo</a>)</td>
 </tr>
 <tr>
 <td><a href="#ovos-stt-plugin-nemo">ovos-stt-plugin-nemo</a></td>

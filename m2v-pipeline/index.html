@@ -898,6 +898,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#training-your-own-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Training your own model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotcha-ordering-against-the-deterministic-engines" class="md-nav__link">
     <span class="md-ellipsis">
       Gotcha: ordering against the deterministic engines
@@ -1497,6 +1506,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#training-your-own-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Training your own model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotcha-ordering-against-the-deterministic-engines" class="md-nav__link">
     <span class="md-ellipsis">
       Gotcha: ordering against the deterministic engines
@@ -1685,6 +1703,35 @@ example utterances Padatious skills provide.</p>
 <a href="https://huggingface.co/collections/Jarbas/ovos-model2vec-intents-681c478aecb9979e659b17f8">OVOS Model2Vec Models on Hugging Face</a></p>
 <p>The models are trained on aggregated intent examples: LLM-augmented OVOS
 utterances, music-query templates, and per-language skill intents.</p>
+<hr />
+<h2 id="training-your-own-model">Training your own model<a class="headerlink" href="#training-your-own-model" title="Permanent link">&para;</a></h2>
+<p>The published <code>Jarbas/ovos-model2vec-intents-*</code> models are built from a
+<code>train/</code> toolchain shipped inside the <code>ovos-m2v-pipeline</code> source repository
+(it is not part of the installed pip package). The pipeline is:</p>
+<ol>
+<li><strong>Gather a dataset</strong> — <code>gather_dataset.py</code> (multilingual) or
+   <code>gather_dataset_en.py</code> (English-only) downloads and merges intent examples
+   from <code>Jarbas/ovos_intent_examples</code> and <code>Jarbas/music_queries_templates</code> on
+   Hugging Face, plus per-language intent CSVs from the OpenVoiceOS
+   <a href="https://github.com/OpenVoiceOS/lang-support-tracker">lang-support-tracker</a>.
+   The output is a CSV with columns <code>lang</code>, <code>label</code>, <code>sentence</code>, where <code>label</code>
+   follows the <code>&lt;skill_id&gt;:&lt;intent_name&gt;</code> format.</li>
+<li><strong>Train</strong> — <code>train_multilingual.py</code> fine-tunes a classifier head on top of
+   <code>minishlab/M2V_multilingual_output</code>; <code>train_en.py</code> trains one per English
+   Potion base model (<code>minishlab/potion-base-{2M,4M,8M,32M}</code>,
+   <code>minishlab/potion-retrieval-32M</code>). Each run saves a <code>StaticModelPipeline</code>
+   directory plus a metrics report.</li>
+<li><strong>Optional distillation</strong> — <code>distill.py</code> calls <code>model2vec.distill.distill()</code>
+   to turn a Sentence Transformer that has no Model2Vec distillate yet into a
+   usable base model.</li>
+<li><strong>Smoke-test</strong> — load the saved directory with
+   <code>StaticModelPipeline.from_pretrained(...)</code> and call <code>.predict()</code> /
+   <code>.predict_proba()</code> on a few example sentences before publishing.</li>
+</ol>
+<p>Point the plugin's <code>model</code> config key at your own Hugging Face repo or a local
+path to the saved pipeline directory once you are happy with it. See the
+<code>ovos-m2v-pipeline</code> repository's own training documentation for the full
+dataset schema and script options.</p>
 <hr />
 <h2 id="gotcha-ordering-against-the-deterministic-engines">Gotcha: ordering against the deterministic engines<a class="headerlink" href="#gotcha-ordering-against-the-deterministic-engines" title="Permanent link">&para;</a></h2>
 <p>Model2Vec generalises well, which also means it can claim an utterance a more

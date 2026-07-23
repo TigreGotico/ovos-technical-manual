@@ -1381,7 +1381,7 @@ clause-for-clause.</p>
 <tr>
 <td>Locale resource loader</td>
 <td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md">OVOS-INTENT-2</a></td>
-<td>Loads a skill's <code>locale/</code> <code>.intent</code> / <code>.dialog</code> / <code>.voc</code> / <code>.entity</code> / <code>.prompt</code> files</td>
+<td>Loads a skill's <code>locale/</code> <code>.intent</code> / <code>.dialog</code> / <code>.voc</code> / <code>.entity</code> / <code>.blacklist</code> / <code>.prompt</code> files</td>
 </tr>
 <tr>
 <td>Dialog &amp; prompt renderer</td>
@@ -1399,9 +1399,29 @@ clause-for-clause.</p>
 <td>The <code>{type, data, context}</code> <code>Message</code> and its <code>forward</code>/<code>reply</code>/<code>response</code> derivations</td>
 </tr>
 <tr>
+<td><code>Session</code> / <code>SessionManager</code></td>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md">OVOS-SESSION-1</a></td>
+<td>The registered session-carrier field set with omission-not-null (de)serialization, plus a process-wide one-object-per-<code>session_id</code> registry that folds each incoming snapshot onto the live object and re-stamps <code>forward</code>/<code>reply</code>/<code>response</code> derivations with it</td>
+</tr>
+<tr>
+<td>Context gating &amp; decay</td>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md">OVOS-CONTEXT-1</a></td>
+<td>Stateless helpers over the flat <code>session.intent_context</code> map: <code>gate_satisfied</code>/<code>is_live</code>/<code>decrement</code>/<code>prune</code>/<code>enforce_cap</code> for <code>requires_context</code>/<code>excludes_context</code> gating and decay, plus <code>context_supplied_slots</code>/<code>context_slot_candidates</code> for context-sourced slot fill</td>
+</tr>
+<tr>
+<td><code>IntentBuilder</code> / <code>Intent</code></td>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md">OVOS-INTENT-4 §5</a></td>
+<td>Adapt-free, plugin-agnostic keyword-intent definition — <code>require</code>/<code>optionally</code>/<code>one_of</code>/<code>exclude</code>/<code>build()</code> — mapping to the <code>ovos.intent.register.keyword</code> payload; <code>voc_match</code> matches an utterance against a <code>.voc</code> file; source-compatible with the <code>ovos-workshop</code> classes it replaces</td>
+</tr>
+<tr>
+<td><code>SpecMessage</code></td>
+<td>multiple (<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">PIPELINE-1</a>, <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md">INTENT-4</a>, <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/stop-1.md">STOP-1</a>, <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/persona-1.md">PERSONA-1</a>, <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/fallback-1.md">FALLBACK-1</a>, …)</td>
+<td>An enum of every canonical <code>ovos.*</code> spec bus topic, plus <code>MIGRATION_MAP</code>/<code>NamespaceTranslator</code> — the legacy↔<code>ovos.*</code> rename table the <a href="../bus-service/#namespace-migration">namespace bridge</a> applies</td>
+</tr>
+<tr>
 <td><code>ovos-spec-lint</code></td>
 <td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md">OVOS-INTENT-1</a> / <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md">-2</a></td>
-<td>A linter that validates a <code>locale/</code> folder against the resource-format specs</td>
+<td>A linter that validates a <code>locale/</code> folder against the resource-format specs, including <code>.blacklist</code>/<code>.entity</code> naming and slot-free constraints</td>
 </tr>
 </tbody>
 </table>
@@ -1420,6 +1440,20 @@ clause-for-clause.</p>
 </span></code></pre></div>
 <p>Lint a skill's locale folder against the grammar and format specs:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ovos-spec-lint<span class="w"> </span>my-skill/locale
+</span></code></pre></div>
+<p>The session carrier, the keyword-intent builder, and the canonical topic
+vocabulary follow the same pattern — plain data plus stdlib-only helpers:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">ovos_spec_tools</span> <span class="kn">import</span> <span class="n">IntentBuilder</span><span class="p">,</span> <span class="n">Session</span><span class="p">,</span> <span class="n">SpecMessage</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># OVOS-SESSION-1 wire-shape carrier; SessionManager (in ovos_spec_tools.session)</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># is the optional one-object-per-session_id registry built on top of it</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="n">session_id</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en-US&quot;</span><span class="p">)</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># OVOS-INTENT-4 §5 keyword-intent structure — adapt-free, source-compatible</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># with the ovos-workshop IntentBuilder skills already import</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">intent</span> <span class="o">=</span> <span class="n">IntentBuilder</span><span class="p">(</span><span class="s2">&quot;HelloIntent&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">SpecMessage</span><span class="o">.</span><span class="n">SPEAK</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># -&gt; &#39;ovos.utterance.speak&#39;, the spec-canonical topic name</span>
 </span></code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">When to reach for it</p>

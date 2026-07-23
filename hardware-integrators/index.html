@@ -1046,6 +1046,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#fans-abstractfan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fans: AbstractFan
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1293,6 +1302,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#fans-abstractfan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fans: AbstractFan
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1416,6 +1434,8 @@ same way on a Pi or an x86 box), and only reach for the Pi-specific pieces above
 specifically reusing an i2c HAT or the SJ201 board design.</p>
 <hr />
 <h2 id="writing-your-own-hardware-driver-abstractled-abstractswitches">Writing your own hardware driver: <code>AbstractLed</code> / <code>AbstractSwitches</code><a class="headerlink" href="#writing-your-own-hardware-driver-abstractled-abstractswitches" title="Permanent link">&para;</a></h2>
+<p><code>ovos-hardware-helpers</code> also ships an <code>AbstractFan</code> base (covered below) for
+fan-speed and thermal-shutdown control.</p>
 <div class="admonition note">
 <p class="admonition-title">Illustrative skeletons</p>
 <p>The <code>MyRingLed</code> and switch examples below are illustrative skeletons, not complete,
@@ -1498,9 +1518,26 @@ hex string, or RGB tuple into a normalized color object using
 </span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>        <span class="k">pass</span>
 </span></code></pre></div>
-<p>Wire an instance of either class up inside a <code>PHALPlugin.__init__</code>, polling your GPIO/i2c
+<h3 id="fans-abstractfan">Fans: <code>AbstractFan</code><a class="headerlink" href="#fans-abstractfan" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_hardware_helpers.fan</span> <span class="kn">import</span> <span class="n">AbstractFan</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">class</span> <span class="nc">MyFanController</span><span class="p">(</span><span class="n">AbstractFan</span><span class="p">):</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="k">def</span> <span class="nf">set_fan_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">percent</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="k">pass</span>  <span class="c1"># drive a PWM pin, 0-100</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="k">def</span> <span class="nf">get_fan_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># last commanded 0-100 speed</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="k">def</span> <span class="nf">get_cpu_temp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="k">return</span> <span class="o">-</span><span class="mf">1.0</span>  <span class="c1"># celsius, or -1.0 if not available</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        <span class="k">pass</span>  <span class="c1"># set the fan to a reasonable speed before exit</span>
+</span></code></pre></div>
+<p>Wire an instance of any of these classes up inside a <code>PHALPlugin.__init__</code>, polling your GPIO/i2c
 hardware on a background thread (or driving it from an interrupt callback) and calling the
-matching <code>on_*</code>/<code>set_led</code> methods. See <a href="../phal/#writing-phal-plugins">PHAL: Writing PHAL Plugins</a>
+matching <code>on_*</code>/<code>set_led</code>/<code>set_fan_speed</code> methods. See <a href="../phal/#writing-phal-plugins">PHAL: Writing PHAL Plugins</a>
 for the full plugin lifecycle, validator, and entry-point registration.</p>
 <hr />
 <h2 id="resource-footprint">Resource footprint<a class="headerlink" href="#resource-footprint" title="Permanent link">&para;</a></h2>
@@ -1509,14 +1546,14 @@ treat any specific number you see elsewhere with suspicion, since it depends ent
 STT/TTS/wake-word plugins you pick (a tiny wake-word model and a cloud STT server cost almost
 nothing locally; a local Whisper model needs real CPU or a GPU). Rather than repeat an unverified
 number, measure it on your own target hardware:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Memory: sum RSS of every OVOS process</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ps<span class="w"> </span>-u<span class="w"> </span>ovos<span class="w"> </span>-o<span class="w"> </span>rss,comm<span class="w"> </span>--sort<span class="o">=</span>-rss<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;ovos|mycroft&#39;</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Or per systemd unit, if using the units above</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>status<span class="w"> </span>ovos-skills.service<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Memory
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># CPU, live, while you talk to it</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>top<span class="w"> </span>-b<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>-u<span class="w"> </span>ovos
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Memory: sum RSS of every OVOS process</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ps<span class="w"> </span>-u<span class="w"> </span>ovos<span class="w"> </span>-o<span class="w"> </span>rss,comm<span class="w"> </span>--sort<span class="o">=</span>-rss<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;ovos|mycroft&#39;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Or per systemd unit, if using the units above</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>systemctl<span class="w"> </span>--user<span class="w"> </span>status<span class="w"> </span>ovos-skills.service<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Memory
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># CPU, live, while you talk to it</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>top<span class="w"> </span>-b<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>-u<span class="w"> </span>ovos
 </span></code></pre></div>
 <p>Run the same commands idle and mid-conversation; the delta tells you what your wake-word/STT/TTS
 choice actually costs on your board, which matters far more than any generic published figure.</p>
