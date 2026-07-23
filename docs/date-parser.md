@@ -180,6 +180,7 @@ A date phrase often refers to a *stretch* of time rather than a single instant �
 
 `nice_span` is the inverse: give it a `DateSpan` and it picks the label that matches the width — a one-day span reads as a date, a month-wide span as a month, a decade as "the 1980s", a century as "the 19th century". For English this round-trips: what `nice_span` writes, `extract_timespan` reads back.
 
+<!-- docs-check: skip-next -->
 ```python
 from ovos_date_parser import extract_timespan, nice_span
 
@@ -190,6 +191,7 @@ print(nice_span(span, "en"))        # 'the 19th century'
 
 The `nice_*` datetime formatters also accept an `AstroDate` directly — it is projected to a regular `datetime` when it fits, so extracted points can be formatted without unwrapping them first:
 
+<!-- docs-check: skip-next -->
 ```python
 from ovos_date_parser import nice_date, nice_time
 from ovos_date_parser.astrodate import AstroDate

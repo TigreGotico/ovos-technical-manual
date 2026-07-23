@@ -156,12 +156,14 @@ The [`ovos-ocp-audio-plugin`](#ovos-ocp-audio-plugin) below is not a playback ba
 
 ```bash
 pip install ovos-media-classifier          # keyword backend only
-pip install ovos-media-classifier[ner]     # + AhocorasickMediaClassifier
+pip install ovos-media-classifier[ner]     # adds the Aho-Corasick NER backend
 ```
 
 ```python
-from ovos_media_classifier import KeywordMediaClassifier, AhocorasickMediaClassifier
+from ovos_media_classifier import KeywordMediaClassifier, load_media_classifier
 ```
+
+The `[ner]` extra adds `AhocorasickMediaClassifier` (in `ovos_media_classifier.ahocorasick`), a gazetteer/entity-list backend built on Aho-Corasick matching.
 
 !!! note
     The `[ner]` extra's "NER" is exact entity-list matching, not statistical named-entity
