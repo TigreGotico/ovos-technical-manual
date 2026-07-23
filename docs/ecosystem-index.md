@@ -418,7 +418,7 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   PHAL plugin driving DotStar-type LEDs on ReSpeaker 2/4/6/8-mic HATs and the Adafruit VoiceBonnet. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
 
 **[ovos-PHAL-plugin-gpsd](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-gpsd)**
-:   {"message":"Not Found","documentationurl":". A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   Exposes location readings from the `gpsd` daemon (USB/serial GPS receivers) to the assistant. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
 
 **[ovos-PHAL-plugin-hotkeys](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys)**
 :   plugin for Keyboard hotkeys, define key combos to trigger bus events. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
@@ -535,7 +535,7 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   An intent pipeline plugin that trains one word-level Markov chain per intent and picks the intent whose model has the lowest perplexity for a given utterance, sitting between pattern-matchers (Adapt, padacioso) and trained classifiers (Padatious) in modeling approach. Registers under `opm.pipeline`; loaded by ovos-core's intent service.
 
 **[intent-test-set](https://github.com/OpenVoiceOS/intent-test-set)**
-:   {"message":"Not Found","documentationurl":". Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
+:   A curated dataset of labeled utterances for benchmarking intent pipeline plugins against each other. Consumed by benchmarking pipelines and test suites; not loaded at runtime.
 
 **[ovos-adapt-pipeline-plugin](https://github.com/OpenVoiceOS/ovos-adapt-pipeline-plugin)**
 :   Adapt Intent Parser ================== The Adapt Intent Parser is a flexible and extensible intent definition and determination framework. It is intended to parse natural language text into a structured intent that can then be invoked programatically. Registers under `opm.pipeline`; loaded by ovos-core's intent service to match utterances to skills.
@@ -631,10 +631,10 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   Docker/Podman compose files that run an OVOS STT plugin as a standalone speech-to-text container service. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
 
 **[ovos-docker-tts](https://github.com/OpenVoiceOS/ovos-docker-tts)**
-:   {"message":"Not Found","documentationurl":". A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   Docker/Podman compose files that run an OVOS TTS plugin as a standalone text-to-speech container service. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
 
 **[ovos-docker-tx](https://github.com/OpenVoiceOS/ovos-docker-tx)**
-:   {"message":"Not Found","documentationurl":". A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   Docker/Podman compose files that run an OVOS translation plugin as a standalone translation container service. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
 
 **[ovos-docs-viewer](https://github.com/OpenVoiceOS/ovos-docs-viewer)**
 :   in terminal docs viewer. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
@@ -643,10 +643,10 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   Installer for Open Voice OS (OVOS) and HiveMind on Linux and macOS. Supports interactive installs, scenario-based automation, and optional container deployment. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
 
 **[ovos-spec-tools](https://github.com/OpenVoiceOS/ovos-spec-tools)**
-:   Reference implementation of the OVOS [formal specifications]( — the low-level, dependency-light primitives those specifications describe. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   Reference implementation of the OVOS [formal specifications](architecture-specs.md) — the low-level, dependency-light primitives those specifications describe. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
 
 **[ovos-tools](https://github.com/OpenVoiceOS/ovos-tools)**
-:   {"message":"Not Found","documentationurl":". A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
+:   A grab-bag of helper scripts for developing, testing, and administering OVOS devices. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
 
 **[ovos-wyoming-docker](https://github.com/OpenVoiceOS/ovos-wyoming-docker)**
 :   A collection of Docker images for running OVOS services using the Wyoming Protocol. A standalone developer or operator tool; not a runtime dependency of the OVOS stack.
@@ -670,7 +670,7 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   Wake Word training data provided by the OpenVoiceOS/Mycroft Community. Consumed by training or benchmarking pipelines and plugin test suites; not loaded at runtime.
 
 **[voices_demo](https://github.com/OpenVoiceOS/voices_demo)**
-:   {"message":"Not Found","documentationurl":". Consumed by training or benchmarking pipelines and plugin test suites; not loaded at runtime.
+:   Audio samples demonstrating available TTS voices, for comparing options before configuring one. Consumed by training or benchmarking pipelines and plugin test suites; not loaded at runtime.
 
 
 ## Project infrastructure (web/blog) (4)

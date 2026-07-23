@@ -76,7 +76,7 @@ All settings live under the `websocket` key in `mycroft.conf`:
 | `port` | `8181` | TCP port. The GUI service uses a separate port (`18181`). |
 | `route` | `"/core"` | WebSocket URL path. Full URL: `ws://host:port/core`. |
 | `ssl` | `false` | Enable WSS/TLS. |
-| `shared_connection` | `true` | When `true`, each skill gets its own bus connection (so one skill can't manipulate another's). |
+| `shared_connection` | `true` | When `true`, all skills share ovos-core's single bus connection. Set `false` to give each skill its own connection (so one skill cannot manipulate another's bus traffic). |
 | `max_msg_size` | `25` | Max WebSocket frame size in megabytes. |
 
 `filter` / `filter_logs` are also recognized (code-level defaults in the message-bus event
