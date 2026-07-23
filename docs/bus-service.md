@@ -335,7 +335,7 @@ GUI clients connect to `ovos-gui`'s own WebSocket (`ws://localhost:18181/gui`), 
 
 ## Alternative Implementations
 
-`ovos-messagebus` is the reference **Tornado**-based server and is all you need for a normal install (`pip install ovos-messagebus`). Tornado is the current default and the only backend on `dev`. Because the wire protocol is just JSON frames over a WebSocket, the server is interchangeable — any process that fans messages out to all connected clients on the same route will work.
+`ovos-messagebus` is the reference **Tornado**-based server and is all you need for a normal install (`pip install ovos-messagebus`). The `ovos-messagebus` package itself ships only the Tornado backend. Because the wire protocol is just JSON frames over a WebSocket, the server is interchangeable — any process that fans messages out to all connected clients on the same route will work, and a drop-in replacement can be swapped in without touching clients. The RaspOVOS image, for example, ships a separate Rust reimplementation (`ovos_rust_messagebus`) as its default for performance; see [Production Operations](production-operations.md).
 
 A separate, drop-in Rust implementation exists as its own project for deployments that want lower overhead:
 

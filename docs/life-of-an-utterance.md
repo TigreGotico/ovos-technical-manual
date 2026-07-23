@@ -83,7 +83,7 @@ The (potentially modified) utterance is now evaluated against the **Intent Pipel
 **Service:** A specific Skill (running in `ovos-core`)
 **Bus Event:** `ovos.intent.matched`, `{skill_id}.activate`, and the specific intent dispatch message.
 
-Once a match is found, the orchestrator post-processes it through the **intent-transformer chain** (OVOS-TRANSFORM-1 §3.4), emits `ovos.intent.matched` (§9.2), then dispatches to the winning skill — wrapping the call in the **handler-lifecycle trio** `ovos.intent.handler.start` → `…complete` / `…error` (§8; legacy: `mycroft.skill.handler.*`), emitted by the orchestrator, not the skill.
+Once a match is found, the orchestrator post-processes it through the **intent-transformer chain** (OVOS-TRANSFORM-1 §3.4), emits `ovos.intent.matched` (§9.2), then dispatches to the winning skill — the winning skill wraps its own handler in the **handler-lifecycle trio** `ovos.intent.handler.start` → `…complete` / `…error` (§8; legacy: `mycroft.skill.handler.*`) — these are emitted by the skill (via `ovos-workshop`'s handler wrapper), not the orchestrator. See [Intent Service](intent-service.md) for the exact mechanism.
 
 -   The skill's **intent handler** is triggered.
 

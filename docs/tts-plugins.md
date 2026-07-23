@@ -432,7 +432,7 @@ table above.
 
 ## ovos-tts-plugin-phoonnx
 
-- **GitHub**: [https://github.com/OpenVoiceOS/phoonnx](https://github.com/OpenVoiceOS/phoonnx)
+- **GitHub**: [https://github.com/TigreGotico/phoonnx](https://github.com/TigreGotico/phoonnx)
 
 
 - **Description**: OVOS's own multilingual, ONNX-based neural TTS engine, distributed as part of the `phoonnx` package. Registering the plugin only requires `pip install phoonnx` — model files are fetched and cached automatically the first time a voice is used.
