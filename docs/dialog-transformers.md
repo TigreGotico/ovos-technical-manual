@@ -4,7 +4,7 @@
     These plugins give the assistant's written reply one last edit *just before* it's read aloud. Like a proofreader catching the text on its way out, they can adjust the tone, simplify the wording, or translate it — and because this happens in one shared place, it applies to every feature at once without changing any of them. See [Transformer Plugins](transformer-plugins.md) and the [Glossary](glossary.md) for unfamiliar terms.
 
 !!! info "📐 Formal specification"
-    Dialog transformers are the **`dialog` chain** of **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md) §3.5** (a formal [architecture spec](architecture-specs.md)). The spec's post-skill, pre-TTS injection point receives the rendered dialog **string**, an optional `lang`, and the full `Message.context`; it may rewrite the string entirely (translate, persona, simplify, length-cap) and mutate `lang`/context — e.g. set a `voice_id` hint a downstream TTS transformer reads. Rewriting and translation belong **here** (against the text), not in the `tts` chain (against the audio). **Ordering:** the spec runs the chain by **ascending** `priority` (lowest first); the current code runs it descending — the spec order is canonical.
+    Dialog transformers are the **`dialog` chain** of **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md) §3.5** (a formal [architecture spec](architecture-specs.md)). The spec's post-skill, pre-TTS injection point receives the rendered dialog **string**, an optional `lang`, and the full `Message.context`; it may rewrite the string entirely (translate, persona, simplify, length-cap) and mutate `lang`/context — e.g. set a `voice_id` hint a downstream TTS transformer reads. Rewriting and translation belong **here** (against the text), not in the `tts` chain (against the audio). **Ordering:** the chain runs by **ascending** `priority` (lowest first), matching the spec.
 
 **Dialog Transformers** in OpenVoiceOS (OVOS) are plugins that modify or enhance text responses just before they are sent to the [Text-to-Speech](tts-plugins.md) ([TTS](tts-plugins.md)) engine. This allows for dynamic adjustments to the assistant's speech, such as altering tone, simplifying language, or translating content, without requiring changes to individual skills.
 
@@ -22,7 +22,7 @@
 
 This pipeline ensures that all spoken responses can be uniformly modified according to the desired transformations.
 
-Dialog transformers run inside the **ovos-audio** service, in the `speak` handling path, just before text is handed to the TTS engine. Every loaded transformer's `transform(dialog, context)` is called in turn, each receiving the previous one's output. Transformers run in **descending priority** order: a plugin with a higher `priority` value runs first. Responses from blacklisted skills can be skipped via the service `blacklisted_skills` config.
+Dialog transformers run inside the **ovos-audio** service, in the `speak` handling path, just before text is handed to the TTS engine. Every loaded transformer's `transform(dialog, context)` is called in turn, each receiving the previous one's output. Transformers run in **ascending priority** order: a plugin with a lower `priority` value runs first. Responses from blacklisted skills can be skipped via the service `blacklisted_skills` config.
 
 ---
 

@@ -4,7 +4,7 @@
     An "utterance" is simply the text of what you said, once the assistant has transcribed your speech into words. These plugins get to fix and tidy that text *before* the assistant tries to understand it — for example correcting misheard words, smoothing out the phrasing, or handling more than one language — so it matches your request more reliably. See [Transformer Plugins](transformer-plugins.md) and the [Glossary](glossary.md) for unfamiliar terms.
 
 !!! info "📐 Formal specification"
-    Utterance transformers are the **`utterance` chain** of **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md) §3.2** (a formal [architecture spec](architecture-specs.md)). The spec's post-STT, pre-intent injection point receives the **non-empty list of candidate transcriptions** (`utterances[0]` is the primary candidate, later indices are n-best alternatives), an optional `lang`, and the full `Message.context`; it returns a possibly rewritten list plus mutated `lang`/context. Returning an empty list signals "no plausible transcription"; returning empty **with** `canceled: true` + `cancel_reason` invokes utterance cancellation (§3.2, §8). **Ordering:** the spec runs the chain by **ascending** `priority` (lowest first); the current code runs it descending — the spec order is canonical.
+    Utterance transformers are the **`utterance` chain** of **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md) §3.2** (a formal [architecture spec](architecture-specs.md)). The spec's post-STT, pre-intent injection point receives the **non-empty list of candidate transcriptions** (`utterances[0]` is the primary candidate, later indices are n-best alternatives), an optional `lang`, and the full `Message.context`; it returns a possibly rewritten list plus mutated `lang`/context. Returning an empty list signals "no plausible transcription"; returning empty **with** `canceled: true` + `cancel_reason` invokes utterance cancellation (§3.2, §8). **Ordering:** the chain runs by **ascending** `priority` (lowest first), matching the spec.
 
 **Utterance Transformers** in OpenVoiceOS (OVOS) are plugins that process and modify user utterances immediately after speech-to-text ([STT](stt-plugins.md)) conversion but before intent recognition. They serve to enhance the accuracy and flexibility of the assistant by correcting errors, normalizing input, and handling multilingual scenarios.
 
@@ -28,7 +28,7 @@ Utterance transformers register under the `opm.transformer.text` entry-point gro
 
 ## Configuration
 
-A transformer is only loaded if its plugin name appears under the `utterance_transformers` section of your `mycroft.conf`; an empty `{}` is enough to enable it. Set `"active": false` to load-skip it. When several are active they run sorted by `priority` (highest first), each operating on the output of the previous.
+A transformer is only loaded if its plugin name appears under the `utterance_transformers` section of your `mycroft.conf`; an empty `{}` is enough to enable it. Set `"active": false` to load-skip it. When several are active they run sorted by `priority` (lowest first), each operating on the output of the previous.
 
 ```json
 "utterance_transformers": {
@@ -249,6 +249,30 @@ After installation, add your transformer to the `mycroft.conf`:
 
 ```
 
-## Further reading
+### **OVOS Transcription Validator Plugin**
 
-- [Meet the OVOS Transcription Validator Plugin](https://blog.openvoiceos.org/posts/2025-07-22-ovos-transcription-validator-plugin) — OVOS blog
+* **Purpose**: Uses an OpenAI-compatible LLM to judge whether an STT transcription is a
+  plausible utterance at all, filtering out garbled or nonsensical speech-to-text output
+  before it reaches intent matching.
+
+!!! note
+    This plugin makes a network call per utterance (to the configured LLM endpoint), so
+    it trades latency for robustness against noisy STT.
+
+* **Installation**:
+
+```bash
+pip install ovos-transcription-validator-plugin
+
+```
+
+* **Configuration**:
+
+```json
+"utterance_transformers": {
+  "ovos-transcription-validator-plugin": {}
+}
+
+```
+
+* **Source**: [GitHub Repository](https://github.com/OpenVoiceOS/ovos-transcription-validator-plugin)
