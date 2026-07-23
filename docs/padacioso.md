@@ -51,6 +51,13 @@ wildcards and carry no penalty. An entity whose name was never registered with
 `add_entity` still matches but at a slightly reduced confidence (a small `0.04`
 penalty, e.g. `0.96`).
 
+!!! tip "When to choose Padacioso"
+    Use it when you want Padatious-style example-based matching with entity extraction, but
+    without a training step or model files — handy for tests, tiny scripts, or resource-constrained
+    devices. For fuzzy/typo-tolerant matching use [Nebulento](nebulento.md); for keyword-only
+    matching use [Palavreado](palavreado.md); for the full neural version use
+    [Padatious](padatious-pipeline.md).
+
 ---
 
 *Source code: [OpenVoiceOS/padacioso](https://github.com/OpenVoiceOS/padacioso).*

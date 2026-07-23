@@ -245,3 +245,24 @@ class Apollo11GameSkill(OVOSSkill):
         return True
 
 ```
+
+### Under the hood
+
+`self.intent_layers` is an instance of `IntentLayers`
+(`ovos_workshop.decorators.layers.IntentLayers`), created lazily the first time a layer
+decorator or `layer_intent` runs and bound to the skill instance.
+
+A layer is **not** a separate matching mechanism — it's a named group of intents mapped to a
+single synthetic [intent context](context.md) token (`layer_<name>`, prefixed internally with
+the skill id). Every intent registered under that layer is set to *require* the token, so:
+
+- `activate_layer("guard")` calls `self.set_context(...)` for the layer's token — the layer's
+  intents become matchable.
+- `deactivate_layer("guard")` calls `self.remove_context(...)` — they stop matching again.
+- The intents themselves stay registered with the intent service for the skill's whole
+  lifetime; only whether their required context is present changes. There's no
+  detach/re-attach churn.
+
+Because layer state rides on intent context, and intent context is per-session, each
+[voice satellite](https://jarbashivemind.github.io/HiveMind-community-docs/07_voicesat/)
+talking to a shared skill keeps its own independent set of active layers.

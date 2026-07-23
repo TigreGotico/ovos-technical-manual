@@ -132,6 +132,9 @@ For more information, visit the [GitHub repository](https://github.com/OpenVoice
 
     * Configurable Butterworth filter order and sample rate; band edges are clamped below Nyquist so an aggressive band on a low sample rate degrades gracefully instead of failing.
 
+In practice this reduces the STT engine's sensitivity to out-of-band noise (traffic, fans,
+hum) that falls outside the speech band, at the cost of also discarding whatever spectral
+content of the voice itself sits outside that range.
 
 * **Installation**:
 

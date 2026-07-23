@@ -205,6 +205,36 @@ pip install ovos-bidirectional-translation-plugin
 
 ---
 
+### **OVOS Transcription Validator Plugin**
+
+* **Purpose**: Uses an OpenAI-compatible LLM to judge whether an STT transcription is a
+  plausible utterance at all, filtering out garbled or nonsensical speech-to-text output
+  before it reaches intent matching.
+
+!!! note
+    This plugin makes a network call per utterance (to the configured LLM endpoint), so
+    it trades latency for robustness against noisy STT.
+
+* **Installation**:
+
+```bash
+pip install ovos-transcription-validator-plugin
+
+```
+
+* **Configuration**:
+
+```jsonc
+"utterance_transformers": {
+  "ovos-transcription-validator-plugin": {}
+}
+
+```
+
+* **Source**: [GitHub Repository](https://github.com/OpenVoiceOS/ovos-transcription-validator-plugin)
+
+---
+
 ## Creating Custom Utterance Transformers
 
 To develop your own utterance transformer:
@@ -248,31 +278,3 @@ After installation, add your transformer to the `mycroft.conf`:
 }
 
 ```
-
-### **OVOS Transcription Validator Plugin**
-
-* **Purpose**: Uses an OpenAI-compatible LLM to judge whether an STT transcription is a
-  plausible utterance at all, filtering out garbled or nonsensical speech-to-text output
-  before it reaches intent matching.
-
-!!! note
-    This plugin makes a network call per utterance (to the configured LLM endpoint), so
-    it trades latency for robustness against noisy STT.
-
-* **Installation**:
-
-```bash
-pip install ovos-transcription-validator-plugin
-
-```
-
-* **Configuration**:
-
-```jsonc
-"utterance_transformers": {
-  "ovos-transcription-validator-plugin": {}
-}
-
-```
-
-* **Source**: [GitHub Repository](https://github.com/OpenVoiceOS/ovos-transcription-validator-plugin)

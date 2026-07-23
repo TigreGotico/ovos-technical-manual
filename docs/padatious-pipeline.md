@@ -102,6 +102,25 @@ what's the weather like
 
 ```
 
+Skills can also capture free-form values with `.entity` files — one accepted value per
+line, referenced from an `.intent` file with `{filename}` braces (the entity file's
+basename becomes the placeholder name). For example, a `location.entity` file:
+
+```text
+london
+new york
+tokyo
+```
+
+referenced from `weather.intent`:
+
+```text
+what is the weather in {location}
+tell me the weather in {location}
+```
+
+The matched value is delivered to the intent handler as `message.data["location"]`.
+
 In your skill:
 
 ```python

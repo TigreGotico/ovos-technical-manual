@@ -225,11 +225,7 @@ These intents provide **out-of-the-box functionality** for controlling the Perso
 **Example Utterances**:
 
 - "What personas are available?"
-
-
 - "Can you list the personas?"
-
-
 - "What personas can I use?"
 
 ### **Check Active Persona**
@@ -237,11 +233,7 @@ These intents provide **out-of-the-box functionality** for controlling the Perso
 **Example Utterances**:
 
 - "Who am I talking to right now?"
-
-
 - "Is there an active persona?"
-
-
 - "Which persona is in use?"
 
 ### **Activate a Persona**
@@ -249,19 +241,8 @@ These intents provide **out-of-the-box functionality** for controlling the Perso
 **Example Utterances**:
 
 - "Connect me to {persona}"
-
-
 - "Enable {persona}"
-
-
-- "Awaken the {persona} assistant"
-
-
 - "Start a conversation with {persona}"
-
-
-- "Let me chat with {persona}"
-
 
 ### **Single-Shot Persona Questions**
 
@@ -270,36 +251,15 @@ Enables users to query a persona directly without entering an interactive sessio
 **Example Utterances**:
 
 - "Ask {persona} what they think about {utterance}"
-
-
 - "What does {persona} say about {utterance}?"
-
-
 - "Query {persona} for insights on {utterance}"
-
-
-- "Ask {persona} for their perspective on {utterance}"
-
 
 ### **Stop Conversation**
 
 **Example Utterances**:
 
 - "Stop the interaction"
-
-
-- "Terminate persona"
-
-
 - "Deactivate the chatbot"
-
-
-- "Go dormant"
-
-
-- "Enough talking"
-
-
 - "Shut up"
 
 Releasing a persona (via the `Release.voc` keyword match) ends the active session: the service marks the session inactive so any in-flight streaming response stops and subsequent utterances flow back through the normal pipeline. Persona uses `skill_id` `persona.openvoiceos`.
@@ -309,8 +269,6 @@ Releasing a persona (via the `Release.voc` keyword match) ends the active sessio
 ## Related Pages
 
 - [Agent / Solver Plugins](agent-plugins.md) — the handler plugins a persona delegates to
-
-
 - [Fallback Pipeline](fallback-pipeline.md) — the low-tier fallback persona routing complements
 
 

@@ -41,6 +41,36 @@ a pre-built FAISS index and a hierarchical classifier.
 pip install ovos-hierarchical-knn-pipeline
 ```
 
+## Configuration
+
+Settings live under `intents.ovos_hierarchical_knn_pipeline` in `mycroft.conf`:
+
+```json
+{
+  "intents": {
+    "ovos_hierarchical_knn_pipeline": {
+      "hf_repo_id": "fdemelo/ovos-hierarchical-knn-granite-97m-multilingual-r2",
+      "conf_high": 0.7,
+      "conf_medium": 0.5,
+      "conf_low": 0.15,
+      "ignore_intents": []
+    }
+  }
+}
+```
+
+| Key | Default | Meaning |
+|-----|---------|---------|
+| `index_dir` | *(unset)* | Load a pre-built FAISS index from a local directory instead of downloading one. Takes priority over `hf_repo_id` when set. |
+| `hf_repo_id` | `fdemelo/ovos-hierarchical-knn-granite-97m-multilingual-r2` | Hugging Face repo to download the classifier/index from when `index_dir` isn't set. |
+| `hf_cache_dir` | *(unset)* | Local cache directory for the downloaded Hugging Face files. |
+| `ignore_intents` | `[]` | Intent labels to exclude from matching even if registered. |
+| `conf_high` | `0.7` | Minimum confidence for a `match_high` result. |
+| `conf_medium` | `0.5` | Minimum confidence for a `match_medium` result. |
+| `conf_low` | `0.15` | Minimum confidence for a `match_low` result. |
+| `renormalize` | `false` | Renormalize confidence scores before threshold checks. |
+| `timeout` | `1` | Seconds to wait for the classifier before giving up on a match. |
+
 See [Pipelines Overview](pipelines-overview.md) for how to place it in your pipeline and how
 matchers are ordered. For lighter alternatives see [Padacioso](padacioso.md) (literal),
 [Nebulento](nebulento.md) (fuzzy), or [Palavreado](palavreado.md) (keyword).

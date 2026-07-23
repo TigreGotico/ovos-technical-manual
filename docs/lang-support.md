@@ -193,9 +193,9 @@ After writing the config it lists the installed STT/TTS plugins and warns about 
 Plainly: a few widely-spoken variants still have real gaps in the bundled recommendations.
 **en-GB** and **pt-BR** have no bundled offline STT recommendation at all — you'll need to
 configure an online plugin or pick a multilingual offline model (e.g. Whisper) by hand.
-**en-AU** has no bundled offline recommendation on either side. Several regional voices are
-one-gender-only offline (e.g. **pt-PT** and **da-DK** ship no offline female voice) — the
-missing gender still works, just via an online plugin or a manually-configured model.
+**en-AU** has no bundled offline recommendation on either side. Some regional voices are
+one-gender-only offline (e.g. **da-DK** ships no offline female voice) — the missing gender
+still works, just via an online plugin or a manually-configured model.
 
 All bundled offline STT recommendations use `ovos-stt-plugin-onnx-asr` and all bundled
 offline TTS recommendations use `ovos-tts-plugin-phoonnx`; the table shows the model/voice
@@ -239,8 +239,8 @@ phrasing is covered.
 | es-ES | ✅ | ✅ | ✅ | ✅ |
 | it-IT | ✅ | ✅ | ✅ | ✅ |
 | nl-NL | ✅ | ✅ | ✅ | ✅ |
-| pt-PT | ✅ | ⚠️ (male only) | ✅ | ✅ |
-| pt-BR | ❌ | ⚠️ (male only) | ✅ | ✅ |
+| pt-PT | ✅ | ✅ | ✅ | ✅ |
+| pt-BR | ❌ | ✅ | ✅ | ✅ |
 | ca-ES | ✅ | ✅ | ✅ | ✅ |
 | gl-ES | ✅ | ✅ | ✅ | ✅ |
 | eu-ES | ✅ | ⚠️ (female only) | ✅ | ✅ |
