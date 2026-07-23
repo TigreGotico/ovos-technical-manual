@@ -758,7 +758,7 @@ on, and assets used across projects.
 :   A compatibility shim exposing the classic mycroft-core GUI plugin interface on top of modern ovos-gui. Used only by GUI clients written against the old mycroft-core API.
 
 **[ovos-localize](https://github.com/OpenVoiceOS/ovos-localize)**
-:   A GitHub-native localization platform purpose-built for OVOS skill and plugin locale files, replacing GitLocalize. Used by maintainers and translators to manage translations; see [Machine-Translation Boundary](ovos-localize.md) if present, or the localization workflow docs.
+:   A GitHub-native localization platform purpose-built for OVOS skill and plugin locale files, replacing GitLocalize. Used by maintainers and translators to manage translations; see [Machine-Translation Boundary](ovos-localize-tutorial.md) if present, or the localization workflow docs.
 
 **[ovos-machine-translations](https://github.com/OpenVoiceOS/ovos-machine-translations)**
 :   Temporary machine-translated resource files produced while skills and plugins waited for GitLocalize-based human translation. Historical/staging resource, not imported by runtime code.
@@ -800,7 +800,7 @@ on, and assets used across projects.
 :   Shared images, icons, and artwork used across OpenVoiceOS repositories and documentation. Referenced (linked or copied) by websites, GUI themes, and READMEs across the organization; not imported by running code.
 
 **[ovoscope](https://github.com/OpenVoiceOS/ovoscope)**
-:   An end-to-end testing framework for OVOS skills: it runs a full ovos-core pipeline in-process against a `FakeBus`, with no server, audio stack, or network required. Used by skill authors and CI to load real skill plugins, emit a test utterance, and assert on the resulting bus messages; see the [ovoscope skill](ovoscope.md) docs.
+:   An end-to-end testing framework for OVOS skills: it runs a full ovos-core pipeline in-process against a `FakeBus`, with no server, audio stack, or network required. Used by skill authors and CI to load real skill plugins, emit a test utterance, and assert on the resulting bus messages; see the [ovoscope skill](ovoscope-overview.md) docs.
 
 **[padacioso](https://github.com/OpenVoiceOS/padacioso)**
 :   A lightweight, dependency-light regex-based intent parser, file-format compatible with Padatious. Registers under `opm.pipeline`; loaded by ovos-core's intent service as a low-footprint alternative to the neural Padatious engine.

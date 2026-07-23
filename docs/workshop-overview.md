@@ -79,7 +79,7 @@ OVOSSkill                             ovos_workshop/skills/ovos.py
 | [resource-files.md](resource-files.md) | `SkillResources` | Locale, dialog, vocab, regex, and other resource files |
 | [skill-settings.md](skill-settings.md) | `JsonStorage`, `PrivateSettings` | Skill settings — persistence, change callbacks, file watching |
 | [intent-layers.md](intent-layers.md) | `IntentLayers` | Enable/disable intent sets at runtime |
-| [skill-classes.md#pluginskillloader](skill-classes.md#pluginskillloader) | `SkillLoader`, `PluginSkillLoader` | Loading skills as plugins or in standalone mode |
+| [skill-classes.md#skill-launcher](skill-classes.md#skill-launcher) | `SkillLoader`, `PluginSkillLoader` | Loading skills as plugins or in standalone mode |
 
 ---
 
