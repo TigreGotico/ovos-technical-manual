@@ -35,6 +35,11 @@ When an utterance arrives, OVOS walks the pipeline in order and hands the uttera
 
 The first stage that matches wins, so order matters: a high-confidence Padatious match is tried before any medium-confidence stage, which is tried before any low-confidence stage. Each component is a plugin that can be enabled, disabled, or reordered in your config.
 
+!!! note "`intents.pipeline` orders matchers — it does not gate loading"
+    The config list controls which loaded matchers are *tried* and in what order. Every
+    installed pipeline plugin is still discovered and initialized at startup (some load
+    models when they do); to keep a plugin from initializing at all, uninstall its package.
+
 Ordering is **the arbitration model, not a missing feature** (PIPELINE-1 §6.2). Because an earlier plugin gets to answer before any later plugin is asked, a stateful interceptor that depends on session state — converse with an open response window, an active persona, OCP holding paused media to *resume*, stop — can claim "yes" / "next" / "resume" / "stop" *before* a general pipeline plugin would match the bare words. Such selective plugins are deliberately conservative: they claim only when both the utterance and the session warrant it, and return `None` otherwise, trusting their position rather than competing on a score (heterogeneous engines share no common score space to rank across anyway).
 
 **Pipeline IDs vs. plugins.** The IDs you list in your `pipeline` config (like `ovos-adapt-pipeline-plugin-high`) are not separate plugins. A confidence-aware plugin registers a single OPM entry point (e.g. `ovos-adapt-pipeline-plugin`), and OVOS derives the `-high`/`-medium`/`-low` matcher stages from it at runtime. Plugins that match at only one confidence level (such as `ovos-converse-pipeline-plugin` or `ovos-common-query-pipeline-plugin`) expose a single bare ID. The older short names (`adapt_high`, `common_qa`, …) are **deprecated aliases**: ovos-core still accepts them and rewrites them to the canonical plugin IDs via the `_PIPELINE_MIGRATION_MAP`, so existing configs keep working, but the bundled default configuration and new configs alike should use the canonical names shown below.

@@ -102,10 +102,11 @@ The specs rename many bus topics into the `ovos.*` namespace (for example
 `recognizer_loop:utterance` → `ovos.utterance.handle`). Migrating an ecosystem
 of independently-released repos to new topic names all at once is impossible —
 so [**ovos-bus-client**](bus-service.md) does it **automatically and
-incrementally**. A migrated message is dual-sent on **both** the legacy and the
-`ovos.*` topic, and a subscription to either name receives both (de-duplicated),
-so a producer and consumer can each switch to `ovos.*` **in any order, with no
-coordination**.
+incrementally**. A single message travels the wire once, and each
+connected client translates on receive: a subscription to either the legacy or
+the `ovos.*` name is also delivered its migrated counterpart locally
+(de-duplicated), so a producer and consumer can each switch to `ovos.*`
+**in any order, with no coordination**.
 
 This is what makes spec adoption gradual rather than a breaking change. The full
 mechanism — and how to turn the bridges off once a deployment is fully
