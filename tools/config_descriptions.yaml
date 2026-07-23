@@ -1,0 +1,15 @@
+confirm_listening: Play a beep when the system starts listening.
+date_format: Date format for display and parsing.
+lang: Primary BCP-47 language code for STT and TTS.
+listener.fake_barge_in: Mute output during recording.
+listener.recording_timeout: Max seconds for a single recording.
+listener.remove_silence: Strip leading/trailing silence before sending audio to STT.
+listener.sample_rate: Audio sampling rate in Hz.
+listener.silence_end: Seconds of silence before a command is considered ended.
+listener.speech_begin: Seconds of detected speech before a command is considered started.
+listener.wake_word: Default hotword (matches an entry under `hotwords`).
+secondary_langs: Extra languages whose resource files are loaded; intents are only
+  matched when the utterance is tagged with that lang at STT.
+system_unit: Measurement units (`metric` or `imperial`).
+temperature_unit: Temperature units (`celsius` or `fahrenheit`).
+time_format: Clock format for display (`half` = 12-hour, `full` = 24-hour).
