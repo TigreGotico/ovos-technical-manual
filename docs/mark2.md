@@ -130,8 +130,7 @@ board versions. The TAS5806 **amplifier** is initialized separately at boot rath
 the module.
 
 It is actively used (the installer builds it on every Mark 2 setup) and is kept working against
-current kernel versions. Historically it derives from earlier community XMOS-loader code, adapted
-for OVOS by Peter Steenbergen (j1nx).
+current kernel versions. It is community-maintained, adapted from earlier community XMOS-loader code.
 
 ---
 

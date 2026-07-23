@@ -45,7 +45,7 @@ from ovos_workshop.decorators.ocp import (
 
 ### `@intent_handler`
 
-`intent_handler` — `ovos_workshop/decorators/__init__.py:57`
+`intent_handler` — `ovos_workshop/decorators/__init__.py`
 
 Register a method as a [Padatious](padatious-pipeline.md) (`.intent` file) or [Adapt](adapt-pipeline.md) (`IntentBuilder`) intent handler.
 
@@ -73,7 +73,7 @@ A method can have multiple `@intent_handler` decorators to handle multiple inten
 
 ### `@conversational_intent`
 
-`conversational_intent` — `ovos_workshop/decorators/__init__.py:134`
+`conversational_intent` — `ovos_workshop/decorators/__init__.py`
 
 Register a Padatious `.intent` file as a converse-only matcher. Only active when the skill is in converse mode. Requires the skill to extend `ConversationalSkill`.
 
@@ -91,7 +91,7 @@ def handle_help_in_converse(self, message): ...
 
 ### `@fallback_handler`
 
-`fallback_handler` — `ovos_workshop/decorators/__init__.py:150`
+`fallback_handler` — `ovos_workshop/decorators/__init__.py`
 
 Register a method as a fallback handler with a given priority (0–100, lower = higher priority).
 
@@ -109,7 +109,7 @@ def handle_unknown(self, message):
 
 ### `@common_query`
 
-`common_query` — `ovos_workshop/decorators/__init__.py:111`
+`common_query` — `ovos_workshop/decorators/__init__.py`
 
 Register a method as a CommonQuery handler. The method must return `(answer, confidence)` or `None`.
 
@@ -132,7 +132,7 @@ def handle_query(self, phrase, lang):
 
 ### `@converse_handler`
 
-`converse_handler` — `ovos_workshop/decorators/__init__.py:125`
+`converse_handler` — `ovos_workshop/decorators/__init__.py`
 
 Alias a method as the skill's `converse` handler instead of overriding `converse()` directly.
 
@@ -149,8 +149,8 @@ def my_converse(self, message):
 
 ## Context Decorators
 
-`adds_context` — `ovos_workshop/decorators/__init__.py:16`
-`removes_context` — `ovos_workshop/decorators/__init__.py:37`
+`adds_context` — `ovos_workshop/decorators/__init__.py`
+`removes_context` — `ovos_workshop/decorators/__init__.py`
 
 These run **after** the decorated method completes.
 
@@ -182,9 +182,9 @@ def handle_cancel(self, message):
 
 ### Exception Classes
 
-`AbortEvent` — `ovos_workshop/decorators/killable.py:12`
-`AbortIntent` — `ovos_workshop/decorators/killable.py:16`
-`AbortQuestion` — `ovos_workshop/decorators/killable.py:20`
+`AbortEvent` — `ovos_workshop/decorators/killable.py`
+`AbortIntent` — `ovos_workshop/decorators/killable.py`
+`AbortQuestion` — `ovos_workshop/decorators/killable.py`
 
 ```python
 class AbortEvent(StopIteration):
@@ -218,7 +218,7 @@ def handle_long_task(self, message):
 
 ### `@killable_intent`
 
-`killable_intent` — `ovos_workshop/decorators/killable.py:24`
+`killable_intent` — `ovos_workshop/decorators/killable.py`
 
 Mark an intent handler that can be interrupted mid-execution. Spawns the handler in a daemon thread. When the kill message arrives:
 
@@ -277,7 +277,7 @@ Bus receives "mycroft.skills.abort_execution"
 
 ### `@killable_event`
 
-`killable_event` — `ovos_workshop/decorators/killable.py:40`
+`killable_event` — `ovos_workshop/decorators/killable.py`
 
 Like `@killable_intent` but for any bus event handler. Does **not** react to stop messages or call `skill.stop()` by default.
 
@@ -309,7 +309,7 @@ Intent layers let you enable or disable groups of intents at runtime, implementi
 
 ### `@layer_intent`
 
-`layer_intent` — `ovos_workshop/decorators/layers.py:159`
+`layer_intent` — `ovos_workshop/decorators/layers.py`
 
 Register an intent handler that belongs to a named layer. The intent is disabled until the layer is activated.
 
@@ -326,8 +326,8 @@ def handle_move(self, message): ...
 
 ### `@enables_layer` / `@disables_layer`
 
-`enables_layer` — `ovos_workshop/decorators/layers.py:66`
-`disables_layer` — `ovos_workshop/decorators/layers.py:85`
+`enables_layer` — `ovos_workshop/decorators/layers.py`
+`disables_layer` — `ovos_workshop/decorators/layers.py`
 
 Activate or deactivate a named intent layer **after** the decorated method runs.
 
@@ -348,7 +348,7 @@ def stop_game_intent(self, message):
 
 ### `@replaces_layer`
 
-`replaces_layer` — `ovos_workshop/decorators/layers.py:104`
+`replaces_layer` — `ovos_workshop/decorators/layers.py`
 
 Replace the intent list of a named layer after the method runs.
 
@@ -364,7 +364,7 @@ def transition(self, message): ...
 
 ### `@removes_layer`
 
-`removes_layer` — `ovos_workshop/decorators/layers.py:123`
+`removes_layer` — `ovos_workshop/decorators/layers.py`
 
 Remove a named layer entirely (and disable its intents) after the method runs.
 
@@ -380,7 +380,7 @@ def finish_flow(self, message): ...
 
 ### `@resets_layers`
 
-`resets_layers` — `ovos_workshop/decorators/layers.py:142`
+`resets_layers` — `ovos_workshop/decorators/layers.py`
 
 Disable **all** intent layers after the method runs.
 
@@ -399,7 +399,7 @@ def reset_everything(self, message):
 
 ### `@homescreen_app`
 
-`homescreen_app` — `ovos_workshop/decorators/__init__.py:166`
+`homescreen_app` — `ovos_workshop/decorators/__init__.py`
 
 Register a method as a homescreen app launcher. The icon file must be inside the `gui/` subfolder of the skill.
 
@@ -418,7 +418,7 @@ def launch_app(self, message):
 
 ### `@skill_api_method`
 
-`skill_api_method` — `ovos_workshop/decorators/__init__.py:94`
+`skill_api_method` — `ovos_workshop/decorators/__init__.py`
 
 Expose a method over the bus so other skills or applications can call it via `SkillApi`. See [skill-api.md](ovos-skill.md) for the full RPC documentation.
 
@@ -444,13 +444,13 @@ OCP (OpenVoiceOS [Common Play](ocp-pipeline.md)) decorators are used with `OVOSC
 
 | Decorator | Attribute set | Description | Source line |
 |---|---|---|---|
-| `@ocp_search()` | `is_ocp_search_handler` | Search for playable content; yield/return `MediaEntry` results. | `ocp.py:5` |
-| `@ocp_play()` | `is_ocp_playback_handler` | Handle a play request (start playback). | `ocp.py:34` |
-| `@ocp_pause()` | `is_ocp_pause_handler` | Handle a pause request. | `ocp.py:82` |
-| `@ocp_resume()` | `is_ocp_resume_handler` | Handle a resume request. | `ocp.py:98` |
-| `@ocp_next()` | `is_ocp_next_handler` | Handle skip-forward. | `ocp.py:66` |
-| `@ocp_previous()` | `is_ocp_prev_handler` | Handle skip-backward. | `ocp.py:50` |
-| `@ocp_featured_media()` | `is_ocp_featured_handler` | Provide featured/recommended media for the OCP GUI. | `ocp.py:114` |
+| `@ocp_search()` | `is_ocp_search_handler` | Search for playable content; yield/return `MediaEntry` results. | `ocp.py` |
+| `@ocp_play()` | `is_ocp_playback_handler` | Handle a play request (start playback). | `ocp.py` |
+| `@ocp_pause()` | `is_ocp_pause_handler` | Handle a pause request. | `ocp.py` |
+| `@ocp_resume()` | `is_ocp_resume_handler` | Handle a resume request. | `ocp.py` |
+| `@ocp_next()` | `is_ocp_next_handler` | Handle skip-forward. | `ocp.py` |
+| `@ocp_previous()` | `is_ocp_prev_handler` | Handle skip-backward. | `ocp.py` |
+| `@ocp_featured_media()` | `is_ocp_featured_handler` | Provide featured/recommended media for the OCP GUI. | `ocp.py` |
 
 ```python
 from ovos_workshop.skills.common_play import OVOSCommonPlaybackSkill

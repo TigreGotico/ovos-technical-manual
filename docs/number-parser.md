@@ -43,7 +43,6 @@ Every function takes an explicit `lang` (a BCP-47 code such as `"en"` or `"pt-br
 - ✅ - supported
 
 
-- ❌ - not supported
 
 
 - 🚧 - imperfect placeholder, usually a language agnostic implementation or external library

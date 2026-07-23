@@ -16,10 +16,10 @@
 
 ??? abstract "Technical Reference"
 
-    - `IntentService.handle_utterance()` — [`ovos_core/intent_services/service.py:526`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py) — Main entry point for processing utterances.
+    - `IntentService.handle_utterance()` — [`ovos_core/intent_services/service.py`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py) — Main entry point for processing utterances.
 
 
-    - `IntentService._emit_utterance_handled()` — [`ovos_core/intent_services/service.py:312`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py) — terminal callback that emits the handled/complete message once a matcher's handler chain finishes.
+    - `IntentService._emit_utterance_handled()` — [`ovos_core/intent_services/service.py`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py) — terminal callback that emits the handled/complete message once a matcher's handler chain finishes.
 
 
     - `OVOSPipelineFactory.load_plugin()` — [`ovos_plugin_manager/pipeline.py`](https://github.com/OpenVoiceOS/ovos-plugin-manager/blob/dev/ovos_plugin_manager/pipeline.py) — factory that builds matcher pipeline plugins from config (`get_installed_pipeline_ids()` lists them).
