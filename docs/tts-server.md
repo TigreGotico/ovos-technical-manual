@@ -226,6 +226,10 @@ Config keys:
 
 ## Docker Deployment
 
+**Upcoming** — a ready-made Docker Compose proxy setup is tracked in
+[ovos-tts-server#101](https://github.com/OpenVoiceOS/ovos-tts-server/pull/101).
+
+
 **Create a Dockerfile**
 
 ```dockerfile
