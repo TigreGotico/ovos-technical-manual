@@ -39,7 +39,21 @@ ovos-skill-my-first/
                 └── hello.dialog
 ```
 
+!!! note "Both layouts work"
+    OVOS walks the *entire* `locale/<lang>/` folder looking for a file by name, so grouping
+    files into `intents/`/`dialog/` subfolders (as above) or dropping them flat directly in
+    `locale/en-US/` both work equally well — pick whichever keeps your skill readable. The
+    language folder name itself is also case-insensitive (`en-US` and `en-us` are the same
+    folder to OVOS). See [Anatomy of a Skill](skill-structure.md) and
+    [Intent Design](intents.md) for more on this layout.
+
 ## Step 2 — Write the skill code
+
+Every skill is a Python class that subclasses [`OVOSSkill`](ovos-skill.md). A **decorator** — a
+line starting with `@` placed just above a function — tells OVOS what that function is for; here
+`@intent_handler("Hello.intent")` means *"run this function when the user says something matching
+`Hello.intent`"* (see [Decorators](decorators.md) for the full list). `self.speak_dialog("hello")`
+then speaks a random line from `hello.dialog`.
 
 `ovos_skill_my_first/__init__.py`:
 
@@ -50,14 +64,20 @@ from ovos_workshop.decorators import intent_handler
 
 class MyFirstSkill(OVOSSkill):
 
+    def initialize(self):
+        # runs once, after the skill is fully loaded and connected to the bus —
+        # this is the place for setup that needs self.settings, self.bus, etc.
+        # (a plain __init__ still runs too early for that; see Skill Settings)
+        self.log.info("MyFirstSkill is ready")
+
     @intent_handler("Hello.intent")
     def handle_hello(self, message):
         self.speak_dialog("hello")
 ```
 
-That's the entire skill. `@intent_handler("Hello.intent")` says *"run this function when the
-user says something matching `Hello.intent`"*, and `self.speak_dialog("hello")` speaks a random
-line from `hello.dialog`. (The class **must** subclass [`OVOSSkill`](ovos-skill.md).)
+That's the entire skill. `initialize()` is optional — you only need it once you have setup work
+that depends on the skill being fully wired up (reading [settings](skill-settings.md), registering
+extra event handlers, and so on).
 
 ## Step 3 — Tell OVOS what the user might say
 
@@ -122,11 +142,19 @@ From inside the `ovos-skill-my-first/` folder:
 pip install -e .
 ```
 
-Restart `ovos-core` (or it will pick the skill up on its next scan). Then say:
+Restart `ovos-core` (or it will pick the skill up on its next scan) — see
+[Stage 1 of Troubleshooting](troubleshooting.md#stage-1-is-the-service-even-running-and-is-the-bus-reachable)
+for exactly how to start/restart the OVOS services. Then say the wake word first, **"Hey
+Mycroft"**, wait for the listening chime, and then say:
 
-> "Hey Mycroft, **hello**"
+> "**hello**"
 
 …and OVOS replies with one of your dialog lines. 🎉 You just wrote a skill.
+
+!!! tip "No microphone handy, or want to test without talking?"
+    You can send the utterance straight onto the bus as text, skipping the wake word and mic
+    entirely: `ovos-say-to "hello"`. See [Troubleshooting](troubleshooting.md#stage-3-did-stt-produce-text)
+    for more on this and other text-based ways to test a skill.
 
 ## Where to go next
 
@@ -135,4 +163,7 @@ Restart `ovos-core` (or it will pick the skill up on its next scan). Then say:
 - **Save settings or files** — see [Skill Settings](skill-settings.md) and [Filesystem](skill-filesystem.md).
 - **Make it sound good and behave well** — see [Skill Best Practices](skill-best-practices.md).
 - **Test it automatically** — see [Skill Testing](ovoscope-overview.md).
+- **See how an utterance actually travels through OVOS** — see [Life of an Utterance](life-of-an-utterance.md).
 - Browse real skills for ideas in [Skill Examples](skill-examples.md).
+- Questions along the way? Ask in the
+  [skills channel on OVOS Chat](https://matrix.to/#/#openvoiceos-skills:matrix.org).

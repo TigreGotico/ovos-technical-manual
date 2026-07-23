@@ -9,18 +9,6 @@ The **Mycroft Mark 1** was the first official hardware for Mycroft AI. It featur
 
 ## Enclosure API
 
-!!! warning "`self.enclosure` is leaving the skill base class"
-    `self.enclosure` will **no longer be a built-in `OVOSSkill` property** — the same direction
-    [`self.gui`](skill-gui.md) is going. The `EnclosureAPI` itself is
-    **not going away**: it moves into the **[`ovos-mark1-utils`](https://github.com/OpenVoiceOS/ovos-mark1-utils)**
-    library, so code that needs it imports it from there rather than reaching for `self.enclosure`.
-
-    In the [GUI rework](gui-adapters.md), the Mark 1 **faceplate** (LED "mouth" + "eyes") is
-    remodelled as **one of the new GUI plugins**: the faceplate's bus **event listeners** move
-    into that GUI plugin, which renders the standard display events onto the faceplate. Other
-    Mark 1 hardware may be handled by a dedicated **mk1 PHAL plugin** (still being decided). This
-    page documents the current API for existing Mark 1 skills.
-
 The `EnclosureAPI` is an abstraction over the "body" of the device. It provides a standard way for skills to interact with hardware features like displays and LEDs without needing to know the low-level details of the hardware transport.
 
 ```python
@@ -58,6 +46,18 @@ You can also display 32x8 PNG images.
 self.enclosure.mouth_display_png('/path/to/image.png', threshold=70, invert=False, x=0, y=0, refresh=True)
 
 ```
+
+!!! warning "`self.enclosure` is leaving the skill base class"
+    `self.enclosure` will **no longer be a built-in `OVOSSkill` property** — the same direction
+    [`self.gui`](skill-gui.md) is going. The `EnclosureAPI` itself is
+    **not going away**: it moves into the **[`ovos-mark1-utils`](https://github.com/OpenVoiceOS/ovos-mark1-utils)**
+    library, so code that needs it imports it from there rather than reaching for `self.enclosure`.
+
+    In the [GUI rework](gui-adapters.md), the Mark 1 **faceplate** (LED "mouth" + "eyes") is
+    remodelled as **one of the new GUI plugins**: the faceplate's bus **event listeners** move
+    into that GUI plugin, which renders the standard display events onto the faceplate. Other
+    Mark 1 hardware may be handled by a dedicated **mk1 PHAL plugin** (still being decided). This
+    page documents the current API for existing Mark 1 skills.
 
 ---
 

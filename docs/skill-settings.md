@@ -7,6 +7,40 @@ Settings provide per-skill persistent key-value storage backed by a JSON file. T
 
 ---
 
+## Quick start
+
+Building on the `MyFirstSkill` from [Your First Skill](first-skill.md), here's the smallest useful
+use of settings — a greeting that remembers a name the user gave it once:
+
+```python
+from ovos_workshop.skills import OVOSSkill
+from ovos_workshop.decorators import intent_handler
+
+
+class MyFirstSkill(OVOSSkill):
+
+    def initialize(self):
+        # a default is only applied the first time — after that, whatever
+        # the user (or a previous run) stored takes over
+        self.settings.setdefault("name", "friend")
+
+    @intent_handler("Hello.intent")
+    def handle_hello(self, message):
+        self.speak_dialog("hello", {"name": self.settings.get("name", "friend")})
+
+    @intent_handler("SetName.intent")
+    def handle_set_name(self, message):
+        name = message.data.get("name")
+        if name:
+            self.settings["name"] = name
+            self.speak(f"Okay, I'll call you {name} from now on")
+```
+
+Add a `{name}` placeholder to `hello.dialog` (see [Statements](statements.md) for the mustache
+syntax) and the greeting picks up the stored name automatically, even after a restart.
+
+---
+
 ## Storage Location
 
 ```
