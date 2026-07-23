@@ -264,18 +264,25 @@ features:
   extra_skills: false
 raspberry_pi_tuning: true
 share_telemetry: true
+share_usage_telemetry: true
 ```
 
 Key options:
 
 | Key | Meaning |
 | --- | --- |
+| `uninstall` | `true` to uninstall instead of install |
 | `method` | `containers` (Docker) or `virtualenv` (Python virtual environment) |
 | `channel` | Release channel: `testing` or `alpha` |
 | `profile` | Installation profile (e.g. `ovos`) |
 | `features.*` | Per-feature toggles (e.g. `skills`, `extra_skills`, `llm`) |
 | `raspberry_pi_tuning` | Enable Raspberry Pi performance tuning (includes an overclock prompt) |
 | `share_telemetry` | Allow sharing anonymous usage statistics |
+| `share_usage_telemetry` | Allow sharing anonymous *usage* statistics (separate from install-time telemetry above) |
+
+All of `uninstall`, `method`, `channel`, `profile`, `features`, `raspberry_pi_tuning`,
+`share_telemetry`, and `share_usage_telemetry` are **required** — the installer
+refuses an incomplete scenario file.
 
 Ready-made example scenarios live in the
 [`scenarios/`](https://github.com/OpenVoiceOS/ovos-installer/tree/main/scenarios)
