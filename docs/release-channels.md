@@ -1,7 +1,7 @@
 # OVOS Release Channels & Installation Options
 
 !!! abstract "In a nutshell"
-    OVOS is built from many small swappable pieces, and this page explains the different ways to install them and how to pick how cutting-edge (or how rock-stable) your version is. A "release channel" is like choosing between a tested, stable edition or an early-preview edition that has the newest features but more rough edges. Most people should ignore the details and just use the guided [`ovos-installer`](ovos-installer.md); the manual steps here are for tinkerers who want precise control. See the [Glossary](glossary.md) for terms.
+    OVOS is built from many small swappable pieces, and this page explains the different ways to install them and how to pick how cutting-edge (or how rock-stable) your version is — a "release channel" is like choosing between a tested, stable edition or an early-preview edition with the newest features but more rough edges. Most people should ignore the details and just use the guided [`ovos-installer`](ovos-installer.md); the manual steps here are for tinkerers who want precise control (see the [Glossary](glossary.md) for terms).
 
 !!! tip "Just want it working? Use the installer."
     Most people should install OVOS with the **[`ovos-installer`](ovos-installer.md)** — a guided
@@ -38,7 +38,7 @@ Install individual components via `pip` or `uv`. Best for developers or custom i
 
 OVOS follows [**semantic versioning**](https://semver.org/) (SemVer) with a **rolling release model** and supports three release channels — **stable**, **testing**, and **alpha** — so you can pick the right balance between cutting-edge features and system reliability.
 
-These channels are managed via the [constraints files](https://pip.pypa.io/en/stable/user_guide/#constraints-files) hosted in the [ovos-releases](https://github.com/OpenVoiceOS/ovos-releases) repository
+These channels are managed via the [constraints files](https://pip.pypa.io/en/stable/user_guide/#constraints-files) hosted in the [ovos-releases](https://github.com/OpenVoiceOS/ovos-releases) repository. **If unsure, choose Testing** — it gets bug fixes and new features without the instability of Alpha.
 
 ### 1. Stable Channel (Production-Ready)
 
@@ -84,8 +84,6 @@ uv pip install ovos-core[mycroft] -c https://raw.githubusercontent.com/OpenVoice
 uv pip install ovos-core[mycroft] --pre -c https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-alpha.txt
 
 ```
-
-> 💡 `constraints.txt` files act like version "filters". They don't install packages directly, but ensure only approved versions get installed.
 
 ---
 

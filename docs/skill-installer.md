@@ -71,7 +71,7 @@ You can trigger installation and uninstallation by emitting messages on the mess
 
 A skill is installed from a GitHub repo URL (it is validated and then installed as `git+<url>`):
 
-```
+```text
 ovos.skills.install        data: {"url": "https://github.com/OpenVoiceOS/skill-foo"}
   → ovos.skills.install.complete  (success)
   → ovos.skills.install.failed    (error)
@@ -82,7 +82,7 @@ ovos.skills.install        data: {"url": "https://github.com/OpenVoiceOS/skill-f
 
 Uninstall by `skill_id` (or package name); a `skill_id` like `skill-foo.author` is mapped to the package name `skill-foo-author`:
 
-```
+```text
 ovos.skills.uninstall      data: {"skill": "skill-foo.author"}
   → ovos.skills.uninstall.complete
   → ovos.skills.uninstall.failed
@@ -91,7 +91,7 @@ ovos.skills.uninstall      data: {"skill": "skill-foo.author"}
 
 ### General pip management
 
-```
+```text
 ovos.pip.install           data: {"packages": ["some-lib>=1.0"]}
 ovos.pip.uninstall         data: {"packages": ["some-lib"]}
 

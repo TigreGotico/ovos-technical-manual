@@ -1,7 +1,7 @@
 # Configuration Management
 
 !!! abstract "In a nutshell"
-    This page is about how you change OVOS's settings — your language, voice, microphone, and so on. OVOS ships with a complete set of sensible defaults you never touch; instead you write a tiny personal file listing only the things you want different, and OVOS stacks your file on top of the defaults so the rest stays as-is (like adding a sticky note over a printed form). The `ovos-config` command-line tool helps you view and edit those settings. For the full menu of every setting, see the [Configuration Reference](config-reference.md); for term definitions see the [Glossary](glossary.md).
+    This page is about how you change OVOS's settings — your language, voice, microphone, and so on. OVOS ships with a complete set of sensible defaults you never touch. You write a tiny personal file listing only the things you want different, and OVOS stacks your file on top of the defaults so the rest stays as-is — like adding a sticky note over a printed form. The `ovos-config` command-line tool helps you view and edit those settings. For the full menu of every setting, see the [Configuration Reference](config-reference.md); for term definitions see the [Glossary](glossary.md).
 
 `ovos-config` is the configuration layer for the entire OVOS ecosystem. It provides a layered, merged `Configuration` singleton that all OVOS components read from, plus XDG-aware path helpers, a CLI tool, and meta-config support for custom distributions.
 
@@ -19,7 +19,7 @@ everything you don't mention keeps its default.
 At read time OVOS stacks several files on top of each other and merges them. The
 file closest to *you* wins:
 
-```
+```text
 bundled default  →  remote (web_cache.json)  →  /usr/share/...  →  /etc/mycroft/...  →  ~/.config/mycroft/mycroft.conf  →  runtime patch
      lowest priority  ───────────────────────────────────────────────────────────────►  highest priority
 ```
@@ -41,7 +41,7 @@ every other setting untouched.
 
 Layers are merged in this priority order (highest wins):
 
-```
+```text
 MycroftDefaultConfig   (bundled mycroft.conf — read-only)
 RemoteConf             (~/.config/mycroft/web_cache.json)
 OvosDistributionConfig (/usr/share/mycroft/mycroft.conf — read-only)
@@ -423,7 +423,7 @@ ovos-config telemetry --disable   # opt out
 
 ## Package Layout
 
-```
+```text
 ovos_config/
 ├── config.py       # Configuration singleton
 ├── models.py       # LocalConf, ReadOnlyConfig, layer classes

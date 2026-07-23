@@ -45,7 +45,7 @@ Exposes any OVOS STT plugin as a Wyoming ASR server.
 
 ### Architecture
 
-```
+```text
 Wyoming client                    wyoming-ovos-stt                 OVOS plugin layer
 (Home Assistant,           ┌─────────────────────────────┐
  rhasspy, etc.)            │  AsyncServer (wyoming lib)   │
@@ -133,7 +133,7 @@ Language is taken from `cfg["lang"]` if present, otherwise from `mycroft.conf["l
 
 ### Wyoming message flow
 
-```
+```text
 Client → AudioChunk (rate=16000, width=2, channels=1, PCM bytes)
        → AudioChunk ...
        → AudioStop
@@ -154,7 +154,7 @@ Exposes any OVOS TTS plugin as a Wyoming TTS server.
 
 ### Architecture
 
-```
+```text
 Wyoming client                    wyoming-ovos-tts                  OVOS plugin layer
 (Home Assistant,           ┌──────────────────────────────┐
  rhasspy, etc.)            │  AsyncServer (wyoming lib)    │
@@ -246,7 +246,7 @@ Plugin configuration is read from `mycroft.conf["tts"][<plugin-name>]`.
 
 ### Wyoming message flow
 
-```
+```text
 Client → Synthesize(text="Hello world", voice=VoiceSettings(...))
 Server → AudioStart(rate=22050, width=2, channels=1)
        → AudioChunk (1024 samples)
@@ -267,7 +267,7 @@ Supports **multiple simultaneous wake word models** loaded on demand per client 
 
 ### Architecture
 
-```
+```text
 Wyoming client                   wyoming-ovos-wakeword              OVOS plugin layer
 (Home Assistant,           ┌────────────────────────────────┐
  rhasspy, etc.)            │  AsyncServer (wyoming lib)      │
@@ -384,7 +384,7 @@ All configured hotwords are advertised via `Describe`/`Info` and are selectable 
 
 ### Wyoming message flow
 
-```
+```text
 Client → Describe
 Server → Info(wake=[WakeProgram(models=[WakeModel(name="hey_mycroft", phrase="Hey Mycroft"), ...])])
 

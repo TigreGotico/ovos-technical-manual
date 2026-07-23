@@ -92,7 +92,7 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest test/test_hello.py -v
 dependencies register — harmless to leave set for any OVOS test run. A real run looks like this
 (trimmed of the framework's own deprecation-warning noise):
 
-```
+```text
 test/test_hello.py::test_hello_matches_and_speaks PASSED                [100%]
 
 ================== 1 passed, 563 warnings in 70.16s (0:01:10) ==================
@@ -139,7 +139,7 @@ def test_unrelated_utterance_is_not_handled():
     assert not spoken, f"skill should stay silent for an unrelated utterance, got: {spoken}"
 ```
 
-```
+```text
 test/test_hello_nomatch.py::test_unrelated_utterance_is_not_handled PASSED [100%]
 
 ================== 1 passed, 303 warnings in 72.87s (0:01:12) ==================
@@ -197,7 +197,7 @@ Running it produces a fixture with the full 7-message sequence for this interact
 utterance coming in, the skill activating, the intent matching, the handler starting, the `speak`,
 and the handler/utterance completing:
 
-```
+```text
 $ python3 test/record_hello_fixture.py
 saved OK
 ```
@@ -208,7 +208,7 @@ Validate its shape, then replay it:
 ovoscope validate test/fixtures/hello.json
 ```
 
-```
+```text
 [validate] OK  test/fixtures/hello.json
 ```
 
@@ -221,7 +221,7 @@ ovoscope run test/fixtures/hello.json -v
     anything is actually broken, but because the session's `active_handlers` records a Unix
     timestamp (*when the skill activated*) at capture time — and that timestamp is different every
     time you re-run it:
-    ```
+```text
     [run] FAIL: ❌ message context mismatch for key 'session' - expected
     '...activated_at': 1784823640.9039652...' | got '...activated_at': 1784823715.739504...'
     ```

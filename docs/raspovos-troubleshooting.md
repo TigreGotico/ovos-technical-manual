@@ -10,6 +10,9 @@
 
 > ⚠️ This guide applies to raspOVOS and may assume some raspOVOS exclusive utilities are available, if you are not using raspOVOS [some command line utilities](https://github.com/OpenVoiceOS/raspOVOS/tree/dev/overlays/base_ovos/usr/local/bin) will not be available
 
+Not sure where to start? [Everyday Help](everyday-help.md) covers the most common day-to-day
+problems in plain language before you dig into the technical steps below.
+
 ---
 
 ## Undervoltage Detected Warning
@@ -17,11 +20,7 @@
 If you see an **undervoltage detected** warning:
 
 - Check your power adapter and cable.
-
-
 - Ensure the adapter can supply enough current (e.g., 5A for Raspberry Pi 5).
-
-
 - Replace long or thin cables with shorter, thicker ones for better power delivery.
 
 ---
@@ -37,8 +36,6 @@ If the device does not complete its boot sequence:
 
 
      - See if all OVOS services started up correctly with `ovos-status` command
-
-
      - Check log files in `~/.local/state/mycroft/` for OVOS error messages.
 
 
@@ -48,7 +45,7 @@ If the device does not complete its boot sequence:
 
 ## OVOS Fails to Speak "I am Ready"
 
-- Confirm the device has a working Internet connection. otherwise OVOS won't consider itself ready
+- Confirm the device has a working Internet connection — otherwise OVOS won't consider itself ready
 
 ---
 
@@ -186,29 +183,13 @@ Description: La cita del dia de Fuster
 Usage examples:
 
     - La frase del Fuster del dia
-
-
     - Necessito alguna idea fusteriana
-
-
     - Algun pensament fusterià?
-
-
     - Digue’m un aforisme del Fuster
-
-
     - Què diria Joan Fuster, aquí?
-
-
     - Vull sentir un aforisme fusterià
-
-
     - Què diu en Fuster?
-
-
     - Què pensen els fusterians?
-
-
     - Digues-me alguna cosa fusteriana
 
 ```
@@ -228,226 +209,82 @@ Using Python 3.11.2 environment at: .venvs/ovos
 [INFO] The following skills will be uninstalled:
 
 - ovos-skill-alerts
-
-
 - ovos-skill-audio-recording
-
-
 - ovos-skill-boot-finished
-
-
 - ovos-skill-camera
-
-
 - ovos-skill-cmd
-
-
 - ovos-skill-confucius-quotes
-
-
 - ovos-skill-date-time
-
-
 - ovos-skill-days-in-history
-
-
 - ovos-skill-dictation
-
-
 - ovos-skill-fallback-unknown
-
-
 - ovos-skill-fuster-quotes
-
-
 - ovos-skill-hello-world
-
-
 - ovos-skill-icanhazdadjokes
-
-
 - ovos-skill-ip
-
-
 - ovos-skill-iss-location
-
-
 - ovos-skill-laugh
-
-
 - ovos-skill-local-media
-
-
 - ovos-skill-moviemaster
-
-
 - ovos-skill-naptime
-
-
 - ovos-skill-number-facts
-
-
 - ovos-skill-parrot
-
-
 - ovos-skill-personal
-
-
 - ovos-skill-pyradios
-
-
 - ovos-skill-randomness
-
-
 - ovos-skill-somafm
-
-
 - ovos-skill-speedtest
-
-
 - ovos-skill-spelling
-
-
 - ovos-skill-spotify
-
-
 - ovos-skill-volume
-
-
 - ovos-skill-weather
-
-
 - ovos-skill-wikihow
-
-
 - ovos-skill-wikipedia
-
-
 - skill-ddg
-
-
 - skill-news
-
-
 - skill-ovos-fallback-chatgpt
-
-
 - skill-wolfie
-
-
 - skill-wordnet
 [INFO] Uninstalling skills...
 Using Python 3.11.2 environment at: .venvs/ovos
 Uninstalled 37 packages in 513ms
 
  - ovos-skill-alerts==0.1.15
-
-
  - ovos-skill-audio-recording==0.2.5a5
-
-
  - ovos-skill-boot-finished==0.4.9
-
-
  - ovos-skill-camera==1.0.3a4
-
-
  - ovos-skill-cmd==0.2.8
-
-
  - ovos-skill-confucius-quotes==0.1.11a1
-
-
  - ovos-skill-date-time==0.4.6
-
-
  - ovos-skill-days-in-history==0.3.9
-
-
  - ovos-skill-dictation==0.2.10
-
-
  - ovos-skill-fallback-unknown==0.1.6a2
-
-
  - ovos-skill-fuster-quotes==0.0.1
-
-
  - ovos-skill-hello-world==0.1.11a4
-
-
  - ovos-skill-icanhazdadjokes==0.3.2
-
-
  - ovos-skill-ip==0.2.7a1
-
-
  - ovos-skill-iss-location==0.2.10
-
-
  - ovos-skill-laugh==0.2.1a3
-
-
  - ovos-skill-local-media==0.2.9
-
-
  - ovos-skill-moviemaster==0.0.8a4
-
-
  - ovos-skill-naptime==0.3.12a1
-
-
  - ovos-skill-number-facts==0.1.10
-
-
  - ovos-skill-parrot==0.1.14
-
-
  - ovos-skill-personal==0.1.9
-
-
  - ovos-skill-pyradios==0.1.5a1
-
-
  - ovos-skill-randomness==0.1.2a1
-
-
  - ovos-skill-somafm==0.1.5
-
-
  - ovos-skill-speedtest==0.3.3a4
-
-
  - ovos-skill-spelling==0.2.6a3
-
-
  - ovos-skill-spotify==0.1.9
-
-
  - ovos-skill-volume==0.1.13a2
-
-
  - ovos-skill-weather==0.1.14
-
-
  - ovos-skill-wikihow==0.2.14
-
-
  - ovos-skill-wikipedia==0.6.0a1
-
-
  - skill-ddg==0.1.15
-
-
  - skill-news==0.1.12
-
-
  - skill-ovos-fallback-chatgpt==0.1.12
-
-
  - skill-wolfie==0.3.0
-
-
  - skill-wordnet==0.1.1
 [SUCCESS] All skills have been uninstalled successfully.
 [WARNING] Note: This operation only deletes the skills. Configuration files and pipeline plugins (which still influence intent matching) are NOT affected by this action.
@@ -477,17 +314,9 @@ If the default model is not working well for you, consider training your own pre
 resources for creating a more tailored solution:
 
 - [Helpful Wake Word Datasets on Hugging Face](https://huggingface.co/collections/Jarbas/wake-word-datasets-672cc275fa4bddff9cf69c39)
-
-
 - [Data Collection](https://github.com/secretsauceai/wakeword-data-collector)
-
-
 - [Wake Word Trainer](https://github.com/secretsauceai/precise-wakeword-model-maker)
-
-
 - [precise-lite-trainer Code](https://github.com/OpenVoiceOS/precise-lite-trainer)
-
-
 - [Synthetic Data Creation for Wake Words](https://github.com/OpenVoiceOS/ovos-ww-auto-synth-dataset)
 
 ### Alternative Wake Word: Vosk Plugin
@@ -529,32 +358,14 @@ example for "hey  computer"
 ```
 
 - `lang` - lang code for model, optional, will use global value if not set. only used to download models
-
-
 - `debug` - if true will print extra info, like the transcription contents, useful for adjusting "samples"
-
-
 - `rule` - how to process the transcript for detections
-
-
     - `contains` - if the transcript contains any of provided samples
-
-
     - `equals` - if the transcript exactly matches any of provided samples
-
-
     - `starts` - if the transcript starts with any of provided samples
-
-
     - `ends` - if the transcript ends with any of provided samples
-
-
     - `fuzzy` - fuzzy match transcript against samples
-
-
 - `samples` - list of samples to match the rules against, optional, by default uses keyword name
-
-
 - `full_vocab` - use the full language model vocabulary for transcriptions, if false (default) will run in keyword mode
 
 > 💡 `"lang"` does not need to match the main language, if there is no vosk model for your language you can try faking it with similar sounding words from a different one
@@ -569,17 +380,9 @@ choosing a wake word that will work well in various environments:
   and less likely to be confused with common words in everyday speech. For example:
 
     - **Bad Example:** "Bob" (short, common name)
-
-
     - **Less Bad Example:** "Computer" (common word)
-
-
     - **Good Example:** "Ziggy" (uncommon)
-
-
     - **Better Example:** "Hey Ziggy" (3 syllables, longer)
-
-
 - **Uncommon Words:** Choose a wake word that is not often used in regular conversation. This reduces the chance of
   false triggers when other words sound similar to your wake word. Unique and uncommon names, phrases, or combinations
   of sounds work best.
@@ -595,8 +398,6 @@ choosing a wake word that will work well in various environments:
 ## Audio Issues
 
 - **Run Diagnostics script:**
-
-
     - raspOVOS includes a helper script `ovos-audio-diagnostics` that will print basic info about your sound system
 
 ```bash
@@ -622,8 +423,6 @@ CARD NAME: snd_rpi_proto
 ```
 
 - **Check Input Devices:**
-
-
     - Run `arecord -l` to list all detected audio capture devices (microphones).
 
 ```text
@@ -638,8 +437,6 @@ Subdevice #0: subdevice #0
 ```
 
 - **Check Output Devices:**
-
-
     - Run `aplay -l` to list all detected audio playback devices (speakers). Verify your card is being detected
       correctly
   
@@ -666,17 +463,9 @@ Subdevice #0: subdevice #0
 ```
 
 - **Verify Volume and Mute status:**
-
-
     - Run `alsamixer` and verify that volume isn't too low or audio muted.
-
-
 - **Check audio setup logs:**
-
-
 - During boot the audio setup generates logs, which are saved to the `/tmp` directory:
-
-
     - `/tmp/autosoundcard.log` (for soundcard autoconfiguration)
     
 
@@ -711,14 +500,8 @@ Fri 17 Jan 11:42:48 WET 2025 - ALSA default card set to: 3
 ```
 
 - **Confirm available audio sinks:**
-
-
     - Run `wpctl status` to check the available outputs as seen by `pipewire`.
-
-
     - The default sinks will be marked with `*`
-
-
 - You can inspect a sink by its number with `wpctl inspect $SINK_ID`
   
 
@@ -809,11 +592,7 @@ id 36, type PipeWire:Interface:Node
 ```
 
 - **Test Audio:**
-
-
     - Record a short test file with `arecord -f test.wav`.
-
-
     - Play it back with `aplay test.wav`.
 
 ---

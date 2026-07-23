@@ -263,7 +263,7 @@ Default parameters:
 
 **Abort flow:**
 
-```
+```text
 Bus receives "mycroft.skills.abort_execution"
   └─► abort() called in main thread
       ├─► emit "mycroft.audio.speech.stop"  (if stop_tts=True)

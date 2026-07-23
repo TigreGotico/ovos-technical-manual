@@ -19,56 +19,28 @@ This tutorial is designed for users new to Raspberry Pi and RaspOVOS. Follow the
 ### Raspberry Pi Model Recommendations
 
 - **Recommended:** Raspberry Pi 4 or 5.
-
-
     - For offline [STT](stt-plugins.md) (speech-to-text), the **Raspberry Pi 5** offers significant performance improvements.
-
-
 - **Minimum Requirement:** Raspberry Pi 3.
-
-
     - **Note:** The Raspberry Pi 3 will work but may be **extremely slow** compared to newer models.
 
 ### Storage Options
 
 - **SD Card or USB Storage:**
-
-
     - You can use either a microSD card or a USB drive.
-
-
 - **Recommended:** USB SSD Drive for maximum speed and performance.
-
-
     - Connect the USB drive to the **blue USB 3.0 port** for optimal performance.
 
 ### Power Supply Considerations
 Raspberry Pi boards are notoriously **picky about power supplies**. Insufficient power can lead to performance issues, random reboots, or the appearance of the **undervoltage detected** warning (a lightning bolt symbol in the top-right corner of the screen).
 
 - **Recommended Power Supplies:**
-
-
     - Raspberry Pi 4: 5V 3A USB-C power adapter.
-
-
     - Raspberry Pi 5: Official Raspberry Pi 5 USB-C power adapter or equivalent high-quality adapter with sufficient current capacity.
-
-
 - **Common Issues:**
-
-
     - Using cheap or low-quality chargers or cables may result in voltage drops.
-
-
     - Long or thin USB cables can cause resistance, reducing the power delivered to the board.
-
-
 - **How to Fix:**
-
-
     - Always use the official power adapter or a trusted brand with a stable 5V output.
-
-
     - If you see the **"undervoltage detected"** warning, consider replacing your power supply or cable.
 
 ---
@@ -79,8 +51,6 @@ Raspberry Pi boards are notoriously **picky about power supplies**. Insufficient
 
 
     - Visit [Raspberry Pi Imager](https://www.raspberrypi.com/software/) and download the appropriate version for your OS.
-
-
     - Install and launch the imager.
 
 
@@ -88,14 +58,8 @@ Raspberry Pi boards are notoriously **picky about power supplies**. Insufficient
 
 
     - Insert your SD card or USB drive into your computer.
-
-
     - In the Raspberry Pi Imager:
-
-
         - **Choose OS:** Select "Use custom" and locate the RaspOVOS image file.
-
-
         - **Choose Storage:** Select your SD card or USB drive.
 
 
@@ -109,17 +73,9 @@ Raspberry Pi boards are notoriously **picky about power supplies**. Insufficient
 
 
     - Click **Next** and select **Edit Settings** to customize settings, including:
-
-
         - **Password:** Change the default password.
-
-
         - **Hostname:** Set a custom hostname for your device.
-
-
         - **Wi-Fi Credentials:** Enter your Wi-Fi network name and password.
-
-
         - **Keyboard Layout:** Configure the correct layout for your region.
 
    **Important:** **Do NOT change the default username** (`ovos`), as it is required for the system to function properly.
@@ -132,8 +88,6 @@ Raspberry Pi boards are notoriously **picky about power supplies**. Insufficient
 
 
     - Click **Save** and then **Yes** to flash the image onto your storage device.
-
-
     - Once complete, safely remove the SD card or USB drive from your computer.
 
 ---
@@ -143,8 +97,6 @@ Raspberry Pi boards are notoriously **picky about power supplies**. Insufficient
 ### Connect and Power On
 
 - Insert the SD card or connect the USB drive to your Raspberry Pi.
-
-
 - Plug in the power supply and connect an HDMI monitor to observe the boot process.
 
 ### First Boot Process
@@ -214,8 +166,6 @@ The most straightforward method is to set up Wi-Fi during the imaging process.
 ### OVOS First Launch
 
 - On the first run, OVOS may take longer to initialize.
-
-
 - When ready, OVOS will say: **"I am ready"** (requires an Internet connection).
 
 ---
@@ -281,8 +231,6 @@ to reprint the full list.
 ### Check Logs in Real-Time
 
 - Use the `ologs` command to monitor logs live on your screen.
-
-
 - If you're unsure whether the system has finished booting, check logs using this command.
 
 ---

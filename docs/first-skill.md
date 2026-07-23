@@ -26,7 +26,7 @@ translated. That's the whole model — [Anatomy of a Skill](skill-structure.md) 
 
 Make this structure (replace `youruser` with your name/handle later):
 
-```
+```text
 ovos-skill-my-first/
 ├── pyproject.toml
 └── ovos_skill_my_first/
@@ -84,7 +84,7 @@ extra event handlers, and so on).
 `ovos_skill_my_first/locale/en-US/intents/Hello.intent` — one example phrase per line. OVOS
 learns the *pattern* from these, so you don't have to list every wording:
 
-```
+```text
 hello
 hi there
 say hello
@@ -96,7 +96,7 @@ greet me
 `ovos_skill_my_first/locale/en-US/dialog/hello.dialog` — one option per line; OVOS picks one at
 random so the assistant doesn't sound robotic:
 
-```
+```text
 Hello! Nice to meet you.
 Hi there!
 Hey — how can I help?
@@ -144,12 +144,16 @@ pip install -e .
 
 Restart `ovos-core` (or it will pick the skill up on its next scan) — see
 [Stage 1 of Troubleshooting](troubleshooting.md#stage-1-is-the-service-even-running-and-is-the-bus-reachable)
-for exactly how to start/restart the OVOS services. Then say the wake word first, **"Hey
-Mycroft"**, wait for the listening chime, and then say:
+for exactly how to start/restart the OVOS services. Then say your configured wake word first
+(default **"Hey Mycroft"**), wait for the listening chime, and then say:
 
 > "**hello**"
 
 …and OVOS replies with one of your dialog lines. 🎉 You just wrote a skill.
+
+!!! note "If OVOS doesn't reply"
+    Check the skills log for your skill_id: `ovos-logs show -l skills` — see
+    [Troubleshooting](troubleshooting.md) for how to read what it's telling you.
 
 !!! tip "No microphone handy, or want to test without talking?"
     You can send the utterance straight onto the bus as text, skipping the wake word and mic

@@ -250,7 +250,7 @@ OVOS reads configuration from several layered files, [merged in order](config.md
 more specific file overrides a more general one. The layer meant for fleet-wide, admin-managed
 settings is the **system config**, at a fixed path:
 
-```
+```text
 /etc/mycroft/mycroft.conf
 ```
 

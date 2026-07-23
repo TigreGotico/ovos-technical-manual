@@ -43,7 +43,7 @@ syntax) and the greeting picks up the stored name automatically, even after a re
 
 ## Storage Location
 
-```
+```text
 $XDG_CONFIG_HOME/<base_folder>/skills/<skill_id>/settings.json
 
 ```
@@ -56,7 +56,7 @@ installs `XDG_CONFIG_HOME` is `~/.config`, so the effective default is
 
 For `OVOSAbstractApplication`:
 
-```
+```text
 $XDG_CONFIG_HOME/<base_folder>/apps/<skill_id>/settings.json
 
 ```

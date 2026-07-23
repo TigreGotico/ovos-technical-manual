@@ -396,7 +396,7 @@ directory of the repository.
 
 > Something went wrong?
 
-Don't panic! If the installer fails, it will generate a log file and upload it to [https://dpaste.com](https://dpaste.com). Please share that link with the community so we can help you out.
+Don't panic! If the installer fails, it will generate a log file and upload it to [https://dpaste.com](https://dpaste.com). Please share that link on **[OVOS Chat on Matrix](https://matrix.to/#/!XFpdtmgyCoPDxOMPpH:matrix.org?via=matrix.org)** so the community can help you out.
 
 OVOS is a community-driven project, maintained by passionate volunteers. Your feedback, bug reports, and patience are truly appreciated.
 

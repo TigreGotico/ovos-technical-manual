@@ -44,7 +44,7 @@ Sample contents of the Intent and dialog files:
 
 `what.is.a.tomato.intent`
 
-```
+```text
 what is a tomato
 what would you say a tomato is
 describe a tomato
@@ -55,7 +55,7 @@ what defines a tomato
 
 `tomato.description.dialog`
 
-```
+```text
 The tomato is a fruit of the nightshade family
 A tomato is an edible berry of the plant Solanum lycopersicum
 A tomato is a fruit but nutrionists consider it a vegetable
@@ -100,7 +100,7 @@ The second template intent ([Padatious](padatious-pipeline.md)), **do.you.like.i
 
 `do.you.like.intent`
 
-```
+```text
 do you like tomatoes
 do you like {type} tomatoes
 
@@ -109,7 +109,7 @@ do you like {type} tomatoes
 
 `like.tomato.type.dialog`
 
-```
+```text
 I do like {type} tomatoes
 {type} tomatoes are my favorite
 
@@ -118,7 +118,7 @@ I do like {type} tomatoes
 
 `like.tomato.generic.dialog`
 
-```
+```text
 I do like tomatoes
 tomatoes are my favorite
 

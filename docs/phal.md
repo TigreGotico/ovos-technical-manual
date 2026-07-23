@@ -33,7 +33,7 @@ and is launched by its own console script (`ovos_PHAL` / `ovos_PHAL_admin`):
 | `PHAL` | `opm.phal` | `ovos_PHAL` | `mycroft.conf["PHAL"]` | Auto (validator + not `enabled: false`) | Current user |
 | `AdminPHAL` | `opm.phal.admin` | `ovos_PHAL_admin` | `mycroft.conf["PHAL"]["admin"]` | Opt-in (`"enabled": true` required) | Root / privileged |
 
-```
+```text
 ┌──────────────────────────────────────────────────────┐
 │  ovos-core  /  ovos-audio  /  skills                 │
 │           (OVOS MessageBus)                          │
