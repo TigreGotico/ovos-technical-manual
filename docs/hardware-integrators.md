@@ -36,6 +36,9 @@ specifically reusing an i2c HAT or the SJ201 board design.
 
 ## Writing your own hardware driver: `AbstractLed` / `AbstractSwitches`
 
+`ovos-hardware-helpers` also ships an `AbstractFan` base (covered below) for
+fan-speed and thermal-shutdown control.
+
 !!! note "Illustrative skeletons"
     The `MyRingLed` and switch examples below are illustrative skeletons, not complete,
     copy-pasteable drivers — real hardware needs the actual bus/SPI/GPIO calls for your board
@@ -126,9 +129,29 @@ class MyButtonPanel(AbstractSwitches):
         pass
 ```
 
-Wire an instance of either class up inside a `PHALPlugin.__init__`, polling your GPIO/i2c
+### Fans: `AbstractFan`
+
+```python
+from ovos_hardware_helpers.fan import AbstractFan
+
+
+class MyFanController(AbstractFan):
+    def set_fan_speed(self, percent: int):
+        pass  # drive a PWM pin, 0-100
+
+    def get_fan_speed(self) -> int:
+        return 0  # last commanded 0-100 speed
+
+    def get_cpu_temp(self) -> float:
+        return -1.0  # celsius, or -1.0 if not available
+
+    def shutdown(self):
+        pass  # set the fan to a reasonable speed before exit
+```
+
+Wire an instance of any of these classes up inside a `PHALPlugin.__init__`, polling your GPIO/i2c
 hardware on a background thread (or driving it from an interrupt callback) and calling the
-matching `on_*`/`set_led` methods. See [PHAL: Writing PHAL Plugins](phal.md#writing-phal-plugins)
+matching `on_*`/`set_led`/`set_fan_speed` methods. See [PHAL: Writing PHAL Plugins](phal.md#writing-phal-plugins)
 for the full plugin lifecycle, validator, and entry-point registration.
 
 ---

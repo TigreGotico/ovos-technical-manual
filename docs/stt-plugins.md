@@ -7,7 +7,7 @@
     STT sits inside the audio input service, specified by **[OVOS-AUDIO-IN-1 — Audio Input Service](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md)**: capture → audio-transformer chain → STT → utterance. The transcript is emitted on `ovos.utterance.handle` ([OVOS-PIPELINE-1 §9.1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)). See the [spec index](architecture-specs.md).
 
 !!! note "Audio format contract"
-    Everything upstream of an STT plugin — the [microphone plugin](mic-plugins.md#the-microphone-interface) and any audio transformers — hands over raw PCM in a fixed shape: **16 kHz sample rate, 16-bit samples, mono, little-endian**, delivered in **4096-byte chunks** by default (the `Microphone` template's `sample_rate`/`sample_width`/`sample_channels`/`chunk_size` defaults). A batch `STT.execute()` plugin gets this bundled into a `speech_recognition.AudioData` object; a `StreamingSTT` plugin receives it chunk-by-chunk, still at this same format, unless a deployment explicitly reconfigures the microphone.
+    Everything upstream of an STT plugin — the [microphone plugin](mic-plugins.md#the-microphone-interface) and any audio transformers — hands over raw PCM in a fixed shape: **16 kHz sample rate, 16-bit samples, mono, little-endian**, delivered in **4096-byte chunks** by default (the `Microphone` template's `sample_rate`/`sample_width`/`sample_channels`/`chunk_size` defaults). A batch `STT.execute()` plugin gets this bundled into a `speech_recognition.AudioData` object; a `StreamingSTT` plugin receives it chunk-by-chunk, still at this same format, unless a deployment explicitly reconfigures the microphone. Neither the `STT` nor the `StreamingSTT` template resamples on the plugin's behalf: if the wrapped model expects a different native rate, converting the incoming 16 kHz PCM is the plugin's own job.
 
 STT (Speech-to-Text) plugins convert spoken audio into text. They are the bridge
 between the listener and the intent pipeline.
@@ -66,6 +66,13 @@ The plugin author needs to implement the `create_streaming_thread()` method crea
 The thread this method creates should be based on the `StreamThread` class. Its abstract `handle_audio_stream(audio, language)` method also needs to be implemented — it receives a generator of audio chunks and should set `self.text` to the transcript; `finalize()` returns that stored text once the stream ends.
 
 ### Chunk semantics
+
+Audio arrives synchronously per chunk: `stream_data()` is called once per captured
+chunk on the mic thread, so it must return well under the per-chunk time budget
+(the same real-time cadence constraint a wake-word plugin's `update(chunk)` runs
+under — see [Wake Word Plugins: Key Methods](wake-word-plugins.md#key-methods)). Do any
+slow work (network calls, heavy inference) on the `StreamThread` this class
+manages, not inline in `stream_data()`.
 
 `StreamingSTT` runs the streaming work on a background thread, fed through a queue:
 
@@ -221,9 +228,9 @@ separately-licensed model, that is called out under "model".
 | [ovos-stt-plugin-mms](#ovos-stt-plugin-mms) | OVOS plugin for [The Massively Multilingual Speech (MMS) project](https://huggingface.co/docs/transformers/main/en/model_doc/mms) ⚠️ **Archived** — MMS models also run under [ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2). | Apache-2.0 (model: see model card) |
 | [ovos-stt-server-plugin](#ovos-stt-server-plugin) | OpenVoiceOS companion plugin for [OpenVoiceOS STT Server](https://github.com/OpenVoiceOS/ovos-stt-http-server) | Apache-2.0 |
 | [ovos-stt-http-server](#ovos-stt-http-server) | Turn any OVOS STT plugin into a micro service! | Apache-2.0 |
-| [ovos-stt-plugin-whisper](#ovos-stt-plugin-whisper) | OpenVoiceOS STT plugin for [Whisper](https://github.com/guillaumekln/faster-whisper), using transformers library | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-whisper](#ovos-stt-plugin-whisper) | OpenVoiceOS STT plugin for [Whisper](https://github.com/guillaumekln/faster-whisper), using transformers library | Apache-2.0 (default model: [openai/whisper-large-v3-turbo](https://huggingface.co/openai/whisper-large-v3-turbo)) |
 | [ovos-stt-plugin-whispercpp](#ovos-stt-plugin-whispercpp) | OpenVoiceOS STT plugin for [whispercpp](https://github.com/ggerganov/whisper.cpp) | Apache-2.0 (model: see model card) |
-| [ovos-stt-plugin-fasterwhisper](#ovos-stt-plugin-fasterwhisper) | OpenVoiceOS STT plugin for [Faster Whisper](https://github.com/guillaumekln/faster-whisper) | Apache-2.0 (model: see model card) |
+| [ovos-stt-plugin-fasterwhisper](#ovos-stt-plugin-fasterwhisper) | OpenVoiceOS STT plugin for [Faster Whisper](https://github.com/guillaumekln/faster-whisper) | Apache-2.0 (default model: [mobiuslabsgmbh/faster-whisper-large-v3-turbo](https://huggingface.co/mobiuslabsgmbh/faster-whisper-large-v3-turbo)) |
 | [ovos-stt-plugin-nemo](#ovos-stt-plugin-nemo) | OpenVoiceOS STT plugin for [Nemo](https://docs.nvidia.com/nemo-framework/user-guide/latest/nemotoolkit/asr/models.html), GPU is **strongly recommended** | Apache-2.0 (model: see model card) |
 | [ovos-stt-plugin-whisper-lm](#ovos-stt-plugin-whisper-lm) | OpenVoiceOS STT plugin for [Whisper-LM-transformers](https://github.com/hitz-zentroa/whisper-lm-transformers), KenLM and Large language model integration with Whisper ASR models implemented in Hugging Face library. | Apache-2.0 (model: see model card) |
 | [ovos-stt-plugin-citrinet](#ovos-stt-plugin-citrinet) | OpenVoiceOS STT plugin | Apache-2.0 (model: see model card) |

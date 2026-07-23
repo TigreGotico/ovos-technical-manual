@@ -114,10 +114,10 @@ The reranker is optional. Without one, selection falls back to the skills'
 self-reported confidences.
 
 !!! note "Shipped defaults differ slightly"
-    The bundled `mycroft.conf` ships an `intents.common_query` section that
-    overrides some of the library defaults above: `max_response_wait: 6`,
-    `extension_time: 3`, and `reranker: "ovos-choice-solver-bm25"` (instead of
-    the library's own fallback of `ovos-flashrank-reranker-plugin`).
+    The bundled `mycroft.conf` ships an `intents.ovos-common-query-pipeline-plugin`
+    section that overrides some of the library defaults above: `max_response_wait: 6`
+    and `extension_time: 3`. Its `reranker` is `ovos-flashrank-reranker-plugin` —
+    the same plugin the library falls back to when no reranker is configured at all.
 
 ---
 

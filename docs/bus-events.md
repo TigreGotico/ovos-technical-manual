@@ -81,6 +81,9 @@ See [Fallback Pipeline](fallback-pipeline.md#bus-events-handled).
 |---|---|---|
 | `ovos.skills.fallback.register` | `handle_register_fallback` | Register a skill as a fallback handler |
 | `ovos.skills.fallback.deregister` | `handle_deregister_fallback` | Remove a fallback handler |
+| `ovos.skills.fallback.ping` | `_handle_fallback_ack` (skill-side) | Fallback service asks every registered skill whether it can handle the utterance |
+| `ovos.skills.fallback.pong` | `handle_ack` (service-side) | A skill's reply to the ping, `can_handle` true/false |
+| `ovos.skills.fallback.{skill_id}.request` | `_handle_fallback_request` (skill-side) | Service asks one specific skill to actually process the utterance |
 
 ## Skill lifecycle
 
@@ -124,7 +127,12 @@ Handled by `ovos-audio`; see [Audio Service](audio-service.md).
 | `mycroft.audio.play_sound` | Play a sound effect / audio file instantly |
 | `mycroft.audio.speech.stop` | Interrupt in-progress TTS speech (emitted by the [`@intent_handler(..., stop_tts=True)`](decorators.md) decorator, among others) |
 | `mycroft.audio.service.play` | Legacy media audioservice: play a track (only relevant when `enable_old_audioservice` is on) |
-| `recognizer_loop:utterance_start` | Emitted by the playback thread right before spoken audio starts playing. An in-progress change ([ovos-audio#146](https://github.com/OpenVoiceOS/ovos-audio/pull/146)) will add a `duration` field to its payload — **Upcoming**. |
+| `recognizer_loop:utterance_start` | Emitted by the playback thread right before spoken audio starts playing |
+| `recognizer_loop:audio_output_start` (spec: `ovos.audio.output.started`) | Emitted by the playback thread when audio actually starts playing |
+| `recognizer_loop:audio_output_end` (spec: `ovos.audio.output.ended`) | Emitted by the playback thread when audio finishes playing |
+
+!!! note "Adding a `duration` field to `utterance_start`"
+    Carrying the synthesized clip's duration on `recognizer_loop:utterance_start` itself (rather than requiring a listener to wait for the output-end pair) is **Upcoming**.
 
 ## GUI forwarding
 

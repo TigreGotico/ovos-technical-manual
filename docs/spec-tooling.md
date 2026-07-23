@@ -27,11 +27,15 @@ clause-for-clause.
 | Primitive | Spec | What it does |
 |-----------|------|--------------|
 | Sentence-template expander | [OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md) | Expands `(a\|b)` / `[opt]` / `{slot}` / `<vocab>` into the sentences it denotes |
-| Locale resource loader | [OVOS-INTENT-2](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md) | Loads a skill's `locale/` `.intent` / `.dialog` / `.voc` / `.entity` / `.prompt` files |
+| Locale resource loader | [OVOS-INTENT-2](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md) | Loads a skill's `locale/` `.intent` / `.dialog` / `.voc` / `.entity` / `.blacklist` / `.prompt` files |
 | Dialog & prompt renderer | [OVOS-INTENT-2 §4](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md) | Renders a spoken `.dialog` line or a `.prompt` with slot substitution |
 | Language-tag matching | [OVOS-INTENT-2 §2.2](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md) | Picks the closest available BCP-47 language for a request |
 | Message envelope | [OVOS-MSG-1](https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md) | The `{type, data, context}` `Message` and its `forward`/`reply`/`response` derivations |
-| `ovos-spec-lint` | [OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md) / [-2](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md) | A linter that validates a `locale/` folder against the resource-format specs |
+| `Session` / `SessionManager` | [OVOS-SESSION-1](https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md) | The registered session-carrier field set with omission-not-null (de)serialization, plus a process-wide one-object-per-`session_id` registry that folds each incoming snapshot onto the live object and re-stamps `forward`/`reply`/`response` derivations with it |
+| Context gating & decay | [OVOS-CONTEXT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md) | Stateless helpers over the flat `session.intent_context` map: `gate_satisfied`/`is_live`/`decrement`/`prune`/`enforce_cap` for `requires_context`/`excludes_context` gating and decay, plus `context_supplied_slots`/`context_slot_candidates` for context-sourced slot fill |
+| `IntentBuilder` / `Intent` | [OVOS-INTENT-4 §5](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md) | Adapt-free, plugin-agnostic keyword-intent definition — `require`/`optionally`/`one_of`/`exclude`/`build()` — mapping to the `ovos.intent.register.keyword` payload; `voc_match` matches an utterance against a `.voc` file; source-compatible with the `ovos-workshop` classes it replaces |
+| `SpecMessage` | multiple ([PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md), [INTENT-4](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md), [STOP-1](https://github.com/OpenVoiceOS/architecture/blob/dev/stop-1.md), [PERSONA-1](https://github.com/OpenVoiceOS/architecture/blob/dev/persona-1.md), [FALLBACK-1](https://github.com/OpenVoiceOS/architecture/blob/dev/fallback-1.md), …) | An enum of every canonical `ovos.*` spec bus topic, plus `MIGRATION_MAP`/`NamespaceTranslator` — the legacy↔`ovos.*` rename table the [namespace bridge](bus-service.md#namespace-migration) applies |
+| `ovos-spec-lint` | [OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md) / [-2](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md) | A linter that validates a `locale/` folder against the resource-format specs, including `.blacklist`/`.entity` naming and slot-free constraints |
 
 ```bash
 pip install ovos-spec-tools            # core — no dependencies (Python 3.10+)
@@ -54,6 +58,23 @@ Lint a skill's locale folder against the grammar and format specs:
 
 ```bash
 ovos-spec-lint my-skill/locale
+```
+
+The session carrier, the keyword-intent builder, and the canonical topic
+vocabulary follow the same pattern — plain data plus stdlib-only helpers:
+
+```python
+from ovos_spec_tools import IntentBuilder, Session, SpecMessage
+
+# OVOS-SESSION-1 wire-shape carrier; SessionManager (in ovos_spec_tools.session)
+# is the optional one-object-per-session_id registry built on top of it
+session = Session(session_id="default", lang="en-US")
+
+# OVOS-INTENT-4 §5 keyword-intent structure — adapt-free, source-compatible
+# with the ovos-workshop IntentBuilder skills already import
+intent = IntentBuilder("HelloIntent").require("Hello").build()
+
+SpecMessage.SPEAK.value  # -> 'ovos.utterance.speak', the spec-canonical topic name
 ```
 
 !!! tip "When to reach for it"

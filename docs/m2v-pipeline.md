@@ -151,6 +151,38 @@ utterances, music-query templates, and per-language skill intents.
 
 ---
 
+## Training your own model
+
+The published `Jarbas/ovos-model2vec-intents-*` models are built from a
+`train/` toolchain shipped inside the `ovos-m2v-pipeline` source repository
+(it is not part of the installed pip package). The pipeline is:
+
+1. **Gather a dataset** — `gather_dataset.py` (multilingual) or
+   `gather_dataset_en.py` (English-only) downloads and merges intent examples
+   from `Jarbas/ovos_intent_examples` and `Jarbas/music_queries_templates` on
+   Hugging Face, plus per-language intent CSVs from the OpenVoiceOS
+   [lang-support-tracker](https://github.com/OpenVoiceOS/lang-support-tracker).
+   The output is a CSV with columns `lang`, `label`, `sentence`, where `label`
+   follows the `<skill_id>:<intent_name>` format.
+2. **Train** — `train_multilingual.py` fine-tunes a classifier head on top of
+   `minishlab/M2V_multilingual_output`; `train_en.py` trains one per English
+   Potion base model (`minishlab/potion-base-{2M,4M,8M,32M}`,
+   `minishlab/potion-retrieval-32M`). Each run saves a `StaticModelPipeline`
+   directory plus a metrics report.
+3. **Optional distillation** — `distill.py` calls `model2vec.distill.distill()`
+   to turn a Sentence Transformer that has no Model2Vec distillate yet into a
+   usable base model.
+4. **Smoke-test** — load the saved directory with
+   `StaticModelPipeline.from_pretrained(...)` and call `.predict()` /
+   `.predict_proba()` on a few example sentences before publishing.
+
+Point the plugin's `model` config key at your own Hugging Face repo or a local
+path to the saved pipeline directory once you are happy with it. See the
+`ovos-m2v-pipeline` repository's own training documentation for the full
+dataset schema and script options.
+
+---
+
 ## Gotcha: ordering against the deterministic engines
 
 Model2Vec generalises well, which also means it can claim an utterance a more
