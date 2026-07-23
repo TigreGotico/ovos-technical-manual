@@ -83,7 +83,9 @@ If you are running OVOS manually, you can use these commands:
 
 ## Subsystem Enable Flags
 
-You can customize which parts of `ovos-core` start by using flags in the CLI or settings in your configuration:
+You can customize which parts of `ovos-core` start, but only from the **CLI** — these are
+constructor arguments to `main()`/`SkillManager`, not `mycroft.conf` keys, so there is no
+configuration-file equivalent:
 
 | Flag | Subsystem |
 |---|---|

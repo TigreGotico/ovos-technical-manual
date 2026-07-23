@@ -80,7 +80,7 @@ All settings live under the `websocket` key in `mycroft.conf`:
 | Key | Default | Description |
 |---|---|---|
 | `host` | `"127.0.0.1"` | Bind address. The shipped default restricts to localhost; set `"0.0.0.0"` to bind all interfaces. |
-| `port` | `8181` | TCP port. The GUI service uses a separate port (`18181`). |
+| `port` | `8181` | TCP port. The GUI service uses a separate port, `18181` by default (config key `gui_websocket.base_port`). |
 | `route` | `"/core"` | WebSocket URL path. Full URL: `ws://host:port/core`. |
 | `ssl` | `false` | Enable WSS/TLS. |
 | `shared_connection` | `true` | When `true`, all skills share ovos-core's single bus connection. Set `false` to give each skill its own connection (so one skill cannot manipulate another's bus traffic). |
@@ -276,22 +276,23 @@ so **`ovos-bus-client` migrates automatically and incrementally** — the legacy
 and the new names interoperate transparently while the ecosystem moves over.
 
 The canonical legacy ↔ spec topic map lives in the `NamespaceTranslator` from
-[`ovos-spec-tools`](spec-tooling.md), and the bus client applies it in two
-orthogonal directions, both **on by default**:
+[`ovos-spec-tools`](spec-tooling.md), and each `MessageBusClient` applies it on the
+**receive** side, not by putting a second copy on the wire:
 
-- **emit** — a migrated message is *dual-sent* on **both** the legacy and the
-  `ovos.*` topic. The mirrored copy is reshaped into the counterpart topic's
-  payload shape (identity for payload-compatible renames; a per-topic transform
-  where the shape changed), so a consumer on either topic receives it in *its*
-  expected shape.
-- **listen** — subscribing to *either* name (`bus.on(...)`) also subscribes to
-  its counterpart, with **de-duplication** so a handler that would match both
-  fires exactly once.
+- A single logical `emit()` sends exactly **one** message over the websocket — the topic the
+  caller actually chose.
+- When that message arrives back over the websocket (to every connected client, including the
+  sender), each client's `on_message` handler locally re-dispatches it under its counterpart
+  topic(s) too, using the translator to reshape the payload where the shape changed. This is a
+  listener-delivery convenience *inside each process*, not a second bus message — the broadcast
+  server never sees or re-broadcasts a counterpart frame.
+- **listen** — subscribing to *either* name (`bus.on(...)`) also delivers the counterpart, with
+  **de-duplication** so a handler that would match both fires exactly once.
 
-The result: a producer and a consumer can each switch from a legacy topic to its
-`ovos.*` spec name **in any order, with no coordination** — there is no flag day.
-A repo that has fully adopted `ovos.*` keeps working against one that has not,
-and vice-versa.
+The result is the same practical guarantee — a producer and a consumer can each switch from a
+legacy topic to its `ovos.*` spec name **in any order, with no coordination**, and no flag day —
+achieved by translating on receipt in every connected process rather than by widening what goes
+out on the wire.
 
 ### Turning the bridges off
 
@@ -300,12 +301,14 @@ variable or bus configuration:
 
 | Direction | Env var | Config key | Effect |
 |---|---|---|---|
-| modernize | `OVOS_BUS_MODERNIZE` | `modernize` | emitting a **legacy** topic also emits the `ovos.*` one |
-| emit_legacy | `OVOS_BUS_EMIT_LEGACY` | `emit_legacy` | emitting an **`ovos.*`** topic also emits the legacy one |
+| modernize | `OVOS_BUS_MODERNIZE` | `modernize` | a received **legacy** topic is also locally re-dispatched under its `ovos.*` counterpart |
+| emit_legacy | `OVOS_BUS_EMIT_LEGACY` | `emit_legacy` | a received **`ovos.*`** topic is also locally re-dispatched under its legacy counterpart |
 
-A deployment whose components all speak `ovos.*` can set `emit_legacy=false` to
-drop the legacy copies (and the extra bus traffic); one with no legacy producers
-left can also disable `modernize`. Until then, leave both on — that is what keeps
+Because the bridging happens per-process on receive, turning a direction off only stops that
+process from locally delivering the counterpart to its own handlers — it does not add or remove
+any traffic on the wire. A deployment whose components all speak `ovos.*` can set
+`emit_legacy=false` once no local handler still needs the legacy delivery; one with no legacy
+producers left can also disable `modernize`. Until then, leave both on — that is what keeps
 adoption gradual and safe.
 
 !!! note "Bridged ≠ conformant"
@@ -341,28 +344,19 @@ A separate, drop-in Rust implementation exists as its own project for deployment
 **In plain terms:** on a stable install, run the default Python (Tornado) server; only reach for the Rust build if profiling shows the bus is a bottleneck.
 
 !!! warning "Upcoming — unreleased"
-    Pluggable high-performance backends are in development. The work
-    keeps **Tornado** as the default reference server and adds two
-    optional alternatives, benchmarked side by side with `benchmark/run_benchmark.py` at four
-    load levels (5 / 20 / 50 / 100 concurrent clients):
+    Pluggable high-performance backends are in development. The work keeps **Tornado** as
+    the default reference server and adds two optional alternatives, benchmarked side by
+    side with a bundled benchmark script at a range of concurrent-client loads:
 
     - **webrockets** — a high-performance websocket backend, written in Python. Tracked in
       [ovos-messagebus#51](https://github.com/OpenVoiceOS/ovos-messagebus/pull/51).
     - **Rust** — the [`ovos-rust-messagebus`](https://github.com/OscillateLabsLLC/ovos-rust-messagebus)
       server, run in place of the Python process.
 
-    Throughput vs the Tornado baseline, measured with the included benchmark script:
-
-    | Load | webrockets | Rust |
-    |---|---|---|
-    | 5 clients × 200 msgs | +11% | +18% |
-    | 20 clients × 1000 msgs | +9% | +20% |
-    | 50 clients × 2000 msgs | +24% | +20% |
-    | 100 clients × 500 msgs | +4% | connection errors (saturation) |
-
-    webrockets leads at higher concurrency; the Rust backend showed connection
-    saturation (28 connection errors) at the 100-client level. None of this is on a
-    published release — do not rely on it on a stable install.
+    Early benchmarking shows webrockets ahead at higher concurrency, with the Rust backend
+    showing connection saturation at the highest client counts tested — see the PR above for
+    current numbers. None of this is on a published release — do not rely on it on a stable
+    install.
 
 ---
 
@@ -399,15 +393,24 @@ bus.emit(Message("ovos.utterance.handle", {"utterances": ["what time is it"], "l
 
 # request/response: send a message, then wait for a specific reply type
 response = bus.wait_for_response(
-    Message("ovos.session.sync"),
-    reply_type="ovos.session.update_default",
+    Message("intent.service.adapt.manifest.get"),
+    reply_type="intent.service.adapt.manifest",
     timeout=3.0,
 )
 if response is not None:
-    print(response.data)
+    print(response.data)  # {"intents": [...]} — the registered Adapt intent manifest
 
 bus.close()
 ```
+
+!!! warning "`ovos.session.sync` can't be used this way"
+    A tempting-looking request/response pair is `Message("ovos.session.sync")` replying with
+    `ovos.session.update_default` — but `MessageBusClient.emit()` always auto-injects a
+    `session` object into `message.context` before sending if one isn't already present. That
+    turns every `ovos.session.sync` this client emits into a *session sync* (carrying context),
+    not the legacy *bare default-session request* that triggers an echo — so it never gets a
+    reply this way. `intent.service.adapt.manifest.get` above is a plain request/response pair
+    with no such caveat.
 
 `MessageBusClient()` with no arguments reads `host`/`port`/`route` from `mycroft.conf`'s
 `websocket` section (see [Configuration](#configuration) above). `run_in_thread()` starts the

@@ -65,6 +65,11 @@ uv pip install ovos-core[mycroft] -c https://raw.githubusercontent.com/OpenVoice
 - ⚠️ May include breaking changes
 - 🧪 Not suitable for production use
 
+!!! warning "`--pre` is not scoped to OVOS"
+    `--pre` tells `pip`/`uv` to allow pre-release versions of **every** dependency it
+    resolves, not just the `ovos-*` packages — a transitive dependency you didn't expect
+    can also jump to a pre-release. Use a dedicated virtual environment for alpha testing.
+
 ```bash
 uv pip install ovos-core[mycroft] --pre -c https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-alpha.txt
 
@@ -110,6 +115,11 @@ Rather than using a full distro, you can manually pick which components to insta
 - [`ovos-dinkum-listener`](https://github.com/OpenVoiceOS/ovos-dinkum-listener) – wake word, voice activation
 - [`ovos-gui`](https://github.com/OpenVoiceOS/ovos-gui) – GUI integration (⚠️ the legacy [GUI](gui-service.md) is deprecated and not usable right now; a replacement is in progress — you can omit this on most setups)
 - [`ovos-PHAL`](https://github.com/OpenVoiceOS/ovos-PHAL) – hardware abstraction layer
+
+Media playback (music, podcasts, video) is a separate concern from the components above —
+by default it's handled by a bundled backend inside `ovos-audio`
+(`enable_old_audioservice: true`); see [ovos-media](ovos-media.md) for the upcoming
+standalone player and how to opt into it.
 
 This is useful if you're building something like a **Hivemind node** or **headless device**, where you might not need audio output or a GUI.
 

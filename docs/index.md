@@ -3,6 +3,13 @@
   <p>The complete guide to using, building on, and understanding the OVOS voice assistant — from your first install to the deepest internals.</p>
 </div>
 
+!!! abstract "In a nutshell"
+    OpenVoiceOS (OVOS) is a free, open-source voice assistant you run yourself — an
+    open alternative to Alexa or Google Assistant. This manual covers every layer of
+    it: installing a ready-made device, writing your first skill, and the internals
+    of the messagebus and intent pipeline underneath. Pick a path below that matches
+    what you want to do; you don't need to read it front to back.
+
 ![OVOS Logo](https://github.com/OpenVoiceOS/ovos_assets/blob/master/Logo/ovos-logo-512.png?raw=true){ align=right width="160" }
 
 ## What is OpenVoiceOS?
@@ -165,7 +172,7 @@ makes the rest of the manual click into place:
 
 ## Explore by topic
 
-### 🏗️ Core Architecture
+### :material-city: Core Architecture
 
 Understand the "brain" and "nervous system" of the platform:
 
@@ -174,7 +181,7 @@ Understand the "brain" and "nervous system" of the platform:
 *   **[messagebus Service](bus-service.md)**: Deep dive into the communication backbone.
 *   **[Configuration](config.md)**: Master the layered configuration system.
 
-### 💻 Developer Resources
+### :material-laptop: Developer Resources
 
 Ready to build your own plugins or skills?
 
@@ -183,7 +190,7 @@ Ready to build your own plugins or skills?
 *   **[Intent Pipelines](pipelines-overview.md)**: Understand how OVOS parses natural language.
 *   **[Skill Testing](ovoscope-overview.md)**: Ensure your skills are robust with `ovoscope`.
 
-### 🌍 Language Support
+### :material-earth: Language Support
 
 OVOS is built for a global community:
 

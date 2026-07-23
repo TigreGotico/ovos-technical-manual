@@ -279,7 +279,10 @@ streams before handing them to the media backend:
 
 ## Media Intents
 
-Before the regular intent stage, OCP handles these utterances (taking into account current player state):
+These are the utterances the [OCP pipeline plugin](#pipeline-configuration) described above
+actually matches, at whichever confidence tier (`-high` / `-medium` / `-low`) it's configured
+for — before the regular intent stage, OCP handles these utterances (taking into account
+current player state):
 
 - `"play {query}"` — always available
 

@@ -147,11 +147,14 @@ intent.service.intent.get  {utterance: "...", lang: "..."}
 | `add_context` | `handle_add_context` |
 | `remove_context` | `handle_remove_context` |
 | `clear_context` | `handle_clear_context` |
-
-The `*_context` events mutate the per-session intent context (`session.intent_context`) specified by [OVOS-CONTEXT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md) — see [Session Aware Skills](session.md).
 | `intent.service.intent.get` | `handle_get_intent` |
 | `intent.service.skills.deactivate` | `_handle_deactivate` |
 | `intent.service.pipelines.reload` | `handle_reload_pipelines` |
+
+The `*_context` events (`add_context` / `remove_context` / `clear_context`) mutate the per-session
+intent context (`session.intent_context`) specified by
+[OVOS-CONTEXT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md) — see
+[Session Aware Skills](session.md).
 
 !!! note "Upcoming — INTENT-4 registration topics"
     An in-progress change ([ovos-workshop#431](https://github.com/OpenVoiceOS/ovos-workshop/pull/431))

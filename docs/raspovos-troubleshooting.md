@@ -56,14 +56,14 @@ The `Session pipeline` line in the log below shows the [default pipeline order](
 
 ```bash
 (ovos) ovos@raspOVOS:~ $ ologs | grep intent
-2025-01-23 16:29:54.299 - skills - ovos_core.intent_services:handle_utterance:416 - INFO - common_qa match: IntentHandlerMatch(match_type='question:action.skill-ovos-wikipedia.openvoiceos', match_data={'phrase': 'Qui és Elon Musk', 'skill_id': 'skill-ovos-wikipedia.openvoiceos', 'answer': "Elon Reeve Musk FRS és un empresari, inversor i magnat conegut pels seus papers clau a l'empresa espacial SpaceX i l'automobilística Tesla, Inc. Les accions i les opinions expressades per Musk l'han convertit en una figura polaritzadora. Després de guanyar al novembre, Trump va anunciar que havia triat Musk per codirigir la junta assessora del nou Departament d'Eficiència Governamental .", 'callback_data': {'answer': "Elon Reeve Musk FRS és un empresari, inversor i magnat conegut pels seus papers clau a l'empresa espacial SpaceX i l'automobilística Tesla, Inc. Les accions i les opinions expressades per Musk l'han convertit en una figura polaritzadora. Després de guanyar al novembre, Trump va anunciar que havia triat Musk per codirigir la junta assessora del nou Departament d'Eficiència Governamental ."}, 'conf': 0.6}, skill_id='skill-ovos-wikipedia.openvoiceos', utterance='Qui és Elon Musk', updated_session=None)
+2025-01-23 16:29:54.299 - skills - ovos_core.intent_services:handle_utterance:416 - INFO - common_qa match: IntentHandlerMatch(match_type='question:action.skill-ovos-wikipedia.openvoiceos', match_data={'phrase': 'Who is Ada Lovelace', 'skill_id': 'skill-ovos-wikipedia.openvoiceos', 'answer': "Ada Lovelace was a mathematician known for her work on Charles Babbage's Analytical Engine.", 'callback_data': {'answer': "Ada Lovelace was a mathematician known for her work on Charles Babbage's Analytical Engine."}, 'conf': 0.6}, skill_id='skill-ovos-wikipedia.openvoiceos', utterance='Who is Ada Lovelace', updated_session=None)
 2025-01-23 16:29:54.300 - skills - ovos_core.intent_services:handle_utterance:436 - DEBUG - intent matching took: 1.5732948780059814
-2025-01-23 16:34:07.672 - skills - ovos_core.intent_services:handle_utterance:399 - INFO - Parsing utterance: ['quina hora és']
+2025-01-23 16:34:07.672 - skills - ovos_core.intent_services:handle_utterance:399 - INFO - Parsing utterance: ['what time is it']
 2025-01-23 16:34:07.675 - skills - ovos_core.intent_services:get_pipeline:234 - DEBUG - Session pipeline: ['stop_high', 'converse', 'ocp_high', 'padatious_high', 'adapt_high', 'ocp_medium', 'fallback_high', 'stop_medium', 'adapt_medium', 'adapt_low', 'common_qa', 'fallback_medium', 'fallback_low']
 2025-01-23 16:34:07.678 - skills - ovos_core.intent_services:handle_utterance:430 - DEBUG - no match from <bound method StopService.match_stop_high of <ovos_core.intent_services.stop_service.StopService object at 0x7fff2b036310>>
 2025-01-23 16:34:07.686 - skills - ovos_core.intent_services:handle_utterance:430 - DEBUG - no match from <bound method ConverseService.converse_with_skills of <ovos_core.intent_services.converse_service.ConverseService object at 0x7fff7159ae50>>
 2025-01-23 16:34:07.691 - skills - ovos_core.intent_services:handle_utterance:430 - DEBUG - no match from <bound method OCPPipelineMatcher.match_high of <ocp_pipeline.opm.OCPPipelineMatcher object at 0x7fff26ac3910>>
-2025-01-23 16:34:07.696 - skills - ovos_core.intent_services:handle_utterance:416 - INFO - padatious_high match: IntentHandlerMatch(match_type='skill-ovos-date-time.openvoiceos:what.time.is.it.intent', match_data={}, skill_id='skill-ovos-date-time.openvoiceos', utterance='quina hora és', updated_session=None)
+2025-01-23 16:34:07.696 - skills - ovos_core.intent_services:handle_utterance:416 - INFO - padatious_high match: IntentHandlerMatch(match_type='skill-ovos-date-time.openvoiceos:what.time.is.it.intent', match_data={}, skill_id='skill-ovos-date-time.openvoiceos', utterance='what time is it', updated_session=None)
 2025-01-23 16:34:07.698 - skills - ovos_core.intent_services:handle_utterance:436 - DEBUG - intent matching took: 0.022924184799194336
 
 ```
@@ -104,7 +104,7 @@ The following skills are installed:
  'skill-ovos-fallback-unknown.openvoiceos',
  'ovos-skill-pyradios.openvoiceos',
  'skill-ovos-icanhazdadjokes.openvoiceos',
- 'ovos-skill-cmd.forslund',
+ 'ovos-skill-cmd.openvoiceos',
  'ovos-skill-spotify.openvoiceos',
  'skill-ovos-randomness.openvoiceos',
  'skill-ovos-naptime.openvoiceos',
@@ -116,7 +116,7 @@ The following skills are installed:
  'skill-ovos-somafm.openvoiceos',
  'skill-ovos-news.openvoiceos',
  'skill-ovos-wolfie.openvoiceos',
- 'ovos-skill-fuster-quotes.openvoiceos']
+ 'ovos-skill-example-quotes.openvoiceos']
 [SUCCESS] Skill listing completed.
 
 ```
@@ -158,7 +158,7 @@ Skill ids:
 21) - skill-ovos-fallback-unknown.openvoiceos
 22) - ovos-skill-pyradios.openvoiceos
 23) - skill-ovos-icanhazdadjokes.openvoiceos
-24) - ovos-skill-cmd.forslund
+24) - ovos-skill-cmd.openvoiceos
 25) - ovos-skill-spotify.openvoiceos
 26) - skill-ovos-randomness.openvoiceos
 27) - skill-ovos-naptime.openvoiceos
@@ -170,22 +170,16 @@ Skill ids:
 33) - skill-ovos-somafm.openvoiceos
 34) - skill-ovos-news.openvoiceos
 35) - skill-ovos-wolfie.openvoiceos
-36) - ovos-skill-fuster-quotes.openvoiceos
+36) - ovos-skill-example-quotes.openvoiceos
 Select skill number: 36
 
-Skill name: ovos-skill-fuster-quotes.openvoiceos
-Description: La cita del dia de Fuster
+Skill name: ovos-skill-example-quotes.openvoiceos
+Description: A random quote of the day
 Usage examples:
 
-    - La frase del Fuster del dia
-    - Necessito alguna idea fusteriana
-    - Algun pensament fusterià?
-    - Digue’m un aforisme del Fuster
-    - Què diria Joan Fuster, aquí?
-    - Vull sentir un aforisme fusterià
-    - Què diu en Fuster?
-    - Què pensen els fusterians?
-    - Digues-me alguna cosa fusteriana
+    - Give me a quote of the day
+    - Say something inspiring
+    - Tell me a quote
 
 ```
 
@@ -213,7 +207,7 @@ Using Python 3.11.2 environment at: .venvs/ovos
 - ovos-skill-days-in-history
 - ovos-skill-dictation
 - ovos-skill-fallback-unknown
-- ovos-skill-fuster-quotes
+- ovos-skill-example-quotes
 - ovos-skill-hello-world
 - ovos-skill-icanhazdadjokes
 - ovos-skill-ip
@@ -254,7 +248,7 @@ Uninstalled 37 packages in 513ms
  - ovos-skill-days-in-history==0.3.9
  - ovos-skill-dictation==0.2.10
  - ovos-skill-fallback-unknown==0.1.6a2
- - ovos-skill-fuster-quotes==0.0.1
+ - ovos-skill-example-quotes==0.0.1
  - ovos-skill-hello-world==0.1.11a4
  - ovos-skill-icanhazdadjokes==0.3.2
  - ovos-skill-ip==0.2.7a1
@@ -600,7 +594,7 @@ You can enable saving of recordings to file, this should be your first step to d
 inteligible? is it being cropped? too noisy? low volume?
 
 > 💡 set `"save_utterances": true` in
-> your [listener config](https://github.com/OpenVoiceOS/ovos-config/blob/V0.0.13a19/ovos_config/mycroft.conf#L436),
+> your [listener config](https://github.com/OpenVoiceOS/ovos-config/blob/V0.0.13a19/ovos_config/mycroft.conf),
 > recordings will be saved to `~/.local/share/mycroft/listener/utterances`
 
 If the recorded audio looks good to you, maybe you need to use a different STT plugin, maybe the one you are using does
@@ -632,7 +626,7 @@ performance and in accuracy (reduces hallucinations in plugins like FasterWhispe
 Depending on your microphone/VAD plugin, this might be removing too much audio
 
 > 💡 set `"remove_silence": false` in
-> your [listener config](https://github.com/OpenVoiceOS/ovos-config/blob/V0.0.13a19/ovos_config/mycroft.conf#L452), this
+> your [listener config](https://github.com/OpenVoiceOS/ovos-config/blob/V0.0.13a19/ovos_config/mycroft.conf), this
 > will send the full audio recording to STT
 
 ### Listen Sound
@@ -641,7 +635,7 @@ does your listen sound contain speech? some users replace the "ding" sound with 
 
 In this case the listen sound will be sent to STT and might negatively affect the transcription
 
-> 💡 set `"instant_listen": false` in your [listener config](https://github.com/OpenVoiceOS/ovos-config/blob/V0.0.13a19/ovos_config/mycroft.conf#L519), this
+> 💡 set `"instant_listen": false` in your [listener config](https://github.com/OpenVoiceOS/ovos-config/blob/V0.0.13a19/ovos_config/mycroft.conf), this
 > will drop the listen sound audio from the STT audio buffer. You will need to wait for the listen sound to finish before speaking your command in this case
 
 ---
