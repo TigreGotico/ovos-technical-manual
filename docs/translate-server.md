@@ -79,7 +79,7 @@ Response (JSON):
 ```json
 {
   "plugin": "ovos-translate-plugin-nllb",
-  "langs": ["en", "pt", "fr", ...]
+  "langs": ["en", "pt", "fr"]
 }
 ```
 

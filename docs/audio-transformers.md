@@ -35,7 +35,7 @@ They run inside the **listener** (e.g. `ovos-dinkum-listener`), driven by the vo
 
 To enable Audio Transformers, add them to your `mycroft.conf` under the `audio_transformers` section:
 
-```json
+```jsonc
 "audio_transformers": {
   "plugin_name": {
     // plugin-specific configuration
@@ -73,7 +73,7 @@ Replace `"plugin_name"` with the identifier of the desired plugin and provide an
 
 * **Configuration Example**:
 
-```json
+```jsonc
   "audio_transformers": {
     "ovos-audio-transformer-plugin-ggwave": {
       "start_enabled": true
@@ -110,7 +110,7 @@ For more information, visit the [GitHub repository](https://github.com/OpenVoice
 
 * **Configuration Example**:
 
-```json
+```jsonc
   "audio_transformers": {
     "ovos-audio-transformer-plugin-speechbrain-langdetect": {}
   }
@@ -142,7 +142,7 @@ For more information, visit the [GitHub repository](https://github.com/OpenVoice
 
 * **Configuration Example**:
 
-```json
+```jsonc
   "audio_transformers": {
     "ovos-audio-transformer-plugin-bandpass": {
       "low_hz": 300,
@@ -241,7 +241,7 @@ The legacy alias `neon.plugin.audio` is still recognized for this group by the p
 
 Add your transformer to `mycroft.conf`:
 
-```json
+```jsonc
 "audio_transformers": {
   "my-custom-audio-transformer": {
     // plugin-specific config options here

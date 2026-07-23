@@ -30,7 +30,7 @@ Utterance transformers register under the `opm.transformer.text` entry-point gro
 
 A transformer is only loaded if its plugin name appears under the `utterance_transformers` section of your `mycroft.conf`; an empty `{}` is enough to enable it. Set `"active": false` to load-skip it. When several are active they run sorted by `priority` (lowest first), each operating on the output of the previous.
 
-```json
+```jsonc
 "utterance_transformers": {
   "plugin_name": {
     // plugin-specific configuration
@@ -68,7 +68,7 @@ pip install ovos-utterance-normalizer
 
 * **Configuration**:
 
-```json
+```jsonc
 "utterance_transformers": {
   "ovos-utterance-normalizer": {}
 }
@@ -114,7 +114,7 @@ pip install ovos-utterance-corrections-plugin
 
 * **Configuration**:
 
-```json
+```jsonc
 "utterance_transformers": {
   "ovos-utterance-corrections-plugin": {}
 }
@@ -148,7 +148,7 @@ pip install ovos-utterance-plugin-cancel
 
 * **Configuration** (the installed package is `ovos-utterance-plugin-cancel`, but its registered plugin name is `ovos-utterance-cancel-plugin`):
 
-```json
+```jsonc
 "utterance_transformers": {
   "ovos-utterance-cancel-plugin": {}
 }
@@ -191,7 +191,7 @@ pip install ovos-bidirectional-translation-plugin
 
 * **Configuration** (the utterance half registers under the entry-point name `ovos-utterance-translation-plugin`):
 
-```json
+```jsonc
 "utterance_transformers": {
     "ovos-utterance-translation-plugin": {
       "verify_lang": true,
@@ -242,7 +242,7 @@ my-custom-transformer = "my_module:MyCustomTransformer"
 **Install and Configure**:
 After installation, add your transformer to the `mycroft.conf`:
 
-```json
+```jsonc
 "utterance_transformers": {
  "my-custom-transformer": {}
 }
@@ -268,7 +268,7 @@ pip install ovos-transcription-validator-plugin
 
 * **Configuration**:
 
-```json
+```jsonc
 "utterance_transformers": {
   "ovos-transcription-validator-plugin": {}
 }

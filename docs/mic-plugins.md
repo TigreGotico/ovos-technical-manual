@@ -20,7 +20,7 @@ pip install ovos-microphone-plugin-<name>
 
 - Update your `mycroft.conf` (or `mycroft.conf`) to specify the plugin:
 
-```json
+```jsonc
 {
  "listener": {
    "microphone": {

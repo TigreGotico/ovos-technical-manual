@@ -189,7 +189,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-wav2vec",
     "ovos-stt-plugin-wav2vec": {
@@ -228,7 +228,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
 "stt": {
     "module": "ovos-stt-plugin-mms",
     "ovos-stt-plugin-mms": {
@@ -249,7 +249,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-server",
     "ovos-stt-plugin-server": {
@@ -280,7 +280,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-wav2vec",
     "ovos-stt-plugin-wav2vec": {
@@ -301,7 +301,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-whisper",
     "ovos-stt-plugin-whisper": {
@@ -323,7 +323,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-whispercpp",
     "ovos-stt-plugin-whispercpp": {
@@ -345,7 +345,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-fasterwhisper",
     "ovos-stt-plugin-fasterwhisper": {
@@ -370,7 +370,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-nemo",
     "ovos-stt-plugin-nemo": {
@@ -392,7 +392,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-whisper-lm",
     "ovos-stt-plugin-whisper-lm": {
@@ -418,7 +418,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-citrinet",
     "ovos-stt-plugin-citrinet": {
@@ -439,7 +439,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
 "stt": {
     "module": "ovos-stt-plugin-nos"
 }
@@ -457,7 +457,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-HiTZ",
     "ovos-stt-plugin-HiTZ": {
@@ -478,7 +478,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-vosk",
     "ovos-stt-plugin-vosk": {
@@ -500,7 +500,7 @@ MySTTConfig = {
 
 ### Default Configuration
 
-```json
+```jsonc
   "stt": {
     "module": "ovos-stt-plugin-onnx-asr",
     "ovos-stt-plugin-onnx-asr": {
