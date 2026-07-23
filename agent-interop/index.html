@@ -1841,19 +1841,18 @@
 </span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>A background asyncio event loop keeps sessions alive between tool calls. Each server's JSON Schema is translated to a Pydantic model at discovery time so the LLM receives the actual input schema.</p>
-<div class="admonition warning">
-<p class="admonition-title"><code>ovos-tool-adapters</code> and the Persona Server's own MCP/UTCP bridge do not currently compose</p>
+<div class="admonition note">
+<p class="admonition-title"><code>ovos-tool-adapters</code> and the Persona Server's own MCP/UTCP bridge</p>
 <p>Both <code>MCPToolBox</code> and <code>UTCPToolBox</code> (from <code>ovos-tool-adapters</code>) and the Persona Server's tool
 surface (<code>/tools/manual</code>, <code>/mcp</code>) are <code>ToolBox</code> plugins under the same <code>opm.agents.toolbox</code>
-entry-point group — so it's natural to expect installing <code>ovos-tool-adapters</code> alongside
-<code>ovos-persona-server</code> would also expose the bridged external tools through the Persona
-Server's own MCP/UTCP endpoints. In the current source, it does not: the Persona Server
-discovers every installed <code>ToolBox</code> plugin and instantiates each one with only
-<code>cls(toolbox_id=name)</code>, but <code>MCPToolBox</code>/<code>UTCPToolBox</code> require a <code>config</code> dict (transport,
-command/args or URL) to know which external server to connect to — their constructors do not
-accept a bare <code>toolbox_id</code> keyword. Instantiation fails and the plugin is silently skipped
-with a warning. Bridged MCP/UTCP tools are therefore only reachable from inside the agentic
-loop (via a persona's <code>toolboxes</code> config), not through the Persona Server's own bridge.</p>
+entry-point group, so installing <code>ovos-tool-adapters</code> alongside <code>ovos-persona-server</code> also
+exposes the bridged external tools through the Persona Server's own MCP/UTCP endpoints.
+Every shipped <code>ToolBox</code> implementation (<code>DuckDuckGoToolbox</code>, <code>WikipediaToolbox</code>, <code>MCPToolBox</code>,
+<code>UTCPToolBox</code>, ...) takes a single optional <code>config</code> dict and derives its own <code>toolbox_id</code>
+internally, rather than the literal <code>toolbox_id</code> keyword declared by the abstract <code>ToolBox</code>
+template — the Persona Server tries the no-argument/config-based convention first, since it
+matches every real-world plugin, and only falls back to the template's <code>toolbox_id</code> kwarg for
+a class that still inherits the base <code>__init__</code> unchanged.</p>
 </div>
 <h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>

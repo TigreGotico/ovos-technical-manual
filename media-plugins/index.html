@@ -1137,6 +1137,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ovos-media-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-media-classifier
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1451,6 +1460,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ovos-media-classifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      ovos-media-classifier
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1485,6 +1503,9 @@ single plugin <strong>package is meant to ship a version for both</strong> — s
   <a href="#ovos-ocp-audio-plugin"><code>ovos-ocp-audio-plugin</code></a> / "old audio service", the shipped default).</li>
 <li><strong><a href="../ovos-media/"><code>ovos-media</code></a></strong> — <code>opm.media.{audio,video,web}</code> (the upcoming daemon).</li>
 </ul>
+<p>Media <em>classifiers</em> are a separate concern from playback backends: they recognize the
+media intent and entities (artist, title, station, …) in an utterance before a stream is
+resolved and played. See <a href="#ovos-media-classifier">ovos-media-classifier</a> below.</p>
 <p>These two families are <strong>separate</strong> (different entry-point groups and base classes), <strong>but a
 plugin package is meant to ship a version for <em>both</em></strong> — so a single <code>pip install</code> gives you a
 backend that works whichever playback system you run. Where a package currently ships only one
@@ -1651,6 +1672,38 @@ family, adding the other is a <strong>TODO</strong>.</p>
   <code>ovos_cli</code>).</p>
 </li>
 </ul>
+<hr />
+<h2 id="ovos-media-classifier">ovos-media-classifier<a class="headerlink" href="#ovos-media-classifier" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-media-classifier">https://github.com/OpenVoiceOS/ovos-media-classifier</a></p>
+</li>
+<li>
+<p><strong>Description</strong>: Classifies an utterance's media intent and extracts entities (artist,
+  title, station, …) ahead of stream resolution. Several backends are available depending on
+  installed extras — <code>KeywordMediaClassifier</code> (bundled locale keyword lists) is the always-available
+  default, with <code>EmbeddingMediaClassifier</code>, <code>HybridMediaClassifier</code>, <code>OnnxMediaClassifier</code>, an
+  Aho-Corasick exact-entity-list matcher (<code>AhocorasickMediaClassifier</code>, <code>[ner]</code> extra), and a
+  <code>metadatarr</code>-backed classifier (<code>MetadatarrMediaClassifier</code>) as optional upgrades. Every backend
+  is importable from the top-level package; the optional ones resolve lazily so their extras are
+  only touched when actually used.</p>
+</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-media-classifier<span class="w">          </span><span class="c1"># keyword backend only</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pip<span class="w"> </span>install<span class="w"> </span>ovos-media-classifier<span class="o">[</span>ner<span class="o">]</span><span class="w">     </span><span class="c1"># + AhocorasickMediaClassifier</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">ovos_media_classifier</span> <span class="kn">import</span> <span class="n">KeywordMediaClassifier</span><span class="p">,</span> <span class="n">AhocorasickMediaClassifier</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>[ner]</code> extra's "NER" is exact entity-list matching, not statistical named-entity
+recognition: <code>AhocorasickMediaClassifier</code> compiles the configured entity lists (your actual
+library — artists, titles, stations) into an Aho-Corasick automaton and matches verbatim; no
+model guesses spans.</p>
+</div>
+<p>The keyword backend self-registers under the <code>opm.media.classifier</code> entry-point group this
+package defines, so it doubles as the reference plugin exercising both OPM discovery and the
+external-plugin path.</p>
 <hr />
 
 

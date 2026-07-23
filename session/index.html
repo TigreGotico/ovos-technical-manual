@@ -1600,6 +1600,26 @@
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">session_id</span><span class="p">)</span>
 </span></code></pre></div>
 <p>If the message originated in the device itself, the <code>session_id</code> is always equal to the reserved value <code>"default"</code>; if it comes from an external client then it will be a unique uuid. The <code>"default"</code> session is special: it is the device-local session whose state the orchestrator holds and persists in-process, rather than receiving it from a client on every message (OVOS-SESSION-2 §5).</p>
+<div class="admonition note">
+<p class="admonition-title">A present-but-malformed session never crashes the bus client</p>
+<p><code>Session.from_message</code> treats an <em>absent</em> <code>session</code> key (or an explicit
+<code>null</code>) as "use the default session" — completely normal. A <code>session</code>
+key that <em>is</em> present but is not a JSON object (a bare string, a number)
+is a different case: a producer bug. Rather than raising and tearing
+down the whole bus connection, the client discards just that one
+malformed message and logs a warning, so one badly-behaved emitter can't
+force every other client into a reconnect loop.</p>
+</div>
+<p>Beyond <code>session_id</code> and <code>lang</code>, a session carries <strong>presentation
+preferences</strong> that follow the session's originator rather than the device —
+useful when a remote participant (a HiveMind satellite, a different-locale
+caller) wants times, dates, units, and place-relative answers rendered for
+<em>their</em> locale: <code>location</code> (an object holding city/coordinate/timezone),
+<code>system_unit</code> (<code>"metric"</code> / <code>"imperial"</code>), <code>time_format</code> (<code>"full"</code> for
+24-hour, <code>"half"</code> for 12-hour), and <code>date_format</code> (e.g. <code>"DMY"</code> / <code>"MDY"</code>).
+All four are optional — an absence falls back to the deployment default —
+and <code>location</code> is what backs the <code>location</code> / <code>location_pretty</code> /
+<code>location_timezone</code> magic properties below.</p>
 <h2 id="magic-properties">Magic Properties<a class="headerlink" href="#magic-properties" title="Permanent link">&para;</a></h2>
 <p>Skills have some "magic properties", these will always reflect the value in the current <code>Session</code></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    <span class="c1"># magic properties -&gt; depend on message.context / Session</span>
@@ -1646,6 +1666,15 @@
 </span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="sd">        initialized for the current Session language as needed.</span>
 </span><span id="__span-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="sd">        &quot;&quot;&quot;</span>
 </span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Two different ways a session gets updated</p>
+<p>An inbound client message <strong>merges</strong> field-by-field onto the stored
+<code>"default"</code> session — a field the client omits is left alone, so a
+client can never delete a stored field just by not sending it. A
+pipeline plugin's <code>Match.updated_session</code>, by contrast, is a <strong>complete
+snapshot</strong>: whatever it doesn't include is treated as deleted. Deletion
+by omission exists on that one pathway only.</p>
+</div>
 <h2 id="per-user-interactions">Per User Interactions<a class="headerlink" href="#per-user-interactions" title="Permanent link">&para;</a></h2>
 <p>Let's consider a skill that keeps track of a chat history, how would such a skill keep track of <code>Sessions</code>?</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">ovos_bus_client.session</span> <span class="kn">import</span> <span class="n">SessionManager</span><span class="p">,</span> <span class="n">Session</span>

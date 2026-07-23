@@ -1560,7 +1560,7 @@ a question.</p>
 <td>discovery handshake (same names)</td>
 </tr>
 <tr>
-<td><code>&lt;skill_id&gt;:common_query</code> — full-answer request to a claiming skill</td>
+<td><code>&lt;skill_id&gt;.common_query.request</code> — full-answer request to a claiming skill (dotted, non-dispatch)</td>
 <td><code>question:query</code> broadcast</td>
 </tr>
 <tr>
@@ -1568,7 +1568,7 @@ a question.</p>
 <td><code>question:query.response</code></td>
 </tr>
 <tr>
-<td><code>&lt;pipeline_id&gt;:common_query</code> — reserved-name handler dispatch</td>
+<td><code>&lt;pipeline_id&gt;:common_query</code> — reserved-name handler dispatch (the one genuine colon/dispatch topic in this family)</td>
 <td><code>question:action.&lt;skill_id&gt;</code></td>
 </tr>
 </tbody>

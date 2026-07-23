@@ -1574,7 +1574,7 @@ is direct:</p>
 <td>The JSON <code>{type, data, context}</code> envelope, <code>source</code>/<code>destination</code> routing, and the <code>forward</code> / <code>reply</code> / <code>response</code> derivations every message obeys.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md"><strong>OVOS-SESSION-1</strong> — Session Carrier Wire Shape</a></td>
+<td><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md"><strong>OVOS-SESSION-1</strong> — Session Specification</a></td>
 <td>The wire shape of the session — the per-conversation state that rides in every message — and the field registry other specs extend.</td>
 </tr>
 <tr>
@@ -1673,13 +1673,27 @@ is direct:</p>
 <p>Each spec is a standalone document with a scope statement, the normative wire
 format, and a conformance section. The key words <strong>MUST</strong>, <strong>SHOULD</strong>, and
 <strong>MAY</strong> are used as in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a>.</p>
+<p>Every spec header carries two separate numbers, and it matters which one you
+cite:</p>
 <ul>
-<li><strong>Newcomers:</strong> read the scope and the worked examples; skip the conformance
+<li><strong>Version</strong> — the spec's compatibility class (V0/V1/V2, see the README
+  registry below). It changes only when an edit breaks compatibility with the
+  prior class; a spec is cited by class (<code>OVOS-MSG-1 v1</code>).</li>
+<li>
+<p><strong>Revision</strong> — a monotonic counter of normative edits <em>within</em> a class,
+  starting at <code>1</code>. A refinement — tightening a requirement, adding an
+  optional field, correcting a cross-reference — bumps the revision, not the
+  version. <code>Revision</code> disambiguates which text of a given class you mean
+  (<code>v1 rev 3</code>); non-normative edits (typos, formatting) don't bump it at all.</p>
+</li>
+<li>
+<p><strong>Newcomers:</strong> read the scope and the worked examples; skip the conformance
   tables until you need them. Start with
   <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md">OVOS-MSG-1</a>
   (the message), then
   <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1</a>
-  (how an utterance is handled).</li>
+  (how an utterance is handled).</p>
+</li>
 <li><strong>Skill authors:</strong> OVOS-INTENT-1 → INTENT-2 → INTENT-3 cover everything you
   declare; add INTENT-4 only if you need the registration wire format.</li>
 <li><strong>Plugin / orchestrator builders:</strong> the conformance sections are your test

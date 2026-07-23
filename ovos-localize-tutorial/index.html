@@ -1502,6 +1502,20 @@ we'll enable it.</p>
 </ul>
 <p>You can also use the <strong>auto-translate</strong> button to get a machine-translation starting
 point, then fix it up — much faster than starting from a blank box.</p>
+<div class="admonition note">
+<p class="admonition-title">Some languages skip machine translation on purpose</p>
+<p>For a small set of "human-first" languages — Kabyle (<code>kab</code>) is the first — there is
+little to no reliable machine-translation signal, so the auto-translate button is
+hidden rather than risk anchoring you to a plausible-looking but wrong first draft.
+You translate straight from the English source instead; everything else about the
+editor works the same.</p>
+</div>
+<p>The editor also supports right-to-left languages (Arabic, Hebrew, Persian, Urdu, and
+others written right-to-left): the translation box switches direction automatically,
+and variable placeholders like <code>{location}</code> are kept readable even inside RTL text.</p>
+<p>You can work through a whole file — or several files across different skills — in one
+sitting and submit them together as a single batch; OVOS Localize groups your changes
+by target repository and opens one pull request per repository.</p>
 <h2 id="step-3-submit">Step 3 — Submit<a class="headerlink" href="#step-3-submit" title="Permanent link">&para;</a></h2>
 <p>When you're happy with a file, click <strong>Submit</strong>. OVOS Localize files your work for you
 and a bot turns it into a pull request on GitHub. A native speaker or maintainer reviews

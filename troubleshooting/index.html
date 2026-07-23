@@ -1631,10 +1631,15 @@ the utterance land there with the right text confirms STT worked, regardless of 
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>INFO - adapt_high match (en-us): IntentMatch(...)
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>DEBUG - final intent match: {...}
 </span></code></pre></div>
-<p><code>adapt_high</code> here is one entry of the configurable <code>intents.pipeline</code> list (default order:
-<code>stop_high</code>, <code>converse</code>, <code>ocp_high</code>, <code>padatious_high</code>, <code>adapt_high</code>, <code>ocp_medium</code>, <code>fallback_high</code>,
-<code>stop_medium</code>, <code>adapt_medium</code>, <code>adapt_low</code>, <code>common_qa</code>, <code>fallback_medium</code>, <code>fallback_low</code> — see
-<a href="../pipelines-overview/">Pipelines Overview</a>). If nothing matches, every matcher in that list logs a
+<p><code>adapt_high</code> here is one entry of the configurable <code>intents.pipeline</code> list. The bundled default
+pipeline (see <a href="../pipelines-overview/">Pipelines Overview</a>) uses the canonical plugin IDs, in this
+order:</p>
+<p><code>ovos-stop-pipeline-plugin-high</code>, <code>ovos-converse-pipeline-plugin</code>, <code>ovos-ocp-pipeline-plugin-high</code>,
+<code>ovos-padatious-pipeline-plugin-high</code>, <code>ovos-adapt-pipeline-plugin-high</code>, <code>ovos-m2v-pipeline-high</code>,
+<code>ovos-ocp-pipeline-plugin-medium</code>, <code>ovos-fallback-pipeline-plugin-high</code>,
+<code>ovos-stop-pipeline-plugin-medium</code>, <code>ovos-adapt-pipeline-plugin-medium</code>,
+<code>ovos-fallback-pipeline-plugin-medium</code>, <code>ovos-fallback-pipeline-plugin-low</code></p>
+<p>If nothing matches, every matcher in that list logs a
 miss (as <code>no match from &lt;bound method ...&gt;</code>, naming the matcher's Python function) before the
 utterance falls through to the next stage, and eventually to nothing:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>DEBUG - no match from &lt;bound method ...StopService.match_stop_high ...&gt;

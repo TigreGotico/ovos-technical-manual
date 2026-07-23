@@ -798,6 +798,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further reading
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1412,6 +1421,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further reading
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1440,6 +1458,34 @@
 <p>This whole journey is specified end-to-end: audio capture → STT → utterance by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md">OVOS-AUDIO-IN-1 — Audio Input Service</a></strong>; the utterance lifecycle, matching, and dispatch by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 — Utterance Lifecycle &amp; Pipeline</a></strong>; the enrichment/rewrite points along the way by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md">OVOS-TRANSFORM-1 — Transformer Plugins</a></strong>; and dialog → TTS → playback by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-out.md">OVOS-AUDIO-1 — Audio Output Service</a></strong>. See also the <a href="../architecture-specs/">spec index</a>. Spec topic names are canonical below; the legacy name is noted once where current code still emits it.</p>
 </details>
 <p>This guide provides a technical, step-by-step walkthrough of how an utterance is processed by OpenVoiceOS, from the moment sound hits the microphone to the final spoken response.</p>
+<p>The sequence diagram below traces the same eight stages across the services and bus events involved:</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Mic as Microphone
+    participant Listener as ovos-dinkum-listener
+    participant Bus as messagebus
+    participant Core as ovos-core (IntentService)
+    participant Skill as Skill
+    participant Audio as ovos-audio
+    participant Speakers as Speakers / GUI
+
+    Mic-&gt;&gt;Listener: raw audio stream
+    Listener-&gt;&gt;Listener: wake word + VAD detect
+    Listener-&gt;&gt;Bus: ovos.listener.record.started
+    Listener-&gt;&gt;Listener: STT transcription
+    Listener-&gt;&gt;Bus: ovos.listener.record.ended
+    Listener-&gt;&gt;Bus: ovos.utterance.handle
+    Bus-&gt;&gt;Core: ovos.utterance.handle
+    Core-&gt;&gt;Core: utterance + metadata transformers
+    Core-&gt;&gt;Core: pipeline match (stop → converse → OCP → padatious → adapt → fallback)
+    Core-&gt;&gt;Bus: ovos.intent.matched
+    Bus-&gt;&gt;Skill: dispatch (ovos.intent.handler.start)
+    Skill-&gt;&gt;Skill: intent handler logic
+    Skill-&gt;&gt;Bus: ovos.utterance.speak
+    Skill-&gt;&gt;Bus: ovos.intent.handler.complete
+    Bus-&gt;&gt;Audio: ovos.utterance.speak
+    Audio-&gt;&gt;Audio: dialog transformer + TTS + tts-transformer
+    Audio-&gt;&gt;Speakers: play WAV / update GUI
+    Bus-&gt;&gt;Core: ovos.utterance.handled</code></pre>
 <hr />
 <h2 id="1-capture-and-wake-word-detection">1. Capture and <a href="../wake-word-plugins/">Wake Word</a> Detection<a class="headerlink" href="#1-capture-and-wake-word-detection" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> <code>ovos-dinkum-listener</code> (or similar)
@@ -1482,6 +1528,7 @@
 <p><strong>Metadata Transformers</strong> (§3.3): These can enrich the message context with information like the user's emotion or the current environmental noise level.</p>
 </li>
 </ul>
+<p>If the entry message carried no authoritative <code>lang</code> (the producer did not know the content language for certain — a common case for STT output), the orchestrator resolves the utterance's language <strong>once</strong>, from session evidence (user preference, lang-detect signals), and passes that resolved tag to every pipeline plugin's <code>match</code> call for this utterance. Pipeline plugins may refine the tag they receive (a multilingual matcher may detect a different content language) but must not re-derive it independently from session evidence — a single resolution point keeps the whole match round matching in the same language, rather than leaving the outcome to an accident of pipeline ordering.</p>
 <hr />
 <h2 id="4-intent-pipeline-matching">4. Intent Pipeline Matching<a class="headerlink" href="#4-intent-pipeline-matching" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> <code>ovos-core</code> (Intent Service)
@@ -1508,11 +1555,13 @@
 </li>
 </ol>
 <p>(Other matchers such as <a href="../m2v-pipeline/">Model2Vec</a> and, if installed, <a href="../cq-pipeline/">Common Query</a> for general-knowledge questions, slot into this order too — see <a href="../pipelines-overview/">Pipelines</a> for the full default and how to customize it.)</p>
+<p>Each <code>match</code> call is bounded by a deployment-defined timeout — the recommended default is 10 seconds — so a hung or slow plugin cannot stall the whole pipeline forever; if a plugin overruns the bound, the orchestrator treats it as if it had raised an exception and moves on to the next matcher. When a bound is applied it is set at least as large as any collection window a stage runs internally (for example, a Common Query-style plugin that waits to gather candidate answers), since a shorter match-phase timeout would kill that stage mid-collection on every utterance. The orchestrator's bus loop stays live through the whole match phase too — it keeps servicing subscriptions, including poll replies destined for an in-flight plugin, so a matcher whose strategy involves a bus round-trip (a stop plugin gathering pongs, a converse or fallback poll) is not starved while another plugin's <code>match</code> call is still pending.</p>
 <hr />
 <h2 id="5-skill-execution">5. <a href="../skill-design-guidelines/">Skill</a> Execution<a class="headerlink" href="#5-skill-execution" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> A specific Skill (running in <code>ovos-core</code>)
 <strong>Bus Event:</strong> <code>ovos.intent.matched</code>, <code>{skill_id}.activate</code>, and the specific intent dispatch message.</p>
 <p>Once a match is found, the orchestrator post-processes it through the <strong>intent-transformer chain</strong> (OVOS-TRANSFORM-1 §3.4), emits <code>ovos.intent.matched</code> (§9.2), then dispatches to the winning skill — the winning skill wraps its own handler in the <strong>handler-lifecycle trio</strong> <code>ovos.intent.handler.start</code> → <code>…complete</code> / <code>…error</code> (§8; legacy: <code>mycroft.skill.handler.*</code>) — these are emitted by the skill (via <code>ovos-workshop</code>'s handler wrapper), not the orchestrator. See <a href="../intent-service/">Intent Service</a> for the exact mechanism.</p>
+<p>A handful of intent names are <strong>reserved</strong>: a <code>Match</code> bearing one of them is a continuation or termination of an already-active skill's participation, not a fresh activation, so the dispatch does not push the skill onto <code>session.active_handlers</code> again. That suppression is keyed on the Match's reserved <code>intent_name</code> itself — never on which pipeline plugin produced the match — so the same reserved name behaves identically regardless of where in the pipeline it was matched.</p>
 <ul>
 <li>
 <p>The skill's <strong>intent handler</strong> is triggered.</p>
@@ -1555,7 +1604,14 @@
 <hr />
 <h2 id="8-session-wrap-up">8. <a href="../session/">Session</a> Wrap-up<a class="headerlink" href="#8-session-wrap-up" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> <code>ovos-core</code> (Session Manager)</p>
-<p>The lifecycle closes with exactly one <code>ovos.utterance.handled</code> event (OVOS-PIPELINE-1 §9.5) — the universal end-marker that fires whether an intent matched, a fallback answered, or nothing claimed the utterance. The conversation state is then updated. If the skill requested a follow-up question (e.g., <code>expect_response=True</code>), the listener is reactivated immediately, and the cycle begins again at Step 1, but with the current <strong>Session</strong> context preserved.</p>
+<p>The lifecycle closes with exactly one <code>ovos.utterance.handled</code> event (OVOS-PIPELINE-1 §9.5) — the universal end-marker that fires whether an intent matched, a fallback answered, or nothing claimed the utterance. The conversation state is then updated: <code>turns_remaining</code> decrements after the match round regardless of whether anything matched, though entries freshly written this round are exempt from that decrement. If the skill requested a follow-up question (e.g., <code>expect_response=True</code>), the listener is reactivated immediately, and the cycle begins again at Step 1, but with the current <strong>Session</strong> context preserved.</p>
+<hr />
+<h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../pipelines-overview/">Pipelines Overview</a> — the full default pipeline order and how to customize it.</li>
+<li><a href="../architecture-specs/">Formal Specifications</a> — the OVOS-PIPELINE-1, OVOS-TRANSFORM-1, and companion specs cited throughout this page.</li>
+<li><a href="https://blog.openvoiceos.org/posts/2026-01-25-voice-first">Voice-first</a> — why the assistant's design centers this same utterance journey.</li>
+</ul>
 
 
 

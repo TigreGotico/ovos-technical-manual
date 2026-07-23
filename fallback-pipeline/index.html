@@ -1673,7 +1673,7 @@
 <p><code>FallbackService.match_high/medium/low()</code> filters registered fallbacks to the stage's priority range</p>
 </li>
 <li>
-<p>It pings candidates via <code>ovos.skills.fallback.ping</code> (carrying the priority <code>range</code>) and collects <code>ovos.skills.fallback.pong</code> acknowledgements (<code>can_handle</code>) within ~0.5s</p>
+<p>It pings candidates via <code>ovos.skills.fallback.ping</code> (carrying the priority <code>range</code> and a <code>fallback_request_id</code>) and collects <code>ovos.skills.fallback.pong</code> acknowledgements (<code>can_handle</code>, echoing the same <code>fallback_request_id</code>) within ~0.5s. The request id lets the service ignore a pong that answers a stale or concurrent poll round instead of one it is currently waiting on.</p>
 </li>
 <li>
 <p>Candidates are sorted by priority ascending; the winning match dispatches to that skill via <code>ovos.skills.fallback.{skill_id}.request</code></p>

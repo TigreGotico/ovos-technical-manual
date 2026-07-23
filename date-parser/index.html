@@ -1078,6 +1078,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#spans-not-just-instants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spans, not just instants
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1483,6 +1492,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#spans-not-just-instants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spans, not just instants
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1856,11 +1874,11 @@ duration expressions like "30 minutes" or "two and a half hours."</p>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">duration</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">extract_duration</span><span class="p">(</span><span class="s2">&quot;It will take about 2 hours and 30 minutes&quot;</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">duration</span><span class="p">)</span>   <span class="c1"># timedelta(hours=2, minutes=30)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">remainder</span><span class="p">)</span>  <span class="c1"># &quot;It will take about and&quot;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">remainder</span><span class="p">)</span>  <span class="c1"># &quot;It will take about&quot;</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The remainder keeps whatever surrounds the extracted duration phrase verbatim — connective words like "and" that sat between the matched number groups are not cleaned up.</p>
+<p>The remainder keeps whatever surrounds the extracted duration phrase verbatim, but a connective word ("and" in English, "y" in Spanish) or comma left stranded <em>between two consumed number groups</em> is stripped along with them. A connector that still joins unconsumed text on either side is left alone: <code>extract_duration("two hours and rest and relax", lang="en")</code> returns remainder <code>"and rest and relax"</code>.</p>
 </div>
 <h3 id="formatting-time">Formatting Time<a class="headerlink" href="#formatting-time" title="Permanent link">&para;</a></h3>
 <p>Generate a natural-sounding time format suitable for voice or display in different languages, allowing customization for
@@ -1883,6 +1901,28 @@ speech or written text.</p>
 <blockquote>
 <p>The generic implementation speaks the rounded difference as words — <code>"two hours"</code>, <code>"twenty four hours"</code>, <code>"seven days"</code> — using <code>pronounce_number</code> internally (it does not produce words like "tomorrow"). Basque (<code>eu</code>) is the only language with a dedicated <code>nice_relative_time</code> implementation; everything else uses the generic one.</p>
 </blockquote>
+<h3 id="spans-not-just-instants">Spans, not just instants<a class="headerlink" href="#spans-not-just-instants" title="Permanent link">&para;</a></h3>
+<p>A date phrase often refers to a <em>stretch</em> of time rather than a single instant — "July 2026" is a whole month, "the 1980s" a whole decade. <code>extract_timespan</code> returns that stretch as a <strong><code>DateSpan</code></strong>: a half-open <code>[start, end)</code> interval whose endpoints are <strong><code>AstroDate</code></strong> objects — datetime-like points that are not capped at years 1–9999, so BC dates and far-future dates work too. The span's <em>width carries its precision</em>.</p>
+<p><code>nice_span</code> is the inverse: give it a <code>DateSpan</code> and it picks the label that matches the width — a one-day span reads as a date, a month-wide span as a month, a decade as "the 1980s", a century as "the 19<sup>th</sup> century". For English this round-trips: what <code>nice_span</code> writes, <code>extract_timespan</code> reads back.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">ovos_date_parser</span> <span class="kn">import</span> <span class="n">extract_timespan</span><span class="p">,</span> <span class="n">nice_span</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">span</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">extract_timespan</span><span class="p">(</span><span class="s2">&quot;the 19th century&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">)</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">span</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="n">span</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>   <span class="c1"># 1800-01-01 .. 1900-01-01</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">nice_span</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">))</span>        <span class="c1"># &#39;the 19th century&#39;</span>
+</span></code></pre></div>
+<p>The <code>nice_*</code> datetime formatters also accept an <code>AstroDate</code> directly — it is projected to a regular <code>datetime</code> when it fits, so extracted points can be formatted without unwrapping them first:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">ovos_date_parser</span> <span class="kn">import</span> <span class="n">nice_date</span><span class="p">,</span> <span class="n">nice_time</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span> <span class="nn">ovos_date_parser.astrodate</span> <span class="kn">import</span> <span class="n">AstroDate</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">when</span> <span class="o">=</span> <span class="n">AstroDate</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">nice_date</span><span class="p">(</span><span class="n">when</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>   <span class="c1"># &quot;tuesday, july twenty-first, twenty twenty six&quot;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">nice_time</span><span class="p">(</span><span class="n">when</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;en&quot;</span><span class="p">)</span>   <span class="c1"># &quot;half past three&quot;</span>
+</span></code></pre></div>
+<p><code>nice_span</code> gives a sensible label in every formatting language, but the round-trip guarantee (label back through <code>extract_timespan</code> to the same span) currently holds for English only; matching span grammars for other languages live in the <code>chronologia</code> reckoning core the package builds on.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>English also gains historical calendar and era vocabulary — Julian/holocene/anno-mundi style era references, regnal and Roman-numeral year forms, and richer date-range parsing — as part of this declarative datetime engine. Other languages keep their existing scanners.</p>
+</div>
 <h2 id="related-projects">Related Projects<a class="headerlink" href="#related-projects" title="Permanent link">&para;</a></h2>
 <ul>
 <li>

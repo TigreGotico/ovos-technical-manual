@@ -1168,6 +1168,14 @@ component for spec conformance, not for everyday use.</p>
 <td><code>ovos-dinkum-listener</code>, the default <a href="../speech-service/">voice loop</a>: wake word → record → <a href="../vad-plugins/">VAD</a> → <a href="../stt-plugins/">STT</a>.</td>
 </tr>
 <tr>
+<td><strong>📐 Dispatch-shaped topic</strong></td>
+<td>A bus topic containing <code>:</code>, assembled from identifiers to address one specific registered handler — canonically <code>&lt;skill_id&gt;:&lt;intent_name&gt;</code>. The <code>:</code> is the marker; only a formal specification may define a colon-bearing topic shape. 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md">OVOS-MSG-1 §2.1.1</a>.</td>
+</tr>
+<tr>
+<td><strong>📐 Dotted addressed topic</strong></td>
+<td>An ordinary <code>:</code>-free dotted topic (<code>&lt;x&gt;.&lt;y&gt;.&lt;verb&gt;</code>) that names a specific recipient in one of its segments — e.g. <code>&lt;skill_id&gt;.common_query.request</code> — an addressed message, not a dispatch. 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md">OVOS-MSG-1 §2.1.1</a>, <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/common-query.md">OVOS-COMMON-QUERY-1 §7</a>.</td>
+</tr>
+<tr>
 <td><strong>Embeddings</strong></td>
 <td>Numeric vectors that capture the <em>meaning</em> of text (or audio/images), so similar things sit close together. Used for semantic search and <a href="../persona-memory/">RAG memory</a>.</td>
 </tr>
@@ -1318,6 +1326,10 @@ component for spec conformance, not for everyday use.</p>
 <tr>
 <td><strong>RAG (Retrieval-Augmented Generation)</strong></td>
 <td>Fetching relevant remembered/retrieved context and giving it to an LLM <em>before</em> it answers. See <a href="../persona-memory/">Persona Memory</a>.</td>
+</tr>
+<tr>
+<td><strong>📐 Recency-targeted stop</strong></td>
+<td>The stop plugin's fallback when no handler answers the stoppability poll in time: target the most recently activated <code>active_handlers</code> entry instead of escalating to a global stop. 📐 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/stop-1.md">OVOS-STOP-1 §4.1</a>.</td>
 </tr>
 <tr>
 <td><strong>Release Channel</strong></td>

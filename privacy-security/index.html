@@ -986,6 +986,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#opt-in-wake-word-and-stt-sample-donation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opt-in wake-word and STT sample donation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-messagebus-is-a-trust-boundary-not-a-security-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       The messagebus is a trust boundary, not a security boundary
@@ -1072,27 +1081,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../hardware-integrators/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Hardware Integrators
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
     
@@ -1157,16 +1145,38 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../wyoming-bridges/" class="md-nav__link">
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
         
   
+  
+    <a href="../home-assistant/" class="md-nav__link">
+      
+  
   <span class="md-ellipsis">
-    Home Assistant & Wyoming
+    Home Assistant
   </span>
   
 
-      </a>
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
     </li>
   
 
@@ -1260,6 +1270,15 @@
   <a href="#install-time-telemetry-vs-ongoing-usage-telemetry" class="md-nav__link">
     <span class="md-ellipsis">
       Install-time telemetry vs. ongoing usage telemetry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt-in-wake-word-and-stt-sample-donation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opt-in wake-word and STT sample donation
     </span>
   </a>
   
@@ -1452,6 +1471,17 @@ same thing:</p>
 geolocation lookup performed by the installer at install time (not from any
 setting you type in), so it reflects wherever the machine's internet
 connection is at that moment.</p>
+<hr />
+<h2 id="opt-in-wake-word-and-stt-sample-donation">Opt-in wake-word and STT sample donation<a class="headerlink" href="#opt-in-wake-word-and-stt-sample-donation" title="Permanent link">&para;</a></h2>
+<p>Beyond intent-matching metrics, <code>ovos-dinkum-listener</code> can optionally upload the
+audio samples it captures — wake-word detections and transcribed utterances — to
+an <a href="https://github.com/OpenVoiceOS/ovos-opendata-server">ovos-opendata-server</a>
+instance, so contributors can help improve wake-word and STT plugins with real
+recordings. This is exclusively opt-in and off by default: nothing is ever
+uploaded unless <code>open_data.ww_urls</code> or <code>open_data.stt_urls</code> is explicitly
+configured with at least one server, and there is no default server. Uploads run
+in a background thread and never block the listener; failures are logged and
+otherwise ignored. See <a href="../config-reference/#all-keys-generated"><code>open_data.ww_urls</code> / <code>open_data.stt_urls</code></a> for the exact config keys.</p>
 <hr />
 <h2 id="the-messagebus-is-a-trust-boundary-not-a-security-boundary">The messagebus is a trust boundary, not a security boundary<a class="headerlink" href="#the-messagebus-is-a-trust-boundary-not-a-security-boundary" title="Permanent link">&para;</a></h2>
 <p>Everything inside OVOS — skills, plugins, the voice pipeline — talks over the

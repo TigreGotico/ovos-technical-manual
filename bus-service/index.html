@@ -1997,6 +1997,10 @@ Tornado closes the connection when a message exceeds this size.</p>
 </li>
 </ul>
 <p>The bus recognises only one special message type: <code>connected</code> (emitted to a new client immediately after it opens a connection). All other types are application-level.</p>
+<div class="admonition note">
+<p class="admonition-title">Colon vs. dot: what a topic's shape tells you</p>
+<p>A <code>:</code> anywhere in a topic's <code>type</code> marks it as <strong>dispatch-shaped</strong> — assembled at runtime from identifiers to address one specific registered handler, canonically <code>&lt;skill_id&gt;:&lt;intent_name&gt;</code>. Only a formal spec defines a colon-bearing shape. Every other topic — events, requests, responses, lifecycle signals — uses the dotted <code>&lt;x&gt;.&lt;y&gt;.&lt;verb&gt;</code> form and never contains <code>:</code>. You can classify any topic you see on the bus with that one test.</p>
+</div>
 <p>See <a href="../core-libraries/#ovos-bus-client">Bus Client</a> for the <code>Message</code> Python API.</p>
 <hr />
 <h2 id="sessions">Sessions<a class="headerlink" href="#sessions" title="Permanent link">&para;</a></h2>
@@ -2016,6 +2020,7 @@ Tornado closes the connection when a message exceeds this size.</p>
 </li>
 </ul>
 <p>The default session (<code>session_id="default"</code>) is used by the local microphone. HiveMind satellites each have their own session.</p>
+<p>A <code>session</code> that is entirely absent (or explicitly <code>null</code>) is normal — it just means "use the default session." A <code>session</code> key that is present but isn't a JSON object is a different case, a producer bug: the bus client discards that one message and logs a warning rather than raising, so a single malformed producer can't force every client on the bus into a reconnect loop.</p>
 <p>See <a href="../session/">Bus Session</a> for full <code>Session</code> and <code>SessionManager</code> documentation.</p>
 <hr />
 <h2 id="message-targeting-and-routing">Message Targeting and Routing<a class="headerlink" href="#message-targeting-and-routing" title="Permanent link">&para;</a></h2>
@@ -2339,6 +2344,7 @@ asyncio event loop (e.g. FastAPI servers) that would rather avoid a background t
 <p><a href="../config/">Configuration</a> — <code>mycroft.conf</code> configuration</p>
 </li>
 </ul>
+<p>Further reading: <a href="https://blog.openvoiceos.org/posts/2025-10-24-protocol_interoperability">protocol interoperability between OVOS and other assistant frameworks</a>.</p>
 
 
 

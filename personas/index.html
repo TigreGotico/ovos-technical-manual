@@ -1936,6 +1936,7 @@ fully local, privacy-preserving conversational agents:</p>
 </tr>
 </tbody>
 </table>
+<p>Summon, ask, list, check, and release are <strong>ordinary intents</strong> — locale <code>.intent</code> / <code>.entity</code> resources matched with the same intent machinery any other intent uses. A persona plugin earns no bespoke matching layer of its own; what makes it a persona plugin is that it <em>also</em> catches everything else once a persona is active (the low-confidence catch-all above), not how it recognizes its own commands.</p>
 <hr />
 <h2 id="persona-loading">Persona Loading<a class="headerlink" href="#persona-loading" title="Permanent link">&para;</a></h2>
 <p><code>PersonaService.load_personas()</code> loads from two sources:</p>

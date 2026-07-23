@@ -1637,7 +1637,14 @@
 <td>✅</td>
 <td>🚧</td>
 <td>✅</td>
-<td>🚧</td>
+<td>✅</td>
+</tr>
+<tr>
+<td><code>kab</code> (Kabyle)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
 </tr>
 <tr>
 <td><code>az</code> (Azerbaijani)</td>
@@ -1938,16 +1945,55 @@
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">numbers_to_digits</span><span class="p">(</span><span class="s2">&quot;set a timer for twenty five minutes&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">)</span>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># &quot;set a timer for 25 minutes&quot;</span>
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">def</span> <span class="nf">numbers_to_digits</span><span class="p">(</span><span class="n">utterance</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Scale</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">def</span> <span class="nf">numbers_to_digits</span><span class="p">(</span><span class="n">utterance</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Scale</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>                       <span class="n">ordinals</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">fractions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>                       <span class="n">scale_words</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
 </span></code></pre></div>
-<p><code>scale</code> (<code>Scale.LONG</code> / <code>Scale.SHORT</code>, from <code>ovos_number_parser.util</code>) only matters for <code>pt</code>/<code>mwl</code>. Hand-written rewriting exists for <code>gl</code>, <code>de</code>, <code>pt</code>, <code>mwl</code>, <code>ru</code>, and <code>uk</code> (marked ✅ in the table above); every other language that <code>extract_number</code> supports gets a generic word-span replacement instead (marked 🚧) — it works but is less precise about compound numerals than a hand-written implementation. A language <code>extract_number</code> does not support at all is left unchanged rather than raising.</p>
+<p><code>scale</code> (<code>Scale.LONG</code> / <code>Scale.SHORT</code>, from <code>ovos_number_parser.util</code>) only matters for <code>pt</code>/<code>mwl</code>. Hand-written rewriting exists for <code>gl</code>, <code>de</code>, <code>pt</code>, <code>mwl</code>, <code>ru</code>, <code>uk</code>, <code>en</code>, and <code>kab</code> (marked ✅ in the table above); every other language that <code>extract_number</code> supports gets a generic word-span replacement instead (marked 🚧) — it works but is less precise about compound numerals than a hand-written implementation. A language <code>extract_number</code> does not support at all is left unchanged rather than raising.</p>
+<p>Three keyword-only flags tune what counts as a convertible number. Each defaults to the behavior <code>numbers_to_digits</code> has always had, so existing callers see no change:</p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Default</th>
+<th>Effect when flipped</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ordinals</code></td>
+<td><code>False</code></td>
+<td><code>True</code> also reads ordinal words as values: <code>"the twenty fifth"</code> → <code>"the 25"</code>. Left off, an ordinal word stays a word.</td>
+</tr>
+<tr>
+<td><code>fractions</code></td>
+<td><code>True</code></td>
+<td><code>False</code> keeps a <em>bare</em> fraction word untouched: <code>"half past nine"</code> → <code>"half past 9"</code>. A fraction inside a larger quantity still converts either way: <code>"two and a half hours"</code> → <code>"2.5 hours"</code>.</td>
+</tr>
+<tr>
+<td><code>scale_words</code></td>
+<td><code>True</code></td>
+<td><code>False</code> converts only the count and leaves the scale word alone: <code>"sixty six million years ago"</code> → <code>"66 million years ago"</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">numbers_to_digits</span><span class="p">(</span><span class="s2">&quot;a quarter to five&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="n">fractions</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="s1">&#39;a quarter to 5&#39;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="o">&gt;&gt;&gt;</span> <span class="n">numbers_to_digits</span><span class="p">(</span><span class="s2">&quot;sixty six million years ago&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">,</span> <span class="n">scale_words</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="s1">&#39;66 million years ago&#39;</span>
+</span></code></pre></div>
+<p>Not every language has vocabulary for a flag to suppress — a language whose parser never converted fraction or scale words in the first place already leaves that word untouched, so the flag has nothing to do. <code>ordinals</code> applies uniformly everywhere.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Kabyle (<code>kab</code>) has two coexisting numeral systems: everyday loan-word counting (Arabic-derived above ten, e.g. <code>waḥed u ɛecrin</code> = 21) used for pronunciation, and a formalized pan-Amazigh proposal (invariable tens, descending magnitudes, no connectors) that extraction also recognizes. <code>kab</code> counts only up to 9999 and has no scale or fraction vocabulary, so the <code>scale_words</code>/<code>fractions</code> flags have nothing to suppress there; <code>ordinals</code> still applies.</p>
+</div>
 <h3 id="pronounce-a-fraction">Pronounce a Fraction<a class="headerlink" href="#pronounce-a-fraction" title="Permanent link">&para;</a></h3>
 <p>Speak a fraction string such as <code>"3/2"</code>. Only Portuguese (<code>pt</code>) and Mirandese (<code>mwl</code>) are implemented; any other language raises <code>NotImplementedError</code>.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span> <span class="nn">ovos_number_parser</span> <span class="kn">import</span> <span class="n">pronounce_fraction</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">pronounce_fraction</span><span class="p">(</span><span class="s2">&quot;3/2&quot;</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">)</span>   <span class="c1"># &quot;três meios&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span> <span class="nn">ovos_number_parser</span> <span class="kn">import</span> <span class="n">pronounce_fraction</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="n">pronounce_fraction</span><span class="p">(</span><span class="s2">&quot;3/2&quot;</span><span class="p">,</span> <span class="s2">&quot;pt&quot;</span><span class="p">)</span>   <span class="c1"># &quot;três meios&quot;</span>
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">def</span> <span class="nf">pronounce_fraction</span><span class="p">(</span><span class="n">fraction_word</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Scale</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">def</span> <span class="nf">pronounce_fraction</span><span class="p">(</span><span class="n">fraction_word</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Scale</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
 </span></code></pre></div>
 <h2 id="related-projects">Related Projects<a class="headerlink" href="#related-projects" title="Permanent link">&para;</a></h2>
 <ul>

@@ -1912,9 +1912,24 @@ non-obvious, check the linked source or grep the relevant repo for where the key
 <td>Opt-in list of open-data servers to help improve the intent pipeline by sharing anonymized match data. A dashboard for contributed data is at <a href="https://opendata.tigregotico.pt">https://opendata.tigregotico.pt</a>.</td>
 </tr>
 <tr>
-<td><code>open_data.ww_urls</code>, <code>open_data.stt_urls</code></td>
+<td><code>open_data.ww_urls</code></td>
+<td><code>[]</code></td>
+<td>Opt-in list of open-data servers that receive wake-word audio samples captured by the listener, to help improve wake-word detection.</td>
+</tr>
+<tr>
+<td><code>open_data.stt_urls</code></td>
+<td><code>[]</code></td>
+<td>Opt-in list of open-data servers that receive transcribed utterance audio samples, to help improve STT accuracy.</td>
+</tr>
+<tr>
+<td><code>open_data.user_agent</code></td>
 <td>—</td>
-<td><strong>Upcoming</strong>: documentation for opt-in wake-word and STT open-data endpoints, mirroring <code>intent_urls</code> above, is in progress (<a href="https://github.com/OpenVoiceOS/ovos-config/pull/278">ovos-config#278</a>).</td>
+<td>Optional <code>User-Agent</code> string sent with open-data uploads.</td>
+</tr>
+<tr>
+<td><code>open_data.api_key</code></td>
+<td><code>null</code></td>
+<td>Optional API key, sent as an <code>X-API-Key</code> header, for open-data servers that require one.</td>
 </tr>
 <tr>
 <td><code>sounds.start_listening</code></td>
