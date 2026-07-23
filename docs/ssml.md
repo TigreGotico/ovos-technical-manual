@@ -189,6 +189,10 @@ handle) to the `TTS` base class. The base class then does the filtering for it:
 In other words, the plugin never has to worry about unsupported tags — by the time its `get_tts()`
 sees the text, the markup has already been reduced to what it declared it can handle.
 
+Source: `TTS.modify_tag()` and `TTS.validate_ssml()` in
+[`ovos_plugin_manager/templates/tts.py`](https://github.com/OpenVoiceOS/ovos-plugin-manager/blob/dev/ovos_plugin_manager/templates/tts.py)
+(`ovos-plugin-manager` package).
+
 ```python
 
 # default handling of ssml, advanced plugins may override this method

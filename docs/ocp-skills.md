@@ -58,7 +58,8 @@ length: int # seconds, -1 for live streams
 
 ```
 
-![imagem](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/08e31d2d-90e8-45ea-ab2f-dbd235892cb3)
+![Annotated OCP search results GUI showing a media entry's title, skill_id, duration, image, skill_icon, and background image fields mapped to the corresponding parts of the on-screen result card](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/08e31d2d-90e8-45ea-ab2f-dbd235892cb3)
+*The OCP search results GUI, with each `MediaEntry` field labeled next to the part of the card it fills in: `title` and `skill_id` as text, `duration` as the elapsed-time readout, `image`/`skill_icon`/`bg_image` as the thumbnail, corner icon, and card background respectively.*
 
 ### OCP [Skill](skill-design-guidelines.md)
 

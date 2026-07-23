@@ -117,6 +117,10 @@ This allows users to extend the language capabilities of skills beyond the langu
 
 ## Developer: Resource File Reference
 
+The end-user steps above are dropping files into the same `locale/<lang-code>/` layout described
+below — this section is the developer-facing reference for that layout: which resource types
+exist, how they are looked up, and how to load them from code.
+
 Skills load localized resources from a structured directory layout. Resources are loaded automatically at startup for every language in `native_langs` (`core_lang` + `secondary_langs`).
 
 ### Recommended Layout

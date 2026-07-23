@@ -74,7 +74,14 @@ OVOSSkill(
 
 ```
 
-Modern skills should always accept `**kwargs` and pass them to `super().__init__`.
+Modern skills should always accept `**kwargs` and pass them to `super().__init__`:
+
+```python
+class MySkill(OVOSSkill):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+```
 
 ### Lifecycle Methods
 
@@ -89,7 +96,7 @@ Override these in your skill class:
 | `can_stop(message)` | Before stop | Must be implemented if `stop()` or `stop_session()` is defined |
 | `shutdown()` | Skill unload | Final cleanup after all other shutdown steps |
 
-### Startup Sequence
+### Startup Sequence (`_startup`)
 
 1. Set `skill_id`
 
@@ -106,25 +113,47 @@ Override these in your skill class:
 5. Load resource files (`load_data_files`)
 
 
-6. Register decorated intents (`_register_decorated`)
+6. Register `skill.json` examples with the homescreen (`_register_skill_json`)
 
 
-7. Register homescreen app if `@homescreen_app` used
+7. Register decorated intents (`_register_decorated`)
 
 
-8. Register resting screen if `@resting_screen_handler` used
+8. Register homescreen app if `@homescreen_app` used
 
 
-9. Call `initialize()`
+9. Register resting screen if `@resting_screen_handler` used
 
 
-10. Check first run
+10. Call `initialize()`
 
 
-11. Set status to `ready`
+11. Check first run
 
-See [OVOSSkill](ovos-skill.md#startup-sequence-_startup) for the full sequence
-including `skill.json` homescreen registration.
+
+12. Set status to `ready`
+
+### Shutdown Sequence
+
+1. `SkillManager` calls `shutdown()` — skill-specific cleanup
+
+
+2. `SkillManager` calls `default_shutdown()`, which:
+    1. Calls `stop()`
+    2. Stores settings
+    3. Shuts down the GUI
+    4. Shuts down the event scheduler, clears events
+    5. Emits `detach_skill`
+
+!!! note
+    `shutdown()` and `default_shutdown()` are two separate calls made by
+    `SkillManager` when it unloads a skill — `default_shutdown()` does not call
+    `shutdown()` itself. Override `shutdown()` for your own cleanup code;
+    never call `default_shutdown()` directly.
+
+This constructor/lifecycle/startup/shutdown sequence is shared by every `OVOSSkill`
+subclass below. See [OVOSSkill](ovos-skill.md) for `SkillApi` (inter-skill RPC),
+event scheduling, and the full list of bus events an `OVOSSkill` handles.
 
 ### Key Properties
 
@@ -274,13 +303,16 @@ class MyFallback(FallbackSkill):
 
 ```
 
-Priority determines which pipeline stage checks the fallback first (lower runs earlier):
+Priority determines which internal pipeline stage checks the fallback first (lower runs
+earlier). These are the dispatch stage boundaries, verified in `FallbackService`
+(`ovos_core/intent_services/fallback_service.py`) — a separate fact from *which* priority
+you should actually pick for a handler, covered in [Fallback Skill](fallbacks.md#order-of-precedence):
 
 | Range | Pipeline stage |
 |---|---|
-| 0–4 | `fallback_high` |
-| 5–89 | `fallback_medium` |
-| 90–100 | `fallback_low` |
+| 1–5 | `fallback_high` |
+| 6–90 | `fallback_medium` |
+| 91–101 | `fallback_low` |
 
 Priority can be overridden in config:
 

@@ -97,7 +97,7 @@ This method is called during `__init__`, if you implemented `__init__` in your s
 Perform any final setup needed for the skill here. This function is invoked after the skill is fully constructed and
 registered with the system. Intents will be registered and Skill settings will be available.
 
-If you need to access `self.skill_id`, `self.bus`, `self.settings` or `self.file_system` you must do it here instead of `__init__`
+See the property-availability note above (`__init__()`) — this is where you should access `self.skill_id`, `self.bus`, `self.settings`, and `self.file_system` if you can't wait until they're set.
 
 ```python
 def initialize(self):

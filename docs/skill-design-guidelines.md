@@ -7,6 +7,12 @@ Applying principles of Voice User Interface Design helps you define and validate
 features before diving deep into development — the methods below help plan, prototype, and test
 your skill during the early design stages.
 
+!!! note "Scope: voice interaction design"
+    This page is about **designing the conversation** — when to confirm, how much to say, how
+    to phrase prompts — independent of any programming language. For the **code-level**
+    practices that implement these ideas (which method to override, which API to call), see
+    [Skill Design Best Practices](skill-best-practices.md).
+
 > **CREDITS** - Voice User Interface Design Guidelines based on the [original work of Derick Schweppe](https://derickschweppe.com/mycroft-ai-user-experience)
 
 ## Interactions
@@ -174,12 +180,10 @@ modifying an existing multistep input.
 
 **Better**
 
-| Speaker     |                                                              |        
-
+| Speaker     |                                                              |
 |:------------|:-------------------------------------------------------------|
-| **User**    | _Hey Mycroft, set an alarm for 9:00 am tomorrow_             |        
-
-| **Mycroft** | I've set an alarm for tomorrow at 9:00 am, 16 hours from now |        
+| **User**    | _Hey Mycroft, set an alarm for 9:00 am tomorrow_             |
+| **Mycroft** | I've set an alarm for tomorrow at 9:00 am, 16 hours from now |
 
 The first example requires the user to confirm the alarm. Since the interaction is quite short it isn't necessary to use
 explicit confirmation.

@@ -130,6 +130,12 @@ locale/
 Access via `self.speak_dialog("my.response")`, `self.get_response()`, etc.
 See [resource-files.md](resource-files.md).
 
+!!! note "Nested or flat, both work"
+    Resource lookup walks the whole language directory recursively (`find_resource`'s
+    `os.walk`), so both the nested-by-type layout shown above (`locale/en-us/dialog/x.dialog`)
+    and a flat layout (`locale/en-us/x.dialog`) resolve correctly — pick whichever keeps your
+    skill's `locale/` folder easier to navigate.
+
 ### Intents
 
 Two intent-matching pipeline plugins are supported:

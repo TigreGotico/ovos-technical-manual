@@ -32,6 +32,17 @@ To run `UniversalSkills` you need to configure [Translation plugins](translation
 
 ```
 
+!!! warning "Latency and missing-plugin behavior"
+    Every incoming utterance and every spoken reply that needs translating adds a round trip
+    to the configured translation plugin (a remote server call for `ovos-translate-plugin-server`,
+    or local model inference for an offline plugin) — plan for this extra delay before speech
+    starts. If no `translation_module` (or `detection_module`) is configured, or the configured
+    plugin fails to load, `self.translator` / `self.lang_detector` raise the underlying exception
+    the first time they are accessed — there is no silent fallback to "no translation"; the
+    `OVOSLangTranslationFactory.create()` call is deliberately left unguarded
+    (`ovos_workshop/skills/ovos.py`, `translator` property) so a missing plugin surfaces loudly
+    instead of silently mistranslating.
+
 ## Usage
 
 ### Initialization

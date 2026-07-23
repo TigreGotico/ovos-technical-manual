@@ -7,96 +7,12 @@
 
 `OVOSSkill` is the base class that all OVOS skills inherit from. It handles startup, intent registration, resource loading, settings, event management, GUI, and shutdown.
 
-## Constructor
-
-```python
-OVOSSkill(
-    name: str = None,          # DEPRECATED, use skill_id
-    bus: MessageBusClient = None,
-    resources_dir: str = None,
-    settings: dict = None,     # initial default settings
-    gui: GUIInterface = None,
-    skill_id: str = "",        # set by SkillLoader
-)
-
-```
-
-Modern skills should always accept `**kwargs` and pass them to `super().__init__`:
-
-```python
-class MySkill(OVOSSkill):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-```
-
-## Lifecycle Methods
-
-Override these in your skill class:
-
-| Method | When called | Notes |
-|---|---|---|
-| `initialize()` | After full startup | Legacy. Prefer `__init__`. |
-| `get_intro_message()` | First run only | Return a dialog name or string to speak on first install |
-| `stop()` | User/system stop | Return `True` if the skill handled the stop |
-| `stop_session(session)` | Per-session stop | Called before `stop()`; return `True` to prevent global `stop()` |
-| `can_stop(message)` | Before stop | Must be implemented if `stop()` or `stop_session()` is defined |
-| `shutdown()` | [Skill](skill-design-guidelines.md) unload | Final cleanup after all other shutdown steps |
-
-### Startup Sequence (`_startup`)
-
-1. Set `skill_id`
-
-
-2. Init settings (`_init_settings`)
-
-
-3. Bind bus (`bind`)
-
-
-4. Init GUI (skipped if a `gui` object was already passed to the constructor)
-
-
-5. Load resource files (`load_data_files`)
-
-
-6. Register `skill.json` examples with the homescreen (`_register_skill_json`)
-
-
-7. Register decorated intents (`_register_decorated`)
-
-
-8. Register homescreen app if `@homescreen_app` used
-
-
-9. Register resting screen if `@resting_screen_handler` used
-
-
-10. Call `initialize()`
-
-
-11. Check first run
-
-
-12. Set status to `ready`
-
-### Shutdown Sequence
-
-1. `SkillManager` calls `shutdown()` — skill-specific cleanup
-
-
-2. `SkillManager` calls `default_shutdown()`, which:
-    1. Calls `stop()`
-    2. Stores settings
-    3. Shuts down the GUI
-    4. Shuts down the event scheduler, clears events
-    5. Emits `detach_skill`
-
-!!! note
-    `shutdown()` and `default_shutdown()` are two separate calls made by
-    `SkillManager` when it unloads a skill — `default_shutdown()` does not call
-    `shutdown()` itself. Override `shutdown()` for your own cleanup code;
-    never call `default_shutdown()` directly.
+!!! note "Constructor, lifecycle, and startup/shutdown sequence"
+    The constructor signature, the lifecycle methods to override (`initialize()`, `stop()`,
+    `shutdown()`, etc.), and the full startup/shutdown sequence are documented once, on
+    [Skill Classes](skill-classes.md#ovosskill) — this page covers `OVOSSkill`'s remaining
+    surface: properties, speaking, user input, scheduling, `SkillApi`, and the bus events it
+    handles.
 
 ## Key Properties
 
