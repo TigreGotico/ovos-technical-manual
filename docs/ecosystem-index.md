@@ -66,194 +66,199 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 
 ## Skills (53)
 
+Every entry below is an installable OVOS skill, loaded by ovos-core's skill loader and dispatched
+to by the intent service once installed on a device.
+
 **[ovos-skill-alerts](https://github.com/OpenVoiceOS/ovos-skill-alerts)**
-:   A skill to manage alarms, timers, reminders, events and todos and optionally sync them with a CalDAV service. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   A skill to manage alarms, timers, reminders, events and todos and optionally sync them with a CalDAV service.
 
 **[ovos-skill-application-launcher](https://github.com/OpenVoiceOS/ovos-skill-application-launcher)**
-:   Application Launcher. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Application Launcher.
 
 **[ovos-skill-audio-recording](https://github.com/OpenVoiceOS/ovos-skill-audio-recording)**
-:   Record audio to file, requires ovos-dinkum-listener. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Record audio to file, requires ovos-dinkum-listener.
 
 **[ovos-skill-bandcamp](https://github.com/OpenVoiceOS/ovos-skill-bandcamp)**
-:   Bandcamp skill for your hipster music needs. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Bandcamp skill for your hipster music needs.
 
 **[ovos-skill-boot-finished](https://github.com/OpenVoiceOS/ovos-skill-boot-finished)**
-:   The Finished Booting skill provides notifications when OpenVoiceOS (OVOS) has fully started and all core services are ready. Notifications can be spoken, played as a sound, or simply logged, based on the user's preferences. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   The Finished Booting skill provides notifications when OpenVoiceOS (OVOS) has fully started and all core services are ready. Notifications can be spoken, played as a sound, or simply logged, based on the user's preferences.
 
 **[ovos-skill-camera](https://github.com/OpenVoiceOS/ovos-skill-camera)**
-:   Camera skill for OpenVoiceOS, needs the companion plugin ovos-PHAL-plugin-camera or ovos-PHAL-plugin-termux. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Camera skill for OpenVoiceOS, needs the companion plugin ovos-PHAL-plugin-camera or ovos-PHAL-plugin-termux.
 
 **[ovos-skill-cmd](https://github.com/OpenVoiceOS/ovos-skill-cmd)**
-:   A simple OVOS skill for running shell scripts and other commands. The commands execute quietly without requiring confirmation from OVOS. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   A simple OVOS skill for running shell scripts and other commands. The commands execute quietly without requiring confirmation from OVOS.
 
 **[ovos-skill-color-picker](https://github.com/OpenVoiceOS/ovos-skill-color-picker)**
-:   Look up colors by voice. Powered by ovos-color-parser. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Look up colors by voice. Powered by ovos-color-parser.
 
 **[ovos-skill-confucius-quotes](https://github.com/OpenVoiceOS/ovos-skill-confucius-quotes)**
-:   Quote from Confucius. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Quote from Confucius.
 
 **[ovos-skill-count](https://github.com/OpenVoiceOS/ovos-skill-count)**
-:   CountSkill is a simple skill for Open Voice OS (OVOS) that counts from 1 to any user-specified number — or even infinitely — speaking each number aloud. It supports both cardinal and ordinal formats and works offline thanks to ovos-number-parser. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   CountSkill is a simple skill for Open Voice OS (OVOS) that counts from 1 to any user-specified number — or even infinitely — speaking each number aloud. It supports both cardinal and ordinal formats and works offline thanks to ovos-number-parser.
 
 **[ovos-skill-date-time](https://github.com/OpenVoiceOS/ovos-skill-date-time)**
-:   Get the time, date, day of the week. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Get the time, date, day of the week.
 
 **[ovos-skill-days-in-history](https://github.com/OpenVoiceOS/ovos-skill-days-in-history)**
-:   Informs you of historical tidbits about a given calendar day. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Informs you of historical tidbits about a given calendar day.
 
 **[ovos-skill-ddg](https://github.com/OpenVoiceOS/ovos-skill-ddg)**
-:   Answer factual questions using DuckDuckGo Instant Answers. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Answer factual questions using DuckDuckGo Instant Answers.
 
 **[ovos-skill-diagnostics](https://github.com/OpenVoiceOS/ovos-skill-diagnostics)**
-:   Retrieve system information such as CPU, memory, and language settings. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Retrieve system information such as CPU, memory, and language settings.
 
 **[ovos-skill-dictation](https://github.com/OpenVoiceOS/ovos-skill-dictation)**
-:   continuously transcribes user speech to text file while enabled, made for ovos-dinkum-listener. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   continuously transcribes user speech to text file while enabled, made for ovos-dinkum-listener.
 
 **[ovos-skill-easter-eggs](https://github.com/OpenVoiceOS/ovos-skill-easter-eggs)**
-:   pop culture references skill. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   pop culture references skill.
 
 **[ovos-skill-fallback-unknown](https://github.com/OpenVoiceOS/ovos-skill-fallback-unknown)**
-:   Capture unrecognized Utterances. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Capture unrecognized Utterances.
 
 **[ovos-skill-fuster-quotes](https://github.com/OpenVoiceOS/ovos-skill-fuster-quotes)**
-:   A skill that answers questions about Joan Fuster, a Valencian essayist, poet, and philosopher known for his work on Catalan culture and identity, providing quotes and biographical facts. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   A skill that answers questions about Joan Fuster, a Valencian essayist, poet, and philosopher known for his work on Catalan culture and identity, providing quotes and biographical facts.
 
 **[ovos-skill-ggwave](https://github.com/OpenVoiceOS/ovos-skill-ggwave)**
-:   Voice interface for ggwave plugin. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Voice interface for ggwave plugin.
 
 **[ovos-skill-hello-world](https://github.com/OpenVoiceOS/ovos-skill-hello-world)**
-:   Introductory Skill so that Skill Authors can see how an OVOS Skill is put together. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Introductory Skill so that Skill Authors can see how an OVOS Skill is put together.
 
 **[ovos-skill-homescreen](https://github.com/OpenVoiceOS/ovos-skill-homescreen)**
-:   The home screen is the central place for all your tasks. It is the first thing you will see after completing the onboarding process. It supports a variety of pre-defined widgets which provide you with a quick overview of information you need to know like the current date, time and weather. The home screen contains various features and integrations which you can learn more about in the following sections. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   The home screen is the central place for all your tasks. It is the first thing you will see after completing the onboarding process. It supports a variety of pre-defined widgets which provide you with a quick overview of information you need to know like the current date, time and weather. The home screen contains various features and integrations which you can learn more about in the following sections.
 
 **[ovos-skill-icanhazdadjokes](https://github.com/OpenVoiceOS/ovos-skill-icanhazdadjokes)**
-:   A skill that tells dad jokes on request, sourced from the icanhazdadjoke.com API. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   A skill that tells dad jokes on request, sourced from the icanhazdadjoke.com API.
 
 **[ovos-skill-ip](https://github.com/OpenVoiceOS/ovos-skill-ip)**
-:   Network connection information. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Network connection information.
 
 **[ovos-skill-iss-location](https://github.com/OpenVoiceOS/ovos-skill-iss-location)**
-:   Track the location of the ISS. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Track the location of the ISS.
 
 **[ovos-skill-laugh](https://github.com/OpenVoiceOS/ovos-skill-laugh)**
-:   Makes your voice assistant laugh like a maniac. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Makes your voice assistant laugh like a maniac.
 
 **[ovos-skill-local-media](https://github.com/OpenVoiceOS/ovos-skill-local-media)**
-:   File Browser For Open Voice OS. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   File Browser For Open Voice OS.
 
 **[ovos-skill-mark1-ctrl](https://github.com/OpenVoiceOS/ovos-skill-mark1-ctrl)**
-:   Controls the enclosure api vocally. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Controls the enclosure api vocally.
 
 **[ovos-skill-moviemaster](https://github.com/OpenVoiceOS/ovos-skill-moviemaster)**
-:   OVOS skill to query IMDB about movies. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   OVOS skill to query IMDB about movies.
 
 **[ovos-skill-naptime](https://github.com/OpenVoiceOS/ovos-skill-naptime)**
-:   Put the assistant to sleep when you don't want to be disturbed. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Put the assistant to sleep when you don't want to be disturbed.
 
 **[ovos-skill-news](https://github.com/OpenVoiceOS/ovos-skill-news)**
-:   News Streams catalog. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   News Streams catalog.
 
 **[ovos-skill-number-facts](https://github.com/OpenVoiceOS/ovos-skill-number-facts)**
-:   Facts about numbers. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Facts about numbers.
 
 **[ovos-skill-parrot](https://github.com/OpenVoiceOS/ovos-skill-parrot)**
-:   Turn OpenVoiceOS into a echoing parrot! An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Turn OpenVoiceOS into a echoing parrot!
 
 **[ovos-skill-personal](https://github.com/OpenVoiceOS/ovos-skill-personal)**
-:   Learn history and personality of the assistant. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Learn history and personality of the assistant.
 
 **[ovos-skill-pokepedia](https://github.com/OpenVoiceOS/ovos-skill-pokepedia)**
-:   A child-friendly OpenVoiceOS (OVOS) skill that allows users to query Pokémon data via voice commands. The skill interfaces with the public PokeAPI to retrieve stats, types, moves, and abilities, and provides simplified battle predictions. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   A child-friendly OpenVoiceOS (OVOS) skill that allows users to query Pokémon data via voice commands. The skill interfaces with the public PokeAPI to retrieve stats, types, moves, and abilities, and provides simplified battle predictions.
 
 **[ovos-skill-pyradios](https://github.com/OpenVoiceOS/ovos-skill-pyradios)**
-:   OCP skill for Pyradios, a client for the Radio Browser API. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   OCP skill for Pyradios, a client for the Radio Browser API.
 
 **[ovos-skill-randomness](https://github.com/OpenVoiceOS/ovos-skill-randomness)**
-:   A skill for all kinds of chance - make a choice, roll a die, flip a coin, pick between two choices, etc. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   A skill for all kinds of chance - make a choice, roll a die, flip a coin, pick between two choices, etc.
 
 **[ovos-skill-screenshot](https://github.com/OpenVoiceOS/ovos-skill-screenshot)**
-:   Take screenshots by voice. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Take screenshots by voice.
 
 **[ovos-skill-somafm](https://github.com/OpenVoiceOS/ovos-skill-somafm)**
-:   OCP skill for SomaFM. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   OCP skill for SomaFM.
 
 **[ovos-skill-soundcloud](https://github.com/OpenVoiceOS/ovos-skill-soundcloud)**
-:   soundcloud skill for OCP. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   soundcloud skill for OCP.
 
 **[ovos-skill-speedtest](https://github.com/OpenVoiceOS/ovos-skill-speedtest)**
-:   Ask OVOS to run a simple speedtest. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Ask OVOS to run a simple speedtest.
 
 **[ovos-skill-spelling](https://github.com/OpenVoiceOS/ovos-skill-spelling)**
-:   Let OVOS help you spell words. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Let OVOS help you spell words.
 
 **[ovos-skill-spotify](https://github.com/OpenVoiceOS/ovos-skill-spotify)**
-:   OCP skill for spotify. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   OCP skill for spotify.
 
 **[ovos-skill-tunein](https://github.com/OpenVoiceOS/ovos-skill-tunein)**
-:   OCP skill for TuneIn. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   OCP skill for TuneIn.
 
 **[ovos-skill-volume](https://github.com/OpenVoiceOS/ovos-skill-volume)**
-:   Control the volume of your system. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Control the volume of your system.
 
 **[ovos-skill-wallpapers](https://github.com/OpenVoiceOS/ovos-skill-wallpapers)**
-:   Skill that fetches and sets desktop wallpapers from wallhaven.cc by voice command. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Skill that fetches and sets desktop wallpapers from wallhaven.cc by voice command.
 
 **[ovos-skill-weather](https://github.com/OpenVoiceOS/ovos-skill-weather)**
-:   Weather conditions and forecasts. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Weather conditions and forecasts.
 
 **[ovos-skill-wikihow](https://github.com/OpenVoiceOS/ovos-skill-wikihow)**
-:   How to do nearly everything. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   How to do nearly everything.
 
 **[ovos-skill-wikipedia](https://github.com/OpenVoiceOS/ovos-skill-wikipedia)**
-:   Wikipedia skill for OpenVoiceOS. Adds a voice interface on top of ovos-wikipedia-plugin, which handles all Wikipedia search and retrieval. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Wikipedia skill for OpenVoiceOS. Adds a voice interface on top of ovos-wikipedia-plugin, which handles all Wikipedia search and retrieval.
 
 **[ovos-skill-wolfie](https://github.com/OpenVoiceOS/ovos-skill-wolfie)**
-:   Wolfram Alpha skill for OpenVoiceOS. Adds a voice interface on top of ovos-wolfram-alpha-plugin, which handles all Wolfram Alpha queries. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Wolfram Alpha skill for OpenVoiceOS. Adds a voice interface on top of ovos-wolfram-alpha-plugin, which handles all Wolfram Alpha queries.
 
 **[ovos-skill-word-of-the-day](https://github.com/OpenVoiceOS/ovos-skill-word-of-the-day)**
-:   Get Word of the Day from Dictionary.com., Dicionário Priberam, Portal das Palabras or RodaMots.cat. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Get Word of the Day from Dictionary.com., Dicionário Priberam, Portal das Palabras or RodaMots.cat.
 
 **[ovos-skill-wordnet](https://github.com/OpenVoiceOS/ovos-skill-wordnet)**
-:   WordNet skill for OpenVoiceOS. Adds a voice interface on top of ovos-wordnet-plugin, which handles all WordNet lookups, intent detection, and translation. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   WordNet skill for OpenVoiceOS. Adds a voice interface on top of ovos-wordnet-plugin, which handles all WordNet lookups, intent detection, and translation.
 
 **[ovos-skill-youtube](https://github.com/OpenVoiceOS/ovos-skill-youtube)**
-:   simple youtube skill for better-cps. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   simple youtube skill for better-cps.
 
 **[ovos-skill-youtube-music](https://github.com/OpenVoiceOS/ovos-skill-youtube-music)**
-:   Youtube Music OCP Skill. An installable OVOS skill; loaded by ovos-core's skill loader and dispatched to by the intent service when installed on a device.
+:   Youtube Music OCP Skill.
 
 
 ## STT plugins (11)
 
+Each registers under the `opm.stt` entry-point group and is loaded by ovos-dinkum-listener (or ovos-stt-server) when selected as the active speech-to-text engine, unless noted otherwise.
+
 **[ovos-stt-plugin-azure](https://github.com/OpenVoiceOS/ovos-stt-plugin-azure)**
-:   OpenVoiceOS plugin for Microsoft Azure. Registers under the `opm.stt` entry-point group; loaded by ovos-dinkum-listener (or ovos-stt-server) when selected as the active speech-to-text engine.
+:   OpenVoiceOS plugin for Microsoft Azure.
 
 **[ovos-stt-plugin-chromium](https://github.com/OpenVoiceOS/ovos-stt-plugin-chromium)**
-:   A stt plugin for mycroft using the google chrome browser api. Registers under the `opm.stt` entry-point group; loaded by ovos-dinkum-listener (or ovos-stt-server) when selected as the active speech-to-text engine.
+:   A stt plugin for mycroft using the google chrome browser api.
 
 **[ovos-stt-plugin-citrinet](https://github.com/OpenVoiceOS/ovos-stt-plugin-citrinet)**
-:   OpenVoiceOS STT plugin for Nemo Citrinet. Registers under the `opm.stt` entry-point group; loaded by ovos-dinkum-listener (or ovos-stt-server) when selected as the active speech-to-text engine.
+:   OpenVoiceOS STT plugin for Nemo Citrinet.
 
 **[ovos-stt-plugin-fasterwhisper](https://github.com/OpenVoiceOS/ovos-stt-plugin-fasterwhisper)**
-:   OpenVoiceOS STT plugin for Faster Whisper. Registers under the `opm.stt` entry-point group; loaded by ovos-dinkum-listener (or ovos-stt-server) when selected as the active speech-to-text engine.
+:   OpenVoiceOS STT plugin for Faster Whisper.
 
 **[ovos-stt-plugin-nemo](https://github.com/OpenVoiceOS/ovos-stt-plugin-nemo)**
-:   OpenVoiceOS STT plugin for Nemo, GPU is strongly recommended. Registers under the `opm.stt` entry-point group; loaded by ovos-dinkum-listener (or ovos-stt-server) when selected as the active speech-to-text engine.
+:   OpenVoiceOS STT plugin for Nemo, GPU is strongly recommended.
 
 **[ovos-stt-plugin-vosk](https://github.com/OpenVoiceOS/ovos-stt-plugin-vosk)**
-:   Mycroft STT plugin for Vosk. Registers under the `opm.stt` entry-point group; loaded by ovos-dinkum-listener (or ovos-stt-server) when selected as the active speech-to-text engine.
+:   Mycroft STT plugin for Vosk.
 
 **[ovos-stt-plugin-wav2vec2](https://github.com/OpenVoiceOS/ovos-stt-plugin-wav2vec2)**
-:   OVOS plugin for Wav2Vec2. Registers under the `opm.stt` entry-point group; loaded by ovos-dinkum-listener (or ovos-stt-server) when selected as the active speech-to-text engine.
+:   OVOS plugin for Wav2Vec2.
 
 **[ovos-stt-plugin-whisper-lm](https://github.com/OpenVoiceOS/ovos-stt-plugin-whisper-lm)**
-:   OpenVoiceOS STT plugin for Whisper-LM-transformers, KenLM and Large language model integration with Whisper ASR models implemented in Hugging Face library. Registers under the `opm.stt` entry-point group; loaded by ovos-dinkum-listener (or ovos-stt-server) when selected as the active speech-to-text engine.
+:   OpenVoiceOS STT plugin for Whisper-LM-transformers, KenLM and Large language model integration with Whisper ASR models implemented in Hugging Face library.
 
 **[ovos-stt-plugin-whispercpp](https://github.com/OpenVoiceOS/ovos-stt-plugin-whispercpp)**
-:   OpenVoiceOS STT plugin for whispercpp. Registers under the `opm.stt` entry-point group; loaded by ovos-dinkum-listener (or ovos-stt-server) when selected as the active speech-to-text engine.
+:   OpenVoiceOS STT plugin for whispercpp.
 
 **[ovos-stt-server](https://github.com/OpenVoiceOS/ovos-stt-server)**
 :   Wraps any OVOS STT plugin as a standalone HTTP microservice for speech-to-text and spoken-language detection, so STT can run off-device. Called over HTTP by ovos-stt-server-plugin (or any client speaking its API) instead of loading an STT plugin in-process.
@@ -264,50 +269,52 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 
 ## TTS plugins (18)
 
+Most register under the `opm.tts` entry-point group and are loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine, unless noted otherwise.
+
 **[ovos-tts-plugin-omnivoice](https://github.com/OpenVoiceOS/ovos-tts-plugin-omnivoice)**
 :   ⚠️ No packaged release yet — a TTS plugin wrapping OmniVoice, a massively multilingual (600+ language) zero-shot text-to-speech model with no fixed speaker catalog, supporting auto voice selection, free-text voice design, and short-clip voice cloning. Registers under `opm.tts`; loaded by ovos-audio when selected as the active TTS engine.
 
 **[ovos-tts-plugin-SAM](https://github.com/OpenVoiceOS/ovos-tts-plugin-SAM)**
-:   OpenVoiceOS TTS plugin for S.A.M - Software Automatic Mouth. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   OpenVoiceOS TTS plugin for S.A.M - Software Automatic Mouth.
 
 **[ovos-tts-plugin-ahotts](https://github.com/OpenVoiceOS/ovos-tts-plugin-ahotts)**
-:   OVOS TTS plugin for AhoTTS. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   OVOS TTS plugin for AhoTTS.
 
 **[ovos-tts-plugin-azure](https://github.com/OpenVoiceOS/ovos-tts-plugin-azure)**
-:   This TTS service for OpenVoiceOS requires a subscription to Microsoft Azure and the creation of a Speech resource (. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   This TTS service for OpenVoiceOS requires a subscription to Microsoft Azure and the creation of a Speech resource (.
 
 **[ovos-tts-plugin-beepspeak](https://github.com/OpenVoiceOS/ovos-tts-plugin-beepspeak)**
-:   OpenVoiceOS R2D2 TTS plugin. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   OpenVoiceOS R2D2 TTS plugin.
 
 **[ovos-tts-plugin-coqui](https://github.com/OpenVoiceOS/ovos-tts-plugin-coqui)**
-:   OVOS TTS plugin for Coqui TTS. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   OVOS TTS plugin for Coqui TTS.
 
 **[ovos-tts-plugin-cotovia](https://github.com/OpenVoiceOS/ovos-tts-plugin-cotovia)**
-:   OVOS TTS plugin for Cotovia TTS. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   OVOS TTS plugin for Cotovia TTS.
 
 **[ovos-tts-plugin-edge-tts](https://github.com/OpenVoiceOS/ovos-tts-plugin-edge-tts)**
-:   TTS plugin for OVOS based on Edge-TTS. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   TTS plugin for OVOS based on Edge-TTS.
 
 **[ovos-tts-plugin-espeakNG](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG)**
-:   OpenVoiceOS TTS plugin for espeak-ng. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   OpenVoiceOS TTS plugin for espeak-ng.
 
 **[ovos-tts-plugin-google-tx](https://github.com/OpenVoiceOS/ovos-tts-plugin-google-tx)**
-:   OVOS TTS plugin for gTTS. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   OVOS TTS plugin for gTTS.
 
 **[ovos-tts-plugin-lux](https://github.com/OpenVoiceOS/ovos-tts-plugin-lux)**
-:   LuxTTS plugin for OpenVoiceOS voice assistant platform. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   LuxTTS plugin for OpenVoiceOS voice assistant platform.
 
 **[ovos-tts-plugin-marytts](https://github.com/OpenVoiceOS/ovos-tts-plugin-marytts)**
-:   TTS Plugin for MaryTTS. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   TTS Plugin for MaryTTS.
 
 **[ovos-tts-plugin-mimic](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic)**
-:   OVOS TTS plugin for Mimic. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   OVOS TTS plugin for Mimic.
 
 **[ovos-tts-plugin-pico](https://github.com/OpenVoiceOS/ovos-tts-plugin-pico)**
-:   OpenVoiceOS TTS plugin for PicoTTS. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   OpenVoiceOS TTS plugin for PicoTTS.
 
 **[ovos-tts-plugin-polly](https://github.com/OpenVoiceOS/ovos-tts-plugin-polly)**
-:   Requires Amazon access key. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   Requires Amazon access key.
 
 **[ovos-tts-server](https://github.com/OpenVoiceOS/ovos-tts-server)**
 :   Wraps any OVOS TTS plugin as a standalone microservice — a small, stateless FastAPI app that exposes text-to-speech over HTTP, so TTS can run off-device. Called over HTTP by ovos-tts-server-plugin (or any client speaking its API) instead of loading a TTS plugin in-process.
@@ -316,7 +323,7 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 :   A client-side TTS plugin that forwards text to a remote ovos-tts-server instance over HTTP instead of synthesizing speech locally. Registers under the `opm.tts` entry-point group; loaded by ovos-audio when configured to use a remote TTS server.
 
 **[ovos-tts-transformer-sox-plugin](https://github.com/OpenVoiceOS/ovos-tts-transformer-sox-plugin)**
-:   This repository contains a Python package for a Text-to-Speech (TTS) transformer that utilizes SoX (Sound eXchange) for audio processing. The transformer applies various effects to the generated audio before playback. Registers under the `opm.tts` entry-point group; loaded by ovos-audio (or ovos-tts-server) when selected as the active text-to-speech engine.
+:   This repository contains a Python package for a Text-to-Speech (TTS) transformer that utilizes SoX (Sound eXchange) for audio processing. The transformer applies various effects to the generated audio before playback.
 
 
 ## Wake Word plugins (7)
@@ -399,59 +406,61 @@ There are roughly **260** public, actively-maintained repositories in the [`Open
 
 ## PHAL plugins (18)
 
+Each is a PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+
 **[ovos-PHAL](https://github.com/OpenVoiceOS/ovos-PHAL)**
-:   Plugin based Hardware Abstraction Layer. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   Plugin based Hardware Abstraction Layer.
 
 **[ovos-PHAL-plugin-alsa](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-alsa)**
-:   controls system volume with alsa. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   controls system volume with alsa.
 
 **[ovos-PHAL-plugin-app-launcher](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-app-launcher)**
-:   PHAL plugin for OpenVoiceOS that handles OS-level desktop application management on behalf of ovos-skill-application-launcher (or any other bus client). A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   PHAL plugin for OpenVoiceOS that handles OS-level desktop application management on behalf of ovos-skill-application-launcher (or any other bus client).
 
 **[ovos-PHAL-plugin-camera](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-camera)**
-:   This plugin allows users to interact with cameras using OpenCV or libcamera, take snapshots, and serve video streams over HTTP. It also provides methods for handling camera operations via messagebus events. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   This plugin allows users to interact with cameras using OpenCV or libcamera, take snapshots, and serve video streams over HTTP. It also provides methods for handling camera operations via messagebus events.
 
 **[ovos-PHAL-plugin-connectivity-events](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-connectivity-events)**
-:   Monitors network state and exposes it via messagebus. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   Monitors network state and exposes it via messagebus.
 
 **[ovos-PHAL-plugin-dotstar](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-dotstar)**
-:   PHAL plugin driving DotStar-type LEDs on ReSpeaker 2/4/6/8-mic HATs and the Adafruit VoiceBonnet. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   PHAL plugin driving DotStar-type LEDs on ReSpeaker 2/4/6/8-mic HATs and the Adafruit VoiceBonnet.
 
 **[ovos-PHAL-plugin-gpsd](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-gpsd)**
-:   Exposes location readings from the `gpsd` daemon (USB/serial GPS receivers) to the assistant. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   Exposes location readings from the `gpsd` daemon (USB/serial GPS receivers) to the assistant.
 
 **[ovos-PHAL-plugin-hotkeys](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-hotkeys)**
-:   plugin for Keyboard hotkeys, define key combos to trigger bus events. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   plugin for Keyboard hotkeys, define key combos to trigger bus events.
 
 **[ovos-PHAL-plugin-ipgeo](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-ipgeo)**
-:   Autoconfigure default location based on ip address via ip-api.com. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   Autoconfigure default location based on ip address via ip-api.com.
 
 **[ovos-PHAL-plugin-mk1](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk1)**
-:   handles integration with the Mycroft Mark1 hardware. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   handles integration with the Mycroft Mark1 hardware.
 
 **[ovos-PHAL-plugin-mk2-v6-fan-control](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-mk2-v6-fan-control)**
-:   PHAL plugin controlling the cooling fan on the Mycroft Mark II v6 development kit. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   PHAL plugin controlling the cooling fan on the Mycroft Mark II v6 development kit.
 
 **[ovos-PHAL-plugin-network-manager](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-network-manager)**
-:   Provides the network-management interface for NetworkManager-based systems, using `nmcli` for all communication with NetworkManager. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   Provides the network-management interface for NetworkManager-based systems, using `nmcli` for all communication with NetworkManager.
 
 **[ovos-PHAL-plugin-oauth](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-oauth)**
-:   ⚠️ Early-stage — bridges the `oauth.*` bus messages so a skill can register an OAuth application and have the OVOS shell drive the authorization flow, storing the resulting credentials. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   ⚠️ Early-stage — bridges the `oauth.*` bus messages so a skill can register an OAuth application and have the OVOS shell drive the authorization flow, storing the resulting credentials.
 
 **[ovos-PHAL-plugin-pulseaudio](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-pulseaudio)**
-:   controls system volume with pulseaudio. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   controls system volume with pulseaudio.
 
 **[ovos-PHAL-plugin-system](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-system)**
-:   Provides system specific commands to OVOS. The dbus interface for this plugin is not yet established. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   Provides system specific commands to OVOS. The dbus interface for this plugin is not yet established.
 
 **[ovos-PHAL-plugin-tools](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-tools)**
-:   A PHAL (Platform / Hardware Abstraction Layer) service provider that exposes all installed OPM ToolBox plugins (opm.agents.toolbox entry-point group) as a unified bus API. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   A PHAL (Platform / Hardware Abstraction Layer) service provider that exposes all installed OPM ToolBox plugins (opm.agents.toolbox entry-point group) as a unified bus API.
 
 **[ovos-PHAL-plugin-wallpaper-manager](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-wallpaper-manager)**
-:   This PHAL plugin provides a central wallpaper management interface for homescreens and other desktops. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   This PHAL plugin provides a central wallpaper management interface for homescreens and other desktops.
 
 **[ovos-PHAL-sensors](https://github.com/OpenVoiceOS/ovos-PHAL-sensors)**
-:   Expose sensor data from your OVOS device to various systems. A PHAL (Platform/Hardware Abstraction Layer) plugin, loaded by ovos-PHAL to bridge hardware or OS-level events onto the messagebus.
+:   Expose sensor data from your OVOS device to various systems.
 
 
 ## Media / OCP plugins (17)

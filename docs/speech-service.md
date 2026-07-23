@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     The speech service is the "ears" of OpenVoiceOS. It listens through the microphone, waits for a wake word (like "Hey Mycroft"), and then turns whatever you say next into text so the rest of the system can act on it. Think of it as the part that hears you and writes down your request. From here that text is handed off to the [Intent Service](intent-service.md), which works out what to do. New to the terms? See the [Glossary](glossary.md).
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The capture → audio-transformer chain → STT → utterance flow and the listening-lifecycle signals are specified by **[OVOS-AUDIO-IN-1 — Audio Input Service](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md)**; the audio-transformer chain that runs on the raw audio before STT by **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md)** (§3.1). See also the [spec index](architecture-specs.md). `ovos-dinkum-listener` is the reference implementation; the spec topic names below are canonical, with the legacy name noted once.
 
 `ovos-dinkum-listener` is the service responsible for audio capture, [Wake Word](wake-word-plugins.md) detection, and [Speech-to-Text](stt-plugins.md) ([STT](stt-plugins.md)). It is the default, full-featured listener; `ovos-simple-listener` is a lighter alternative that emits the same `recognizer_loop:*` bus events but without the full state machine.
@@ -71,7 +71,7 @@ Source: `ovos_dinkum_listener/voice_loop/voice_loop.py:36` (`ListeningState`) an
 
 ## Bus Events
 
-The listener publishes its activity on the OVOS [messagebus](bus-service.md). The most
+The listener emits its activity on the OVOS [messagebus](bus-service.md). The most
 useful events for downstream services:
 
 Canonical (spec) names are shown first, with the legacy name current code still emits in parentheses. The `ovos.listener.*` and `ovos.utterance.handle` names come from [OVOS-AUDIO-IN-1 §5–§6](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md); `ovos-dinkum-listener` itself still emits only the legacy names, and `ovos-bus-client`'s automatic namespace bridge (see [Bus Service](bus-service.md#namespace-migration)) mirrors them onto the spec topics by default.

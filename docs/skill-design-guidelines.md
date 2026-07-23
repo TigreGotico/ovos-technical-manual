@@ -3,10 +3,9 @@
 !!! abstract "In a nutshell"
     Designing for voice is different from designing a screen: people speak to your skill in many different ways, and you can't show them buttons or menus to guide them. This page shares simple methods to plan, sketch, and test a skill idea before you start coding, so the finished result feels natural to talk to instead of something you have to learn. Think of it as drawing a conversation on paper first. New terms are explained in the [Glossary](glossary.md).
 
-Through these guidelines you will learn how to use principles of Voice User Interface Design to build more effective
-skills. These tools will help define and validate the features of the skill before diving deep into development.
-
-This guide will cover some methods to use that can help plan, prototype and test your skill during the early design stages.
+Applying principles of Voice User Interface Design helps you define and validate a skill's
+features before diving deep into development — the methods below help plan, prototype, and test
+your skill during the early design stages.
 
 > **CREDITS** - Voice User Interface Design Guidelines based on the [original work of Derick Schweppe](https://derickschweppe.com/mycroft-ai-user-experience)
 

@@ -12,7 +12,7 @@
     until the replacement lands. This page documents the legacy API for reference and Mark 2
     maintenance — voice should remain the primary interface.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The **forward** model a skill targets is **[OVOS-GUI-1 — GUI Display Subsystem](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md)** (a formal [architecture spec](architecture-specs.md)). Under it, `self.gui` declares display intent by naming a template from the **closed `SYSTEM_*` vocabulary** (`SYSTEM_text`, `SYSTEM_image`, `SYSTEM_list`, `SYSTEM_weather`, `SYSTEM_confirm`, …) and pushing flat session-data; interchangeable **render backends** draw it, routed by `session_id`. Two rules matter for skill authors: a skill **MUST NOT** invent template names or ship its own home/resting screen (the resting display is owned entirely by the backend, §6.9), and image keys carry an `http(s)` URL or `data:` URI — **never a local filesystem path**. The `show_*` helpers below map onto these templates; the custom-`.qml` path is legacy and unsupported under OVOS-GUI-1. Where this page and the spec differ, the spec is the canonical target.
 
 Many OVOS devices have a screen. A skill can drive that screen the same way it

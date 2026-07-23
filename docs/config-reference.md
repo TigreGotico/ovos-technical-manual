@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     This is the settings catalog for OVOS — a lookup table of the main options you can adjust (your language, units, microphone, wake word, which speech and voice engines to use, and so on), with each option's default value and a short note on what it does. You don't need to set most of them; reach for this page when you want to find the name of a particular setting and what it controls. For how to actually apply these settings, see [Configuration Management](config.md); for unfamiliar terms see the [Glossary](glossary.md).
 
-This page provides a comprehensive reference for the core configuration options in OpenVoiceOS. OVOS uses a layered configuration system, typically stored in `mycroft.conf`.
+OVOS uses a layered configuration system, typically stored in `mycroft.conf`.
 
 ---
 

@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     When you ask a general-knowledge question like "who wrote Hamlet?", the Common Query pipeline asks *all* your installed knowledge skills (Wikipedia, Wolfram Alpha, and so on) the same question at once, gathers their answers, and reads back the best one. Think of it as a quiz host who puts the question to every contestant and then announces the strongest reply. It never makes up answers itself — every answer comes from a skill, so if you have no knowledge skills installed it simply stays quiet. See the [Intent Pipeline overview](pipelines-overview.md) or the [Glossary](glossary.md).
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     Common Query is specified by **[OVOS-COMMON-QUERY-1 — Common Query Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/common-query.md)**, built on **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**. See the [spec index](architecture-specs.md).
 
 The **Common Query Pipeline Plugin** answers general-knowledge questions. When an

@@ -8,7 +8,7 @@
     microphone open and parses the answer for you. For the *design* side — when to ask versus
     just tell the user — see the [Skill Design Guidelines](skill-design-guidelines.md).
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     Asking the user back is the spec's **response mode**, defined by
     **[OVOS-CONVERSE-1 — Active Handlers and Interactive Response](https://github.com/OpenVoiceOS/architecture/blob/dev/converse.md)**.
     When a handler enters response mode (it sets `session.response_mode`), the

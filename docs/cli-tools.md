@@ -34,7 +34,7 @@ language-appropriate defaults.
 
 ## Talking to a running OVOS — `ovos-bus-client`
 
-Shipped by **[`ovos-bus-client`](core-libraries.md#ovos-bus-client)**. These send messages to a *running*
+Shipped by **[`ovos-bus-client`](core-libraries.md#ovos-bus-client)**. These emit messages to a *running*
 OVOS over the [messagebus](bus-service.md) — handy for testing, scripting, and debugging.
 
 | Command | What it does |

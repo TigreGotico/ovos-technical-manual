@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     When you say "play some jazz" or "next song", the assistant first has to realise you are talking about *media* and not, say, the weather. This is the part that does that: it spots that an utterance is a playback request, figures out what kind of media you want, asks the installed music/podcast/video skills to search for it, and hands the best result off to be played. Think of it as the dispatcher that turns "play X" into actual playback. See the [Intent Pipeline](pipelines-overview.md) overview or the [Glossary](glossary.md) for related terms.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The media player this pipeline drives is specified by **[OVOS-OCP-1 — OVOS Common Playback](https://github.com/OpenVoiceOS/architecture/blob/dev/ocp-1.md)** — the per-session *Virtual Media Player* and its `ovos.common_play.*` control surface. The matching/classification side is a **pipeline plugin** under **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)** (OCP-1 explicitly leaves the NLU to PIPELINE-1). Media stop is one subscriber to the **[OVOS-STOP-1](https://github.com/OpenVoiceOS/architecture/blob/dev/stop-1.md)** cascade. See the [spec index](architecture-specs.md).
 
 The **OCP (OVOS Common Play)** Pipeline Plugin handles media playback commands —

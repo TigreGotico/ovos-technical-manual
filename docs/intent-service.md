@@ -5,7 +5,7 @@
 
 **Module:** `ovos_core.intent_services.service.IntentService` — [`ovos_core/intent_services/service.py`](https://github.com/OpenVoiceOS/ovos-core/blob/dev/ovos_core/intent_services/service.py)
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The utterance lifecycle, the `match(utterances, lang, session) → Match` contract, **first-match-wins** ordering, and the dispatch/handler-lifecycle events are specified by **[OVOS-PIPELINE-1 — Utterance Lifecycle & Pipeline](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**; what an intent *is* (keyword vs template) and the match-result shape by **[OVOS-INTENT-3 — Intent Definition](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md)**; and how skills declare intents/entities on the bus by **[OVOS-INTENT-4 — Intent & Entity Registration](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md)**. See also the [spec index](architecture-specs.md). `IntentService` is the reference **orchestrator** of this lifecycle; the spec topic names below are canonical.
 
 `IntentService` is the component of `ovos-core` responsible for routing user utterances through the configured **Intent Pipeline** until a match is found.

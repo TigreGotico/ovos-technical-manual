@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     OpenVoiceOS is a voice assistant built from many small, independent parts rather than one big program. Think of it like a team where each member has one job — listening for the wake word, turning speech into text, figuring out what you asked, answering — and they all talk to each other over a shared channel. Because the parts are separate, you can run only the ones you need, replace any one with a different version, or even spread them across several devices. See the [Glossary](glossary.md) for unfamiliar terms and the [Bus Service](bus-service.md) for the shared channel they use to talk.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     OVOS isn't only an implementation — the contracts between these parts are
     written down as **formal, implementation-agnostic specifications**. This
     page is the friendly tour; for the precise wire formats see the
@@ -14,14 +14,12 @@
 OpenVoiceOS (OVOS) is best understood as a **voice operating system**, not a
 single voice-assistant program. A voice assistant is a *product* that answers
 questions; a voice OS is a *platform* — it defines the boundary between what you
-say and what runs, arbitrates which application handles each utterance, carries
-conversation state across turns, and gives third-party skills and plugins a
-stable contract to build against. Concretely that means independent services
-communicating over a common **[messagebus](bus-service.md)**: you can run only
-the components you need, swap any plugin for a different backend, and even
-spread services across several devices. The orchestrator's
+say and what runs, arbitrates which application handles each utterance, and
+carries conversation state across turns. The orchestrator's
 `match(utterances, lang, session) → Match` contract is, in effect, the
-system-call ABI of that OS — see the [Formal Specifications](architecture-specs.md).
+system-call ABI that lets third-party skills and plugins build against a
+stable interface without knowing about each other — see the
+[Formal Specifications](architecture-specs.md).
 
 ## High-Level Flow
 

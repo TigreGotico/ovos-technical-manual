@@ -3,9 +3,7 @@
 !!! abstract "In a nutshell"
     These plugins give an AI assistant real *abilities* it can reach for — like fetching information or performing an action — rather than only talking. Each "tool" is described in a standard way so the AI knows what it does and what information it needs, much like labeled buttons on a control panel. See [Agentic Loops](agentic-loop.md) for how an assistant decides to use them, and the [Glossary](glossary.md) for unfamiliar terms.
 
-The OPM `ToolBox` framework provides a standardized mechanism for exposing discoverable, schema-validated functions to OVOS agents (persona solvers, agentic loops, MCP/UTCP clients).
-
-This page covers the plugin ecosystem, the PHAL bus provider, and integration with agentic loops. For full authoring documentation see the [Plugin Manager reference](plugin-manager.md).
+The OPM `ToolBox` framework provides a standardized mechanism for exposing discoverable, schema-validated functions to OVOS agents (persona solvers, agentic loops, MCP/UTCP clients). For full authoring documentation see the [Plugin Manager reference](plugin-manager.md).
 
 ---
 
@@ -33,7 +31,7 @@ The full authoring guide with `AgentTool`, `ToolArguments`, and `ToolOutput` exa
 
 ## PHAL Bus Provider
 
-[OpenVoiceOS/ovos-PHAL-plugin-tools](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-tools) is a PHAL plugin that loads all installed `ToolBox` plugins and registers them on the messagebus, making them available to any component that can send bus messages.
+[OpenVoiceOS/ovos-PHAL-plugin-tools](https://github.com/OpenVoiceOS/ovos-PHAL-plugin-tools) is a PHAL plugin that loads all installed `ToolBox` plugins and registers them on the messagebus, making them available to any component that can emit bus messages.
 
 ```bash
 pip install ovos-PHAL-plugin-tools

@@ -93,8 +93,12 @@ makes the rest of the manual click into place:
 | **ovos-core** | The "brain" — decides which skill should answer | [ovos-core](core.md) |
 | **Skills** | The abilities (weather, timers, music…) | [Skill development](skill-design-guidelines.md) |
 | **TTS** | Turns the reply text back into speech | [TTS plugins](tts-plugins.md) |
-| **GUI** | Optional screen / visuals — ⚠️ *legacy GUI deprecated; no usable GUI right now, replacement in progress* | [GUI Service](gui-service.md) |
+| **GUI** | Shows an optional screen or visuals | [GUI Service](gui-service.md) |
 | **messagebus** | The shared channel they all talk over | [messagebus Service](bus-service.md) |
+
+!!! warning "GUI is legacy and deprecated"
+    There is no generally usable OVOS GUI right now — a ground-up replacement is in progress.
+    See [GUI Service](gui-service.md) for what still works today.
 
 !!! info "Plugins vs. Skills — the two ways to extend OVOS"
     A **skill** adds an *ability* ("set a timer", "play the news"). A **plugin** swaps

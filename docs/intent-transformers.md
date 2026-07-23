@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     Once the assistant has figured out *what you want* (your "intent" — for example, "set a timer"), these plugins can add extra detail or tidy up that request before the matching feature actually runs. It's a chance to fill in or pull out the specifics — like spotting names, places, or numbers in what you said — in one shared place instead of repeating that work everywhere. See [Transformer Plugins](transformer-plugins.md) and the [Glossary](glossary.md) for unfamiliar terms.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     Intent transformers are the **`intent` chain** of **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md) §3.4** (a formal [architecture spec](architecture-specs.md)). The spec's post-match, pre-dispatch injection point receives the `Match` a pipeline plugin produced ([OVOS-INTENT-3](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md) — `skill_id`, `intent_name`, `captures`/slots) and may **enrich `captures`** — it is the canonical home for slot/entity injection. It **MUST NOT** change `Match.skill_id` or `Match.intent_name` (that would re-route the handler); an orchestrator treats such a change as a shape violation and discards it. **Ordering:** the chain runs by **ascending** `priority` — `priority` 1 runs **first**, matching the spec.
 
 **Intent Transformers** are a pluggable mechanism in OVOS that allow you to enrich or transform intent data **after** an intent is matched by an engine ([Padatious](padatious-pipeline.md), [Adapt](adapt-pipeline.md), etc.), but **before** it is passed to the skill handler.

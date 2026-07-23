@@ -22,7 +22,7 @@ whole.
 Throughout this manual you will see a callout like this on the page for each
 subsystem:
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     This subsystem is specified by **[OVOS-EXAMPLE-1 — Example](https://github.com/OpenVoiceOS/architecture)**.
 
 Follow it to the precise wire format, field-by-field, with conformance

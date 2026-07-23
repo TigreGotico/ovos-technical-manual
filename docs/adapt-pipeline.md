@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     Adapt is one of the tools that helps the assistant figure out what you want when you speak to it. It works like a checklist: a skill says "if you hear these keywords together, this is the command for me." When you say "switch on the lamp", Adapt spots the keywords "switch on" and "lamp" and routes your request to the right skill. There is no guessing or learning involved — it simply matches the words it was told to look for. See the [Glossary](glossary.md) for terms, or [Padatious](padatious-pipeline.md) for a sister tool that learns from example sentences instead.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     Adapt is a **pipeline plugin** under **[OVOS-PIPELINE-1 — Utterance Lifecycle & Pipeline](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**. It is a **keyword-intent** engine in the sense of **[OVOS-INTENT-3 — Intent Definition §4](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md)**: it matches by *which vocabularies occur* (required / optional / one-of / excluded), with each occurring vocabulary doubling as a slot. The `.voc` vocabularies are written in the **[OVOS-INTENT-1 — Sentence Template Grammar](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md)** (`(a|b)` / `[optional]` expansion). See the [spec index](architecture-specs.md).
 
 The **Adapt Pipeline Plugin** brings rule-based, keyword-driven intent parsing to the **OVOS intent pipeline** using the Adapt parser. A skill registers keywords (vocabulary) and a rule describing which keywords must appear; Adapt scores an utterance by how many of those keywords it finds. There is no training step and no neural network — matching is deterministic.

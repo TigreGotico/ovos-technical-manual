@@ -243,10 +243,10 @@ This is used by `SkillManager` to defer loading until the required connectivity 
 
 The bus message protocol for `SkillApi` has two phases:
 
-1. **Discovery** — the caller sends `<skill_id>.public_api` on the bus. The target skill responds with a dict mapping method names to their bus message type and docstring.
+1. **Discovery** — the caller emits `<skill_id>.public_api` on the bus. The target skill responds with a dict mapping method names to their bus message type and docstring.
 
 
-2. **Call** — the caller sends a `Message` of the method's registered type with `{"args": [...], "kwargs": {...}}`. The target skill responds with `{"result": <return value>}`.
+2. **Call** — the caller emits a `Message` of the method's registered type with `{"args": [...], "kwargs": {...}}`. The target skill responds with `{"result": <return value>}`.
 
 Return values must be JSON-serializable. Standard Python builtins (`str`, `int`, `list`, `dict`, `None`, `bool`) work. Custom classes are not supported.
 
@@ -298,7 +298,7 @@ Fetches the public API for the given skill and returns a proxy object.
 
 Returns `None` if the skill is not running or exposes no API methods. Raises `RuntimeError` if `SkillApi.bus` has not been set.
 
-The proxy object has one attribute per exposed method. Calling `proxy.method_name(*args, **kwargs)` sends the corresponding bus message and returns the `result` field of the response. Returns `None` on timeout.
+The proxy object has one attribute per exposed method. Calling `proxy.method_name(*args, **kwargs)` emits the corresponding bus message and returns the `result` field of the response. Returns `None` on timeout.
 
 ---
 
@@ -396,7 +396,7 @@ class MyClientSkill(OVOSSkill):
 - Return values must be JSON-serializable.
 
 
-- The target skill must be running when `SkillApi.get()` is called — it sends a live bus message.
+- The target skill must be running when `SkillApi.get()` is called — it emits a live bus message.
 
 
 - Method calls time out after `api_timeout` seconds (default `3`). The caller receives `None` on timeout.

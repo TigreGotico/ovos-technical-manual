@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     As your voice travels through the assistant — from raw sound, to written words, to a matched request, to the spoken reply — transformer plugins are optional helpers that can tidy or tweak the information at each step. Think of them as filters on an assembly line: one might clean up background noise, another might fix a misheard word before the system tries to understand it. They don't take over any step; they just polish what passes between steps. See the [Glossary](glossary.md) for related terms.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The transformer subsystem is specified by **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md)** (one of the formal [architecture specs](architecture-specs.md)). It defines **six ordered chains** — `audio`, `utterance`, `metadata`, `intent`, `dialog`, `tts` — that run at fixed points in the utterance lifecycle, the per-type input/output contract for each, the per-session ordering and denylist overrides, and the utterance-cancellation signal. A transformer is identified by its `(type, transformer_id)` pair. Where this manual or the current code diverges from the spec, the spec is canonical.
 
     **Ordering.** OVOS-TRANSFORM-1 §4 orders each chain by **ascending** `priority`: a lower number runs **earlier**, the default is `50`. The current OVOS code follows this: a plugin with `priority=1` runs first, and later plugins see and may override its output. A legacy descending order is still available as an explicit opt-in (`sort_ascending=False`) for deployments that depend on the old behavior.

@@ -3,12 +3,12 @@
 !!! abstract "In a nutshell"
     The messagebus is the shared channel that lets all the separate parts of OpenVoiceOS talk to one another. Picture a group radio frequency: whatever one part says is heard by everyone tuned in, and each part simply pays attention to the messages meant for it and ignores the rest. There's no traffic controller deciding who gets what — every message goes to everybody. It's how the listener, the brain, the audio, and the screen all stay in sync. See the [Architecture Overview](architecture-overview.md) for how the pieces fit together, or the [Glossary](glossary.md) for unfamiliar terms.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The `{type, data, context}` envelope, the `source`/`destination` routing keys, the `forward`/`reply`/`response` derivations, and the session carrier that rides in every message are all normative. See **[OVOS-MSG-1 — Bus Message](https://github.com/OpenVoiceOS/architecture/blob/dev/msg-1.md)**, **[OVOS-SESSION-1 — Session Carrier](https://github.com/OpenVoiceOS/architecture/blob/dev/session-1.md)**, **[OVOS-SESSION-2 — Session Lifecycle](https://github.com/OpenVoiceOS/architecture/blob/dev/session-2.md)**, and **[OVOS-BRIDGE-1 — Bus Bridge & Opaque Relay](https://github.com/OpenVoiceOS/architecture/blob/dev/bridge-1.md)** (how satellites relay messages across a [HiveMind](hivemind-agents.md) mesh), plus the [spec index](architecture-specs.md). This page describes the reference implementation; where it diverges from the spec, the spec wins.
 
 The **messagebus** is the central nervous system of the OVOS platform. All services communicate by publishing and subscribing to typed `Message` objects through this central WebSocket broker.
 
-**In plain terms:** every OVOS service (core, audio, listener, GUI) connects to one shared WebSocket. Whatever any service sends, every other service receives — there is no central router deciding who gets what. Services just listen for the message types they care about and ignore the rest.
+**In plain terms:** every OVOS service (core, audio, listener, GUI) connects to one shared WebSocket. Whatever any service emits, every other service receives — there is no central router deciding who gets what. Services just listen for the message types they care about and ignore the rest.
 
 ---
 
@@ -157,7 +157,7 @@ Subscription filtering is handled entirely in the client library (`ovos-bus-clie
     
     The shipped `mycroft.conf` sets `max_msg_size` to 25, so the effective default is
     25 MB (the code's hardcoded fallback of 10 only applies if the key is absent).
-    Messages larger than this cause Tornado to close the connection.
+    Tornado closes the connection when a message exceeds this size.
     
     ---
     

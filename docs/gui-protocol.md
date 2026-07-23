@@ -11,7 +11,7 @@
     [`ovos-installer`](ovos-installer.md) still sets up this legacy stack until the
     replacement lands. Kept for reference and Mark 2 maintenance.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The **forward** model for the display subsystem is **[OVOS-GUI-1 — GUI Display Subsystem](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md)** (a formal [architecture spec](architecture-specs.md)). It replaces the legacy protocol on this page with a clean separation: an application declares *what* to show by naming a template from a **closed `SYSTEM_*` vocabulary** and pushing flat session-data, and interchangeable **render backends (adapters)** decide *how* to draw it — fanned out to every installed adapter. The wire messages stay `gui.value.set` / `gui.page.show` / `gui.clear.namespace`, but a `gui.page.show` whose first page is **not** a `SYSTEM_*` template is rejected (no more arbitrary QML), and a GUI message is routed **solely by its `session_id`**. This page documents the legacy Qt-WebSocket protocol that the OVOS-GUI-1 adapter model supersedes; where they differ, the spec is the canonical target (see the "Upcoming" note at the foot of this page and [GUI Adapter Plugins](gui-adapters.md)).
 
 The `ovos-gui` service exposes two communication channels:
@@ -293,7 +293,7 @@ When a client connects, `GUIWebsocketHandler.synchronize()` replays the full cur
 2. For each namespace, re-sends `mycroft.gui.list.insert` with its current [QML](qt5-gui.md) page.
 
 
-3. Re-sends all `mycroft.session.set` messages for every key in `namespace.data`.
+3. Re-emits all `mycroft.session.set` messages for every key in `namespace.data`.
 
 ---
 

@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     This page follows a single spoken utterance on its whole journey through OpenVoiceOS — from the instant sound reaches the microphone to the moment you hear a reply. Along the way the system notices the wake word, records what you say, turns it into text, works out what you meant, does the task, and speaks back. It's a guided tour of the assembly line that handles everything you say to it. New to the terms here? Start with the [Glossary](glossary.md), or see the [Architecture Overview](architecture-overview.md) for the bigger picture.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     This whole journey is specified end-to-end: audio capture → STT → utterance by **[OVOS-AUDIO-IN-1 — Audio Input Service](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md)**; the utterance lifecycle, matching, and dispatch by **[OVOS-PIPELINE-1 — Utterance Lifecycle & Pipeline](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**; the enrichment/rewrite points along the way by **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md)**; and dialog → TTS → playback by **[OVOS-AUDIO-1 — Audio Output Service](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-out.md)**. See also the [spec index](architecture-specs.md). Spec topic names are canonical below; the legacy name is noted once where current code still emits it.
 
 This guide provides a technical, step-by-step walkthrough of how an utterance is processed by OpenVoiceOS, from the moment sound hits the microphone to the final spoken response.

@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     TTS stands for *Text-to-Speech*: this is the part that gives your assistant its voice, turning written replies into spoken audio you can hear. It is the opposite of dictation — instead of listening to you, it talks back. Different TTS plugins offer different voices and qualities, and some run on your own device while others use a cloud service. See the [Glossary](glossary.md) for related terms.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     TTS sits inside the audio output service, specified by **[OVOS-AUDIO-1 — Audio Output Service](https://github.com/OpenVoiceOS/architecture/blob/dev/audio-out.md)**: an `ovos.utterance.speak` response runs through the dialog-transformer chain → TTS → tts-transformer chain → playback queue. See the [spec index](architecture-specs.md).
 
 TTS plugins are responsible for converting text into audio for playback.

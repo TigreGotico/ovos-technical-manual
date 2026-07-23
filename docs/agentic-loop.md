@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     Normally an AI answers in one shot. An "agentic loop" lets it work more like a person solving a problem: think a little, take an action (such as looking something up), see the result, then think again — repeating until it has a good answer. This page describes several ready-made styles of that step-by-step reasoning, each suited to different kinds of tasks. The "tools" it can reach for are described in [Tool Plugins](tool-plugins.md); see the [Glossary](glossary.md) for unfamiliar terms.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     These loops run *inside* a **persona**, and a persona is a formal pipeline
     role:
     **[OVOS-PERSONA-1 — Persona Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/persona.md)**

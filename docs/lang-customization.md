@@ -7,7 +7,7 @@ OpenVoiceOS lets you override or extend a skill's **locale resources** — the p
 
 **New here?** A skill ships small text files grouped by language. You can drop your own copy of any one of those files into a user folder, and OVOS will load yours instead of the skill's. You only override the files you care about; everything else falls back to the skill.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     Locale resource layout and file formats are defined by **[OVOS-INTENT-2 — Locale Resource Formats](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md)** (companion to [OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md), the sentence-template grammar). See the [spec index](architecture-specs.md). This page describes how OVOS implements that spec; the spec is the normative reference.
 
 ---

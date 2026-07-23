@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     Many OVOS skills only "speak" one language, usually English. This plugin acts like a live interpreter sitting between you and the assistant: it translates what you say into the language the skills understand, and then translates the assistant's reply back into your language before it is spoken aloud. So you can ask a question in Spanish, have an English-only skill answer it, and still hear the response in Spanish. See [Translation Plugins](translation-plugins.md) or the [Glossary](glossary.md) for related terms.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     This "interpreter in the middle" is built entirely from transformers, as
     defined by
     **[OVOS-TRANSFORM-1 — Transformer Plugins](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md)**.

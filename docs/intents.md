@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     People ask for the same thing in many different ways: "what's the weather?", "weather in Melbourne", or just "weather" all mean roughly the same. An *intent* is what the user is actually trying to do, and the part of OVOS that figures it out is a *pipeline plugin* (older docs call this an "intent parser" or "intent engine" — see the [Glossary](glossary.md)). This page explains how OVOS recognizes intents and pulls out the useful details (like a place or a date), and describes the two different styles you can use to define them. New terms are explained in the [Glossary](glossary.md).
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     Intents are specified across the **intent stack** of the formal [architecture specs](architecture-specs.md):
 
     - **[OVOS-INTENT-3 — Intent Definition](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-3.md)** — what an intent *is*: a skill-private binding from a natural-language command to **one handler**, defined by exactly one of two methods (**keyword** or **template**), identified by the qualified name `skill_id:intent_name`, producing a uniform match result (label + slots map).

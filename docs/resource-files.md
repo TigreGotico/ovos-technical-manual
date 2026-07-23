@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     Skills keep their words in separate text files rather than buried in the program code. These "resource files" hold things like the phrases the assistant can say, the example sentences it listens for, and the keywords it recognizes — each language gets its own folder. This separation makes a skill easy to translate and tweak without touching the code. This page explains the folder layout and the kinds of files. See also [Statements](statements.md) for spoken replies and the [Glossary](glossary.md).
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The locale folder layout and the plain-text resource formats are specified by **[OVOS-INTENT-2 — Locale Resource Formats](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-2.md)** (a formal [architecture spec](architecture-specs.md)); the template grammar inside them is **[OVOS-INTENT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-1.md)**. OVOS-INTENT-2 defines **six canonical roles** by extension: `.intent` and `.dialog` (slot-bearing — they may use `{name}` slots), `.entity`, `.voc`, and `.blacklist` (slot-free — expansion only), and `.prompt` (a whole-file language-model prompt with `{{name}}` substitution, **not** a template). Resources live under `locale/<lang>/` (BCP-47 tags, compared case-insensitively, searched recursively), resolved user → skill → core (§2.1). The `.rx`, `.list`, and `.word` files below are **framework extensions**, not OVOS-INTENT-2 roles — prefer `.entity`/`.voc`/`.blacklist` for portability.
 
 Skills load localized resources from a structured directory layout. Resources are loaded automatically at startup for every language in `native_langs` (`core_lang` + `secondary_langs`).

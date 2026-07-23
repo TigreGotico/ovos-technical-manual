@@ -14,7 +14,7 @@
 !!! abstract "In a nutshell"
     `ovos-gui` is the part of OpenVoiceOS that decides what shows up on a screen — text, images, a music player, or an idle home screen. Skills never draw to the display themselves; they send a request to this service, which keeps track of what each skill wants shown and passes it on to whatever screen is connected. Think of it as a stage manager that decides which scene is in front of the audience at any moment. To learn more, see the [Home Screen](homescreen.md) and the [Glossary](glossary.md).
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The **forward** model for the display layer is
     **[OVOS-GUI-1 — GUI Display Subsystem](https://github.com/OpenVoiceOS/architecture/blob/dev/gui-1.md)**.
     It reframes the GUI as a *voice-OS peripheral*: an application declares

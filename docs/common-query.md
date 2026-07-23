@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     When you ask a general-knowledge question like "how old is John Cleese?", several skills might each think they can answer. The Common Query Framework asks all of them at once, has each return an answer along with how confident it is, and then speaks only the single best one. It's like asking a room full of experts a question and letting the most confident one reply. This mirrors how the [OCP](ocp-skills.md) framework picks who plays your music. See the [Glossary](glossary.md) for related terms.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The Common Query Framework is specified by **[OVOS-COMMON-QUERY-1 — Common Query Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/common-query.md)** (a formal [architecture spec](architecture-specs.md)). A **pipeline plugin** runs a timed scatter-gather contest: it broadcasts `ovos.common_query.ping`, collects `pong` claims from skills that believe they can answer, requests full answers (`answer` + `conf`) from the claimants, then ranks them. Only answers at or above the minimum self-reported confidence (default **`0.5`**) survive. If a winner clears the bar the plugin speaks it (reserved `intent_name` **`common_query`**); otherwise `match` returns `None` and the pipeline falls through to [fallback](fallbacks.md). This mirrors how [OCP](ocp-skills.md) picks a media provider.
 
 !!! note "The winner may be re-ranked, not just highest-confidence"

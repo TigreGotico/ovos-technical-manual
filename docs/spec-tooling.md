@@ -9,7 +9,7 @@
     migration** (which lets the ecosystem adopt the new spec topic names without
     a flag day).
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     These tools serve the **[OpenVoiceOS/architecture](https://github.com/OpenVoiceOS/architecture)** specs — see the [spec index](architecture-specs.md).
 
 ---

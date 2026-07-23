@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     This is the part of OVOS that listens for "stop", "cancel", or the same word in your language and makes the assistant quit whatever it is doing — interrupting a spoken reply, ending a question, or halting a task a skill started. Because being able to stop is so essential to a voice assistant, OVOS treats it as a built-in, always-on feature rather than an optional add-on, and it works in any language that ships the right word list. For the wider system this fits into, see the [Fallback Pipeline](fallback-pipeline.md) or the [Glossary](glossary.md).
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The stop plugin is specified by **[OVOS-STOP-1 — Stop Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/stop-1.md)**, built on **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**. See the [spec index](architecture-specs.md).
 
 The **stop pipeline** is a core component of the OpenVoiceOS (OVOS) pipeline architecture. It defines the logic responsible for stopping ongoing interactions with active skills. This includes aborting responses, halting speech, and terminating background tasks that skills may be performing. 

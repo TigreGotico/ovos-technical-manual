@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     Normally a skill listens for all of its commands at once. Intent Layers let a skill turn commands on and off as a conversation progresses, so only the choices that make sense right now are available — much like a "choose your own adventure" book where each page unlocks the next set of options. This is handy for step-by-step flows, games, or anything that should react differently depending on what the user just did. For the broader picture, see the [Glossary](glossary.md).
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     `IntentLayer` gating is implemented through the session's **intent context** — each layer is a session context token its intents require. The mechanism is specified by **[OVOS-CONTEXT-1 — Intent Context](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md)** (see [Context](context.md) and the [spec index](architecture-specs.md)).
 
 !!! tip "`IntentLayers` are per-session"

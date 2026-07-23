@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     A "persona" is a configurable AI character — often powered by a chatbot-style language model — that the assistant can hand your request to. This pipeline decides when to let that persona answer you instead of the usual command-matching skills, which is useful for open-ended chat or questions that no specific skill covers. You can set it to handle everything, or only step in when nothing else fits. See the [Glossary](glossary.md) for terms, or [Solver/Agent plugins](agent-plugins.md) for the components a persona uses to come up with answers.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     The persona plugin is specified by **[OVOS-PERSONA-1 — Persona Pipeline Plugin](https://github.com/OpenVoiceOS/architecture/blob/dev/persona.md)**, built on **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**. See the [spec index](architecture-specs.md).
 
 The **`ovos-persona-pipeline-plugin`** provides a dynamic way to integrate persona-based conversational behavior into the OVOS pipeline system. It allows you to route user utterances to AI personas instead of skill matchers, depending on context and configuration.

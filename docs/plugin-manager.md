@@ -3,7 +3,7 @@
 !!! abstract "In a nutshell"
     A plugin is an add-on you can drop in to give OpenVoiceOS a new ability or swap how it does something — for example, a different way to turn speech into text. The Plugin Manager is the part that finds these add-ons once they're installed and loads them when needed, so you don't have to wire anything up by hand. Think of it like the app store and launcher for OVOS's interchangeable pieces: install one, and the system just discovers it. See the [Glossary](glossary.md) for unfamiliar terms or the [Architecture Overview](architecture-overview.md) for how plugins fit into the wider system.
 
-!!! info "📐 Formal specification"
+??? info "📐 Formal specification"
     OPM is the *discovery and loading* mechanism; it is not itself a spec, but several plugin **roles** it loads are defined by the architecture specs and carry conformance obligations independent of OPM. In particular, **pipeline plugins** (entry point `opm.pipeline`) implement the `match(utterances, lang, session) → Match` contract and **first-match-wins** ordering of **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**, and the six **transformer** plugin types (`opm.transformer.*`) implement the six ordered chains of **[OVOS-TRANSFORM-1](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md)** (priority **ascending** — lower runs earlier). See the [spec index](architecture-specs.md) for the full set of plugin-role specs.
 
 ![image](https://github.com/OpenVoiceOS/ovos-plugin-manager/assets/33701864/8c939267-42fc-4377-bcdb-f7df65e73252)
