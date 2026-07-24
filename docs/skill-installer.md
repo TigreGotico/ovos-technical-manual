@@ -50,7 +50,16 @@ The installer can be configured in `mycroft.conf`. It is **disabled unless `allo
 
 ```
 
-The `constraints` file pins allowed versions; packages listed in it are also treated as **protected** and cannot be uninstalled.
+The `constraints` file bounds allowed versions — its entries are compatible **ranges**
+(`>=x,<y`), not exact pins, so it constrains what may be installed rather than fixing it. The
+packages it lists are also treated as **protected**: `ovos.pip.uninstall` refuses to remove a
+package named there.
+
+!!! note "Uninstall protection is an accident guard, not a security control"
+    The protected list stops a request from removing OVOS's own components by name. It is not a
+    privilege boundary — anything that can reach the [messagebus](bus-service.md) already has
+    full control of the device, and `allow_pip: true` gives it package-management rights.
+    Security comes from keeping the bus local and `allow_pip` off, not from this list.
 
 !!! danger "Skills are not sandboxed — this installs and runs arbitrary code"
     There is no sandbox or permission model. Installing a skill through

@@ -5,10 +5,10 @@
 
 !!! tip "Just want it working? Use the installer."
     Most people should install OVOS with the **[`ovos-installer`](ovos-installer.md)** — a guided
-    wizard that handles everything. The manual `pip` commands and version-pinning below are for
+    wizard that handles everything. The manual `pip` commands and version bounds below are for
     people who want fine-grained control (custom/headless setups). A few terms used on this page:
     **extras** = optional add-on bundles you list in brackets, e.g. `ovos-core[mycroft]`;
-    **constraints file** = a version "filter" that pins which package versions get installed;
+    **constraints file** = a version "filter" that bounds which package versions may be installed;
     **headless** = a device with no monitor/keyboard (e.g. a Raspberry Pi you SSH into).
 
 Open Voice OS (OVOS) is a **modular voice assistant platform** that lets you install only the components you need. Whether you're building a lightweight voice interface or a full-featured smart assistant, OVOS gives you flexibility through modular packages and optional feature sets called **extras**.
@@ -132,7 +132,7 @@ OVOS uses Python extras (e.g., `[mycroft]`) to let you install predefined groups
 | Extra Name           | Purpose                                                                 |
 |----------------------|-------------------------------------------------------------------------|
 | `mycroft`            | Core services for full voice assistant experience                      |
-| `lgpl`               | Adds optional LGPL-licensed tools like [Padatious](padatious-pipeline.md)                       |
+| `lgpl`               | Adds [Padatious](padatious-pipeline.md) and its neural-network backend `fann2` (LGPL). Needs system build tools — see below |
 | `plugins`            | Includes various plugin interfaces                                     |
 | `skills-essential`   | Must-have skills (like system control, clock, weather)                 |
 | `skills-audio`       | Audio I/O-based skills                                                  |
@@ -145,6 +145,17 @@ Extras and a release channel are independent choices — combine them in one com
 adding both the bracketed extras and a `-c` constraints file:
 
 ### Full Installation Example
+
+The `lgpl` extra pulls in `fann2`, which is published as a source distribution only — there are
+no wheels — so pip/uv compiles it during install. On Debian/Ubuntu, install its build
+prerequisites first:
+
+```bash
+sudo apt install -y swig libfann-dev
+```
+
+Without them the install below fails while building `fann2`. Omit the `lgpl` extra if you do not
+need the Padatious pipeline; [padacioso](padatious-pipeline.md) is the pure-Python alternative.
 
 ```bash
 uv pip install "ovos-core[mycroft,lgpl,plugins,skills-essential,skills-audio,skills-gui,skills-internet,skills-media,skills-desktop]" \
@@ -161,18 +172,78 @@ uv pip install "ovos-core[mycroft,plugins,skills-essential]" \
 
 ---
 
+## Offline and mirrored installs
+
+Every `-c https://...` command on this page fetches the constraints file over HTTPS at install
+time. On an isolated or bandwidth-constrained network, keep local copies instead.
+
+**1. Use a local constraints file.** Download the channel file once on a connected machine, copy
+it across, and point `-c` at the path:
+
+```bash
+uv pip install "ovos-core[mycroft]" -c /srv/ovos/constraints-stable.txt
+```
+
+**2. Install from a local wheelhouse.** Populate a directory of wheels on a connected machine,
+then install with the index disabled:
+
+```bash
+# connected machine (uv has no download subcommand — use pip here)
+pip download "ovos-core[mycroft]" -c constraints-stable.txt -d ./wheels
+# isolated machine
+uv pip install --no-index --find-links ./wheels "ovos-core[mycroft]"
+```
+
+**3. Point the runtime skill installer at a local constraints file.** Set
+`skills.installer.constraints` in `mycroft.conf` to a filesystem path so it does not try to
+fetch the channel file on every operation:
+
+```json
+{
+  "skills": {
+    "installer": {
+      "constraints": "/srv/ovos/constraints-stable.txt"
+    }
+  }
+}
+```
+
+!!! note "The runtime skill installer still needs GitHub"
+    Installing a skill *at runtime* over the bus resolves the skill repository through
+    `api.github.com` and `raw.githubusercontent.com`. A local constraints file removes one
+    network dependency, but runtime skill installation cannot work on a network where those
+    endpoints are unreachable — install skills as ordinary packages from your wheelhouse
+    instead. See [Skill Installer](skill-installer.md).
+
+---
+
 ## Technical Notes
 
 - OVOS is **fully modularized**, with each major service in its own repository, so you install only what you need.
 - All packages follow [Semantic Versioning (SemVer)](https://semver.org/), so you can rely on versioning to understand stability and compatibility.
-- Constraints files are a **stable standard** for pinning system versions since the [ovos-releases 1.0.0](https://github.com/OpenVoiceOS/ovos-releases) milestone.
+- Constraints files are a **stable standard** for bounding system versions since the [ovos-releases 1.0.0](https://github.com/OpenVoiceOS/ovos-releases) milestone.
+
+!!! note "Channel constraints are ranges, not exact pins"
+    Every entry in the published channel constraints files is a compatible **range**
+    (`>=x,<y`), not an exact `==` pin. A channel therefore guarantees mutually compatible
+    versions, not identical ones: installing the same channel on two machines, or on the same
+    machine a month apart, can resolve to different versions.
+
+    For a genuinely reproducible build, resolve once and install from your own frozen output:
+
+    ```bash
+    uv pip install "ovos-core[mycroft]" -c https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-stable.txt
+    uv pip freeze > my-constraints.txt
+    # every later install, on every machine:
+    uv pip install "ovos-core[mycroft]" -c my-constraints.txt
+    ```
 
 ---
 
 ## Rolling Back
 
-Constraints files pin a channel's versions, but they don't remember what *you* had installed
-before an upgrade. Before upgrading anything you care about, freeze what's currently working:
+Constraints files bound a channel's versions, but they don't record what *you* actually had
+installed before an upgrade. Before upgrading anything you care about, freeze what's currently working:
 
 ```bash
 uv pip freeze > known-good.txt
@@ -195,7 +266,7 @@ for the same pattern applied across a fleet of devices rather than one machine.
 
 - Using `--pre` installs pre-releases across all dependencies, not just OVOS-specific ones — so use with caution.
 - You can mix and match extras based on your hardware or use case, e.g., omit GUI skills on a headless server.
-- When using constraints files, make sure all packages are pinned — it avoids installing incompatible versions.
+- A constraints file only bounds packages it lists; anything absent resolves freely. If you need an exact, repeatable set of versions, install from your own `uv pip freeze` output rather than from a channel file.
 - After installing you need to launch the individual ovos services, either manually or by creating a systemd service
 
 ---
