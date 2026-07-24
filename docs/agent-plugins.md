@@ -162,7 +162,9 @@ Per-collection metadata defaults `hnsw:space` to `cosine` when not specified.
 
 - **Description**: Answers computational and factual questions via the Wolfram Alpha API.
 
-- **Config**: `"appid"` — your own Wolfram Alpha AppID (falls back to a shared demo key if unset).
+- **Config**: `"appid"` — your own Wolfram Alpha AppID. Without one, queries go to Wolfram's
+  servers on a shared demo key. Either way this solver is a call to a third-party cloud
+  service; it has no offline mode.
 
 ---
 

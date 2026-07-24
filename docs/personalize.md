@@ -64,6 +64,14 @@ Full walkthrough, plugin choices, and tuning: [Wake Word Plugins](wake-word-plug
 
 Browse voice samples and see every available plugin: [TTS Plugins](tts-plugins.md#change-your-voice).
 
+## Make it talk slower
+
+There is no single global speaking-rate setting. Rate lives in the active TTS plugin's own
+config block, under whichever key that plugin exposes, so check its entry in
+[TTS Plugins](tts-plugins.md) first. If you are setting up a device for someone who needs a
+slower, steadier voice, [Accessibility](accessibility.md#tuning-speech-for-long-listening-sessions)
+walks through picking a voice that stays clear at a reduced rate.
+
 ## Change your language
 
 ```json

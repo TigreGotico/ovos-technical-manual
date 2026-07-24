@@ -62,39 +62,31 @@ python_imports:
       docs/llm-transformers.md); a paid third-party SDK, intentionally not
       part of the shared dev venv or CI's installed set.
 
-  # TODO(content-owner): docs/openai-plugin.md imports
-  # `ovos_openai_plugin.translate.OpenAITextTranslator` and
-  # `...OpenAITextLangDetector`. Neither the module `ovos_openai_plugin` nor
-  # those classes exist; the installed package (`ovos-openai-plugin` on
-  # PyPI) actually ships as top-level module `ovos_solver_openai_persona`
-  # with classes OpenAIDialogTransformer / OpenAICompletionsSolver /
-  # OpenAIChatCompletionsSolver - no translator/lang-detector classes at
-  # all. This needs a real content rewrite (verify against source, replace
-  # the example), out of scope for a small mechanical fix - allowlisting the
-  # module rather than leaving CI red.
   - module: ovos_openai_plugin
     reason: >
-      TODO(content-owner): invented import path and class names
-      (OpenAITextTranslator/OpenAITextLangDetector do not exist anywhere in
-      the actual ovos-openai-plugin package, whose real top-level module is
-      ovos_solver_openai_persona). Needs a full example rewrite by whoever
-      owns docs/openai-plugin.md, not a mechanical rename.
+      docs/openai-plugin.md imports OpenAITextTranslator/OpenAITextLangDetector
+      from ovos_openai_plugin.translate. Both are correct: verified present on
+      the plugin's dev branch (ovos_openai_plugin/translate.py). The package was
+      renamed from ovos_solver_openai_persona to ovos_openai_plugin and the
+      rename has not reached a stable PyPI wheel yet (latest release 2.0.6 still
+      ships the old module name; dev is at 2.0.8a1), so the import is
+      unresolvable in the CI install set. Remove this entry once a release
+      carrying the renamed package is published.
   - module: ovos_plugin_manager.templates.gui
     reason: >
-      TODO(content-owner): docs/gui-adapters.md imports `AbstractGUIPlugin`
-      from this module; it does not exist (module only exports
-      GUIExtension/GUIInterface/HomescreenManager). See the matching
-      signatures allowlist entry for docs/gui-adapters.md - same root cause,
-      needs a full content audit/rewrite.
+      docs/gui-adapters.md documents the AbstractGUIPlugin base introduced by
+      the GUI adapter rework, which is still in flight across
+      ovos-plugin-manager#377 and ovos-gui#112 - the manual describes it in
+      present tense per the beta open-PR policy. Until those land, OPM's
+      templates/gui.py only exports GUIExtension/GUIInterface/HomescreenManager.
+      Remove this entry once #377 merges.
 
 signatures:
   - file: docs/gui-adapters.md
     reason: >
-      TODO(content-owner): the page documents a `AbstractGUIPlugin` base
-      class with `handle_show_*` template-hook methods, imported from
-      ovos_plugin_manager.templates.gui. That module actually exports
-      `GUIExtension` (different __init__ signature: config, bus, gui,
-      preload_gui, permanent) with no handle_show_* methods and no
-      AbstractGUIPlugin at all. This looks like a hallucinated/outdated API
-      description and needs a real content audit + rewrite, out of scope
-      for a small mechanical fix.
+      The page documents the AbstractGUIPlugin base and its handle_show_*
+      template hooks, which arrive with the GUI adapter rework
+      (ovos-plugin-manager#377, ovos-gui#112) and are described in present
+      tense per the beta open-PR policy. The signature checker compares
+      against the currently released ovos_plugin_manager.templates.gui, which
+      still only ships GUIExtension. Remove this entry once #377 merges.

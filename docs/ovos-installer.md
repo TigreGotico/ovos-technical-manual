@@ -422,11 +422,11 @@ Don't panic! If the installer fails, it will generate a log file and upload it t
 
 OVOS is a community-driven project, maintained by passionate volunteers. Your feedback, bug reports, and patience are truly appreciated.
 
-!!! note "Upcoming — a bundled health check script"
-    A ready-to-use OVOS health check script is in progress
-    ([ovos-installer#542](https://github.com/OpenVoiceOS/ovos-installer/pull/542)). See
+!!! tip "Check the install without reading logs"
+    The installer ships `scripts/ovos-health-check.sh`, which reports whether each service is
+    up and the messagebus is reachable. Run it before digging through logs. See
     [Production Operations](production-operations.md#knowing-when-the-assistant-is-actually-ready)
-    for the readiness-probe pattern it will wrap.
+    for the readiness pattern it wraps.
 
 ## Further reading
 
