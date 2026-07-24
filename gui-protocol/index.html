@@ -2095,7 +2095,7 @@ reference listener implementation.</p>
 <blockquote>
 <p>This section applies only when <code>ovos-legacy-mycroft-gui-plugin</code> is installed.</p>
 </blockquote>
-<p>All messages are JSON objects sent over the WebSocket connection at <code>ws://localhost:18181</code>.</p>
+<p>All messages are JSON objects sent over the WebSocket connection at <code>ws://localhost:18181/gui</code>.</p>
 <h3 id="connection-handshake">Connection handshake<a class="headerlink" href="#connection-handshake" title="Permanent link">&para;</a></h3>
 <p><strong>Qt client → <code>ovos-gui</code> (OVOS messagebus):</strong></p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
@@ -2116,12 +2116,12 @@ reference listener implementation.</p>
 </span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>The Qt client then opens a WebSocket connection to <code>ws://localhost:18181</code>.</p>
+<p>The Qt client then opens a WebSocket connection to <code>ws://localhost:18181/gui</code>.</p>
 <div class="admonition example">
 <p class="admonition-title">Try it: connect a raw WebSocket client to 18181</p>
 <p>You don't need a Qt client to see this handshake happen. With <code>ovos-gui</code> running and the
-legacy adapter installed, connect any WebSocket client to <code>ws://localhost:18181</code> (for
-example <code>websocat ws://localhost:18181</code> or a short <code>websockets</code> Python script) and trigger
+legacy adapter installed, connect any WebSocket client to <code>ws://localhost:18181/gui</code> (for
+example <code>websocat ws://localhost:18181/gui</code> or a short <code>websockets</code> Python script) and trigger
 a skill that shows a GUI page. You should observe the server immediately replay
 <code>mycroft.session.list.insert</code> and <code>mycroft.gui.list.insert</code> messages for the active
 namespace — this is <code>GUIWebsocketHandler.synchronize()</code> bringing your new client up to date.</p>

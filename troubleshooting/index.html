@@ -1580,6 +1580,11 @@ connections. Hardware problems show up in Stage 2.</p>
 <code>&lt;save_path&gt;/wake_words/</code>. Set them with:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ovos-config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-k<span class="w"> </span>save_utterances<span class="w"> </span>-v<span class="w"> </span><span class="nb">true</span>
 </span></code></pre></div>
+<p>These files are raw recordings of everything the microphone picked up, and they stay on disk
+until you delete them — nothing prunes the directory. Turn both keys back off and clear
+<code>&lt;save_path&gt;</code> once you have finished debugging. See
+<a href="../privacy-security/#what-is-written-to-disk">Privacy &amp; Security</a> for what the listener writes
+to disk by default.</p>
 <p><code>ovos-listen</code> can also be used to force a listening cycle without saying the wake word at all —
 useful for isolating STT problems (Stage 3) from wake-word problems.</p>
 <hr />

@@ -1454,9 +1454,9 @@ compatible with your use case before depending on them.</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/OpenVoiceOS/ovos-intent-plugin-padatious">ovos-intent-plugin-padatious</a></td>
-<td>Apache-2.0</td>
-<td><a href="https://github.com/MycroftAI/padatious">padatious</a> depends on <a href="https://github.com/libfann/fann">libfann</a> (<a href="https://github.com/libfann/fann/blob/master/LICENSE.md">LGPL-2.1</a>); its own license status is uncertain as a result</td>
+<td><code>ovos-core[lgpl]</code> extra</td>
+<td>Apache-2.0 code, LGPL dependency</td>
+<td>The extra pulls in <a href="https://pypi.org/project/fann2/">fann2</a>, the Python binding for <a href="https://github.com/libfann/fann">libfann</a>, both LGPL-2.1-or-later. <a href="https://github.com/OpenVoiceOS/ovos-padatious">ovos-padatious</a> itself is Apache-2.0 — the LGPL obligation comes from fann2/libfann. If LGPL is unacceptable for your product, omit the extra and use <a href="https://github.com/OpenVoiceOS/padacioso">padacioso</a> instead</td>
 </tr>
 <tr>
 <td><a href="https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3">ovos-tts-plugin-mimic3</a></td>

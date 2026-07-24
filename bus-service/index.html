@@ -1906,7 +1906,7 @@ connect and take part on equal footing.</p>
 <tr>
 <td><code>ssl</code></td>
 <td><code>false</code></td>
-<td>Enable WSS/TLS.</td>
+<td>Not a working switch for the reference server. <code>ovos-messagebus</code> always serves plain WebSocket; clients (<code>ovos-bus-client</code>) do honour this key and will build a <code>wss://</code> URL from it, so setting it points clients at a scheme the server does not speak. Terminate TLS in a reverse proxy in front of the bus, or use <a href="../hivemind-agents/">HiveMind</a> for encrypted transport.</td>
 </tr>
 <tr>
 <td><code>shared_connection</code></td>
@@ -1936,6 +1936,10 @@ bus, even run code via some plugins). Treat it like an open door to the whole as
   <a href="../hivemind-agents/">HiveMind</a>, which adds authentication and encryption on top.</li>
 <li>This is also why the bus is a trust boundary: a malicious skill or plugin on the device
   already has full access, so only install software you trust.</li>
+<li><strong>The GUI WebSocket needs the same treatment.</strong> <code>ovos-gui</code> serves a second, equally
+  unauthenticated socket on port <code>18181</code>, and messages received there are translated into
+  emits on this bus — so it carries the same authority. Unlike the bus, it ships bound to
+  <code>0.0.0.0</code>; set <code>gui_websocket.host</code> to <code>127.0.0.1</code> unless a remote display client needs it.</li>
 </ul>
 </div>
 <hr />

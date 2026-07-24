@@ -769,6 +769,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#offline-and-mirrored-installs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Offline and mirrored installs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#technical-notes" class="md-nav__link">
     <span class="md-ellipsis">
       Technical Notes
@@ -1530,6 +1539,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#offline-and-mirrored-installs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Offline and mirrored installs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#technical-notes" class="md-nav__link">
     <span class="md-ellipsis">
       Technical Notes
@@ -1591,10 +1609,10 @@
 <div class="admonition tip">
 <p class="admonition-title">Just want it working? Use the installer.</p>
 <p>Most people should install OVOS with the <strong><a href="../ovos-installer/"><code>ovos-installer</code></a></strong> — a guided
-wizard that handles everything. The manual <code>pip</code> commands and version-pinning below are for
+wizard that handles everything. The manual <code>pip</code> commands and version bounds below are for
 people who want fine-grained control (custom/headless setups). A few terms used on this page:
 <strong>extras</strong> = optional add-on bundles you list in brackets, e.g. <code>ovos-core[mycroft]</code>;
-<strong>constraints file</strong> = a version "filter" that pins which package versions get installed;
+<strong>constraints file</strong> = a version "filter" that bounds which package versions may be installed;
 <strong>headless</strong> = a device with no monitor/keyboard (e.g. a Raspberry Pi you SSH into).</p>
 </div>
 <p>Open Voice OS (OVOS) is a <strong>modular voice assistant platform</strong> that lets you install only the components you need. Whether you're building a lightweight voice interface or a full-featured smart assistant, OVOS gives you flexibility through modular packages and optional feature sets called <strong>extras</strong>.</p>
@@ -1700,7 +1718,7 @@ standalone player and how to opt into it.</p>
 </tr>
 <tr>
 <td><code>lgpl</code></td>
-<td>Adds optional LGPL-licensed tools like <a href="../padatious-pipeline/">Padatious</a></td>
+<td>Adds <a href="../padatious-pipeline/">Padatious</a> and its neural-network backend <code>fann2</code> (LGPL). Needs system build tools — see below</td>
 </tr>
 <tr>
 <td><code>plugins</code></td>
@@ -1735,30 +1753,84 @@ standalone player and how to opt into it.</p>
 <p>Extras and a release channel are independent choices — combine them in one command by
 adding both the bracketed extras and a <code>-c</code> constraints file:</p>
 <h3 id="full-installation-example">Full Installation Example<a class="headerlink" href="#full-installation-example" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-core[mycroft,lgpl,plugins,skills-essential,skills-audio,skills-gui,skills-internet,skills-media,skills-desktop]&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span>-c<span class="w"> </span>https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-stable.txt
+<p>The <code>lgpl</code> extra pulls in <code>fann2</code>, which is published as a source distribution only — there are
+no wheels — so pip/uv compiles it during install. On Debian/Ubuntu, install its build
+prerequisites first:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>swig<span class="w"> </span>libfann-dev
 </span></code></pre></div>
-<h3 id="minimal-installation-example">Minimal Installation Example<a class="headerlink" href="#minimal-installation-example" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-core[mycroft,plugins,skills-essential]&quot;</span><span class="w"> </span><span class="se">\</span>
+<p>Without them the install below fails while building <code>fann2</code>. Omit the <code>lgpl</code> extra if you do not
+need the Padatious pipeline; <a href="../padatious-pipeline/">padacioso</a> is the pure-Python alternative.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-core[mycroft,lgpl,plugins,skills-essential,skills-audio,skills-gui,skills-internet,skills-media,skills-desktop]&quot;</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>-c<span class="w"> </span>https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-stable.txt
 </span></code></pre></div>
+<h3 id="minimal-installation-example">Minimal Installation Example<a class="headerlink" href="#minimal-installation-example" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-core[mycroft,plugins,skills-essential]&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span>-c<span class="w"> </span>https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-stable.txt
+</span></code></pre></div>
+<hr />
+<h2 id="offline-and-mirrored-installs">Offline and mirrored installs<a class="headerlink" href="#offline-and-mirrored-installs" title="Permanent link">&para;</a></h2>
+<p>Every <code>-c https://...</code> command on this page fetches the constraints file over HTTPS at install
+time. On an isolated or bandwidth-constrained network, keep local copies instead.</p>
+<p><strong>1. Use a local constraints file.</strong> Download the channel file once on a connected machine, copy
+it across, and point <code>-c</code> at the path:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-core[mycroft]&quot;</span><span class="w"> </span>-c<span class="w"> </span>/srv/ovos/constraints-stable.txt
+</span></code></pre></div>
+<p><strong>2. Install from a local wheelhouse.</strong> Populate a directory of wheels on a connected machine,
+then install with the index disabled:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># connected machine (uv has no download subcommand — use pip here)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>pip<span class="w"> </span>download<span class="w"> </span><span class="s2">&quot;ovos-core[mycroft]&quot;</span><span class="w"> </span>-c<span class="w"> </span>constraints-stable.txt<span class="w"> </span>-d<span class="w"> </span>./wheels
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># isolated machine</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-index<span class="w"> </span>--find-links<span class="w"> </span>./wheels<span class="w"> </span><span class="s2">&quot;ovos-core[mycroft]&quot;</span>
+</span></code></pre></div>
+<p><strong>3. Point the runtime skill installer at a local constraints file.</strong> Set
+<code>skills.installer.constraints</code> in <code>mycroft.conf</code> to a filesystem path so it does not try to
+fetch the channel file on every operation:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;skills&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">&quot;installer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">      </span><span class="nt">&quot;constraints&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/srv/ovos/constraints-stable.txt&quot;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">The runtime skill installer still needs GitHub</p>
+<p>Installing a skill <em>at runtime</em> over the bus resolves the skill repository through
+<code>api.github.com</code> and <code>raw.githubusercontent.com</code>. A local constraints file removes one
+network dependency, but runtime skill installation cannot work on a network where those
+endpoints are unreachable — install skills as ordinary packages from your wheelhouse
+instead. See <a href="../skill-installer/">Skill Installer</a>.</p>
+</div>
 <hr />
 <h2 id="technical-notes">Technical Notes<a class="headerlink" href="#technical-notes" title="Permanent link">&para;</a></h2>
 <ul>
 <li>OVOS is <strong>fully modularized</strong>, with each major service in its own repository, so you install only what you need.</li>
 <li>All packages follow <a href="https://semver.org/">Semantic Versioning (SemVer)</a>, so you can rely on versioning to understand stability and compatibility.</li>
-<li>Constraints files are a <strong>stable standard</strong> for pinning system versions since the <a href="https://github.com/OpenVoiceOS/ovos-releases">ovos-releases 1.0.0</a> milestone.</li>
+<li>Constraints files are a <strong>stable standard</strong> for bounding system versions since the <a href="https://github.com/OpenVoiceOS/ovos-releases">ovos-releases 1.0.0</a> milestone.</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Channel constraints are ranges, not exact pins</p>
+<p>Every entry in the published channel constraints files is a compatible <strong>range</strong>
+(<code>&gt;=x,&lt;y</code>), not an exact <code>==</code> pin. A channel therefore guarantees mutually compatible
+versions, not identical ones: installing the same channel on two machines, or on the same
+machine a month apart, can resolve to different versions.</p>
+<p>For a genuinely reproducible build, resolve once and install from your own frozen output:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-core[mycroft]&quot;</span><span class="w"> </span>-c<span class="w"> </span>https://raw.githubusercontent.com/OpenVoiceOS/ovos-releases/refs/heads/main/constraints-stable.txt
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>uv<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w"> </span>&gt;<span class="w"> </span>my-constraints.txt
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># every later install, on every machine:</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;ovos-core[mycroft]&quot;</span><span class="w"> </span>-c<span class="w"> </span>my-constraints.txt
+</span></code></pre></div>
+</div>
 <hr />
 <h2 id="rolling-back">Rolling Back<a class="headerlink" href="#rolling-back" title="Permanent link">&para;</a></h2>
-<p>Constraints files pin a channel's versions, but they don't remember what <em>you</em> had installed
-before an upgrade. Before upgrading anything you care about, freeze what's currently working:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w"> </span>&gt;<span class="w"> </span>known-good.txt
+<p>Constraints files bound a channel's versions, but they don't record what <em>you</em> actually had
+installed before an upgrade. Before upgrading anything you care about, freeze what's currently working:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w"> </span>&gt;<span class="w"> </span>known-good.txt
 </span></code></pre></div>
 <p>If an upgrade misbehaves, <code>pip</code>/<code>uv</code> won't downgrade a package on their own just because a
 newer constraints file changed — an ordinary <code>install</code> call treats an already-satisfied
 requirement as nothing to do. Force the reinstall of the exact frozen versions instead:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>-r<span class="w"> </span>known-good.txt
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>-r<span class="w"> </span>known-good.txt
 </span></code></pre></div>
 <p>See <a href="../production-operations/#staged-upgrades-and-rollback">Production Operations: staged upgrades and rollback</a>
 for the same pattern applied across a fleet of devices rather than one machine.</p>
@@ -1767,7 +1839,7 @@ for the same pattern applied across a fleet of devices rather than one machine.<
 <ul>
 <li>Using <code>--pre</code> installs pre-releases across all dependencies, not just OVOS-specific ones — so use with caution.</li>
 <li>You can mix and match extras based on your hardware or use case, e.g., omit GUI skills on a headless server.</li>
-<li>When using constraints files, make sure all packages are pinned — it avoids installing incompatible versions.</li>
+<li>A constraints file only bounds packages it lists; anything absent resolves freely. If you need an exact, repeatable set of versions, install from your own <code>uv pip freeze</code> output rather than from a channel file.</li>
 <li>After installing you need to launch the individual ovos services, either manually or by creating a systemd service</li>
 </ul>
 <hr />

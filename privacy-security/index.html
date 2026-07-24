@@ -995,6 +995,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-is-written-to-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is written to disk
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-messagebus-is-a-trust-boundary-not-a-security-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       The messagebus is a trust boundary, not a security boundary
@@ -1285,6 +1294,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-is-written-to-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is written to disk
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-messagebus-is-a-trust-boundary-not-a-security-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       The messagebus is a trust boundary, not a security boundary
@@ -1392,13 +1410,23 @@ guessing.</p>
 <td><strong>No</strong> — the text you want spoken leaves the device</td>
 </tr>
 <tr>
+<td>Translation / language detection</td>
+<td><code>language.translation_module</code> defaults to <code>ovos-translate-plugin-server</code> and <code>language.detection_module</code> to <code>ovos-lang-detector-plugin-server</code>, both pointed at <strong>public servers</strong> run by the OVOS community; the declared fallbacks are <code>ovos-google-translate-plugin</code> / <code>ovos-google-lang-detector-plugin</code></td>
+<td><strong>No</strong> — text to be translated or language-detected leaves the device. Self-host <a href="https://github.com/OpenVoiceOS/ovos-translate-server">ovos-translate-server</a> and point the plugins at it, or pick an offline plugin</td>
+</tr>
+<tr>
 <td>Wake word</td>
 <td><code>ovos-ww-plugin-precise-onnx</code> (or <code>precise-lite</code>), running fully on-device</td>
 <td><strong>Yes</strong>, once the model file is downloaded on first run</td>
 </tr>
 <tr>
+<td>Connectivity checks</td>
+<td><code>network_tests</code> polls <code>https://api.ipify.org</code>, <code>1.1.1.1</code>, <code>8.8.8.8</code>, <code>http://nmcheck.gnome.org/check_network_status.txt</code> and <code>https://checkonline.home-assistant.io/online.txt</code> to decide whether the device is online and behind a captive portal</td>
+<td><strong>No</strong> — but every URL is a config key; point <code>network_tests</code> at your own infrastructure</td>
+</tr>
+<tr>
 <td>Backend / pairing</td>
-<td><code>mycroft.conf</code>'s <code>server.url</code> ships <strong>empty</strong> — OVOS is "backendless" by default; there is no Mycroft/Selene account and nothing is paired unless you configure a backend yourself</td>
+<td>OVOS is <strong>backendless</strong> by default — there is no backend key in the shipped <code>mycroft.conf</code> at all, nothing is paired, and no account exists unless you add one yourself</td>
 <td><strong>Yes</strong></td>
 </tr>
 <tr>
@@ -1424,15 +1452,19 @@ guessing.</p>
 </tbody>
 </table>
 <div class="admonition danger">
-<p class="admonition-title">Default STT/TTS send your voice and words to a public server</p>
-<p>Out of the box, both speech recognition and speech synthesis are configured
-against <strong>public servers operated by the OVOS community</strong>, not services
-running on your device. If you care about audio or text never leaving the
-machine, switch to an offline plugin — see <a href="../stt-plugins/">STT plugins</a> and
-<a href="../tts-plugins/">TTS plugins</a> for the offline options (for example
-<code>onnx-asr</code>-based STT or <code>ovos-tts-plugin-piper</code> running locally), or point
-the server plugins at a server you run yourself
-(see <a href="../stt-server/"><code>stt-server</code></a> / <a href="../tts-server/"><code>tts-server</code></a>).</p>
+<p class="admonition-title">Default STT, TTS and translation send your voice and words to a public server</p>
+<p>Out of the box, speech recognition, speech synthesis <strong>and</strong> translation /
+language detection are all configured against <strong>public servers operated by
+the OVOS community</strong>, not services running on your device. If you care about
+audio or text never leaving the machine, switch to an offline plugin — see
+<a href="../stt-plugins/">STT plugins</a> and <a href="../tts-plugins/">TTS plugins</a> for the
+offline options (for example <code>onnx-asr</code>-based STT or <code>ovos-tts-plugin-piper</code>
+running locally), or point the server plugins at a server you run yourself
+(see <a href="../stt-server/"><code>stt-server</code></a> / <a href="../tts-server/"><code>tts-server</code></a>). The same
+applies to <code>language.translation_module</code> and <code>language.detection_module</code>:
+either self-host a <a href="../translate-server/">translate server</a> and configure the
+plugins against it, or choose an offline
+<a href="../translation-plugins/">translation plugin</a>.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Community servers are best-effort demos</p>
@@ -1482,6 +1514,45 @@ uploaded unless <code>open_data.ww_urls</code> or <code>open_data.stt_urls</code
 configured with at least one server, and there is no default server. Uploads run
 in a background thread and never block the listener; failures are logged and
 otherwise ignored. See <a href="../config-reference/#all-keys-generated"><code>open_data.ww_urls</code> / <code>open_data.stt_urls</code></a> for the exact config keys.</p>
+<hr />
+<h2 id="what-is-written-to-disk">What is written to disk<a class="headerlink" href="#what-is-written-to-disk" title="Permanent link">&para;</a></h2>
+<p>Separate from what goes over the network, the listener can write captured audio to
+local storage. The relevant paths sit under the listener's <code>save_path</code>, which defaults
+to <code>~/.local/share/mycroft/listener/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Written when</th>
+<th>Config key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;save_path&gt;/wake_words/</code></td>
+<td>Only if <code>listener.record_wake_words</code> is enabled</td>
+<td><code>listener.record_wake_words</code> (off by default)</td>
+</tr>
+<tr>
+<td><code>&lt;save_path&gt;/utterances/</code></td>
+<td>Only if <code>listener.save_utterances</code> is enabled</td>
+<td><code>listener.save_utterances</code> (off by default)</td>
+</tr>
+<tr>
+<td><code>&lt;save_path&gt;/recordings/</code></td>
+<td>Whenever a recording session runs</td>
+<td>none — always written</td>
+</tr>
+</tbody>
+</table>
+<p>Because <code>record_wake_words</code> and <code>save_utterances</code> are both off by default, ordinary
+wake-word detections and spoken commands are <strong>not</strong> written to disk on a stock install.</p>
+<p>A <strong>recording session</strong> — the dictation-style listener state a skill enters to capture a
+block of audio, rather than the normal wake-word-then-command flow — is different: it
+writes the captured audio as a <code>.wav</code> plus a JSON sidecar of its metadata into
+<code>&lt;save_path&gt;/recordings/</code>, and this does not depend on the two keys above. Nothing prunes
+that directory, so the files stay until you remove them. On shared or multi-user devices,
+audit and clear it as part of your routine, and set restrictive permissions on <code>save_path</code>.</p>
 <hr />
 <h2 id="the-messagebus-is-a-trust-boundary-not-a-security-boundary">The messagebus is a trust boundary, not a security boundary<a class="headerlink" href="#the-messagebus-is-a-trust-boundary-not-a-security-boundary" title="Permanent link">&para;</a></h2>
 <p>Everything inside OVOS — skills, plugins, the voice pipeline — talks over the
@@ -1544,6 +1615,13 @@ There is no secrets manager or encryption layer.</p>
       <a href="../tts-plugins/">TTS plugins</a>).</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Keep the messagebus bound to <code>127.0.0.1</code>; never expose port <code>8181</code>
       directly to the internet (<a href="../bus-service/">Bus Service</a>).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Set <code>gui_websocket.host</code> to <code>127.0.0.1</code> — the shipped default is <code>0.0.0.0</code>,
+      and that socket carries the same authority as the bus
+      (<a href="../gui-service/">GUI Service</a>).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Point <code>network_tests</code> at your own infrastructure if the default connectivity
+      probes are not acceptable.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Audit and clear <code>~/.local/share/mycroft/listener/recordings/</code> on shared
+      devices — nothing prunes it.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Leave <code>allow_pip</code> off unless you specifically need runtime skill
       installation, and never combine it with a non-local bus
       (<a href="../skill-installer/">Skill Installer</a>).</li>

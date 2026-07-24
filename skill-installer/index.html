@@ -1746,7 +1746,17 @@
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>The <code>constraints</code> file pins allowed versions; packages listed in it are also treated as <strong>protected</strong> and cannot be uninstalled.</p>
+<p>The <code>constraints</code> file bounds allowed versions — its entries are compatible <strong>ranges</strong>
+(<code>&gt;=x,&lt;y</code>), not exact pins, so it constrains what may be installed rather than fixing it. The
+packages it lists are also treated as <strong>protected</strong>: <code>ovos.pip.uninstall</code> refuses to remove a
+package named there.</p>
+<div class="admonition note">
+<p class="admonition-title">Uninstall protection is an accident guard, not a security control</p>
+<p>The protected list stops a request from removing OVOS's own components by name. It is not a
+privilege boundary — anything that can reach the <a href="../bus-service/">messagebus</a> already has
+full control of the device, and <code>allow_pip: true</code> gives it package-management rights.
+Security comes from keeping the bus local and <code>allow_pip</code> off, not from this list.</p>
+</div>
 <div class="admonition danger">
 <p class="admonition-title">Skills are not sandboxed — this installs and runs arbitrary code</p>
 <p>There is no sandbox or permission model. Installing a skill through

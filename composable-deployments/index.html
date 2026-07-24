@@ -1699,11 +1699,13 @@ will cooperate exactly as if they were on the same box, as long as each can reac
 <code>host:port</code>. The <a href="../gui-service/">GUI service</a> has its own analogous <code>gui_websocket</code> block, since
 display clients connect over a second WebSocket.</p>
 <div class="admonition warning">
-<p class="admonition-title">Localhost by default, everywhere</p>
-<p><code>websocket.host</code> (bus), <code>gui_websocket.host</code> (GUI protocol, default <code>0.0.0.0</code>, still same-host
-unless routed), and most PHAL plugin bindings default to loopback or same-host assumptions.
-Distributing services is supported but is a deliberate config change, not the out-of-the-box
-behavior — see <a href="#caveats">Caveats</a> below.</p>
+<p class="admonition-title">Loopback by default — except the GUI socket</p>
+<p><code>websocket.host</code> (bus) and most PHAL plugin bindings default to loopback or same-host
+assumptions, so distributing those services is a deliberate config change rather than the
+out-of-the-box behavior — see <a href="#caveats">Caveats</a> below.</p>
+<p><code>gui_websocket.host</code> is the exception: it ships as <code>0.0.0.0</code>, so the GUI protocol socket is
+reachable from the whole LAN on a default install. Narrow it to <code>127.0.0.1</code> unless a display
+client genuinely runs on another machine.</p>
 </div>
 <h2 id="standalone-skills">Standalone skills<a class="headerlink" href="#standalone-skills" title="Permanent link">&para;</a></h2>
 <p>A skill does not need a running <code>ovos-core</code> to execute — <code>ovos-workshop</code> ships a launcher that

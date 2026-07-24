@@ -1779,7 +1779,7 @@ share one global display stack.</p>
 <tbody>
 <tr>
 <td><code>host</code></td>
-<td>Interface the Tornado WebSocket server binds to</td>
+<td>Interface the Tornado WebSocket server binds to (default: <code>0.0.0.0</code>, <strong>all interfaces</strong>)</td>
 </tr>
 <tr>
 <td><code>base_port</code></td>
@@ -1791,6 +1791,17 @@ share one global display stack.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition danger">
+<p class="admonition-title">The GUI WebSocket is unauthenticated and reaches the core bus</p>
+<p>Anything received on the GUI socket is translated into an emit on the core messagebus, so
+this socket carries the same authority as the bus itself. There is no authentication and no
+origin check.</p>
+<p>Set <code>gui_websocket.host</code> to <code>127.0.0.1</code> unless a remote display client genuinely needs it, and
+never expose port <code>18181</code> beyond a trusted network. If a display really must run on another
+machine, put it behind a VPN or a reverse proxy that authenticates, or use
+<a href="https://jarbashivemind.github.io/HiveMind-community-docs/">HiveMind</a> for authenticated remote
+transport.</p>
+</div>
 <hr />
 <div class="admonition warning">
 <p class="admonition-title">Upcoming — unreleased</p>
