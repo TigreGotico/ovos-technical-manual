@@ -1467,7 +1467,7 @@ you can swap implementations without touching the rest:</p>
 <li><strong>Database</strong> — where client credentials live (JSON / SQLite / Redis).</li>
 <li><strong>Binary data handler</strong> — how binary payloads (e.g. audio) move over the mesh.</li>
 </ul>
-<p><img alt="" src="../img/satellites.png" /></p>
+<p><img alt="Diagram of a server running ovos-core and hivemind-core, exposing a hivemind_listener on port 5678 that three satellite clients (Kitchen, Bedroom, Restroom) connect to, each relaying its own spoken request back to the server" src="../img/satellites.png" /></p>
 <hr />
 <h2 id="quickstart-expose-an-ovos-install">Quickstart: expose an OVOS install<a class="headerlink" href="#quickstart-expose-an-ovos-install" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>hivemind-core

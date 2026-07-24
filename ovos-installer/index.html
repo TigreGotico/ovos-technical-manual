@@ -1781,7 +1781,7 @@ resolve. Then connect via SSH:</p>
 <p>Now you're ready to start the installation process:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/OpenVoiceOS/ovos-installer/main/installer.sh<span class="k">)</span><span class="s2">&quot;</span>
 </span></code></pre></div>
-<p><img alt="image" src="https://gist.github.com/user-attachments/assets/8a87fd01-2570-419b-8154-159b2d5801cb" /></p>
+<p><img alt="Terminal running the installer script: an ASCII-art OVOS logo above a progress log showing OS detection, AVX/SIMD and Raspberry Pi checks, Python virtualenv setup, and Ansible requirement installation all marked done" src="https://gist.github.com/user-attachments/assets/8a87fd01-2570-419b-8154-159b2d5801cb" /></p>
 <hr />
 <h2 id="what-happens-next">What Happens Next?<a class="headerlink" href="#what-happens-next" title="Permanent link">&para;</a></h2>
 <p>Once you run the script, the installer will:</p>
@@ -1826,7 +1826,7 @@ with no prompts at all — useful for fleets or CI.</p>
 <hr />
 <h3 id="language-selection">🌍 Language Selection<a class="headerlink" href="#language-selection" title="Permanent link">&para;</a></h3>
 <p>The first screen lets you select your preferred language for the installer's own text — not the assistant's spoken language. See <a href="../lang-support/">Language Support</a> for how the assistant's language is actually chosen: setting the global <code>lang</code> key is enough on its own (STT/TTS/plugins follow it automatically), and <code>ovos-config autoconfigure</code> optionally swaps in the recommended plugins/voices for that language. Follow the on-screen instructions; use arrow keys and space to pick.</p>
-<p><img alt="image" src="https://gist.github.com/user-attachments/assets/61f9e089-1d54-49e9-8d4a-d5e1f6028ee2" /></p>
+<p><img alt="Language selection screen listing Dutch, English, French, German, Hindi, Italian, Portuguese, and Spanish as radio-button choices, with English selected" src="https://gist.github.com/user-attachments/assets/61f9e089-1d54-49e9-8d4a-d5e1f6028ee2" /></p>
 <hr />
 <h3 id="environment-summary">🧠 Environment Summary<a class="headerlink" href="#environment-summary" title="Permanent link">&para;</a></h3>
 <p>An informational screen — no action needed. It reports what the installer auto-detected about the machine, including:</p>
@@ -1849,7 +1849,7 @@ with no prompts at all — useful for fleets or CI.</p>
 <p>If the board looks like a Mycroft Mark II or DevKit (Raspberry Pi 4 plus the
 matching audio/I²C hardware), a confirmation prompt asks you to verify that —
 some generic HATs expose the same signal without being real Mark II hardware.</p>
-<p><img alt="image" src="https://gist.github.com/user-attachments/assets/1268a703-2007-4bc0-b153-36f33b782b20" /></p>
+<p><img alt="Environment summary screen listing the detected OS, kernel, Raspberry Pi model, Python version, AVX/SIMD support, hardware type, virtualenv path, sound server, and display server, with a Next button to continue" src="https://gist.github.com/user-attachments/assets/1268a703-2007-4bc0-b153-36f33b782b20" /></p>
 <hr />
 <h3 id="choose-installation-method">🧰 Choose Installation Method<a class="headerlink" href="#choose-installation-method" title="Permanent link">&para;</a></h3>
 <p>A radio-button list with up to two options:</p>
@@ -1861,7 +1861,7 @@ some generic HATs expose the same signal without being real Mark II hardware.</p
 </dl>
 <p>If you're re-running the installer on an existing install, only the method
 already in use is offered (you can't switch method in place).</p>
-<p><img alt="image" src="https://gist.github.com/user-attachments/assets/e1b881fc-327d-4e1f-839b-396cffcd354c" /></p>
+<p><img alt="Installation method screen with a radio-button choice between containers and virtualenv, containers selected" src="https://gist.github.com/user-attachments/assets/e1b881fc-327d-4e1f-839b-396cffcd354c" /></p>
 <hr />
 <h3 id="choose-channel">🌱 Choose Channel<a class="headerlink" href="#choose-channel" title="Permanent link">&para;</a></h3>
 <dl>
@@ -1870,7 +1870,7 @@ already in use is offered (you can't switch method in place).</p>
 <dt><code>alpha</code></dt>
 <dd>Bleeding-edge/pre-release packages. <strong>Required</strong> (and the only option offered) on macOS and on Mark II/DevKit hardware.</dd>
 </dl>
-<p><img alt="image" src="https://gist.github.com/user-attachments/assets/f782cebe-c86b-4474-93d7-894b712e8fe7" /></p>
+<p><img alt="Release channel screen with a single available option, development, selected as a radio button" src="https://gist.github.com/user-attachments/assets/f782cebe-c86b-4474-93d7-894b712e8fe7" /></p>
 <hr />
 <h3 id="choose-profile">🧪 Choose Profile<a class="headerlink" href="#choose-profile" title="Permanent link">&para;</a></h3>
 <p>A radio-button list of installation profiles:</p>
@@ -1884,7 +1884,7 @@ already in use is offered (you can't switch method in place).</p>
 <dt><code>server</code></dt>
 <dd>A headless core with no local audio hardware assumptions, meant to serve satellites — also skips GUI/LLM/Home Assistant options.</dd>
 </dl>
-<p><img alt="image" src="https://gist.github.com/user-attachments/assets/0ff4279d-69fa-4ab8-b372-0fef263e6d7c" /></p>
+<p><img alt="Profile selection screen with four radio-button options — ovos, satellite, listener, server — and ovos selected" src="https://gist.github.com/user-attachments/assets/0ff4279d-69fa-4ab8-b372-0fef263e6d7c" /></p>
 <hr />
 <h3 id="feature-selection">🛠️ Feature Selection<a class="headerlink" href="#feature-selection" title="Permanent link">&para;</a></h3>
 <p>A checklist (only shown for the <code>ovos</code>/<code>listener</code>/<code>server</code> profiles, not <code>satellite</code>):</p>
@@ -1900,7 +1900,7 @@ already in use is offered (you can't switch method in place).</p>
 <dt><code>llm</code></dt>
 <dd>Enable an LLM-backed fallback answer via the OVOS Persona pipeline; prompts for an OpenAI-compatible API URL, key, model, and persona name. Same availability rule as <code>homeassistant</code>.</dd>
 </dl>
-<p><img alt="image" src="https://gist.github.com/user-attachments/assets/bdb65ba6-18d6-42fd-aff6-22fab0826870" /></p>
+<p><img alt="Feature selection checklist with skills and gui both checked on" src="https://gist.github.com/user-attachments/assets/bdb65ba6-18d6-42fd-aff6-22fab0826870" /></p>
 <blockquote>
 <p>⚠️ Note: Some features (like the GUI) may be unavailable on lower-end hardware like the Raspberry Pi 3B+.</p>
 </blockquote>
@@ -1909,13 +1909,13 @@ already in use is offered (you can't switch method in place).</p>
 <p>On Raspberry Pi boards only, a yes/no prompt offers system performance tweaks
 (including an overclock option on supported boards). It's highly recommended
 to enable this on a Pi.</p>
-<p><img alt="image" src="https://gist.github.com/user-attachments/assets/91bb5f18-9c5a-49ef-a0fe-5b0e52b44ee9" /></p>
+<p><img alt="Raspberry Pi tuning prompt with a yes/no choice, yes selected" src="https://gist.github.com/user-attachments/assets/91bb5f18-9c5a-49ef-a0fe-5b0e52b44ee9" /></p>
 <hr />
 <h3 id="summary">🧾 Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h3>
 <p>Before the installation begins, you'll see a summary of every option you
 selected on the previous screens (method, channel, profile, features, tuning).
 This is your last chance to cancel the process.</p>
-<p><img alt="image" src="https://gist.github.com/user-attachments/assets/62a565f3-6871-4dfe-a441-c482199feac0" /></p>
+<p><img alt="Summary screen listing the chosen method (virtualenv), version/channel (development), profile (ovos), GUI and skills both enabled, and tuning enabled, with a Yes/No confirmation prompt" src="https://gist.github.com/user-attachments/assets/62a565f3-6871-4dfe-a441-c482199feac0" /></p>
 <hr />
 <h3 id="anonymous-telemetry">📊 Anonymous Telemetry<a class="headerlink" href="#anonymous-telemetry" title="Permanent link">&para;</a></h3>
 <div class="admonition tip">
@@ -1929,7 +1929,7 @@ for the full explanation. In short: the first ("Telemetry") is a one-time
 install report; the second ("Usage Metrics") configures the <em>installed
 assistant</em> to keep reporting intent-matching data afterwards, so it is not
 purely a "during setup only" choice.</p>
-<p><img alt="image" src="https://gist.github.com/user-attachments/assets/b8015c41-370d-49d3-b783-996887cb421b" /></p>
+<p><img alt="Telemetry opt-in prompt explaining what anonymous data collection covers, with a Yes/No choice to accept sharing it" src="https://gist.github.com/user-attachments/assets/b8015c41-370d-49d3-b783-996887cb421b" /></p>
 <h4 id="install-time-telemetry-share_telemetry">Install-time telemetry (<code>share_telemetry</code>)<a class="headerlink" href="#install-time-telemetry-share_telemetry" title="Permanent link">&para;</a></h4>
 <p>This report is generated and sent <strong>once</strong>, right after installation
 completes — nothing else about this specific report is collected afterwards.
@@ -2060,7 +2060,7 @@ message.</p>
 <p>"Set a timer for 5 minutes."</p>
 </li>
 </ul>
-<p><img alt="image" src="https://gist.github.com/user-attachments/assets/acbc71ed-46aa-4084-8f4c-82c6a2a19d49" /></p>
+<p><img alt="Final &quot;installation has been successfully completed&quot; screen with example wake-word commands to try and the path to the installed mycroft.conf" src="https://gist.github.com/user-attachments/assets/acbc71ed-46aa-4084-8f4c-82c6a2a19d49" /></p>
 <p>You're officially part of the Open Voice OS community! 🎤✨</p>
 <div class="admonition tip">
 <p class="admonition-title">Say the wake word first</p>
