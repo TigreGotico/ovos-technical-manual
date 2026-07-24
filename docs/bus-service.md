@@ -82,7 +82,7 @@ All settings live under the `websocket` key in `mycroft.conf`:
 | `host` | `"127.0.0.1"` | Bind address. The shipped default restricts to localhost; set `"0.0.0.0"` to bind all interfaces. |
 | `port` | `8181` | TCP port. The GUI service uses a separate port, `18181` by default (config key `gui_websocket.base_port`). |
 | `route` | `"/core"` | WebSocket URL path. Full URL: `ws://host:port/core`. |
-| `ssl` | `false` | Not a working switch for the reference server. `ovos-messagebus` always serves plain WebSocket; clients (`ovos-bus-client`) do honour this key and will build a `wss://` URL from it, so setting it points clients at a scheme the server does not speak. Terminate TLS in a reverse proxy in front of the bus, or use [HiveMind](hivemind-agents.md) for encrypted transport. |
+| `ssl` | `false` | Connect over `wss://` instead of `ws://`. Clients (`ovos-bus-client`) build their URL from this key. TLS is terminated in front of the bus — by a reverse proxy or similar — rather than by `ovos-messagebus` itself, so set this once the bus sits behind one. [HiveMind](hivemind-agents.md) is the other route to encrypted transport. |
 | `shared_connection` | `true` | When `true`, all skills share ovos-core's single bus connection. Set `false` to give each skill its own connection (so one skill cannot manipulate another's bus traffic). |
 | `max_msg_size` | `25` | Max WebSocket frame size in megabytes. |
 
