@@ -936,6 +936,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#getting-your-plugin-ranked" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Your Plugin Ranked
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prediction-contract-huggingface" class="md-nav__link">
     <span class="md-ellipsis">
       Prediction Contract (HuggingFace)
@@ -1319,6 +1328,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#getting-your-plugin-ranked" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Your Plugin Ranked
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prediction-contract-huggingface" class="md-nav__link">
     <span class="md-ellipsis">
       Prediction Contract (HuggingFace)
@@ -1471,6 +1489,26 @@
 <li><strong>Competitors</strong> — <code>registry/competitors/&lt;modality&gt;/&lt;id&gt;.json</code>. For intent, <code>config</code> is a valid <code>mycroft.conf</code> fragment (an <code>intents</code> section with an ordered <code>pipeline</code> of <code>&lt;plugin&gt;-&lt;tier&gt;</code> stages).</li>
 <li><strong>Datasets</strong> — <code>registry/datasets/&lt;modality&gt;/&lt;id&gt;.json</code>. One corpus per entry: HF source id + revision, <code>reference_fields</code> (the datashape contract), license, <code>lang</code> (or <code>lang: multi</code> + <code>langs</code>), and a <code>role</code> (<code>train</code>/<code>eval</code>). Keyword and template training corpora are distinct datasets with distinct datashapes.</li>
 </ul>
+<h2 id="getting-your-plugin-ranked">Getting Your Plugin Ranked<a class="headerlink" href="#getting-your-plugin-ranked" title="Permanent link">&para;</a></h2>
+<p>You do not run any benchmarks yourself. A competitor is <em>a configuration you could ship</em> — the
+same plugin under a different config counts as a different fighter — and once its registry entry
+is merged, the arena's sweep runs it against the pinned datasets and it appears on the boards.</p>
+<ol>
+<li>Add a JSON file at <code>registry/competitors/&lt;modality&gt;/&lt;competitor-id&gt;.json</code>, where <code>&lt;modality&gt;</code>
+   is one of <code>stt</code>, <code>tts</code>, <code>ww</code>, <code>vad</code>, <code>intent</code>. Required fields are <code>competitor_id</code>, <code>modality</code>
+   and <code>config</code> (a valid <code>mycroft.conf</code> fragment); non-intent fighters also need <code>plugin</code>, the OPM
+   entry-point name. Intent fighters describe an ordered <code>config.intents.pipeline</code> of
+   <code>&lt;plugin&gt;-&lt;tier&gt;</code> stages — a single stage benchmarks one engine, several stages make an
+   ensemble — and <code>plugin</code> is derived automatically for the single-stage case.</li>
+<li>Validate locally with <code>uv run pytest tests/test_registry.py</code>, which checks every competitor
+   file against the schema. CI runs the same validation via <code>arena/cli.py validate-registry</code>.</li>
+<li>Open a pull request. The sweep and the boards do the rest, and the fighter gets an embeddable
+   rank badge for its README.</li>
+</ol>
+<p>Optional metadata — <code>display_name</code>, <code>species</code>, <code>types</code>, <code>size</code>, <code>description</code>, <code>model</code>, <code>links</code> —
+populates the fighter's card in the browser. The full field reference, including the <code>size</code>
+footprint classes, lives in
+<a href="https://github.com/OpenVoiceOS/ovos-plugin-arena/blob/dev/docs/add-a-fighter.md">add-a-fighter</a>.</p>
 <hr />
 <h2 id="prediction-contract-huggingface">Prediction Contract (HuggingFace)<a class="headerlink" href="#prediction-contract-huggingface" title="Permanent link">&para;</a></h2>
 <p>Predictions live in HF dataset repos — one per benchmark modality, named <code>ovos-&lt;modality&gt;-bench-&lt;dataset_id&gt;</code> (league underscores dashed), as per-competitor JSON lines at <code>predictions/&lt;competitor_id&gt;.jsonl</code>, one row per sample (language is a field on each row, not a path segment).</p>
