@@ -160,9 +160,20 @@ The GUI WebSocket server is configured under `gui_websocket` in `mycroft.conf`:
 
 | Key | Description |
 |---|---|
-| `host` | Interface the Tornado WebSocket server binds to |
+| `host` | Interface the Tornado WebSocket server binds to (default: `0.0.0.0`, **all interfaces**) |
 | `base_port` | TCP port Qt clients connect to (default: `18181`) |
 | `route` | WebSocket route path (default: `/gui`) |
+
+!!! danger "The GUI WebSocket is unauthenticated and reaches the core bus"
+    Anything received on the GUI socket is translated into an emit on the core messagebus, so
+    this socket carries the same authority as the bus itself. There is no authentication and no
+    origin check.
+
+    Set `gui_websocket.host` to `127.0.0.1` unless a remote display client genuinely needs it, and
+    never expose port `18181` beyond a trusted network. If a display really must run on another
+    machine, put it behind a VPN or a reverse proxy that authenticates, or use
+    [HiveMind](https://jarbashivemind.github.io/HiveMind-community-docs/) for authenticated remote
+    transport.
 
 ---
 

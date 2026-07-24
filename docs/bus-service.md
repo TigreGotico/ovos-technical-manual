@@ -82,7 +82,7 @@ All settings live under the `websocket` key in `mycroft.conf`:
 | `host` | `"127.0.0.1"` | Bind address. The shipped default restricts to localhost; set `"0.0.0.0"` to bind all interfaces. |
 | `port` | `8181` | TCP port. The GUI service uses a separate port, `18181` by default (config key `gui_websocket.base_port`). |
 | `route` | `"/core"` | WebSocket URL path. Full URL: `ws://host:port/core`. |
-| `ssl` | `false` | Enable WSS/TLS. |
+| `ssl` | `false` | Not a working switch for the reference server. `ovos-messagebus` always serves plain WebSocket; clients (`ovos-bus-client`) do honour this key and will build a `wss://` URL from it, so setting it points clients at a scheme the server does not speak. Terminate TLS in a reverse proxy in front of the bus, or use [HiveMind](hivemind-agents.md) for encrypted transport. |
 | `shared_connection` | `true` | When `true`, all skills share ovos-core's single bus connection. Set `false` to give each skill its own connection (so one skill cannot manipulate another's bus traffic). |
 | `max_msg_size` | `25` | Max WebSocket frame size in megabytes. |
 
@@ -102,6 +102,10 @@ part of the shipped `mycroft.conf` `websocket` section.
       [HiveMind](hivemind-agents.md), which adds authentication and encryption on top.
     - This is also why the bus is a trust boundary: a malicious skill or plugin on the device
       already has full access, so only install software you trust.
+    - **The GUI WebSocket needs the same treatment.** `ovos-gui` serves a second, equally
+      unauthenticated socket on port `18181`, and messages received there are translated into
+      emits on this bus — so it carries the same authority. Unlike the bus, it ships bound to
+      `0.0.0.0`; set `gui_websocket.host` to `127.0.0.1` unless a remote display client needs it.
 
 ---
 
