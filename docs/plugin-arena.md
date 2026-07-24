@@ -59,6 +59,28 @@ A "competitor" is a **shippable config**, not just a plugin: a single-stage pipe
 - **Competitors** — `registry/competitors/<modality>/<id>.json`. For intent, `config` is a valid `mycroft.conf` fragment (an `intents` section with an ordered `pipeline` of `<plugin>-<tier>` stages).
 - **Datasets** — `registry/datasets/<modality>/<id>.json`. One corpus per entry: HF source id + revision, `reference_fields` (the datashape contract), license, `lang` (or `lang: multi` + `langs`), and a `role` (`train`/`eval`). Keyword and template training corpora are distinct datasets with distinct datashapes.
 
+## Getting Your Plugin Ranked
+
+You do not run any benchmarks yourself. A competitor is *a configuration you could ship* — the
+same plugin under a different config counts as a different fighter — and once its registry entry
+is merged, the arena's sweep runs it against the pinned datasets and it appears on the boards.
+
+1. Add a JSON file at `registry/competitors/<modality>/<competitor-id>.json`, where `<modality>`
+   is one of `stt`, `tts`, `ww`, `vad`, `intent`. Required fields are `competitor_id`, `modality`
+   and `config` (a valid `mycroft.conf` fragment); non-intent fighters also need `plugin`, the OPM
+   entry-point name. Intent fighters describe an ordered `config.intents.pipeline` of
+   `<plugin>-<tier>` stages — a single stage benchmarks one engine, several stages make an
+   ensemble — and `plugin` is derived automatically for the single-stage case.
+2. Validate locally with `uv run pytest tests/test_registry.py`, which checks every competitor
+   file against the schema. CI runs the same validation via `arena/cli.py validate-registry`.
+3. Open a pull request. The sweep and the boards do the rest, and the fighter gets an embeddable
+   rank badge for its README.
+
+Optional metadata — `display_name`, `species`, `types`, `size`, `description`, `model`, `links` —
+populates the fighter's card in the browser. The full field reference, including the `size`
+footprint classes, lives in
+[add-a-fighter](https://github.com/OpenVoiceOS/ovos-plugin-arena/blob/dev/docs/add-a-fighter.md).
+
 ---
 
 ## Prediction Contract (HuggingFace)
