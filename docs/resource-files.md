@@ -69,7 +69,7 @@ self.speak_dialog("my", data={"name": "Alice"})
 
 ## Vocab Files (Adapt)
 
-Each line is a keyword variation. The first word on each line is the canonical form:
+Each line is registered as its own keyword, and every line matches the same entity:
 
 ```text
 
@@ -78,6 +78,19 @@ hello
 hi
 hey there
 good morning
+
+```
+
+Parenthesized alternation expands *within a single line*: `(hello|hi|hey)` becomes several forms
+that share one canonical value — the first — with the rest registered as its aliases. That
+canonical/alias relationship exists only inside the line that produced it. Separate plain lines
+are independent keywords with no aliasing between them, so write alternatives on one line if you
+want them collapsed into a single canonical form plus aliases:
+
+```text
+
+# hello.voc
+(hello|hi|hey there|good morning)
 
 ```
 
