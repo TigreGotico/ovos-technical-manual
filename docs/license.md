@@ -44,7 +44,7 @@ compatible with your use case before depending on them.
 
 | Repository | License | Reason |
 |---|---|---|
-| [ovos-intent-plugin-padatious](https://github.com/OpenVoiceOS/ovos-intent-plugin-padatious) | Apache-2.0 | [padatious](https://github.com/MycroftAI/padatious) depends on [libfann](https://github.com/libfann/fann) ([LGPL-2.1](https://github.com/libfann/fann/blob/master/LICENSE.md)); its own license status is uncertain as a result |
+| `ovos-core[lgpl]` extra | Apache-2.0 code, LGPL dependency | The extra pulls in [fann2](https://pypi.org/project/fann2/), the Python binding for [libfann](https://github.com/libfann/fann), both LGPL-2.1-or-later. [ovos-padatious](https://github.com/OpenVoiceOS/ovos-padatious) itself is Apache-2.0 — the LGPL obligation comes from fann2/libfann. If LGPL is unacceptable for your product, omit the extra and use [padacioso](https://github.com/OpenVoiceOS/padacioso) instead |
 | [ovos-tts-plugin-mimic3](https://github.com/OpenVoiceOS/ovos-tts-plugin-mimic3) | AGPL | depends on [mimic3](https://github.com/MycroftAI/mimic3) ([AGPL-3.0](https://github.com/MycroftAI/mimic3/blob/master/LICENSE)). This plugin is **archived**; see [Deprecated & Archived Repositories](deprecated-repos.md) for the current replacement |
 | [ovos-tts-plugin-espeakNG](https://github.com/OpenVoiceOS/ovos-tts-plugin-espeakNG) | GPL | depends on [espeak-ng](https://github.com/espeak-ng/espeak-ng) ([GPL-3.0](https://github.com/espeak-ng/espeak-ng/blob/master/COPYING)) |
 | [ovos-g2p-plugin-espeak](https://github.com/OVOSHatchery/ovos-g2p-plugin-espeak) | GPL | depends on [espeak-phonemizer](https://github.com/rhasspy/espeak-phonemizer) ([GPL-3.0](https://github.com/rhasspy/espeak-phonemizer/blob/master/LICENSE)) |
