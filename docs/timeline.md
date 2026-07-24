@@ -7,7 +7,7 @@
 
 ## Family Tree
 
-![imagem](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/95db65ea-0aff-49f3-bd80-85919a3356e5)
+![Fork tree from mycroft-core: one line goes through mycroft-lib to ovos-core (marked "you are here"), a separate mycroft-dinkum branch that was abandoned, and a neon-core branch that was recreated on mycroft-lib before later moving to ovos-core](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/95db65ea-0aff-49f3-bd80-85919a3356e5)
 
 - mycroft-core created
 - neon-core forked from mycroft-core

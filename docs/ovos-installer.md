@@ -76,7 +76,7 @@ sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/OpenVoiceOS/ovos-inst
 
 ```
 
-![image](https://gist.github.com/user-attachments/assets/8a87fd01-2570-419b-8154-159b2d5801cb)
+![Terminal running the installer script: an ASCII-art OVOS logo above a progress log showing OS detection, AVX/SIMD and Raspberry Pi checks, Python virtualenv setup, and Ansible requirement installation all marked done](https://gist.github.com/user-attachments/assets/8a87fd01-2570-419b-8154-159b2d5801cb)
 
 
 ---
@@ -126,7 +126,7 @@ Navigation:
 
 The first screen lets you select your preferred language for the installer's own text — not the assistant's spoken language. See [Language Support](lang-support.md) for how the assistant's language is actually chosen: setting the global `lang` key is enough on its own (STT/TTS/plugins follow it automatically), and `ovos-config autoconfigure` optionally swaps in the recommended plugins/voices for that language. Follow the on-screen instructions; use arrow keys and space to pick.
 
-![image](https://gist.github.com/user-attachments/assets/61f9e089-1d54-49e9-8d4a-d5e1f6028ee2)
+![Language selection screen listing Dutch, English, French, German, Hindi, Italian, Portuguese, and Spanish as radio-button choices, with English selected](https://gist.github.com/user-attachments/assets/61f9e089-1d54-49e9-8d4a-d5e1f6028ee2)
 
 ---
 
@@ -159,7 +159,7 @@ If the board looks like a Mycroft Mark II or DevKit (Raspberry Pi 4 plus the
 matching audio/I²C hardware), a confirmation prompt asks you to verify that —
 some generic HATs expose the same signal without being real Mark II hardware.
 
-![image](https://gist.github.com/user-attachments/assets/1268a703-2007-4bc0-b153-36f33b782b20)
+![Environment summary screen listing the detected OS, kernel, Raspberry Pi model, Python version, AVX/SIMD support, hardware type, virtualenv path, sound server, and display server, with a Next button to continue](https://gist.github.com/user-attachments/assets/1268a703-2007-4bc0-b153-36f33b782b20)
 
 ---
 
@@ -176,7 +176,7 @@ A radio-button list with up to two options:
 If you're re-running the installer on an existing install, only the method
 already in use is offered (you can't switch method in place).
 
-![image](https://gist.github.com/user-attachments/assets/e1b881fc-327d-4e1f-839b-396cffcd354c)
+![Installation method screen with a radio-button choice between containers and virtualenv, containers selected](https://gist.github.com/user-attachments/assets/e1b881fc-327d-4e1f-839b-396cffcd354c)
 
 ---
 
@@ -188,7 +188,7 @@ already in use is offered (you can't switch method in place).
 `alpha`
 :   Bleeding-edge/pre-release packages. **Required** (and the only option offered) on macOS and on Mark II/DevKit hardware.
 
-![image](https://gist.github.com/user-attachments/assets/f782cebe-c86b-4474-93d7-894b712e8fe7)
+![Release channel screen with a single available option, development, selected as a radio button](https://gist.github.com/user-attachments/assets/f782cebe-c86b-4474-93d7-894b712e8fe7)
 
 ---
 
@@ -208,7 +208,7 @@ A radio-button list of installation profiles:
 `server`
 :   A headless core with no local audio hardware assumptions, meant to serve satellites — also skips GUI/LLM/Home Assistant options.
 
-![image](https://gist.github.com/user-attachments/assets/0ff4279d-69fa-4ab8-b372-0fef263e6d7c)
+![Profile selection screen with four radio-button options — ovos, satellite, listener, server — and ovos selected](https://gist.github.com/user-attachments/assets/0ff4279d-69fa-4ab8-b372-0fef263e6d7c)
 
 ---
 
@@ -231,7 +231,7 @@ A checklist (only shown for the `ovos`/`listener`/`server` profiles, not `satell
 `llm`
 :   Enable an LLM-backed fallback answer via the OVOS Persona pipeline; prompts for an OpenAI-compatible API URL, key, model, and persona name. Same availability rule as `homeassistant`.
 
-![image](https://gist.github.com/user-attachments/assets/bdb65ba6-18d6-42fd-aff6-22fab0826870)
+![Feature selection checklist with skills and gui both checked on](https://gist.github.com/user-attachments/assets/bdb65ba6-18d6-42fd-aff6-22fab0826870)
 
 > ⚠️ Note: Some features (like the GUI) may be unavailable on lower-end hardware like the Raspberry Pi 3B+.
 
@@ -243,7 +243,7 @@ On Raspberry Pi boards only, a yes/no prompt offers system performance tweaks
 (including an overclock option on supported boards). It's highly recommended
 to enable this on a Pi.
 
-![image](https://gist.github.com/user-attachments/assets/91bb5f18-9c5a-49ef-a0fe-5b0e52b44ee9)
+![Raspberry Pi tuning prompt with a yes/no choice, yes selected](https://gist.github.com/user-attachments/assets/91bb5f18-9c5a-49ef-a0fe-5b0e52b44ee9)
 
 ---
 
@@ -253,7 +253,7 @@ Before the installation begins, you'll see a summary of every option you
 selected on the previous screens (method, channel, profile, features, tuning).
 This is your last chance to cancel the process.
 
-![image](https://gist.github.com/user-attachments/assets/62a565f3-6871-4dfe-a441-c482199feac0)
+![Summary screen listing the chosen method (virtualenv), version/channel (development), profile (ovos), GUI and skills both enabled, and tuning enabled, with a Yes/No confirmation prompt](https://gist.github.com/user-attachments/assets/62a565f3-6871-4dfe-a441-c482199feac0)
 
 ---
 
@@ -270,7 +270,7 @@ install report; the second ("Usage Metrics") configures the *installed
 assistant* to keep reporting intent-matching data afterwards, so it is not
 purely a "during setup only" choice.
 
-![image](https://gist.github.com/user-attachments/assets/b8015c41-370d-49d3-b783-996887cb421b)
+![Telemetry opt-in prompt explaining what anonymous data collection covers, with a Yes/No choice to accept sharing it](https://gist.github.com/user-attachments/assets/b8015c41-370d-49d3-b783-996887cb421b)
 
 #### Install-time telemetry (`share_telemetry`)
 
@@ -341,7 +341,7 @@ You've done it! OVOS is now installed and ready to serve you. Try saying things 
 
 - "Set a timer for 5 minutes."
 
-![image](https://gist.github.com/user-attachments/assets/acbc71ed-46aa-4084-8f4c-82c6a2a19d49)
+![Final "installation has been successfully completed" screen with example wake-word commands to try and the path to the installed mycroft.conf](https://gist.github.com/user-attachments/assets/acbc71ed-46aa-4084-8f4c-82c6a2a19d49)
 
 You're officially part of the Open Voice OS community! 🎤✨
 

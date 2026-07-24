@@ -204,7 +204,7 @@ OVOS GUI's developed to follow the color scheme depend on only a subset of avail
 ### QML Delegate Design Best Practise
 
 __Let's look at this image and qml example below, this is a representation of the Mycroft Delegate:__
-![](https://mycroft.blue-systems.com/display-1.png)
+![Example delegate over a mountain background: red corner triangles mark the safe-area margin, and a three-slice pie chart below the title uses the primary (dark), highlight (red), and text (white) theme colors](https://mycroft.blue-systems.com/display-1.png)
 
 1. When designing your first QML file, it is important to note the red triangles in the above image, these triangles represent the margin from the screen edge the GUI needs to be designed within, these margins ensure your GUI content does not overlap with features like edge lighting and menus in the platforms that support it like OVOS-Shell
 
@@ -262,10 +262,10 @@ Mycroft.Delegate {
 OVOS Skill GUIs are designed to be multi-platform and screen friendly, supporting both horizontal and vertical displays. Below is an example and a general approach to writing multi-resolution-friendly UIs:
 
 __Let's look at these images below that represent a Delegate as seen in a Horizontal screen:__
-![](https://mycroft.blue-systems.com/display-2.png)
+![Horizontal display example: two image cards (Example Card A, Example Card B) placed side by side in a grid, with a Next button below](https://mycroft.blue-systems.com/display-2.png)
 
 __Let's look at these images below that represent a Delegate as seen in a Vertical screen:__
-![](https://mycroft.blue-systems.com/display-3.png)
+![Vertical display example: the same two image cards (Example Card A, Example Card B) stacked instead of side by side, with a Next button below](https://mycroft.blue-systems.com/display-3.png)
 
 1. When designing for different screens it is preferred to utilize Grids, GridLayouts and GridViews this allows easier content placement as one can control the number of columns and rows displayed on the screen
 

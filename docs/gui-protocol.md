@@ -23,7 +23,7 @@ The Qt WebSocket server runs inside `ovos-gui` (`ovos_gui/bus.py`, Tornado). The
 client-side transport is implemented in the
 [mycroft-gui-qt5](https://github.com/OpenVoiceOS/mycroft-gui-qt5) library.
 
-![imagem](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/92e73af7-f7d2-4aa3-a294-77f87aa22390)
+![Diagram of ovos-gui sitting between the bus (messages from OVOS) and a GUI websocket, fanning out over the GUI protocol to five client implementations: ovos-gnome-shell (GTK), ovos-shell (Qt5), ovos-gui-app (Qt6), ovos-tui (CLI), and ovos-react (web)](https://github.com/OpenVoiceOS/ovos-technical-manual/assets/33701864/92e73af7-f7d2-4aa3-a294-77f87aa22390)
 
 ---
 

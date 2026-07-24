@@ -31,7 +31,7 @@ you can swap implementations without touching the rest:
 - **Database** — where client credentials live (JSON / SQLite / Redis).
 - **Binary data handler** — how binary payloads (e.g. audio) move over the mesh.
 
-![](img/satellites.png)
+![Diagram of a server running ovos-core and hivemind-core, exposing a hivemind_listener on port 5678 that three satellite clients (Kitchen, Bedroom, Restroom) connect to, each relaying its own spoken request back to the server](img/satellites.png)
 
 ---
 

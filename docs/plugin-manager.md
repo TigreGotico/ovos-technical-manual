@@ -6,7 +6,7 @@
 ??? info "📐 Formal specification"
     OPM is the *discovery and loading* mechanism; it is not itself a spec, but several plugin **roles** it loads are defined by the architecture specs and carry conformance obligations independent of OPM. In particular, **pipeline plugins** (entry point `opm.pipeline`) implement the `match(utterances, lang, session) → Match` contract and **first-match-wins** ordering of **[OVOS-PIPELINE-1](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)**, and the six **transformer** plugin types (`opm.transformer.*`) implement the six ordered chains of **[OVOS-TRANSFORM-1](https://github.com/OpenVoiceOS/architecture/blob/dev/transformer.md)** (priority **ascending** — lower runs earlier). See the [spec index](architecture-specs.md) for the full set of plugin-role specs.
 
-![image](https://github.com/OpenVoiceOS/ovos-plugin-manager/assets/33701864/8c939267-42fc-4377-bcdb-f7df65e73252)
+![OPM's plugin categories grouped by role: listener plugins (microphone, wake word, VAD, audio transformer, STT), audio plugins (dialog transformer, G2P, TTS, TTS transformer), core plugins (utterance transformer, metadata transformer, translation/language detection, skills), PHAL plugins, GUI plugins, and media plugins (video/music playback)](https://github.com/OpenVoiceOS/ovos-plugin-manager/assets/33701864/8c939267-42fc-4377-bcdb-f7df65e73252)
 
 The OVOS Plugin Manager (OPM) is the plugin discovery and loading infrastructure for the
 OVOS ecosystem. It standardizes the interface for plugins via Python package entry points,
