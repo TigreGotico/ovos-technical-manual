@@ -8,6 +8,27 @@
 
 TTS plugins are responsible for converting text into audio for playback.
 
+!!! note "Audio format contract"
+    A TTS plugin is the **producer** end of the audio path, so it picks the format rather than
+    receiving one. `get_tts()` writes a complete, self-describing audio file to the path it is
+    handed and returns that path; the container format must match the plugin's `audio_ext`
+    (default `"wav"`, set via the `TTS.__init__` argument), because `audio_ext` is what names
+    the cache file and what playback dispatches on. Sample rate, bit depth and channel count
+    are the plugin's own choice and travel inside the file's header — nothing between
+    `get_tts()` and the speakers resamples, remixes or re-encodes the audio, so whatever the
+    engine emits is what is played. The one constraint is that the deployment must have a
+    player for the extension: playback shells out to the command configured as
+    `play_wav_cmdline`, `play_ogg_cmdline` or `play_mp3_cmdline` (falling back to a detected
+    system player), so `wav`, `ogg` and `mp3` are the extensions a stock deployment can play.
+    Plain 16-bit mono WAV is the safe default.
+
+    `get_tts()` returns the tuple `(audio_path, phonemes)`. `phonemes` is optional — return
+    `None` when the engine exposes none. When present it is a space-separated string of
+    `phoneme:duration` pairs, which the base class's `viseme()` converts into a list of
+    `(viseme_code, duration_seconds)` tuples for mouth animation; a pair with no `:duration`
+    is given `0.2` s. Both the audio and the phonemes are cached together, keyed by sentence
+    hash.
+
 ## Change your voice
 
 1. Browse [voices_demo](https://github.com/OpenVoiceOS/voices_demo) for audio samples of the
