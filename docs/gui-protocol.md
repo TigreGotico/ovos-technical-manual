@@ -248,7 +248,7 @@ namespace), so the UI can react to listening/speaking state:
 
 > This section applies only when `ovos-legacy-mycroft-gui-plugin` is installed.
 
-All messages are JSON objects sent over the WebSocket connection at `ws://localhost:18181`.
+All messages are JSON objects sent over the WebSocket connection at `ws://localhost:18181/gui`.
 
 ### Connection handshake
 
@@ -279,12 +279,12 @@ All messages are JSON objects sent over the WebSocket connection at `ws://localh
 
 ```
 
-The Qt client then opens a WebSocket connection to `ws://localhost:18181`.
+The Qt client then opens a WebSocket connection to `ws://localhost:18181/gui`.
 
 !!! example "Try it: connect a raw WebSocket client to 18181"
     You don't need a Qt client to see this handshake happen. With `ovos-gui` running and the
-    legacy adapter installed, connect any WebSocket client to `ws://localhost:18181` (for
-    example `websocat ws://localhost:18181` or a short `websockets` Python script) and trigger
+    legacy adapter installed, connect any WebSocket client to `ws://localhost:18181/gui` (for
+    example `websocat ws://localhost:18181/gui` or a short `websockets` Python script) and trigger
     a skill that shows a GUI page. You should observe the server immediately replay
     `mycroft.session.list.insert` and `mycroft.gui.list.insert` messages for the active
     namespace — this is `GUIWebsocketHandler.synchronize()` bringing your new client up to date.
