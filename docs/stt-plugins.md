@@ -42,7 +42,8 @@ Each STT plugin class needs to define the `execute()` method taking two argument
 * `audio` \([AudioData](https://github.com/Uberi/speech_recognition/blob/master/reference/library-reference.rst#audiodataframe_data-bytes-sample_rate-int-sample_width-int---audiodata) object\) - the audio data to be transcribed.  
 
 
-* `lang` \(str\) - _optional_ - the BCP-47 language code
+* `language` \(str\) - _optional_ - the BCP-47 language code; when omitted the plugin uses its
+  configured or detected language
 
 The bare minimum STT class will look something like
 
@@ -56,6 +57,42 @@ class MySTT(STT):
         return text
 
 ```
+
+### N-best hypotheses — `transcribe()`
+
+`execute()` returns a single best string. The richer method is `transcribe(audio, lang=None)`,
+which returns a **list of `(transcript, confidence)` tuples**, confidence a float in `0.0`–`1.0`.
+The template implements it for you as `[(self.execute(audio, lang), 1.0)]`, so a plugin that
+only knows its single best answer needs to implement nothing extra.
+
+If the wrapped engine can produce several hypotheses with scores, **override `transcribe()`**
+— it is the preferred entry point, and consumers that rescore or disambiguate between
+candidates read it. `execute()` then remains the single-best convenience wrapper.
+
+```python
+class MySTT(STT):
+    def execute(self, audio, language=None):
+        return self.transcribe(audio, language)[0][0]
+
+    def transcribe(self, audio, lang=None):
+        # return hypotheses best-first
+        return [("turn on the lights", 0.91),
+                ("turn on the light", 0.62)]
+```
+
+### Language detection
+
+An STT plugin can be paired with an audio language detector. The audio service calls
+`bind(detector)` to hand the plugin an `AudioLanguageDetector`; the plugin then exposes:
+
+* `detect_language(audio, valid_langs=None)` → `(lang, confidence)`. It delegates to the bound
+  detector, defaulting `valid_langs` to the plugin's own `available_languages`. With no detector
+  bound it raises `NotImplementedError` — language detection is opt-in per deployment.
+
+* `transcribe(audio, lang="auto")` — the `"auto"` sentinel runs `detect_language()` first and
+  transcribes in whatever it returns. If detection fails, the plugin falls back to `self.lang`
+  and transcribes anyway, so `"auto"` never turns a detector problem into a failed
+  transcription.
 
 ## `StreamingSTT`
 
