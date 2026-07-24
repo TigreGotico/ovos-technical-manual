@@ -25,8 +25,9 @@ Emitted by `ovos-dinkum-listener` as the audio pipeline runs. See
 |---|---|---|
 | `ovos.listener.record.started` (legacy: `recognizer_loop:record_begin`) | none | Command recording started |
 | `ovos.listener.record.ended` (legacy: `recognizer_loop:record_end`) | none | Command recording ended |
-| `recognizer_loop:wakeword` | `{"utterance", "lang"}` | Wake word fired |
+| `ovos.listener.wakeword` (legacy: `recognizer_loop:wakeword`) | `{"wake_word", "lang"}` | Wake word detected; capture is opening. `lang` is optional and only present when the deployment binds wake words to languages |
 | `recognizer_loop:speech.recognition.unknown` | none | STT returned nothing (silence / failure) |
+| `ovos.listener.sleep` | none | Request the listener enter sleep mode and suspend capture — device-scoped, see [Speech Service](speech-service.md) |
 | `ovos.listener.awoken` (legacy: `mycroft.awoken`) | none | Listener woke from sleep |
 
 ## STT / utterance entry point
@@ -91,9 +92,9 @@ Handled by every `OVOSSkill` instance; see [OVOSSkill API](ovos-skill.md#system-
 
 | Event | Meaning |
 |---|---|
-| `mycroft.stop` | Trigger the skill's stop flow (also the global stop broadcast, see below) |
-| `{skill_id}.stop` | Skill-specific stop |
-| `{skill_id}.stop.ping` | Check whether this skill can stop |
+| `ovos.stop` (legacy: `mycroft.stop`) | Global stop broadcast — every skill subscribes and ceases activity for the inbound session (see below) |
+| `<skill_id>:stop` (legacy: `{skill_id}.stop`) | Skill-directed stop dispatch |
+| `ovos.stop.ping` (legacy: `{skill_id}.stop.ping`) | Check whether this skill can stop |
 | `mycroft.skill.enable_intent` / `mycroft.skill.disable_intent` | Enable/disable one of the skill's intents |
 | `mycroft.skill.set_cross_context` / `mycroft.skill.remove_cross_context` | Manage cross-skill context |
 | `mycroft.skills.settings.changed` | Remote settings update |
@@ -103,18 +104,16 @@ Handled by every `OVOSSkill` instance; see [OVOSSkill API](ovos-skill.md#system-
 
 ### Stop pipeline
 
-`mycroft.stop` and the per-skill stop handshake above are driven by the dedicated
+`ovos.stop` and the per-skill stop handshake above are driven by the dedicated
 [Stop Pipeline](stop-pipeline.md#bus-events) plugin, not by a generic intent match:
 
 | Event | Direction | Meaning |
 |---|---|---|
-| `stop:global` | in | Handled by `handle_global_stop` — emits `mycroft.stop` (and `ovos.utterance.handled`) |
-| `stop:skill` | in | Handled by `handle_skill_stop` — forwards `{skill_id}.stop` |
-| `{skill_id}.stop.ping` | out | Asks a skill whether it can stop |
-| `skill.stop.pong` | in | Skill's reply |
-| `{skill_id}.stop` | out | Tells a specific skill to stop |
-| `{skill_id}.stop.response` | in | Skill's stop confirmation |
-| `mycroft.stop` | out | Global stop signal when no skill handles it |
+| `<pipeline_id>:global_stop` (legacy: `stop:global`) | in | Global-stop dispatch — its handler emits the `ovos.stop` broadcast (and `ovos.utterance.handled`) |
+| `<skill_id>:stop` (legacy: `stop:skill` → `{skill_id}.stop`) | out | Targeted stop dispatch to one skill |
+| `ovos.stop.ping` (legacy: `{skill_id}.stop.ping`) | out | Asks the active handlers whether they can stop |
+| `ovos.stop.pong` (legacy: `skill.stop.pong`) | in | Handler's `can_handle` reply |
+| `ovos.stop` (legacy: `mycroft.stop`) | out | Universal stop broadcast |
 
 ## TTS / audio playback
 
@@ -130,9 +129,6 @@ Handled by `ovos-audio`; see [Audio Service](audio-service.md).
 | `recognizer_loop:utterance_start` | Emitted by the playback thread right before spoken audio starts playing |
 | `recognizer_loop:audio_output_start` (spec: `ovos.audio.output.started`) | Emitted by the playback thread when audio actually starts playing |
 | `recognizer_loop:audio_output_end` (spec: `ovos.audio.output.ended`) | Emitted by the playback thread when audio finishes playing |
-
-!!! note "Adding a `duration` field to `utterance_start`"
-    Carrying the synthesized clip's duration on `recognizer_loop:utterance_start` itself (rather than requiring a listener to wait for the output-end pair) is **Upcoming**.
 
 ## GUI forwarding
 

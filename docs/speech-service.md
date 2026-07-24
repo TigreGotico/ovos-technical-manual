@@ -82,15 +82,24 @@ Canonical (spec) names are shown first, with the legacy name current code still 
 |---|---|---|
 | `ovos.listener.record.started` (legacy: `recognizer_loop:record_begin`) | none | Command recording started (§6.1) |
 | `ovos.listener.record.ended` (legacy: `recognizer_loop:record_end`) | none | Command recording ended (§6.2) |
-| `recognizer_loop:wakeword` | `{"utterance", "lang"}` | Wake word fired (implementation event; not respecified by AUDIO-IN-1 §6) |
+| `ovos.listener.wakeword` (legacy: `recognizer_loop:wakeword`) | `{"wake_word", "lang"}` | Wake word detected; capture is opening (§6.5). `lang` is carried only when the deployment binds wake words to languages, and is the hint reported as `session.request_lang` |
 | `ovos.utterance.handle` (legacy: `recognizer_loop:utterance`) | `{"utterances": [str], "lang"}` | Transcribed command — the main result (§5, OVOS-PIPELINE-1 §9.1) |
-| — | `duration` (**Upcoming**) | An in-progress change ([ovos-dinkum-listener#215](https://github.com/OpenVoiceOS/ovos-dinkum-listener/pull/215)) will add an audio-duration field to this message's payload. |
 | `recognizer_loop:speech.recognition.unknown` | none | STT returned nothing (silence / failure) |
 | `ovos.listener.awoken` (legacy: `mycroft.awoken`) | none | Listener woke from sleep (§6.4) |
 
-It also reacts to inbound commands such as `recognizer_loop:sleep`,
-`recognizer_loop:wake_up`, `recognizer_loop:record_stop` and `recognizer_loop:state.get`.
-The full table lives in the bus-message spec (`message_spec/dinkum.md`).
+It also reacts to inbound commands: `ovos.listener.sleep` (legacy: `recognizer_loop:sleep`)
+suspends capture, `recognizer_loop:wake_up` resumes it, plus `recognizer_loop:record_stop`
+and `recognizer_loop:state.get`. The full table lives in the bus-message spec
+(`message_spec/dinkum.md`).
+
+!!! note "Sleep is device-scoped, not session-scoped"
+
+    `ovos.listener.sleep` rides a session like every other message, but sleep mode is a
+    **physical device state**: a sleeping listener captures nothing, for any session
+    (AUDIO-IN-1 §6.3). Entering or leaving sleep therefore affects the whole device, not
+    only the session that carried the request. Sleep entry is unacknowledged by design —
+    the only sleep-related emission is `ovos.listener.awoken` on the sleep→awake
+    transition.
 
 !!! note "Gotcha — utterance namespace"
 
