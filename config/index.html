@@ -1857,9 +1857,13 @@
 everything you don't mention keeps its default.</p>
 <p>At read time OVOS stacks several files on top of each other and merges them. The
 file closest to <em>you</em> wins:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>bundled default  →  remote (web_cache.json)  →  /usr/share/...  →  /etc/mycroft/...  →  ~/.config/mycroft/mycroft.conf  →  runtime patch
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>     lowest priority  ───────────────────────────────────────────────────────────────►  highest priority
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>bundled default  →  /usr/share/...  →  /etc/mycroft/...  →  runtime.conf  →  ~/.config/mycroft/mycroft.conf  →  runtime patch
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>     lowest priority  ───────────────────────────────────────────────────►  highest priority
 </span></code></pre></div>
+<p><code>runtime.conf</code> is a file OVOS itself writes to record changes made at runtime (e.g. an
+autodetected location); it sits below your <code>mycroft.conf</code> so anything you set by hand
+always wins. It is not the file you edit — see the <a href="#config-layer-stack">Config Layer Stack</a>
+below.</p>
 <p>So to switch to a German voice you only need:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;lang&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;de-de&quot;</span>
@@ -1876,22 +1880,25 @@ the full picture.</p>
 <hr />
 <h2 id="config-layer-stack">Config Layer Stack<a class="headerlink" href="#config-layer-stack" title="Permanent link">&para;</a></h2>
 <p>Layers are merged in this order — later layers override earlier ones:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>MycroftDefaultConfig   (bundled mycroft.conf — read-only to OVOS itself; admins edit the file)
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>RemoteConf             (~/.config/mycroft/web_cache.json)
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>OvosDistributionConfig (/usr/share/mycroft/mycroft.conf — read-only to OVOS itself; admins edit the file)
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>MycroftSystemConfig    (/etc/mycroft/mycroft.conf — read-only to OVOS itself; admins edit the file)
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>MycroftUserConfig      (~/.config/mycroft/mycroft.conf — XDG user config)
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>__patch                (in-memory overlay applied last)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>DefaultConfig      (bundled mycroft.conf — read-only to OVOS itself; admins edit the file)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>DistributionConfig (/usr/share/mycroft/mycroft.conf — read-only to OVOS itself; admins edit the file)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>SystemConfig       (/etc/mycroft/mycroft.conf — read-only to OVOS itself; admins edit the file)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>AssistantConfig    (~/.config/mycroft/runtime.conf — written by OVOS itself, not by users)
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>UserConfig         (~/.config/mycroft/mycroft.conf — XDG user config)
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>__patch            (in-memory overlay applied last)
 </span></code></pre></div>
 <p>The XDG user layer is actually a <em>list</em> of configs (one per XDG config dir, e.g.
 <code>/etc/xdg/mycroft/mycroft.conf</code> plus <code>~/.config/mycroft/mycroft.conf</code>), all merged
 in order. All layers are <code>LocalConf</code> dict subclasses backed by a file. Only the user
-config (<code>~/.config/mycroft/mycroft.conf</code>) should be edited by users.</p>
+config (<code>~/.config/mycroft/mycroft.conf</code>) should be edited by users; <code>runtime.conf</code>
+(<code>AssistantConfig</code>) is where OVOS itself persists changes it makes at runtime — for
+example a plugin recording an autodetected location — so that it stops short of
+overwriting or corrupting the file you hand-edit. There is no remote/backend config
+layer; OVOS has no equivalent of the old Selene/home.mycroft.ai settings cache.</p>
 <blockquote>
-<p>The merge order in <code>load_all_configs()</code> is: default → remote → distribution →
-system → xdg user configs → in-memory patch. The remote layer is skipped when
-<code>disable_remote_config</code> is set, and the user/XDG layers when <code>disable_user_config</code>
-is set.</p>
+<p>The merge order in <code>load_all_configs()</code> is: default → distribution → system →
+assistant → xdg user configs → in-memory patch. The user/XDG layers are skipped
+when <code>disable_user_config</code> is set.</p>
 </blockquote>
 <hr />
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
@@ -1901,12 +1908,13 @@ is set.</p>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">lang</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;lang&quot;</span><span class="p">]</span>                         <span class="c1"># read a value</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">tts_module</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;tts&quot;</span><span class="p">][</span><span class="s2">&quot;module&quot;</span><span class="p">]</span>          <span class="c1"># nested access</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Update the user config layer</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kn">from</span> <span class="nn">ovos_config.config</span> <span class="kn">import</span> <span class="n">update_mycroft_config</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">update_mycroft_config</span><span class="p">({</span><span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;de-de&quot;</span><span class="p">})</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1"># Emit configuration.updated on the bus after writing</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="n">update_mycroft_config</span><span class="p">({</span><span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;de-de&quot;</span><span class="p">},</span> <span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">)</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Update the assistant (runtime.conf) layer — for changes OVOS makes about itself,</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># never for settings a user is expected to hand-edit</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="kn">from</span> <span class="nn">ovos_config.config</span> <span class="kn">import</span> <span class="n">update_assistant_config</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="n">update_assistant_config</span><span class="p">({</span><span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;de-de&quot;</span><span class="p">})</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="c1"># Emit configuration.patch on the bus after writing, so other processes pick it up</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="n">update_assistant_config</span><span class="p">({</span><span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;de-de&quot;</span><span class="p">},</span> <span class="n">bus</span><span class="o">=</span><span class="n">bus</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Because <code>Configuration</code> is a singleton, all instances share the same merged view. <code>Configuration.load_all_configs()</code> is called automatically on first access.</p>
 <hr />
@@ -1942,14 +1950,9 @@ is set.</p>
 <td>XDG user config (primary editable)</td>
 </tr>
 <tr>
-<td><code>WEB_CONFIG_CACHE</code></td>
-<td><code>~/.config/mycroft/web_cache.json</code></td>
-<td>Remote config cache (env: <code>MYCROFT_WEB_CACHE</code>)</td>
-</tr>
-<tr>
-<td><code>OLD_USER_CONFIG</code></td>
-<td><code>~/.mycroft/mycroft.conf</code></td>
-<td>Legacy pre-XDG location (migration)</td>
+<td><code>ASSISTANT_CONFIG</code></td>
+<td><code>~/.config/mycroft/runtime.conf</code></td>
+<td>Runtime changes written by OVOS itself, not by users</td>
 </tr>
 </tbody>
 </table>
@@ -1996,20 +1999,16 @@ for the full guidance.</p>
 <tbody>
 <tr>
 <td><code>protected_keys</code></td>
-<td>Dict of <code>{"remote"\|"user": [key, ...]}</code> — keys stripped from that layer before merging</td>
+<td>Dict of <code>{"user": [key, ...]}</code> — keys stripped from the user layer before merging</td>
 </tr>
 <tr>
 <td><code>disable_user_config</code></td>
 <td>If <code>true</code>, the user XDG config layer is ignored</td>
 </tr>
-<tr>
-<td><code>disable_remote_config</code></td>
-<td>If <code>true</code>, the remote config layer (<code>web_cache.json</code>) is ignored</td>
-</tr>
 </tbody>
 </table>
 <p>These constraints are read from the <code>system</code> section, and <strong>only</strong> from the
-distribution or system config — values set in the default or user/remote layers are
+distribution or system config — values set in the default or user layers are
 ignored. Nested keys use <code>:</code> as the separator (e.g. <code>"listener:sample_rate"</code>).</p>
 <p>Example — stop users from rebinding the messagebus host (must live in the <code>system</code> section of <code>/etc/mycroft/mycroft.conf</code>):</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
@@ -2065,11 +2064,6 @@ are driven by the bus handlers below rather than called directly.</p>
 <td><code>Configuration.clear_cache</code></td>
 <td>Drop the cached merged config</td>
 </tr>
-<tr>
-<td><code>mycroft.paired</code> / <code>mycroft.internet.connected</code></td>
-<td><code>Configuration.handle_remote_update</code></td>
-<td>Re-fetch the remote layer</td>
-</tr>
 </tbody>
 </table>
 <p><code>Configuration.set_config_watcher()</code> uses <code>ovos-utils</code>' <code>FileWatcher</code> (watchdog) to monitor config files on disk and reloads automatically when they change.</p>
@@ -2097,36 +2091,40 @@ are driven by the bus handlers below rather than called directly.</p>
 <td>Raises <code>PermissionError</code> on mutation (unless <code>allow_overwrite=True</code>)</td>
 </tr>
 <tr>
-<td><code>MycroftDefaultConfig</code></td>
+<td><code>DefaultConfig</code></td>
 <td>bundled <code>mycroft.conf</code></td>
 <td><code>ReadOnlyConfig</code></td>
 </tr>
 <tr>
-<td><code>OvosDistributionConfig</code></td>
+<td><code>DistributionConfig</code></td>
 <td><code>/usr/share/mycroft/mycroft.conf</code></td>
 <td><code>ReadOnlyConfig</code></td>
 </tr>
 <tr>
-<td><code>MycroftSystemConfig</code></td>
+<td><code>SystemConfig</code></td>
 <td><code>/etc/mycroft/mycroft.conf</code></td>
 <td><code>ReadOnlyConfig</code></td>
 </tr>
 <tr>
-<td><code>RemoteConf</code></td>
-<td><code>~/.config/mycroft/web_cache.json</code></td>
-<td>Cached remote config (<code>LocalConf</code>)</td>
+<td><code>AssistantConfig</code></td>
+<td><code>~/.config/mycroft/runtime.conf</code></td>
+<td>Runtime layer written by OVOS itself (<code>LocalConf</code>)</td>
 </tr>
 <tr>
-<td><code>MycroftUserConfig</code></td>
+<td><code>UserConfig</code></td>
 <td><code>~/.config/mycroft/mycroft.conf</code></td>
-<td>Primary user layer (<code>LocalConf</code>; alias <code>MycroftXDGConfig</code>)</td>
+<td>Primary user layer (<code>LocalConf</code>)</td>
 </tr>
 </tbody>
 </table>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span> <span class="nn">ovos_config.models</span> <span class="kn">import</span> <span class="n">LocalConf</span><span class="p">,</span> <span class="n">MycroftUserConfig</span>
+<p><code>DefaultConfig</code>, <code>DistributionConfig</code>, <code>SystemConfig</code> and <code>UserConfig</code> are also available
+under their older names <code>MycroftDefaultConfig</code>, <code>OvosDistributionConfig</code>,
+<code>MycroftSystemConfig</code>, <code>MycroftUserConfig</code> (and the <code>MycroftXDGConfig</code> alias of
+<code>UserConfig</code>) for backward compatibility.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span> <span class="nn">ovos_config.models</span> <span class="kn">import</span> <span class="n">LocalConf</span><span class="p">,</span> <span class="n">UserConfig</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># Direct access to a layer</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">user</span> <span class="o">=</span> <span class="n">MycroftUserConfig</span><span class="p">()</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">user</span> <span class="o">=</span> <span class="n">UserConfig</span><span class="p">()</span>
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">user</span><span class="p">[</span><span class="s2">&quot;tts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;ovos-tts-plugin-mimic3&quot;</span><span class="p">}</span>
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="n">user</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>   <span class="c1"># write to disk</span>
 </span></code></pre></div>
@@ -2173,15 +2171,16 @@ are driven by the bus handlers below rather than called directly.</p>
 <hr />
 <h2 id="accessing-individual-layers">Accessing Individual Layers<a class="headerlink" href="#accessing-individual-layers" title="Permanent link">&para;</a></h2>
 <p>The individual layers are class attributes on <code>Configuration</code> (not per-instance):</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">Configuration</span><span class="o">.</span><span class="n">default</span>       <span class="c1"># MycroftDefaultConfig</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">Configuration</span><span class="o">.</span><span class="n">distribution</span>  <span class="c1"># OvosDistributionConfig</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">Configuration</span><span class="o">.</span><span class="n">system</span>        <span class="c1"># MycroftSystemConfig</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">Configuration</span><span class="o">.</span><span class="n">remote</span>        <span class="c1"># RemoteConf</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">Configuration</span><span class="o">.</span><span class="n">default</span>       <span class="c1"># DefaultConfig</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">Configuration</span><span class="o">.</span><span class="n">distribution</span>  <span class="c1"># DistributionConfig</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">Configuration</span><span class="o">.</span><span class="n">system</span>        <span class="c1"># SystemConfig</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">Configuration</span><span class="o">.</span><span class="n">assistant</span>     <span class="c1"># AssistantConfig — runtime.conf, written by OVOS itself</span>
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">Configuration</span><span class="o">.</span><span class="n">xdg_configs</span>   <span class="c1"># list[LocalConf] — the user/XDG layer(s)</span>
 </span></code></pre></div>
 <p>There is no <code>.user</code> attribute; the editable user config is the last entry in
 <code>Configuration.xdg_configs</code>. To write the user file directly, use
-<code>MycroftUserConfig()</code> (see Config Models above).</p>
+<code>UserConfig()</code> (see Config Models above). To write the runtime layer, use
+<code>update_assistant_config()</code> rather than instantiating <code>AssistantConfig()</code> directly.</p>
 <hr />
 <h2 id="environment-variable-overrides">Environment Variable Overrides<a class="headerlink" href="#environment-variable-overrides" title="Permanent link">&para;</a></h2>
 <p><strong>Module:</strong> <code>ovos_config.meta</code></p>
@@ -2252,7 +2251,7 @@ are driven by the bus handlers below rather than called directly.</p>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>ovos-config<span class="w"> </span>show<span class="w"> </span>-s<span class="w"> </span>-l<span class="w">                  </span><span class="c1"># list sections of system config</span>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>ovos-config<span class="w"> </span>show<span class="w"> </span>-u<span class="w"> </span>--section<span class="w"> </span>base<span class="w">      </span><span class="c1"># user config, top-level scalar keys</span>
 </span></code></pre></div>
-<p>Merge priority displayed: <code>user &gt; system &gt; remote &gt; default</code></p>
+<p>Merge priority displayed: <code>user &gt; assistant &gt; system &gt; default</code></p>
 <h3 id="get"><code>get</code><a class="headerlink" href="#get" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ovos-config<span class="w"> </span>get<span class="w"> </span>-k<span class="w"> </span>lang<span class="w">                 </span><span class="c1"># find all keys containing &quot;lang&quot;</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>ovos-config<span class="w"> </span>get<span class="w"> </span>-k<span class="w"> </span>/tts/module<span class="w">          </span><span class="c1"># get exact value at tts.module (strict path)</span>
@@ -2316,7 +2315,7 @@ are driven by the bus handlers below rather than called directly.</p>
 <p><code>get_config_locations()</code> returns the full list of active config file paths for debugging.</p>
 </li>
 <li>
-<p>Use <code>disable_user_config</code> or <code>disable_remote_config</code> with caution — they silently skip those layers.</p>
+<p>Use <code>disable_user_config</code> with caution — it silently skips the user layer.</p>
 </li>
 </ul>
 <hr />
