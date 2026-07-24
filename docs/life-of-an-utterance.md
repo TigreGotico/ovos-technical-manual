@@ -30,14 +30,15 @@ sequenceDiagram
     Core->>Core: utterance + metadata transformers
     Core->>Core: pipeline match (stop → converse → OCP → padatious → adapt → fallback)
     Core->>Bus: ovos.intent.matched
-    Bus->>Skill: dispatch (ovos.intent.handler.start)
+    Core->>Bus: ovos.intent.handler.start
+    Bus->>Skill: skill_id:intent_name
     Skill->>Skill: intent handler logic
     Skill->>Bus: ovos.utterance.speak
-    Skill->>Bus: ovos.intent.handler.complete
+    Core->>Bus: ovos.intent.handler.complete
     Bus->>Audio: ovos.utterance.speak
     Audio->>Audio: dialog transformer + TTS + tts-transformer
     Audio->>Speakers: play WAV / update GUI
-    Bus->>Core: ovos.utterance.handled
+    Core->>Bus: ovos.utterance.handled
 ```
 
 ---
@@ -119,7 +120,7 @@ Each `match` call is bounded by a deployment-defined timeout — the recommended
 **Service:** A specific Skill (running in `ovos-core`)
 **Bus Event:** `ovos.intent.matched`, `{skill_id}.activate`, and the specific intent dispatch message.
 
-Once a match is found, the orchestrator post-processes it through the **intent-transformer chain** (OVOS-TRANSFORM-1 §3.4), emits `ovos.intent.matched` (§9.2), then dispatches to the winning skill — the winning skill wraps its own handler in the **handler-lifecycle trio** `ovos.intent.handler.start` → `…complete` / `…error` (§8; legacy: `mycroft.skill.handler.*`) — these are emitted by the skill (via `ovos-workshop`'s handler wrapper), not the orchestrator. See [Intent Service](intent-service.md) for the exact mechanism.
+Once a match is found, the orchestrator post-processes it through the **intent-transformer chain** (OVOS-TRANSFORM-1 §3.4), emits `ovos.intent.matched` (§9.2), then dispatches to the winning skill on `<skill_id>:<intent_name>`. The orchestrator wraps that invocation in the **handler-lifecycle trio** `ovos.intent.handler.start` → `…complete` / `…error` (§8; legacy: `mycroft.skill.handler.*`): `start` goes out immediately before the call and exactly one terminal leg immediately after it returns or raises. The handler itself is a black box and emits nothing. See [Intent Service](intent-service.md) for the exact mechanism.
 
 A handful of intent names are **reserved**: a `Match` bearing one of them is a continuation or termination of an already-active skill's participation, not a fresh activation, so the dispatch does not push the skill onto `session.active_handlers` again. That suppression is keyed on the Match's reserved `intent_name` itself — never on which pipeline plugin produced the match — so the same reserved name behaves identically regardless of where in the pipeline it was matched.
 

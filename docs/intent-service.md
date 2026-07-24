@@ -105,18 +105,23 @@ When a pipeline plugin returns a match:
 
 5. Wrap the dispatch in the **handler-lifecycle trio** — the orchestrator emits `ovos.intent.handler.start`, then exactly one of `ovos.intent.handler.complete` / `ovos.intent.handler.error` (§8). The skill's intent handler runs between them.
 
-    !!! note
-        The `ovos.intent.handler.*` trio is actually emitted by the **skill itself**, not the
-        orchestrator: `OVOSSkill.add_event()` (in `ovos-workshop`) wraps every registered handler —
-        intents included — so that starting, finishing, and erroring the wrapped call each emit
-        one leg of the trio, plus the legacy `mycroft.skill.handler.*` counterpart. Skills run
-        **in the same process** as `ovos-core` (loaded and supervised by the `SkillManager`
-        thread, not a separate process per skill); each skill talks to the bus either through
-        `ovos-core`'s single shared connection (`websocket.shared_connection: true`, the default)
-        or, if set to `false`, through its own private connection — see
-        [messagebus Configuration](bus-service.md#configuration).
+    !!! note "The trio is orchestrator-owned"
+        The handler — skill or plugin-bundled — is a black box, and third-party handler code
+        carries no obligation here (PIPELINE-1 §8). The wrapper around the invocation emits
+        `start` before the call and exactly one of `complete` (normal return) or `error`
+        (exception) after it, each `forward`-derived from the dispatch message so `context`
+        and `session` are preserved. The payload is `{skill_id, intent_name}`, plus
+        `exception` on the `error` leg. A handler bounded by a deployment-defined timeout that
+        overruns produces an `error` leg carrying a timeout `exception`; the dispatch is never
+        re-emitted.
 
 ## Threading and Failure Model
+
+Skills run **in the same process** as `ovos-core` — loaded and supervised by the `SkillManager`
+thread, not a separate process per skill. Each skill talks to the bus either through
+`ovos-core`'s single shared connection (`websocket.shared_connection: true`, the default) or,
+if set to `false`, through its own private connection — see
+[messagebus Configuration](bus-service.md#configuration).
 
 Each skill's handlers (intents, converse, events) run synchronously inside `create_wrapper()`, on
 whichever thread delivers the message to that skill's bus subscription — there is no per-handler
@@ -156,16 +161,24 @@ intent context (`session.intent_context`) specified by
 [OVOS-CONTEXT-1](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md) — see
 [Session Aware Skills](session.md).
 
-!!! note "Upcoming — INTENT-4 registration topics"
-    An in-progress change ([ovos-workshop#431](https://github.com/OpenVoiceOS/ovos-workshop/pull/431))
-    will make skills dual-emit their intent/entity registration on the canonical
-    [OVOS-INTENT-4](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md) bus topics
-    alongside the legacy `register_intent`/`register_vocab` events, so pipeline plugins can
-    migrate to the spec topics without breaking skills still on the legacy events.
+!!! note "INTENT-4 registration topics"
+    Skills broadcast their intent and entity registrations on the canonical
+    [OVOS-INTENT-4](https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md) topics —
+    `ovos.intent.register.keyword`, `ovos.intent.register.template`, `ovos.intent.deregister`,
+    `ovos.intent.enable` / `.disable` — alongside the legacy `register_intent` /
+    `register_vocab` events, so pipeline plugins can consume the spec topics while skills on
+    the legacy events keep working. Registrations are broadcast, not addressed: every
+    interested plugin indexes them in parallel, and the orchestrator keeps a passive manifest
+    it serves through `ovos.intent.list` and `ovos.intent.describe`.
 
-!!! note "Upcoming — reserved `intent_name` values"
-    An in-progress change ([ovos-core#802](https://github.com/OpenVoiceOS/ovos-core/pull/802))
-    formalizes `stop` as a reserved `intent_name` per
-    [OVOS-PIPELINE-1 §7.3](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md),
-    alongside a separable legacy-compatibility bridge for existing consumers. See
+!!! note "Reserved `intent_name` values"
+    [OVOS-PIPELINE-1 §7.3](https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md)
+    keeps a registry of `intent_name` values leased to a pipeline-plugin role: `converse`,
+    `response`, `stop`, `fallback` and `common_query`. A skill or pipeline **must not** register
+    a reserved name under INTENT-4 — such a registration is malformed, logged at WARN and not
+    indexed; a skill subscribes to the reserved dispatch topic by framework convention instead.
+    A reservation is a namespace lease, not a dispatch change: reserved-name dispatches fire
+    context stamping, routing and the handler trio like any other, except that the
+    `session.active_handlers` push is suppressed, since a reserved name continues or terminates
+    an already-active skill's participation rather than starting a fresh one. See
     [Converse](converse.md) for how reserved names interact with converse/context handling.
