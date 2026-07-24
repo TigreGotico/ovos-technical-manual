@@ -24,22 +24,28 @@ guessing.
 | --- | --- | --- |
 | Speech-to-text (STT) | `ovos-stt-plugin-server`, which by default talks to a **public whisper server** run by the OVOS community | **No** — your voice audio leaves the device |
 | Text-to-speech (TTS) | `ovos-tts-plugin-server`, which by default talks to a **public Piper server** (the "Alan Pope" voice) | **No** — the text you want spoken leaves the device |
+| Translation / language detection | `language.translation_module` defaults to `ovos-translate-plugin-server` and `language.detection_module` to `ovos-lang-detector-plugin-server`, both pointed at **public servers** run by the OVOS community; the declared fallbacks are `ovos-google-translate-plugin` / `ovos-google-lang-detector-plugin` | **No** — text to be translated or language-detected leaves the device. Self-host [ovos-translate-server](https://github.com/OpenVoiceOS/ovos-translate-server) and point the plugins at it, or pick an offline plugin |
 | Wake word | `ovos-ww-plugin-precise-onnx` (or `precise-lite`), running fully on-device | **Yes**, once the model file is downloaded on first run |
-| Backend / pairing | `mycroft.conf`'s `server.url` ships **empty** — OVOS is "backendless" by default; there is no Mycroft/Selene account and nothing is paired unless you configure a backend yourself | **Yes** |
+| Connectivity checks | `network_tests` polls `https://api.ipify.org`, `1.1.1.1`, `8.8.8.8`, `http://nmcheck.gnome.org/check_network_status.txt` and `https://checkonline.home-assistant.io/online.txt` to decide whether the device is online and behind a captive portal | **No** — but every URL is a config key; point `network_tests` at your own infrastructure |
+| Backend / pairing | OVOS is **backendless** by default — there is no backend key in the shipped `mycroft.conf` at all, nothing is paired, and no account exists unless you add one yourself | **Yes** |
 | Remote config | `disable_remote_config` defaults to `false` (a configured backend is *allowed* to push settings) but this has no effect while no backend is configured | **Yes**, with the default empty backend |
 | Update checks | The installer does **not** phone home automatically; you re-run it manually to check for a newer release | **Yes** |
 | Install-time telemetry | One-time, opt-in — see below | Depends on your answer |
 | Ongoing usage telemetry | Opt-in, continues to run after install — see below | Depends on your answer |
 
-!!! danger "Default STT/TTS send your voice and words to a public server"
-    Out of the box, both speech recognition and speech synthesis are configured
-    against **public servers operated by the OVOS community**, not services
-    running on your device. If you care about audio or text never leaving the
-    machine, switch to an offline plugin — see [STT plugins](stt-plugins.md) and
-    [TTS plugins](tts-plugins.md) for the offline options (for example
-    `onnx-asr`-based STT or `ovos-tts-plugin-piper` running locally), or point
-    the server plugins at a server you run yourself
-    (see [`stt-server`](stt-server.md) / [`tts-server`](tts-server.md)).
+!!! danger "Default STT, TTS and translation send your voice and words to a public server"
+    Out of the box, speech recognition, speech synthesis **and** translation /
+    language detection are all configured against **public servers operated by
+    the OVOS community**, not services running on your device. If you care about
+    audio or text never leaving the machine, switch to an offline plugin — see
+    [STT plugins](stt-plugins.md) and [TTS plugins](tts-plugins.md) for the
+    offline options (for example `onnx-asr`-based STT or `ovos-tts-plugin-piper`
+    running locally), or point the server plugins at a server you run yourself
+    (see [`stt-server`](stt-server.md) / [`tts-server`](tts-server.md)). The same
+    applies to `language.translation_module` and `language.detection_module`:
+    either self-host a [translate server](translate-server.md) and configure the
+    plugins against it, or choose an offline
+    [translation plugin](translation-plugins.md).
 
 --8<-- "snippets/community-servers.md"
 
@@ -88,6 +94,30 @@ uploaded unless `open_data.ww_urls` or `open_data.stt_urls` is explicitly
 configured with at least one server, and there is no default server. Uploads run
 in a background thread and never block the listener; failures are logged and
 otherwise ignored. See [`open_data.ww_urls` / `open_data.stt_urls`](config-reference.md#all-keys-generated) for the exact config keys.
+
+---
+
+## What is written to disk
+
+Separate from what goes over the network, the listener can write captured audio to
+local storage. The relevant paths sit under the listener's `save_path`, which defaults
+to `~/.local/share/mycroft/listener/`.
+
+| Path | Written when | Config key |
+| --- | --- | --- |
+| `<save_path>/wake_words/` | Only if `listener.record_wake_words` is enabled | `listener.record_wake_words` (off by default) |
+| `<save_path>/utterances/` | Only if `listener.save_utterances` is enabled | `listener.save_utterances` (off by default) |
+| `<save_path>/recordings/` | Whenever a recording session runs | none — always written |
+
+Because `record_wake_words` and `save_utterances` are both off by default, ordinary
+wake-word detections and spoken commands are **not** written to disk on a stock install.
+
+A **recording session** — the dictation-style listener state a skill enters to capture a
+block of audio, rather than the normal wake-word-then-command flow — is different: it
+writes the captured audio as a `.wav` plus a JSON sidecar of its metadata into
+`<save_path>/recordings/`, and this does not depend on the two keys above. Nothing prunes
+that directory, so the files stay until you remove them. On shared or multi-user devices,
+audit and clear it as part of your routine, and set restrictive permissions on `save_path`.
 
 ---
 
@@ -158,6 +188,13 @@ There is no secrets manager or encryption layer.
       [TTS plugins](tts-plugins.md)).
 - [ ] Keep the messagebus bound to `127.0.0.1`; never expose port `8181`
       directly to the internet ([Bus Service](bus-service.md)).
+- [ ] Set `gui_websocket.host` to `127.0.0.1` — the shipped default is `0.0.0.0`,
+      and that socket carries the same authority as the bus
+      ([GUI Service](gui-service.md)).
+- [ ] Point `network_tests` at your own infrastructure if the default connectivity
+      probes are not acceptable.
+- [ ] Audit and clear `~/.local/share/mycroft/listener/recordings/` on shared
+      devices — nothing prunes it.
 - [ ] Leave `allow_pip` off unless you specifically need runtime skill
       installation, and never combine it with a non-local bus
       ([Skill Installer](skill-installer.md)).

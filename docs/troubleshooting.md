@@ -207,6 +207,12 @@ To hear the recorded audio yourself, turn on the listener's own recording keys i
 ovos-config set -k save_utterances -v true
 ```
 
+These files are raw recordings of everything the microphone picked up, and they stay on disk
+until you delete them — nothing prunes the directory. Turn both keys back off and clear
+`<save_path>` once you have finished debugging. See
+[Privacy & Security](privacy-security.md#what-is-written-to-disk) for what the listener writes
+to disk by default.
+
 `ovos-listen` can also be used to force a listening cycle without saying the wake word at all —
 useful for isolating STT problems (Stage 3) from wake-word problems.
 
