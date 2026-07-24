@@ -76,6 +76,16 @@ sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/OpenVoiceOS/ovos-inst
 
 ```
 
+That one-liner runs as **root** and executes whatever the `main` branch of `ovos-installer`
+currently holds — it is not pinned to a release. To read the script before it runs, download it
+first and execute the copy you reviewed:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/OpenVoiceOS/ovos-installer/main/installer.sh -o installer.sh
+less installer.sh
+sudo sh installer.sh
+```
+
 ![Terminal running the installer script: an ASCII-art OVOS logo above a progress log showing OS detection, AVX/SIMD and Raspberry Pi checks, Python virtualenv setup, and Ansible requirement installation all marked done](https://gist.github.com/user-attachments/assets/8a87fd01-2570-419b-8154-159b2d5801cb)
 
 
