@@ -28,7 +28,7 @@ guessing.
 | Wake word | `ovos-ww-plugin-precise-onnx` (or `precise-lite`), running fully on-device | **Yes**, once the model file is downloaded on first run |
 | Connectivity checks | `network_tests` polls `https://api.ipify.org`, `1.1.1.1`, `8.8.8.8`, `http://nmcheck.gnome.org/check_network_status.txt` and `https://checkonline.home-assistant.io/online.txt` to decide whether the device is online and behind a captive portal | **No** — but every URL is a config key; point `network_tests` at your own infrastructure |
 | Backend / pairing | OVOS is **backendless** by default — there is no backend key in the shipped `mycroft.conf` at all, nothing is paired, and no account exists unless you add one yourself | **Yes** |
-| Remote config | `disable_remote_config` defaults to `false` (a configured backend is *allowed* to push settings) but this has no effect while no backend is configured | **Yes**, with the default empty backend |
+| Remote config | OVOS has no remote/backend config layer — nothing on the network can push settings into your `mycroft.conf` | **Yes** |
 | Update checks | The installer does **not** phone home automatically; you re-run it manually to check for a newer release | **Yes** |
 | Install-time telemetry | One-time, opt-in — see below | Depends on your answer |
 | Ongoing usage telemetry | Opt-in, continues to run after install — see below | Depends on your answer |

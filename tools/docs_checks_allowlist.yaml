@@ -80,6 +80,21 @@ python_imports:
       present tense per the beta open-PR policy. Until those land, OPM's
       templates/gui.py only exports GUIExtension/GUIInterface/HomescreenManager.
       Remove this entry once #377 merges.
+  - module: ovos_config.config
+    reason: >
+      docs/config.md documents update_assistant_config(), added by the
+      config-stack rework in OpenVoiceOS/ovos-config#194 (open, described in
+      present tense per the beta open-PR policy). The shared dev venv still
+      has a pre-#194 ovos-config installed, which only exports
+      update_mycroft_config. Remove this entry once #194 merges and the venv
+      is updated.
+  - module: ovos_config.models
+    reason: >
+      docs/config.md documents UserConfig, the renamed MycroftUserConfig from
+      OpenVoiceOS/ovos-config#194 (open, beta open-PR policy). The shared dev
+      venv still has a pre-#194 ovos-config installed, which only exports
+      MycroftUserConfig. Remove this entry once #194 merges and the venv is
+      updated.
 
 signatures:
   - file: docs/gui-adapters.md

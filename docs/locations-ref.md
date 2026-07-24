@@ -19,8 +19,7 @@ All paths respect the `OVOS_CONFIG_BASE_FOLDER` environment variable (default: `
 | `DISTRIBUTION_CONFIG` | `/usr/share/mycroft/mycroft.conf` | Distribution-level override (env: `OVOS_DISTRIBUTION_CONFIG`) |
 | `SYSTEM_CONFIG` | `/etc/mycroft/mycroft.conf` | System-level config (env: `MYCROFT_SYSTEM_CONFIG`) |
 | `USER_CONFIG` | `~/.config/mycroft/mycroft.conf` | XDG user config (primary editable) |
-| `WEB_CONFIG_CACHE` | `~/.config/mycroft/web_cache.json` | Remote config cache (env: `MYCROFT_WEB_CACHE`) |
-| `OLD_USER_CONFIG` | `~/.mycroft/mycroft.conf` | Legacy pre-XDG location (migration) |
+| `ASSISTANT_CONFIG` | `~/.config/mycroft/runtime.conf` | Runtime changes written by OVOS itself, not by users |
 
 ---
 
@@ -76,7 +75,7 @@ path = find_user_config()
 
 ```
 
-Returns the path to the user config file. Checks `USER_CONFIG` (XDG) first, then falls back to `OLD_USER_CONFIG` for migration compatibility.
+Returns the path to the user config file. Checks `USER_CONFIG` (XDG) first, then falls back to the legacy pre-XDG location `~/.mycroft/mycroft.conf` if that is the one that exists on disk.
 
 ### `get_config_locations()`
 

@@ -243,8 +243,6 @@ itself — a separate concern from the `speech_begin`/`silence_end` timing above
 | `skills.converse.cross_deactivation` | `true` |  |
 | `skills.converse.converse_priorities` | `{}` |  |
 | `system.disable_user_config` | `false` |  |
-| `system.disable_remote_config` | `false` |  |
-| `system.protected_keys.remote` | `["system", "websocket", "gui_websocket", "network_tests", "listener:channels", "listener:sample_rate"]` |  |
 | `system.protected_keys.user` | `[]` |  |
 | `websocket.host` | `"127.0.0.1"` |  |
 | `websocket.port` | `8181` |  |
