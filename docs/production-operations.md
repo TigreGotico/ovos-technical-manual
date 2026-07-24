@@ -296,13 +296,18 @@ speech-to-text and text-to-speech work over HTTP (see [STT server](stt-server.md
 ```yaml title="docker-compose.yml — central speech backend"
 services:
   ovos_stt_server:
-    image: docker.io/smartgic/ovos-stt-server:${VERSION}   # or your own build, see stt-server.md
+    image: docker.io/smartgic/ovos-stt-server-onnx-asr:${VERSION}   # or your own build, see stt-server.md
     ports: ["8080:8080"]
 
   ovos_tts_server:
-    image: docker.io/smartgic/ovos-tts-server:${VERSION}   # or your own build, see tts-server.md
+    image: docker.io/smartgic/ovos-tts-server-piper:${VERSION}      # or your own build, see tts-server.md
     ports: ["9666:9666"]
 ```
+
+The speech-server image name encodes the engine baked into it — `ovos-stt-server-onnx-asr`,
+`ovos-stt-server-onnx-asr-cuda`, `ovos-tts-server-piper`, `ovos-tts-server-kokoro`,
+`ovos-tts-server-phoonnx` and so on. Pick the variant carrying the plugin you want; there is
+no generic image that loads an arbitrary engine at runtime.
 
 ```yaml title="docker-compose.yml — thin client (per device)"
 services:
@@ -314,12 +319,21 @@ services:
     image: docker.io/smartgic/ovos-listener:${VERSION}
     network_mode: host
     depends_on: [ovos_messagebus]
+    devices: ["/dev/snd"]                      # microphone passthrough
+    volumes:
+      - ${XDG_RUNTIME_DIR}/pulse:${XDG_RUNTIME_DIR}/pulse:ro
+      - ~/.config/pulse/cookie:/home/${OVOS_USER}/.config/pulse/cookie:ro
     # configure stt.module = ovos-stt-plugin-server, urls -> the central STT server above
 
   ovos_audio:
     image: docker.io/smartgic/ovos-audio:${VERSION}
     network_mode: host
     depends_on: [ovos_messagebus]
+    devices: ["/dev/snd"]                      # speaker passthrough
+    volumes:
+      - ${XDG_RUNTIME_DIR}/pulse:${XDG_RUNTIME_DIR}/pulse:ro
+      - ~/.config/pulse/cookie:/home/${OVOS_USER}/.config/pulse/cookie:ro
+      - ovos_tts_cache:/home/${OVOS_USER}/.cache/mycroft/tts
     # configure tts.module = ovos-tts-plugin-server, host -> the central TTS server above
 
   ovos_core:
@@ -327,6 +341,15 @@ services:
     network_mode: host
     depends_on: [ovos_messagebus]
 ```
+
+Audio devices and sockets have to be handed to the containers that touch them: the listener
+needs the microphone, the audio service needs the speaker, and both need the host's PulseAudio
+or PipeWire socket. Anything you want to survive a container rebuild — downloaded models, the
+TTS cache, listener recordings, local state — belongs in a named volume rather than the
+container filesystem. The
+[reference compose file](https://github.com/OpenVoiceOS/ovos-docker/blob/dev/compose/docker-compose.yml)
+in `ovos-docker` is the fuller version of the sketch above, with every volume, device,
+resource limit and healthcheck spelled out.
 
 Each thin client still runs its own bus, listener, audio and core — only the heavy STT/TTS
 inference is centralized. This is the same pattern as
