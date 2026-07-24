@@ -2016,16 +2016,16 @@ available.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>mycroft.stop</code></td>
-<td>Trigger stop flow</td>
+<td><code>ovos.stop</code> (legacy: <code>mycroft.stop</code>)</td>
+<td>Global stop broadcast — cease all activity for the inbound session</td>
 </tr>
 <tr>
-<td><code>{skill_id}.stop</code></td>
-<td>Skill-specific stop</td>
+<td><code>&lt;skill_id&gt;:stop</code> (legacy: <code>{skill_id}.stop</code>)</td>
+<td>Skill-directed stop — cease the stoppable activity for the inbound session</td>
 </tr>
 <tr>
-<td><code>{skill_id}.stop.ping</code></td>
-<td>Check if skill can stop</td>
+<td><code>ovos.stop.ping</code> (legacy: <code>{skill_id}.stop.ping</code>)</td>
+<td>Check if skill can stop; answer with an <code>ovos.stop.pong</code> carrying <code>can_handle</code></td>
 </tr>
 <tr>
 <td><code>{skill_id}.converse.get_response</code></td>
@@ -2081,6 +2081,11 @@ available.</p>
 </tr>
 </tbody>
 </table>
+<p>A skill subscribes to <strong>both</strong> stop topics (OVOS-STOP-1 §9): <code>&lt;own_skill_id&gt;:stop</code>, the
+targeted dispatch that ceases only its own stoppable activity for the inbound session, and
+<code>ovos.stop</code>, the universal broadcast that ceases everything for that session. A duplicate
+arrival on either topic while the skill is already stopping is a no-op. See the
+<a href="../stop-pipeline/">Stop Pipeline</a>.</p>
 <h1 id="skill-api-inter-skill-rpc">Skill API — Inter-Skill RPC<a class="headerlink" href="#skill-api-inter-skill-rpc" title="Permanent link">&para;</a></h1>
 <p><code>SkillApi</code> provides a <a href="../bus-service/">messagebus</a>-based remote procedure call (RPC) mechanism. Methods decorated with <code>@skill_api_method</code> are exposed on the bus; any other skill (or application) can call them by fetching a <code>SkillApi</code> proxy object.</p>
 <p><strong>Source:</strong> <code>ovos_workshop/skills/api.py</code></p>

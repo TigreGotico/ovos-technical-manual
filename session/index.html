@@ -1097,6 +1097,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#language-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language signals
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#presentation-preferences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Presentation preferences
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#magic-properties" class="md-nav__link">
     <span class="md-ellipsis">
       Magic Properties
@@ -1538,6 +1556,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#language-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Language signals
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#presentation-preferences" class="md-nav__link">
+    <span class="md-ellipsis">
+      Presentation preferences
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#magic-properties" class="md-nav__link">
     <span class="md-ellipsis">
       Magic Properties
@@ -1610,7 +1646,70 @@ down the whole bus connection, the client discards just that one
 malformed message and logs a warning, so one badly-behaved emitter can't
 force every other client into a reconnect loop.</p>
 </div>
-<p>Beyond <code>session_id</code> and <code>lang</code>, a session carries <strong>presentation
+<h2 id="language-signals">Language signals<a class="headerlink" href="#language-signals" title="Permanent link">&para;</a></h2>
+<p><code>lang</code> is one of <strong>six</strong> BCP-47 language fields a session may carry (SESSION-1 §3.2). Each
+names a different <em>kind</em> of signal, each is optional, and each is written independently — by
+different components or different stages of the pipeline. Their meanings are fixed; how a
+consumer folds them into one language for a given operation is not, and is left to the stage
+doing the work.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+<th>Typically written by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lang</code></td>
+<td>The participant's <strong>preferred language</strong> — the stable base signal for the session, and the fallback when nothing per-utterance is available</td>
+<td>The client or bridge that opened the session; the deployment default otherwise</td>
+</tr>
+<tr>
+<td><code>secondary_langs</code></td>
+<td>Additional languages the participant also speaks, most-preferred first. Never contains <code>lang</code> itself</td>
+<td>The client or bridge that opened the session</td>
+</tr>
+<tr>
+<td><code>output_lang</code></td>
+<td>The language the participant wants <strong>replies rendered in</strong>, independently of what they speak</td>
+<td>The client, or a user preference; consumed by dialog/prompt rendering</td>
+</tr>
+<tr>
+<td><code>stt_lang</code></td>
+<td>The language the <strong>speech-to-text stage was configured to assume</strong> for the audio. Diverges from the transcript's language when a speech-translation model is used</td>
+<td>The audio input service, before or at STT invocation</td>
+</tr>
+<tr>
+<td><code>request_lang</code></td>
+<td>The language the <strong>emitter reported</strong> for this utterance — a hint, never authoritative (e.g. the language bound to the wake word that fired)</td>
+<td>The emitter: listener, UI selector, or a routing layer</td>
+</tr>
+<tr>
+<td><code>detected_lang</code></td>
+<td>The language a <strong>detection component</strong> classified the utterance as. May disagree with both <code>stt_lang</code> and <code>lang</code>; disagreement is normal</td>
+<td>A language-detection plugin or transformer</td>
+</tr>
+</tbody>
+</table>
+<p>Rough guidance on which to read: bias STT with <code>request_lang</code>; match intents and pick dialogs
+on <code>stt_lang</code> or <code>detected_lang</code>; render responses in <code>output_lang</code> when it is set; constrain a
+detector's candidate set with <code>lang</code> plus <code>secondary_langs</code>. Never assume a field is present,
+and never assume one equals another.</p>
+<div class="admonition warning">
+<p class="admonition-title"><code>data.lang</code> is per-payload, not session state</p>
+<p>Many bus topics carry a <code>data.lang</code> describing the language of the content <em>in that
+message</em> — the utterance just transcribed, the dialog just rendered. It is owned by the
+spec defining the topic, is not a session field, and is not propagated with the session
+(SESSION-1 §3.2.8). A consumer that needs a payload's content language reads <code>data.lang</code>
+directly and <strong>must not</strong> assume it equals <code>session.lang</code> or any other session signal.
+TTS voice selection keys on <code>data.lang</code> for exactly this reason.</p>
+</div>
+<p>See <a href="../lang-selection/">Language Selection and Disambiguation</a> for how <code>ovos-core</code> resolves
+these signals into the language it matches an utterance in.</p>
+<h2 id="presentation-preferences">Presentation preferences<a class="headerlink" href="#presentation-preferences" title="Permanent link">&para;</a></h2>
+<p>Beyond <code>session_id</code> and the language signals, a session carries <strong>presentation
 preferences</strong> that follow the session's originator rather than the device —
 useful when a remote participant (a HiveMind satellite, a different-locale
 caller) wants times, dates, units, and place-relative answers rendered for

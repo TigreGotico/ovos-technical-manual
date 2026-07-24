@@ -1656,12 +1656,13 @@
 <p>Because stopping is a <strong>fundamental feature of a voice assistant</strong>, it is implemented as a <strong>dedicated pipeline plugin</strong>, not just a fallback or intent handler. STOP-1 is emphatic that stop is a <strong>pipeline plugin and not a skill</strong> — <code>skill-ovos-stop</code> is superseded. Stop only works because PIPELINE-1's first-match-wins lets a high-confidence stop stage placed <em>first</em> in <code>session.pipeline</code> (STOP-1 §7) intercept "stop" before any other pipeline plugin claims the bare word.</p>
 <div class="admonition note">
 <p class="admonition-title">Spec model and topic names</p>
-<p>STOP-1 distinguishes two outcomes, both via reserved <code>intent_name</code>s. A generic <strong>stop</strong> cascades to the <em>most recently active</em> handler: the plugin reads <code>session.active_handlers</code> (the recency record, PIPELINE-1 §7.1), pings them with <code>ovos.stop.ping</code>, collects <code>ovos.stop.pong</code> (<code>can_handle</code>) within a recommended 0.5s ceiling, and returns a <code>Match</code> on the reserved <code>stop</code> name targeting the highest-<code>activated_at</code> positive responder — dispatched on <code>&lt;skill_id&gt;:stop</code>. If nobody answers the ping positively but <code>active_handlers</code> is non-empty, the plugin does <strong>not</strong> escalate — it falls back to <strong>recency-targeted stop</strong>: it targets the most recently activated <code>active_handlers</code> entry directly, on the theory that a missing pong (a busy handler thread, a slow satellite round-trip) says nothing about whether that handler actually has something to stop, and escalating a missed reply into a session-wide <code>global_stop</code> would wipe converse state and unrelated skills' activity for no good reason. <code>global_stop</code> is reserved for the two cases where there is genuinely nothing to target: explicit "stop everything" vocabulary, or an empty <code>active_handlers</code> list to begin with. Its handler broadcasts <code>ovos.stop</code>, which every active component subscribes to. Name mappings between spec and current code:</p>
+<p>STOP-1 distinguishes two outcomes, both via reserved <code>intent_name</code>s. A generic <strong>stop</strong> cascades to the <em>most recently active</em> handler: the plugin reads <code>session.active_handlers</code> (the recency record, PIPELINE-1 §7.1), pings them with <code>ovos.stop.ping</code>, collects <code>ovos.stop.pong</code> (<code>can_handle</code>) within a recommended 0.5s ceiling, and returns a <code>Match</code> on the reserved <code>stop</code> name targeting the highest-<code>activated_at</code> positive responder — dispatched on <code>&lt;skill_id&gt;:stop</code>. A handler that does not answer within the timeout counts as <code>can_handle: false</code>.</p>
+<p><code>global_stop</code> covers the three cases where there is nothing to target (STOP-1 §5.1): explicit "stop everything" vocabulary, an empty <code>active_handlers</code> list, or a ping round that produced <strong>no positive responder</strong>. Its <code>Match</code> clears <code>active_handlers</code>, <code>converse_handlers</code> and <code>response_mode</code> atomically, and its handler broadcasts <code>ovos.stop</code>, which every active component subscribes to.</p>
 <table>
 <thead>
 <tr>
-<th>OVOS-STOP-1 (canonical)</th>
-<th>Current <code>ovos-core</code> code</th>
+<th>Spec topic (STOP-1 §8)</th>
+<th>Legacy name</th>
 </tr>
 </thead>
 <tbody>
@@ -1672,6 +1673,10 @@
 <tr>
 <td><code>&lt;skill_id&gt;:stop</code> — targeted-stop dispatch (reserved name)</td>
 <td><code>stop:skill</code> → <code>{skill_id}.stop</code></td>
+</tr>
+<tr>
+<td><code>&lt;pipeline_id&gt;:global_stop</code> — global-stop dispatch</td>
+<td><code>stop:global</code></td>
 </tr>
 <tr>
 <td><code>ovos.stop</code> — global-stop broadcast</td>
@@ -1733,13 +1738,13 @@
 <p>Collects the session's <strong>active skills</strong> (skipping session-blacklisted ones).</p>
 </li>
 <li>
-<p>Pings each via <code>{skill_id}.stop.ping</code> and waits up to <code>0.5s</code> for <code>skill.stop.pong</code> replies (<code>can_handle</code>).</p>
+<p>Pings them via <code>ovos.stop.ping</code> (legacy: <code>{skill_id}.stop.ping</code>) and waits up to <code>0.5s</code> for <code>ovos.stop.pong</code> (legacy: <code>skill.stop.pong</code>) replies carrying <code>can_handle</code>.</p>
 </li>
 <li>
-<p>Forwards <code>{skill_id}.stop</code> to the skills that can be stopped, then listens for a <code>{skill_id}.stop.response</code> confirmation.</p>
+<p>Dispatches <code>&lt;skill_id&gt;:stop</code> (legacy: <code>{skill_id}.stop</code>) to the most recently activated positive responder.</p>
 </li>
 <li>
-<p>If no skill is active (or the utterance matched <code>global_stop</code>), emits a <strong>global stop</strong>: <code>mycroft.stop</code>.</p>
+<p>If no skill is active, no responder answered positively, or the utterance matched <code>global_stop</code>, emits a <strong>global stop</strong>: <code>ovos.stop</code> (legacy: <code>mycroft.stop</code>).</p>
 </li>
 </ol>
 <h3 id="medium-confidence-stop_medium">Medium-confidence (<code>stop_medium</code>)<a class="headerlink" href="#medium-confidence-stop_medium" title="Permanent link">&para;</a></h3>
@@ -1784,43 +1789,33 @@
 </thead>
 <tbody>
 <tr>
-<td><code>stop:global</code></td>
+<td><code>&lt;pipeline_id&gt;:global_stop</code> (legacy: <code>stop:global</code>)</td>
 <td>in</td>
-<td>Handled by <code>handle_global_stop</code> — emits <code>mycroft.stop</code> (and <code>ovos.utterance.handled</code>)</td>
+<td>Global-stop dispatch — its handler emits the <code>ovos.stop</code> broadcast (and <code>ovos.utterance.handled</code>)</td>
 </tr>
 <tr>
-<td><code>stop:skill</code></td>
-<td>in</td>
-<td>Handled by <code>handle_skill_stop</code> — forwards <code>{skill_id}.stop</code></td>
-</tr>
-<tr>
-<td><code>{skill_id}.stop.ping</code></td>
+<td><code>&lt;skill_id&gt;:stop</code> (legacy: <code>stop:skill</code> → <code>{skill_id}.stop</code>)</td>
 <td>out</td>
-<td>Asks a skill whether it can stop</td>
+<td>Targeted stop dispatch to one skill</td>
 </tr>
 <tr>
-<td><code>skill.stop.pong</code></td>
-<td>in</td>
-<td>Skill's <code>can_handle</code> reply</td>
-</tr>
-<tr>
-<td><code>{skill_id}.stop</code></td>
+<td><code>ovos.stop.ping</code> (legacy: <code>{skill_id}.stop.ping</code>)</td>
 <td>out</td>
-<td>Tells a specific skill to stop</td>
+<td>Asks the active handlers whether they can stop</td>
 </tr>
 <tr>
-<td><code>{skill_id}.stop.response</code></td>
+<td><code>ovos.stop.pong</code> (legacy: <code>skill.stop.pong</code>)</td>
 <td>in</td>
-<td>Skill's stop confirmation</td>
+<td>Handler's <code>can_handle</code> reply</td>
 </tr>
 <tr>
-<td><code>mycroft.stop</code></td>
+<td><code>ovos.stop</code> (legacy: <code>mycroft.stop</code>)</td>
 <td>out</td>
-<td>Global stop signal when no skill handles it</td>
+<td>Universal stop broadcast</td>
 </tr>
 </tbody>
 </table>
-<p>There is no <code>ovos.skills.stop</code> message; the per-skill signal is <code>{skill_id}.stop</code> and the global one is <code>mycroft.stop</code>.</p>
+<p><code>&lt;skill_id&gt;:stop</code> and <code>&lt;pipeline_id&gt;:global_stop</code> are dispatch topics and fire the handler-lifecycle trio; the <code>ovos.stop.*</code> topics and <code>ovos.stop</code> do not.</p>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>The service reads its config from <code>mycroft.conf</code> under <code>skills.stop</code>. The only key it consults is <code>min_conf</code> (default <code>0.5</code>), the floor used by the low-confidence matcher:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
@@ -1843,7 +1838,7 @@
 <p><strong>Localized</strong>: matching is language-aware via per-language vocab</p>
 </li>
 <li>
-<p><strong>Resilient</strong>: falls back to a global <code>mycroft.stop</code> if no skill responds</p>
+<p><strong>Resilient</strong>: falls back to a global <code>ovos.stop</code> broadcast if no handler responds positively</p>
 </li>
 </ul>
 <hr />

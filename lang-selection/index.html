@@ -1447,6 +1447,10 @@ before it tries to match an intent. If you only ever use one language, the defau
 <code>mycroft.conf</code> is all that matters and you can skip the details below.</p>
 </div>
 <p>OpenVoiceOS is designed to be multi-language from the ground up. This page explains the technical logic used by <code>ovos-core</code> to determine which language should be used for a given user utterance.</p>
+<p>The raw material for that decision is the session's six language signals — <code>lang</code>,
+<code>secondary_langs</code>, <code>output_lang</code>, <code>stt_lang</code>, <code>request_lang</code> and <code>detected_lang</code> — plus the
+per-payload <code>data.lang</code>. Each is defined in
+<a href="../session/#language-signals">Session Aware Skills — Language signals</a>.</p>
 <hr />
 <h2 id="the-disambiguation-logic">The Disambiguation Logic<a class="headerlink" href="#the-disambiguation-logic" title="Permanent link">&para;</a></h2>
 <p>When a <code>recognizer_loop:utterance</code> message arrives on the <a href="../bus-service/">messagebus</a>, <code>ovos-core</code> (specifically the <code>IntentService</code>) runs a disambiguation routine to decide which language to use for intent matching.</p>

@@ -1791,20 +1791,24 @@ return a match wins and short-circuits the rest, and if none of them do, the lif
 <li>
 <p>Wrap the dispatch in the <strong>handler-lifecycle trio</strong> — the orchestrator emits <code>ovos.intent.handler.start</code>, then exactly one of <code>ovos.intent.handler.complete</code> / <code>ovos.intent.handler.error</code> (§8). The skill's intent handler runs between them.</p>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code>ovos.intent.handler.*</code> trio is actually emitted by the <strong>skill itself</strong>, not the
-orchestrator: <code>OVOSSkill.add_event()</code> (in <code>ovos-workshop</code>) wraps every registered handler —
-intents included — so that starting, finishing, and erroring the wrapped call each emit
-one leg of the trio, plus the legacy <code>mycroft.skill.handler.*</code> counterpart. Skills run
-<strong>in the same process</strong> as <code>ovos-core</code> (loaded and supervised by the <code>SkillManager</code>
-thread, not a separate process per skill); each skill talks to the bus either through
-<code>ovos-core</code>'s single shared connection (<code>websocket.shared_connection: true</code>, the default)
-or, if set to <code>false</code>, through its own private connection — see
-<a href="../bus-service/#configuration">messagebus Configuration</a>.</p>
+<p class="admonition-title">The trio is orchestrator-owned</p>
+<p>The handler — skill or plugin-bundled — is a black box, and third-party handler code
+carries no obligation here (PIPELINE-1 §8). The wrapper around the invocation emits
+<code>start</code> before the call and exactly one of <code>complete</code> (normal return) or <code>error</code>
+(exception) after it, each <code>forward</code>-derived from the dispatch message so <code>context</code>
+and <code>session</code> are preserved. The payload is <code>{skill_id, intent_name}</code>, plus
+<code>exception</code> on the <code>error</code> leg. A handler bounded by a deployment-defined timeout that
+overruns produces an <code>error</code> leg carrying a timeout <code>exception</code>; the dispatch is never
+re-emitted.</p>
 </div>
 </li>
 </ol>
 <h2 id="threading-and-failure-model">Threading and Failure Model<a class="headerlink" href="#threading-and-failure-model" title="Permanent link">&para;</a></h2>
+<p>Skills run <strong>in the same process</strong> as <code>ovos-core</code> — loaded and supervised by the <code>SkillManager</code>
+thread, not a separate process per skill. Each skill talks to the bus either through
+<code>ovos-core</code>'s single shared connection (<code>websocket.shared_connection: true</code>, the default) or,
+if set to <code>false</code>, through its own private connection — see
+<a href="../bus-service/#configuration">messagebus Configuration</a>.</p>
 <p>Each skill's handlers (intents, converse, events) run synchronously inside <code>create_wrapper()</code>, on
 whichever thread delivers the message to that skill's bus subscription — there is no per-handler
 thread pool. This means: two skills that each own a bus connection can handle messages
@@ -1864,19 +1868,27 @@ intent context (<code>session.intent_context</code>) specified by
 <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-context.md">OVOS-CONTEXT-1</a> — see
 <a href="../session/">Session Aware Skills</a>.</p>
 <div class="admonition note">
-<p class="admonition-title">Upcoming — INTENT-4 registration topics</p>
-<p>An in-progress change (<a href="https://github.com/OpenVoiceOS/ovos-workshop/pull/431">ovos-workshop#431</a>)
-will make skills dual-emit their intent/entity registration on the canonical
-<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md">OVOS-INTENT-4</a> bus topics
-alongside the legacy <code>register_intent</code>/<code>register_vocab</code> events, so pipeline plugins can
-migrate to the spec topics without breaking skills still on the legacy events.</p>
+<p class="admonition-title">INTENT-4 registration topics</p>
+<p>Skills broadcast their intent and entity registrations on the canonical
+<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/intent-4.md">OVOS-INTENT-4</a> topics —
+<code>ovos.intent.register.keyword</code>, <code>ovos.intent.register.template</code>, <code>ovos.intent.deregister</code>,
+<code>ovos.intent.enable</code> / <code>.disable</code> — alongside the legacy <code>register_intent</code> /
+<code>register_vocab</code> events, so pipeline plugins can consume the spec topics while skills on
+the legacy events keep working. Registrations are broadcast, not addressed: every
+interested plugin indexes them in parallel, and the orchestrator keeps a passive manifest
+it serves through <code>ovos.intent.list</code> and <code>ovos.intent.describe</code>.</p>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Upcoming — reserved <code>intent_name</code> values</p>
-<p>An in-progress change (<a href="https://github.com/OpenVoiceOS/ovos-core/pull/802">ovos-core#802</a>)
-formalizes <code>stop</code> as a reserved <code>intent_name</code> per
-<a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §7.3</a>,
-alongside a separable legacy-compatibility bridge for existing consumers. See
+<p class="admonition-title">Reserved <code>intent_name</code> values</p>
+<p><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/pipeline-1.md">OVOS-PIPELINE-1 §7.3</a>
+keeps a registry of <code>intent_name</code> values leased to a pipeline-plugin role: <code>converse</code>,
+<code>response</code>, <code>stop</code>, <code>fallback</code> and <code>common_query</code>. A skill or pipeline <strong>must not</strong> register
+a reserved name under INTENT-4 — such a registration is malformed, logged at WARN and not
+indexed; a skill subscribes to the reserved dispatch topic by framework convention instead.
+A reservation is a namespace lease, not a dispatch change: reserved-name dispatches fire
+context stamping, routing and the handler trio like any other, except that the
+<code>session.active_handlers</code> push is suppressed, since a reserved name continues or terminates
+an already-active skill's participation rather than starting a fresh one. See
 <a href="../converse/">Converse</a> for how reserved names interact with converse/context handling.</p>
 </div>
 

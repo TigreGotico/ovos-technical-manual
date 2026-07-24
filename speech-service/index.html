@@ -1670,19 +1670,14 @@ useful events for downstream services:</p>
 <td>Command recording ended (§6.2)</td>
 </tr>
 <tr>
-<td><code>recognizer_loop:wakeword</code></td>
-<td><code>{"utterance", "lang"}</code></td>
-<td>Wake word fired (implementation event; not respecified by AUDIO-IN-1 §6)</td>
+<td><code>ovos.listener.wakeword</code> (legacy: <code>recognizer_loop:wakeword</code>)</td>
+<td><code>{"wake_word", "lang"}</code></td>
+<td>Wake word detected; capture is opening (§6.5). <code>lang</code> is carried only when the deployment binds wake words to languages, and is the hint reported as <code>session.request_lang</code></td>
 </tr>
 <tr>
 <td><code>ovos.utterance.handle</code> (legacy: <code>recognizer_loop:utterance</code>)</td>
 <td><code>{"utterances": [str], "lang"}</code></td>
 <td>Transcribed command — the main result (§5, OVOS-PIPELINE-1 §9.1)</td>
-</tr>
-<tr>
-<td>—</td>
-<td><code>duration</code> (<strong>Upcoming</strong>)</td>
-<td>An in-progress change (<a href="https://github.com/OpenVoiceOS/ovos-dinkum-listener/pull/215">ovos-dinkum-listener#215</a>) will add an audio-duration field to this message's payload.</td>
 </tr>
 <tr>
 <td><code>recognizer_loop:speech.recognition.unknown</code></td>
@@ -1696,9 +1691,19 @@ useful events for downstream services:</p>
 </tr>
 </tbody>
 </table>
-<p>It also reacts to inbound commands such as <code>recognizer_loop:sleep</code>,
-<code>recognizer_loop:wake_up</code>, <code>recognizer_loop:record_stop</code> and <code>recognizer_loop:state.get</code>.
-The full table lives in the bus-message spec (<code>message_spec/dinkum.md</code>).</p>
+<p>It also reacts to inbound commands: <code>ovos.listener.sleep</code> (legacy: <code>recognizer_loop:sleep</code>)
+suspends capture, <code>recognizer_loop:wake_up</code> resumes it, plus <code>recognizer_loop:record_stop</code>
+and <code>recognizer_loop:state.get</code>. The full table lives in the bus-message spec
+(<code>message_spec/dinkum.md</code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Sleep is device-scoped, not session-scoped</p>
+<p><code>ovos.listener.sleep</code> rides a session like every other message, but sleep mode is a
+<strong>physical device state</strong>: a sleeping listener captures nothing, for any session
+(AUDIO-IN-1 §6.3). Entering or leaving sleep therefore affects the whole device, not
+only the session that carried the request. Sleep entry is unacknowledged by design —
+the only sleep-related emission is <code>ovos.listener.awoken</code> on the sleep→awake
+transition.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Gotcha — utterance namespace</p>
 <p>The listener publishes the transcribed command as <code>recognizer_loop:utterance</code>.

@@ -1473,6 +1473,27 @@
 <p>TTS sits inside the audio output service, specified by <strong><a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-out.md">OVOS-AUDIO-1 — Audio Output Service</a></strong>: an <code>ovos.utterance.speak</code> response runs through the dialog-transformer chain → TTS → tts-transformer chain → playback queue. See the <a href="../architecture-specs/">spec index</a>.</p>
 </details>
 <p>TTS plugins are responsible for converting text into audio for playback.</p>
+<div class="admonition note">
+<p class="admonition-title">Audio format contract</p>
+<p>A TTS plugin is the <strong>producer</strong> end of the audio path, so it picks the format rather than
+receiving one. <code>get_tts()</code> writes a complete, self-describing audio file to the path it is
+handed and returns that path; the container format must match the plugin's <code>audio_ext</code>
+(default <code>"wav"</code>, set via the <code>TTS.__init__</code> argument), because <code>audio_ext</code> is what names
+the cache file and what playback dispatches on. Sample rate, bit depth and channel count
+are the plugin's own choice and travel inside the file's header — nothing between
+<code>get_tts()</code> and the speakers resamples, remixes or re-encodes the audio, so whatever the
+engine emits is what is played. The one constraint is that the deployment must have a
+player for the extension: playback shells out to the command configured as
+<code>play_wav_cmdline</code>, <code>play_ogg_cmdline</code> or <code>play_mp3_cmdline</code> (falling back to a detected
+system player), so <code>wav</code>, <code>ogg</code> and <code>mp3</code> are the extensions a stock deployment can play.
+Plain 16-bit mono WAV is the safe default.</p>
+<p><code>get_tts()</code> returns the tuple <code>(audio_path, phonemes)</code>. <code>phonemes</code> is optional — return
+<code>None</code> when the engine exposes none. When present it is a space-separated string of
+<code>phoneme:duration</code> pairs, which the base class's <code>viseme()</code> converts into a list of
+<code>(viseme_code, duration_seconds)</code> tuples for mouth animation; a pair with no <code>:duration</code>
+is given <code>0.2</code> s. Both the audio and the phonemes are cached together, keyed by sentence
+hash.</p>
+</div>
 <h2 id="change-your-voice">Change your voice<a class="headerlink" href="#change-your-voice" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Browse <a href="https://github.com/OpenVoiceOS/voices_demo">voices_demo</a> for audio samples of the

@@ -1478,14 +1478,15 @@
     Core-&gt;&gt;Core: utterance + metadata transformers
     Core-&gt;&gt;Core: pipeline match (stop → converse → OCP → padatious → adapt → fallback)
     Core-&gt;&gt;Bus: ovos.intent.matched
-    Bus-&gt;&gt;Skill: dispatch (ovos.intent.handler.start)
+    Core-&gt;&gt;Bus: ovos.intent.handler.start
+    Bus-&gt;&gt;Skill: skill_id:intent_name
     Skill-&gt;&gt;Skill: intent handler logic
     Skill-&gt;&gt;Bus: ovos.utterance.speak
-    Skill-&gt;&gt;Bus: ovos.intent.handler.complete
+    Core-&gt;&gt;Bus: ovos.intent.handler.complete
     Bus-&gt;&gt;Audio: ovos.utterance.speak
     Audio-&gt;&gt;Audio: dialog transformer + TTS + tts-transformer
     Audio-&gt;&gt;Speakers: play WAV / update GUI
-    Bus-&gt;&gt;Core: ovos.utterance.handled</code></pre>
+    Core-&gt;&gt;Bus: ovos.utterance.handled</code></pre>
 <hr />
 <h2 id="1-capture-and-wake-word-detection">1. Capture and <a href="../wake-word-plugins/">Wake Word</a> Detection<a class="headerlink" href="#1-capture-and-wake-word-detection" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> <code>ovos-dinkum-listener</code> (or similar)
@@ -1560,7 +1561,7 @@
 <h2 id="5-skill-execution">5. <a href="../skill-design-guidelines/">Skill</a> Execution<a class="headerlink" href="#5-skill-execution" title="Permanent link">&para;</a></h2>
 <p><strong>Service:</strong> A specific Skill (running in <code>ovos-core</code>)
 <strong>Bus Event:</strong> <code>ovos.intent.matched</code>, <code>{skill_id}.activate</code>, and the specific intent dispatch message.</p>
-<p>Once a match is found, the orchestrator post-processes it through the <strong>intent-transformer chain</strong> (OVOS-TRANSFORM-1 §3.4), emits <code>ovos.intent.matched</code> (§9.2), then dispatches to the winning skill — the winning skill wraps its own handler in the <strong>handler-lifecycle trio</strong> <code>ovos.intent.handler.start</code> → <code>…complete</code> / <code>…error</code> (§8; legacy: <code>mycroft.skill.handler.*</code>) — these are emitted by the skill (via <code>ovos-workshop</code>'s handler wrapper), not the orchestrator. See <a href="../intent-service/">Intent Service</a> for the exact mechanism.</p>
+<p>Once a match is found, the orchestrator post-processes it through the <strong>intent-transformer chain</strong> (OVOS-TRANSFORM-1 §3.4), emits <code>ovos.intent.matched</code> (§9.2), then dispatches to the winning skill on <code>&lt;skill_id&gt;:&lt;intent_name&gt;</code>. The orchestrator wraps that invocation in the <strong>handler-lifecycle trio</strong> <code>ovos.intent.handler.start</code> → <code>…complete</code> / <code>…error</code> (§8; legacy: <code>mycroft.skill.handler.*</code>): <code>start</code> goes out immediately before the call and exactly one terminal leg immediately after it returns or raises. The handler itself is a black box and emits nothing. See <a href="../intent-service/">Intent Service</a> for the exact mechanism.</p>
 <p>A handful of intent names are <strong>reserved</strong>: a <code>Match</code> bearing one of them is a continuation or termination of an already-active skill's participation, not a fresh activation, so the dispatch does not push the skill onto <code>session.active_handlers</code> again. That suppression is keyed on the Match's reserved <code>intent_name</code> itself — never on which pipeline plugin produced the match — so the same reserved name behaves identically regardless of where in the pipeline it was matched.</p>
 <ul>
 <li>

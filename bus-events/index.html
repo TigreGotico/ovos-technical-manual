@@ -1564,14 +1564,19 @@ mechanism); the tables below show both names where applicable.</p>
 <td>Command recording ended</td>
 </tr>
 <tr>
-<td><code>recognizer_loop:wakeword</code></td>
-<td><code>{"utterance", "lang"}</code></td>
-<td>Wake word fired</td>
+<td><code>ovos.listener.wakeword</code> (legacy: <code>recognizer_loop:wakeword</code>)</td>
+<td><code>{"wake_word", "lang"}</code></td>
+<td>Wake word detected; capture is opening. <code>lang</code> is optional and only present when the deployment binds wake words to languages</td>
 </tr>
 <tr>
 <td><code>recognizer_loop:speech.recognition.unknown</code></td>
 <td>none</td>
 <td>STT returned nothing (silence / failure)</td>
+</tr>
+<tr>
+<td><code>ovos.listener.sleep</code></td>
+<td>none</td>
+<td>Request the listener enter sleep mode and suspend capture — device-scoped, see <a href="../speech-service/">Speech Service</a></td>
 </tr>
 <tr>
 <td><code>ovos.listener.awoken</code> (legacy: <code>mycroft.awoken</code>)</td>
@@ -1765,15 +1770,15 @@ mechanism); the tables below show both names where applicable.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>mycroft.stop</code></td>
-<td>Trigger the skill's stop flow (also the global stop broadcast, see below)</td>
+<td><code>ovos.stop</code> (legacy: <code>mycroft.stop</code>)</td>
+<td>Global stop broadcast — every skill subscribes and ceases activity for the inbound session (see below)</td>
 </tr>
 <tr>
-<td><code>{skill_id}.stop</code></td>
-<td>Skill-specific stop</td>
+<td><code>&lt;skill_id&gt;:stop</code> (legacy: <code>{skill_id}.stop</code>)</td>
+<td>Skill-directed stop dispatch</td>
 </tr>
 <tr>
-<td><code>{skill_id}.stop.ping</code></td>
+<td><code>ovos.stop.ping</code> (legacy: <code>{skill_id}.stop.ping</code>)</td>
 <td>Check whether this skill can stop</td>
 </tr>
 <tr>
@@ -1803,7 +1808,7 @@ mechanism); the tables below show both names where applicable.</p>
 </tbody>
 </table>
 <h3 id="stop-pipeline">Stop pipeline<a class="headerlink" href="#stop-pipeline" title="Permanent link">&para;</a></h3>
-<p><code>mycroft.stop</code> and the per-skill stop handshake above are driven by the dedicated
+<p><code>ovos.stop</code> and the per-skill stop handshake above are driven by the dedicated
 <a href="../stop-pipeline/#bus-events">Stop Pipeline</a> plugin, not by a generic intent match:</p>
 <table>
 <thead>
@@ -1815,39 +1820,29 @@ mechanism); the tables below show both names where applicable.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>stop:global</code></td>
+<td><code>&lt;pipeline_id&gt;:global_stop</code> (legacy: <code>stop:global</code>)</td>
 <td>in</td>
-<td>Handled by <code>handle_global_stop</code> — emits <code>mycroft.stop</code> (and <code>ovos.utterance.handled</code>)</td>
+<td>Global-stop dispatch — its handler emits the <code>ovos.stop</code> broadcast (and <code>ovos.utterance.handled</code>)</td>
 </tr>
 <tr>
-<td><code>stop:skill</code></td>
-<td>in</td>
-<td>Handled by <code>handle_skill_stop</code> — forwards <code>{skill_id}.stop</code></td>
-</tr>
-<tr>
-<td><code>{skill_id}.stop.ping</code></td>
+<td><code>&lt;skill_id&gt;:stop</code> (legacy: <code>stop:skill</code> → <code>{skill_id}.stop</code>)</td>
 <td>out</td>
-<td>Asks a skill whether it can stop</td>
+<td>Targeted stop dispatch to one skill</td>
 </tr>
 <tr>
-<td><code>skill.stop.pong</code></td>
-<td>in</td>
-<td>Skill's reply</td>
-</tr>
-<tr>
-<td><code>{skill_id}.stop</code></td>
+<td><code>ovos.stop.ping</code> (legacy: <code>{skill_id}.stop.ping</code>)</td>
 <td>out</td>
-<td>Tells a specific skill to stop</td>
+<td>Asks the active handlers whether they can stop</td>
 </tr>
 <tr>
-<td><code>{skill_id}.stop.response</code></td>
+<td><code>ovos.stop.pong</code> (legacy: <code>skill.stop.pong</code>)</td>
 <td>in</td>
-<td>Skill's stop confirmation</td>
+<td>Handler's <code>can_handle</code> reply</td>
 </tr>
 <tr>
-<td><code>mycroft.stop</code></td>
+<td><code>ovos.stop</code> (legacy: <code>mycroft.stop</code>)</td>
 <td>out</td>
-<td>Global stop signal when no skill handles it</td>
+<td>Universal stop broadcast</td>
 </tr>
 </tbody>
 </table>
@@ -1895,10 +1890,6 @@ mechanism); the tables below show both names where applicable.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Adding a <code>duration</code> field to <code>utterance_start</code></p>
-<p>Carrying the synthesized clip's duration on <code>recognizer_loop:utterance_start</code> itself (rather than requiring a listener to wait for the output-end pair) is <strong>Upcoming</strong>.</p>
-</div>
 <h2 id="gui-forwarding">GUI forwarding<a class="headerlink" href="#gui-forwarding" title="Permanent link">&para;</a></h2>
 <p>Handled by <code>ovos-gui</code>; see <a href="../gui-service/">GUI Service</a>.</p>
 <table>

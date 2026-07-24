@@ -1386,9 +1386,7 @@
 <p class="admonition-title">In a nutshell</p>
 <p>OVOS lets you swap in different plugins for jobs like understanding speech or recognizing commands — but which one is actually best? The Plugin Arena answers that by comparing them two ways: objective scores measured against test data, and a "which sounds better?" vote where people blindly pick between two plugins' results, scored a bit like chess rankings. It is purely a scoreboard for comparing plugins; it never installs or runs them itself. See the <a href="../glossary/">Glossary</a> for unfamiliar terms.</p>
 </div>
-<blockquote>
-<p><strong>Status:</strong> <a href="https://github.com/OpenVoiceOS/ovos-plugin-arena">OpenVoiceOS/ovos-plugin-arena</a> — in development. The <strong>intent</strong>, <strong>STT</strong>, <strong>wake word</strong>, and <strong>VAD</strong> leagues have live battles and ELO standings; <strong>TTS</strong> competitors are registered but not yet benchmarked (all entries sit at the seed ELO with zero battles).</p>
-</blockquote>
+<p>The arena lives at <a href="https://github.com/OpenVoiceOS/ovos-plugin-arena">OpenVoiceOS/ovos-plugin-arena</a>. The <strong>intent</strong>, <strong>STT</strong>, <strong>wake word</strong> and <strong>VAD</strong> leagues carry live battles and ELO standings. The <strong>TTS</strong> league lists its competitors at the seed ELO, awaiting battles.</p>
 <p><strong>What this is:</strong> a way to answer <em>"which OVOS plugin should I use?"</em> It compares plugins on two signals:</p>
 <ol>
 <li><strong>Benchmarks</strong> — accuracy/F1 for intent, WER for STT, detection metrics for wake word — computed offline against labeled datasets and published openly as HuggingFace datasets.</li>
