@@ -2155,12 +2155,12 @@ available. <strong>macOS</strong> is supported with <code>launchd</code> service
 </blockquote>
 <p>Don't panic! If the installer fails, it will generate a log file and upload it to <a href="https://dpaste.com">https://dpaste.com</a>. Please share that link on <strong><a href="https://matrix.to/#/!XFpdtmgyCoPDxOMPpH:matrix.org?via=matrix.org">OVOS Chat on Matrix</a></strong> so the community can help you out.</p>
 <p>OVOS is a community-driven project, maintained by passionate volunteers. Your feedback, bug reports, and patience are truly appreciated.</p>
-<div class="admonition note">
-<p class="admonition-title">Upcoming — a bundled health check script</p>
-<p>A ready-to-use OVOS health check script is in progress
-(<a href="https://github.com/OpenVoiceOS/ovos-installer/pull/542">ovos-installer#542</a>). See
+<div class="admonition tip">
+<p class="admonition-title">Check the install without reading logs</p>
+<p>The installer ships <code>scripts/ovos-health-check.sh</code>, which reports whether each service is
+up and the messagebus is reachable. Run it before digging through logs. See
 <a href="../production-operations/#knowing-when-the-assistant-is-actually-ready">Production Operations</a>
-for the readiness-probe pattern it will wrap.</p>
+for the readiness pattern it wraps.</p>
 </div>
 <h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>

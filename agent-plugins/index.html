@@ -1902,7 +1902,9 @@ examples, see <a href="../personas/">Agents &amp; Personas</a> and <a href="../a
 <p><strong>Description</strong>: Answers computational and factual questions via the Wolfram Alpha API.</p>
 </li>
 <li>
-<p><strong>Config</strong>: <code>"appid"</code> — your own Wolfram Alpha AppID (falls back to a shared demo key if unset).</p>
+<p><strong>Config</strong>: <code>"appid"</code> — your own Wolfram Alpha AppID. Without one, queries go to Wolfram's
+  servers on a shared demo key. Either way this solver is a call to a third-party cloud
+  service; it has no offline mode.</p>
 </li>
 </ul>
 <hr />

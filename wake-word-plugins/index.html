@@ -1811,10 +1811,10 @@ restart them depends on how OVOS was installed:</p>
 <p>OVOS supports different wake word detection plugins, each with its own strengths and use cases.
 The full roster with descriptions and licenses lives in one place — the
 <a href="#ww-plugins-reference">WW Plugins Reference</a> table below. The default OVOS plugin for
-<code>hey_mycroft</code> is <code>ovos-ww-plugin-precise-lite</code>, with a fallback chain to <code>ovos-ww-plugin-precise</code>
-(classic Precise), then <code>ovos-ww-plugin-vosk</code>, then <code>ovos-ww-plugin-pocketsphinx</code> if a plugin
-further up the chain is not installed; <code>ovos-ww-plugin-precise-onnx</code> is the maintained successor
-for new setups. Vosk offers the fastest setup for an arbitrary wake phrase without model training.</p>
+<code>hey_mycroft</code> is <code>ovos-ww-plugin-precise-onnx</code>, with a fallback chain to
+<code>ovos-ww-plugin-precise-lite</code> (TFLite), then <code>ovos-ww-plugin-precise</code> (classic Precise), then
+<code>ovos-ww-plugin-vosk</code>, then <code>ovos-ww-plugin-pocketsphinx</code> if a plugin further up the chain is
+not installed. Vosk offers the fastest setup for an arbitrary wake phrase without model training.</p>
 <blockquote>
 <p>Specification: wake-word detection is one of the deployer-defined capture mechanisms that trigger the audio-input service (referenced in <a href="https://github.com/OpenVoiceOS/architecture/blob/dev/audio-in.md">OVOS-AUDIO-IN-1 §5.1</a> as the source of a <code>request_lang</code> hint).</p>
 </blockquote>
@@ -1834,8 +1834,8 @@ actually does is below.</p>
 <p>The <code>hotwords</code> section in your <code>mycroft.conf</code> allows you to configure the wake word detection parameters for each plugin. For instance:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&quot;hotwords&quot;: {
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  &quot;hey_mycroft&quot;: {
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    &quot;module&quot;: &quot;ovos-ww-plugin-precise-lite&quot;,
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    &quot;model&quot;: &quot;https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite&quot;,
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    &quot;module&quot;: &quot;ovos-ww-plugin-precise-onnx&quot;,
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    &quot;model&quot;: &quot;https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.onnx&quot;,
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    &quot;trigger_level&quot;: 3,
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    &quot;sensitivity&quot;: 0.5,
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    &quot;listen&quot;: true
@@ -1927,7 +1927,7 @@ separately-licensed model, that is called out under "model".</p>
 <tbody>
 <tr>
 <td><a href="#ovos-ww-plugin-precise-lite">ovos-ww-plugin-precise-lite</a></td>
-<td>Default plugin for <code>hey_mycroft</code>: a trained Precise wake-word model exported to TFLite. ⚠️ <strong>Archived</strong> — kept working as installed; <code>ovos-ww-plugin-precise-onnx</code> is the maintained successor.</td>
+<td>First fallback below the default: a trained Precise wake-word model exported to TFLite. ⚠️ <strong>Archived</strong> — kept working as installed; <code>ovos-ww-plugin-precise-onnx</code> is the maintained successor.</td>
 <td>Apache-2.0</td>
 </tr>
 <tr>
@@ -1942,7 +1942,7 @@ separately-licensed model, that is called out under "model".</p>
 </tr>
 <tr>
 <td><a href="#ovos-ww-plugin-precise-onnx">ovos-ww-plugin-precise-onnx</a></td>
-<td>ONNX-exported Precise wake word model, an alternative to the TFLite-based default.</td>
+<td>Default plugin for <code>hey_mycroft</code>: a Precise wake-word model exported to ONNX.</td>
 <td>Apache-2.0</td>
 </tr>
 <tr>
@@ -1968,12 +1968,12 @@ separately-licensed model, that is called out under "model".</p>
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite">https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-lite</a> ⚠️ <strong>Archived</strong></p>
 </li>
 <li>
-<p><strong>Description</strong>: Trained Precise wake-word model exported to TFLite; the plugin the bundled default <code>mycroft.conf</code> ships for <code>hey_mycroft</code>.</p>
+<p><strong>Description</strong>: Trained Precise wake-word model exported to TFLite; the bundled default <code>mycroft.conf</code> ships it as <code>hey_mycroft_tflite</code>, the first fallback below the ONNX default.</p>
 </li>
 </ul>
 <h3 id="default-configuration">Default Configuration<a class="headerlink" href="#default-configuration" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&quot;hotwords&quot;: {
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  &quot;hey_mycroft&quot;: {
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  &quot;hey_mycroft_tflite&quot;: {
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    &quot;module&quot;: &quot;ovos-ww-plugin-precise-lite&quot;,
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    &quot;model&quot;: &quot;https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite&quot;,
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    &quot;trigger_level&quot;: 3,
@@ -2020,7 +2020,7 @@ separately-licensed model, that is called out under "model".</p>
 <p><strong>GitHub</strong>: <a href="https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx">https://github.com/OpenVoiceOS/ovos-ww-plugin-precise-onnx</a></p>
 </li>
 <li>
-<p><strong>Description</strong>: Runs Precise wake word models exported to ONNX, an alternative to <code>ovos-ww-plugin-precise-lite</code> for deployments that prefer the ONNX runtime.</p>
+<p><strong>Description</strong>: Runs Precise wake word models exported to ONNX; the plugin the bundled default <code>mycroft.conf</code> ships for <code>hey_mycroft</code>.</p>
 </li>
 </ul>
 <h3 id="default-configuration_2">Default Configuration<a class="headerlink" href="#default-configuration_2" title="Permanent link">&para;</a></h3>
