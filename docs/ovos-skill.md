@@ -191,9 +191,9 @@ available.
 
 | Event | Description |
 |---|---|
-| `mycroft.stop` | Trigger stop flow |
-| `{skill_id}.stop` | Skill-specific stop |
-| `{skill_id}.stop.ping` | Check if skill can stop |
+| `ovos.stop` (legacy: `mycroft.stop`) | Global stop broadcast — cease all activity for the inbound session |
+| `<skill_id>:stop` (legacy: `{skill_id}.stop`) | Skill-directed stop — cease the stoppable activity for the inbound session |
+| `ovos.stop.ping` (legacy: `{skill_id}.stop.ping`) | Check if skill can stop; answer with an `ovos.stop.pong` carrying `can_handle` |
 | `{skill_id}.converse.get_response` | Feed user response to `get_response` |
 | `mycroft.skill.enable_intent` | Enable a disabled intent (the bus-facing counterpart to calling `self.enable_intent(intent_name)` from Python) |
 | `mycroft.skill.disable_intent` | Disable an active intent (the bus-facing counterpart to calling `self.disable_intent(intent_name)` from Python) |
@@ -207,6 +207,12 @@ available.
 | `question:action` | Common query callback (generic, any skill's answer was selected) |
 | `homescreen.metadata.get` | Homescreen requesting metadata |
 | `{skill_id}.public_api` | Skill API introspection |
+
+A skill subscribes to **both** stop topics (OVOS-STOP-1 §9): `<own_skill_id>:stop`, the
+targeted dispatch that ceases only its own stoppable activity for the inbound session, and
+`ovos.stop`, the universal broadcast that ceases everything for that session. A duplicate
+arrival on either topic while the skill is already stopping is a no-op. See the
+[Stop Pipeline](stop-pipeline.md).
 
 # Skill API — Inter-Skill RPC
 

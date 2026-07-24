@@ -11,12 +11,15 @@ The **stop pipeline** is a core component of the OpenVoiceOS (OVOS) pipeline arc
 Because stopping is a **fundamental feature of a voice assistant**, it is implemented as a **dedicated pipeline plugin**, not just a fallback or intent handler. STOP-1 is emphatic that stop is a **pipeline plugin and not a skill** — `skill-ovos-stop` is superseded. Stop only works because PIPELINE-1's first-match-wins lets a high-confidence stop stage placed *first* in `session.pipeline` (STOP-1 §7) intercept "stop" before any other pipeline plugin claims the bare word.
 
 !!! note "Spec model and topic names"
-    STOP-1 distinguishes two outcomes, both via reserved `intent_name`s. A generic **stop** cascades to the *most recently active* handler: the plugin reads `session.active_handlers` (the recency record, PIPELINE-1 §7.1), pings them with `ovos.stop.ping`, collects `ovos.stop.pong` (`can_handle`) within a recommended 0.5s ceiling, and returns a `Match` on the reserved `stop` name targeting the highest-`activated_at` positive responder — dispatched on `<skill_id>:stop`. If nobody answers the ping positively but `active_handlers` is non-empty, the plugin does **not** escalate — it falls back to **recency-targeted stop**: it targets the most recently activated `active_handlers` entry directly, on the theory that a missing pong (a busy handler thread, a slow satellite round-trip) says nothing about whether that handler actually has something to stop, and escalating a missed reply into a session-wide `global_stop` would wipe converse state and unrelated skills' activity for no good reason. `global_stop` is reserved for the two cases where there is genuinely nothing to target: explicit "stop everything" vocabulary, or an empty `active_handlers` list to begin with. Its handler broadcasts `ovos.stop`, which every active component subscribes to. Name mappings between spec and current code:
+    STOP-1 distinguishes two outcomes, both via reserved `intent_name`s. A generic **stop** cascades to the *most recently active* handler: the plugin reads `session.active_handlers` (the recency record, PIPELINE-1 §7.1), pings them with `ovos.stop.ping`, collects `ovos.stop.pong` (`can_handle`) within a recommended 0.5s ceiling, and returns a `Match` on the reserved `stop` name targeting the highest-`activated_at` positive responder — dispatched on `<skill_id>:stop`. A handler that does not answer within the timeout counts as `can_handle: false`.
 
-    | OVOS-STOP-1 (canonical) | Current `ovos-core` code |
+    `global_stop` covers the three cases where there is nothing to target (STOP-1 §5.1): explicit "stop everything" vocabulary, an empty `active_handlers` list, or a ping round that produced **no positive responder**. Its `Match` clears `active_handlers`, `converse_handlers` and `response_mode` atomically, and its handler broadcasts `ovos.stop`, which every active component subscribes to.
+
+    | Spec topic (STOP-1 §8) | Legacy name |
     |---|---|
     | `ovos.stop.ping` / `ovos.stop.pong` | `{skill_id}.stop.ping` / `skill.stop.pong` |
     | `<skill_id>:stop` — targeted-stop dispatch (reserved name) | `stop:skill` → `{skill_id}.stop` |
+    | `<pipeline_id>:global_stop` — global-stop dispatch | `stop:global` |
     | `ovos.stop` — global-stop broadcast | `mycroft.stop` |
     | `session.active_handlers` — recency input to the cascade | `Session.active_skills` |
 
@@ -77,13 +80,13 @@ The plugin:
 1. Collects the session's **active skills** (skipping session-blacklisted ones).
 
 
-2. Pings each via `{skill_id}.stop.ping` and waits up to `0.5s` for `skill.stop.pong` replies (`can_handle`).
+2. Pings them via `ovos.stop.ping` (legacy: `{skill_id}.stop.ping`) and waits up to `0.5s` for `ovos.stop.pong` (legacy: `skill.stop.pong`) replies carrying `can_handle`.
 
 
-3. Forwards `{skill_id}.stop` to the skills that can be stopped, then listens for a `{skill_id}.stop.response` confirmation.
+3. Dispatches `<skill_id>:stop` (legacy: `{skill_id}.stop`) to the most recently activated positive responder.
 
 
-4. If no skill is active (or the utterance matched `global_stop`), emits a **global stop**: `mycroft.stop`.
+4. If no skill is active, no responder answered positively, or the utterance matched `global_stop`, emits a **global stop**: `ovos.stop` (legacy: `mycroft.stop`).
 
 ### Medium-confidence (`stop_medium`)
 
@@ -132,15 +135,13 @@ The stop plugin interfaces with the OVOS session system:
 
 | Event | Direction | Purpose |
 |---|---|---|
-| `stop:global` | in | Handled by `handle_global_stop` — emits `mycroft.stop` (and `ovos.utterance.handled`) |
-| `stop:skill` | in | Handled by `handle_skill_stop` — forwards `{skill_id}.stop` |
-| `{skill_id}.stop.ping` | out | Asks a skill whether it can stop |
-| `skill.stop.pong` | in | Skill's `can_handle` reply |
-| `{skill_id}.stop` | out | Tells a specific skill to stop |
-| `{skill_id}.stop.response` | in | Skill's stop confirmation |
-| `mycroft.stop` | out | Global stop signal when no skill handles it |
+| `<pipeline_id>:global_stop` (legacy: `stop:global`) | in | Global-stop dispatch — its handler emits the `ovos.stop` broadcast (and `ovos.utterance.handled`) |
+| `<skill_id>:stop` (legacy: `stop:skill` → `{skill_id}.stop`) | out | Targeted stop dispatch to one skill |
+| `ovos.stop.ping` (legacy: `{skill_id}.stop.ping`) | out | Asks the active handlers whether they can stop |
+| `ovos.stop.pong` (legacy: `skill.stop.pong`) | in | Handler's `can_handle` reply |
+| `ovos.stop` (legacy: `mycroft.stop`) | out | Universal stop broadcast |
 
-There is no `ovos.skills.stop` message; the per-skill signal is `{skill_id}.stop` and the global one is `mycroft.stop`.
+`<skill_id>:stop` and `<pipeline_id>:global_stop` are dispatch topics and fire the handler-lifecycle trio; the `ovos.stop.*` topics and `ovos.stop` do not.
 
 ## Configuration
 
@@ -167,7 +168,7 @@ The service reads its config from `mycroft.conf` under `skills.stop`. The only k
 * **Localized**: matching is language-aware via per-language vocab
 
 
-* **Resilient**: falls back to a global `mycroft.stop` if no skill responds
+* **Resilient**: falls back to a global `ovos.stop` broadcast if no handler responds positively
 
 ---
 
