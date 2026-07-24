@@ -1799,13 +1799,13 @@ table below shows the exact per-language model/voice picked for each.</p>
 </tbody>
 </table>
 <p>After writing the config it lists the installed STT/TTS plugins and warns about any recommended plugin you still need to <code>pip install</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Upcoming</p>
-<p>A <code>--gpu</code> flag (GPU-accelerated offline STT) and a <code>--platform</code> flag (hardware-tuned
-intent-pipeline presets for <code>rpi3</code>/<code>rpi4</code>/<code>rpi5</code>/<code>linux</code>/<code>mac</code>/<code>termux</code>) are in
-development for a future <code>ovos-config</code> release. <code>--gpu</code> is tracked in
-<a href="https://github.com/OpenVoiceOS/ovos-config/pull/274">ovos-config#274</a>.</p>
-</div>
+<p>Two more flags tune the result for your hardware:</p>
+<ul>
+<li><code>--platform</code> / <code>-p</code> picks a hardware preset — <code>rpi3</code>, <code>rpi4</code>, <code>rpi5</code>, <code>linux</code>, <code>mac</code> or
+  <code>termux</code> — and optimizes the configuration for it.</li>
+<li><code>--gpu</code> / <code>-g</code> selects GPU-accelerated plugins. It implies <code>--offline</code>, so it cannot be
+  combined with <code>--online</code> or <code>--hybrid</code>, and it is rejected on the Raspberry Pi platforms.</li>
+</ul>
 <h3 id="supported-languages">Supported Languages<a class="headerlink" href="#supported-languages" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>The table below is a snapshot of the bundled recommendations. The authoritative list is whatever <code>recommends/base/*.conf</code>, <code>recommends/offline_stt/*.conf</code>, and related files ship in your installed <code>ovos-config</code>.</p>
