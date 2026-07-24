@@ -1642,8 +1642,8 @@ order:</p>
 <p>If nothing matches, every matcher in that list logs a
 miss (as <code>no match from &lt;bound method ...&gt;</code>, naming the matcher's Python function) before the
 utterance falls through to the next stage, and eventually to nothing:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>DEBUG - no match from &lt;bound method ...StopService.match_stop_high ...&gt;
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>DEBUG - no match from &lt;bound method ...ConverseService.converse_with_skills ...&gt;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>DEBUG - no match from &lt;bound method ...StopService.match_high ...&gt;
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>DEBUG - no match from &lt;bound method ...ConverseService.match ...&gt;
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>DEBUG - no match from &lt;bound method ...OCPPipelineMatcher.match_high ...&gt;
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>DEBUG - no match from &lt;bound method ...PadatiousPipeline.match_high ...&gt;
 </span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>DEBUG - no match from &lt;bound method ...AdaptPipeline.match_high ...&gt;
@@ -1784,10 +1784,17 @@ mostly useful when running a service by hand: <code>OVOS_DEFAULT_LOG_LEVEL</code
 replay it. <strong><a href="../ovoscope-overview/"><code>ovoscope</code></a></strong> runs an in-process, mocked assistant (<code>MiniCroft</code>)
 that loads real skills and the real intent-matching engines without any audio hardware, and its CLI
 can turn a live bus session into a fixture file:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ovoscope<span class="w"> </span>record<span class="w">   </span><span class="c1"># capture a fixture from a running bus session</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>ovoscope<span class="w"> </span>run<span class="w">      </span><span class="c1"># replay a fixture and exit non-zero on failure</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>ovoscope<span class="w"> </span>diff<span class="w">      </span><span class="c1"># compare two fixture files</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># capture a fixture; --live records from a running OVOS instance</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>ovoscope<span class="w"> </span>record<span class="w"> </span>--utterance<span class="w"> </span><span class="s2">&quot;what time is it&quot;</span><span class="w"> </span>--output<span class="w"> </span>fixture.json<span class="w"> </span>--live
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># replay a fixture and exit non-zero on failure</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>ovoscope<span class="w"> </span>run<span class="w"> </span>fixture.json
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="c1"># compare two fixture files</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>ovoscope<span class="w"> </span>diff<span class="w"> </span>expected.json<span class="w"> </span>actual.json
 </span></code></pre></div>
+<p><code>record</code> also takes <code>--skill-id</code> to choose which skills load, <code>--lang</code> (default <code>en-US</code>),
+<code>--pipeline</code> to restrict the stages, and <code>--bus-url</code> for a non-default bus address.</p>
 <p>This turns "it happens sometimes on the device but I can't tell why" into a fixed, replayable test
 case — see the <a href="../ovoscope-overview/">ovoscope guide</a> for the full workflow, including
 <code>End2EndTest</code> for writing an assertion once the fixture is captured.</p>
