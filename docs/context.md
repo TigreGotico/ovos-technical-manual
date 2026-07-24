@@ -23,8 +23,26 @@ Conversational context in OpenVoiceOS (OVOS) allows voice interactions to feel m
 
     This page is about the third (and the field that holds it). It is *not* `Message.context`, and a context entry is *not* a `Match.slot` — though CONTEXT-1 §7's context-supplied-slot rule is the bridge: when a `requires_context` key also names a slot, its value fills that slot if the utterance did not (this is exactly the "remember which person" mechanism below).
 
-Currently, keyword-based conversational context is only consumed by the
-[Adapt](adapt-pipeline.md) pipeline, not [Padatious](padatious-pipeline.md).
+`requires_context` and `excludes_context` gate matching in both the
+[Adapt](adapt-pipeline.md) and [Padatious](padatious-pipeline.md) pipelines, as CONTEXT-1 §6
+requires of every intent engine. Adapt gates keyword intents; Padatious gates template intents,
+carrying the two declarations on the intent registration payload and dropping any candidate
+whose gate is not satisfied against `session.intent_context` at match time:
+
+```json
+{
+  "skill_id": "context.skill",
+  "intent_name": "guarded",
+  "lang": "en-US",
+  "samples": ["do the guarded thing"],
+  "requires_context": ["confirming"],
+  "excludes_context": ["muted"]
+}
+```
+
+The private/shared scoping rules are identical on both sides: a bare key gates privately
+against the registering `skill_id`, and reading a shared key needs the explicit
+`{"key": "person", "scope": "shared"}` form.
 
 Context lives on the per-conversation [Session](session.md) (`Session.context`, an
 `IntentContextManager` from `ovos_bus_client.session`). It is **session-scoped** —
