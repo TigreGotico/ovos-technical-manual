@@ -1906,7 +1906,7 @@ connect and take part on equal footing.</p>
 <tr>
 <td><code>ssl</code></td>
 <td><code>false</code></td>
-<td>Not a working switch for the reference server. <code>ovos-messagebus</code> always serves plain WebSocket; clients (<code>ovos-bus-client</code>) do honour this key and will build a <code>wss://</code> URL from it, so setting it points clients at a scheme the server does not speak. Terminate TLS in a reverse proxy in front of the bus, or use <a href="../hivemind-agents/">HiveMind</a> for encrypted transport.</td>
+<td>Connect over <code>wss://</code> instead of <code>ws://</code>. Clients (<code>ovos-bus-client</code>) build their URL from this key. TLS is terminated in front of the bus — by a reverse proxy or similar — rather than by <code>ovos-messagebus</code> itself, so set this once the bus sits behind one. <a href="../hivemind-agents/">HiveMind</a> is the other route to encrypted transport.</td>
 </tr>
 <tr>
 <td><code>shared_connection</code></td>
