@@ -62,6 +62,26 @@ with a screen.
 - **Playing your own music library or a streaming service** beyond internet radio needs an
   additional plugin — see [What can I say?](skill-examples.md).
 
+## What you won't be able to move across
+
+Some Echo habits have no equivalent, and it is better to know that before you unplug anything:
+
+- **Synchronised multi-room audio.** Speaker groups that play the same thing in step across
+  rooms are not part of OVOS itself. Each device is independent. The
+  [RaspOVOS](install-raspovos.md) image ships [Snapcast](https://github.com/badaix/snapcast),
+  which solves synchronised playback at the system level, but you wire it up yourself and it
+  is not driven by voice.
+- **Shopping and to-do lists.** There is no bundled list skill, and nothing syncs to a phone
+  app. Adding items by voice means installing a community skill or writing one — the
+  [Skill Cookbook](skill-cookbook.md) has the pattern.
+- **Voice shopping, calling, and messaging.** No purchasing, no drop-in, no announcements
+  between devices, no calls.
+- **A phone app.** Configuration is a file you edit, not an app screen —
+  [Make It Yours](personalize.md) walks through the edits you are most likely to want.
+
+Everything in this list is something you can build — OVOS is a toolkit, and skills are Python.
+But none of it arrives working the way it does on an Echo.
+
 ## Related pages
 
 - [ovos-installer](ovos-installer.md) — the guided install wizard
