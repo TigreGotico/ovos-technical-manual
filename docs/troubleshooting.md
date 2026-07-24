@@ -272,8 +272,8 @@ miss (as `no match from <bound method ...>`, naming the matcher's Python functio
 utterance falls through to the next stage, and eventually to nothing:
 
 ```text
-DEBUG - no match from <bound method ...StopService.match_stop_high ...>
-DEBUG - no match from <bound method ...ConverseService.converse_with_skills ...>
+DEBUG - no match from <bound method ...StopService.match_high ...>
+DEBUG - no match from <bound method ...ConverseService.match ...>
 DEBUG - no match from <bound method ...OCPPipelineMatcher.match_high ...>
 DEBUG - no match from <bound method ...PadatiousPipeline.match_high ...>
 DEBUG - no match from <bound method ...AdaptPipeline.match_high ...>
@@ -417,10 +417,18 @@ that loads real skills and the real intent-matching engines without any audio ha
 can turn a live bus session into a fixture file:
 
 ```bash
-ovoscope record   # capture a fixture from a running bus session
-ovoscope run      # replay a fixture and exit non-zero on failure
-ovoscope diff      # compare two fixture files
+# capture a fixture; --live records from a running OVOS instance
+ovoscope record --utterance "what time is it" --output fixture.json --live
+
+# replay a fixture and exit non-zero on failure
+ovoscope run fixture.json
+
+# compare two fixture files
+ovoscope diff expected.json actual.json
 ```
+
+`record` also takes `--skill-id` to choose which skills load, `--lang` (default `en-US`),
+`--pipeline` to restrict the stages, and `--bus-url` for a non-default bus address.
 
 This turns "it happens sometimes on the device but I can't tell why" into a fixed, replayable test
 case — see the [ovoscope guide](ovoscope-overview.md) for the full workflow, including
