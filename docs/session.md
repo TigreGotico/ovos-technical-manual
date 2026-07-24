@@ -42,7 +42,42 @@ If the message originated in the device itself, the `session_id` is always equal
     malformed message and logs a warning, so one badly-behaved emitter can't
     force every other client into a reconnect loop.
 
-Beyond `session_id` and `lang`, a session carries **presentation
+## Language signals
+
+`lang` is one of **six** BCP-47 language fields a session may carry (SESSION-1 §3.2). Each
+names a different *kind* of signal, each is optional, and each is written independently — by
+different components or different stages of the pipeline. Their meanings are fixed; how a
+consumer folds them into one language for a given operation is not, and is left to the stage
+doing the work.
+
+| Field | Meaning | Typically written by |
+|---|---|---|
+| `lang` | The participant's **preferred language** — the stable base signal for the session, and the fallback when nothing per-utterance is available | The client or bridge that opened the session; the deployment default otherwise |
+| `secondary_langs` | Additional languages the participant also speaks, most-preferred first. Never contains `lang` itself | The client or bridge that opened the session |
+| `output_lang` | The language the participant wants **replies rendered in**, independently of what they speak | The client, or a user preference; consumed by dialog/prompt rendering |
+| `stt_lang` | The language the **speech-to-text stage was configured to assume** for the audio. Diverges from the transcript's language when a speech-translation model is used | The audio input service, before or at STT invocation |
+| `request_lang` | The language the **emitter reported** for this utterance — a hint, never authoritative (e.g. the language bound to the wake word that fired) | The emitter: listener, UI selector, or a routing layer |
+| `detected_lang` | The language a **detection component** classified the utterance as. May disagree with both `stt_lang` and `lang`; disagreement is normal | A language-detection plugin or transformer |
+
+Rough guidance on which to read: bias STT with `request_lang`; match intents and pick dialogs
+on `stt_lang` or `detected_lang`; render responses in `output_lang` when it is set; constrain a
+detector's candidate set with `lang` plus `secondary_langs`. Never assume a field is present,
+and never assume one equals another.
+
+!!! warning "`data.lang` is per-payload, not session state"
+    Many bus topics carry a `data.lang` describing the language of the content *in that
+    message* — the utterance just transcribed, the dialog just rendered. It is owned by the
+    spec defining the topic, is not a session field, and is not propagated with the session
+    (SESSION-1 §3.2.8). A consumer that needs a payload's content language reads `data.lang`
+    directly and **must not** assume it equals `session.lang` or any other session signal.
+    TTS voice selection keys on `data.lang` for exactly this reason.
+
+See [Language Selection and Disambiguation](lang-selection.md) for how `ovos-core` resolves
+these signals into the language it matches an utterance in.
+
+## Presentation preferences
+
+Beyond `session_id` and the language signals, a session carries **presentation
 preferences** that follow the session's originator rather than the device —
 useful when a remote participant (a HiveMind satellite, a different-locale
 caller) wants times, dates, units, and place-relative answers rendered for

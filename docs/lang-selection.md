@@ -12,6 +12,11 @@
 
 OpenVoiceOS is designed to be multi-language from the ground up. This page explains the technical logic used by `ovos-core` to determine which language should be used for a given user utterance.
 
+The raw material for that decision is the session's six language signals — `lang`,
+`secondary_langs`, `output_lang`, `stt_lang`, `request_lang` and `detected_lang` — plus the
+per-payload `data.lang`. Each is defined in
+[Session Aware Skills — Language signals](session.md#language-signals).
+
 ---
 
 ## The Disambiguation Logic
