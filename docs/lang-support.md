@@ -180,11 +180,12 @@ table below shows the exact per-language model/voice picked for each.
 
 After writing the config it lists the installed STT/TTS plugins and warns about any recommended plugin you still need to `pip install`.
 
-!!! note "Upcoming"
-    A `--gpu` flag (GPU-accelerated offline STT) and a `--platform` flag (hardware-tuned
-    intent-pipeline presets for `rpi3`/`rpi4`/`rpi5`/`linux`/`mac`/`termux`) are in
-    development for a future `ovos-config` release. `--gpu` is tracked in
-    [ovos-config#274](https://github.com/OpenVoiceOS/ovos-config/pull/274).
+Two more flags tune the result for your hardware:
+
+- `--platform` / `-p` picks a hardware preset — `rpi3`, `rpi4`, `rpi5`, `linux`, `mac` or
+  `termux` — and optimizes the configuration for it.
+- `--gpu` / `-g` selects GPU-accelerated plugins. It implies `--offline`, so it cannot be
+  combined with `--online` or `--hybrid`, and it is rejected on the Raspberry Pi platforms.
 
 ### Supported Languages
 

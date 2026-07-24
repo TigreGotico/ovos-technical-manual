@@ -158,12 +158,6 @@ entry-point ID), falling back to the older `intents.OCP` key.
     with `min_score: 40` (not the library's own fallback of `50`); the other keys
     above match the library defaults.
 
-!!! note "Upcoming"
-    Media-type classification currently relies on the entity matcher described
-    above. Adopting [`ovos-media-classifier`](ocp-plugins.md#ovos-media-classifier)
-    as a pluggable classifier for OCP's media-type / binary relevance decisions
-    is **Upcoming**.
-
 ---
 
 ## Gotcha: legacy vs. OCP playback

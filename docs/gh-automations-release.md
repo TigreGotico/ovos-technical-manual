@@ -190,7 +190,3 @@ For this to work your wrapper's job condition must allow dispatch — `bump_vers
 if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
 
 ```
-
-## Upcoming
-
-- **NGI codename release schedule** — a codename release schedule is planned. It is not yet released; the flow above reflects current behavior.

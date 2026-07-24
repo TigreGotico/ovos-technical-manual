@@ -50,13 +50,12 @@ Select a homescreen skill in `mycroft.conf` (or via [ovos-shell](ovos-shell.md))
 
 ```
 
-!!! warning "Upcoming — live homescreen-data bus messages"
-    The `homescreen.data.*` / `homescreen.widget.*` messages below **do not exist on the
-    current (legacy) stack**. They are implemented in the **not-yet-released**
+!!! warning "Not available on the legacy stack"
+    The `homescreen.data.*` / `homescreen.widget.*` messages below belong to
     `ovos-legacy-mycroft-gui-plugin` (`ovos_legacy_mycroft_gui/homescreen.py`), the
-    [GUI-adapter](gui-adapters.md) that takes over homescreen data/widget coordination in the
-    rework — so a display can render a live idle screen without depending on a skill polling
-    its own data. They are documented here as a preview of that plugin's contract.
+    [GUI adapter](gui-adapters.md) that owns homescreen data and widget coordination. They let
+    a display render a live idle screen without a skill polling its own data. The legacy stack
+    described elsewhere on this page does not carry them.
 
     ### `homescreen.data.*`
 
@@ -89,13 +88,13 @@ Select a homescreen skill in `mycroft.conf` (or via [ovos-shell](ovos-shell.md))
 
 ## Resting Faces
 
-!!! warning "Upcoming — the skill-side resting-screen API is being removed"
-    Per OVOS-GUI-1 §6.9, the home/resting screen is a **render-backend concern, not a skill
-    concern** — applications must not register a home or resting screen. The skill-side API
-    below (`@resting_screen_handler`, `homescreen_app`, and the `IdleDisplaySkill` base class)
-    is therefore being **removed** from `ovos-workshop` (a planned breaking change). The resting
-    display moves into the [GUI plugin / render backend](gui-adapters.md). This still works on
-    current releases; it is documented here for existing skills.
+!!! warning "Deprecated — the resting screen belongs to the render backend"
+    Per OVOS-GUI-1 §6.9 the home/resting screen is a **render-backend concern, not a skill
+    concern**: applications must not register a home or resting screen. The skill-side API
+    below — `@resting_screen_handler`, `homescreen_app`, and the `IdleDisplaySkill` base class —
+    is deprecated in `ovos-workshop`, and the resting display is owned by the
+    [GUI plugin / render backend](gui-adapters.md). It is documented here for skills that still
+    use it; do not build new skills against it.
 
 The resting face API provides skill authors the ability to extend their skills to supply their own customized IDLE screens that will be displayed when there is no activity on the screen.
 
