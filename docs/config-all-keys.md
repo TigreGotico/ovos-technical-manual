@@ -200,9 +200,6 @@
 | `listener.microphone.ovos-microphone-plugin-alsa.fallback_module` | `"ovos-microphone-plugin-sounddevice"` |  |
 | `listener.microphone.ovos-microphone-plugin-sounddevice.fallback_module` | `"ovos-microphone-plugin-pyaudio"` |  |
 | `listener.remove_silence` | `true` | Strip leading/trailing silence before sending audio to STT. |
-| `listener.ww_verifiers.ovos-ww-verifier-silero.threshold` | `0.1` |  |
-| `listener.ww_verifiers.ovos-ww-verifier-silero.enabled` | `false` |  |
-| `listener.vad_pre_wake_enabled` | `true` |  |
 | `listener.VAD.silence_method` | `"vad_and_ratio"` |  |
 | `listener.VAD.speech_seconds` | `0.1` |  |
 | `listener.VAD.silence_seconds` | `0.5` |  |
@@ -236,19 +233,13 @@
 
 | Key | Default | Description |
 |---|---|---|
-| `hotwords.hey_mycroft.module` | `"ovos-ww-plugin-precise-onnx"` |  |
-| `hotwords.hey_mycroft.model` | `"https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.onnx"` |  |
+| `hotwords.hey_mycroft.module` | `"ovos-ww-plugin-precise-lite"` |  |
+| `hotwords.hey_mycroft.model` | `"https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite"` |  |
+| `hotwords.hey_mycroft.expected_duration` | `3` |  |
 | `hotwords.hey_mycroft.trigger_level` | `3` |  |
 | `hotwords.hey_mycroft.sensitivity` | `0.5` |  |
 | `hotwords.hey_mycroft.listen` | `true` |  |
-| `hotwords.hey_mycroft.fallback_ww` | `"hey_mycroft_tflite"` |  |
-| `hotwords.hey_mycroft_tflite.module` | `"ovos-ww-plugin-precise-lite"` |  |
-| `hotwords.hey_mycroft_tflite.model` | `"https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite"` |  |
-| `hotwords.hey_mycroft_tflite.expected_duration` | `3` |  |
-| `hotwords.hey_mycroft_tflite.trigger_level` | `3` |  |
-| `hotwords.hey_mycroft_tflite.sensitivity` | `0.5` |  |
-| `hotwords.hey_mycroft_tflite.listen` | `true` |  |
-| `hotwords.hey_mycroft_tflite.fallback_ww` | `"hey_mycroft_precise"` |  |
+| `hotwords.hey_mycroft.fallback_ww` | `"hey_mycroft_precise"` |  |
 | `hotwords.hey_mycroft_precise.module` | `"ovos-ww-plugin-precise"` |  |
 | `hotwords.hey_mycroft_precise.version` | `"0.3"` |  |
 | `hotwords.hey_mycroft_precise.model` | `"https://github.com/MycroftAI/precise-data/raw/models-dev/hey-mycroft.tar.gz"` |  |
