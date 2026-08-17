@@ -162,147 +162,147 @@ service from an editable checkout of its own repo while fixing a bug in it, see
 ??? example "`ovos-config --help`"
 
     ```text
-    Usage: ovos-config [OPTIONS] COMMAND [ARGS]...                                 
+    [33mUsage:[0m [1movos-config[0m [[31mOPTIONS[0m] [31mCOMMAND[0m [[31mARGS[0m]...                                 
                                                                                     
                                                                                     
      Small helper tool to quickly show, get or set config values                    
-     `ovos-config [COMMAND] --help` for further information about the specific      
-     command ARGUMENTS                                                              
+     [2m`ovos-config [COMMAND] [0m[2;31m--help[0m[2m` for further information about the specific [0m     
+     [2mcommand ARGUMENTS [0m                                                             
                                                                                     
-    ╭─ Options ────────────────────────────────────────────────────────────────────╮
-    │ --help  Show this message and exit.                                          │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
-    ╭─ Show configuration tables (Joined/User/System/Remote) ──────────────────────╮
-    │ show    By ommiting a specific configuration a joined configuration table is │
-    │         shown. (which is the one ultimately gets loaded by ovos)             │
-    │         Based on this consideration you can further trim the table by        │
-    │         section.                                                             │
-    │         If the sections are unknown you may want to list them.               │
-    │         Examples:                                                            │
-    │         ovos-config show                                    # shows all the  │
-    │         configuration values in a table format                               │
-    │         ovos-config show -s -l                              # shows the      │
-    │         sections of the system configuration                                 │
-    │         ovos-config show -u --section base                  # shows only the │
-    │         base (ie. top level) values of the user configuration                │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
-    ╭─ Get specific key(s) ────────────────────────────────────────────────────────╮
-    │ get    Search for config keys in the (joined) configuration                  │
-    │        Meant to either loosely search for keys resp. parts thereof or        │
-    │        specific dictionary paths (form: `/path/to/key`)                      │
-    │        The loose search will output a list of found keys - if there are      │
-    │        multiple - that match the query (full or in part)                     │
-    │        The strict search performs a query to a specific path and will only   │
-    │        output the value. (usefull for shell scripting)                       │
-    │        Examples:                                                             │
-    │        ovos-config get -k lang                              # get all lang   │
-    │        key values across the configuration                                   │
-    │        ovos-config get -k /tts/module                       # get the key at │
-    │        the position specified                                                │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
-    ╭─ Setting user values ────────────────────────────────────────────────────────╮
-    │ set      Sets a config key in the user configuration                         │
-    │          Loosely searches a config key and if multiple are found asks which  │
-    │          key and value should be written.                                    │
-    │          The user may pass a value to bypass prompting.                      │
-    │          Examples:                                                           │
-    │          ovos-config set -k gui                              # lists all     │
-    │          config keys containing "gui" (either as endpoint or in path),       │
-    │                                                              # let the user  │
-    │          choose the specific key and asks for the value                      │
-    │          ovos-config set -k blacklisted_skills -v myskill    # Adds          │
-    │          "myskill" as an blacklisted skill                                   │
-    │                                                              # Since this is │
-    │          a pretty specific key and a value is passed, the user won't be      │
-    │          prompted                                                            │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
-    ╭─ Commands ───────────────────────────────────────────────────────────────────╮
-    │ autoconfigure  Automatically configures the language, STT, and TTS settings  │
-    │                based on user input.                                          │
-    │ telemetry      Enable intent telemetry upload for the opendata initiative.   │
-    │                OpenData can be seen live at https://opendata.tigregotico.pt  │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
+    [2m╭─[0m[2m Options [0m[2m───────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+    [2m│[0m [31m--help[0m  Show this message and exit.                                          [2m│[0m
+    [2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+    [2m╭─[0m[2m Show configuration tables (Joined/User/System/Remote) [0m[2m─────────────────────[0m[2m─╮[0m
+    [2m│[0m [1;36mshow[0m[1;37m  [0m[37m  [0m[37mBy ommiting a specific configuration a joined configuration table is[0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mshown. (which is the one ultimately gets loaded by ovos)            [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mBased on this consideration you can further trim the table by       [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37msection.                                                            [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mIf the sections are unknown you may want to list them.              [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mExamples:                                                           [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37movos-config show                                    # shows all the [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mconfiguration values in a table format                              [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37movos-config show [0m[91m-s[0m[37m [0m[91m-l[0m[37m                              # shows the     [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37msections of the system configuration                                [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37movos-config show [0m[91m-u[0m[37m [0m[31m--section[0m[37m base                  # shows only the[0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mbase (ie. top level) values of the user configuration               [0m [2m│[0m
+    [2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+    [2m╭─[0m[2m Get specific key(s) [0m[2m───────────────────────────────────────────────────────[0m[2m─╮[0m
+    [2m│[0m [1;36mget[0m[1;37m  [0m[37m  [0m[37mSearch for config keys in the (joined) configuration                 [0m [2m│[0m
+    [2m│[0m [1;37m     [0m[37m  [0m[37mMeant to either loosely search for keys resp. parts thereof or       [0m [2m│[0m
+    [2m│[0m [1;37m     [0m[37m  [0m[37mspecific dictionary paths (form: `/path/to/key`)                     [0m [2m│[0m
+    [2m│[0m [1;37m     [0m[37m  [0m[37mThe loose search will output a list of found keys - if there are     [0m [2m│[0m
+    [2m│[0m [1;37m     [0m[37m  [0m[37mmultiple - that match the query (full or in part)                    [0m [2m│[0m
+    [2m│[0m [1;37m     [0m[37m  [0m[37mThe strict search performs a query to a specific path and will only  [0m [2m│[0m
+    [2m│[0m [1;37m     [0m[37m  [0m[37moutput the value. (usefull for shell scripting)                      [0m [2m│[0m
+    [2m│[0m [1;37m     [0m[37m  [0m[37mExamples:                                                            [0m [2m│[0m
+    [2m│[0m [1;37m     [0m[37m  [0m[37movos-config get [0m[91m-k[0m[37m lang                              # get all lang  [0m [2m│[0m
+    [2m│[0m [1;37m     [0m[37m  [0m[37mkey values across the configuration                                  [0m [2m│[0m
+    [2m│[0m [1;37m     [0m[37m  [0m[37movos-config get [0m[91m-k[0m[37m /tts/module                       # get the key at[0m [2m│[0m
+    [2m│[0m [1;37m     [0m[37m  [0m[37mthe position specified                                               [0m [2m│[0m
+    [2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+    [2m╭─[0m[2m Setting user values [0m[2m───────────────────────────────────────────────────────[0m[2m─╮[0m
+    [2m│[0m [1;36mset[0m[1;37m   [0m[37m   [0m[37mSets a config key in the user configuration                        [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37mLoosely searches a config key and if multiple are found asks which [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37mkey and value should be written.                                   [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37mThe user may pass a value to bypass prompting.                     [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37mExamples:                                                          [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37movos-config set [0m[91m-k[0m[37m gui                              # lists all    [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37mconfig keys containing "gui" (either as endpoint or in path),      [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37m                                                    # let the user [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37mchoose the specific key and asks for the value                     [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37movos-config set [0m[91m-k[0m[37m blacklisted_skills [0m[91m-v[0m[37m myskill    # Adds         [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37m"myskill" as an blacklisted skill                                  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37m                                                    # Since this is[0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37ma pretty specific key and a value is passed, the user won't be     [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m   [0m[37mprompted                                                           [0m [2m│[0m
+    [2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+    [2m╭─[0m[2m Commands [0m[2m──────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+    [2m│[0m [1;36mautoconfigure[0m[1;36m [0m Automatically configures the language, STT, and TTS settings  [2m│[0m
+    [2m│[0m [1;36m              [0m based on user input.                                          [2m│[0m
+    [2m│[0m [1;36mtelemetry    [0m[1;36m [0m Enable intent telemetry upload for the opendata initiative.   [2m│[0m
+    [2m│[0m [1;36m              [0m OpenData can be seen live at https://opendata.tigregotico.pt  [2m│[0m
+    [2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
     ```
 
 ??? example "`ovos-logs --help`"
 
     ```text
-    Usage: ovos-logs [OPTIONS] COMMAND [ARGS]...                                   
+    [33mUsage:[0m [1movos-logs[0m [[31mOPTIONS[0m] [31mCOMMAND[0m [[31mARGS[0m]...                                   
                                                                                     
       Small helper tool to quickly navigate the logs, create slices and quickview   
      errors                                                                         
-     ovos-logs [COMMAND] --help for further information about the specific command  
-     ARGUMENTS                                                                      
+     [1;2;36;40movos-logs [COMMAND] --help[0m[2m for further information about the specific command [0m 
+     [2mARGUMENTS[0m[2m [0m                                                                     
                                                                                     
-    ╭─ Options ────────────────────────────────────────────────────────────────────╮
-    │ --help  Show this message and exit.                                          │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
-    ╭─ Slice logs by time ─────────────────────────────────────────────────────────╮
-    │ slice    Optionally define start (-s) and the time until (-u) the slice      │
-    │          should be limited to.                                               │
-    │          Different logs can be included using the -l option. If not          │
-    │          specified, all logs will be included.                               │
-    │          Optionally the directory where the logs are stored (-p) and the     │
-    │          file where the slices should be dumped (-f) can be specified.       │
-    │                                                                              │
-    │          ▌ Examples:                                                         │
-    │          ▌ ovos-logs slice                                            #      │
-    │          ▌ Slice all logs from service start up until now                    │
-    │          ▌ ovos-logs slice -s 01-12-2023 -u '01-12-2023 17:00:20'     #      │
-    │          ▌ Slice all logs from the start of december the first until         │
-    │          ▌ 17:00:20                                                          │
-    │          ▌ ovos-logs slice -l bus -l skills -f ~/myslice.log          #      │
-    │          ▌ Slice skills.log and bus.log from service start up until now      │
-    │          ▌ and dump it to the file ~/myslice.log                             │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
-    ╭─ List logs by severity ──────────────────────────────────────────────────────╮
-    │ list    Log level has to be specified.                                       │
-    │         Optionally define start (-s) and the time until (-u) the slice       │
-    │         should be limited to.                                                │
-    │         Different logs can be included using the -l option. If not           │
-    │         specified, all logs will be included.                                │
-    │         Optionally the directory where the logs are stored (-p) and the file │
-    │         where the slices should be dumped (-f) can be specified.             │
-    │                                                                              │
-    │         ▌ Examples:                                                          │
-    │         ▌ ovos-logs list -x                                           #      │
-    │         ▌ List all exceptions from service start up until now                │
-    │         ▌ ovos-logs list -e -w -s 01-12-2023 -u '01-12-2023 17:00:20' #      │
-    │         ▌ List all errors and warnings from the start of december the        │
-    │         ▌ first until 17:00:20                                               │
-    │         ▌ ovos-logs list -x -l bus -l skills -f                       #      │
-    │         ▌ List all exceptions from skills.log and bus.log and dump it to     │
-    │         ▌ the file ~/list_xxx_xxx.log                                        │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
-    ╭─ Downsize logs ──────────────────────────────────────────────────────────────╮
-    │ reduce  Reduce logs to a given size (in bytes) or remove entries before a    │
-    │         given date.                                                          │
-    │         Different logs can be included using the -l option. If not           │
-    │         specified, all logs will be included.                                │
-    │         Optionally the directory where the logs are stored (-p) can be       │
-    │         specified.                                                           │
-    │                                                                              │
-    │         ▌ Examples:                                                          │
-    │         ▌ ovos-logs reduce                                            #      │
-    │         ▌ Reduce all logs to 0 bytes                                         │
-    │         ▌ ovos-logs reduce -s 1000000                                 #      │
-    │         ▌ Reduce all logs to ~1MB (latest logs)                              │
-    │         ▌ ovos-logs reduce -d "1-12-2023 17:00"                       #      │
-    │         ▌ Reduce all logs to entries after the specified date/time           │
-    │         ▌ ovos-logs reduce -s 1000000 -l skills -l bus                #      │
-    │         ▌ Reduce skills.log and bus.log to ~1MB (latest logs)                │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
-    ╭─ Show logs (using less) ─────────────────────────────────────────────────────╮
-    │ show    A service log has to be specified (-l).                              │
-    │         Optionally the directory where the logs are stored (-p) can be       │
-    │         specified.                                                           │
-    │                                                                              │
-    │         ▌ Examples:                                                          │
-    │         ▌ ovos-logs show -l skills                                    #      │
-    │         ▌ Display skills.log                                                 │
-    │         ▌ ovos-logs show -l debug -p ~/custom_path/                   #      │
-    │         ▌ Display debug.log from a custom path                               │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
+    [2m╭─[0m[2m Options [0m[2m───────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+    [2m│[0m [31m--help[0m  Show this message and exit.                                          [2m│[0m
+    [2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+    [2m╭─[0m[2m Slice logs by time [0m[2m────────────────────────────────────────────────────────[0m[2m─╮[0m
+    [2m│[0m [1;36mslice[0m[1;37m  [0m[37m  [0m[37mOptionally define start ([0m[1;36;40m-s[0m[37m) and the time until ([0m[1;36;40m-u[0m[37m) the slice     [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[37mshould be limited to.                                              [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[37mDifferent logs can be included using the [0m[1;36;40m-l[0m[37m option. If not         [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[37mspecified, all logs will be included.                              [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[37mOptionally the directory where the logs are stored ([0m[1;36;40m-p[0m[37m) and the    [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[37mfile where the slices should be dumped ([0m[1;36;40m-f[0m[37m) can be specified.      [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[37m                                                                   [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[35m▌ [0m[35mExamples:[0m[35m                                                      [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[35m▌ [0m[35movos-logs slice                                            # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[35m▌ [0m[35mSlice all logs from service start up until now[0m[35m                 [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[35m▌ [0m[35movos-logs slice -s 01-12-2023 -u '01-12-2023 17:00:20'     # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[35m▌ [0m[35mSlice all logs from the start of december the first until [0m[35m     [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[35m▌ [0m[35m17:00:20[0m[35m                                                       [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[35m▌ [0m[35movos-logs slice -l bus -l skills -f ~/myslice.log          # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[35m▌ [0m[35mSlice skills.log and bus.log from service start up until now [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m  [0m[35m▌ [0m[35mand dump it to the file ~/myslice.log[0m[35m                          [0m[37m  [0m [2m│[0m
+    [2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+    [2m╭─[0m[2m List logs by severity [0m[2m─────────────────────────────────────────────────────[0m[2m─╮[0m
+    [2m│[0m [1;36mlist[0m[1;37m  [0m[37m  [0m[37mLog level has to be specified.                                      [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mOptionally define start ([0m[1;36;40m-s[0m[37m) and the time until ([0m[1;36;40m-u[0m[37m) the slice      [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mshould be limited to.                                               [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mDifferent logs can be included using the [0m[1;36;40m-l[0m[37m option. If not          [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mspecified, all logs will be included.                               [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mOptionally the directory where the logs are stored ([0m[1;36;40m-p[0m[37m) and the file[0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mwhere the slices should be dumped ([0m[1;36;40m-f[0m[37m) can be specified.            [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37m                                                                    [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35mExamples:[0m[35m                                                       [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35movos-logs list -x                                           # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35mList all exceptions from service start up until now[0m[35m             [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35movos-logs list -e -w -s 01-12-2023 -u '01-12-2023 17:00:20' # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35mList all errors and warnings from the start of december the [0m[35m    [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35mfirst until 17:00:20[0m[35m                                            [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35movos-logs list -x -l bus -l skills -f                       # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35mList all exceptions from skills.log and bus.log and dump it to [0m[35m [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35mthe file ~/list_xxx_xxx.log[0m[35m                                     [0m[37m  [0m [2m│[0m
+    [2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+    [2m╭─[0m[2m Downsize logs [0m[2m─────────────────────────────────────────────────────────────[0m[2m─╮[0m
+    [2m│[0m [1;36mreduce[0m[1;37m [0m[37m [0m[37mReduce logs to a given size (in bytes) or remove entries before a   [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[37mgiven date.                                                         [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[37mDifferent logs can be included using the [0m[1;36;40m-l[0m[37m option. If not          [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[37mspecified, all logs will be included.                               [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[37mOptionally the directory where the logs are stored ([0m[1;36;40m-p[0m[37m) can be      [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[37mspecified.                                                          [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[37m                                                                    [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[35m▌ [0m[35mExamples:[0m[35m                                                       [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[35m▌ [0m[35movos-logs reduce                                            # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[35m▌ [0m[35mReduce all logs to 0 bytes[0m[35m                                      [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[35m▌ [0m[35movos-logs reduce -s 1000000                                 # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[35m▌ [0m[35mReduce all logs to ~1MB (latest logs)[0m[35m                           [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[35m▌ [0m[35movos-logs reduce -d "1-12-2023 17:00"                       # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[35m▌ [0m[35mReduce all logs to entries after the specified date/time[0m[35m        [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[35m▌ [0m[35movos-logs reduce -s 1000000 -l skills -l bus                # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m       [0m[37m [0m[35m▌ [0m[35mReduce skills.log and bus.log to ~1MB (latest logs)[0m[35m             [0m[37m  [0m [2m│[0m
+    [2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+    [2m╭─[0m[2m Show logs (using less) [0m[2m────────────────────────────────────────────────────[0m[2m─╮[0m
+    [2m│[0m [1;36mshow[0m[1;37m  [0m[37m  [0m[37mA service log has to be specified ([0m[1;36;40m-l[0m[37m).                             [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mOptionally the directory where the logs are stored ([0m[1;36;40m-p[0m[37m) can be      [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37mspecified.                                                          [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[37m                                                                    [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35mExamples:[0m[35m                                                       [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35movos-logs show -l skills                                    # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35mDisplay skills.log[0m[35m                                              [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35movos-logs show -l debug -p ~/custom_path/                   # [0m[35m  [0m[37m  [0m [2m│[0m
+    [2m│[0m [1;37m      [0m[37m  [0m[35m▌ [0m[35mDisplay debug.log from a custom path[0m[35m                            [0m[37m  [0m [2m│[0m
+    [2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
     ```
 <!-- END GENERATED -->
 
