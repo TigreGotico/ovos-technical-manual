@@ -35,7 +35,7 @@ are driven by the bus handlers below rather than called directly.
 | `configuration.updated` | `Configuration.updated` | Reload the default, system, remote and XDG layers |
 | `configuration.patch` | `Configuration.patch` | Apply `data["config"]` as an in-memory patch |
 | `configuration.patch.clear` | `Configuration.patch_clear` | Clear the in-memory patch |
-| `configuration.cache.clear` | `Configuration.clear_cache` | Deprecated no-op. It only re-emits `configuration.updated`. There is no separate cache to drop |
+| `configuration.cache.clear` | `Configuration.clear_cache` | **Pending** [`ovos-config#288`](https://github.com/OpenVoiceOS/ovos-config/pull/288), not yet merged: currently a deprecated no-op that only re-emits `configuration.updated` (no cache exists to drop today), but #288 memoizes the merged config stack and makes this handler drop that memo again |
 | `mycroft.paired` | `Configuration.handle_remote_update` | Reload the remote/backend config layer |
 | `mycroft.internet.connected` | `Configuration.handle_remote_update` | Reload the remote/backend config layer |
 
