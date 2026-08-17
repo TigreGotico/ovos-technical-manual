@@ -90,7 +90,9 @@ All settings live under the `websocket` key in `mycroft.conf`:
     "route": "/core",
     "ssl": false,
     "shared_connection": true,
-    "max_msg_size": 25
+    "max_msg_size": 25,
+    "async_sender": false,
+    "local_echo_topics": []
   }
 }
 
@@ -103,6 +105,8 @@ All settings live under the `websocket` key in `mycroft.conf`:
 | `route` | `"/core"` | WebSocket URL path. Full URL: `ws://host:port/core`. |
 | `ssl` | `false` | Serve (and connect) over `wss://` instead of `ws://`. The Tornado `ovos-messagebus` terminates TLS itself — it uses `ssl_cert`/`ssl_key` if set, otherwise generates a self-signed pair on first start (needs the `ssl` extra). Clients (`ovos-bus-client`) build their URL from this same key. See the TLS note below; [HiveMind](hivemind-agents.md) is the other route to encrypted transport. |
 | `shared_connection` | `true` | When `true`, all skills share ovos-core's single bus connection. Set `false` to give each skill its own connection (so one skill cannot manipulate another's bus traffic). |
+| `async_sender` | `false` | Opt-in perf flag ([`ovos-bus-client#285`](https://github.com/OpenVoiceOS/ovos-bus-client/pull/285), not yet merged): move outbound socket writes onto one dedicated daemon thread reading a bounded queue, instead of every emitting thread serializing on the socket's send lock. Ordering is unchanged; a send error surfaces in the sender thread's log rather than the caller's. Also settable via the `OVOS_BUS_ASYNC_SENDER` env var. |
+| `local_echo_topics` | `[]` | Opt-in perf flag ([`ovos-bus-client#292`](https://github.com/OpenVoiceOS/ovos-bus-client/pull/292), not yet merged): a list of message types that, in addition to going out on the wire as usual, are delivered to this same process's own listeners immediately rather than waiting for the round trip back over the socket. Meant for hot handler-ack paths within one process (e.g. an intent dispatcher waiting on a same-process skill's ack). Each local delivery still happens exactly once — the wire copy carries a per-client marker that the client's own `on_message` recognizes and drops. |
 | `max_msg_size` | `25` | Max WebSocket frame size in megabytes. |
 
 `filter` / `filter_logs` are also recognized (code-level defaults in the messagebus event
