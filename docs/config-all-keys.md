@@ -103,27 +103,27 @@
 
 | Key | Default | Description |
 |---|---|---|
-| `intents.ovos-adapt-pipeline-plugin.conf_high` | `0.65` |  |
-| `intents.ovos-adapt-pipeline-plugin.conf_med` | `0.45` |  |
-| `intents.ovos-adapt-pipeline-plugin.conf_low` | `0.25` |  |
-| `intents.ovos-padatious-pipeline-plugin.conf_high` | `0.95` |  |
-| `intents.ovos-padatious-pipeline-plugin.conf_med` | `0.8` |  |
-| `intents.ovos-padatious-pipeline-plugin.conf_low` | `0.5` |  |
-| `intents.ovos-padatious-pipeline-plugin.stem` | `false` |  |
-| `intents.ovos-padatious-pipeline-plugin.cast_to_ascii` | `false` |  |
-| `intents.ovos-padatious-pipeline-plugin.disable_padaos` | `false` |  |
-| `intents.ovos-padatious-pipeline-plugin.domain_engine` | `false` |  |
-| `intents.ovos-padatious-pipeline-plugin.single_thread` | `true` |  |
-| `intents.ovos-common-query-pipeline-plugin.max_response_wait` | `6` |  |
-| `intents.ovos-common-query-pipeline-plugin.extension_time` | `3` |  |
-| `intents.ovos-common-query-pipeline-plugin.reranker` | `"ovos-flashrank-reranker-plugin"` |  |
-| `intents.ovos-ocp-pipeline-plugin.legacy` | `false` |  |
-| `intents.ovos-ocp-pipeline-plugin.min_score` | `40` |  |
-| `intents.ovos-ocp-pipeline-plugin.filter_media` | `true` |  |
-| `intents.ovos-ocp-pipeline-plugin.filter_SEI` | `true` |  |
-| `intents.ovos-ocp-pipeline-plugin.playback_mode` | `0` |  |
-| `intents.ovos-ocp-pipeline-plugin.search_fallback` | `true` |  |
-| `intents.pipeline` | `["ovos-stop-pipeline-plugin-high", "ovos-converse-pipeline-plugin", "ovos-ocp-pipeline-plugin-high", "ovos-padatious-pipeline-plugin-high", "ovos-adapt-pipeline-plugin-high", "ovos-m2v-pipeline-high", "ovos-ocp-pipeline-plugin-medium", "ovos-fallback-pipeline-plugin-high", "ovos-stop-pipeline-plugin-medium", "ovos-padatious-pipeline-plugin-medium", "ovos-adapt-pipeline-plugin-medium", "ovos-fallback-pipeline-plugin-medium", "ovos-fallback-pipeline-plugin-low"]` |  |
+| `intents.adapt.conf_high` | `0.65` |  |
+| `intents.adapt.conf_med` | `0.45` |  |
+| `intents.adapt.conf_low` | `0.25` |  |
+| `intents.padatious.conf_high` | `0.95` |  |
+| `intents.padatious.conf_med` | `0.8` |  |
+| `intents.padatious.conf_low` | `0.5` |  |
+| `intents.padatious.stem` | `false` |  |
+| `intents.padatious.cast_to_ascii` | `false` |  |
+| `intents.padatious.disable_padaos` | `false` |  |
+| `intents.padatious.domain_engine` | `false` |  |
+| `intents.padatious.single_thread` | `true` |  |
+| `intents.common_query.max_response_wait` | `6` |  |
+| `intents.common_query.extension_time` | `3` |  |
+| `intents.common_query.reranker` | `"ovos-flashrank-reranker-plugin"` |  |
+| `intents.OCP.legacy` | `false` |  |
+| `intents.OCP.min_score` | `40` |  |
+| `intents.OCP.filter_media` | `true` |  |
+| `intents.OCP.filter_SEI` | `true` |  |
+| `intents.OCP.playback_mode` | `0` |  |
+| `intents.OCP.search_fallback` | `true` |  |
+| `intents.pipeline` | `["ovos-stop-pipeline-plugin-high", "ovos-converse-pipeline-plugin", "ovos-ocp-pipeline-plugin-high", "ovos-padatious-pipeline-plugin-high", "ovos-adapt-pipeline-plugin-high", "ovos-m2v-pipeline-high", "ovos-ocp-pipeline-plugin-medium", "ovos-fallback-pipeline-plugin-high", "ovos-stop-pipeline-plugin-medium", "ovos-adapt-pipeline-plugin-medium", "ovos-fallback-pipeline-plugin-medium", "ovos-fallback-pipeline-plugin-low"]` |  |
 
 ### `skills`
 
@@ -170,7 +170,7 @@
 
 | Key | Default | Description |
 |---|---|---|
-| `gui_websocket.host` | `"127.0.0.1"` | Bound to `127.0.0.1` by default. Remote display clients require widening this to `0.0.0.0`, which exposes the socket to the whole network. See [Bus Service](bus-service.md) for network-exposure guidance. |
+| `gui_websocket.host` | `"0.0.0.0"` | Bound to `127.0.0.1` by default. Remote display clients require widening this to `0.0.0.0`, which exposes the socket to the whole network. See [Bus Service](bus-service.md) for network-exposure guidance. |
 | `gui_websocket.base_port` | `18181` |  |
 | `gui_websocket.route` | `"/gui"` |  |
 | `gui_websocket.ssl` | `false` |  |
@@ -207,9 +207,6 @@
 | `listener.microphone.ovos-microphone-plugin-alsa.fallback_module` | `"ovos-microphone-plugin-sounddevice"` |  |
 | `listener.microphone.ovos-microphone-plugin-sounddevice.fallback_module` | `"ovos-microphone-plugin-pyaudio"` |  |
 | `listener.remove_silence` | `true` | Strip leading/trailing silence before sending audio to STT. |
-| `listener.ww_verifiers.ovos-ww-verifier-silero.threshold` | `0.1` |  |
-| `listener.ww_verifiers.ovos-ww-verifier-silero.enabled` | `false` |  |
-| `listener.vad_pre_wake_enabled` | `true` |  |
 | `listener.VAD.silence_method` | `"vad_and_ratio"` |  |
 | `listener.VAD.speech_seconds` | `0.1` |  |
 | `listener.VAD.silence_seconds` | `0.5` |  |
@@ -243,19 +240,13 @@
 
 | Key | Default | Description |
 |---|---|---|
-| `hotwords.hey_mycroft.module` | `"ovos-ww-plugin-precise-onnx"` |  |
-| `hotwords.hey_mycroft.model` | `"https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.onnx"` |  |
+| `hotwords.hey_mycroft.module` | `"ovos-ww-plugin-precise-lite"` |  |
+| `hotwords.hey_mycroft.model` | `"https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite"` |  |
+| `hotwords.hey_mycroft.expected_duration` | `3` |  |
 | `hotwords.hey_mycroft.trigger_level` | `3` |  |
 | `hotwords.hey_mycroft.sensitivity` | `0.5` |  |
 | `hotwords.hey_mycroft.listen` | `true` |  |
-| `hotwords.hey_mycroft.fallback_ww` | `"hey_mycroft_tflite"` |  |
-| `hotwords.hey_mycroft_tflite.module` | `"ovos-ww-plugin-precise-lite"` |  |
-| `hotwords.hey_mycroft_tflite.model` | `"https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite"` |  |
-| `hotwords.hey_mycroft_tflite.expected_duration` | `3` |  |
-| `hotwords.hey_mycroft_tflite.trigger_level` | `3` |  |
-| `hotwords.hey_mycroft_tflite.sensitivity` | `0.5` |  |
-| `hotwords.hey_mycroft_tflite.listen` | `true` |  |
-| `hotwords.hey_mycroft_tflite.fallback_ww` | `"hey_mycroft_precise"` |  |
+| `hotwords.hey_mycroft.fallback_ww` | `"hey_mycroft_precise"` |  |
 | `hotwords.hey_mycroft_precise.module` | `"ovos-ww-plugin-precise"` |  |
 | `hotwords.hey_mycroft_precise.version` | `"0.3"` |  |
 | `hotwords.hey_mycroft_precise.model` | `"https://github.com/MycroftAI/precise-data/raw/models-dev/hey-mycroft.tar.gz"` |  |
@@ -348,7 +339,7 @@
 | `Audio.native_sources` | `["debug_cli", "audio", "mycroft-gui"]` |  |
 | `Audio.default-backend` | `"mpv"` |  |
 | `Audio.backends.OCP.type` | `"ovos_common_play"` |  |
-| `Audio.backends.OCP.preferred_audio_services` | `["vlc", "mplayer", "simple"]` |  |
+| `Audio.backends.OCP.preferred_audio_services` | `["mpv", "vlc", "simple"]` |  |
 | `Audio.backends.OCP.disable_mpris` | `true` |  |
 | `Audio.backends.OCP.dbus_type` | `"session"` |  |
 | `Audio.backends.OCP.manage_external_players` | `false` |  |
