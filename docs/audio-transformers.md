@@ -82,6 +82,13 @@ Replace `"plugin_name"` with the identifier of the desired plugin and provide an
 
 ```
 
+**Pending** [`ovos-audio-transformer-plugin-ggwave#45`](https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-ggwave/pull/45),
+not yet merged: a `listen_timeout` key (seconds, default `300`) will auto-disable the listener
+after it has been enabled over the bus with `ovos.ggwave.enable`, so a stray or forgotten enable
+does not leave data-over-sound listening on forever. Set it to `0` or negative to listen
+indefinitely once enabled. It has no effect on `start_enabled`: enabling the listener via config
+is an explicit operator decision to run always-on, and does not arm the timer.
+
 For more information, visit the [GitHub repository](https://github.com/OpenVoiceOS/ovos-audio-transformer-plugin-ggwave).
 
 ### **OVOS SpeechBrain Language Detection Transformer**
