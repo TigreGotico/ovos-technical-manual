@@ -64,6 +64,7 @@ playable media** (a voice game, an ebook reader) stays an OCP skill. See
 | [ovos-workshop#423](https://github.com/OpenVoiceOS/ovos-workshop/pull/423) | Deprecates `OVOSCommonPlaybackSkill` toward `opm.media.provider` | OCP skill authors | No | 9.4.0 |
 | [ovos-workshop#428](https://github.com/OpenVoiceOS/ovos-workshop/pull/428) | Makes OCP playback state per-session (stacked on #427) | OCP/game-skill authors, HiveMind/remote deployers | No | 9.4.0 |
 | [ovos-audio#115](https://github.com/OpenVoiceOS/ovos-audio/pull/115) | Drops OCP integration and `disable_ocp` from `ovos-audio` | skill authors/deployers using OCP in `ovos-audio` | Yes | 3.0.0 |
+| [ovos-ocp-pipeline-plugin#156](https://github.com/OpenVoiceOS/ovos-ocp-pipeline-plugin/pull/156) | Dispatches search in-process to installed MediaProvider plugins, merged with the existing bus-only OCP-skill search rather than replacing it (dedup only drops a provider entry whose URI a legacy result already covers). No bus message types change. Enabled by default, with an explicit `media_providers.enabled: false` off-switch under the OCP pipeline config; with no MediaProvider plugins installed, behavior is byte-identical to today | deployers running MediaProvider plugins, OCP pipeline config authors | No | not yet released |
 
 ## Official spec adoption
 
